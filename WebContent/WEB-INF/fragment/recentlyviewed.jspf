@@ -1,0 +1,35 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<div id="recent" class="w3-col m2">
+	<div class="w3-padding footnote w3-small">
+		<s:if test="#session.recent_view != null">
+		<s:if test="#session.recent_view.isEmpty()">
+			<!-- F Oops 1 -->
+		</s:if>
+		<s:else>
+		<script>
+		function clearRecentlyViewed() {
+			document.cookie="recent-view=; expires=Thu, 01 Jan 2000 00:00:00 GMT";
+			document.getElementById('recent').style.display = 'none';
+		}
+		</script>
+		<hr />
+		
+		<h3 class="w3-large">Recently Viewed
+		<a title="Clear" onclick="clearRecentlyViewed()" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+		</h3>
+		<ul>
+		<s:iterator value="#session.recent_view" status="f">
+			<s:set var="fval" value="#session.recent_view[#f.index].substring(0,4)" />
+							
+				<li><a href="/blog/post/<s:property value="uriName" />"><s:property value="title" /></a></li>
+			
+		</s:iterator>
+		</ul>
+		</s:else>
+		</s:if>
+		<s:else>
+			<!-- F Oops 2 -->
+		</s:else>
+		
+	</div>
+</div>

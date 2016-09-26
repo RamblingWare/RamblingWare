@@ -1,0 +1,14 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
+<s:if test="#session.USER != null">
+<div class="w3-container">
+	<p class="w3-left footnote quote">Welcome 
+	<img src="/img/author/<s:property value="#session.USER.getUri_name()"/>-small.jpg" style="width:16px; height:16px;" />
+	<s:property value="#session.USER.getFirstName()"/>.</p>
+	<span class="w3-right">
+		<a class="footnote" href="/manage/">Management Menu</a>
+		<span class="footnote">&nbsp;|&nbsp;</span>
+		<a class="footnote" href="/manage/logout">Logout</a>
+	</span>
+</div>
+</s:if>

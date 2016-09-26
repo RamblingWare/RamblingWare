@@ -1,0 +1,52 @@
+package org.amd.interceptor;
+
+import java.util.Map;
+
+import org.amd.bean.User;
+import org.amd.bean.UserAware;
+
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.Interceptor;
+/**
+ * Authentication Interceptor class
+ * @author Austin Delamar
+ * @date 11/9/2015
+ */
+public class AuthenticationInterceptor implements Interceptor {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public String intercept(ActionInvocation actionInvocation) throws Exception {
+
+		Map<String, Object> sessionAttributes = actionInvocation.getInvocationContext().getSession();
+
+		User user = (User) sessionAttributes.get("USER");
+		
+		if (user == null) 
+		{
+			System.out.println("Unknown user was redirected to login page.");
+			return Action.LOGIN;
+		} 
+		else 
+		{
+			Action action = (Action) actionInvocation.getAction();
+			if (action instanceof UserAware) 
+			{
+				((UserAware) action).setUser(user);
+			}
+			return actionInvocation.invoke();
+		}
+	}
+	
+	@Override
+	public void init() {
+		System.out.println(this.getClass().getName()+" initalized.");
+	}
+
+	@Override
+	public void destroy() {
+		System.out.println(this.getClass().getName()+" destroyed.");
+	}
+}

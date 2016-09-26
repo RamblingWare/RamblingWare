@@ -1,0 +1,68 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<div id="archive" class="w3-col m2">
+	<div class="w3-padding">
+		<h3>Featured</h3>
+		
+		<s:if test="#session.archive_featured != null">
+		<s:if test="#session.archive_featured.isEmpty()">
+			<!-- F Oops 1 -->
+		</s:if>
+		<s:else>
+			<s:iterator value="#session.archive_featured" status="f">
+				<s:set var="fval" value="#session.archive_featured[#f.index].substring(0,4)" />
+								
+					<div class="w3-display-container w3-margin-0 w3-padding-0 w3-round w3-hover-shadow w3-card w3-center" style="max-height: 250px; overflow: hidden;">
+					<a href="/blog/post/<s:property value="uriName" />">
+						<img alt="Thumbnail" class="w3-margin-0 w3-round w3-padding-0" style="width:100%;" src="<s:property value="thumbnail" />">
+						<span class="w3-theme-light w3-padding-4 bottomright" style="width: 100%;"><s:property value="title" /></span>
+					</a>
+					</div>
+				
+			</s:iterator>
+		</s:else>
+		</s:if>
+		<s:else>
+			<!-- F Oops 2 -->
+		</s:else>
+		
+	</div>
+	<div class="w3-padding">
+		<h3>Archive</h3>
+		
+		<s:if test="#session.archive_years != null">
+		<s:if test="#session.archive_years.isEmpty()">
+			<!-- Y Oops 1 -->
+		</s:if>
+		<s:else><ul>
+			<s:iterator value="#session.archive_years" status="y">
+				<s:set var="yval" value="#session.archive_years[#y.index].substring(0,4)" />
+				<li><a href="/blog/search?year=<s:property value="yval" />"><s:property /></a></li>
+			</s:iterator></ul>
+		</s:else>
+		</s:if>
+		<s:else>
+			<!-- Y Oops 2 -->
+		</s:else>
+		
+	</div>
+	<div class="w3-padding">
+		<h3>Tags</h3>
+		
+		<s:if test="#session.archive_tags != null">
+		<s:if test="#session.archive_tags.isEmpty()">
+			<!-- T Oops 1 -->
+		</s:if>
+		<s:else>
+			<s:iterator value="#session.archive_tags" status="t">
+				<s:set var="tval" value="#session.archive_tags[#t.index].substring(0,#session.archive_tags[#t.index].lastIndexOf('('))" />
+				<a class="tag large" href="/blog/search?tag=<s:property value="tval" />"><s:property /></a>
+			</s:iterator>
+		</s:else>
+		</s:if>
+		<s:else>
+			<!-- T Oops 2 -->
+		</s:else>
+		
+	</div>	
+	
+</div>
