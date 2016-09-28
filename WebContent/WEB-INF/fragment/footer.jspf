@@ -10,7 +10,7 @@
 		<li><span>|</span></li>
 		<li><a href="/about">About</a></li>
 	</ul>
-	<ul>
+	<ul class="small">
 		<li><a href="/blog/search">Search</a></li>
 		<li><span>|</span></li>
 		<li><a href="/search?s=">DuckDuckGo Search</a></li>
@@ -23,9 +23,16 @@
 		<li><a title="HTML5 and CSS3 verified." target="_Blank" href="https://validator.w3.org/nu/?doc=http%3A%2F%2Fwww.ramblingware.com%2F">
 			<img class="w3-opacity w3-hover-opaque" src="/img/html5-css3.png" alt="W3C Validator" style="height: 50px; width: 50px; position: relative; top: 15px;"></a></li>
 	</ul>
+	
 	<br />
+	
 	<p class="w3-tiny thin">&#169; Austin Delamar - 2015, 2016</p>
 	<p class="w3-tiny thin">Last Updated: 6/1/2016</p>
+	<ul>
+		<li><a class="w3-tiny" target="_Blank" href="https://github.com/RamblingWare/RamblingWare">[source code]</a></li>
+		<li><span>&nbsp;</span></li>
+		<li><a class="w3-tiny" target="_Blank" href="https://validator.w3.org/nu/?doc=http%3A%2F%2Fwww.ramblingware.com%2F">[html5 verified]</a></li>
+	</ul>
 	<script id="dsq-count-scr" src="//ramblingware.disqus.com/count.js" async></script>
   
 </div>

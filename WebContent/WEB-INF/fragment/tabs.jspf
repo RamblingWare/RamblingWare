@@ -52,14 +52,7 @@
 				</s:iterator>
 			</s:if>
 			</s:if>
-			<s:if test="#session.archive_tags != null">
-			<s:if test="!#session.archive_tags.isEmpty()">
-				<s:iterator value="#session.archive_tags" status="t">
-					<s:set var="tval" value="#session.archive_tags[#t.index].substring(0,#session.archive_tags[#t.index].lastIndexOf('('))" />
-					<a class="tag large" href="/blog/search?tag=<s:property value="tval" />"><s:property /></a>
-				</s:iterator>
-			</s:if>
-			</s:if>
+			<a href="/blog">More Posts...</a>
 			</div>
 	 	</li>
 	 	<li class="w3-right w3-hide-small w3-opacity w3-hover-opaque"><a class="social-rss" href="/rss" style="text-align: left; text-indent: 0px ! important;">&nbsp;</a></li>

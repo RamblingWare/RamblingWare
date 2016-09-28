@@ -4,10 +4,7 @@
 <meta name="author" content="Austin Delamar">
 <meta name="keywords" content="blog,tech,ramblings,software,hardware,web,developer,design,java,vbs,html,css,programming,computers">
 <meta name="description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too." />
-
 <meta name="robots" content="all">
-<meta http-equiv="Cache-control" content="public">
-<meta http-equiv="expires" content="Mon, 28 May 2018 11:12:01 GMT">
 
 <meta name="og:url" content="http://www.ramblingware.com">
 <meta name="og:type" content="website">
@@ -16,9 +13,10 @@
 <meta name="og:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
 
 <link rel="icon" type="image/png" href="/img/favicon.png">
-<link rel="stylesheet" href="/css/ramblingware.css?v=1.5">
+<link rel="stylesheet" href="/css/ramblingware.css?v=1.6">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-grey.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"> 
 <style>
 .w3-row {min-height: 200px}
 .w3-col.m2, w3-col.m2 {height: 100%;}

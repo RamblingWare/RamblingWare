@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page isErrorPage="true" %>
+<%@ page isErrorPage="true" %><%@ page session="false"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -28,11 +28,24 @@
 				<!-- ADMIN TABS END -->
 				
 				<h1>Error: 404</h1>
-				<p class="error">File Not Found</p>
-				<p>Looks like the page you've requested is no longer available, or was moved.
+				<p>File Not Found. Looks like the page you've requested is no longer available, or was moved.</p>
+				
+				<div class="w3-center">
+					<img class="w3-round w3-border w3-opacity" alt="Sad Robot" title="Sad Robot" src="//i.imgur.com/pHKz09Fm.png">
+				</div>
+				
 				<br />
-				<br />Try going back to the <a href="/blog">blog page</a>, and searching from there.</p>
+				<p>You can try searching for the page :</p>
+				
+				<div class="w3-center">
+					<form action="/search" method="get">
+					<input id="s" name="s" class="icon-search w3-input w3-theme-light w3-card-2 w3-round-large" maxlength="50" size="20" placeholder="Search..." type="text">
+					</form>
+				</div>
+				
 				<br />
+				<br />
+				
 				
 				<%! int hits = 1; %>
 				<!-- Error JSP Hits: <%=hits++ %>  -->

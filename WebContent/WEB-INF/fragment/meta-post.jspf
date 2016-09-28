@@ -2,15 +2,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="keywords" content="blog,tech,ramblings,software,hardware,web,developer,design,java,vbs,html,css,programming,computers">
-
 <meta name="robots" content="all">
-<meta http-equiv="Cache-control" content="public">
-<meta http-equiv="expires" content="Mon, 28 May 2018 11:12:01 GMT">
 
 <link rel="icon" type="image/png" href="/img/favicon.png">
-<link rel="stylesheet" href="/css/ramblingware.css?v=1.5">
+<link rel="stylesheet" href="/css/ramblingware.css?v=1.6">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-grey.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"> 
 <style>
 .w3-row {min-height: 200px}
 .w3-col.m2, w3-col.m2 {height: 100%;}

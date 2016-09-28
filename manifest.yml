@@ -1,0 +1,10 @@
+applications:
+- path: RamblingWare.war
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: RamblingWare
+  host: ramblingware
+  disk_quota: 1024M
+  services:
+  - MySQL-DB

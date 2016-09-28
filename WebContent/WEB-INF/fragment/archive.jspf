@@ -1,6 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div id="archive" class="w3-col m2">
-	<div class="w3-padding">
+	<div class="w3-padding w3-hide-small">
 		<h3>Featured</h3>
 		
 		<s:if test="#session.archive_featured != null">
@@ -55,7 +55,7 @@
 		<s:else>
 			<s:iterator value="#session.archive_tags" status="t">
 				<s:set var="tval" value="#session.archive_tags[#t.index].substring(0,#session.archive_tags[#t.index].lastIndexOf('('))" />
-				<a class="tag large" href="/blog/search?tag=<s:property value="tval" />"><s:property /></a>
+				<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property value="tval" />"><s:property /></a>
 			</s:iterator>
 		</s:else>
 		</s:if>

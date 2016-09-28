@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -44,64 +44,73 @@
 				<% if(year==null) year = ""; %>
 				<% if(author==null) author = ""; %>
 				<div class="w3-container">
-				<form class="w3-twothird w3-small" action="/blog/search" method="get">
-					<p>
-					<select id="month" name="month" class="w3-select w3-round-large w3-hover-light-grey w3-border">
-						<option value="">[Select a Month]</option>
-						<option <%if(month.equals("Jan")) out.print("selected"); %> value="Jan">January</option>
-						<option <%if(month.equals("Feb")) out.print("selected"); %> value="Feb">February</option>
-						<option <%if(month.equals("Mar")) out.print("selected"); %> value="Mar">March</option>
-						<option <%if(month.equals("Apr")) out.print("selected"); %> value="Apr">April</option>
-						<option <%if(month.equals("May")) out.print("selected"); %> value="May">May</option>
-						<option <%if(month.equals("Jun")) out.print("selected"); %> value="Jun">June</option>
-						<option <%if(month.equals("Jul")) out.print("selected"); %> value="Jul">July</option>
-						<option <%if(month.equals("Aug")) out.print("selected"); %> value="Aug">August</option>
-						<option <%if(month.equals("Sep")) out.print("selected"); %> value="Sep">September</option>
-						<option <%if(month.equals("Oct")) out.print("selected"); %> value="Oct">October</option>
-						<option <%if(month.equals("Nov")) out.print("selected"); %> value="Nov">November</option>
-						<option <%if(month.equals("Dec")) out.print("selected"); %> value="Dec">December</option>
-					</select></p>
+				<form action="/blog/search" method="get">
 					
-					<p>
-					<select id="year" name="year" class="w3-select w3-round-large w3-hover-light-grey w3-border">
-						<option value="">[Select a Year]</option>
-						<option <%if(year.equals("2014")) out.print("selected"); %> value="2014">2014</option>
-						<option <%if(year.equals("2015")) out.print("selected"); %> value="2015">2015</option>
-						<option <%if(year.equals("2016")) out.print("selected"); %> value="2016">2016</option>
-					</select></p>
-					
-					<p>
-					<select id="author" name="author" class="w3-select w3-round-large w3-hover-light-grey w3-border">
-						<option value="">[Select an Author]</option>
+					<div class="w3-row" style="min-height:0px">
+						<div class="w3-col s12 m6 l6">
 						
-						<s:iterator value="authorOptions" status="ao" var="authorOp">
-						<s:if test="%{#authorOp.uri_name.equals(author)}">
-						<option selected value="<s:property value="uri_name" />"><s:property value="name" /></option>
-						</s:if><s:else>
-						<option value="<s:property value="uri_name" />"><s:property value="name" /></option>
-						</s:else>
-						</s:iterator>
+							<p><select id="year" name="year" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+								<option value="">[Select a Year]</option>
+								<option <%if(year.equals("2014")) out.print("selected"); %> value="2014">2014</option>
+								<option <%if(year.equals("2015")) out.print("selected"); %> value="2015">2015</option>
+								<option <%if(year.equals("2016")) out.print("selected"); %> value="2016">2016</option>
+							</select></p>
 						
-					</select></p>
-					
+						</div>
+						<div class="w3-col s12 m6 l6">
+						
+							<p><select id="month" name="month" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+								<option value="">[Select a Month]</option>
+								<option <%if(month.equals("Jan")) out.print("selected"); %> value="Jan">January</option>
+								<option <%if(month.equals("Feb")) out.print("selected"); %> value="Feb">February</option>
+								<option <%if(month.equals("Mar")) out.print("selected"); %> value="Mar">March</option>
+								<option <%if(month.equals("Apr")) out.print("selected"); %> value="Apr">April</option>
+								<option <%if(month.equals("May")) out.print("selected"); %> value="May">May</option>
+								<option <%if(month.equals("Jun")) out.print("selected"); %> value="Jun">June</option>
+								<option <%if(month.equals("Jul")) out.print("selected"); %> value="Jul">July</option>
+								<option <%if(month.equals("Aug")) out.print("selected"); %> value="Aug">August</option>
+								<option <%if(month.equals("Sep")) out.print("selected"); %> value="Sep">September</option>
+								<option <%if(month.equals("Oct")) out.print("selected"); %> value="Oct">October</option>
+								<option <%if(month.equals("Nov")) out.print("selected"); %> value="Nov">November</option>
+								<option <%if(month.equals("Dec")) out.print("selected"); %> value="Dec">December</option>
+							</select></p>
+						
+						</div>
+					</div>
+					<div class="w3-row" style="min-height:0px">
+						<div class="w3-col s12 m6 l6">
+						
+							<p><select id="tag" name="tag" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+								<option value="">[Select a Tag]</option>
+								<s:iterator value="tagOptions" status="to" var="tagOp">
+								<s:if test="%{#tagOp.equals(tag)}">
+								<option selected value="<s:property />"><s:property /></option>
+								</s:if><s:else>
+								<option value="<s:property />"><s:property /></option>
+								</s:else>
+								</s:iterator>
+						
+							</select></p>
+						
+						</div>
+						<div class="w3-col s12 m6 l6">
+							
+							<p><select id="author" name="author" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+								<option value="">[Select an Author]</option>
+								<s:iterator value="authorOptions" status="ao" var="authorOp">
+								<s:if test="%{#authorOp.uri_name.equals(author)}">
+								<option selected value="<s:property value="uri_name" />"><s:property value="name" /></option>
+								</s:if><s:else>
+								<option value="<s:property value="uri_name" />"><s:property value="name" /></option>
+								</s:else>
+								</s:iterator>
+							</select></p>
+						
+						</div>
+					</div>
 					
 					<p>
-					<input type="text" size="50" name="title" id="title" value="<s:property value="title" />" placeholder="Article Title" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
-					</p>
-					
-					<p>
-					<select id="tag" name="tag" class="w3-select w3-round-large w3-hover-light-grey w3-border">
-						<option value="">[Select a Tag]</option>
-						
-						<s:iterator value="tagOptions" status="to" var="tagOp">
-						<s:if test="%{#tagOp.equals(tag)}">
-						<option selected value="<s:property />"><s:property /></option>
-						</s:if><s:else>
-						<option value="<s:property />"><s:property /></option>
-						</s:else>
-						</s:iterator>
-						
-					</select>
+					<input type="text" size="50" name="title" id="title" value="<s:property value="title" />" placeholder="Article Title" class="w3-input w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4" />
 					</p>
 					
 					<button class="icon-search w3-btn w3-round w3-card w3-theme-light" type="submit" value="Search" title="Search for posts">Search</button>
@@ -148,10 +157,10 @@
 						<p class="footnote"><b>Tags:</b>&nbsp;
 						<s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag" href="/blog/search?tag=<s:property />"><s:property /></a>
+								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if>
-						<span class="icon-comments w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></span>
+						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></span>
 						</p>
 						</div>
 						</div><br />

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -28,9 +28,11 @@
 				
 				<div class="w3-container w3-padding">
 				<p>
-					<img class="w3-round w3-card-4 w3-margin-right w3-left" style="max-height: 200px" alt="Profile Picture" src="/img/author/AustinDelamar.jpg">
+					<img class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height: 200px" alt="Profile Picture" src="/img/author/AustinDelamar.jpg">
 					
-					<span class="bold">Code.&nbsp;Test.&nbsp;Refract.&nbsp;<span class="footnote">(Repeat...)</span></span><br />
+					<span class="bold">Code.&nbsp;Test.&nbsp;Refract.&nbsp;<span class="footnote">(Repeat...)</span></span>
+					<br />
+					<br />
 					These daily activities for programmers are my favorite things about developing software. Like painting on a canvas, or writing a book, 
 					developing software is the process of careful planning, execution, and evaluation. My passion is in providing that level of detailed 
 					work to clients, and helping automate their business needs through computer software.<br />
@@ -66,25 +68,24 @@
 						</ul>
 					</div>
 					<div class="w3-third w3-padding-8">
-						<h3>Favorite Quote</h3>
+						<h3>Favorite Quote:</h3>
 						<p class="quote">"Efficiency is doing things right;<br />effectiveness is doing the right things."<br /><br />-&nbsp;Peter Drucker</p>
 					</div>
 					<div class="w3-third w3-padding-8">
-						<h3>Most Recent Work</h3>
-						<p>I'm currently supporting multiple J2EE web applications as a system administrator and lead developer, at IBM.</p>
+						<h3>Most Recent Work:</h3>
+						<p>I'm currently supporting multiple J2EE web applications as the lead developer, at IBM.</p>
 					</div>
 				</div>
 				
 				<div class="w3-container">
 					<h3>Contact</h3>
 					<p>You can reach me by:<br />
-					<button class="w3-btn w3-theme-dark" onclick="window.location.href='mailto:austin.delamar@gmail.com'">Email</button> or 
-					<button class="w3-btn w3-blue" onclick="window.location.href='https://www.linkedin.com/in/austindelamar'">LinkedIn</button>
+					<button class="w3-btn w3-round w3-theme-dark" onclick="window.location.href='mailto:austin.delamar@gmail.com'">Email</button> 
+					&nbsp;&nbsp;
+					<button class="w3-btn w3-round w3-blue" onclick="window.location.href='https://www.linkedin.com/in/austindelamar'">LinkedIn</button>
+					&nbsp;&nbsp;
+					<button class="w3-btn w3-round w3-light-blue" onclick="window.location.href='https://twitter.com/AustinDelamar'">Twitter</button>
 					</p>
-				</div>
-				<div class="w3-container">
-					<h3>Subscribe</h3>
-					<p>Catch everything with your preferred RSS feeder and entering this link:<br /><button class="w3-btn w3-orange" onclick="window.location.href='/rss'">RSS Feed</button></p>
 				</div>
 				<br />
 				<br />

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -61,10 +61,10 @@
 						<p class="footnote"><b>Tags:</b>&nbsp;
 						<s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag" href="/blog/search?tag=<s:property />"><s:property /></a>
+								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if>
-						<span class="icon-comments w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></span>
+						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></span>
 						</p>
 						</div>
 						</div><br />

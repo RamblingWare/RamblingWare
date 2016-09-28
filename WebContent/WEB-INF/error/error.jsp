@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page isErrorPage="true" %>
+<%@ page isErrorPage="true" %><%@ page session="false"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -28,7 +28,7 @@
 				<!-- ADMIN TABS END -->
 				
 				<h1>Error</h1>
-				<p class="error">Oops! Looks like Something broke.</p>
+				<p>Oops! Looks like Something broke.</p>
 				<br />
 				<p class="footnote"><% if(exception!=null)exception.printStackTrace(new java.io.PrintWriter(out)); %></p>
 				<% if(exception!=null)System.err.println("Exception: "+exception.getClass().getName()+" "+exception.getMessage()); %>

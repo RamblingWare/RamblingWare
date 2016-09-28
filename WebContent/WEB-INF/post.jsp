@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -41,7 +41,7 @@
 				<h1><s:property value="title" /></h1>
 				
 				<div class="w3-container w3-margin-0 w3-padding-0">
-					<p><span class="icon-comments w3-right">&nbsp;&nbsp;<a class="footnote" href="#comments"><span class="disqus-comment-count" data-disqus-identifier="<%=request.getAttribute("uriName") %>"></span></a></span></p>
+					<p><span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="#comments"><span class="disqus-comment-count" data-disqus-identifier="<%=request.getAttribute("uriName") %>"></span></a></span></p>
 				</div>
 				
 				<% out.print(request.getAttribute("htmlContent")); %>
@@ -52,7 +52,7 @@
 				<img class="w3-round w3-margin-left w3-margin-right w3-left" style="width: 40px; height: 40px" alt="Profile Picture" src="/img/author/AustinDelamar-small.jpg">
 				<p class="footnote w3-left w3-small">
 				<b>Author:</b> <s:property value="author" /><br />
-				View more posts by this author.
+				<a href="/blog">View more posts by this author.</a>
 				</p>
 				</div>
 				<div class="w3-col s12 m6 l6 w3-padding-16">
