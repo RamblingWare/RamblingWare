@@ -2,23 +2,23 @@
 
 # RamblingWare
 
-This is the code that runs <a href="http://www.ramblingware.com">ramblingware.com</a>
+The code that powers [RamblingWare.com](http://www.ramblingware.com)
 
 ---
 
 ### Technologies Used:
 - Java EE Programming Language
-- Apache <a href="https://struts.apache.org/">Struts 2</a> Framework
-- <a href="https://www.mysql.com/">MySQL 5.5</a> Database
+- [Apache Struts 2](https://struts.apache.org/) Framework
+- [MySQL 5.5](https://www.mysql.com/) Database
 - UTF-8 encoded
 - HTML5
 - CSS3
-- <a href="http://www.w3schools.com/css/">W3.CSS</a> Styling
+- [W3.CSS](http://www.w3schools.com/css/) Styling
 - Responsive Design (Mobile Friendly)
-- Comments by <a href="https://disqus.com/">Disqus</a>
-- Search with <a href="https://duckduckgo.com">DuckDuckGo</a>
-- <a href="http://ckeditor.com/download">CKEditor</a>
+- Comments by [Disqus](https://disqus.com/)
+- Search by [DuckDuckGo](https://duckduckgo.com)
+- Post editor by [CKEditor](http://ckeditor.com/download)
 
 ---
 
-You can host your apps at <a href="http://bluemix.net">IBM Bluemix</a> too.
+You can host your apps at [IBM Bluemix](http://bluemix.net) too.
