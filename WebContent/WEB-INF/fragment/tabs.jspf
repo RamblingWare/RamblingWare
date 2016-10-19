@@ -3,36 +3,34 @@
 <div id="tabs" class="w3-col m2 w3-hide-medium w3-hide-small">
 	<ul>
 		<s:if test="#context['struts.actionMapping'].name=='about'">
-		<li><a href="/blog" class="w3-btn w3-card w3-round">Blog</a></li>
-		<li class="selected"><a href="/about" class="w3-btn w3-card w3-round">About</a></li>
+		<li><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">Blog</a></li>
+		<li class="selected"><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">About</a></li>
 		</s:if>
 		<s:else>
-		<li class="selected"><a href="/blog" class="w3-btn w3-card w3-round">Blog</a></li>
-		<li><a href="/about" class="w3-btn w3-card w3-round">About</a></li>
+		<li class="selected"><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">Blog</a></li>
+		<li><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">About</a></li>
 		</s:else>
 		
-		<li><hr></li>
+		<li>&nbsp;</li>
 		
 		<li><a class="social-facebook w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="https://www.facebook.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">Follow us on Facebook</a></li>
 		<li><a class="social-github w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="https://www.github.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">Check our Github Projects</a></li>
 		<li><a class="social-rss w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="/rss" style="text-align: left; text-indent: 0px ! important;">Subscribe<br /></a></li>
-		
-		<li><hr></li>
 	</ul>
 </div>
 <!-- Tablet and Small Screens Menu -->
 <div id="menu" class="w3-col w3-hide-large">
 	<ul>
 		<s:if test="#context['struts.actionMapping'].name=='about'">
-		<li class="w3-left w3-btn w3-card w3-round w3-padding-0"><a href="/blog">Blog</a></li>
-		<li class="w3-left w3-btn w3-card w3-round w3-padding-0"><a class="selected" href="/about">About</a></li>
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/blog">Blog</a></li>
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a class="selected" href="/about">About</a></li>
 		</s:if>
 		<s:else>
-		<li class="w3-left w3-btn w3-card w3-round w3-padding-0"><a class="selected" href="/blog">Blog</a></li>
-		<li class="w3-left w3-btn w3-card w3-round w3-padding-0"><a href="/about">About</a></li>
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a class="selected" href="/blog">Blog</a></li>
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/about">About</a></li>
 		</s:else>
 		<li class="w3-dropdown-hover  w3-left">
-	    <a class="w3-btn w3-card w3-round" href="#">Archive</a>
+	    <a class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" href="#">Archive</a>
 	    <div class="w3-dropdown-content w3-white w3-card-4">
 			<s:if test="#session.archive_featured != null">
 			<s:if test="!#session.archive_featured.isEmpty()">

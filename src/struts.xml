@@ -26,9 +26,9 @@
 	<package name="root" namespace="/" extends="struts-default">
 	
 		<interceptors>
-			<interceptor name="authentication" class="org.amd.interceptor.AuthenticationInterceptor"></interceptor>
-			<interceptor name="archive" class="org.amd.interceptor.ArchiveInterceptor"></interceptor>
-			<interceptor name="recentview" class="org.amd.interceptor.RecentViewInterceptor"></interceptor>
+			<interceptor name="authentication" class="org.rw.interceptor.AuthenticationInterceptor"></interceptor>
+			<interceptor name="archive" class="org.rw.interceptor.ArchiveInterceptor"></interceptor>
+			<interceptor name="recentview" class="org.rw.interceptor.RecentViewInterceptor"></interceptor>
 			
 			<!-- Admin User Authentication -->
 			<interceptor-stack name="authStack">
@@ -56,7 +56,7 @@
 		</global-exception-mappings>
 		
 		<!-- ACTIONS -->	
-		<action name="" class="org.amd.action.ViewBlogAction">
+		<action name="" class="org.rw.action.ViewBlogAction">
 			<result name="success">/WEB-INF/home.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -76,11 +76,11 @@
 		<action name="privacy-policy">
 			<result>/WEB-INF/other/privacy.jsp</result>
 		</action>
-		<action name="rss" class="org.amd.action.RssAction">
+		<action name="rss" class="org.rw.action.RssAction">
 			<!-- success already returns the RSS XML -->
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
-		<action name="search" class="org.amd.action.SearchAction">
+		<action name="search" class="org.rw.action.SearchAction">
 			<!-- success already redirects to search website -->
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>	
@@ -92,25 +92,6 @@
 		<action name="manage">
 			<result type="redirect">/manage/</result>
 		</action>
-		
-		<!-- SPECIAL PAGES -->
-		<!-- <action name="save-the-date">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result>/WEB-INF/other/save-the-date.jsp</result>
-		</action>
-		<action name="save-the-date-register" class="org.amd.action.wedding.RegisterAction">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/WEB-INF/other/save-the-date.jsp</result>
-			<result name="error">/WEB-INF/other/save-the-date.jsp</result>
-		</action>
-		<action name="wedding">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result>/WEB-INF/other/wedding.jsp</result>
-		</action>
-		<action name=".well-known/acme-challenge/mc0ldXUHJO_f1hwB2G4VuD-eUfN9_09BaXGadGqafLo">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result>/WEB-INF/other/tls.jsp</result>
-		</action> -->
 		
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
 		<action name="*">
@@ -124,17 +105,17 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="search" class="org.amd.action.BlogSearchAction">
+		<action name="search" class="org.rw.action.BlogSearchAction">
 			<result name="success">/WEB-INF/search.jsp</result>
 			<result name="error">/WEB-INF/search.jsp</result>
 		</action>
 		
-		<action name="" class="org.amd.action.ViewBlogAction">
+		<action name="" class="org.rw.action.ViewBlogAction">
 			<result name="success">/WEB-INF/blog.jsp</result>
 			<result name="error">/WEB-INF/blog.jsp</result>
 		</action>
 		
-		<action name="post/**" class="org.amd.action.ViewPostAction">
+		<action name="post/**" class="org.rw.action.ViewPostAction">
 			<result name="success">/WEB-INF/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -153,28 +134,28 @@
 	
 		<default-interceptor-ref name="authStack"></default-interceptor-ref>
 		
-		<action name="" class="org.amd.action.manage.ManageMenuAction">
+		<action name="" class="org.rw.action.manage.ManageMenuAction">
 			<result name="success">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
-		<action name="menu" class="org.amd.action.manage.ManageMenuAction">
+		<action name="menu" class="org.rw.action.manage.ManageMenuAction">
 			<result name="success">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
-		<action name="newpost" class="org.amd.action.manage.NewPostAction">
+		<action name="newpost" class="org.rw.action.manage.NewPostAction">
 			<result name="success">/WEB-INF/manage/newpost.jsp</result>
 			<result name="edit">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/newpost.jsp</result>
 		</action>
 		
-		<action name="posts" class="org.amd.action.manage.ViewPostsAction">
+		<action name="posts" class="org.rw.action.manage.ViewPostsAction">
 			<result name="success">/WEB-INF/manage/viewposts.jsp</result>
 			<result name="error">/WEB-INF/manage/viewposts.jsp</result>
 		</action>
 		
-		<action name="login" class="org.amd.action.manage.LoginAction">
+		<action name="login" class="org.rw.action.manage.LoginAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="success" type="redirectAction">
 		        <param name="actionName">menu</param>
@@ -182,19 +163,25 @@
 			<result name="error">/WEB-INF/manage/login.jsp</result>
 		</action>
 		
-		<action name="newuser" class="org.amd.action.manage.RegisterAction">
+		<action name="newuser" class="org.rw.action.manage.RegisterAction">
 			<result name="success">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/newuser.jsp</result>
 		</action>
 		
-		<action name="logout" class="org.amd.action.manage.LogoutAction">
+		<action name="logout" class="org.rw.action.manage.LogoutAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="success">/WEB-INF/message.jsp</result>
 		</action>
 		
-		<action name="editpost/**" class="org.amd.action.manage.EditPostAction">
+		<action name="editpost/**" class="org.rw.action.manage.EditPostAction">
 			<result name="success">/WEB-INF/manage/editpost.jsp</result>
 			<result name="edit">/WEB-INF/manage/menu.jsp</result>
+		</action>
+		
+		<action name="viewpost/**" class="org.rw.action.ViewPostAction">
+			<result name="success">/WEB-INF/post.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->

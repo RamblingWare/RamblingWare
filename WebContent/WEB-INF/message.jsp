@@ -21,7 +21,7 @@
 		<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 		<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m8 w3-container w3-border w3-padding w3-card-2">
+			<div id="page-content" class="w3-col m8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>

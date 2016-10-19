@@ -12,6 +12,13 @@
 <meta name="og:title" content="<s:property value="title" />">
 <meta name="og:image" content="<s:property value="thumbnail" />">
 <meta name="og:description" content="<s:property value="description" />">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="http://www.ramblingware.com/blog/post/<s:property value="uriName" />">
+<meta name="twitter:creator" content="<s:property value="author" />">
+<meta name="twitter:title" content="<s:property value="title" />">
+<meta name="twitter:description" content="<s:property value="description" />">
+<meta name="twitter:image" content="<s:property value="thumbnail" />">
 <!-- META_END -->
 <title><s:property value="title" /> - RamblingWare</title>
 </head>
@@ -29,7 +36,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m8 w3-container w3-border w3-padding w3-card-2">
+			<div id="page-content" class="w3-col m8 w3-container w3-padding">
 				
 				<% if(request.getAttribute("banner")!=null && !request.getAttribute("banner").toString().isEmpty()) { %>
 				<div class="w3-padding-0 w3-card w3-animate-opacity w3-margin-0" style="overflow: hidden; position: relative; height: 200px;">
@@ -62,7 +69,7 @@
 				<span class="footnote w3-small"><b>Tags:</b></span>
 				<s:if test="tags != null && !tags.isEmpty()">
 					<s:iterator value="tags">
-						&nbsp;<a class="tag" href="/blog/search?tag=<s:property />"><s:property /></a>
+						&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
 					</s:iterator>
 				</s:if>
 				</div></div>

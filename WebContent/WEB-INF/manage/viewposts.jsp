@@ -20,7 +20,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 		
-			<div id="page-content" class="w3-col m8 w3-container w3-border w3-padding w3-card-2">
+			<div id="page-content" class="w3-col m8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
@@ -59,7 +59,7 @@
 					
 					<s:iterator value="results" status="r">
 						<tr>
-						<td><a href="/blog/post/<s:property value="uriName" />">View</a>&nbsp;
+						<td><a href="/manage/viewpost/<s:property value="uriName" />">View</a>&nbsp;
 						<a href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
 						<td><s:property value="title" />
 						<s:if test="!isVisible">
@@ -71,7 +71,7 @@
 						</td>
 						<td><s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag" href="/blog/search?tag=<s:property />"><s:property /></a>
+								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if></td>
 						<td><a href="/author/<s:property value="uriAuthor" />"><s:property value="author" /></a></td>

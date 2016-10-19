@@ -4,7 +4,7 @@
 <head>
 <title>New Post - RamblingWare</title>
 <!-- META_BEGIN -->
-<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>pf"%>
+<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
 function changeForm() {
@@ -24,6 +24,12 @@ function changeForm() {
 		document.getElementById('bannerDiv2').style.display = 'none';
 	}
 }
+function makeUri() {
+	var title = document.getElementById('title').value;
+	title = title.replace(/[^0-9a-z]/gi, ' ');
+	title = title.replace(/\s+/g, '-').toLowerCase();
+	document.getElementById('uriName').value = title;
+}
 </script>
 <!-- META_END -->
 </head>
@@ -40,7 +46,7 @@ function changeForm() {
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 		
-			<div id="page-content" class="w3-col m8 w3-container w3-border w3-padding w3-card-2">
+			<div id="page-content" class="w3-col m8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
@@ -66,7 +72,7 @@ function changeForm() {
 					<input type="hidden" name="submitForm" value="true" />
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="title">Post Title:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="title" />" required placeholder="How to make a blog post!" class="w3-input w3-round-large  w3-border" />
+						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="title" />" onkeyup="makeUri()" required placeholder="How to make a blog post!" class="w3-input w3-round-large  w3-border" />
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>

@@ -1,6 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div id="archive" class="w3-col m2">
-	<div class="w3-padding w3-hide-small">
+	<div class="w3-container w3-hide-small">
 		<h3>Featured</h3>
 		
 		<s:if test="#session.archive_featured != null">
@@ -26,7 +26,7 @@
 		</s:else>
 		
 	</div>
-	<div class="w3-padding">
+	<div class="w3-container">
 		<h3>Archive</h3>
 		
 		<s:if test="#session.archive_years != null">
@@ -45,7 +45,7 @@
 		</s:else>
 		
 	</div>
-	<div class="w3-padding">
+	<div class="w3-container">
 		<h3>Tags</h3>
 		
 		<s:if test="#session.archive_tags != null">

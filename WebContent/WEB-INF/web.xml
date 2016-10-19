@@ -10,7 +10,7 @@
   </resource-ref>
   
   <listener>
-    <listener-class>org.amd.model.ApplicationStore</listener-class>
+    <listener-class>org.rw.model.ApplicationStore</listener-class>
   </listener>
   
   <session-config>

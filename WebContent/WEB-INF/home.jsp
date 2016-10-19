@@ -22,7 +22,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m8 w3-container w3-border w3-padding w3-card-2">
+			<div id="page-content" class="w3-col m8 w3-container w3-padding">
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
@@ -35,13 +35,7 @@
 					</s:iterator>
 				</s:if>
 				
-				<div class="w3-padding-0 w3-card w3-animate-opacity w3-margin-0" style="overflow: hidden; position: relative; height: 200px;">
-					<img style="width: 100%; position: absolute;" alt="Photo for RamblingWare" title="" src="//i.imgur.com/Jp3YY4bl.jpg">
-					<img style="width: 80%;  position: absolute;left: 20%;top: -10%;opacity: 0.5;-webkit-transform: rotate(40deg);-moz-transform: rotate(40deg);-o-transform: rotate(40deg);-ms-transform: rotate(40deg);transform: rotate(40deg);" alt="Logo for RamblingWare" title="" src="/img/logo-small.png">
-					<p class="footnote w3-small"><s:property value="bannerCaption" /></p>
-				</div>
-				
-				<h1>RamblingWare</h1>
+				<h1>Welcome</h1>
 				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</p>
 				
 				
@@ -79,17 +73,10 @@
 				</s:if>
 				<!-- BLOG POSTS END -->
 				
-				<!-- PROJECTS START -->
-				<br />
-				<br />
-				<h2>Projects</h2>
-				<p class="warning">Coming soon!</p>
-				<!-- PROJECTS END -->
-				
 				<!-- AUTHORS START -->
 				<br />
 				<br />
-				<h2>Authors</h2>
+				<h2>Author</h2>
 				<div class="w3-row" style="min-height:0px">
 				<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
 					<a href="/about">
@@ -108,10 +95,6 @@
 					</a>
 				</div>
 								
-				</div>
-				
-				<div class="w3-col s12 m12 l12 w3-padding-left w3-padding-right w3-center">
-					<p><a class="w3-btn w3-border w3-theme-light w3-round" href="/about" style="white-space: pre-wrap;">About RW...</a></p>
 				</div>
 				<!-- AUTHORS END -->
 				
