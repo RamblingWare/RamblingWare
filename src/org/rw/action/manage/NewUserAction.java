@@ -26,7 +26,7 @@ import com.opensymphony.xwork2.ModelDriven;
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class RegisterAction extends ActionSupport implements UserAware, ModelDriven<User>, ServletResponseAware, ServletRequestAware{
+public class NewUserAction extends ActionSupport implements UserAware, ModelDriven<User>, ServletResponseAware, ServletRequestAware{
 	 
     private static final long serialVersionUID = 1L;
     private User user;
@@ -92,13 +92,6 @@ public class RegisterAction extends ActionSupport implements UserAware, ModelDri
 	    			    			st.executeUpdate("update users set last_login_date='"
 	    									+ApplicationStore.formatMySQLDate(new Date(System.currentTimeMillis()))+"'"
 	    											+ "where user_id = '"+user.getUserId()+"'");
-	    				    		
-	    				    		// email author
-	    				    		//ApplicationStore.addToEmailQueue("austin.delamar@gmail.com", "austin.delamar@gmail.com", "New User Registered! RamblingWare", "New User Registered:\n"+
-	    				    		//"\nName: "+user.getName()+
-	    				    		//"\nEmail: "+user.getEmail()+
-	    				    		//"\nTime: "+ApplicationStore.formatReadableDate(new Date(System.currentTimeMillis()))+
-	    				    		//"\n\nThis is an automated message from Bluemix. Please do not reply.");
 	    				    		 
 	    				    		sessionAttributes = ActionContext.getContext().getSession();
 	    				    		sessionAttributes.put("login","true");

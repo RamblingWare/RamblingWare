@@ -129,6 +129,19 @@
 		
 	</package>
 	
+	<!-- /AUTHOR/ -->
+	<package name="author" namespace="/author" extends="root">
+
+		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
+		
+		<action name="**" class="org.rw.action.ViewAuthorAction">
+			<result name="success">/WEB-INF/author.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
+	</package>
+	
 	<!-- /MANAGE/ -->
 	<package name="manage" namespace="/manage" extends="root">
 	
@@ -144,33 +157,17 @@
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
-		<action name="newpost" class="org.rw.action.manage.NewPostAction">
-			<result name="success">/WEB-INF/manage/newpost.jsp</result>
-			<result name="edit">/WEB-INF/manage/menu.jsp</result>
-			<result name="error">/WEB-INF/manage/newpost.jsp</result>
-		</action>
 		
+		<!-- POST ACTIONS -->
 		<action name="posts" class="org.rw.action.manage.ViewPostsAction">
 			<result name="success">/WEB-INF/manage/viewposts.jsp</result>
 			<result name="error">/WEB-INF/manage/viewposts.jsp</result>
 		</action>
 		
-		<action name="login" class="org.rw.action.manage.LoginAction">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="redirectAction">
-		        <param name="actionName">menu</param>
-		    </result>
-			<result name="error">/WEB-INF/manage/login.jsp</result>
-		</action>
-		
-		<action name="newuser" class="org.rw.action.manage.RegisterAction">
-			<result name="success">/WEB-INF/manage/menu.jsp</result>
-			<result name="error">/WEB-INF/manage/newuser.jsp</result>
-		</action>
-		
-		<action name="logout" class="org.rw.action.manage.LogoutAction">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/WEB-INF/message.jsp</result>
+		<action name="newpost" class="org.rw.action.manage.NewPostAction">
+			<result name="success">/WEB-INF/manage/newpost.jsp</result>
+			<result name="edit">/WEB-INF/manage/menu.jsp</result>
+			<result name="error">/WEB-INF/manage/newpost.jsp</result>
 		</action>
 		
 		<action name="editpost/**" class="org.rw.action.manage.EditPostAction">
@@ -182,6 +179,34 @@
 			<result name="success">/WEB-INF/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
+		
+		<!-- USER ACTIONS -->
+		<action name="users" class="org.rw.action.manage.ViewUsersAction">
+			<result name="success">/WEB-INF/manage/viewusers.jsp</result>
+			<result name="error">/WEB-INF/manage/viewusers.jsp</result>
+		</action>
+		
+		<action name="newuser" class="org.rw.action.manage.NewUserAction">
+			<result name="success">/WEB-INF/manage/menu.jsp</result>
+			<result name="error">/WEB-INF/manage/newuser.jsp</result>
+		</action>
+		
+		
+		
+		<!-- LOGIN / LOGOUT ACTIONS -->
+		<action name="login" class="org.rw.action.manage.LoginAction">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="redirectAction">
+		        <param name="actionName">menu</param>
+		    </result>
+			<result name="error">/WEB-INF/manage/login.jsp</result>
+		</action>
+		
+		<action name="logout" class="org.rw.action.manage.LogoutAction">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/WEB-INF/message.jsp</result>
 		</action>
 		
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->

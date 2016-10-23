@@ -28,30 +28,8 @@
 				
 				<h1>Management Menu</h1>
 				<p>Please login to continue.</p>
-				<div class="w3-container w3-padding">
+				<div class="w3-container w3-row">
 				
-					<!-- LOGIN BEGIN -->
-					<div class="w3-container w3-padding-0 w3-twothird w3-border-0">
-					<form action="/manage/login" method="post">
-						
-						<p>   
-							<label class="w3-validate w3-text-grey-light w3-large" for="email">Email:</label>
-							<input type="text" size="50" maxlength="100" name="email" id="email" value="<s:property value="email" />" required placeholder="" class="w3-input w3-round-large w3-border" />
-						</p>
-						<p>   
-							<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:</label>
-							<input type="password" size="50" maxlength="100" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
-						</p>
-						
-						<hr />
-						<button class="icon-redo w3-btn w3-right w3-round w3-card w3-theme-light" type="submit" value="Login" title="Login">Login</button>
-						<span>&nbsp;&nbsp;</span>
-						<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">Back</button>
-						<span>&nbsp;&nbsp;</span>
-						<button class="icon-delete w3-btn w3-round w3-card w3-theme-light" type="reset" value="Reset" title="Reset search fields">Clear</button>
-						
-					</form>
-					
 					<s:if test="hasActionErrors()">
 					   <s:iterator value="actionErrors">
 							<p class="error"><s:property/></p>
@@ -62,15 +40,43 @@
 							<p class="info"><s:property/></p>
 						</s:iterator>
 					</s:if>
+				
+					<!-- LOGIN BEGIN -->
+					<div class="w3-container w3-padding w3-col m2 l3"></div>
+					<div class="w3-container w3-padding w3-col m8 l6">
 					
-					<p class="warning">Invalid attempts will be recorded and an admin will be notified of your IP and other information!</p>
-					
+						<div class="w3-border w3-round w3-animate-opacity">
+							<div class="w3-margin-0 w3-padding-0 w3-theme">
+								<h3 class="w3-margin-0 w3-padding">Login</h3>
+							</div>
+							<div class="w3-padding">
+							<form action="/manage/login" method="post">
+								<p>   
+									<label class="w3-validate w3-text-grey-light w3-large" for="email">Email:</label>
+									<input type="text" size="50" maxlength="100" name="email" id="email" value="<s:property value="email" />" required placeholder="" class="w3-input w3-round-large w3-border" />
+								</p>
+								<p>   
+									<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:</label>
+									<input type="password" size="50" maxlength="100" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
+								</p>
+								
+								<p>
+									<button class="icon-redo w3-btn w3-right w3-round w3-card w3-theme-light w3-hover-green" type="submit" value="Login" title="Login">Login</button>
+									<span>&nbsp;&nbsp;</span>
+									<button class="icon-delete w3-btn w3-round w3-card w3-theme-light w3-opacity" type="reset" value="Reset" title="Reset search fields">Clear</button>
+								</p>
+							</form>
+							</div>
+						</div>
 					</div>
+					<div class="w3-container w3-padding w3-col m2 l3"></div>
 					<!-- LOGIN END -->
 					
-					<br />
-					<br />
 				</div>
+				<br />
+				<br />
+				<br />
+				<br />
 			</div>
 		</div>
 	</article>

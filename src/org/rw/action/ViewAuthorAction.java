@@ -25,7 +25,7 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * View Author action class
  * @author Austin Delamar
- * @date 4/30/2016
+ * @date 10/23/2016
  */
 public class ViewAuthorAction extends ActionSupport implements ArchiveAware, RecentViewAware, UserAware, ServletResponseAware, ServletRequestAware {
 
@@ -34,8 +34,11 @@ public class ViewAuthorAction extends ActionSupport implements ArchiveAware, Rec
 	// post parameters
 	private String uri_name;
 	private String author;
-	private String html_content;
+	private String htmlContent;
+	private String thumbnail;
 	private String description;
+	private String createDate;
+	private String modifyDate;
 	
 	public String execute() {
 		
@@ -46,7 +49,7 @@ public class ViewAuthorAction extends ActionSupport implements ArchiveAware, Rec
 		}
 		
 		// /author/person-name-goes-here
-		String  uri = servletRequest.getRequestURI().toLowerCase();
+		String  uri = servletRequest.getRequestURI();
 		if(uri_name == null && uri.startsWith("/author/"))
 			uri_name = ApplicationStore.removeBadChars(uri.substring(8,uri.length()));
 		
@@ -59,16 +62,19 @@ public class ViewAuthorAction extends ActionSupport implements ArchiveAware, Rec
 			try {
 				conn = ApplicationStore.getConnection();
 				Statement st = conn.createStatement();
-				ResultSet rs = st.executeQuery("select * from users where uri_name= '"+uri_name+"'");
+				ResultSet rs = st.executeQuery("select * from users where uri_name = '"+uri_name+"'");
 				
 				if(rs.first() && uri_name.equals(rs.getString("uri_name"))) {
 					// get the author properties
+					@SuppressWarnings("unused")
 					int user_id = rs.getInt("user_id");
-					author = "Austin Delamar";
-					html_content = rs.getString("html_content");
+					author = rs.getString("name");
+					thumbnail = rs.getString("thumbnail");
+					description = rs.getString("description");
+					htmlContent = rs.getString("html_content");
+					createDate = ApplicationStore.formatReadableDate(rs.getDate("create_date"));
+					modifyDate = ApplicationStore.formatReadableDate(rs.getDate("modify_date"));
 					
-					if(user_id>0)
-						; // glorious do nothing TODO
 				}
 				
 				// was author found?
@@ -78,9 +84,12 @@ public class ViewAuthorAction extends ActionSupport implements ArchiveAware, Rec
 					System.out.println("User opened author page: "+uri_name);
 					
 					// set attributes
+					servletRequest.setAttribute("author", author);
 					servletRequest.setAttribute("uri_name", uri_name);
-					servletRequest.setAttribute("html_content", html_content);
-					servletRequest.setAttribute("description", (html_content.length() >= 150?html_content.substring(0,150):html_content));
+					servletRequest.setAttribute("htmlContent", htmlContent);
+					servletRequest.setAttribute("description", description);
+					servletRequest.setAttribute("createDate", createDate);
+					servletRequest.setAttribute("modifyDate", modifyDate);
 					
 					
 					// forward to appropriate JSP page
@@ -180,12 +189,20 @@ public class ViewAuthorAction extends ActionSupport implements ArchiveAware, Rec
 		this.author = author;
 	}
 
-	public String getHtml_content() {
-		return html_content;
+	public String getHtmlContent() {
+		return htmlContent;
 	}
 
-	public void setHtml_content(String html_content) {
-		this.html_content = html_content;
+	public void setHtmlContent(String htmlContent) {
+		this.htmlContent = htmlContent;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public String getDescription() {
@@ -194,6 +211,22 @@ public class ViewAuthorAction extends ActionSupport implements ArchiveAware, Rec
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String date) {
+		this.createDate = date;
+	}
+	
+	public String getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 	@Override

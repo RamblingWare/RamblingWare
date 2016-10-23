@@ -2,6 +2,11 @@
 <!-- Large Screens Menu -->
 <div id="tabs" class="w3-col m2 w3-hide-medium w3-hide-small">
 	<ul>
+		<s:if test="#session.USER != null">
+		<%--ADMINISTRATOR MENU LINKS --%>
+		<li><a class="w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/manage/">Management Menu</a></li>
+		</s:if>
+	
 		<s:if test="#context['struts.actionMapping'].name=='about'">
 		<li><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">Blog</a></li>
 		<li class="selected"><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">About</a></li>
@@ -13,7 +18,7 @@
 		
 		<li>&nbsp;</li>
 		
-		<li><a class="social-facebook w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="https://www.facebook.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">Follow us on Facebook</a></li>
+		<li><a class="social-facebook w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="https://www.facebook.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">Like us on Facebook</a></li>
 		<li><a class="social-github w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="https://www.github.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">Check our Github Projects</a></li>
 		<li><a class="social-rss w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="/rss" style="text-align: left; text-indent: 0px ! important;">Subscribe<br /></a></li>
 	</ul>
@@ -21,6 +26,11 @@
 <!-- Tablet and Small Screens Menu -->
 <div id="menu" class="w3-col w3-hide-large">
 	<ul>
+		<s:if test="#session.USER != null">
+		<%--ADMINISTRATOR MENU LINKS --%>
+			<li class="w3-left w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/manage/">Manage</a></li>
+		</s:if>
+		
 		<s:if test="#context['struts.actionMapping'].name=='about'">
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/blog">Blog</a></li>
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a class="selected" href="/about">About</a></li>
@@ -29,7 +39,7 @@
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a class="selected" href="/blog">Blog</a></li>
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/about">About</a></li>
 		</s:else>
-		<li class="w3-dropdown-hover  w3-left">
+		<li class="w3-dropdown-hover w3-left">
 	    <a class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" href="#">Archive</a>
 	    <div class="w3-dropdown-content w3-white w3-card-4">
 			<s:if test="#session.archive_featured != null">
@@ -37,7 +47,7 @@
 				<s:iterator value="#session.archive_featured" status="f">
 					<s:set var="fval" value="#session.archive_featured[#f.index].substring(0,4)" />
 									
-						<a href="/blog/post/<s:property value="uri_name" />">Featured Post</a>
+						<a class="w3-hover-light-grey w3-hover-shadow" href="/blog/post/<s:property value="uri_name" />">Featured Post</a>
 					
 				</s:iterator>
 			</s:if>
@@ -46,11 +56,11 @@
 			<s:if test="!#session.archive_years.isEmpty()">
 				<s:iterator value="#session.archive_years" status="y">
 					<s:set var="yval" value="#session.archive_years[#y.index].substring(0,4)" />
-					<a href="/blog/search?year=<s:property value="yval" />"><s:property /></a>
+					<a class="w3-hover-light-grey w3-hover-shadow" href="/blog/search?year=<s:property value="yval" />"><s:property /></a>
 				</s:iterator>
 			</s:if>
 			</s:if>
-			<a href="/blog">More Posts...</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" href="/blog">More Posts...</a>
 			</div>
 	 	</li>
 	 	<li class="w3-right w3-hide-small w3-opacity w3-hover-opaque"><a class="social-rss" href="/rss" style="text-align: left; text-indent: 0px ! important;">&nbsp;</a></li>

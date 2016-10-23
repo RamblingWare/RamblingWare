@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Post;
+import org.rw.bean.Author;
 import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
@@ -21,17 +21,17 @@ import org.rw.model.ApplicationStore;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * View/Edit Posts action class
+ * View/Edit Users action class
  * @author Austin Delamar
- * @date 5/30/2016
+ * @date 10/23/2016
  */
-public class ViewPostsAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class ViewUsersAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	private User user;
 	
 	// results
-	private ArrayList<Post> results = new ArrayList<Post>();
+	private ArrayList<Author> results = new ArrayList<Author>();
 	
 	public String execute() {
 		
@@ -44,64 +44,31 @@ public class ViewPostsAction extends ActionSupport implements UserAware, Servlet
 		// /blog
 		
 		// this shows the blog posts
-		System.out.println("User "+user.getUsername()+" has requested to view all posts.");
+		System.out.println("User "+user.getUsername()+" has requested to view all users.");
 		Connection conn = null;
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select p.post_id, p.user_id, p.title, p.uri_name, p.is_visible, p.create_date, p.modify_date, p.thumbnail, p.banner, p.banner_caption, p.is_featured, p.description from posts p order by p.create_date desc");
+			ResultSet rs = st.executeQuery("select user_id, name, uri_name, email, create_date, modify_date, last_login_date from users order by create_date desc");
 			
 			while(rs.next()) {
 				
-				// get the post properties
-				int post_id = rs.getInt("post_id");
-				String post_title = rs.getString("title");
+				// get the author properties
+				int user_id = rs.getInt("user_id");
+				String name = rs.getString("name");
 				Date create_date = rs.getDate("create_date");
-				String post_uri_name = rs.getString("uri_name");
+				String uri_name = rs.getString("uri_name");
 				
 				// save info into an object
-				Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
-				post.setAuthorId(rs.getInt("user_id"));
-				post.setDescription(rs.getString("description"));
-				//post.setHtmlContent(rs.getString("html_content"));
-				post.setIs_visible(rs.getInt("is_visible")==1);
-				post.setIsFeatured(rs.getInt("is_featured")==1);
-				post.setModifyDate(rs.getDate("modify_date"));
-				post.setThumbnail(rs.getString("thumbnail"));
-				post.setBanner(rs.getString("banner"));
-				post.setBannerCaption(rs.getString("banner_caption"));
+				Author author = new Author(user_id, uri_name, name, create_date);
+				author.setEmail(rs.getString("email"));
+				author.setModifyDate(rs.getDate("modify_date"));
+				author.setLastLoginDate(rs.getDate("last_login_date"));
+				
 				
 				// add to results list
-				results.add(post);
+				results.add(author);
 			}
-			
-			// gather tags
-			//System.out.println("Gathering tags...");
-			for(Post p : results)
-			{
-				ResultSet rs2 = st.executeQuery("select * from tags where post_id = "+p.getId());
-				
-				// get this post's tags - there could be more than 1
-				ArrayList<String> post_tags = new ArrayList<String>();
-				while(rs2.next()) {
-					post_tags.add(rs2.getString("tag_name"));
-				}
-				p.setTags(post_tags);
-				
-				ResultSet rs3 = st.executeQuery("select name, uri_name from users where user_id = "+p.getAuthorId());
-				if(rs3.next())
-				{
-					p.setAuthor(rs3.getString("name"));
-					p.setUriAuthor(rs3.getString("uri_name"));
-				}
-				else
-				{
-					p.setAuthor("Anonymous");
-					p.setUriAuthor("anonymous");
-				}
-			}
-			
-			//System.out.println(results.size()+" result(s) found.");
 			
 			servletRequest.setAttribute("results", results);
 			
@@ -169,11 +136,11 @@ public class ViewPostsAction extends ActionSupport implements UserAware, Servlet
 		this.user = user;		
 	}
 
-	public ArrayList<Post> getResults() {
+	public ArrayList<Author> getResults() {
 		return results;
 	}
 
-	public void setResults(ArrayList<Post> results) {
+	public void setResults(ArrayList<Author> results) {
 		this.results = results;
 	}
 }

@@ -39,9 +39,9 @@
 			<div id="page-content" class="w3-col m8 w3-container w3-padding">
 				
 				<% if(request.getAttribute("banner")!=null && !request.getAttribute("banner").toString().isEmpty()) { %>
-				<div class="w3-padding-0 w3-card w3-animate-opacity w3-margin-0" style="overflow: hidden; position: relative; height: 200px;">
-					<img style="width: 100%; top: -50%; position: absolute;" alt="Photo for <s:property value="title" />" title="<s:property value="bannerCaption" />" src="<s:property value="banner" />">
-					<p class="footnote w3-small"><s:property value="bannerCaption" /></p>
+				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
+					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for <s:property value="title" />" title="<s:property value="bannerCaption" />" src="<s:property value="banner" />">
+					<p class="footnote w3-tiny"><s:property value="bannerCaption" /></p>
 				</div>
 				<% } %>
 				

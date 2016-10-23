@@ -63,11 +63,15 @@ public class BlogSearchAction extends ActionSupport implements ArchiveAware, Rec
 			st = conn.createStatement();
 			
 			// get author list
-			ResultSet rs = st.executeQuery("select uri_name, name from users;");
+			ResultSet rs = st.executeQuery("select user_id, name, uri_name from users;");
 			authorOptions = new ArrayList<Author>();
 			while(rs.next())
 			{
-				authorOptions.add(new Author(rs.getString("uri_name"),rs.getString("name")));
+				authorOptions.add(new Author(
+						rs.getInt("user_id"),
+						rs.getString("uri_name"),
+						rs.getString("name"),
+						null));
 			}
 			rs.close();
 			
