@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.bean.ArchiveAware;
+import org.rw.bean.Author;
 import org.rw.bean.Post;
 import org.rw.bean.RecentViewAware;
 import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -32,20 +32,9 @@ public class ViewHomeAction extends ActionSupport implements ArchiveAware, Recen
 
 	private static final long serialVersionUID = 1L;
 	
-	// post parameters
-	private String title;
-	private String uriName;
-	private String createDate;
-	private String modifyDate;
-	private String author;
-	private boolean visible;
-	private boolean featured;
-	private String thumbnail;
-	private String banner;
-	private String bannerCaption;
-	private String htmlContent;
-	private String description;
-	private ArrayList<String> tags;
+	// results
+	private ArrayList<Post> posts = new ArrayList<Post>();
+	private ArrayList<Author> authors = new ArrayList<Author>();
 	
 	public String execute() {
 		
@@ -55,91 +44,90 @@ public class ViewHomeAction extends ActionSupport implements ArchiveAware, Recen
 			System.err.println("Failed to set UTF-8 request encoding.");
 		}
 		
-		// this page shows the newest blog post
-
-		// search in db for post by title
+		// /home
+		
+		// this shows 3 recent blog posts
+		System.out.println("User has requested to view home.");
 		Connection conn = null;
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select * from posts where is_visible <> 0 order by create_date desc limit 1");
+			ResultSet rs = st.executeQuery("select p.post_id, p.user_id, p.title, p.uri_name, p.is_visible, p.create_date, p.modify_date, p.thumbnail, p.banner, p.banner_caption, p.is_featured, p.description from posts p where is_visible <> 0 order by p.create_date desc limit 7");
 			
-			if(rs.first()) {
+			while(rs.next()) {
+				
 				// get the post properties
 				int post_id = rs.getInt("post_id");
-				title = rs.getString("title");
-				uriName = rs.getString("uri_name");
-				createDate = ApplicationStore.formatReadableDate(rs.getDate("create_date"));
-				modifyDate = ApplicationStore.formatReadableDate(rs.getDate("modify_date"));
-				author = "Austin Delamar";
-				visible = rs.getInt("is_visible") > 0;
-				featured = rs.getInt("is_featured") > 0;
-				thumbnail= rs.getString("thumbnail");
-				banner = rs.getString("banner");
-				bannerCaption = rs.getString("banner_caption");
-				htmlContent = rs.getString("html_content");
-				description = rs.getString("description");
+				String post_title = rs.getString("title");
+				Date create_date = rs.getDate("create_date");
+				String post_uri_name = rs.getString("uri_name");
 				
-				ResultSet rs2 = st.executeQuery("select * from tags where post_id = "+post_id);
+				// save info into an object
+				Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
+				post.setAuthorId(rs.getInt("user_id"));
+				post.setDescription(rs.getString("description"));
+				//post.setHtmlContent(rs.getString("html_content"));
+				post.setIs_visible(rs.getInt("is_visible")==1);
+				post.setIsFeatured(rs.getInt("is_featured")==1);
+				post.setModifyDate(rs.getDate("modify_date"));
+				post.setThumbnail(rs.getString("thumbnail"));
+				post.setBanner(rs.getString("banner"));
+				post.setBannerCaption(rs.getString("banner_caption"));
 				
-				// get post tags - there could be more than 1
-				tags = new ArrayList<String>();
-				while(rs2.next()) {
-					tags.add(rs2.getString("tag_name"));
-				}
+				// add to results list
+				posts.add(post);
 			}
 			
-			// was post found AND is it publicly visible yet?
-			if(title != null && isVisible())
+			// gather tags
+			for(Post p : posts)
 			{
-				// success
-				System.out.println("User opened home: "+title);
+				ResultSet rs2 = st.executeQuery("select * from tags where post_id = "+p.getId());
 				
-				// set attributes				
-				servletRequest.setAttribute("title", title);
-				servletRequest.setAttribute("uriName", uriName);
-				servletRequest.setAttribute("author", author);
-				servletRequest.setAttribute("thumbnail", thumbnail);
-				servletRequest.setAttribute("banner", banner);
-				servletRequest.setAttribute("bannerCaption", bannerCaption);
-				servletRequest.setAttribute("htmlContent", htmlContent);
-				servletRequest.setAttribute("description", description);
-				servletRequest.setAttribute("tags", tags);
-				servletRequest.setAttribute("createDate", createDate);
-				servletRequest.setAttribute("modifyDate", modifyDate);
+				// get this post's tags - there could be more than 1
+				ArrayList<String> post_tags = new ArrayList<String>();
+				while(rs2.next()) {
+					post_tags.add(rs2.getString("tag_name"));
+				}
+				p.setTags(post_tags);
 				
-				// Remember the most recently viewed articles/posts using cookies
-				Cookie ck = getCookie("recent-view");
-				if(ck != null && !ck.getValue().isEmpty())
+				ResultSet rs3 = st.executeQuery("select name, uri_name from users where user_id = "+p.getAuthorId());
+				if(rs3.next())
 				{
-					// Put them into a hashset so we don't have duplicates
-					HashSet<String> hs = new HashSet<String>();
-					String[] ckv = ck.getValue().split("\\|");
-					for(String uri : ckv)
-					{
-						hs.add(uri);
-					}
-					hs.add(uriName);
-					ckv = (String[]) hs.toArray(new String[hs.size()]);
-					for(String uri : ckv)
-					{
-						ck.setValue(ck.getValue()+"|"+uri);
-					}
-					setCookie("recent-view",ck.getValue());
+					p.setAuthor(rs3.getString("name"));
+					p.setUriAuthor(rs3.getString("uri_name"));
 				}
 				else
-					setCookie("recent-view",uriName);
-				
-				// forward to appropriate JSP page
-				//servletRequest.getRequestDispatcher("/WEB-INF/post/post.jsp").forward(servletRequest, servletResponse);
-				
-				return Action.SUCCESS;
+				{
+					p.setAuthor("Anonymous");
+					p.setUriAuthor("anonymous");
+				}
 			}
-			else
-			{
-				addActionError("Post '"+uriName+"' not found. Please try again.");
-				return Action.NONE;
+			servletRequest.setAttribute("posts", posts);
+			
+			// gather authors
+			ResultSet rs2 = st.executeQuery("select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a order by a.create_date desc limit 3");
+			
+			while(rs2.next()) {
+				
+				// get the user properties
+				int user_id = rs2.getInt("user_id");
+				String name = rs2.getString("name");
+				Date create_date = rs2.getDate("create_date");
+				String uri_name = rs2.getString("uri_name");
+				
+				// save info into an object
+				Author author = new Author(user_id,uri_name,name,create_date);
+				author.setDescription(rs2.getString("description"));
+				author.setModifyDate(rs2.getDate("modify_date"));
+				author.setThumbnail(rs2.getString("thumbnail"));
+				
+				// add to results list
+				authors.add(author);
 			}
+			
+			servletRequest.setAttribute("authors", authors);
+			
+			return SUCCESS;
 		
 		} catch (Exception e) {
 			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
@@ -150,7 +138,6 @@ public class ViewHomeAction extends ActionSupport implements ArchiveAware, Recen
 				conn.close();
 			} catch (SQLException e) {/*Do Nothing*/}
 		}
-	
 	}
 	
 	/**
@@ -205,108 +192,10 @@ public class ViewHomeAction extends ActionSupport implements ArchiveAware, Recen
 		
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getUriName() {
-		return uriName;
-	}
-
-	public void setUriName(String uriName) {
-		this.uriName = uriName;
-	}
-
-	public String getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-	
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
-	public boolean isFeatured() {
-		return featured;
-	}
-
-	public void setFeatured(boolean featured) {
-		this.featured = featured;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	public String getBanner() {
-		return banner;
-	}
-
-	public void setBanner(String banner) {
-		this.banner = banner;
-	}
-
-	public String getBannerCaption() {
-		return bannerCaption;
-	}
-
-	public void setBannerCaption(String bannerCaption) {
-		this.bannerCaption = bannerCaption;
-	}
-
-	public String getHtmlContent() {
-		return htmlContent;
-	}
-
-	public void setHtmlContent(String htmlContent) {
-		this.htmlContent = htmlContent;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ArrayList<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(ArrayList<String> tags) {
-		this.tags = tags;
+	@Override
+	public void setRecent_view(ArrayList<Post> recent_view) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -321,9 +210,19 @@ public class ViewHomeAction extends ActionSupport implements ArchiveAware, Recen
 		
 	}
 
-	@Override
-	public void setRecent_view(ArrayList<Post> recent_view) {
-		// TODO Auto-generated method stub
-		
+	public ArrayList<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(ArrayList<Post> posts) {
+		this.posts = posts;
+	}
+
+	public ArrayList<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(ArrayList<Author> authors) {
+		this.authors = authors;
 	}
 }

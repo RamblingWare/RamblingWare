@@ -26,6 +26,34 @@
 				<h1><font class="footnote w3-right">Mar 12th, 2014</font>
 				About</h1>
 				
+				
+				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.<br />
+				<br />
+				For more info, check out this recent post: <a href="http://www.ramblingware.com/blog/post/problems-with-building-your-own-blogsite">Problems with building your own blogsite.</a>
+				</p>
+				<br />
+				<p class="warning">Sorry! This page is still under construction.</p>
+				<br />
+				<div class="w3-row" style="min-height:0px">
+				<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
+					<a href="/author/austin-delamar">
+					<div class="w3-col s3 m3 l3 w3-padding-16">
+						<img class="w3-round w3-margin-left" style="width: 40px; height: 40px" alt="Profile Picture" src="/img/author/AustinDelamar-small.jpg">
+					</div>
+					<div class="w3-col s9 m9 l9 w3-padding-16">
+						<p class="footnote w3-padding-right">
+						<b>Austin Delamar</b><br />
+						<span class="w3-small">
+						Java Developer, Burger &amp; Beer enthusiast, and Owner of RamblingWare.
+						When Austin's not at his computer, he likes to relax outdoors, play tennis,
+						snow ski, play guitar, and talk about himself in third-person.</span> 
+						</p>
+					</div>
+					</a>
+				</div>
+				</div>
+				
+				<!--
 				<div class="w3-container w3-padding">
 				<p>
 					<img class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height: 200px" alt="Profile Picture" src="/img/author/AustinDelamar.jpg">
@@ -87,12 +115,11 @@
 					<button class="w3-btn w3-round w3-light-blue" onclick="window.location.href='https://twitter.com/AustinDelamar'">Twitter</button>
 					</p>
 				</div>
+				-->
 				<br />
 				<br />
 				<div class="w3-container">
-					
 					<p class="footnote quote">Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.</p>
-					
 				</div>
 				<%! int hits = 1; %>
 				<!-- About JSP Hits: <%=hits++ %>  -->

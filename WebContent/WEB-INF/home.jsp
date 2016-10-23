@@ -43,13 +43,13 @@
 				<br />
 				<br />
 				<h2>Blog Posts</h2>
-				<s:if test="results != null">
-				<s:if test="results.isEmpty()">
+				<s:if test="posts != null">
+				<s:if test="posts.isEmpty()">
 					<p class="footnote">Something went wrong because no results were found. Please try again later?</p>
 				</s:if>
 				<s:else>
 					<div class="w3-row" style="min-height:0px">
-					<s:iterator value="results" status="r">
+					<s:iterator value="posts" status="r">
 					
 					<s:if test="#r.index < 3">
 						<div class="w3-col s6 m4 l4 w3-padding-left w3-padding-right">
@@ -65,7 +65,7 @@
 					</s:iterator>
 					
 					<div class="w3-col s6 m12 l12 w3-padding-left w3-padding-right w3-center">
-						<p><a class="w3-btn w3-border w3-theme-light w3-round" href="/blog" style="white-space: pre-wrap;">See more blog posts...</a></p>
+						<p><a class="w3-btn w3-border w3-theme-l3  w3-hover-light-grey w3-hover-shadow w3-round" href="/blog" style="white-space: pre-wrap;">See more blog posts...</a></p>
 					</div>
 					
 					</div>					
@@ -76,26 +76,37 @@
 				<!-- AUTHORS START -->
 				<br />
 				<br />
-				<h2>Author</h2>
-				<div class="w3-row" style="min-height:0px">
-				<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
-					<a href="/about">
-					<div class="w3-col s3 m3 l3 w3-padding-16">
-						<img class="w3-round w3-margin-left" style="width: 40px; height: 40px" alt="Profile Picture" src="/img/author/AustinDelamar-small.jpg">
-					</div>
-					<div class="w3-col s9 m9 l9 w3-padding-16">
-						<p class="footnote w3-padding-right">
-						<b>Austin Delamar</b><br />
-						<span class="w3-small">
-						Java Developer, Burger &amp; Beer enthusiast, and Owner of RamblingWare.
-						When Austin's not at his computer, he likes to relax outdoors, play tennis,
-						snow ski, play guitar, and talk about himself in third-person.</span> 
-						</p>
-					</div>
-					</a>
-				</div>
-								
-				</div>
+				<h2>Authors</h2>
+				
+				<s:if test="authors != null">
+				<s:if test="authors.isEmpty()">
+					<p class="footnote">Something went wrong because no results were found. Please try again later?</p>
+				</s:if>
+				<s:else>
+					<div class="w3-row" style="min-height:0px">
+					<s:iterator value="authors" status="r">
+					
+					<s:if test="#r.index < 3">
+						<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
+							<a href="/author/<s:property value="uriName" />">
+							<span class="w3-col s3 m3 l3 w3-padding-16">
+								<img class="w3-round w3-margin-left" style="width: 40px; height: 40px" alt="Profile Picture" src="<s:property value="thumbnail" />">
+							</span>
+							<span class="w3-col s9 m9 l9 w3-padding-16">
+								<span class="footnote w3-padding-right">
+								<b><s:property value="Name" /></b><br />
+								<span class="w3-small"><s:property value="description" /></span> 
+								</span>
+							</span>
+							</a>						
+						</div>
+					</s:if>
+					
+					</s:iterator>					
+					
+					</div>					
+				</s:else>
+				</s:if>
 				<!-- AUTHORS END -->
 				
 				<br />
