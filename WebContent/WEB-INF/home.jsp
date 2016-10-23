@@ -35,7 +35,7 @@
 					</s:iterator>
 				</s:if>
 				
-				<h1>Welcome</h1>
+				<h1>Welcome!</h1>
 				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</p>
 				
 				

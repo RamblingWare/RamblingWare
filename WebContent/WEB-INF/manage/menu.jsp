@@ -57,10 +57,13 @@
 				</p>
 				
 				<hr />
-				<h3>Manage Admins</h3>
-				<a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/newuser">Register New Administrator</a>
-				<span>&nbsp;</span>
-				<a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/users">View/Edit Administrators</a>
+				<h3>Manage Authors</h3>
+				<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newuser">Add New Author</a>
+				<span class="footnote">Add a new Author!</span>
+				</p>
+				<p><a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/users">View/Edit Authors</a>
+				<span class="footnote">Modify current Authors.</span>
+				</p>
 				<hr />
 				
 				
