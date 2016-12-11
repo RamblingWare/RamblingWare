@@ -107,13 +107,22 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 					rs1.next();
 					int post_id = rs1.getInt(1);
 					System.out.println("Tags: "+tags);
-					String tempTags = tags.substring(1,tags.length()-1);
+					
+					String tempTags = tags;
+					
+					// chop off [ ] if they added them
+					if(tags.startsWith("["))
+						tempTags = tempTags.substring(1,tags.length());
+					if(tags.endsWith("]"))
+						tempTags = tempTags.substring(0,tags.length()-1);
+					
 					System.out.println("TempTags: "+tempTags);
-					String[] tagsArray = tempTags.split(",\\s");
+					String[] tagsArray = tempTags.split(",");
 					
 					String qry = "insert into tags (post_id,tag_name) values ";
 					for(String t : tagsArray) {
-						qry+="("+post_id+",'"+t+"'),";
+						if(!t.trim().isEmpty())
+							qry+="("+post_id+",'"+t.trim()+"'),";
 					}
 					qry = qry.substring(0, qry.length()-1); // remove last comma
 					

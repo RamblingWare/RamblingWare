@@ -29,16 +29,22 @@
 				
 				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.<br />
 				<br />
+				I cover topics around web development and programming. Sometimes security, operating systems, and more.<br />
+				<br />
+				I hope you enjoy reading, and leave a comment if you like! Thanks.
+				<br />
+				<br />
+				<br />
 				For more info, check out this recent post: <a href="http://www.ramblingware.com/blog/post/problems-with-building-your-own-blogsite">Problems with building your own blogsite.</a>
 				</p>
 				<br />
-				<p class="warning">Sorry! This page is still under construction.</p>
 				<br />
+				<h2>About the Author</h2>
 				<div class="w3-row" style="min-height:0px">
 				<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
 					<a href="/author/austin-delamar">
 					<div class="w3-col s3 m3 l3 w3-padding-16">
-						<img class="w3-round w3-margin-left" style="width: 40px; height: 40px" alt="Profile Picture" src="/img/author/AustinDelamar-small.jpg">
+						<img class="w3-round w3-margin-left" style="width: 40px; height: 40px" alt="Profile Picture" src="https://i.imgur.com/21fYx3ks.jpg">
 					</div>
 					<div class="w3-col s9 m9 l9 w3-padding-16">
 						<p class="footnote w3-padding-right">

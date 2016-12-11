@@ -4,7 +4,7 @@
 	
 	<div class="w3-right w3-dropdown-hover">
 		<button class="w3-card w3-round w3-theme-light w3-hover-shadow w3-padding-4 footnote">
-			<img class="w3-round" src="/img/author/<s:property value="#session.USER.getUri_name()"/>-small.jpg" style="width:24px; height:24px;" />
+			<img class="w3-round" src="https://i.imgur.com/21fYx3ks.jpg" style="width:24px; height:24px;" />
 			&nbsp;<s:property value="#session.USER.getFirstName()"/>
 		</button>
    		<div class="w3-dropdown-content w3-white w3-card-4">

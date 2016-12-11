@@ -50,7 +50,7 @@ public class ViewBlogAction extends ActionSupport implements ArchiveAware, Recen
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select p.post_id, p.user_id, p.title, p.uri_name, p.is_visible, p.create_date, p.modify_date, p.thumbnail, p.banner, p.banner_caption, p.is_featured, p.description from posts p where is_visible <> 0 order by p.create_date desc limit 7");
+			ResultSet rs = st.executeQuery("select p.post_id, p.user_id, p.title, p.uri_name, p.is_visible, p.create_date, p.modify_date, p.thumbnail, p.banner, p.banner_caption, p.is_featured, p.description from posts p where is_visible <> 0 order by p.create_date desc limit 10");
 			
 			while(rs.next()) {
 				

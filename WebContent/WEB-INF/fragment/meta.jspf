@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
 <meta name="twitter:image" content="http://www.ramblingware.com/img/favicon-large.png">
 
-<link rel="icon" type="image/png" href="/img/favicon.png">
-<link rel="stylesheet" href="/css/ramblingware.css?v=1.7">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/ramblingware.css?v=1.8">
 <link rel="stylesheet" href="/css/w3.css">
 <link rel="stylesheet" href="/css/w3-theme-grey.css">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"> 

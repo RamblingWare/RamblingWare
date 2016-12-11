@@ -48,35 +48,6 @@
 				</p>
 				</div>
 					
-				<div class="w3-padding w3-container w3-small">
-					<div class="w3-third w3-padding-8">
-						<h3>I specialize in:</h3>
-						<ul>
-							<li>Java EE Programming</li>
-							<li>WebSphere Application Server</li>
-							<li>DB2 Database</li>
-						</ul>
-					</div>
-					<div class="w3-third w3-padding-8">
-						<h3>Favorite Quote:</h3>
-						<p class="quote">"Efficiency is doing things right;<br />effectiveness is doing the right things."<br /><br />-&nbsp;Peter Drucker</p>
-					</div>
-					<div class="w3-third w3-padding-8">
-						<h3>Most Recent Work:</h3>
-						<p>I'm currently supporting multiple J2EE web applications as the lead developer, at IBM.</p>
-					</div>
-				</div>
-				
-				<div class="w3-container w3-padding">
-					<h3>Contact:</h3>
-					<p>
-					<button class="w3-btn w3-round w3-theme-dark" onclick="window.location.href='mailto:austin.delamar@gmail.com'">Email</button> 
-					&nbsp;&nbsp;
-					<button class="w3-btn w3-round w3-blue" onclick="window.location.href='https://www.linkedin.com/in/austindelamar'">LinkedIn</button>
-					&nbsp;&nbsp;
-					<button class="w3-btn w3-round w3-light-blue" onclick="window.location.href='https://twitter.com/AustinDelamar'">Twitter</button>
-					</p>
-				</div>
 				<br />
 				<br />
 				<div class="w3-container">

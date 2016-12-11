@@ -1,6 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!-- Large Screens Menu -->
-<div id="tabs" class="w3-col m2 w3-hide-medium w3-hide-small">
+<div id="tabs" class="w3-col m2 w3-hide-medium w3-hide-small no-print">
 	<ul>
 		<s:if test="#session.USER != null">
 		<%--ADMINISTRATOR MENU LINKS --%>
@@ -24,7 +24,7 @@
 	</ul>
 </div>
 <!-- Tablet and Small Screens Menu -->
-<div id="menu" class="w3-col w3-hide-large">
+<div id="menu" class="w3-col w3-hide-large no-print">
 	<ul>
 		<s:if test="#session.USER != null">
 		<%--ADMINISTRATOR MENU LINKS --%>

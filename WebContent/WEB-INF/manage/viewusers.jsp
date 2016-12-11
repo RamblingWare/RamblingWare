@@ -40,6 +40,10 @@
 					</s:iterator>
 				</s:if>
 				
+				<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newuser">Add New Author</a>
+				<span class="footnote">Add a new Author!</span>
+				</p>
+				
 				<!-- RESULTS START -->
 				<s:if test="results != null">
 				<s:if test="results.isEmpty()">

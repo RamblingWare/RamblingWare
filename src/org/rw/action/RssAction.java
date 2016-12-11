@@ -83,6 +83,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 				
 				response += "<item><title>"+post.getTitle()+"</title>"+
 						"<description>"+post.getDescription()+"</description>"+
+						"<pubDate>"+post.getCreateDateReadable()+"</pubDate>"+
 						"<link>http://www.ramblingware.com/blog/post/"+post.getUriName()+"</link>"+
 						"</item>";
 			}

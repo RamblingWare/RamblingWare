@@ -40,6 +40,14 @@
 					</s:iterator>
 				</s:if>
 				
+				<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newpost">Create New Post</a> 
+				<span class="footnote">Make a new blog post!</span>
+				</p>
+				<p>
+				<a class="w3-btn w3-card w3-round w3-blue w3-hover-text-white w3-small" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Disqus Comments</a>
+				<span class="footnote">Manage comments on blog posts using Disqus.</span>
+				</p>
+				
 				<!-- RESULTS START -->
 				<s:if test="results != null">
 				<s:if test="results.isEmpty()">

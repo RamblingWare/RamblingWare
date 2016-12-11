@@ -54,15 +54,15 @@
 				<% out.print(request.getAttribute("htmlContent")); %>
 				
 				<hr />
-				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity">
-				<div class="w3-col s12 m6 l6 w3-padding-16">
-				<img class="w3-round w3-margin-left w3-margin-right w3-left" style="width: 40px; height: 40px" alt="Profile Picture" src="/img/author/AustinDelamar-small.jpg">
-				<p class="footnote w3-left w3-small">
+				<div class="w3-container w3-padding w3-margin-0 w3-animate-opacity">
+				<div class="w3-col s12 m6 l6 w3-padding-left">
+				<img class="w3-round w3-margin-left w3-left" style="width: 40px; height: 40px" alt="Profile Picture" src="https://i.imgur.com/21fYx3ks.jpg">
+				<p class="footnote w3-left w3-small w3-padding w3-padding-left">
 				<b>Author:</b> <s:property value="author" /><br />
 				<a href="/blog">View more posts by this author.</a>
 				</p>
 				</div>
-				<div class="w3-col s12 m6 l6 w3-padding-16">
+				<div class="w3-col s12 m6 l6 w3-padding-left">
 				<p class="footnote w3-small">
 					<b>Published:</b> <s:property value="createDate" />
 				</p>
@@ -75,7 +75,7 @@
 				</div></div>
 				<hr />				
 				
-				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity">
+				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity no-print">
 					<div class="w3-col s12 m6 l6 w3-padding-16 w3-center">
 					
 						<div class="w3-col s12 m6 l5 w3-padding-4">
@@ -89,6 +89,10 @@
 						<a title="Share on Facebook" 
 						target="_Blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
 						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-facebook.png" alt="Facebook" /></a>				
+						
+						<a title="Share on Twitter" 
+						target="_Blank" href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
+						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-twitter.png" alt="Twitter" /></a>
 						
 						<a title="Share on LinkedIn"
 						 target="_Blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
@@ -157,7 +161,7 @@
 		</div>
 		
 		<!-- COMMENTS BEGIN -->
-		<div class="page w3-row">
+		<div class="page w3-row no-print">
 			<div id="comments-left" class="w3-col m2 w3-hide-medium w3-hide-small w3-padding"></div>
 			<div id="comments" class="w3-col m8 w3-container w3-padding">
 			<br />

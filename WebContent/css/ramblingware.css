@@ -3,6 +3,10 @@
  * Author: Austin Delamar
  * Date: 11/19/2015
  */
+ @media print {
+ 	.no-print { display: none; }
+ }
+
 .info, .success, .warning, .error, .validation {
     border: 1px solid;
     margin: 10px 0px;
@@ -299,6 +303,9 @@ footer h2 {
 	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
+}
+#page-content {
+	word-wrap: break-word;
 }
 .page-half {
 	max-width: 800px;

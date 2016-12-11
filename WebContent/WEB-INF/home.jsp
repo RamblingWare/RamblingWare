@@ -45,30 +45,41 @@
 				<h2>Blog Posts</h2>
 				<s:if test="posts != null">
 				<s:if test="posts.isEmpty()">
-					<p class="footnote">Something went wrong because no results were found. Please try again later?</p>
+					<p class="footnote">Something went wrong because no posts were found. Please try again later?</p>
 				</s:if>
 				<s:else>
 					<div class="w3-row" style="min-height:0px">
 					<s:iterator value="posts" status="r">
 					
-					<s:if test="#r.index < 3">
-						<div class="w3-col s6 m4 l4 w3-padding-left w3-padding-right">
-						<div class="w3-display-container w3-margin-0 w3-padding-0 w3-round w3-hover-shadow w3-card w3-center" style="min-height: 150px; max-height: 150px; overflow: hidden;">
+						<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
+						
+						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
 							<a href="/blog/post/<s:property value="uriName" />">
-								<img alt="Thumbnail" class="w3-margin-0 w3-round w3-padding-0" style="width:100%;" src="<s:property value="thumbnail" />">
-								<span class="w3-theme-light w3-padding-4 bottomright" style="width: 100%;"><s:property value="title" /></span>
+							<img style="max-height:200px;" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="Blog post photo." />
 							</a>
 						</div>
+						
+						<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
+						<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/post/<s:property value="uriName" />"><s:property value="title" /></a></h3>
+						<p class="footnote"><s:property value="description" /></p>
+						<p class="footnote"><br /><s:property value="author" />&nbsp;|&nbsp;<s:property value="createDateReadable" /></p>
+						<p class="footnote"><b>Tags:</b>&nbsp;
+						<s:if test="tags != null && !tags.isEmpty()">
+							<s:iterator value="tags">
+								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
+							</s:iterator>
+						</s:if>
+						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></span>
+						</p>
 						</div>
-					</s:if>
-					
+						</div><br />
 					</s:iterator>
 					
 					<div class="w3-col s6 m12 l12 w3-padding-left w3-padding-right w3-center">
 						<p><a class="w3-btn w3-border w3-theme-l3  w3-hover-light-grey w3-hover-shadow w3-round" href="/blog" style="white-space: pre-wrap;">See more blog posts...</a></p>
 					</div>
 					
-					</div>					
+					</div>
 				</s:else>
 				</s:if>
 				<!-- BLOG POSTS END -->
@@ -76,7 +87,7 @@
 				<!-- AUTHORS START -->
 				<br />
 				<br />
-				<h2>Authors</h2>
+				<h2>About the Author</h2>
 				
 				<s:if test="authors != null">
 				<s:if test="authors.isEmpty()">

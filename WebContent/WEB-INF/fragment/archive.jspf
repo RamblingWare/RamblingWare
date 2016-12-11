@@ -1,5 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="archive" class="w3-col m2">
+<div id="archive" class="w3-col m2 no-print">
 	<div class="w3-container w3-hide-small">
 		<h3>Featured</h3>
 		

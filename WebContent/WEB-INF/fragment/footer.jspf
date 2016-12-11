@@ -1,19 +1,15 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <footer>
-<div class="w3-container w3-padding-16 w3-theme-l4 w3-border-top w3-border-bottom">
-  
-  	<h3>Map</h3>
+<div class="w3-container w3-padding-16 w3-theme-l4 w3-border-top w3-border-bottom no-print">
+
 	<ul>
 		<li><a href="/">Home</a></li>
 		<li><span>|</span></li>
 		<li><a href="/blog">Blog</a></li>
 		<li><span>|</span></li>
-		<li><a href="/about">About</a></li>
-	</ul>
-	<ul class="small">
 		<li><a href="/blog/search">Search</a></li>
 		<li><span>|</span></li>
-		<li><a href="/search?s=">DuckDuckGo Search</a></li>
+		<li><a href="/about">About</a></li>
 	</ul>
 	<br />
 	<ul>
@@ -24,8 +20,8 @@
 	
 	<br />
 	
-	<p class="w3-tiny thin">&#169; Austin Delamar - 2015, 2016</p>
-	<p class="w3-tiny thin">Last Updated: 10/23/2016</p>
+	<p class="w3-tiny thin">&#169; Austin Delamar - 2016</p>
+	<p class="w3-tiny thin">Last Updated: 12/11/2016</p>
 	
 	<script id="dsq-count-scr" src="//ramblingware.disqus.com/count.js" async></script>
   
@@ -39,18 +35,17 @@
 </s:if>
 <%-- END OF ALERT POPUP --%>
 
-<div class="w3-container w3-padding-16 w3-theme-dark">
+<div class="w3-container w3-padding-16 w3-theme-dark no-print">
 	<div class="page w3-small">
 	<div class="w3-left">
 		<span>
-		<a href="/terms">Terms of use</a> |
-		<a href="/privacy-policy">Privacy Policy</a> |
-		<a target="_Blank" href="https://github.com/RamblingWare/RamblingWare">source code</a> |
-		<a target="_Blank" href="https://validator.w3.org/nu/?doc=http%3A%2F%2Fwww.ramblingware.com%2F">html5 verified</a>
+		<a href="/terms">Terms</a> |
+		<a href="/privacy-policy">Privacy</a> |
+		<a target="_Blank" href="https://github.com/RamblingWare/RamblingWare">Source Code</a>
 		</span>
 	</div>
 	<div class="w3-right">
-		<span>Hosted by <a target="_Blank" href="http://www.bluemix.net/">IBM Bluemix</a></span>
+		<span>Hosted on <a target="_Blank" href="http://www.bluemix.net/">IBM Bluemix</a></span>
 	</div>
 	</div>
 </div>

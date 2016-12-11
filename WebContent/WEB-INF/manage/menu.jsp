@@ -40,34 +40,38 @@
 					</s:iterator>
 				</s:if>
 				
+				
+				<div class="w3-row">
+					<div class="w3-col l6 m6 s12">
+						<h3>Manage Blog Posts</h3>
+						<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newpost">Create New Post</a> 
+						<span class="footnote">Make a new blog post!</span>
+						</p>
+						<p>
+						<a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/posts">View/Edit Posts</a>
+						<span class="footnote">Modify current blog posts.</span>
+						</p>
+						<p>
+						<a class="w3-btn w3-card w3-round w3-blue w3-hover-text-white w3-small" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Disqus Comments</a>
+						<span class="footnote">Manage comments using Disqus.</span>
+						</p>
+					</div>
+					<div class="w3-col l6 m6 s12">
+						<h3>Manage Authors</h3>
+						<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newuser">Add New Author</a>
+						<span class="footnote">Add a new Author!</span>
+						</p>
+						<p><a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/users">View/Edit Authors</a>
+						<span class="footnote">Modify current Authors.</span>
+						</p>
+					</div>				
+				</div>
+				
+				
 				<hr />
+							
 				
-				
-				<h3>Manage Blog</h3>
-				<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newpost">Create New Post</a> 
-				<span class="footnote">Make a new blog post!</span>
-				</p>
-				<p>
-				<a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/posts">View/Edit Posts</a>
-				<span class="footnote">Modify current blog posts.</span>
-				</p>
-				<p>
-				<a class="w3-btn w3-card w3-round w3-blue w3-hover-text-white w3-small" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Disqus Comments</a>
-				<span class="footnote">Manage comments on blog posts using Disqus.</span>
-				</p>
-				
-				<hr />
-				<h3>Manage Authors</h3>
-				<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newuser">Add New Author</a>
-				<span class="footnote">Add a new Author!</span>
-				</p>
-				<p><a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/users">View/Edit Authors</a>
-				<span class="footnote">Modify current Authors.</span>
-				</p>
-				<hr />
-				
-				
-				<h3>Webapp Statistics</h3>
+				<h3>Application Statistics</h3>
 				<table class="w3-table-all w3-small">
 					<tr class="w3-light-green">
 						<th>Property</th>
