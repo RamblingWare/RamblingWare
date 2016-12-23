@@ -9,6 +9,7 @@ ehthumbs.db
 .project
 .class
 .apt_generated
+build/
 
 # Folder config file
 Desktop.ini
