@@ -135,7 +135,7 @@ public class ApplicationStore implements ServletContextListener {
 		System.out.println("Starting EmailDaemon service.");
 		emailQueue = new ArrayList<Email>();
 		emailService = new EmailDaemon(Integer.parseInt(getSetting("emailServiceWaitInterval")));
-		emailService.execute();
+		//emailService.execute();
 		
 		// webapp ready
 		startDateTime = (READABLEDATETIMEFORM.format(new Date(System.currentTimeMillis())));
@@ -193,23 +193,6 @@ public class ApplicationStore implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {		
-		// save the settings back to the application.properties file
-		// before the server is shutdown properly
-		try{
-			// put settings into properties file
-			Properties properties = new Properties();
-			System.out.println("Saving "+PROP_FILE);
-	
-			// get from map
-			for (String key : settingsMap.keySet()) {
-				properties.put(key, settingsMap.get(key));
-			}
-			
-			// save properties to project root folder
-			properties.store(new FileOutputStream(PROP_FILE), null);
-		} catch (IOException e) {
-			System.err.println(e);
-		}
 		System.out.println(this.getClass().getName()+" Destroyed.");
 	}
 

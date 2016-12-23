@@ -97,6 +97,12 @@
 .bold {
 	font-weight: 700 !important;
 }
+.uppercase {
+	text-transform: uppercase;
+}
+.lowercase {
+	text-transform: lowercase;
+}
 .tag {
 	text-decoration: none !important;
 	padding: 2px;
@@ -197,7 +203,7 @@ article {
 	padding-top: 0px;
 	padding-left: 0px;
 	padding-right: 0px;
-	padding-bottom: 0px;
+	padding-bottom: 40px;
 	margin-left: 0px;
     margin-right: 0px;
     margin-top: 0px;

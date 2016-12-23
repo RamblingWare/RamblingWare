@@ -28,7 +28,12 @@ public class AuthenticationInterceptor implements Interceptor {
 		{
 			System.out.println("Unknown user was redirected to login page.");
 			return Action.LOGIN;
-		} 
+		}
+		else if(user.isOTPEnabled() && !user.isOTPAuthenticated())
+		{
+			System.out.println("User "+user.getUsername()+" was redirected to OTP page.");
+			return Action.INPUT;
+		}
 		else 
 		{
 			Action action = (Action) actionInvocation.getAction();

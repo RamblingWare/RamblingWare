@@ -56,8 +56,8 @@
 				<s:else>
 					<p class="footnote"><s:property value="results.size()" /> result(s) found.</p>
 					<table class="w3-table-all">
-					<tr class="w3-theme-dark">
-						<th>&#9776;</th>
+					<tr class="w3-theme-dark uppercase">
+						<th></th>
 						<th>Title</th>
 						<th>Tags</th>
 						<th>Author</th>

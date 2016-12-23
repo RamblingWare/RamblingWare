@@ -49,7 +49,7 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select user_id, name, uri_name, email, create_date, modify_date, last_login_date from users order by create_date desc");
+			ResultSet rs = st.executeQuery("select user_id, name, thumbnail, uri_name, email, create_date, modify_date, last_login_date from users order by create_date desc");
 			
 			while(rs.next()) {
 				
@@ -61,6 +61,7 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 				
 				// save info into an object
 				Author author = new Author(user_id, uri_name, name, create_date);
+				author.setThumbnail(rs.getString("thumbnail"));
 				author.setEmail(rs.getString("email"));
 				author.setModifyDate(rs.getDate("modify_date"));
 				author.setLastLoginDate(rs.getDate("last_login_date"));

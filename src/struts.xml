@@ -48,6 +48,7 @@
 
 		<global-results>
 			<result name="login">/WEB-INF/manage/login.jsp</result>
+			<result name="input">/WEB-INF/manage/otp.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</global-results>
 		
@@ -198,6 +199,10 @@
 			<result name="edit">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
+		<action name="settings" class="org.rw.action.manage.SettingsAction">
+			<result name="success">/WEB-INF/manage/settings.jsp</result>
+			<result name="error">/WEB-INF/manage/settings.jsp</result>
+		</action>		
 		
 		
 		<!-- LOGIN / LOGOUT ACTIONS -->
@@ -206,13 +211,22 @@
 			<result name="success" type="redirectAction">
 		        <param name="actionName">menu</param>
 		    </result>
+		    <result name="input">/WEB-INF/manage/otp.jsp</result>
 			<result name="error">/WEB-INF/manage/login.jsp</result>
 		</action>
 		
 		<action name="logout" class="org.rw.action.manage.LogoutAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/WEB-INF/message.jsp</result>
+			<result name="success" type="redirect">/</result>
 		</action>
+		
+		<action name="forgot" class="org.rw.action.manage.ForgotAction">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/WEB-INF/manage/forgot.jsp</result>
+		    <result name="none">/WEB-INF/manage/forgot.jsp</result>
+			<result name="error">/WEB-INF/manage/forgot.jsp</result>
+		</action>
+		
 		
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
 		<action name="*">

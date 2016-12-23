@@ -15,27 +15,15 @@ public class User {
 	private String username;
 	private String firstName;
 	private String uri_name;
+	private String thumbnail;
+	
 	private boolean isAdmin;
-	private boolean isSeller;
-	private boolean rememberMe;
+	private boolean isOTPEnabled;
+	private boolean isOTPAuthenticated;
+	
 	private Date lastLoginDate;
 	private Date createDate;
-
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
-	public boolean isSeller() {
-		return isSeller;
-	}
-
-	public void setSeller(boolean isSeller) {
-		this.isSeller = isSeller;
-	}
+	private Date modifyDate;
 
 	public String getUserId() {
 		return user_id;
@@ -84,13 +72,37 @@ public class User {
 	public void setUri_name(String uri_name) {
 		this.uri_name = uri_name;
 	}
-
-	public boolean isRememberMe() {
-		return rememberMe;
+	
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 
-	public void setRememberMe(boolean rememberMe) {
-		this.rememberMe = rememberMe;
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public boolean isOTPEnabled() {
+		return isOTPEnabled;
+	}
+
+	public void setOTPEnabled(boolean isOTPEnabled) {
+		this.isOTPEnabled = isOTPEnabled;
+	}
+
+	public boolean isOTPAuthenticated() {
+		return isOTPAuthenticated;
+	}
+
+	public void setOTPAuthenticated(boolean isOTPAuthenticated) {
+		this.isOTPAuthenticated = isOTPAuthenticated;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public Date getLastLoginDate() {
@@ -107,6 +119,14 @@ public class User {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 }

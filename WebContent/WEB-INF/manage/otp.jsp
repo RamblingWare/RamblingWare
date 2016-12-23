@@ -7,7 +7,7 @@
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 <!-- META_END -->
 </head>
-<body class="w3-theme-dark" onload="emailFocus()">
+<body class="w3-theme-dark">
 
 	<!-- HEADER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/header.jspf"%>
@@ -35,17 +35,19 @@
 				
 					<div class="w3-border w3-round w3-animate-opacity">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">Please Login</h3>
+							<h3 class="w3-margin-0 w3-padding uppercase">Two Factor Code</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
 						<form action="/manage/login" method="post">
+							<div class="w3-center">
+								<span class="w3-card-2 w3-round w3-theme-light w3-padding w3-large">
+								<img class="w3-round" src="<s:property value="#session.USER.getThumbnail()"/>" align="top" style="width:24px; height:24px;" />
+								&nbsp;<s:property value="#session.USER.getName()"/>
+								</span>
+							</div>
 							<p>   
-								<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:</label>
-								<input type="text" size="50" maxlength="100" name="username" id="username" value="<s:property value="username" />" required placeholder="" class="w3-input w3-round-large w3-border" />
-							</p>
-							<p>   
-								<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:</label>
-								<input type="password" size="50" maxlength="100" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
+								<label class="w3-validate w3-text-grey-light w3-large" for="code">Code:</label>
+								<input type="text" size="50" maxlength="100" name="code" id="code" value="" required placeholder="" maxlength="6" class="w3-input w3-round-large w3-xlarge w3-border" />
 							</p>
 							<hr />
 							<p>
@@ -56,8 +58,7 @@
 						</form>
 						
 							<p class="footnote w3-center">
-								<a href="/manage/forgot?type=username">Forgot Username?</a>&nbsp;|&nbsp; 
-								<a href="/manage/forgot?type=password">Forgot Password?</a>
+								<a href="/manage/forgot?type=twofactor">I need help!</a>
 							</p>
 						</div>
 					</div>

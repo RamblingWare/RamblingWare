@@ -4,6 +4,11 @@ ehthumbs.db
 
 # eclipse files
 .settings
+.classpath
+.factorypath
+.project
+.class
+.apt_generated
 
 # Folder config file
 Desktop.ini

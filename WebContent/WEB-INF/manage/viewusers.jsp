@@ -52,8 +52,8 @@
 				<s:else>
 					<p class="footnote"><s:property value="results.size()" /> result(s) found.</p>
 					<table class="w3-table-all">
-					<tr class="w3-theme-dark">
-						<th>&#9776;</th>
+					<tr class="w3-theme-dark uppercase">
+						<th></th>
 						<th>Author</th>
 						<th>Email</th>
 						<th>Added</th>
@@ -65,7 +65,11 @@
 						<tr>
 						<td><a href="/author/<s:property value="uriName" />">View</a>&nbsp;
 						<a href="/manage/edituser/<s:property value="uriName" />">Edit</a></td>
-						<td><a href="/author/<s:property value="uriName" />"><s:property value="name" /></a></td>
+						<td>
+							<a href="/author/<s:property value="uriName" />"><img class="w3-round" src="<s:property value="thumbnail" />" height="24px" width="24px" /></a>
+							&nbsp;
+							<a href="/author/<s:property value="uriName" />"><s:property value="name" /></a>
+						</td>
 						<td><s:property value="email" /></td>
 						<td><s:property value="createDateReadable" /></td>
 						<td><s:property value="modifyDateReadable" /></td>

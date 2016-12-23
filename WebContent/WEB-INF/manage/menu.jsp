@@ -72,27 +72,35 @@
 							
 				
 				<h3>Application Statistics</h3>
-				<table class="w3-table-all w3-small">
-					<tr class="w3-light-green">
-						<th>Property</th>
-						<th>Value</th>
-					</tr>
-					<tr><td>Start Time</td><td><s:property value="start" /></td></tr>
-					<tr><td>OS</td><td><s:property value="os" /></td></tr>
-					<tr><td>Java</td><td><s:property value="java" /></td></tr>
-					<tr><td>Max Memory</td><td><s:property value="maxMem" /> MB</td></tr>
-					<tr><td>Free Memory</td><td><s:property value="freeMem" /> MB</td></tr>
-					<tr><td>Total Memory</td><td><s:property value="totalMem" /> MB</td></tr>
-					<tr class="w3-light-green">
-						<td>Database Name</td>
-						<td>Size (MB)</td>
-					</tr>
+				<table class="w3-table-all">
+					<thead>
+						<tr class="w3-theme-dark uppercase">
+							<th width="33%">Property</th>
+							<th>Value</th>
+						</tr>
+					</thead><tbody>
+						<tr><td>Start Time</td><td><s:property value="start" /></td></tr>
+						<tr><td>OS</td><td><s:property value="os" /></td></tr>
+						<tr><td>Java</td><td><s:property value="java" /></td></tr>
+						<tr><td>Max Memory</td><td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="maxMem" /> MB</span></td></tr>
+						<tr><td>Free Memory</td><td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="freeMem" /> MB</span></td></tr>
+						<tr><td>Total Memory</td><td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="totalMem" /> MB</span></td></tr>
+					</tbody>
+				</table>
+				
+				<br/>
+				
+				<table class="w3-table-all">
+					<thead><tr class="w3-theme-dark uppercase">
+						<th width="33%" >Database Name</th>
+						<th>Size (MB)</th>
+					</tr></thead><tbody>
 					<s:iterator value="databases" status="d">
 					<tr>
-						<th><s:property value="name" /></th>
-						<th><s:property value="size" /> MB</th>
+						<td><s:property value="name" /></td>
+						<td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="size" /> MB</span></td>
 					</tr>
-					</s:iterator>
+					</s:iterator></tbody>
 				</table>
 				
 				<br />
