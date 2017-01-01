@@ -76,7 +76,7 @@ preview();
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 		
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
@@ -168,7 +168,7 @@ preview();
 					<s:else>
 					<p id="bannerDiv1" style="display:none" class="w3-animate-right">   
 						<label class="w3-validate w3-text-grey-light w3-large" for="banner">Banner Image URL:&nbsp;<span class="w3-text-red">*</span></label>
-						<input disabled="disabled" type="text" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="#request.post.banner" />" placeholder="http://imgur.com/image.png" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input disabled="disabled" type="text" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="#request.post.banner" />" placeholder="https://imgur.com/image.png" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
 					</p>
 					<p id="bannerDiv2" style="display:none" class="w3-animate-right">
 						<label class="w3-validate w3-text-grey-light w3-large" for="bannerCaption">Banner Caption/Credit:&nbsp;<span class="w3-text-red">*</span></label>
@@ -206,11 +206,11 @@ preview();
 					
 					
 					<hr />
-					<button class="icon-redo w3-btn w3-right w3-round w3-card w3-green w3-hover-text-white" type="submit" name="submit" value="Submit" title="Submit">Save</button>
+					<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">Save</button>
 					<span>&nbsp;&nbsp;</span>
 					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-delete w3-btn w3-round w3-card w3-red w3-hover-text-white" type="submit" onclick="return confirm('Are you sure you want to delete?')" name="delete" value="Delete" title="Delete this post">Delete Post</button>
+					<button class="icon-delete w3-btn w3-round w3-card w3-red" type="submit" onclick="return confirm('Are you sure you want to delete?')" name="delete" value="Delete" title="Delete this post">Delete Post</button>
 					
 					</form>
 				</div>

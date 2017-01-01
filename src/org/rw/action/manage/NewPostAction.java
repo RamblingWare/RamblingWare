@@ -116,7 +116,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 					if(tags.endsWith("]"))
 						tempTags = tempTags.substring(0,tags.length()-1);
 					
-					System.out.println("TempTags: "+tempTags);
+					//System.out.println("TempTags: "+tempTags);
 					String[] tagsArray = tempTags.split(",");
 					
 					String qry = "insert into tags (post_id,tag_name) values ";

@@ -20,7 +20,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 		
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
@@ -44,24 +44,24 @@
 				<div class="w3-row">
 					<div class="w3-col l6 m6 s12">
 						<h3>Manage Blog Posts</h3>
-						<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newpost">Create New Post</a> 
+						<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost">Create New Post</a> 
 						<span class="footnote">Make a new blog post!</span>
 						</p>
 						<p>
-						<a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/posts">View/Edit Posts</a>
+						<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/posts">View/Edit Posts</a>
 						<span class="footnote">Modify current blog posts.</span>
 						</p>
 						<p>
-						<a class="w3-btn w3-card w3-round w3-blue w3-hover-text-white w3-small" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Disqus Comments</a>
+						<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Comments</a>
 						<span class="footnote">Manage comments using Disqus.</span>
 						</p>
 					</div>
 					<div class="w3-col l6 m6 s12">
 						<h3>Manage Authors</h3>
-						<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newuser">Add New Author</a>
+						<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser">Add Author</a>
 						<span class="footnote">Add a new Author!</span>
 						</p>
-						<p><a class="w3-btn w3-theme-light w3-card w3-round w3-small" href="/manage/users">View/Edit Authors</a>
+						<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/users">View/Edit Authors</a>
 						<span class="footnote">Modify current Authors.</span>
 						</p>
 					</div>				

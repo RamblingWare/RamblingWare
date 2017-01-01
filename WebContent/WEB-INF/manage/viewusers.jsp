@@ -20,14 +20,14 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 		
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
 				<!-- ADMIN TABS END -->
 				
 				<h1>View/Edit Authors</h1>
-				<p>Use this page to view or edit authors to the webapp.</p>
+				<p>Use this page to view or edit authors of this blog.</p>
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
@@ -40,7 +40,7 @@
 					</s:iterator>
 				</s:if>
 				
-				<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newuser">Add New Author</a>
+				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser">Add Author</a>
 				<span class="footnote">Add a new Author!</span>
 				</p>
 				

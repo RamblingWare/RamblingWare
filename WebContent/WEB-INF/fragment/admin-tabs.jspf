@@ -9,8 +9,8 @@
 		</button>
    		<div class="w3-dropdown-content w3-white w3-card-4">
 			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/">Management Menu</a>
-			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/posts">Blog Posts</a>
-			<a class="w3-hover-light-grey w3-hover-shadow w3-border-bottom" href="/manage/users">Authors</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/posts">Edit Posts</a>
+			<a class="w3-hover-light-grey w3-hover-shadow w3-border-bottom" href="/manage/users">Edit Authors</a>
 			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/settings">My Settings</a>
 			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/logout">Logout</a>
 		</div>

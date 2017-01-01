@@ -12,7 +12,6 @@ import javax.servlet.http.Cookie;
 
 import org.apache.struts2.ServletActionContext;
 import org.rw.bean.Post;
-import org.rw.bean.RecentViewAware;
 import org.rw.model.ApplicationStore;
 
 import com.opensymphony.xwork2.Action;
@@ -41,7 +40,6 @@ public class RecentViewInterceptor implements Interceptor {
 			// set the recent_view attribute with Post information if they do
 			ArrayList<Post> recent_view = (ArrayList<Post>) sessionAttributes.get("recent_view");
 			
-			System.out.println("Setting RecentView values...");
 			recent_view = new ArrayList<Post>();
 			
 			// NEVER TRUST USER INPUT
@@ -90,10 +88,7 @@ public class RecentViewInterceptor implements Interceptor {
 				// set attributes
 				sessionAttributes.put("recent_view", recent_view);
 				
-				//return Action.NONE;
-				
 			} catch (Exception e) {
-				//addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 				e.printStackTrace();
 				return Action.ERROR;
 			} finally {
@@ -101,14 +96,6 @@ public class RecentViewInterceptor implements Interceptor {
 					conn.close();
 				} catch (SQLException e) {/*Do Nothing*/}
 			}
-			
-			Action action = (Action) actionInvocation.getAction();
-			if (action instanceof RecentViewAware) 
-			{
-				((RecentViewAware) action).setRecent_view(recent_view);
-			}
-			
-			System.out.println("RecentView set.");
 		}
 		else
 		{

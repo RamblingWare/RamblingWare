@@ -20,14 +20,14 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 		
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
 				<!-- ADMIN TABS END -->
 				
 				<h1>View/Edit Posts</h1>
-				<p>Use this page to view or edit blog posts to the webapp.</p>
+				<p>Use this page to view or edit posts on this blog.</p>
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
@@ -40,11 +40,11 @@
 					</s:iterator>
 				</s:if>
 				
-				<p><a class="w3-btn w3-green w3-hover-text-white w3-card w3-round w3-small" href="/manage/newpost">Create New Post</a> 
+				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost">Create New Post</a> 
 				<span class="footnote">Make a new blog post!</span>
 				</p>
 				<p>
-				<a class="w3-btn w3-card w3-round w3-blue w3-hover-text-white w3-small" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Disqus Comments</a>
+				<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Comments</a>
 				<span class="footnote">Manage comments on blog posts using Disqus.</span>
 				</p>
 				
@@ -67,12 +67,17 @@
 					
 					<s:iterator value="results" status="r">
 						<tr>
-						<td><a href="/manage/viewpost/<s:property value="uriName" />">View</a>&nbsp;
-						<a href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
-						<td><s:property value="title" />
+						<td>
+							<a href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
+						<td>
+						
 						<s:if test="!isVisible">
+							<a href="/manage/viewpost/<s:property value="uriName" />" title="<s:property value="description" />"><s:property value="title" /></a>
 							&nbsp;<a class="icon-visible w3-padding" title="This post is hidden from public."></a>
 						</s:if>
+						<s:else>
+							<a href="/blog/post/<s:property value="uriName" />" title="<s:property value="description" />"><s:property value="title" /></a>
+						</s:else>
 						<s:if test="isFeatured">
 							&nbsp;<a class="icon-star w3-padding" title="This is a featured post."></a>
 						</s:if>

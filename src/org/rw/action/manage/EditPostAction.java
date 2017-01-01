@@ -121,7 +121,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				}
 				
 				// insert new tags
-				System.out.println("Tags: "+tags);
+				//System.out.println("Tags: "+tags);
 				String tempTags = tags;
 				
 				// chop off [ ] if they added them
@@ -130,7 +130,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				if(tags.endsWith("]"))
 					tempTags = tempTags.substring(0,tags.length()-1);
 				
-				System.out.println("TempTags: "+tempTags);
+				//System.out.println("TempTags: "+tempTags);
 				String[] tagsArray = tempTags.split(",");
 				
 				String qry = "insert into tags (post_id,tag_name) values ";

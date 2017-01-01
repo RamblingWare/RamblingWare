@@ -33,32 +33,30 @@
 				<div class="w3-container w3-padding w3-col m3 l4"></div>
 				<div class="w3-container w3-padding w3-col m6 l4">
 				
-					<div class="w3-border w3-round w3-animate-opacity">
+					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">Two Factor Code</h3>
+							<h3 class="w3-margin-0 w3-padding uppercase">Two Factor Authentication</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
 						<form action="/manage/login" method="post">
-							<div class="w3-center">
-								<span class="w3-card-2 w3-round w3-theme-light w3-padding w3-large">
+							<div class="w3-card w3-round-large w3-theme-light w3-padding w3-large w3-center">
 								<img class="w3-round" src="<s:property value="#session.USER.getThumbnail()"/>" align="top" style="width:24px; height:24px;" />
 								&nbsp;<s:property value="#session.USER.getName()"/>
-								</span>
 							</div>
 							<p>   
 								<label class="w3-validate w3-text-grey-light w3-large" for="code">Code:</label>
-								<input type="text" size="50" maxlength="100" name="code" id="code" value="" required placeholder="" maxlength="6" class="w3-input w3-round-large w3-xlarge w3-border" />
+								<input type="text" size="50" maxlength="6" name="code" id="code" value="" required autofocus placeholder="" class="w3-input w3-round-large w3-xlarge w3-border" />
 							</p>
 							<hr />
 							<p>
-								<button class="icon-redo w3-btn w3-right w3-round w3-card w3-theme-light w3-hover-green" type="submit" value="Login" title="Login">Login</button>
+								<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Login" title="Login">Login</button>
 								
-								<a class="icon-delete w3-btn w3-round w3-card w3-theme-light w3-hover-theme" title="Go to the home page" href="/">Cancel</a>
+								<a class="icon-delete w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/manage/logout">Cancel</a>
 							</p>
 						</form>
 						
 							<p class="footnote w3-center">
-								<a href="/manage/forgot?type=twofactor">I need help!</a>
+								<a href="/manage/forgot?type=twofactor">I don't have this.</a>
 							</p>
 						</div>
 					</div>

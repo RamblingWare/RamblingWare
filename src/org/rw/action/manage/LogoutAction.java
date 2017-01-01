@@ -32,7 +32,7 @@ public class LogoutAction extends ActionSupport implements UserAware, ServletRes
 		try{
 			sessionAttributes = ActionContext.getContext().getSession();
 			user = (User) sessionAttributes.get("USER");
-			System.out.println("User \""+user.getUsername()+"\" logged out");
+			System.out.println("User "+user.getUsername()+" logged out.");
 			
 			setMessage("You have been logged out.");
 			
@@ -44,7 +44,7 @@ public class LogoutAction extends ActionSupport implements UserAware, ServletRes
 		} catch (Exception e) {
 			e.printStackTrace();
 			addActionError("Failed to log out!");
-			System.out.println("User \""+user.getUsername()+"\" failed to log out.");
+			System.out.println("User "+user.getUsername()+" failed to log out.");
 			
 			return ERROR;
 		}

@@ -7,7 +7,7 @@
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 <!-- META_END -->
 </head>
-<body class="w3-theme-dark" onload="emailFocus()">
+<body class="w3-theme-dark">
 
 	<!-- HEADER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/header.jspf"%>
@@ -33,7 +33,7 @@
 				<div class="w3-container w3-padding w3-col m3 l4"></div>
 				<div class="w3-container w3-padding w3-col m6 l4">
 				
-					<div class="w3-border w3-round w3-animate-opacity">
+					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Please Login</h3>
 						</div>
@@ -41,7 +41,7 @@
 						<form action="/manage/login" method="post">
 							<p>   
 								<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:</label>
-								<input type="text" size="50" maxlength="100" name="username" id="username" value="<s:property value="username" />" required placeholder="" class="w3-input w3-round-large w3-border" />
+								<input type="text" size="50" maxlength="100" name="username" id="username" value="<s:property value="username" />" required autofocus placeholder="" class="w3-input w3-round-large w3-border" />
 							</p>
 							<p>   
 								<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:</label>
@@ -49,9 +49,9 @@
 							</p>
 							<hr />
 							<p>
-								<button class="icon-redo w3-btn w3-right w3-round w3-card w3-theme-light w3-hover-green" type="submit" value="Login" title="Login">Login</button>
+								<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Login" title="Login">Login</button>
 								
-								<a class="icon-delete w3-btn w3-round w3-card w3-theme-light w3-hover-theme" title="Go to the home page" href="/">Cancel</a>
+								<a class="icon-delete w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/">Cancel</a>
 							</p>
 						</form>
 						

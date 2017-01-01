@@ -6,18 +6,18 @@
 <meta name="description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too." />
 <meta name="robots" content="all">
 
-<meta name="og:url" content="http://www.ramblingware.com">
+<meta name="og:url" content="https://www.ramblingware.com">
 <meta name="og:type" content="website">
 <meta name="og:title" content="RamblingWare">
-<meta name="og:image" content="http://www.ramblingware.com/img/favicon-large.png">
+<meta name="og:image" content="https://www.ramblingware.com/img/favicon-large.png">
 <meta name="og:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="http://www.ramblingware.com">
+<meta name="twitter:site" content="https://www.ramblingware.com">
 <meta name="twitter:creator" content="Austin Delamar">
 <meta name="twitter:title" content="RamblingWare">
 <meta name="twitter:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
-<meta name="twitter:image" content="http://www.ramblingware.com/img/favicon-large.png">
+<meta name="twitter:image" content="https://www.ramblingware.com/img/favicon-large.png">
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="stylesheet" href="/css/ramblingware.css?v=1.8">

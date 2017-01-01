@@ -53,7 +53,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 				"<channel>"+
 				"<title>RamblingWare</title>"+
 				"<description>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</description>"+
-				"<link>http://www.ramblingware.com</link>";
+				"<link>https://www.ramblingware.com</link>";
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
@@ -84,7 +84,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 				response += "<item><title>"+post.getTitle()+"</title>"+
 						"<description>"+post.getDescription()+"</description>"+
 						"<pubDate>"+post.getCreateDateReadable()+"</pubDate>"+
-						"<link>http://www.ramblingware.com/blog/post/"+post.getUriName()+"</link>"+
+						"<link>https://www.ramblingware.com/blog/post/"+post.getUriName()+"</link>"+
 						"</item>";
 			}
 			response += "</channel></rss>";

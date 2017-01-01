@@ -43,41 +43,9 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
     @Override
     public String execute(){
     	
-    	// wait a bit, just to slow this request type down...
-    	try {
-    		attempts++;
-    		Thread.sleep(500 * attempts);
-		} catch (InterruptedException e1) {
-			/* Don't bother to catch this exception */
-		}
-    	
-    	// lockout for 30 min, if they failed 3 times
-    	if(attempts > maxAttempts)
-    	{
-    		if(lastAttempt == 0)
-    		{
-    			// this is their 5th try, so record their time
-    			lastAttempt = System.currentTimeMillis();
-    			System.err.println("Unknown user has been locked out for "+lockoutPeriod+" min. ("+servletRequest.getRemoteAddr()+")("+servletRequest.getRemoteHost()+")");
-    			addActionError("You have been locked out for the next "+lockoutPeriod+" minutes, for too many invalid attempts to login.");
-    			return Action.ERROR;
-    		}
-    		else if(System.currentTimeMillis() >= (lastAttempt+(lockoutPeriod*60*1000)))
-    		{
-    			// its been 30mins or more, so unlock
-    			attempts = 0;
-    			lastAttempt = 0;
-    			System.err.println("Unknown user has waited "+lockoutPeriod+" min, proceed. ("+servletRequest.getRemoteAddr()+")("+servletRequest.getRemoteHost()+")");
-    			// continue
-    		}
-    		else
-    		{
-    			// they have already been locked out
-    			System.err.println("Unknown user has been locked out for "+lockoutPeriod+" min. ("+servletRequest.getRemoteAddr()+")("+servletRequest.getRemoteHost()+") ");
-    			addActionError("You have been locked out for the next "+lockoutPeriod+" minutes, for too many invalid attempts to login.");
-    			return Action.ERROR;
-    		}
-    		
+    	// check if locked out
+    	if(isLockedOut()) {
+    		return Action.ERROR;
     	}
     	
     	// now try to see if they can login
@@ -217,7 +185,50 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
         return ERROR;
     }
     
-    public void setSession(Map<String, Object> sessionAttributes) {
+    /**
+	 * Check if the user has attempted too many times, and lock them out if they have.
+	 * @return true if locked out
+	 */
+	private boolean isLockedOut() {
+		try {
+			// wait a bit, just to slow this request type down...
+			attempts++;
+			Thread.sleep(500 * attempts);
+		} catch (InterruptedException e1) {
+			/* Don't bother to catch this exception */
+		}
+		
+		// lockout for 30 min, if they failed 3 times
+		if(attempts >= maxAttempts)
+		{
+			if(lastAttempt == 0)
+			{
+				// this is their 5th try, so record their time
+				lastAttempt = System.currentTimeMillis();
+				System.err.println("Unknown user has been locked out for "+lockoutPeriod+" min. ("+servletRequest.getRemoteAddr()+")("+servletRequest.getRemoteHost()+")");
+				addActionError("You have been locked out for the next "+lockoutPeriod+" minutes, for too many attempts.");
+				return true;
+			}
+			else if(System.currentTimeMillis() >= (lastAttempt+(lockoutPeriod*60*1000)))
+			{
+				// its been 30mins or more, so unlock
+				attempts = 0;
+				lastAttempt = 0;
+				System.err.println("Unknown user has waited "+lockoutPeriod+" min, proceed. ("+servletRequest.getRemoteAddr()+")("+servletRequest.getRemoteHost()+")");
+				return false;
+			}
+			else
+			{
+				// they have already been locked out
+				System.err.println("Unknown user has been locked out for "+lockoutPeriod+" min. ("+servletRequest.getRemoteAddr()+")("+servletRequest.getRemoteHost()+") ");
+				addActionError("You have been locked out for the next "+lockoutPeriod+" minutes, for too many attempts.");
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void setSession(Map<String, Object> sessionAttributes) {
         this.sessionAttributes = sessionAttributes;
     }
 
@@ -259,7 +270,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = ApplicationStore.removeBadChars(username);
 	}
 
 	public String getPassword() {
@@ -275,7 +286,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 	}
 
 	public void setCode(String code) {
-		this.code = code;
+		this.code = ApplicationStore.removeBadChars(code);
 	}
 
 	public int getAttempts() {

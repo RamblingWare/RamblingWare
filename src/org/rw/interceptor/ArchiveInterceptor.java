@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-import org.rw.bean.ArchiveAware;
 import org.rw.bean.Post;
 import org.rw.model.ApplicationStore;
 
@@ -67,12 +66,9 @@ public class ArchiveInterceptor implements Interceptor {
 				}
 				
 				// search in db for featured posts
-				ResultSet rs3 = st.executeQuery("select p.post_id, p.title, p.uri_name, p.is_visible, p.create_date, p.thumbnail from posts p where p.is_visible <> 0 and is_featured <> 0 order by p.create_date desc limit 1");
+				ResultSet rs3 = st.executeQuery("select p.post_id, p.title, p.uri_name, p.create_date, p.thumbnail from posts p where p.is_visible <> 0 and p.is_featured <> 0 order by p.create_date desc limit 1");
 				
-				while(rs3.next()) {
-					if(rs3.getInt("is_visible") == 0)
-						continue; // skip this post, because its  not public yet
-					
+				while(rs3.next()) {					
 					// get the post properties
 					int post_id = rs3.getInt("post_id");
 					String post_title = rs3.getString("title");
@@ -95,10 +91,7 @@ public class ArchiveInterceptor implements Interceptor {
 				sessionAttributes.put("archive_years", archive_years);
 				sessionAttributes.put("archive_tags", archive_tags);
 				
-				//return Action.NONE;
-				
 			} catch (Exception e) {
-				//addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 				e.printStackTrace();
 				return Action.ERROR;
 			} finally {
@@ -106,15 +99,8 @@ public class ArchiveInterceptor implements Interceptor {
 					conn.close();
 				} catch (SQLException e) {/*Do Nothing*/}
 			}
-			System.out.println("Archive set.");
 		} 
 
-		Action action = (Action) actionInvocation.getAction();
-		if (action instanceof ArchiveAware) 
-		{
-			((ArchiveAware) action).setArchive_years(archive_years);
-			((ArchiveAware) action).setArchive_tags(archive_tags);
-		}
 		return actionInvocation.invoke();
 	}
 	

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.ArchiveAware;
-import org.rw.bean.Post;
-import org.rw.bean.RecentViewAware;
 import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
@@ -27,7 +23,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 10/23/2016
  */
-public class ViewAuthorAction extends ActionSupport implements ArchiveAware, RecentViewAware, UserAware, ServletResponseAware, ServletRequestAware {
+public class ViewAuthorAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -227,23 +223,5 @@ public class ViewAuthorAction extends ActionSupport implements ArchiveAware, Rec
 
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
-	}
-
-	@Override
-	public void setRecent_view(ArrayList<Post> recent_view) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setArchive_years(ArrayList<String> archive_years) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setArchive_tags(ArrayList<String> archive_tags) {
-		// TODO Auto-generated method stub
-		
 	}
 }

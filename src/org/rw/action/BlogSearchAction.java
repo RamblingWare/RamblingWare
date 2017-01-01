@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.ArchiveAware;
 import org.rw.bean.Author;
 import org.rw.bean.Post;
-import org.rw.bean.RecentViewAware;
 import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
@@ -28,7 +26,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 11/25/2015
  */
-public class BlogSearchAction extends ActionSupport implements ArchiveAware, RecentViewAware, UserAware, ServletResponseAware, ServletRequestAware {
+public class BlogSearchAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -365,7 +363,7 @@ public class BlogSearchAction extends ActionSupport implements ArchiveAware, Rec
 	}
 
 	public void setYear(String year) {
-		this.year = year;
+		this.year = ApplicationStore.removeBadChars(year);
 	}
 
 	public String getMonth() {
@@ -373,7 +371,7 @@ public class BlogSearchAction extends ActionSupport implements ArchiveAware, Rec
 	}
 
 	public void setMonth(String month) {
-		this.month = month;
+		this.month = ApplicationStore.removeBadChars(month);
 	}
 	
 	public String getAuthor() {
@@ -381,7 +379,7 @@ public class BlogSearchAction extends ActionSupport implements ArchiveAware, Rec
 	}
 
 	public void setAuthor(String author) {
-		this.author = author;
+		this.author = ApplicationStore.removeBadChars(author);
 	}
 
 	public String getTag() {
@@ -398,23 +396,5 @@ public class BlogSearchAction extends ActionSupport implements ArchiveAware, Rec
 
 	public void setResults(ArrayList<Post> results) {
 		this.results = results;
-	}
-
-	@Override
-	public void setRecent_view(ArrayList<Post> recent_view) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setArchive_years(ArrayList<String> archive_years) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setArchive_tags(ArrayList<String> archive_tags) {
-		// TODO Auto-generated method stub
-		
 	}
 }

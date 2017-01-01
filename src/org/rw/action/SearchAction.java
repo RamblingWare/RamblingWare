@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.bean.User;
 import org.rw.bean.UserAware;
+import org.rw.model.ApplicationStore;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -100,6 +101,6 @@ public class SearchAction extends ActionSupport implements UserAware, ServletRes
 	}
 
 	public void setS(String s) {
-		this.s = s;
+		this.s = ApplicationStore.removeNonAsciiChars(s);
 	}
 }
