@@ -53,10 +53,10 @@ function preview() {
 	var tagHtml = "";
 	for (var i = 0; i < tagArray.length; i++) {
 		if(tagArray[i].length>0)
-		tagHtml += "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow\" href=\"#\">"+tagArray[i]+"</a>"; 
+		tagHtml += "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-shadow\" href=\"#\">"+tagArray[i]+"</a>"; 
 	}
 	if(tagHtml<=1)
-		tagHtml = "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow\" href=\"#\">Tag</a>";
+		tagHtml = "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-shadow\" href=\"#\">Tag</a>";
 	document.getElementById('previewTags').innerHTML = tagHtml;
 	
 	
@@ -142,7 +142,7 @@ function preview() {
 						<p class="footnote"><br /><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=ApplicationStore.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %></p>
 						<p class="footnote"><b>Tags:</b>&nbsp;
 						<span id="previewTags">
-							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="#">Tags</a>
+							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-shadow" href="#">Tags</a>
 						</span>
 						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="#" /><span>0 comments</span></a></span>
 						</p>

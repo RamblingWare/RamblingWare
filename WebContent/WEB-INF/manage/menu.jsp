@@ -64,9 +64,25 @@
 						<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/users">View/Edit Authors</a>
 						<span class="footnote">Modify current Authors.</span>
 						</p>
-					</div>				
+					</div>	
 				</div>
 				
+				<div class="w3-row">
+					<div class="w3-col l12 m12 s12">
+						<h3>My Settings</h3>
+						<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/settings">Change Username / Email</a> 
+						<span class="footnote">Modify your username or email address.</span>
+						</p>
+						<p>
+						<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/settings">Change Password</a>
+						<span class="footnote">Modify your password to login.</span>
+						</p>
+						<p>
+						<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/edituser/<s:property value="#session.USER.uriName" />">Update my Author page</a>
+						<span class="footnote">Modify your public author page.</span>
+						</p>
+					</div>			
+				</div>
 				
 				<hr />
 							
@@ -103,8 +119,6 @@
 					</s:iterator></tbody>
 				</table>
 				
-				<br />
-				<br />
 			</div>
 		</div>
 	</article>

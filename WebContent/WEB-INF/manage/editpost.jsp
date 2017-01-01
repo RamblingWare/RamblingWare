@@ -47,10 +47,10 @@ function preview() {
 	var tagHtml = "";
 	for (var i = 0; i < tagArray.length; i++) {
 		if(tagArray[i].length>0)
-		tagHtml += "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow\" href=\"#\">"+tagArray[i]+"</a>"; 
+		tagHtml += "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-shadow\" href=\"#\">"+tagArray[i]+"</a>"; 
 	}
 	if(tagHtml<=1)
-		tagHtml = "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow\" href=\"#\">Tag</a>";
+		tagHtml = "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-shadow\" href=\"#\">Tag</a>";
 	document.getElementById('previewTags').innerHTML = tagHtml;
 	
 	
@@ -102,19 +102,19 @@ preview();
 					<input type="hidden" name="id" value="<s:property value="#request.post.id" />" />
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="title">Post Title:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.post.title" />" onkeypress="preview()" onchange="preview()" required placeholder="How to make a blog post!" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.post.title" />" onkeypress="preview()" onchange="preview()" required placeholder="How to make a blog post!" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>
-						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.post.uriName" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.post.uriName" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.post.description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.post.description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="tags">Tags:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Separated by commas.)</span></label>
-						<input type="text" size="50" maxlength="200" name="tags" id="tags" value="<s:property value="#request.post.tags" />" onkeyup="preview()" onchange="preview()" required placeholder="java, interview, funny" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="200" name="tags" id="tags" value="<s:property value="#request.post.tags" />" onkeyup="preview()" onchange="preview()" required placeholder="java, interview, funny" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:&nbsp;<span class="w3-text-red">*</span></label>
@@ -136,7 +136,7 @@ preview();
 						<p class="footnote"><br /><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=ApplicationStore.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %></p>
 						<p class="footnote"><b>Tags:</b>&nbsp;
 						<span id="previewTags">
-							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="#">Tags</a>
+							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-shadow" href="#">Tags</a>
 						</span>
 						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="#" /><span>0 comments</span></a></span>
 						</p>
@@ -158,21 +158,21 @@ preview();
 					<s:if test="#request.post.hasBanner">
 					<p id="bannerDiv1" style="display:block" class="w3-animate-right">   
 						<label class="w3-validate w3-text-grey-light w3-large" for="banner">Banner Image URL:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="#request.post.banner" />" placeholder="https://imgur.com/image.png" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="#request.post.banner" />" placeholder="https://imgur.com/image.png" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p id="bannerDiv2" style="display:block" class="w3-animate-right">
 						<label class="w3-validate w3-text-grey-light w3-large" for="bannerCaption">Banner Caption/Credit:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="200" name="bannerCaption" id="bannerCaption" value="<s:property value="#request.post.bannerCaption" />" placeholder="Image Source: imgur" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="200" name="bannerCaption" id="bannerCaption" value="<s:property value="#request.post.bannerCaption" />" placeholder="Image Source: imgur" class="w3-input w3-round-large w3-border" />
 					</p>
 					</s:if>
 					<s:else>
 					<p id="bannerDiv1" style="display:none" class="w3-animate-right">   
 						<label class="w3-validate w3-text-grey-light w3-large" for="banner">Banner Image URL:&nbsp;<span class="w3-text-red">*</span></label>
-						<input disabled="disabled" type="text" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="#request.post.banner" />" placeholder="https://imgur.com/image.png" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input disabled="disabled" type="text" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="#request.post.banner" />" placeholder="https://imgur.com/image.png" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p id="bannerDiv2" style="display:none" class="w3-animate-right">
 						<label class="w3-validate w3-text-grey-light w3-large" for="bannerCaption">Banner Caption/Credit:&nbsp;<span class="w3-text-red">*</span></label>
-						<input disabled="disabled" type="text" size="50" maxlength="200" name="bannerCaption" id="bannerCaption" value="<s:property value="#request.post.bannerCaption" />" placeholder="Image Source: imgur" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input disabled="disabled" type="text" size="50" maxlength="200" name="bannerCaption" id="bannerCaption" value="<s:property value="#request.post.bannerCaption" />" placeholder="Image Source: imgur" class="w3-input w3-round-large w3-border" />
 					</p>
 					</s:else>
 					<h2 id="previewTitle2">Post Title</h2>

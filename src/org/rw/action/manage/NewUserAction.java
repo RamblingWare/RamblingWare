@@ -22,7 +22,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
  
 /**
- * Register action class
+ * New User action class
  * @author Austin Delamar
  * @date 11/9/2015
  */
@@ -31,6 +31,9 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
     private static final long serialVersionUID = 1L;
     private User user;
     private Map<String, Object> sessionAttributes = null;
+    
+    private String username;
+    private String uriName;
     private String email;
     private String name;
     private String password;
@@ -61,9 +64,9 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
 	    						// add new user
 	    						// salt and hash the password
 	    						password = PasswordHash.createHash(password);
-	    						String uri_name = name.replaceAll("\\s+", "");
-	    						int r = st.executeUpdate("insert into users (name,uri_name,email,create_date) values "
-	    										+"('"+name+"','"+uri_name+"','"+email+"','"+ApplicationStore.formatMySQLDate(new Date(System.currentTimeMillis())) + "')");
+	    						
+	    						int r = st.executeUpdate("insert into users (username,name,uri_name,email,create_date) values "
+	    										+"('"+username+"','"+name+"','"+uriName+"','"+email+"','"+ApplicationStore.formatMySQLDate(new Date(System.currentTimeMillis())) + "')");
 	    						
 	    						ResultSet results = st.executeQuery("select user_id from users where email = '"+email+"'");
 	    						String userId = "";
@@ -85,7 +88,8 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
 	    				    		user.setEmail(email);
 	    				    		user.setName(name);
 	    				    		user.setFirstName(name.substring(0,name.indexOf(" ")));
-	    				    		user.setUsername(email.substring(0,email.indexOf('@')));
+	    				    		user.setUsername(username);
+	    				    		user.setUriName(uriName);
 	    				    		user.setUserId(userId);
 	    				    		
 	    				    		// update last login date
@@ -98,10 +102,8 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
 	    				    		sessionAttributes.put("context", new Date());
 	    				    		sessionAttributes.put("USER", user);
 	    				    		
-	    				    		addActionMessage("Thank you for registering "+user.getName()+"!");
-	    				    		
-	    				    		System.out.println("User logged in: "+email);
-	    							
+	    				    		addActionMessage("New Author successfully created.");	    				    		
+	    				    		System.out.println("User logged in: "+username);	    							
 	    							return SUCCESS;
 	    						}
 	    					}
@@ -187,6 +189,14 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
 		this.servletRequest = servletRequest;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = ApplicationStore.removeBadChars(username);
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -200,7 +210,15 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = ApplicationStore.removeNonAsciiChars(name);
+	}
+
+	public String getUriName() {
+		return uriName;
+	}
+
+	public void setUriName(String uriName) {
+		this.uriName = ApplicationStore.removeAllSpaces(uriName.trim().toLowerCase());
 	}
 
 	public String getPassword() {

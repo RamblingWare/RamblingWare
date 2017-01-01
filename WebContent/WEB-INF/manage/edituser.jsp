@@ -47,11 +47,12 @@
 					<input type="hidden" name="id" value="<s:property value="#request.author.id" />" />
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="title">Author Name:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" required placeholder="Rambling Man" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" required placeholder="Rambling Man" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>
-						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
+						<span class="footnote"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="#request.author.uriName" /></span>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:&nbsp;<span class="w3-text-red">*</span></label>
@@ -69,7 +70,7 @@
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.author.description" />" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-hover-light-grey w3-border" />
+						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.author.description" />" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
 					
 					

@@ -9,28 +9,33 @@ import java.util.Date;
  */
 public class User {
 
-	private String user_id;
+	private String userId;
 	private String name;
 	private String email;
 	private String username;
 	private String firstName;
-	private String uri_name;
+	private String uriName;
 	private String thumbnail;
+	private String description;
 	
 	private boolean isAdmin;
 	private boolean isOTPEnabled;
 	private boolean isOTPAuthenticated;
+	private String keySecret;
+	private String keyRecover;
+	private String keyReset;
+	
 	
 	private Date lastLoginDate;
 	private Date createDate;
 	private Date modifyDate;
 
 	public String getUserId() {
-		return user_id;
+		return userId;
 	}
 
-	public void setUserId(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {
@@ -65,12 +70,12 @@ public class User {
 		this.firstName = name;
 	}
 
-	public String getUri_name() {
-		return uri_name;
+	public String getUriName() {
+		return uriName;
 	}
 
-	public void setUri_name(String uri_name) {
-		this.uri_name = uri_name;
+	public void setUriName(String uriName) {
+		this.uriName = uriName;
 	}
 	
 	public boolean isAdmin() {
@@ -97,12 +102,44 @@ public class User {
 		this.isOTPAuthenticated = isOTPAuthenticated;
 	}
 
+	public String getKeySecret() {
+		return keySecret;
+	}
+
+	public void setKeySecret(String keySecret) {
+		this.keySecret = keySecret;
+	}
+
+	public String getKeyRecover() {
+		return keyRecover;
+	}
+
+	public void setKeyRecover(String keyRecover) {
+		this.keyRecover = keyRecover;
+	}
+
+	public String getKeyReset() {
+		return keyReset;
+	}
+
+	public void setKeyReset(String keyReset) {
+		this.keyReset = keyReset;
+	}
+
 	public String getThumbnail() {
 		return thumbnail;
 	}
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getLastLoginDate() {

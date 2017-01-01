@@ -16,6 +16,7 @@ import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 import org.rw.model.PasswordHash;
+import org.rw.model.TwoFactor;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -64,12 +65,13 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 		    		user.setName(rs.getString("name"));
 		    		user.setFirstName(user.getName().substring(0,user.getName().indexOf(" ")));
 		    		user.setUsername(rs.getString("username"));
-		    		user.setUri_name(rs.getString("uri_name"));
+		    		user.setUriName(rs.getString("uri_name"));
 		    		user.setAdmin(rs.getInt("role") > 0);
 		    		user.setCreateDate(rs.getDate("create_date"));
 		    		user.setLastLoginDate(rs.getDate("last_login_date"));
 		    		user.setModifyDate(rs.getDate("modify_date"));
 		    		user.setThumbnail(rs.getString("thumbnail"));
+		    		user.setDescription(rs.getString("description"));
 		    		
 		    		ResultSet rs2 = st.executeQuery("select * from passwords where user_id = '"+user.getUserId()+"'");
 		    		
@@ -80,6 +82,9 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 		    			// is OTP enabled?
 		    			user.setOTPEnabled(rs2.getInt("is_otp_enabled") > 0);
 		    			user.setOTPAuthenticated(!user.isOTPEnabled());
+		    			user.setKeySecret(rs2.getString("otp_key"));
+		    			user.setKeyReset(rs2.getString("reset_key"));
+		    			user.setKeyRecover(rs2.getString("recover_key"));
 		    			
 		    			if(user.isOTPEnabled())
 		    			{
@@ -102,7 +107,8 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 			    			st.executeUpdate("update users set last_login_date='"
 									+ApplicationStore.formatMySQLDate(new Date(System.currentTimeMillis()))+"'"
 											+ "where user_id = '"+user.getUserId()+"'");
-			    			
+			    			attempts = 0;
+		        			lastAttempt = 0;
 			    			sessionAttributes = ActionContext.getContext().getSession();
 				    		sessionAttributes.put("login","true");
 				    		sessionAttributes.put("context", new Date());
@@ -136,13 +142,12 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
     	{
     		// two factor code provided
     		// verify if it is correct
-    		// TODO
-    		System.out.println("Code = "+code);
     		
     		sessionAttributes = ActionContext.getContext().getSession();
     		user = (User) sessionAttributes.get("USER");
     		
-    		if(code.equals("123456")) {
+    		if(TwoFactor.validateTOTP(user.getKeySecret(), code))
+			{
 	    		user.setOTPAuthenticated(true);
 	    		sessionAttributes.put("login","true");
 	    		sessionAttributes.put("context", new Date());
