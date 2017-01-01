@@ -7,14 +7,14 @@
 <%@include file="/WEB-INF/fragment/meta-post.jspf"%>
 <meta name="author" content="<s:property value="author" />">
 <meta name="description" content="<s:property value="description" />" />
-<meta name="og:url" content="http://www.ramblingware.com/author/<s:property value="uriName" />">
+<meta name="og:url" content="https://www.ramblingware.com/author/<s:property value="uriName" />">
 <meta name="og:type" content="website">
 <meta name="og:title" content="<s:property value="name" />">
 <meta name="og:image" content="<s:property value="thumbnail" />">
 <meta name="og:description" content="<s:property value="description" />">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="http://www.ramblingware.com/author/<s:property value="uriName" />">
+<meta name="twitter:site" content="https://www.ramblingware.com/author/<s:property value="uriName" />">
 <meta name="twitter:creator" content="<s:property value="author" />">
 <meta name="twitter:title" content="<s:property value="name" />">
 <meta name="twitter:description" content="<s:property value="description" />">
@@ -35,7 +35,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 							
 				<h1><font class="footnote w3-right"><s:property value="createDate" /></font>
 				<s:property value="author" /></h1>

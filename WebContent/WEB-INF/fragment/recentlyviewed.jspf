@@ -1,11 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="recent" class="w3-col m2 no-print">
+<div id="recent" class="w3-col m2 l2 no-print">
 	<div class="w3-container">
-		<s:if test="#session.recent_view != null">
-		<s:if test="#session.recent_view.isEmpty()">
-			<!-- F Oops 1 -->
-		</s:if>
-		<s:else>
+		<s:if test="#session.recent_view != null && !#session.recent_view.isEmpty()">
 		<script>
 		function clearRecentlyViewed() {
 			document.cookie="recent-view=; expires=Thu, 01 Jan 2000 00:00:00 GMT";
@@ -24,11 +20,6 @@
 			
 		</s:iterator>
 		</ul>
-		</s:else>
 		</s:if>
-		<s:else>
-			<!-- F Oops 2 -->
-		</s:else>
-		
 	</div>
 </div>

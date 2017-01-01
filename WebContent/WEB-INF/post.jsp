@@ -7,14 +7,14 @@
 <%@include file="/WEB-INF/fragment/meta-post.jspf"%>
 <meta name="author" content="<s:property value="author" />">
 <meta name="description" content="<s:property value="description" />" />
-<meta name="og:url" content="http://www.ramblingware.com/blog/post/<s:property value="uriName" />">
+<meta name="og:url" content="https://www.ramblingware.com/blog/post/<s:property value="uriName" />">
 <meta name="og:type" content="website">
 <meta name="og:title" content="<s:property value="title" />">
 <meta name="og:image" content="<s:property value="thumbnail" />">
 <meta name="og:description" content="<s:property value="description" />">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="http://www.ramblingware.com/blog/post/<s:property value="uriName" />">
+<meta name="twitter:site" content="https://www.ramblingware.com/blog/post/<s:property value="uriName" />">
 <meta name="twitter:creator" content="<s:property value="author" />">
 <meta name="twitter:title" content="<s:property value="title" />">
 <meta name="twitter:description" content="<s:property value="description" />">
@@ -36,7 +36,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 				
 				<% if(request.getAttribute("banner")!=null && !request.getAttribute("banner").toString().isEmpty()) { %>
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
@@ -87,27 +87,27 @@
 					</div>
 					<div class="w3-col s12 m6 l6 w3-padding-16 w3-center">	
 						<a title="Share on Facebook" 
-						target="_Blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
+						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
 						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-facebook.png" alt="Facebook" /></a>				
 						
 						<a title="Share on Twitter" 
-						target="_Blank" href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
+						target="_Blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
 						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-twitter.png" alt="Twitter" /></a>
 						
 						<a title="Share on LinkedIn"
-						 target="_Blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
+						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
 						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-linkedin.png" alt="LinkedIn" /></a>
 						
 						<a title="Share on Google+"
-						 target="_Blank" href="https://plus.google.com/share?url=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
+						 target="_Blank" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
 						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-google.png" alt="Google+" /></a>
 						
 						<a title="Share on Reddit"
-						 target="_Blank" href="https://www.reddit.com/submit?url=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
+						 target="_Blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
 						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-reddit.png" alt="Reddit" /></a>
 						
 						<a title="Email to a friend"
-						 target="_Blank" href="mailto:?subject=Check%20out%20this%20RamblingWare%20post&body=http%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
+						 target="_Blank" href="mailto:?subject=Check%20out%20this%20RamblingWare%20post&body=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
 						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-email.png" alt="Email" /></a>
 						
 						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup()">
@@ -121,7 +121,7 @@
 								<h3>Copy this link:
 								<a title="Close" onclick="closePopup()" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
-								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="http://www.ramblingware.com/blog/post/<s:property value="uriName" />" type="text" /><br />
+								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="https://www.ramblingware.com/blog/post/<s:property value="uriName" />" type="text" /><br />
 							</div>
 						</div>
 					</div>
@@ -163,13 +163,13 @@
 		<!-- COMMENTS BEGIN -->
 		<div class="page w3-row no-print">
 			<div id="comments-left" class="w3-col m2 w3-hide-medium w3-hide-small w3-padding"></div>
-			<div id="comments" class="w3-col m8 w3-container w3-padding">
+			<div id="comments" class="w3-col m10 l8 w3-container w3-padding">
 			<br />
 			<h3>Comments</h3>
 			<div id="disqus_thread"></div>
 			<script>
 			    var disqus_config = function () {
-			        this.page.url = "http://www.ramblingware.com/blog/post/<%=request.getAttribute("uriName") %>";
+			        this.page.url = "https://www.ramblingware.com/blog/post/<%=request.getAttribute("uriName") %>";
 			        this.page.identifier = "<%=request.getAttribute("uriName") %>";
 			        this.page.title = "<%=request.getAttribute("title") %>";
 			    };

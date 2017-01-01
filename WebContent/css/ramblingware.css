@@ -276,10 +276,8 @@ footer h2 {
     margin-right: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
-    /*background: transparent !important;*/
 }
 #tabs li, #menu li {
-	/*background: transparent !important;*/
 	display: inline;
 }
 #tabs a, #menu a {
@@ -290,20 +288,7 @@ footer h2 {
 	padding-left: 25px;
 	padding-right: 25px;
 	padding-bottom: 10px;
-	/*color: #000000 !important;*/
 	background: transparent;
-}
-#tabs li a:hover, #menu li a:hover {
-	text-decoration: none;
-	/*background: #EFEFEF;*/
-	/*color: #CC6600 !important;*/
-}
-#tabs .selected, #menu .selected {
-	/*color: #CC6600 !important;*/
-}
-#tabs .selected a, #menu .selected a {
-	/*background: #EFEFEF;*/
-	/*color: #CC6600 !important;*/
 }
 .page {
 	max-width: 1200px;
@@ -335,15 +320,12 @@ p {
 a {
 	font-family: 'Source Sans Pro', sans-serif !important;
 	text-decoration: underline;
-	/*color: #005F8C !important;*/
 }
 a:visited {
 	text-decoration: none;
-	/*color: #005F8C;*/
 }
 a:hover {
 	text-decoration: underline;
-	/*color: #CC6600 !important;*/
 }
 h1 {
 	font-family: 'Source Sans Pro', sans-serif !important;

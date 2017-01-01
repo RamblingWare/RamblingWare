@@ -1,6 +1,6 @@
-# <img src="http://www.ramblingware.com/img/logo-medium.png" height="50px" alt="RamblingWare" title="RamblingWare Logo">
+# <img src="https://www.ramblingware.com/img/logo-medium.png" height="50px" alt="RamblingWare" title="RamblingWare Logo">
 
-The code that powers [RamblingWare.com](http://www.ramblingware.com)
+The code that powers [RamblingWare.com](https://www.ramblingware.com)
 
 ---
 

@@ -22,7 +22,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 			
 				<h1><font class="footnote w3-right">Nov 24th, 2015</font>
 				Terms of Use</h1>

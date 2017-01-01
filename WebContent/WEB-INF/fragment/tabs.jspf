@@ -1,20 +1,14 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!-- Large Screens Menu -->
-<div id="tabs" class="w3-col m2 w3-hide-medium w3-hide-small no-print">
+<div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small no-print">
 	<ul>
 		<s:if test="#session.USER != null">
 		<%--ADMINISTRATOR MENU LINKS --%>
 		<li><a class="w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/manage/">Management Menu</a></li>
 		</s:if>
-	
-		<s:if test="#context['struts.actionMapping'].name=='about'">
+		
 		<li><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">Blog</a></li>
-		<li class="selected"><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">About</a></li>
-		</s:if>
-		<s:else>
-		<li class="selected"><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">Blog</a></li>
 		<li><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">About</a></li>
-		</s:else>
 		
 		<li>&nbsp;</li>
 		
@@ -31,14 +25,9 @@
 			<li class="w3-left w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/manage/">Manage</a></li>
 		</s:if>
 		
-		<s:if test="#context['struts.actionMapping'].name=='about'">
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/blog">Blog</a></li>
-		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a class="selected" href="/about">About</a></li>
-		</s:if>
-		<s:else>
-		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a class="selected" href="/blog">Blog</a></li>
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/about">About</a></li>
-		</s:else>
+		
 		<li class="w3-dropdown-hover w3-left">
 	    <a class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" href="#">Archive</a>
 	    <div class="w3-dropdown-content w3-white w3-card-4">

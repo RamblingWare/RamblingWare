@@ -21,7 +21,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
 							
 				<h1><font class="footnote w3-right">Mar 12th, 2014</font>
 				About</h1>
@@ -29,16 +29,14 @@
 				
 				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.<br />
 				<br />
-				I cover topics around web development and programming. Sometimes security, operating systems, and more.<br />
+				I cover topics around web development and programming. I plan to cover security, Java, and workplace related topics.<br />
 				<br />
-				I hope you enjoy reading, and leave a comment if you like! Thanks.
-				<br />
-				<br />
-				<br />
-				For more info, check out this recent post: <a href="http://www.ramblingware.com/blog/post/problems-with-building-your-own-blogsite">Problems with building your own blogsite.</a>
+				I hope you enjoy reading, and leave a comment if you like! Thanks.				
 				</p>
+				
 				<br />
 				<br />
+				
 				<h2>About the Author</h2>
 				<div class="w3-row" style="min-height:0px">
 				<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
@@ -59,69 +57,39 @@
 				</div>
 				</div>
 				
-				<!--
-				<div class="w3-container w3-padding">
-				<p>
-					<img class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height: 200px" alt="Profile Picture" src="/img/author/AustinDelamar.jpg">
-					
-					<span class="bold">Code.&nbsp;Test.&nbsp;Refract.&nbsp;<span class="footnote">(Repeat...)</span></span>
-					<br />
-					<br />
-					These daily activities for programmers are my favorite things about developing software. Like painting on a canvas, or writing a book, 
-					developing software is the process of careful planning, execution, and evaluation. My passion is in providing that level of detailed 
-					work to clients, and helping automate their business needs through computer software.<br />
-					<br />
-					My name is Austin Delamar, and I am a programmer, 
-					web developer, and all-around computer enthusiast.
-					<br />
-					
-					<br />
+				<br />
+				<br />
 				
-					Born in October 1990; I grew up in Zeeland, Michigan (USA), with two brothers and one sister. In High School, I played a lot of calculator 
-					games on my Ti-83 and TI-89. That's when I first realized I enjoyed tinkering with electronics, and ultimately, computers. 
-					At the time, I didn't know it would lead me to this career path. I graduated in 2009, and had completed multiple Advanced Placement courses,
-					that would give me a head start in college.
-					<br /><br />
-					In Fall of 2009, I attended Grand Valley State University, and started taking courses aligned with a Bachelor's degree in Engineering.
-					After two semesters, I quickly changed majors, into Computer Science. I knew where I excelled in, but it just wasn't engineering. The
-					courses offered for Comp Sci majors highly interested me, such as, UX Design, Linux Security, Mobile development, Structures and Logic,
-					and more. I loved taking the C programming class and UX Design. They were well-defining classes that shaped my thinking.
-					In December 2012, I graduated early and frantically applied for jobs.
-					<br /><br />
-					Currently I work at IBM in East Lansing, Michigan, as a Developer. I love what I do, and look forward to whatevers next!
+				<h2>This Blog is custom built</h2>
+				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>.
+				I've used blog services before, but had decided to program my own. And I know Its not perfect but I have been having fun coding it! I typically work on it at least once a month.<br />
+				<br />
+				If you want to help inform me of any website related problems with this blog, you can open an issue on the 
+				<a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>. Or if you just wanted to deploy your own blog, using this code, you can do that too.
 				</p>
-				</div>
-				<br />		
-				<div class="w3-padding w3-container w3-small">
-					<div class="w3-third w3-padding-8">
-						<h3>I specialize in:</h3>
-						<ul>
-							<li>Java EE Programming</li>
-							<li>WebSphere Application Server</li>
-							<li>DB2 Database</li>
-						</ul>
+				
+				<br />
+				<br />				
+				
+				<h2>Further Reading</h2>
+				<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
+					<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
+						<a href="/blog/post/problems-with-building-your-own-blogsite">
+						<img style="max-height:200px;" src="https://i.imgur.com/j9Et09Xl.jpg" alt="Photo for Problems with building your own blogsite" title="Blog post photo.">
+						</a>
 					</div>
-					<div class="w3-third w3-padding-8">
-						<h3>Favorite Quote:</h3>
-						<p class="quote">"Efficiency is doing things right;<br />effectiveness is doing the right things."<br /><br />-&nbsp;Peter Drucker</p>
-					</div>
-					<div class="w3-third w3-padding-8">
-						<h3>Most Recent Work:</h3>
-						<p>I'm currently supporting multiple J2EE web applications as the lead developer, at IBM.</p>
+					<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
+					<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/post/problems-with-building-your-own-blogsite">Problems with building your own blogsite</a></h3>
+					<p class="footnote">To build or not to build? That is the question. Sometimes building your own blog website can be beneficial. But not always.</p>
+					<p class="footnote"><br>Austin Delamar&nbsp;|&nbsp;Aug 11, 2016</p>
+					<p class="footnote"><b>Tags:</b>&nbsp;
+							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=web-development">web-development</a>
+							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=funny">funny</a>
+					<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/problems-with-building-your-own-blogsite#comments"><span class="disqus-comment-count" data-disqus-identifier="problems-with-building-your-own-blogsite">0 comments</span></a></span>
+					</p>
 					</div>
 				</div>
 				
-				<div class="w3-container">
-					<h3>Contact</h3>
-					<p>You can reach me by:<br />
-					<button class="w3-btn w3-round w3-theme-dark" onclick="window.location.href='mailto:austin.delamar@gmail.com'">Email</button> 
-					&nbsp;&nbsp;
-					<button class="w3-btn w3-round w3-blue" onclick="window.location.href='https://www.linkedin.com/in/austindelamar'">LinkedIn</button>
-					&nbsp;&nbsp;
-					<button class="w3-btn w3-round w3-light-blue" onclick="window.location.href='https://twitter.com/AustinDelamar'">Twitter</button>
-					</p>
-				</div>
-				-->
 				<br />
 				<br />
 				<div class="w3-container">
