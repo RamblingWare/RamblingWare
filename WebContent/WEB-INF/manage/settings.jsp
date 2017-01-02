@@ -46,7 +46,7 @@
 				<div class="w3-container w3-padding w3-col m12 l6">
 				
 					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme w3-center">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Account</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
@@ -65,19 +65,19 @@
 							</p>
 							<p>
 								<s:if test="#session.USER.isAdmin()">
-									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-blue">Admin</span>
+									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-theme">Admin</span>
 									<br/>
 									<span class="footnote">Admins have full access.</span>
 								</s:if>
 								<s:else>
-									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-green">Author</span>
+									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-pale-blue">Author</span>
 									<br/>
 									<span class="footnote">Authors can create/edit blog posts.</span>
 								</s:else>
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
+								<button class="w3-btn w3-small w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
 							</p>
 							</form>
 						</div>
@@ -87,7 +87,7 @@
 				<div class="w3-container w3-padding w3-col m12 l6">
 				
 					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme w3-center">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Password</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
@@ -108,7 +108,7 @@
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
+								<button class="w3-btn w3-small w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
 							</p>
 							</form>
 						</div>
@@ -118,7 +118,7 @@
 				<div class="w3-container w3-padding w3-col m12 l12">
 				
 					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme w3-center">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Security</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
@@ -126,17 +126,17 @@
 							<form action="/manage/settings" method="post">
 							<input type="hidden" name="security" value="true" />
 							
-							<s:if test="#session.USER.isOTPEnabled()">
+							<s:if test="!#session.USER.isOTPEnabled()">
 							<p>
 								<label for="otpEnabled" class="w3-validate w3-text-grey-light w3-large" for="title">Two-Factor Authentication:</label>
-								&nbsp;<span class="w3-tag w3-round w3-green">Enabled</span>
+								&nbsp;<span class="w3-tag w3-round w3-pale-green">Enabled</span>
 								<br/>
 								<span class="footnote">Your account is secured with 2FA by using a OTP (One-Time Password) every time you log in.</span>
 							</p>
 							<hr />
 							<p>
-								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Review 2FA">Review 2FA</a>
-								<a class="w3-btn w3-round w3-card w3-pale-yellow" href="javascript:void(0)" onclick="openPopup('recover-2fa')" title="View Recovery Code">Recovery Code</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Review 2FA">View 2FA</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('recover-2fa')" title="View Recovery Code">Recovery Code</a>
 								&nbsp;
 								<a class="w3-small" href="javascript:void(0)" onclick="openPopup('remove-2fa')" value="Disable" title="Disable 2FA">Disable 2FA</a>
 							</p>
@@ -144,14 +144,14 @@
 							<s:else>
 							<p>
 								<label for="otpEnabled" class="w3-validate w3-text-grey-light w3-large" for="title">Two-Factor Authentication:</label>
-								&nbsp;<span class="w3-tag w3-round w3-red">Disabled</span>
+								&nbsp;<span class="w3-tag w3-round w3-pale-red">Disabled</span>
 								<br/>
 								<span class="footnote">Secure your account with 2FA by using a OTP (One-Time Password) every time you log in.</span>
 							</p>
 							<hr />
 							<p>
 								<input type="hidden" name="twofactor" value="true" />
-								<a class="w3-btn w3-round w3-card w3-pale-green" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Enable">Enable 2FA</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-pale-green" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Enable">Enable 2FA</a>
 							</p>
 							</s:else>
 							</form>
@@ -205,7 +205,7 @@
 								</p>
 								<p>
 									<label class="w3-validate w3-text-grey-light w3-large" for="code">Security Code:&nbsp;<span class="w3-text-red">*</span></label>
-									<input type="text" size="50" maxlength="300" name="code" id="code" value="" required class="w3-input w3-round-large w3-border w3-large" />
+									<input type="text" size="50" maxlength="300" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" class="w3-input w3-round-large w3-border w3-large" />
 								</p>
 								<hr />
 								<p>
@@ -233,7 +233,7 @@
 								</p>
 								<p>
 									<label class="w3-validate w3-text-grey-light w3-large" for="code">Recovery Code:&nbsp;<span class="w3-text-red">*</span></label>
-									<input type="text" size="50" maxlength="20" name="code" id="code" value="" required class="w3-input w3-round-large w3-border w3-large" />
+									<input type="text" size="50" maxlength="20" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" class="w3-input w3-round-large w3-border w3-large" />
 								</p>
 								<p>
 									<label class="w3-validate w3-text-grey-light w3-large" for="passwordOld">Password:&nbsp;<span class="w3-text-red">*</span></label>
@@ -278,27 +278,26 @@
 				<div class="w3-container w3-padding w3-col m12 l12">
 				
 					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme w3-center">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">About you</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
 							<p>Review your public information from your Author page.</p>
 							
-							<div class="w3-row" style="min-height:0px"><div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
+							
 							<span class="w3-col s3 m3 l3 w3-padding-16">
-								<img class="w3-round w3-margin-left" style="width: 40px; height: 40px" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
+								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
 							</span>
 							<span class="w3-col s9 m9 l9 w3-padding-16">
 								<span class="footnote w3-padding-right">
 								<b><s:property value="#session.USER.name" /></b><br />
 								<span class="w3-small"><s:property value="#session.USER.description" /></span> 
 								</span>
-							</span>										
-							</div></div>
+							</span>								
 							<hr />
 							<p>
-								<a class="w3-btn w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />">Edit</a>
-								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uriName" />">View</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />">Edit</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uriName" />">View My Page</a>
 							</p>
 						
 						</div>
@@ -308,18 +307,18 @@
 				<div class="w3-container w3-padding w3-col m12 l12">
 				
 					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme w3-center">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Additional Info</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
 						
 							<p>Some important dates regarding your account.</p>
 							<p>
-							Date your Account was Created:&nbsp;<span class="bold"><s:property value="#session.USER.createDate"/></span>
+							Date your Account was Created:&nbsp;<span class="bold"><s:property value="#session.USER.createDateReadable"/></span>
 							<br />
-							Date your Account was Last Modified:&nbsp;<span class="bold"><s:property value="#session.USER.modifyDate"/></span>
+							Date your Account was Last Modified:&nbsp;<span class="bold"><s:property value="#session.USER.modifyDateReadable"/></span>
 							<br />
-							Date of your Last Login:&nbsp;<span class="bold"><s:property value="#session.USER.lastLoginDate" /></span>
+							Date of your Last Login:&nbsp;<span class="bold"><s:property value="#session.USER.lastLoginDateReadable" /></span>
 							</p>
 							
 						

@@ -11,8 +11,9 @@ The code that powers [RamblingWare.com](https://www.ramblingware.com)
 - Responsive Design (Mobile Friendly)
 - Blog management, create/edit/delete posts, add/edit/delete authors
 - Social Media ready with OpenGraph API and Twitter API
-- Independent Thumbnails and Banner images
+- Independent Thumbnails and Banner images for posts
 - WYSIWYG editor for blot posts and author bios
+- 2FA security for Author logins
 
 ### Technologies Used:
 - Java EE Programming Language
@@ -23,6 +24,8 @@ The code that powers [RamblingWare.com](https://www.ramblingware.com)
 - Comments by [Disqus](https://disqus.com/)
 - Search by [DuckDuckGo](https://duckduckgo.com)
 - WYSIWYG editor by [CKEditor](http://ckeditor.com/download)
+- TwoFactor Authentication - Using [kamranzafar/libotp](https://github.com/kamranzafar/libotp) with [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
+
 
 ---
 

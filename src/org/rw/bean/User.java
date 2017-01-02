@@ -2,6 +2,8 @@ package org.rw.bean;
 
 import java.util.Date;
 
+import org.rw.model.ApplicationStore;
+
 /**
  * User bean class
  * @author Austin Delamar
@@ -150,6 +152,10 @@ public class User {
 		this.lastLoginDate = lastLoginDate;
 	}
 
+	public String getLastLoginDateReadable() {
+		return ApplicationStore.formatReadableDate(lastLoginDate);
+	}
+
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -158,12 +164,20 @@ public class User {
 		this.createDate = createDate;
 	}
 
+	public String getCreateDateReadable() {
+		return ApplicationStore.formatReadableDate(createDate);
+	}
+
 	public Date getModifyDate() {
 		return modifyDate;
 	}
 
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	public String getModifyDateReadable() {
+		return ApplicationStore.formatReadableDate(modifyDate);
 	}
 
 }

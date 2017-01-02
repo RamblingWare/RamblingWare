@@ -105,12 +105,12 @@
 								</p>
 								<p>   
 									<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:</label>
-									<input type="password" size="50" maxlength="100" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
+									<input type="password" size="50" maxlength="200" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
 								</p>
 							</s:else>
 							<p>   
 								<label class="w3-validate w3-text-grey-light w3-large" for="code">Recovery Code:</label>
-								<input type="text" size="50" maxlength="100" name="code" id="code" value="" required autofocus placeholder="" class="w3-input w3-round-large w3-border" />
+								<input type="text" size="50" maxlength="100" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" placeholder="" class="w3-input w3-round-large w3-border" />
 							</p>
 							<p class="footnote">Your recovery code was created when you enabled 2FA.</p>
 							<hr />

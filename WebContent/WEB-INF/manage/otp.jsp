@@ -45,7 +45,7 @@
 							</div>
 							<p>   
 								<label class="w3-validate w3-text-grey-light w3-large" for="code">Code:</label>
-								<input type="text" size="50" maxlength="6" name="code" id="code" value="" required autofocus placeholder="" class="w3-input w3-round-large w3-xlarge w3-border" />
+								<input type="text" size="50" maxlength="6" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" placeholder="" class="w3-input w3-round-large w3-xlarge w3-border" />
 							</p>
 							<hr />
 							<p>

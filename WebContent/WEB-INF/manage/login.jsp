@@ -45,7 +45,7 @@
 							</p>
 							<p>   
 								<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:</label>
-								<input type="password" size="50" maxlength="100" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
+								<input type="password" size="50" maxlength="200" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
 							</p>
 							<hr />
 							<p>
