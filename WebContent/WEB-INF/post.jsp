@@ -88,30 +88,30 @@
 					<div class="w3-col s12 m6 l6 w3-padding-16 w3-center">	
 						<a title="Share on Facebook" 
 						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
-						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-facebook.png" alt="Facebook" /></a>				
+						<img class="w3-hover-shadow w3-hover-theme w3-circle" src="/img/btn-facebook.png" alt="Facebook" /></a>				
 						
 						<a title="Share on Twitter" 
 						target="_Blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
-						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-twitter.png" alt="Twitter" /></a>
+						<img class="w3-hover-shadow w3-hover-theme w3-circle" src="/img/btn-twitter.png" alt="Twitter" /></a>
 						
 						<a title="Share on LinkedIn"
 						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
-						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-linkedin.png" alt="LinkedIn" /></a>
+						<img class="w3-hover-shadow w3-hover-theme w3-circle" src="/img/btn-linkedin.png" alt="LinkedIn" /></a>
 						
 						<a title="Share on Google+"
 						 target="_Blank" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
-						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-google.png" alt="Google+" /></a>
+						<img class="w3-hover-shadow w3-hover-theme w3-circle" src="/img/btn-google.png" alt="Google+" /></a>
 						
 						<a title="Share on Reddit"
 						 target="_Blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />'">
-						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-reddit.png" alt="Reddit" /></a>
+						<img class="w3-hover-shadow w3-hover-theme w3-circle" src="/img/btn-reddit.png" alt="Reddit" /></a>
 						
 						<a title="Email to a friend"
 						 target="_Blank" href="mailto:?subject=Check%20out%20this%20RamblingWare%20post&body=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />">
-						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-email.png" alt="Email" /></a>
+						<img class="w3-hover-shadow w3-hover-theme w3-circle" src="/img/btn-email.png" alt="Email" /></a>
 						
 						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup()">
-						<img class="w3-hover-shadow w3-hover-orange w3-circle" src="/img/btn-link.png" alt="Permalink" /></a>
+						<img class="w3-hover-shadow w3-hover-theme w3-circle" src="/img/btn-link.png" alt="Permalink" /></a>
 						
 					</div>
 					

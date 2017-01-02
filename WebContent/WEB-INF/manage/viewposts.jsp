@@ -68,7 +68,7 @@
 					<s:iterator value="results" status="r">
 						<tr>
 						<td>
-							<a href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
+							<a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
 						<td>
 						
 						<s:if test="!isVisible">

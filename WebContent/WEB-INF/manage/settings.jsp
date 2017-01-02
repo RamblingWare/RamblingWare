@@ -126,7 +126,7 @@
 							<form action="/manage/settings" method="post">
 							<input type="hidden" name="security" value="true" />
 							
-							<s:if test="!#session.USER.isOTPEnabled()">
+							<s:if test="#session.USER.isOTPEnabled()">
 							<p>
 								<label for="otpEnabled" class="w3-validate w3-text-grey-light w3-large" for="title">Two-Factor Authentication:</label>
 								&nbsp;<span class="w3-tag w3-round w3-pale-green">Enabled</span>

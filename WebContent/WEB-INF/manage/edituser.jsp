@@ -79,7 +79,7 @@
 					<span>&nbsp;&nbsp;</span>
 					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-delete w3-btn w3-round w3-card w3-red" type="submit" onclick="return confirm('Are you sure you want to delete?\n\nAny blog posts by this author will still exist.')" name="delete" value="Delete" title="Delete this post">Delete Author</button>
+					<button class="icon-delete w3-btn w3-round w3-card w3-pale-red" type="submit" onclick="return confirm('Are you sure you want to delete?\n\nAny blog posts by this author will still exist.')" name="delete" value="Delete" title="Delete this post">Delete Author</button>
 					
 					</form>
 				</div>

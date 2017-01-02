@@ -56,23 +56,29 @@
 						<th></th>
 						<th>Author</th>
 						<th>Email</th>
+						<th>Role</th>
 						<th>Added</th>
-						<th>Modified</th>
 						<th>Last Login</th>
 					</tr>
 					
 					<s:iterator value="results" status="r">
 						<tr>
-						<td><a href="/author/<s:property value="uriName" />">View</a>&nbsp;
-						<a href="/manage/edituser/<s:property value="uriName" />">Edit</a></td>
+						<td><a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/edituser/<s:property value="uriName" />">Edit</a></td>
 						<td>
 							<a href="/author/<s:property value="uriName" />"><img class="w3-round" src="<s:property value="thumbnail" />" height="24px" width="24px" /></a>
 							&nbsp;
 							<a href="/author/<s:property value="uriName" />"><s:property value="name" /></a>
 						</td>
-						<td><s:property value="email" /></td>
+							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
+						<td>
+							<s:if test="isAdmin()">
+								<span class="w3-tag w3-round w3-theme">Admin</span>
+							</s:if>
+							<s:else>
+								<span class="w3-tag w3-round w3-pale-blue">Author</span>
+							</s:else>
+						</td>
 						<td><s:property value="createDateReadable" /></td>
-						<td><s:property value="modifyDateReadable" /></td>
 						<td><s:property value="lastLoginDateReadable" /></td>
 					</s:iterator>
 					</table>

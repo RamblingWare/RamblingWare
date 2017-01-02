@@ -101,7 +101,7 @@
 						<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
 							<a href="/author/<s:property value="uriName" />">
 							<span class="w3-col s3 m3 l3 w3-padding-16">
-								<img class="w3-round w3-margin-left" style="width: 40px; height: 40px" alt="Profile Picture" src="<s:property value="thumbnail" />">
+								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="thumbnail" />">
 							</span>
 							<span class="w3-col s9 m9 l9 w3-padding-16">
 								<span class="footnote w3-padding-right">

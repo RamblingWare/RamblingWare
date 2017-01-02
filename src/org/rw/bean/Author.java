@@ -15,6 +15,7 @@ public class Author {
 	private String uriName;
 	private String name;
 	private String email;
+	private boolean isAdmin;
 	
 	private Date createDate;
 	private Date modifyDate;
@@ -53,6 +54,14 @@ public class Author {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	public int getId() {
