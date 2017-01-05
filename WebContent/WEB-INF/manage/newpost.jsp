@@ -81,7 +81,7 @@ function preview() {
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 		
-			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 			
 				<!-- ADMIN TABS BEGIN -->
 				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
@@ -186,7 +186,7 @@ function preview() {
 					</p>
 					
 					<hr />
-					<button class="icon-redo w3-btn w3-right w3-round w3-card w3-green w3-hover-text-white" type="submit" name="submit" value="Submit" title="Submit">Submit</button>
+					<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">Submit</button>
 					<span>&nbsp;&nbsp;</span>
 					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">Back</button>
 					<span>&nbsp;&nbsp;</span>

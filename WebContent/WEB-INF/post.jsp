@@ -36,7 +36,7 @@
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
 			<!-- TABS_END -->
 			
-			<div id="page-content" class="w3-col m10 l8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<% if(request.getAttribute("banner")!=null && !request.getAttribute("banner").toString().isEmpty()) { %>
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">

@@ -1,5 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="archive" class="w3-col m2 l2 no-print">
+<div id="archive" class="w3-col m4 l2 no-print">
 	<div class="w3-container w3-hide-small">
 		<s:if test="#session.archive_featured != null && !#session.archive_featured.isEmpty()">
 			<h3>Featured</h3>

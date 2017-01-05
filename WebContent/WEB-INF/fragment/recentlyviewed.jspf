@@ -1,5 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="recent" class="w3-col m2 l2 no-print">
+<div id="recent" class="w3-col m4 l2 no-print">
 	<div class="w3-container">
 		<s:if test="#session.recent_view != null && !#session.recent_view.isEmpty()">
 		<script>
