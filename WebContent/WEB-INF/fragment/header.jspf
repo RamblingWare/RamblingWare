@@ -5,9 +5,9 @@
 		<a href="/"><img class="logo w3-hide-small" src="/img/logo-medium.png" alt="RamblingWare" /></a>
 		<a href="/"><img class="logo w3-hide-large w3-hide-medium no-print" src="/img/logo-small.png" alt="RamblingWare" /></a>
 	</div>	
-	<div id="search" class="w3-col s5 m5 l3 w3-container w3-padding-8 w3-small w3-right no-print">
+	<div id="search" class="w3-col s6 m5 l3 w3-container w3-padding-8 w3-small w3-right no-print">
 		<form action="/search" method="get">
-		<input id="s" name="s" class="icon-search w3-input w3-theme-l3 w3-hover-white w3-card-2 w3-round-large" maxlength="50" size="20" placeholder="Search..." type="text">
+		<input id="s" name="s" class="icon-search w3-input w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-card-2 w3-round-large" maxlength="50" size="20" placeholder="Search..." type="text">
 		</form>
 	</div>
 	</div>

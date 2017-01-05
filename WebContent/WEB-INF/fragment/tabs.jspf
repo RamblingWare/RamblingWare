@@ -6,54 +6,28 @@
 		<%--ADMINISTRATOR MENU LINKS --%>
 		<li><a class="w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/manage/">Management Menu</a></li>
 		</s:if>
-		
 		<li><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">Blog</a></li>
 		<li><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">About</a></li>
-		
 		<li>&nbsp;</li>
-		
-		<li><a class="social-facebook w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="https://www.facebook.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">Like us on Facebook</a></li>
-		<li><a class="social-github w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="https://www.github.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">Check our Github Projects</a></li>
-		<li><a class="social-rss w3-small w3-opacity w3-hover-opaque w3-hover-shadow w3-round" href="/rss" style="text-align: left; text-indent: 0px ! important;">Subscribe<br /></a></li>
+		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-align: left; text-indent: 0px ! important;">Facebook</a></li>
+		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-align: left; text-indent: 0px ! important;">GitHub </a></li>
+		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
+		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="/rss" data-icon="&#9989;" style="text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
 	</ul>
 </div>
-<!-- Tablet and Small Screens Menu -->
-<div id="menu" class="w3-col w3-hide-large no-print">
+<!-- Tablet Screens Menu -->
+<div id="menu" class="w3-col w3-hide-large w3-hide-small no-print">
 	<ul>
 		<s:if test="#session.USER != null">
 		<%--ADMINISTRATOR MENU LINKS --%>
 			<li class="w3-left w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/manage/">Manage</a></li>
 		</s:if>
-		
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/blog">Blog</a></li>
 		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/about">About</a></li>
-		
-		<li class="w3-dropdown-hover w3-left">
-	    <a class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" href="#">Archive</a>
-	    <div class="w3-dropdown-content w3-white w3-card-4">
-			<s:if test="#session.archive_featured != null">
-			<s:if test="!#session.archive_featured.isEmpty()">
-				<s:iterator value="#session.archive_featured" status="f">
-					<s:set var="fval" value="#session.archive_featured[#f.index].substring(0,4)" />
-									
-						<a class="w3-hover-light-grey w3-hover-shadow" href="/blog/post/<s:property value="uri_name" />">Featured Post</a>
-					
-				</s:iterator>
-			</s:if>
-			</s:if>
-			<s:if test="#session.archive_years != null">
-			<s:if test="!#session.archive_years.isEmpty()">
-				<s:iterator value="#session.archive_years" status="y">
-					<s:set var="yval" value="#session.archive_years[#y.index].substring(0,4)" />
-					<a class="w3-hover-light-grey w3-hover-shadow" href="/blog/search?year=<s:property value="yval" />"><s:property /></a>
-				</s:iterator>
-			</s:if>
-			</s:if>
-			<a class="w3-hover-light-grey w3-hover-shadow" href="/blog">More Posts...</a>
-			</div>
-	 	</li>
-	 	<li class="w3-right w3-hide-small w3-opacity w3-hover-opaque"><a class="social-rss" href="/rss" style="text-align: left; text-indent: 0px ! important;">&nbsp;</a></li>
-		<li class="w3-right w3-hide-small w3-opacity w3-hover-opaque"><a class="social-github" href="https://www.github.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">&nbsp;</a></li>
-		<li class="w3-right w3-hide-small w3-opacity w3-hover-opaque"><a class="social-facebook" href="https://www.facebook.com/RamblingWare/" style="text-align: left; text-indent: 0px ! important;">&nbsp;</a></li>		
+		<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="/rss" data-icon="&#9989;" style="text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
+	 	<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
+		<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-align: left; text-indent: 0px ! important;">GitHub </a></li>
+		<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-align: left; text-indent: 0px ! important;">Facebook</a></li>
+				
 	</ul>
 </div>

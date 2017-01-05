@@ -11,30 +11,19 @@
 		<li><span>|</span></li>
 		<li><a href="/about">About</a></li>
 	</ul>
-	<br />
 	<ul>
-		<li><a class="social-facebook w3-opacity w3-hover-opaque w3-round" href="https://www.facebook.com/RamblingWare/"><span class="w3-hide-small">Facebook</span></a></li>
-		<li><a class="social-github w3-opacity w3-hover-opaque w3-round" href="https://www.github.com/RamblingWare/"><span class="w3-hide-small">Github</span></a></li>
-		<li><a class="social-rss w3-opacity w3-hover-opaque w3-round" href="/rss"><span class="w3-hide-small">Subscribe</span></a></li>
+		<li><a class="w3-small " target="_blank" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Facebook</a></li>
+		<li><a class="w3-small w3-padding-4" target="_blank" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">GitHub </a></li>
+		<li><a class="w3-small w3-padding-4" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
+		<li><a class="w3-small w3-padding-4" target="_blank" href="/rss" data-icon="&#9989;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
 	</ul>
 	
-	<br />
-	
-	<p class="w3-tiny thin">&#169; Austin Delamar - 2016</p>
-	<p class="w3-tiny thin">Last Updated: 12/11/2016</p>
+	<p class="w3-tiny thin" data-icon="&#169;">RamblingWare - 2017</p>
+	<p class="w3-tiny thin">Last Updated: 1/4/2017</p>
 	
 	<script id="dsq-count-scr" src="//ramblingware.disqus.com/count.js" async></script>
   
 </div>
-
-<%-- ALERT POPUP --%>
-<s:if test="alert != null">
-	<script>
-		alert('<%=request.getAttribute("alert") %>');
-	</script>
-</s:if>
-<%-- END OF ALERT POPUP --%>
-
 <div class="w3-container w3-padding-16 w3-theme-dark no-print">
 	<div class="page w3-small">
 	<div class="w3-left">
