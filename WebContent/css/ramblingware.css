@@ -1,40 +1,11 @@
 /*
  * RamblingWare CSS
  * Author: Austin Delamar
- * Date: 11/19/2015
+ * Date: 1/6/2017
  */
  @media print {
  	.no-print { display: none; }
  }
-
-.info, .success, .warning, .error, .validation {
-    border: 1px solid;
-    margin: 10px 0px;
-    padding: 15px 10px 15px 50px;
-    background-size: 32px 32px;
-    background-repeat: no-repeat;
-    background-position: 10px center;
-}
-.info {
-    color: #00529B;
-    background-color: #BDE5F8;
-    background-image: url('/img/sign-info.png') !important;
-}
-.success {
-    color: #4F8A10;
-    background-color: #DFF2BF;
-    background-image:url('/img/sign-check.png') !important;
-}
-.warning {
-    color: #9F6000;
-    background-color: #FEEFB3;
-    background-image: url('/img/sign-warning.png') !important;
-}
-.error {
-    color: #D8000C;
-    background-color: #FFBABA;
-    background-image: url('/img/sign-error.png') !important;
-}
 *[class^="icon-"] {
 	background-repeat: no-repeat;
 	background-position: 10px center;
@@ -77,8 +48,18 @@
   padding: 0px;
   margin: 0px 6px 0px 0px;
 }
-.transparent {
-	background: transparent !important;
+[data-close]:after {
+	content: '\00D7';
+	text-decoration: none;
+	padding: 0px;
+	margin: 0px 6px 0px 0px;
+	float: right;
+	opacity: 0.3;
+	font-size: 1.1em;
+}
+[data-close]:hover:after {
+	opacity: 1;
+	cursor: pointer;
 }
 .footnote {
 	color: #666666 !important;
@@ -90,9 +71,6 @@
 }
 .quote {
 	font-style: italic !important;
-}
-.shadow {
-    box-shadow: 10px 10px 5px #888888;
 }
 .large {
 	font-size: 2.0em !important;
@@ -115,49 +93,16 @@
 .tag {
 	text-decoration: none !important;
 	padding: 2px;
-	margin: 1px; 
 	font-size: 0.8em !important;
 	white-space: nowrap !important;
 }
 .w3-hover-opaque:hover {
 	opacity: 1.0;
 }
-.scrollable {
-	max-height: 400px;
-	overflow-y: scroll;
-}
 .bottomright {
     position: absolute;
     bottom: 0px;
     right: 0px;
-}
-img.photo {
-	padding: 0px; 
-	margin: auto;
-	border-radius: 15px;
-}
-img.circle {
-	padding: 0px; 
-	margin: 0px; 
-	min-height: 25px; 
-	max-height: 200px; 
-	max-width: 100%;
-	border-radius: 50%;
-}
-img.rounded {
-	padding: 0px; 
-	margin: 0px; 
-	min-height: 25px; 
-	max-height: 200px; 
-	max-width: 100%;
-	border-radius: 25%;
-}
-button img {
-	margin-top: 2px;
-	margin-left: 2px;
-	margin-right: 2px;
-	margin-bottom: -2px;
-	padding: 0px;
 }
 *[class^="social-"] {
 	background-repeat: no-repeat !important;
@@ -231,6 +176,9 @@ footer {
 }
 footer, footer h3, footer a, footer a:visited, footer p, footer span {
 	color: #838080 !important;
+}
+footer a {
+	text-decoration: none;
 }
 footer a:hover {
 	color: #000000 !important;
@@ -343,4 +291,13 @@ h2, h3, h4, h5, h6 {
 h1 a, h2 a, h3 a {
 	color: initial !important;
 	text-decoration: none !important;
+}
+blockquote {
+	margin: 25px 0px 25px 0px;
+	border-left: 3px solid lightgrey;
+	padding: 2px 5px 2px 25px;
+	border-radius: 5px;
+	border-right: 3px solid lightgrey;
+	font-size: 1.1em;
+	opacity: 0.6;
 }
