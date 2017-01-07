@@ -31,15 +31,14 @@
 		
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-						<p class="error"><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-						<p class="info"><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
 					</s:iterator>
-				</s:if>
-				
+				</s:if>				
 				
 				<div class="w3-row">
 					<div class="w3-col l6 m6 s12">
@@ -86,8 +85,8 @@
 				
 				<hr />
 							
-				
 				<h3>Application Statistics</h3>
+				<s:if test="start != null">
 				<table class="w3-table-all">
 					<thead>
 						<tr class="w3-theme-dark uppercase">
@@ -118,6 +117,13 @@
 					</tr>
 					</s:iterator></tbody>
 				</table>
+				</s:if>
+				<s:else>
+				<p>
+					<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/">Reload</a>
+					<span class="footnote">Refresh the statistics.</span>
+				</p>
+				</s:else>
 				
 			</div>
 		</div>

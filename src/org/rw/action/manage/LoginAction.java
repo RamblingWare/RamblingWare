@@ -123,14 +123,14 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 		    		else
 					{
 						// password did not match
-						addActionMessage("Invalid login. ("+attempts+"/"+maxAttempts+")");
+						addActionError("Invalid username or password. ("+attempts+"/"+maxAttempts+")");
 						System.out.println("User failed to login. Password did not match. ("+attempts+"/"+maxAttempts+") ("+servletRequest.getRemoteAddr()+")");
 					}
 				}
 				else
 				{
 					// no user found
-					addActionMessage("Invalid login. ("+attempts+"/"+maxAttempts+")");
+					addActionError("Invalid username or password. ("+attempts+"/"+maxAttempts+")");
 					System.out.println("User failed to login. Invalid Username was entered "+username+" ("+attempts+"/"+maxAttempts+") ("+servletRequest.getRemoteAddr()+")");
 				}
 			} catch (Exception e) {
@@ -175,7 +175,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 	    		
     		} else {
     			// OTP code did not match!
-    			addActionMessage("Invalid login. ("+attempts+"/"+maxAttempts+")");
+    			addActionError("Invalid code. ("+attempts+"/"+maxAttempts+")");
     			System.out.println("User tried to login with OTP: "+user.getUsername()+" ("+attempts+"/"+maxAttempts+") ("+servletRequest.getRemoteAddr()+")");
     			
     			return INPUT;
@@ -184,7 +184,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
     	else
     	{
     		// invalid login
-    		addActionMessage("Invalid login. ("+attempts+"/"+maxAttempts+")");
+    		addActionError("Invalid code. ("+attempts+"/"+maxAttempts+")");
     		System.out.println("User tried to login with an invalid Username. ("+attempts+"/"+maxAttempts+") ("+servletRequest.getRemoteAddr()+")");
     	}
         return ERROR;

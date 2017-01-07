@@ -24,20 +24,19 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
+				<h1>Welcome!</h1>
+				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</p>
+				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-						<p class="error"><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-						<p class="info"><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
 					</s:iterator>
 				</s:if>
-				
-				<h1>Welcome!</h1>
-				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</p>
-				
 				
 				<!-- BLOG POSTS START -->
 				<br />

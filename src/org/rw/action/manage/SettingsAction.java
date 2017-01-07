@@ -197,7 +197,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 				else
 				{
 					// password does not match
-					addActionMessage("Invalid Password.");
+					addActionError("Invalid Password. Please try again.");
 					System.out.println("User "+user.getUsername()+" failed to change password. Invalid Password was entered.");
 				}
 			} catch (Exception e) {

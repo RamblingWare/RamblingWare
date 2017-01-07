@@ -3,31 +3,30 @@
 <div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small no-print">
 	<ul>
 		<s:if test="#session.USER != null">
-		<%--ADMINISTRATOR MENU LINKS --%>
-		<li><a class="w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/manage/">Management Menu</a></li>
+		<li><a class="w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="Menu" href="/manage/">Management Menu</a></li>
 		</s:if>
-		<li><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">Blog</a></li>
-		<li><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow">About</a></li>
-		<li>&nbsp;</li>
-		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-align: left; text-indent: 0px ! important;">Facebook</a></li>
-		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-align: left; text-indent: 0px ! important;">GitHub </a></li>
-		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
-		<li><a class="w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="/rss" data-icon="&#9989;" style="text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
+		<li><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
+		<li><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
+	</ul>
+	<br/>
+	<ul>	
+		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-align: left; text-indent: 0px ! important;">Facebook</a></li>
+		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="GitHub" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-align: left; text-indent: 0px ! important;">GitHub </a></li>
+		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
+		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="RSS Feed" href="/rss" data-icon="&#9989;" style="text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
 	</ul>
 </div>
 <!-- Tablet Screens Menu -->
 <div id="menu" class="w3-col w3-hide-large w3-hide-small no-print">
 	<ul>
 		<s:if test="#session.USER != null">
-		<%--ADMINISTRATOR MENU LINKS --%>
-			<li class="w3-left w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/manage/">Manage</a></li>
+		<li class="w3-left w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/manage/" title="Menu">Manage</a></li>
 		</s:if>
-		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/blog">Blog</a></li>
-		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/about">About</a></li>
-		<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="/rss" data-icon="&#9989;" style="text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
-	 	<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
-		<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-align: left; text-indent: 0px ! important;">GitHub </a></li>
-		<li><a class="w3-right w3-hide-small w3-small w3-opacity w3-hover-opaque w3-padding-4" target="_blank" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-align: left; text-indent: 0px ! important;">Facebook</a></li>
-				
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/blog" title="Blog">Blog</a></li>
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/about" title="About">About</a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="RSS Feed" href="/rss" data-icon="&#9989;" style="text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
+	 	<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="GitHub" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-align: left; text-indent: 0px ! important;">GitHub </a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-align: left; text-indent: 0px ! important;">Facebook</a></li>
 	</ul>
 </div>

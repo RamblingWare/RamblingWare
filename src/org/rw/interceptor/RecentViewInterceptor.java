@@ -60,25 +60,22 @@ public class RecentViewInterceptor implements Interceptor {
 				Statement st = conn.createStatement();
 				
 				// search in db for recently viewed posts
-				String query = "select p.post_id, p.title, p.uri_name, p.is_visible, p.create_date, LEFT(p.html_content, 90) from posts p where p.uri_name IN ("+
+				String query = "select p.post_id, p.title, p.uri_name, p.description, p.create_date, LEFT(p.html_content, 90) from posts p where p.uri_name IN ("+
 						condition+") AND p.is_visible <> 0 order by p.create_date desc limit 3";
 				//System.out.println(query);
 				ResultSet rs3 = st.executeQuery(query);
 				
 				while(rs3.next()) {
-					if(rs3.getInt("is_visible") == 0)
-						continue; // skip this post, because its  not public yet
 					
 					// get the post properties
 					int post_id = rs3.getInt("post_id");
 					String post_title = rs3.getString("title");
 					Date create_date = rs3.getDate("create_date");
 					String post_uri_name = rs3.getString("uri_name");
-					String description = rs3.getString(6)+"...";
+					String description = rs3.getString("description");
 					
 					// save info into an object
 					Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
-					post.setAuthor("Austin Delamar");
 					post.setDescription(description);
 					
 					// add to results list

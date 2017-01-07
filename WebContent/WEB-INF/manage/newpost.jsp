@@ -92,12 +92,12 @@ function preview() {
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-						<p class="error"><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
-			   <s:iterator value="actionMessages">
-						<p class="info"><s:property/></p>
+				   <s:iterator value="actionMessages">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
 					</s:iterator>
 				</s:if>
 		
@@ -167,7 +167,7 @@ function preview() {
 					<h2 id="previewTitle2">Post Title</h2>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Max 12288 chars.)</span></label>
-						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%"><s:property value="htmlContent" /></textarea>
+						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" maxlength="12288" style="width:100%"><s:property value="htmlContent" /></textarea>
 			            <script>
 			                // Replace the <textarea id="htmlContent"> with a CKEditor instance, using default configuration.
 			                CKEDITOR.replace('htmlContent');

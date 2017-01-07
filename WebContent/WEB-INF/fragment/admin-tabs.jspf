@@ -1,19 +1,16 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-
 <s:if test="#session.USER != null">
-	
 	<div class="w3-right w3-dropdown-hover">
-		<button class="w3-card w3-round w3-theme-light w3-hover-shadow w3-padding-4 w3-large">
+		<button class="w3-card w3-round w3-theme-light w3-hover-shadow w3-padding-4 w3-large" title="Menu">
 			<img class="w3-round" src="<s:property value="#session.USER.getThumbnail()"/>" align="top" style="width:24px; height:24px;" />
 			&nbsp;<s:property value="#session.USER.getName()"/>
 		</button>
    		<div class="w3-dropdown-content w3-white w3-card-4">
-			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/">Management Menu</a>
-			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/posts">Edit Posts</a>
-			<a class="w3-hover-light-grey w3-hover-shadow w3-border-bottom" href="/manage/users">Edit Authors</a>
-			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/settings">My Settings</a>
-			<a class="w3-hover-light-grey w3-hover-shadow" href="/manage/logout">Logout</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="Management Menu" href="/manage/">Management Menu</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="Edit Posts" href="/manage/posts">Edit Posts</a>
+			<a class="w3-hover-light-grey w3-hover-shadow w3-border-bottom" title="Edit Authors" href="/manage/users">Edit Authors</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="My Settings" href="/manage/settings">My Settings</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="Logout" href="/manage/logout">Logout</a>
 		</div>
 	</div>
-
 </s:if>

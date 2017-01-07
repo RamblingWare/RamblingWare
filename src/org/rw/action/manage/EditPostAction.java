@@ -69,6 +69,49 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 		
 		if(servletRequest.getParameter("submit")!=null)
 		{
+			// Validate each field
+    		if(title == null || title.trim().isEmpty())
+    		{
+    			addActionError("Title was empty. Please fill out all fields before saving.");
+    			System.out.println(user.getUsername()+" failed to edit post. Title was empty.");
+    			return ERROR;
+    		}
+    		if(uriName == null || uriName.trim().isEmpty())
+    		{
+    			addActionError("URI Name was empty. Please fill out all fields before saving.");
+    			System.out.println(user.getUsername()+" failed to edit post. URI was empty.");
+    			return ERROR;
+    		}
+    		if(thumbnail == null || thumbnail.trim().isEmpty())
+    		{
+    			addActionError("Thumbnail was empty. Please fill out all fields before saving.");
+    			System.out.println(user.getUsername()+" failed to edit post. Thumbnail was empty.");
+    			return ERROR;
+    		}
+    		if(description == null || description.trim().isEmpty())
+    		{
+    			addActionError("Description was empty. Please fill out all fields before saving.");
+    			System.out.println(user.getUsername()+" failed to edit post. Description was empty.");
+    			return ERROR;
+    		}
+    		if(isVisible && (htmlContent == null || htmlContent.trim().isEmpty()))
+    		{
+    			addActionError("Post Content was empty. Please fill out all fields before saving.");
+    			System.out.println(user.getUsername()+" failed to edit post. Content was empty.");
+    			return ERROR;
+    		}
+			if(htmlContent.length() > 12288)
+			{
+				addActionError("Post Content is too long. Character limit is 12,288. Please shorten the post.");
+				System.out.println(user.getUsername()+" failed to edit post. Content too large.");
+				return ERROR;
+			}
+    		if(tags == null || tags.trim().isEmpty())
+    		{
+    			tags = "none";
+    		}
+    		
+
 			// they've submitted an edit on a post
 			Connection conn = null;
 			Statement st = null;
@@ -80,6 +123,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				String update = "update posts set "
 						+ "user_id = ?,"
 						+ "title = ?,"
+						+ "uri_name = ?,"
 						+ "modify_date = ?,"
 						+ "is_visible = ?,"
 						+ "is_featured = ?,"
@@ -91,15 +135,15 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				PreparedStatement pt = conn.prepareStatement(update);
 				pt.setString(1, user.getUserId());
 				pt.setString(2, title);
-				//pt.setString(3, uriName); can't change URI
-				pt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
-				pt.setInt(4, isVisible!=null?1:0);
-				pt.setInt(5, isFeatured!=null?1:0);
-				pt.setString(6, thumbnail);
-				pt.setString(7, description);
-				pt.setString(8, banner);
-				pt.setString(9, bannerCaption);
-				pt.setString(10, htmlContent);
+				pt.setString(3, uriName);
+				pt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+				pt.setInt(5, isVisible!=null?1:0);
+				pt.setInt(6, isFeatured!=null?1:0);
+				pt.setString(7, thumbnail);
+				pt.setString(8, description);
+				pt.setString(9, banner);
+				pt.setString(10, bannerCaption);
+				pt.setString(11, htmlContent);
 				
 				if(pt.execute())
 				{
@@ -121,17 +165,13 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				}
 				
 				// insert new tags
-				//System.out.println("Tags: "+tags);
-				String tempTags = tags;
 				
 				// chop off [ ] if they added them
-				if(tags.startsWith("["))
-					tempTags = tempTags.substring(1,tags.length());
-				if(tags.endsWith("]"))
-					tempTags = tempTags.substring(0,tags.length()-1);
+				tags = tags.replaceAll("\\[", "");
+				tags = tags.replaceAll("\\]", "");
+				System.out.println("Tags: '"+tags+"'");
 				
-				//System.out.println("TempTags: "+tempTags);
-				String[] tagsArray = tempTags.split(",");
+				String[] tagsArray = tags.split(",");
 				
 				String qry = "insert into tags (post_id,tag_name) values ";
 				for(String t : tagsArray) {
@@ -168,8 +208,12 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				} catch (Exception e) {}
 			}
 			
+			// successfully updated
 			System.out.println("User "+user.getUsername()+" updated post: "+uri);
-			addActionMessage("Successfully saved the changes to the post.");
+			if(!isVisible)
+				addActionMessage("Successfully saved the changes to the post.");
+			else
+				addActionMessage("Successfully updated the post.");
 			return "edit";
 		}
 		else if(servletRequest.getParameter("delete")!=null)
@@ -394,7 +438,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setBannerCaption(String bannerCaption) {
-		this.bannerCaption = ApplicationStore.removeNonAsciiChars(bannerCaption.trim());
+		this.bannerCaption = bannerCaption;
 	}
 
 	public String getTags() {

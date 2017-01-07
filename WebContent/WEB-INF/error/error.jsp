@@ -29,19 +29,31 @@
 				
 				<h1>Error</h1>
 				<p>Oops! Looks like Something broke.</p>
-				<br />
-				<p class="footnote"><% if(exception!=null)exception.printStackTrace(new java.io.PrintWriter(out)); %></p>
-				<% if(exception!=null)System.err.println("Exception: "+exception.getClass().getName()+" "+exception.getMessage()); %>
-				<p>Use the menu or these links to continue using this website.
-				<br />
-				<br /><a href="/">Home page</a>
-				<br /><a href="/blog">Blog page</a>
-				<br /><a href="/blog/search">search page</a>
-				</p>
+				
+				<% if(exception!=null) { %>
+				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">	
+				<% exception.printStackTrace(new java.io.PrintWriter(out)); %>
+				</p>	
+				<% } %>				
+				
+				<s:if test="hasActionErrors()">
+				   <s:iterator value="actionErrors">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					</s:iterator>
+				</s:if>
+				<s:if test="hasActionMessages()">
+				   <s:iterator value="actionMessages">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-yellow w3-text-yellow w3-border-yellow" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					</s:iterator>
+				</s:if>
+				
+				<p class="footnote"><% if(exception!=null)System.err.println("Exception: "+exception.getClass().getName()+" "+exception.getMessage()); %></p>
+				
 				<br />
 				
-				<%! int hits = 1; %>
-				<!-- Error JSP Hits: <%=hits++ %>  -->
+				<p>
+					<a class="icon-undo w3-btn w3-card w3-round w3-light-grey" href="javascript: window.history.back()">Go Back</a>
+				</p>
 			
 			</div>
 		</div>

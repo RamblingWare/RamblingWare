@@ -66,7 +66,7 @@ public class ArchiveInterceptor implements Interceptor {
 				}
 				
 				// search in db for featured posts
-				ResultSet rs3 = st.executeQuery("select p.post_id, p.title, p.uri_name, p.create_date, p.thumbnail from posts p where p.is_visible <> 0 and p.is_featured <> 0 order by p.create_date desc limit 1");
+				ResultSet rs3 = st.executeQuery("select p.post_id, p.title, p.uri_name, p.create_date, p.thumbnail, p.description from posts p where p.is_visible <> 0 and p.is_featured <> 0 order by p.create_date desc limit 2");
 				
 				while(rs3.next()) {					
 					// get the post properties
@@ -75,11 +75,13 @@ public class ArchiveInterceptor implements Interceptor {
 					Date create_date = rs3.getDate("create_date");
 					String post_uri_name = rs3.getString("uri_name");
 					String thumbnail = rs3.getString("thumbnail");
+					String desc = rs3.getString("description");
 					
 					// save info into an object
 					Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
 					post.setAuthor("Unknown");
 					post.setThumbnail(thumbnail);
+					post.setDescription(desc);
 					
 					// add to results list
 					archive_featured.add(post);

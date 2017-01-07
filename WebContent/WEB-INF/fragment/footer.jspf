@@ -2,24 +2,22 @@
 <footer>
 <div class="w3-container w3-padding-16 w3-theme-l4 w3-border-top w3-border-bottom no-print">
 
-	<ul>
-		<li><a href="/">Home</a></li>
-		<li><span>|</span></li>
-		<li><a href="/blog">Blog</a></li>
-		<li><span>|</span></li>
-		<li><a href="/blog/search">Search</a></li>
-		<li><span>|</span></li>
-		<li><a href="/about">About</a></li>
-	</ul>
-	<ul>
-		<li><a class="w3-small " target="_blank" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Facebook</a></li>
-		<li><a class="w3-small w3-padding-4" target="_blank" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">GitHub </a></li>
-		<li><a class="w3-small w3-padding-4" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Subscribe</a></li>
-		<li><a class="w3-small w3-padding-4" target="_blank" href="/rss" data-icon="&#9989;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">RSS Feed</a></li>
-	</ul>
-	
-	<p class="w3-tiny thin" data-icon="&#169;">RamblingWare - 2017</p>
-	<p class="w3-tiny thin">Last Updated: 1/4/2017</p>
+	<p class="w3-large w3-margin-0">
+		<a href="/" title="Home">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/blog" title="Blog">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/blog/search" title="Search">Search</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/about" title="About">About</a>
+	</p>
+	<p>
+		<a target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Facebook</a>&nbsp;&nbsp;
+		<a target="_blank" title="GitHub" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">GitHub </a>&nbsp;&nbsp;
+		<a target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Subscribe</a>&nbsp;&nbsp;
+		<a target="_blank" title="RSS Feed" href="/rss" data-icon="&#9989;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">RSS Feed</a>
+	</p>
+	<p class="w3-small w3-margin-0" data-icon="&#169;">
+		RamblingWare - 2017<br/>
+		Last Updated: 1/6/2017
+	</p>
 	
 	<script id="dsq-count-scr" src="//ramblingware.disqus.com/count.js" async></script>
   
@@ -28,13 +26,13 @@
 	<div class="page w3-small">
 	<div class="w3-left">
 		<span>
-		<a href="/terms">Terms</a> |
-		<a href="/privacy-policy">Privacy</a> |
-		<a target="_Blank" href="https://github.com/RamblingWare/RamblingWare">Source Code</a>
+		<a href="/terms" title="Terms of Use">Terms</a> |
+		<a href="/privacy-policy" title="Privacy Policy">Privacy</a> |
+		<a target="_Blank" href="https://github.com/RamblingWare/RamblingWare" title="Source Code">Source Code</a>
 		</span>
 	</div>
 	<div class="w3-right">
-		<span>Hosted on <a target="_Blank" href="https://www.bluemix.net/">IBM Bluemix</a></span>
+		<span>Hosted on <a target="_Blank" href="https://www.bluemix.net/" title="IBM Bluemix">IBM Bluemix</a></span>
 	</div>
 	</div>
 </div>

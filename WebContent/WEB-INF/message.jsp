@@ -28,23 +28,21 @@
 				<!-- ADMIN TABS END -->
 			
 				<h1>Message</h1>
-				<p class="info"><%=request.getAttribute("message") %></p>
-				<s:if test="hasActionMessages()">
-		    		<div id="this" class="success" style="display:block"><s:iterator value="actionMessages"><s:property escape="false" /></s:iterator>
-		    		<button style="float:right" onclick="toggleElement('this')">X</button></div>
-				</s:if>
-				<p>Use the menu or these links to continue using this website.
-				<br />
-				<br /><a href="/">Home page</a>
-				<br /><a href="/blog">Blog page</a>
-				<br /><a href="/blog/search">search page</a>
-				</p>
-				<br />
+				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-blue w3-text-blue w3-border-blue" onclick="this.style.display='none'" data-close="">${message}</p>
 				
-				<%! int hits = 1; %>
-				<!-- Message JSP Hits: <%=hits++ %>  -->
+				<p>
+					<a class="icon-undo w3-btn w3-card w3-round w3-light-grey" href="/">Home Page</a>
+				</p>
 			
 			</div>
+			
+			<!-- ARCHIVE BEGIN -->
+			<%@include file="/WEB-INF/fragment/archive.jspf" %>
+			<!-- ARCHIVE END -->
+			
+			<!-- RECENTLY VIEWED BEGIN -->
+			<%@include file="/WEB-INF/fragment/recentlyviewed.jspf" %>
+			<!-- RECENTLY VIEWED END -->
 		</div>
 	</article>
 	

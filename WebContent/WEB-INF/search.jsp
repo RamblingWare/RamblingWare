@@ -24,18 +24,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 			
-				<h1>Search</h1>
-				
-				<s:if test="hasActionErrors()">
-				   <s:iterator value="actionErrors">
-						<p class="error"><s:property/></p>
-					</s:iterator>
-				</s:if>
-				<s:if test="hasActionMessages()">
-				   <s:iterator value="actionMessages">
-						<p class="info"><s:property/></p>
-					</s:iterator>
-				</s:if>
+				<h1>Search</h1>				
 				
 				<% String month = (String) request.getAttribute("month"); %>
 				<% String year = (String) request.getAttribute("year"); %>
@@ -43,7 +32,6 @@
 				<% if(month==null) month = ""; %>
 				<% if(year==null) year = ""; %>
 				<% if(author==null) author = ""; %>
-				<div class="w3-container">
 				<form action="/blog/search" method="get">
 					
 					<div class="w3-row" style="min-height:0px">
@@ -117,37 +105,33 @@
 					<span>&nbsp;&nbsp;</span>
 					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="reset" value="Reset" title="Reset search fields">Reset</button>
 				</form>
-				</div>
+				<hr />
+				
+				<s:if test="hasActionErrors()">
+				   <s:iterator value="actionErrors">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					</s:iterator>
+				</s:if>
+				<s:if test="hasActionMessages()">
+				   <s:iterator value="actionMessages">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-yellow w3-text-yellow w3-border-yellow" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					</s:iterator>
+				</s:if>
 				
 				<!-- RESULTS START -->
-				
-				<hr />
-				<div class="w3-container transparent">
 				<s:if test="results != null">
 				<s:if test="results.isEmpty()">
-					<p class="w3-large footnote w3-text-red">No results found!</p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">No results found!</p>
 				</s:if>
 				<s:else>
-					<p class="footnote"><s:property value="results.size()" /> result(s) for <span>
-					<s:if test="tag != null && !tag.isEmpty()">
-						Tag = "<s:property value="tag" />" 
-					</s:if>
-					<s:if test="title != null && !title.isEmpty()">
-						Title = "<s:property value="title" />"
-					</s:if>
-					<s:if test="month != null && !month.isEmpty()">
-						Month (<s:property value="month" />) 
-					</s:if>
-					<s:if test="year != null && !year.isEmpty()">
-						Year (<s:property value="year" />) 
-					</s:if>
-					</span></p>
-					<br />
 					<s:iterator value="results" status="r">
-						<div class="w3-container w3-round w3-border w3-card-2 w3-padding-0">
+					
+						<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
 						
-						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0" style="overflow: hidden;">
-							<img style="max-height:320px; max-width:100%" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="Blog post photo." />
+						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
+							<a href="/blog/post/<s:property value="uriName" />">
+							<img style="max-height:200px;" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="Blog post photo." />
+							</a>
 						</div>
 						
 						<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
@@ -157,7 +141,7 @@
 						<p class="footnote"><b>Tags:</b>&nbsp;
 						<s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
+								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/blog/search?tag=<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if>
 						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></span>
@@ -165,13 +149,26 @@
 						</div>
 						</div><br />
 					</s:iterator>
+					
+					<p class="footnote"><s:property value="results.size()" /> result(s) for: <span>
+					<s:if test="tag != null && !tag.isEmpty()">
+						Tag (<s:property value="tag" />) 
+					</s:if>
+					<s:if test="title != null && !title.isEmpty()">
+						Title like "<s:property value="title" />"
+					</s:if>
+					<s:if test="month != null && !month.isEmpty()">
+						Month (<s:property value="month" />) 
+					</s:if>
+					<s:if test="year != null && !year.isEmpty()">
+						Year (<s:property value="year" />) 
+					</s:if>
+					</span></p>
 				</s:else>
 				</s:if>
 				<s:else>
 					<p class="footnote">Use the form above to search for a blog post.</p>
-				</s:else>
-				</div>
-				
+				</s:else>				
 				<!-- RESULTS END -->
 				
 				<br /><br />
