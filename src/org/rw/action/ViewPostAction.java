@@ -35,7 +35,6 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 	private String uriName;
 	private String createDate;
 	private String modifyDate;
-	private String author;
 	private boolean visible;
 	private boolean featured;
 	private String thumbnail;
@@ -44,6 +43,11 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 	private String htmlContent;
 	private String description;
 	private ArrayList<String> tags;
+	
+	private String author;
+	private String authorUri;
+	private String authorThumbnail;
+	private String authorDesc;
 	
 	public String execute() {
 		
@@ -70,7 +74,11 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 			try {
 				conn = ApplicationStore.getConnection();
 				Statement st = conn.createStatement();
-				ResultSet rs = st.executeQuery("select * from posts where uri_name= '"+uriName+"'");
+				
+				ResultSet rs = st.executeQuery("select p.*, u.name, u.uri_name as 'authorUri', u.description as 'authorDesc', u.thumbnail as 'authorThumbnail' "+
+						"from posts p "+
+						"left join users u on p.user_id = u.user_id "+
+						"where p.uri_name = '"+uriName+"'");
 				
 				if(rs.next()) {
 					// get the post properties
@@ -78,7 +86,6 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 					title = rs.getString("title");
 					createDate = ApplicationStore.formatReadableDate(rs.getDate("create_date"));
 					modifyDate = ApplicationStore.formatReadableDate(rs.getDate("modify_date"));
-					author = "Austin Delamar";
 					visible = rs.getInt("is_visible") > 0;
 					featured = rs.getInt("is_featured") > 0;
 					thumbnail= rs.getString("thumbnail");
@@ -86,6 +93,11 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 					bannerCaption = rs.getString("banner_caption");
 					htmlContent = rs.getString("html_content");
 					description = rs.getString("description");
+					
+					author = rs.getString("name");
+					authorUri = rs.getString("authorUri");
+					authorThumbnail = rs.getString("authorThumbnail");
+					authorDesc = rs.getString("authorDesc");
 					
 					ResultSet rs2 = st.executeQuery("select * from tags where post_id = "+post_id);
 					
@@ -260,14 +272,6 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 		this.modifyDate = modifyDate;
 	}
 
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
 	public boolean isVisible() {
 		return visible;
 	}
@@ -290,6 +294,38 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getAuthorUri() {
+		return authorUri;
+	}
+
+	public void setAuthorUri(String authorUri) {
+		this.authorUri = authorUri;
+	}
+
+	public String getAuthorThumbnail() {
+		return authorThumbnail;
+	}
+
+	public void setAuthorThumbnail(String authorThumbnail) {
+		this.authorThumbnail = authorThumbnail;
+	}
+
+	public String getAuthorDesc() {
+		return authorDesc;
+	}
+
+	public void setAuthorDesc(String authorDesc) {
+		this.authorDesc = authorDesc;
 	}
 
 	public boolean isFeatured() {

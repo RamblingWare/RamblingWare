@@ -54,22 +54,24 @@
 				<% out.print(request.getAttribute("htmlContent")); %>
 				
 				<hr />
-				<div class="w3-container w3-padding w3-margin-0 w3-animate-opacity">
+				<div class="w3-container w3-padding w3-margin-0">
+				
 				<div class="w3-col s12 m6 l6 w3-padding-left">
-				<img class="w3-round w3-margin-left w3-left" style="width: 40px; height: 40px" alt="Profile Picture" src="https://i.imgur.com/21fYx3ks.jpg">
-				<p class="footnote w3-left w3-small w3-padding w3-padding-left">
+				<a href="/author/<s:property value="authorUri" />">
+				<img class="w3-round w3-margin-left w3-left" style="width: 40px; height: 40px" alt="Profile Picture" src="<s:property value="authorThumbnail" />"></a>
+				<p class="footnote w3-left w3-padding w3-padding-left">
 				<b>Author:</b> <s:property value="author" /><br />
-				<a href="/blog">View more posts by this author.</a>
+				<a href="/author/<s:property value="authorUri" />">About Me</a>
 				</p>
 				</div>
 				<div class="w3-col s12 m6 l6 w3-padding-left">
-				<p class="footnote w3-small">
-					<b>Published:</b> <s:property value="createDate" />
+				<p class="footnote">
+					<b>Published:</b>&nbsp;&nbsp;<s:property value="createDate" />
 				</p>
 				<span class="footnote w3-small"><b>Tags:</b></span>
 				<s:if test="tags != null && !tags.isEmpty()">
 					<s:iterator value="tags">
-						&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
+						&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/blog/search?tag=<s:property />"><s:property /></a>
 					</s:iterator>
 				</s:if>
 				</div></div>
@@ -82,7 +84,7 @@
 						<button class="icon-undo w3-btn w3-card w3-round w3-light-grey" onclick="window.location.href='/blog/'">View all posts</button>
 						</div>
 						<div class="w3-col s12 m8 l4 w3-padding-4">
-						<button class="icon-redo w3-btn w3-card w3-round w3-light-grey" onclick="window.location.href='/'">View newest post</button>
+						<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&loc=en_US">Subscribe</a>
 						</div>
 					</div>
 					<div class="w3-col s12 m6 l6 w3-padding-16 w3-center">	
