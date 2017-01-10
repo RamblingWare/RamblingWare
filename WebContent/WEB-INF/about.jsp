@@ -23,11 +23,11 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 							
-				<h1><font class="footnote w3-right">Mar 12th, 2014</font>
+				<h1><font class="footnote w3-right">Jan 9th, 2017</font>
 				About</h1>
 				
 				
-				<p>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too. ;-)<br />
+				<p>This is my <b>blog</b> about computers, programming, tech, and things that bother me. I hope it bothers you too. ;-)<br />
 				<br />
 				I cover topics around web development and programming. I plan to cover computer security, java programming, and workplace related topics.<br />
 				<br />
@@ -60,12 +60,19 @@
 				<br />
 				<br />
 				
-				<h2>This Blog is custom built</h2>
+				<h2>This Blog is Custom Built</h2>
 				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>.
 				I've used blog services before, but had decided to program my own. And I know Its not perfect but I have been having fun coding it! I typically work on it at least once a month.<br />
-				<br />
-				If you want to help inform me of any website related problems with this blog, you can open an issue on the 
-				<a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>. Or if you just wanted to deploy your own blog, using this code, you can do that too.
+				</p>
+				<blockquote>“Talk is cheap. Show me the code.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Linus Torvalds</blockquote>
+				<p>
+				If you want to help inform me of any problems with this website, you can open an issue on the 
+				<a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>. Or if you like this website and wanted to deploy your own using this code, you can do that too.
+				</p>
+				<p>
+					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare/issues"><span class="icon-bug w3-large w3-margin-right"></span>Report Bug</a>
+					&nbsp;&nbsp;
+					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare"><span class="icon-embed2 w3-large w3-margin-right"></span>View Code</a>
 				</p>
 				
 				<br />

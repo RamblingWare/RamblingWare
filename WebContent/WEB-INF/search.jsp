@@ -34,10 +34,10 @@
 				<% if(author==null) author = ""; %>
 				<form action="/blog/search" method="get">
 					
-					<div class="w3-row" style="min-height:0px">
-						<div class="w3-col s12 m6 l6">
+					<div class="w3-row">
+						<div class="w3-container w3-col s11 m6 l5">
 						
-							<p><select id="year" name="year" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+							<p><select id="year" name="year" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select a Year]</option>
 								<option <%if(year.equals("2014")) out.print("selected"); %> value="2014">2014</option>
 								<option <%if(year.equals("2015")) out.print("selected"); %> value="2015">2015</option>
@@ -45,9 +45,9 @@
 							</select></p>
 						
 						</div>
-						<div class="w3-col s12 m6 l6">
+						<div class="w3-container w3-col s11 m6 l5">
 						
-							<p><select id="month" name="month" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+							<p><select id="month" name="month" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select a Month]</option>
 								<option <%if(month.equals("Jan")) out.print("selected"); %> value="Jan">January</option>
 								<option <%if(month.equals("Feb")) out.print("selected"); %> value="Feb">February</option>
@@ -64,11 +64,9 @@
 							</select></p>
 						
 						</div>
-					</div>
-					<div class="w3-row" style="min-height:0px">
-						<div class="w3-col s12 m6 l6">
+						<div class="w3-container w3-col s11 m6 l5">
 						
-							<p><select id="tag" name="tag" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+							<p><select id="tag" name="tag" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select a Tag]</option>
 								<s:iterator value="tagOptions" status="to" var="tagOp">
 								<s:if test="%{#tagOp.equals(tag)}">
@@ -81,9 +79,9 @@
 							</select></p>
 						
 						</div>
-						<div class="w3-col s12 m6 l6">
+						<div class="w3-container w3-col s11 m6 l5">
 							
-							<p><select id="author" name="author" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4">
+							<p><select id="author" name="author" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select an Author]</option>
 								<s:iterator value="authorOptions" status="ao" var="authorOp">
 								<s:if test="%{#authorOp.uri_name.equals(author)}">
@@ -95,33 +93,41 @@
 							</select></p>
 						
 						</div>
+						<div class="w3-container w3-col s11 m6 l5">
+							<p>
+							<input type="text" size="50" name="title" id="title" value="<s:property value="title" />" style="width:90%"
+								placeholder="Article Title" class="w3-input w3-round-large w3-hover-text-blue w3-border w3-padding" />
+							</p>
+						</div>
+						<div class="w3-container w3-col s11 m6 l5">
+							<p>
+							<button class="w3-btn w3-round w3-card w3-theme-light" type="submit" value="Search" title="Search for posts"><span class="icon-search w3-large w3-margin-right"></span>Search</button>
+							<span>&nbsp;&nbsp;</span>
+							<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" value="Reset" title="Reset search fields">Reset</button>
+							</p>
+						</div>
 					</div>
-					
-					<p>
-					<input type="text" size="50" name="title" id="title" value="<s:property value="title" />" placeholder="Article Title" class="w3-input w3-round-large w3-hover-text-blue w3-border w3-margin-0 w3-padding-4" />
-					</p>
-					
-					<button class="icon-search w3-btn w3-round w3-card w3-theme-light" type="submit" value="Search" title="Search for posts">Search</button>
-					<span>&nbsp;&nbsp;</span>
-					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="reset" value="Reset" title="Reset search fields">Reset</button>
 				</form>
 				<hr />
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-yellow w3-text-yellow w3-border-yellow" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				
 				<!-- RESULTS START -->
 				<s:if test="results != null">
 				<s:if test="results.isEmpty()">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">No results found!</p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span>No results found!</p>
 				</s:if>
 				<s:else>
 					<s:iterator value="results" status="r">

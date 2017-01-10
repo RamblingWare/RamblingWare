@@ -31,17 +31,19 @@
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
-				</s:if>
+				</s:if>	
 				
-				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser">Add Author</a>
-				<span class="footnote">Add a new Author!</span>
+				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-user-tie w3-large w3-margin-right"></span>Add Author</a>
+				<span class="footnote nowrap">Add a new Author!</span>
 				</p>
 				
 				<!-- RESULTS START -->

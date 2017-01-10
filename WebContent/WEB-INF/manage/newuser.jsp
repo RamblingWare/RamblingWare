@@ -31,14 +31,16 @@
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
-				</s:if>
+				</s:if>	
 		
 				<!-- REGISTER BEGIN -->
 				<div class="w3-container w3-padding-0 w3-twothird w3-border-0">
@@ -72,11 +74,14 @@
 					</p>
 					
 					<hr />
-					<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Submit" title="Submit">Submit</button>
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Submit" title="Submit">
+						<span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">Back</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">
+						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-delete w3-btn w3-round w3-card w3-theme-light" type="reset" value="Reset" title="Reset search fields">Clear</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" value="Reset" title="Reset search fields">
+						<span class="icon-bin w3-large w3-margin-right"></span>Clear</button>
 					
 					</form>
 				</div>

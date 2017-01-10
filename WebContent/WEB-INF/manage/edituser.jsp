@@ -32,14 +32,16 @@
 		
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
-				</s:if>
+				</s:if>	
 				
 				<!-- EDIT AUTHOR BEGIN -->
 				<div class="w3-container w3-padding-0 w3-border-0">
@@ -75,11 +77,14 @@
 					
 					
 					<hr />
-					<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">Save</button>
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">
+						<span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">Back</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">
+						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-delete w3-btn w3-round w3-card w3-pale-red" type="submit" onclick="return confirm('Are you sure you want to delete?\n\nAny blog posts by this author will still exist.')" name="delete" value="Delete" title="Delete this post">Delete Author</button>
+					<button class="w3-btn w3-round w3-card w3-pale-red" type="submit" onclick="return confirm('Are you sure you want to delete?\n\nAny blog posts by this author will still exist.')" name="delete" value="Delete" title="Delete this Author">
+						<span class="icon-bin w3-large w3-margin-right"></span>Delete</button>
 					
 					</form>
 				</div>

@@ -31,19 +31,22 @@
 				<p>Oops! Looks like Something broke.</p>
 				
 				<% if(exception!=null) { %>
-				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">	
+				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+				<span class="icon-cross w3-large w3-margin-right"></span>	
 				<% exception.printStackTrace(new java.io.PrintWriter(out)); %>
 				</p>	
 				<% } %>				
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-yellow w3-text-yellow w3-border-yellow" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-yellow w3-text-yellow w3-border-yellow">
+						<span class="icon-warning w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				
@@ -52,7 +55,8 @@
 				<br />
 				
 				<p>
-					<a class="icon-undo w3-btn w3-card w3-round w3-light-grey" href="javascript: window.history.back()">Go Back</a>
+					<a class="w3-btn w3-card w3-round w3-light-grey" href="javascript: window.history.back()">
+						<span class="icon-arrow-left w3-large"></span>&nbsp;&nbsp;Go Back</a>
 				</p>
 			
 			</div>

@@ -13,6 +13,7 @@ function changeForm() {
 	if(b)
 	{
 		document.getElementById('banner').disabled = false;
+		document.getElementById('banner').required = true;
 		document.getElementById('bannerCaption').disabled = false;
 		document.getElementById('bannerDiv1').style.display = 'block';
 		document.getElementById('bannerDiv2').style.display = 'block';
@@ -20,6 +21,7 @@ function changeForm() {
 	else
 	{
 		document.getElementById('banner').disabled = true;
+		document.getElementById('banner').required = false;
 		document.getElementById('bannerCaption').disabled = true;
 		document.getElementById('bannerDiv1').style.display = 'none';
 		document.getElementById('bannerDiv2').style.display = 'none';
@@ -92,14 +94,16 @@ function preview() {
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
-				</s:if>
+				</s:if>	
 		
 				<!-- NEW POST BEGIN -->
 				<div class="w3-container w3-padding-0 w3-border-0">
@@ -161,7 +165,7 @@ function preview() {
 						<input type="text" disabled="disabled" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="banner" />" placeholder="https://imgur.com/image.png" class="w3-input w3-round-large  w3-border" />
 					</p>
 					<p id="bannerDiv2" style="display:none" class="w3-animate-right">
-						<label class="w3-validate w3-text-grey-light w3-large" for="bannerCaption">Banner Caption/Credit:&nbsp;<span class="w3-text-red">*</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="bannerCaption">Banner Caption/Credit:&nbsp;</label>
 						<input type="text" disabled="disabled" size="50" maxlength="200" name="bannerCaption" id="bannerCaption" value="<s:property value="bannerCaption" />" placeholder="Image Source: imgur" class="w3-input w3-round-large  w3-border" />
 					</p>
 					<h2 id="previewTitle2">Post Title</h2>
@@ -178,19 +182,22 @@ function preview() {
 					
 					<p>
 						<input type="checkbox" name="isVisible" id="isVisible" class="w3-check" />
-						<label class="w3-validate w3-text-grey-light w3-large" for="isVisible">Make this post publicly visible?&nbsp;<span class="icon-visible w3-padding"></span>&nbsp;<span class="footnote quote">(You can make it public later if you want.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="isVisible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="footnote quote">(You can make it public later if you want.)</span></label>
 					</p>
 					<p>
 						<input type="checkbox" name="isFeatured" id="isFeatured" class="w3-check" />
-						<label class="w3-validate w3-text-grey-light w3-large" for="isFeatured">Make this a "Featured" post?&nbsp;<span class="icon-star w3-padding"></span>&nbsp;<span class="footnote quote">(Gets put on the Featured sidebar of every page.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="isFeatured">Make this a "Featured" post?&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square"></span><span class="footnote quote">(Gets put on the Featured sidebar of every page.)</span></label>
 					</p>
 					
 					<hr />
-					<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">Submit</button>
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">
+						<span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-undo w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">Back</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">
+						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="icon-delete w3-btn w3-round w3-card w3-theme-light" type="reset" onclick="return confirm('Are you sure you want to reset?')" value="Reset" title="Reset search fields">Clear</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" onclick="return confirm('Are you sure you want to reset?')" value="Reset" title="Reset search fields">
+						<span class="icon-bin w3-large w3-margin-right"></span>Clear</button>
 					
 					</form>
 				</div>

@@ -29,7 +29,8 @@
 				
 				<h1>Error: 404</h1>
 				
-				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+					<span class="icon-cross w3-large w3-margin-right"></span>
 					File Not Found. Looks like the page you've requested is no longer available, or was moved.
 				</p>
 				
@@ -42,15 +43,10 @@
 				
 				<div class="w3-center">
 					<form action="/search" method="get">
-					<input id="s" name="s" class="icon-search w3-input w3-card-2 w3-round-large" maxlength="150" size="20" placeholder="Search..." type="text">
+					<label for="s" class="icon-search w3-xlarge w3-text-theme"></label>
+					<input id="s" name="s" class="w3-input w3-hover-shadow w3-card w3-round-large" style="display:inline; width:75%" maxlength="50" size="20" placeholder="Search..." type="text">
 					</form>
 				</div>
-				
-				<br />
-				
-				<p>
-					<a class="icon-undo w3-btn w3-card w3-round w3-light-grey" href="/">Home Page</a>
-				</p>
 			
 			</div>
 			

@@ -24,12 +24,14 @@
 				
 					<s:if test="hasActionErrors()">
 					   <s:iterator value="actionErrors">
-						<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+						<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+							<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 						</s:iterator>
 					</s:if>
 					<s:if test="hasActionMessages()">
 					   <s:iterator value="actionMessages">
-						<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
+						<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+							<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 						</s:iterator>
 					</s:if>
 				
@@ -49,9 +51,10 @@
 							</p>
 							<hr />
 							<p>
-								<button class="icon-redo w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Login" title="Login">Login</button>
+								<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Login" title="Login">
+									<span class="icon-key w3-large w3-margin-right"></span>Login</button>
 								
-								<a class="icon-delete w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/manage/logout">Cancel</a>
+								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/manage/logout">Cancel</a>
 							</p>
 						</form>
 						

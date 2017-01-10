@@ -6,11 +6,11 @@
 			&nbsp;<s:property value="#session.USER.getName()"/>
 		</button>
    		<div class="w3-dropdown-content w3-white w3-card-4">
-			<a class="w3-hover-light-grey w3-hover-shadow" title="Management Menu" href="/manage/">Management Menu</a>
-			<a class="w3-hover-light-grey w3-hover-shadow" title="Edit Posts" href="/manage/posts">Edit Posts</a>
-			<a class="w3-hover-light-grey w3-hover-shadow w3-border-bottom" title="Edit Authors" href="/manage/users">Edit Authors</a>
-			<a class="w3-hover-light-grey w3-hover-shadow" title="My Settings" href="/manage/settings">My Settings</a>
-			<a class="w3-hover-light-grey w3-hover-shadow" title="Logout" href="/manage/logout">Logout</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="Management Menu" href="/manage/"><span class="icon-home w3-large w3-margin-right"></span>Main Menu</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="Edit Posts" href="/manage/posts"><span class="icon-clipboard w3-large w3-margin-right"></span>Edit Posts</a>
+			<a class="w3-hover-light-grey w3-hover-shadow w3-border-bottom" title="Edit Authors" href="/manage/users"><span class="icon-briefcase w3-large w3-margin-right"></span>Edit Authors</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="My Settings" href="/manage/settings"><span class="icon-cog w3-large w3-margin-right"></span>My Settings</a>
+			<a class="w3-hover-light-grey w3-hover-shadow" title="Logout" href="/manage/logout"><span class="icon-arrow-left w3-large w3-margin-right"></span>Logout</a>
 		</div>
 	</div>
 </s:if>

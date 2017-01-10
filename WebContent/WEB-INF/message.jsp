@@ -4,7 +4,7 @@
 <head>
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <!-- META_BEGIN -->
-<%@include file="/WEB-INF/fragment/meta.jspf"%>
+<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 <!-- META_END -->
 <title>Message - RamblingWare</title>
 </head>
@@ -28,10 +28,25 @@
 				<!-- ADMIN TABS END -->
 			
 				<h1>Message</h1>
-				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-blue w3-text-blue w3-border-blue" onclick="this.style.display='none'" data-close="">${message}</p>
+				<s:if test="message != null">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-blue w3-text-blue w3-border-blue" onclick="this.style.display='none'" data-close="">
+						<span class="icon-info w3-large w3-margin-right"></span>${message}</p>
+				</s:if>
+				<s:if test="hasActionErrors()">
+				   <s:iterator value="actionErrors">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
+					</s:iterator>
+				</s:if>
+				<s:if test="hasActionMessages()">
+				   <s:iterator value="actionMessages">
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
+					</s:iterator>
+				</s:if>
 				
 				<p>
-					<a class="icon-undo w3-btn w3-card w3-round w3-light-grey" href="/">Home Page</a>
+					<a class="w3-btn w3-card w3-round w3-light-grey" href="/"><span class="icon-home w3-large w3-margin-right"></span>Home Page</a>
 				</p>
 			
 			</div>

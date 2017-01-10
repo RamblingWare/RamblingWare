@@ -6,7 +6,7 @@
  @media print {
  	.no-print { display: none; }
  }
-*[class^="icon-"] {
+/**[class^="icon-"] {
 	background-repeat: no-repeat;
 	background-position: 10px center;
 	text-indent: 25px !important;
@@ -38,7 +38,7 @@
 }
 .icon-visible {
 	background-image: url('/img/icon-visible.png') !important;
-}
+}*/
 [data-icon]:before {
   font-family: icons;
   content: attr(data-icon);
@@ -90,6 +90,9 @@
 .lowercase {
 	text-transform: lowercase;
 }
+.nowrap {
+	white-space: nowrap;
+}
 .tag {
 	text-decoration: none !important;
 	padding: 2px;
@@ -103,6 +106,12 @@
     position: absolute;
     bottom: 0px;
     right: 0px;
+}
+.w3-padding-square {
+	padding-top: 8px !important;
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+	padding-bottom: 8px !important;
 }
 *[class^="social-"] {
 	background-repeat: no-repeat !important;

@@ -19,7 +19,7 @@
 			<ul>
 			<s:iterator value="#session.archive_years" status="y">
 				<s:set var="yval" value="#session.archive_years[#y.index].substring(0,4)" />
-				<li><a title="<s:property value="yval" />" href="/blog/search?year=<s:property value="yval" />"><s:property /></a></li>
+				<li class="w3-opacity w3-hover-opaque"><a title="<s:property value="yval" />" href="/blog/search?year=<s:property value="yval" />"><s:property /></a></li>
 			</s:iterator>
 			</ul>
 		</s:if>

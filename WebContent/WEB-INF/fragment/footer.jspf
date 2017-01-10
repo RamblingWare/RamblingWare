@@ -9,13 +9,13 @@
 		<a href="/about" title="About">About</a>
 	</p>
 	<p>
-		<a target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/" data-icon="&#10084;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Facebook</a>&nbsp;&nbsp;
-		<a target="_blank" title="GitHub" href="https://www.github.com/RamblingWare/" data-icon="&#10094;&#10095;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">GitHub </a>&nbsp;&nbsp;
-		<a target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" data-icon="&#9993;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">Subscribe</a>&nbsp;&nbsp;
-		<a target="_blank" title="RSS Feed" href="/rss" data-icon="&#9989;" style="text-decoration: none; text-align: left; text-indent: 0px ! important;">RSS Feed</a>
+		<a target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/"><span class="icon-facebook2 w3-xlarge w3-hover-text-indigo"></span></a>&nbsp;&nbsp;
+		<a target="_blank" title="GitHub" href="https://www.github.com/RamblingWare/"><span class="icon-github w3-xlarge w3-hover-text-black"></span></a>&nbsp;&nbsp;
+		<a target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US"><span class="icon-mail w3-xlarge w3-hover-text-teal"></span></a>&nbsp;&nbsp;
+		<a target="_blank" title="RSS Feed" href="/rss"><span class="icon-rss2 w3-xlarge w3-hover-text-orange"></span></a>
 	</p>
-	<p class="w3-small w3-margin-0" data-icon="&#169;">
-		RamblingWare - 2017<br/>
+	<p class="w3-small w3-margin-0">
+		&#169; RamblingWare - 2017<br/>
 		Last Updated: 1/6/2017
 	</p>
 	

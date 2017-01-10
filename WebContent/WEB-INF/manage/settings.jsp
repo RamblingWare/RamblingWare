@@ -31,14 +31,16 @@
 		
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
-				</s:if>
+				</s:if>	
 				
 				<!-- SETTINGS BEGIN -->
 				<div class="w3-row">	
@@ -77,7 +79,7 @@
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-small w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
+								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes"><span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
 							</p>
 							</form>
 						</div>
@@ -108,7 +110,7 @@
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-small w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
+								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes"><span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
 							</p>
 							</form>
 						</div>
@@ -135,8 +137,8 @@
 							</p>
 							<hr />
 							<p>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Review 2FA">View 2FA</a>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('recover-2fa')" title="View Recovery Code">Recovery Code</a>
+								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Review 2FA"><span class="icon-qrcode w3-large w3-margin-right"></span>View 2FA</a>
+								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('recover-2fa')" title="View Recovery Code"><span class="icon-warning w3-large w3-margin-right"></span>Recovery Code</a>
 								&nbsp;
 								<a class="w3-small" href="javascript:void(0)" onclick="openPopup('remove-2fa')" value="Disable" title="Disable 2FA">Disable 2FA</a>
 							</p>
@@ -151,7 +153,7 @@
 							<hr />
 							<p>
 								<input type="hidden" name="twofactor" value="true" />
-								<a class="w3-btn w3-small w3-round w3-card w3-pale-green" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Enable">Enable 2FA</a>
+								<a class="w3-btn w3-round w3-card w3-pale-green" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Enable"><span class="icon-qrcode w3-large w3-margin-right"></span>Enable 2FA</a>
 							</p>
 							</s:else>
 							</form>
@@ -210,7 +212,7 @@
 								<hr />
 								<p>
 									<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="closePopup('setup-2fa')" title="Cancel">Cancel</a>
-									<button type="submit" class="w3-btn w3-round w3-card w3-pale-green" value="submit" title="Submit">Submit</button>
+									<button type="submit" class="w3-btn w3-right w3-round w3-card w3-pale-green" value="submit" title="Submit"><span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
 								</p>
 								</form>
 							</div>
@@ -242,7 +244,7 @@
 								<hr />
 								<p>
 									<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="closePopup('remove-2fa')" title="Cancel">Cancel</a>
-									<button type="submit" class="w3-btn w3-round w3-card w3-pale-red" value="submit" title="Submit">Submit</button>
+									<button type="submit" class="w3-btn w3-right w3-round w3-card w3-pale-red" value="submit" title="Submit"><span class="icon-checkmark2 w3-large w3-margin-right"></span>Submit</button>
 								</p>
 								</form>
 							</div>
@@ -296,7 +298,7 @@
 							</span>								
 							<hr />
 							<p>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />">Edit</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />"><span class="icon-quill w3-large w3-margin-right"></span>Edit</a>
 								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uriName" />">View My Page</a>
 							</p>
 						

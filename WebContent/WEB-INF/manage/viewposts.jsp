@@ -31,21 +31,23 @@
 				
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
+						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
 				</s:if>
 				<s:if test="hasActionMessages()">
 				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close=""><s:property/></p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
+						<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
 					</s:iterator>
-				</s:if>
+				</s:if>	
 				
-				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost">Create New Post</a> 
-				<span class="footnote">Make a new blog post!</span>
+				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large w3-margin-right"></span>Create New Post</a> 
+				<span class="footnote nowrap">Make a new blog post!</span>
 				</p>
 				<p>
-				<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/">View Comments</a>
-				<span class="footnote">Manage comments on blog posts using Disqus.</span>
+				<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/"><span class="icon-bubbles w3-large w3-margin-right"></span>View Comments</a>
+				<span class="footnote nowrap">Manage comments on blog posts using Disqus.</span>
 				</p>
 				
 				<!-- RESULTS START -->
@@ -73,13 +75,13 @@
 						
 						<s:if test="!isVisible">
 							<a href="/manage/viewpost/<s:property value="uriName" />" title="<s:property value="description" />"><s:property value="title" /></a>
-							&nbsp;<a class="icon-visible w3-padding" title="This post is hidden from public."></a>
+							&nbsp;<span class="icon-eye-blocked w3-large w3-text-red w3-padding-square" title="This post is hidden from public."></span>
 						</s:if>
 						<s:else>
 							<a href="/blog/post/<s:property value="uriName" />" title="<s:property value="description" />"><s:property value="title" /></a>
 						</s:else>
 						<s:if test="isFeatured">
-							&nbsp;<a class="icon-star w3-padding" title="This is a featured post."></a>
+							&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square" title="This is a featured post."></span>
 						</s:if>
 						</td>
 						<td><s:if test="tags != null && !tags.isEmpty()">

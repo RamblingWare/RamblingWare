@@ -167,13 +167,13 @@
 		
 		<action name="newpost" class="org.rw.action.manage.NewPostAction">
 			<result name="success">/WEB-INF/manage/newpost.jsp</result>
-			<result name="edit">/WEB-INF/manage/menu.jsp</result>
+			<result name="edit">/WEB-INF/message.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
 		<action name="editpost/**" class="org.rw.action.manage.EditPostAction">
 			<result name="success">/WEB-INF/manage/editpost.jsp</result>
-			<result name="edit">/WEB-INF/manage/menu.jsp</result>
+			<result name="edit">/WEB-INF/message.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
@@ -191,13 +191,13 @@
 		</action>
 		
 		<action name="newuser" class="org.rw.action.manage.NewUserAction">
-			<result name="success">/WEB-INF/manage/menu.jsp</result>
+			<result name="success">/WEB-INF/message.jsp</result>
 			<result name="error">/WEB-INF/manage/newuser.jsp</result>
 		</action>
 		
 		<action name="edituser/**" class="org.rw.action.manage.EditUserAction">
 			<result name="success">/WEB-INF/manage/edituser.jsp</result>
-			<result name="edit">/WEB-INF/manage/menu.jsp</result>
+			<result name="edit">/WEB-INF/message.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
