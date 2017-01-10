@@ -94,7 +94,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     			System.out.println(user.getUsername()+" failed to edit post. Description was empty.");
     			return ERROR;
     		}
-    		if(isVisible && (htmlContent == null || htmlContent.trim().isEmpty()))
+    		if(htmlContent == null || htmlContent.trim().isEmpty())
     		{
     			addActionError("Post Content was empty. Please fill out all fields before saving.");
     			System.out.println(user.getUsername()+" failed to edit post. Content was empty.");
@@ -104,6 +104,12 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 			{
 				addActionError("Post Content is too long. Character limit is 12,288. Please shorten the post.");
 				System.out.println(user.getUsername()+" failed to edit post. Content too large.");
+				return ERROR;
+			}
+			if(hasBanner!=null && (banner == null || banner.trim().isEmpty()))
+			{
+				addActionError("Banner Image was empty. Please fill out all fields before saving.");
+				System.out.println(user.getUsername()+" failed to edit post. Banner was empty.");
 				return ERROR;
 			}
     		if(tags == null || tags.trim().isEmpty())
@@ -209,11 +215,8 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 			}
 			
 			// successfully updated
-			System.out.println("User "+user.getUsername()+" updated post: "+uri);
-			if(!isVisible)
-				addActionMessage("Successfully saved the changes to the post.");
-			else
-				addActionMessage("Successfully updated the post.");
+			System.out.println("User "+user.getUsername()+" saved changes to the post: "+uri);
+			addActionMessage("Successfully saved changes to the post.");
 			return "edit";
 		}
 		else if(servletRequest.getParameter("delete")!=null)

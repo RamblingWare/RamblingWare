@@ -111,7 +111,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 			}
 			
 			System.out.println("User "+user.getUsername()+" updated user: "+uri);
-			addActionMessage("Successfully saved the changes to the user.");
+			addActionMessage("Successfully saved changes to the author.");
 			return "edit";
 		}
 		else if(servletRequest.getParameter("delete")!=null)
@@ -151,7 +151,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 			}
 			
 			System.out.println("User "+user.getUsername()+" deleted user: "+uri);
-			addActionMessage("The user was deleted!");
+			addActionMessage("The author was deleted!");
 			return "edit";
 		}
 		else

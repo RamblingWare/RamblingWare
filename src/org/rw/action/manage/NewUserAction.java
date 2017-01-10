@@ -17,7 +17,6 @@ import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 import org.rw.model.PasswordHash;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
  
@@ -77,9 +76,9 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
 	    										+"('"+userId+"','"+password+"')");
 	    						
 	    						if(r == 1 && r2 == 1 && !userId.isEmpty()) {
-	    							// successfully registered new user!
-	    							System.out.println("User successfully registered! Welcome: "+name);
 	    							
+	    							// successfully registered new user!
+	    								    							
 	    							// get new user eid
 	    							rs = st.executeQuery("select * from users where email = '"+email+"'");
 	    							rs.next();
@@ -92,18 +91,8 @@ public class NewUserAction extends ActionSupport implements UserAware, ModelDriv
 	    				    		user.setUriName(uriName);
 	    				    		user.setUserId(userId);
 	    				    		
-	    				    		// update last login date
-	    			    			st.executeUpdate("update users set last_login_date='"
-	    									+ApplicationStore.formatMySQLDate(new Date(System.currentTimeMillis()))+"'"
-	    											+ "where user_id = '"+user.getUserId()+"'");
-	    				    		 
-	    				    		sessionAttributes = ActionContext.getContext().getSession();
-	    				    		sessionAttributes.put("login","true");
-	    				    		sessionAttributes.put("context", new Date());
-	    				    		sessionAttributes.put("USER", user);
-	    				    		
-	    				    		addActionMessage("New Author successfully created.");	    				    		
-	    				    		System.out.println("User logged in: "+username);	    							
+	    				    		addActionMessage("Successfully created new Author.");	    				    		
+	    				    		System.out.println("User created new author: "+username);	    							
 	    							return SUCCESS;
 	    						}
 	    					}

@@ -82,7 +82,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
     			System.out.println(user.getUsername()+" failed to edit post. Description was empty.");
     			return ERROR;
     		}
-    		if(isVisible && (htmlContent == null || htmlContent.trim().isEmpty()))
+    		if(htmlContent == null || htmlContent.trim().isEmpty())
     		{
     			addActionError("Post Content was empty. Please fill out all fields before saving.");
     			System.out.println(user.getUsername()+" failed to edit post. Content was empty.");
@@ -92,6 +92,12 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 			{
 				addActionError("Post Content is too long. Character limit is 12,288. Please shorten the post.");
 				System.out.println(user.getUsername()+" failed to edit post. Content too large.");
+				return ERROR;
+			}
+			if(hasBanner!=null && (banner == null || banner.trim().isEmpty()))
+			{
+				addActionError("Banner Image was empty. Please fill out all fields before saving.");
+				System.out.println(user.getUsername()+" failed to edit post. Banner was empty.");
 				return ERROR;
 			}
     		if(tags == null || tags.trim().isEmpty())
@@ -190,7 +196,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 			}
     		
 			System.out.println("User "+user.getUsername()+" submitted a new post: "+uriName);
-			addActionMessage("Your post was created!");
+			addActionMessage("Successfully created new post.");
 			return "edit";
 		}
     	

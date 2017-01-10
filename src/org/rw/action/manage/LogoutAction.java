@@ -42,9 +42,8 @@ public class LogoutAction extends ActionSupport implements UserAware, ServletRes
 			
 			return SUCCESS;
 		} catch (Exception e) {
-			e.printStackTrace();
 			addActionError("Failed to log out!");
-			System.out.println("User "+user.getUsername()+" failed to log out.");
+			System.err.println("User "+user.getUsername()+" failed to log out for some reason. "+e.getMessage());
 			
 			return ERROR;
 		}
