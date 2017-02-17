@@ -51,13 +51,13 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 		String response = "<?xml version=\"1.0\"?>"+
 				"<rss version=\"2.0\">"+
 				"<channel>"+
-				"<title>RamblingWare</title>"+
+				"<title>RamblingWare Blog</title>"+
 				"<description>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</description>"+
 				"<link>https://www.ramblingware.com</link>";
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
-			String searchQry = "select p.post_id, p.title, p.uri_name, p.is_visible, p.create_date, p.description from posts p where p.is_visible <> 0 order by p.create_date desc limit 100";
+			String searchQry = "select p.post_id, p.title, p.uri_name, p.is_visible, p.create_date, p.description from posts p where p.is_visible <> 0 order by p.create_date desc limit 10";
 			System.out.println("QRY = "+searchQry);
 			ResultSet rs = st.executeQuery(searchQry);
 			

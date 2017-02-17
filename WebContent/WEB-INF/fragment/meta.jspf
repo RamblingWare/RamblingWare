@@ -1,4 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="author" content="Austin Delamar">
@@ -6,11 +8,12 @@
 <meta name="description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too." />
 <meta name="robots" content="all">
 
-<meta name="og:url" content="https://www.ramblingware.com">
-<meta name="og:type" content="website">
-<meta name="og:title" content="RamblingWare">
-<meta name="og:image" content="https://www.ramblingware.com/img/favicon-large.png">
-<meta name="og:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
+<meta property="og:url" content="https://www.ramblingware.com">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="RamblingWare">
+<meta property="og:image" content="https://www.ramblingware.com/img/favicon-large.png">
+<meta property="og:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="https://www.ramblingware.com">

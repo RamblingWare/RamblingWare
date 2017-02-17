@@ -3,15 +3,16 @@
 <html>
 <head>
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-post.jspf"%>
 <meta name="author" content="<s:property value="author" />">
 <meta name="description" content="<s:property value="description" />" />
-<meta name="og:url" content="https://www.ramblingware.com/blog/post/<s:property value="uriName" />">
-<meta name="og:type" content="website">
-<meta name="og:title" content="<s:property value="title" />">
-<meta name="og:image" content="<s:property value="thumbnail" />">
-<meta name="og:description" content="<s:property value="description" />">
+
+<meta property="og:url" content="https://www.ramblingware.com/blog/post/<s:property value="uriName" />">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="<s:property value="title" />">
+<meta property="og:image" content="<s:property value="thumbnail" />">
+<meta property="og:description" content="<s:property value="description" />">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="https://www.ramblingware.com/blog/post/<s:property value="uriName" />">
@@ -19,7 +20,7 @@
 <meta name="twitter:title" content="<s:property value="title" />">
 <meta name="twitter:description" content="<s:property value="description" />">
 <meta name="twitter:image" content="<s:property value="thumbnail" />">
-<!-- META_END -->
+
 <title><s:property value="title" /> - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">

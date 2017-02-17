@@ -3,10 +3,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Error - RamblingWare</title>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
-<!-- META_END -->
+
+<title>Error - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 

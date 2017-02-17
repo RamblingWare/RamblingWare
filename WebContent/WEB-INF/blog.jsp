@@ -3,9 +3,8 @@
 <html>
 <head>
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
-<!-- META_END -->
+
 <title>Blog - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
@@ -53,7 +52,7 @@
 						
 						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
 							<a href="/blog/post/<s:property value="uriName" />">
-							<img style="max-height:200px;" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="Blog post photo." />
+							<img style="max-height:200px;" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="<s:property value="bannerCaption" />" />
 							</a>
 						</div>
 						

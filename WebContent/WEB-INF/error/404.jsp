@@ -3,10 +3,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>404 File Not Found - RamblingWare</title>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
-<!-- META_END -->
+
+<title>404 File Not Found - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 

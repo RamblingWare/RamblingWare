@@ -27,11 +27,14 @@
 				About</h1>
 				
 				
-				<p>This is my <b>blog</b> about computers, programming, tech, and things that bother me. I hope it bothers you too. ;-)<br />
-				<br />
-				I cover topics around web development and programming. I plan to cover computer security, java programming, and workplace related topics.<br />
-				<br />
-				I hope you enjoy reading, and leave a comment if you like! Thanks.				
+				<p>
+					RamblingWare is a blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
+				</p>
+				<p>
+					I cover topics around web development, web security, and programming. Really, anything that I can ramble on about!
+				</p>
+				<p>
+					I hope you enjoy reading, and leave a comment if you like! Thanks. And don't forget to subscribe for more.				
 				</p>
 				
 				<br />
@@ -62,7 +65,7 @@
 				
 				<h2>This Blog is Custom Built</h2>
 				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>.
-				I've used blog services before, but had decided to program my own. And I know Its not perfect but I have been having fun coding it! I typically work on it at least once a month.<br />
+				I've used blog services before, but decided to program it myself. And I know Its not perfect but I have been having fun with it! I typically work on it at least once a month.<br />
 				</p>
 				<blockquote>“Talk is cheap. Show me the code.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Linus Torvalds</blockquote>
 				<p>
@@ -82,7 +85,7 @@
 				<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
 					<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
 						<a href="/blog/post/problems-with-building-your-own-blogsite">
-						<img style="max-height:200px;" src="https://i.imgur.com/j9Et09Xl.jpg" alt="Photo for Problems with building your own blogsite" title="Blog post photo.">
+						<img style="max-height:200px;" src="https://i.imgur.com/j9Et09Xl.jpg" alt="Photo for Problems with building your own blogsite" title="Problems with building your own blogsite.">
 						</a>
 					</div>
 					<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">

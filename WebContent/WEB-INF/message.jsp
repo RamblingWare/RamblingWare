@@ -3,9 +3,8 @@
 <html>
 <head>
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
-<!-- META_END -->
+
 <title>Message - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
