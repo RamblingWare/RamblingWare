@@ -1,32 +1,32 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<!-- Large Screens Menu -->
 <div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small no-print">
 	<ul>
 		<s:if test="#session.USER != null">
-		<li><a class="w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="Menu" href="/manage/">Management Menu</a></li>
+		<li><a class="w3-card w3-round w3-padding w3-theme w3-hover-light-grey w3-hover-shadow" title="Menu" href="/manage/">Manage</a></li>
 		</s:if>
-		<li><a href="/blog" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
-		<li><a href="/about" class="w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
+		<li><a href="/blog" class="w3-card w3-round w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
+		<li><a href="/about" class="w3-card w3-round w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
 	</ul>
 	<br/>
 	<ul>	
 		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/" style="text-align: left;"><span class="icon-facebook2 w3-hover-text-indigo w3-large w3-margin-right"></span>Facebook</a></li>
-		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="GitHub" href="https://www.github.com/RamblingWare/" style="text-align: left;"><span class="icon-github w3-hover-text-black w3-large w3-margin-right"></span>GitHub</a></li>
-		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" style="text-align: left;"><span class="icon-mail2 w3-hover-text-teal w3-large w3-margin-right"></span>Subscribe</a></li>
+		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Twitter" href="https://twitter.com/RamblingWare/" style="text-align: left;"><span class="icon-twitter w3-hover-text-blue w3-large w3-margin-right"></span>Twitter</a></li>
+		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="GitHub" href="https://github.com/RamblingWare/" style="text-align: left;"><span class="icon-github w3-hover-text-black w3-large w3-margin-right"></span>GitHub</a></li>
+		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" style="text-align: left;"><span class="icon-mail w3-hover-text-teal w3-large w3-margin-right"></span>Subscribe</a></li>
 		<li><a class="w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="RSS Feed" href="/rss" style="text-align: left;"><span class="icon-rss w3-hover-text-orange w3-large w3-margin-right"></span>RSS Feed</a></li>
 	</ul>
 </div>
-<!-- Tablet Screens Menu -->
 <div id="menu" class="w3-col w3-hide-large w3-hide-small no-print">
 	<ul>
 		<s:if test="#session.USER != null">
-		<li class="w3-left w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/manage/" title="Menu">Manage</a></li>
+		<li class="w3-left w3-card w3-round w3-theme w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/manage/" title="Menu">Manage</a></li>
 		</s:if>
-		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/blog" title="Blog">Blog</a></li>
-		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding-0"><a href="/about" title="About">About</a></li>
-		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="RSS Feed" href="/rss" style="text-align: left;"><span class="icon-rss w3-hover-text-orange w3-large w3-margin-right"></span>RSS Feed</a></li>
-	 	<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" style="text-align: left;"><span class="icon-mail2 w3-hover-text-teal w3-large w3-margin-right"></span>Subscribe</a></li>
-		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="GitHub" href="https://www.github.com/RamblingWare/" style="text-align: left;"><span class="icon-github w3-hover-text-black w3-large w3-margin-right"></span>GitHub </a></li>
-		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/" style="text-align: left;"><span class="icon-facebook2 w3-hover-text-indigo w3-large w3-margin-right"></span>Facebook</a></li>
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/blog" title="Blog">Blog</a></li>
+		<li class="w3-left w3-card w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/about" title="About">About</a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="RSS Feed" href="/rss" style="text-align: left;"><span class="icon-rss w3-hover-text-orange w3-large w3-margin-right"></span></a></li>
+	 	<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Subscribe" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&amp;loc=en_US" style="text-align: left;"><span class="icon-mail2 w3-hover-text-teal w3-large w3-margin-right"></span></a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="GitHub" href="https://github.com/RamblingWare/" style="text-align: left;"><span class="icon-github w3-hover-text-black w3-large w3-margin-right"></span></a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Twitter" href="https://twitter.com/RamblingWare/" style="text-align: left;"><span class="icon-twitter w3-hover-text-blue w3-large w3-margin-right"></span></a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-padding-4" target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/" style="text-align: left;"><span class="icon-facebook2 w3-hover-text-indigo w3-large w3-margin-right"></span></a></li>
 	</ul>
 </div>

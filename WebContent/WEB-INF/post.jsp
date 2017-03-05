@@ -8,7 +8,7 @@
 <meta name="description" content="<s:property value="description" />" />
 
 <meta property="og:url" content="https://www.ramblingware.com/blog/post/<s:property value="uriName" />">
-<meta property="og:type" content="website">
+<meta property="og:type" content="blog">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="<s:property value="title" />">
 <meta property="og:image" content="<s:property value="thumbnail" />">
@@ -61,39 +61,37 @@
 				
 				<h1><s:property value="title" /></h1>
 				
-				<div class="w3-container w3-margin-0 w3-padding-0">
-					<p><span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="#comments"><span class="disqus-comment-count" data-disqus-identifier="<%=request.getAttribute("uriName") %>"></span></a></span></p>
-				</div>
-				
 				<% out.print(request.getAttribute("htmlContent")); %>
 				
+				<br /><br />
 				<hr />
-				<div class="w3-container w3-padding w3-margin-0">
-				
-				<div class="w3-col s12 m6 l6 w3-padding-left">
-				<a href="/author/<s:property value="authorUri" />">
-				<img class="w3-round w3-margin-left w3-left" style="width: 40px; height: 40px" alt="Profile Picture" src="<s:property value="authorThumbnail" />"></a>
-				<p class="footnote w3-left w3-padding w3-padding-left">
-				<b>Author:</b> <s:property value="author" /><br />
-				<a href="/author/<s:property value="authorUri" />">About Me</a>
-				</p>
+				<div class="w3-container w3-padding w3-margin-0 w3-center">
+
+					<div class="w3-col s12 m4 l4">
+						<p class="w3-large w3-padding-0 w3-margin-0">
+							<img class="w3-round" style="height: 33px; vertical-align: middle;" src="<s:property value="authorThumbnail" />">
+							<a href="/author/<s:property value="authorUri" />" title="Author" style="vertical-align: middle;">
+							<s:property value="author" /></a>
+						</p>
+					</div>
+					<div class="w3-col s12 m4 l4">
+						<p class="w3-large w3-padding-0 w3-margin-0" title="Date Published">
+							<s:property value="createDate" />
+						</p>
+					</div>
+					<div class="w3-col s12 m4 l4">
+						<s:if test="tags != null && !tags.isEmpty()">
+							<s:iterator value="tags">
+							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/blog/search?tag=<s:property />"><s:property /></a>
+							</s:iterator>
+						</s:if>
+					</div>
 				</div>
-				<div class="w3-col s12 m6 l6 w3-padding-left">
-				<p class="footnote">
-					<b>Published:</b>&nbsp;&nbsp;<s:property value="createDate" />
-				</p>
-				<span class="footnote w3-small"><b>Tags:</b></span>
-				<s:if test="tags != null && !tags.isEmpty()">
-					<s:iterator value="tags">
-						&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/blog/search?tag=<s:property />"><s:property /></a>
-					</s:iterator>
-				</s:if>
-				</div></div>
-				
+
 				<hr class="w3-hide-medium w3-hide-large" />
 				
 				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity no-print">
-					<div class="w3-col s12 m6 l6 w3-padding-16 w3-center">	
+					<div class="w3-padding-16 w3-center">	
 						<a title="Share on Facebook" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-indigo w3-theme-l4 icon-facebook"
 						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />"></a>				
 						
@@ -114,15 +112,6 @@
 						
 						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup()" class="w3-btn w3-round-large w3-large w3-padding-square  w3-hover-shadow w3-hover-green w3-theme-l4 icon-share2"></a>
 						
-					</div>
-					<div class="w3-col s12 m6 l6 w3-padding-16 w3-center">
-					
-						<div class="w3-col s12 m5 l6 w3-padding-4">
-						<button class="w3-btn w3-round w3-light-grey" onclick="window.location.href='/blog/'">View all posts</button>
-						</div>
-						<div class="w3-col s12 m6 l6 w3-padding-4">
-						<a class="w3-btn w3-round w3-light-grey" target="_blank" href="https://feedburner.google.com/fb/a/mailverify?uri=Ramblingware&loc=en_US">Subscribe</a>
-						</div>
 					</div>
 					<div id="share-popup" class="w3-modal">
 						<div class="w3-modal-content page-half w3-theme-light w3-animate-top w3-card-16">
@@ -173,7 +162,6 @@
 		<div class="page w3-row no-print">
 			<div id="comments-left" class="w3-col m2 w3-hide-medium w3-hide-small w3-padding"></div>
 			<div id="comments" class="w3-col m10 l8 w3-container w3-padding">
-			<br />
 			<h3>Comments</h3>
 			<div id="disqus_thread"></div>
 			<script>

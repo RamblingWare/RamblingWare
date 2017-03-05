@@ -9,7 +9,7 @@
 <meta name="robots" content="all">
 
 <meta property="og:url" content="https://www.ramblingware.com">
-<meta property="og:type" content="website">
+<meta property="og:type" content="blog">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="RamblingWare">
 <meta property="og:image" content="https://www.ramblingware.com/img/favicon-large.png">
@@ -23,8 +23,4 @@
 <meta name="twitter:image" content="https://www.ramblingware.com/img/favicon-large.png">
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="stylesheet" href="/css/ramblingware.css?v=2.0">
-<link rel="stylesheet" href="/css/w3.css?v1.0">
-<link rel="stylesheet" href="/css/w3-theme-grey.css">
-<link rel="stylesheet" href="/css/icomoon.css">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet"> 
+<link rel="stylesheet" href="/css/style.css">

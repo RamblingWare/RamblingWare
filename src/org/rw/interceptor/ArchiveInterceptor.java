@@ -35,7 +35,7 @@ public class ArchiveInterceptor implements Interceptor {
 		
 		if (archive_years == null || archive_years.isEmpty()) 
 		{
-			System.out.println("Archive was not set. Setting archive values...");
+			//System.out.println("Archive was not set. Setting archive values...");
 			archive_featured = new ArrayList<Post>();
 			archive_years = new ArrayList<String>();
 			archive_tags = new ArrayList<String>();

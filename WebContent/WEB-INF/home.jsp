@@ -66,7 +66,7 @@
 						<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/post/<s:property value="uriName" />"><s:property value="title" /></a></h3>
 						<p class="footnote"><s:property value="description" /></p>
 						<p class="footnote"><br /><s:property value="author" />&nbsp;|&nbsp;<s:property value="createDateReadable" /></p>
-						<p class="footnote"><b>Tags:</b>&nbsp;
+						<p class="footnote">Tags:
 						<s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
 								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
@@ -107,10 +107,10 @@
 								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="thumbnail" />">
 							</span>
 							<span class="w3-col s9 m9 l9 w3-padding-16">
-								<span class="footnote w3-padding-right">
+								<p class="footnote w3-padding-right">
 								<b><s:property value="Name" /></b><br />
 								<span class="w3-small"><s:property value="description" /></span> 
-								</span>
+								</p>
 							</span>
 							</a>						
 						</div>

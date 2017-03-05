@@ -3,9 +3,8 @@
 <html>
 <head>
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
-<!-- META_END -->
+
 <title>About - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
@@ -23,9 +22,8 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 							
-				<h1><font class="footnote w3-right">Jan 9th, 2017</font>
+				<h1><font class="footnote w3-right">Feb 16th, 2017</font>
 				About</h1>
-				
 				
 				<p>
 					RamblingWare is a blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
@@ -92,7 +90,7 @@
 					<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/post/problems-with-building-your-own-blogsite">Problems with building your own blogsite</a></h3>
 					<p class="footnote">To build or not to build? That is the question. Sometimes building your own blog website can be beneficial. But not always.</p>
 					<p class="footnote"><br>Austin Delamar&nbsp;|&nbsp;Aug 11, 2016</p>
-					<p class="footnote"><b>Tags:</b>&nbsp;
+					<p class="footnote">Tags:
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=web-development">web-development</a>
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=funny">funny</a>
 					<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/problems-with-building-your-own-blogsite#comments"><span class="disqus-comment-count" data-disqus-identifier="problems-with-building-your-own-blogsite">0 comments</span></a></span>

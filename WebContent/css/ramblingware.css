@@ -6,39 +6,6 @@
  @media print {
  	.no-print { display: none; }
  }
-/**[class^="icon-"] {
-	background-repeat: no-repeat;
-	background-position: 10px center;
-	text-indent: 25px !important;
-	background-size: 20px 20px;
-}
-.icon-info {
-	background-image: url('/img/icon-info.png') !important;
-}
-.icon-search {
-	background-image: url('/img/icon-search.png') !important;
-}
-.icon-undo {
-	background-image: url('/img/icon-undo.png') !important;
-}
-.icon-redo {
-	background-image: url('/img/icon-redo.png') !important;
-}
-.icon-delete {
-	background-image: url('/img/icon-delete.png') !important;
-}
-.icon-warning {
-	background-image: url('/img/icon-warning.png') !important;
-}
-.icon-error {
-	background-image: url('/img/icon-error.png') !important;
-}
-.icon-star {
-	background-image: url('/img/icon-star.png') !important;
-}
-.icon-visible {
-	background-image: url('/img/icon-visible.png') !important;
-}*/
 [data-icon]:before {
   font-family: icons;
   content: attr(data-icon);
