@@ -70,12 +70,12 @@
 					<div class="w3-col s12 m4 l4">
 						<p class="w3-large w3-padding-0 w3-margin-0">
 							<img class="w3-round" style="height: 33px; vertical-align: middle;" src="<s:property value="authorThumbnail" />">
-							<a href="/author/<s:property value="authorUri" />" title="Author" style="vertical-align: middle;">
+							<a href="/author/<s:property value="authorUri" />" title="Author" class="w3-text-theme" style="vertical-align: middle;">
 							<s:property value="author" /></a>
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
-						<p class="w3-large w3-padding-0 w3-margin-0" title="Date Published">
+						<p class="w3-large w3-text-theme w3-padding-0 w3-margin-0" title="Date Published">
 							<s:property value="createDate" />
 						</p>
 					</div>

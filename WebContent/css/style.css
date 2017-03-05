@@ -578,6 +578,15 @@ footer h2 {
 #page-content {
 	word-wrap: break-word;
 }
+#page-content a {
+    color: #4f4fdd;
+}
+#page-content a:hover {
+    color: #4f4fbb;
+}
+#page-content a:visited {
+    color: #4f4fdd;
+}
 .page-half {
 	max-width: 800px;
 	margin-left: auto;
