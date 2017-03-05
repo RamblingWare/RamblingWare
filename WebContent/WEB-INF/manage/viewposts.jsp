@@ -21,10 +21,6 @@
 			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
-			
-				<!-- ADMIN TABS BEGIN -->
-				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
-				<!-- ADMIN TABS END -->
 				
 				<h1>View/Edit Posts</h1>
 				<p>Use this page to view or edit posts on this blog.</p>
@@ -57,7 +53,7 @@
 				</s:if>
 				<s:else>
 					<p class="footnote"><s:property value="results.size()" /> result(s) found.</p>
-					<table class="w3-table-all">
+					<table class="w3-table-all w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
 						<th>Title</th>

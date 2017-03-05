@@ -21,13 +21,9 @@
 			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
-			
-				<!-- ADMIN TABS BEGIN -->
-				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
-				<!-- ADMIN TABS END -->
 				
 				<h1>Management Menu</h1>
-				<p>Use this page to manage the blog. Add/Edit posts, monitor traffic, and change server settings.</p>
+				<p>Use this page to manage the blog. Add/Edit posts, authors, and change your settings.</p>
 		
 				<s:if test="hasActionErrors()">
 				   <s:iterator value="actionErrors">
@@ -84,48 +80,6 @@
 						</p>
 					</div>			
 				</div>
-				
-				<hr />
-							
-				<h3>Application Statistics</h3>
-				<s:if test="start != null">
-				<table class="w3-table-all">
-					<thead>
-						<tr class="w3-theme-dark uppercase">
-							<th width="33%">Property</th>
-							<th>Value</th>
-						</tr>
-					</thead><tbody>
-						<tr><td>Start Time</td><td><s:property value="start" /></td></tr>
-						<tr><td>OS</td><td><s:property value="os" /></td></tr>
-						<tr><td>Java</td><td><s:property value="java" /></td></tr>
-						<tr><td>Max Memory</td><td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="maxMem" /> MB</span></td></tr>
-						<tr><td>Free Memory</td><td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="freeMem" /> MB</span></td></tr>
-						<tr><td>Total Memory</td><td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="totalMem" /> MB</span></td></tr>
-					</tbody>
-				</table>
-				
-				<br/>
-				
-				<table class="w3-table-all">
-					<thead><tr class="w3-theme-dark uppercase">
-						<th width="33%" >Database Name</th>
-						<th>Size (MB)</th>
-					</tr></thead><tbody>
-					<s:iterator value="databases" status="d">
-					<tr>
-						<td><s:property value="name" /></td>
-						<td><span class="w3-tag w3-round-large w3-theme-light w3-center"><s:property value="size" /> MB</span></td>
-					</tr>
-					</s:iterator></tbody>
-				</table>
-				</s:if>
-				<s:else>
-				<p>
-					<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/">Reload</a>
-					<span class="footnote">Refresh the statistics.</span>
-				</p>
-				</s:else>
 				
 			</div>
 		</div>

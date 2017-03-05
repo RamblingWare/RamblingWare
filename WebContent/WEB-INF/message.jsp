@@ -22,10 +22,6 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 			
-				<!-- ADMIN TABS BEGIN -->
-				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
-				<!-- ADMIN TABS END -->
-			
 				<h1>Message</h1>
 				<s:if test="message != null">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-blue w3-text-blue w3-border-blue" onclick="this.style.display='none'" data-close="">

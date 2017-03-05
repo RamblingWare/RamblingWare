@@ -21,10 +21,6 @@
 			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
-			
-				<!-- ADMIN TABS BEGIN -->
-				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
-				<!-- ADMIN TABS END -->
 				
 				<h1>My Settings</h1>
 				<p>Use this page to make changes to your account settings.</p>
@@ -103,6 +99,8 @@
 							<p>
 								<label class="w3-validate w3-text-grey-light w3-large" for="passwordNew">New Password:&nbsp;<span class="w3-text-red">*</span></label>
 								<input type="password" size="50" maxlength="300" name="passwordNew" id="passwordNew" value="" required class="w3-input w3-round-large w3-border" />
+								<br/>
+								<span class="footnote">Must be 8 or more characters. Or just <a href="https://duckduckgo.com/?q=strong+password&t=ffsb&ia=answer" target="_blank">generate one</a>.</span>
 							</p>
 							<p>
 								<label class="w3-validate w3-text-grey-light w3-large" for="passwordVerify">New Password (Verify):&nbsp;<span class="w3-text-red">*</span></label>
@@ -149,6 +147,10 @@
 								&nbsp;<span class="w3-tag w3-round w3-pale-red">Disabled</span>
 								<br/>
 								<span class="footnote">Secure your account with 2FA by using a OTP (One-Time Password) every time you log in.</span>
+								<span class="footnote">
+									Use a third-party Authentication app on your mobile device to enable your two factor authentication. If you do not have an Authentication app
+									then we recommend using <a target="_blank" href="https://mattrubin.me/authenticator/">Authenticator</a>, <a target="_blank" href="https://www.authy.com/app/mobile/">Authy</a>, or <a target="_blank" href="https://goo.gl/gtjo1w">Google Authenticator</a>.
+								</span>
 							</p>
 							<hr />
 							<p>
@@ -191,10 +193,6 @@
 								</h3>
 								<form action="/manage/settings" method="post">
 								<input type="hidden" name="security" value="true" />
-								<p>
-									Use a third-party Authentication app on your mobile device to enable your two factor authentication. If you do not have an Authentication app
-									then we recommend using <a target="_blank" href="https://mattrubin.me/authenticator/">Authenticator</a>, <a target="_blank" href="https://www.authy.com/app/mobile/">Authy</a>, or <a target="_blank" href="https://goo.gl/gtjo1w">Google Authenticator</a>.
-								</p>
 								<p class="w3-center">
 								<img class="w3-card w3-round-large" src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/RamblingWare:<s:property value="#session.USER.email" />?secret=<s:property value="secret" />&issuer=RamblingWare&algorithm=SHA1&digits=6&period=30" />
 								<br />
@@ -226,7 +224,7 @@
 								</h3>
 								<form action="/manage/settings" method="post">
 								<input type="hidden" name="security" value="true" />
-								<p>
+								<p class="footnote">
 									Disabling Two Factor Authentication will bypass the additional security provided from using a OTP (One-Time Password) at every login request.
 									Your account will still use a regular password, but would no longer ask for a Two-Factor code.
 								</p>
@@ -314,8 +312,8 @@
 						</div>
 						<div class="w3-padding w3-theme-light">
 						
-							<p>Some important dates regarding your account.</p>
-							<p>
+							<p class="w3-small">Some important dates regarding your account.<br/>
+							<br/>
 							Date your Account was Created:&nbsp;<span class="bold"><s:property value="#session.USER.createDateReadable"/></span>
 							<br />
 							Date your Account was Last Modified:&nbsp;<span class="bold"><s:property value="#session.USER.modifyDateReadable"/></span>

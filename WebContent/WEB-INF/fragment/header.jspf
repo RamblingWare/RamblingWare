@@ -4,16 +4,15 @@
 		<div class="w3-col s3 m7 l3 w3-container w3-padding-0">
 		<a href="/"><img class="logo w3-hide-small" src="/img/logo-medium.png" alt="RamblingWare" /></a>
 		<a href="/"><img class="logo w3-hide-large w3-hide-medium no-print" src="/img/logo-small.png" alt="RamblingWare" /></a>
-	</div>	
-	<div id="search" class="w3-col s6 m5 l3 w3-padding-square w3-right w3-small no-print">
-		
+	</div>
+	<%@include file="/WEB-INF/fragment/admin-menu.jspf"%>
+	<div id="search" class="w3-col s6 m3 l3 w3-padding-square w3-right w3-small no-print">
 		<div class="w3-padding-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-card w3-round-large">
-			<form action="/search" method="get">
+			<form action="/search" method="get" class="w3-medium">
 			<label for="s" class="icon-search w3-large w3-text-theme"></label>
-			<input id="s" name="s" class="w3-input w3-hover-light-grey w3-theme-l3 w3-border-0" style="display:inline; width:75%" maxlength="50" size="20" placeholder="Search..." type="text">
+			<input id="s" name="s" class="w3-input w3-hover-light-grey w3-theme-l3 w3-border-0 w3-padding-4" style="display:inline; width:75%" maxlength="50" size="20" placeholder="Search..." type="text">
 			</form>	
 		</div>
-		
 	</div>
 	</div>
 </header>

@@ -22,10 +22,6 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<!-- ADMIN TABS BEGIN -->
-				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
-				<!-- ADMIN TABS END -->
-				
 				<h1>Error: 404</h1>
 				
 				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">

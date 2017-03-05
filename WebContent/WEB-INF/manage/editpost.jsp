@@ -79,10 +79,6 @@ preview();
 			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
-			
-				<!-- ADMIN TABS BEGIN -->
-				<%@include file="/WEB-INF/fragment/admin-tabs.jspf"%>
-				<!-- ADMIN TABS END -->
 				
 				<h1>Edit Post</h1>
 				<p>Use this page to make changes to an existing blog post.</p>
