@@ -22,19 +22,6 @@
 				<div class="w3-container w3-padding w3-col m3 l4"></div>
 				<div class="w3-container w3-padding w3-col m6 l4">
 				
-					<s:if test="hasActionErrors()">
-					   <s:iterator value="actionErrors">
-						<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
-							<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
-						</s:iterator>
-					</s:if>
-					<s:if test="hasActionMessages()">
-					   <s:iterator value="actionMessages">
-						<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" data-close="">
-							<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/></p>
-						</s:iterator>
-					</s:if>
-				
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Two Factor Authentication</h3>

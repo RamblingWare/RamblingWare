@@ -30,20 +30,7 @@
 				<span class="icon-cross w3-large w3-margin-right"></span>	
 				<% exception.printStackTrace(new java.io.PrintWriter(out)); %>
 				</p>	
-				<% } %>				
-				
-				<s:if test="hasActionErrors()">
-				   <s:iterator value="actionErrors">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
-						<span class="icon-cross w3-large w3-margin-right"></span><s:property/></p>
-					</s:iterator>
-				</s:if>
-				<s:if test="hasActionMessages()">
-				   <s:iterator value="actionMessages">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-yellow w3-text-yellow w3-border-yellow">
-						<span class="icon-warning w3-large w3-margin-right"></span><s:property/></p>
-					</s:iterator>
-				</s:if>
+				<% } %>
 				
 				<p class="footnote"><% if(exception!=null)System.err.println("Exception: "+exception.getClass().getName()+" "+exception.getMessage()); %></p>
 				
