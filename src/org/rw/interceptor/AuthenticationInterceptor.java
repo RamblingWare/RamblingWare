@@ -47,11 +47,11 @@ public class AuthenticationInterceptor implements Interceptor {
 	
 	@Override
 	public void init() {
-		System.out.println(this.getClass().getName()+" initalized.");
+		//System.out.println(this.getClass().getName()+" initalized.");
 	}
 
 	@Override
 	public void destroy() {
-		System.out.println(this.getClass().getName()+" destroyed.");
+		//System.out.println(this.getClass().getName()+" destroyed.");
 	}
 }
