@@ -1,9 +1,8 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:if test="#session.USER != null">
-	<div class="w3-col s6 m2 l2 w3-padding-square w3-right no-print w3-dropdown-hover">
+	<div class="w3-col s2 m2 l2 w3-padding-square w3-right no-print w3-dropdown-hover">
 		<button title="Menu" style="vertical-align: middle;" class="w3-small w3-card w3-round w3-theme-l3 w3-hover-shadow w3-padding-4">
-			<img class="w3-round" src="<s:property value="#session.USER.thumbnail" />" style="width:25px; height:25px;vertical-align: middle;margin-top: -7px;margin-left: -7px;" align="top">
-			&nbsp;<s:property value="#session.USER.username" />
+			<img class="w3-round" src="<s:property value="#session.USER.thumbnail" />" style="width:25px; height:25px;vertical-align: middle;" align="top">
 		</button>
    		<div class="w3-dropdown-content w3-white w3-card-4 footnote">
 			<a class="w3-hover-light-grey w3-hover-shadow" title="Management Menu" href="/manage/"><span class="icon-home w3-large w3-margin-right"></span>Main Menu</a>

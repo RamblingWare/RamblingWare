@@ -1,12 +1,11 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <header>
 	<div class="page w3-container w3-theme-dark">
-		<div class="w3-col s3 m7 l3 w3-container w3-padding-0">
-		<a href="/"><img class="logo w3-hide-small" src="/img/logo-medium.png" alt="RamblingWare" /></a>
-		<a href="/"><img class="logo w3-hide-large w3-hide-medium no-print" src="/img/logo-small.png" alt="RamblingWare" /></a>
+		<div class="w3-col s10 m7 l7 w3-container w3-padding-0">
+		<a href="/"><img class="logo" src="/img/logo-medium.png" alt="RamblingWare" /></a>
 	</div>
 	<%@include file="/WEB-INF/fragment/admin-menu.jspf"%>
-	<div id="search" class="w3-col s6 m3 l3 w3-padding-square w3-right w3-small no-print">
+	<div id="search" class="w3-col s2 m3 l3 w3-padding-square w3-right w3-small w3-hide-small no-print">
 		<div class="w3-padding-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-card w3-round-large">
 			<form action="/search" method="get" class="w3-medium">
 			<label for="s" class="icon-search w3-large w3-text-theme"></label>

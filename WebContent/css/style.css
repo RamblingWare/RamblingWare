@@ -34,7 +34,7 @@ h1{font-size:36px;border-bottom: 2px solid #505050;font-weight:700;}h2{font-size
 h1,h2,h3,h4,h5,h6{font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {font-weight: inherit;}
 hr{border:0;border-top:1px solid #eee;margin:20px 0}
-img{margin-bottom:-10px}
+img{margin:0px}
 .w3-image{max-width:100%;height:auto}
 .w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;width:100%;display:table}
 .w3-table-all{border:1px solid #ccc}
@@ -473,8 +473,8 @@ header {
 	border-bottom: 0px;
 }
 header .logo {
-	margin-left: 0px;
-	width: auto; 
+	margin-top: 10px;
+	max-width: 100%; 
 	max-height: 50px !important;
 	text-decoration: none;
 }
