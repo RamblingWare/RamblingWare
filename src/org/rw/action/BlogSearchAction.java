@@ -199,7 +199,7 @@ public class BlogSearchAction extends ActionSupport implements UserAware, Servle
 				searchQry += "and";
 			else
 				searchQry += "where";
-			searchQry += " p.create_date >= '"+ApplicationStore.formatMySQLDate(beginDate)+" 00:00:00' and p.create_date <= '"+ApplicationStore.formatMySQLDate(endDate)+" 00:00:00' ";
+			searchQry += " p.publish_date >= '"+ApplicationStore.formatMySQLDate(beginDate)+" 00:00:00' and p.publish_date <= '"+ApplicationStore.formatMySQLDate(endDate)+" 00:00:00' ";
 			parameterGiven = true;
 		}
 		

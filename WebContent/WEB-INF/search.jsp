@@ -33,20 +33,21 @@
 				<% if(author==null) author = ""; %>
 				<form action="/blog/search" method="get">
 					
-					<div class="w3-row">
+					<div class="w3-row w3-small">
 						<div class="w3-container w3-col s11 m6 l5">
 						
-							<p><select id="year" name="year" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
+							<p class="w3-margin-0 w3-padding-top"><select id="year" name="year" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select a Year]</option>
 								<option <%if(year.equals("2014")) out.print("selected"); %> value="2014">2014</option>
 								<option <%if(year.equals("2015")) out.print("selected"); %> value="2015">2015</option>
 								<option <%if(year.equals("2016")) out.print("selected"); %> value="2016">2016</option>
+								<option <%if(year.equals("2017")) out.print("selected"); %> value="2017">2017</option>
 							</select></p>
 						
 						</div>
 						<div class="w3-container w3-col s11 m6 l5">
 						
-							<p><select id="month" name="month" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
+							<p class="w3-margin-0 w3-padding-top"><select id="month" name="month" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select a Month]</option>
 								<option <%if(month.equals("Jan")) out.print("selected"); %> value="Jan">January</option>
 								<option <%if(month.equals("Feb")) out.print("selected"); %> value="Feb">February</option>
@@ -65,7 +66,7 @@
 						</div>
 						<div class="w3-container w3-col s11 m6 l5">
 						
-							<p><select id="tag" name="tag" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
+							<p class="w3-margin-0 w3-padding-top"><select id="tag" name="tag" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select a Tag]</option>
 								<s:iterator value="tagOptions" status="to" var="tagOp">
 								<s:if test="%{#tagOp.equals(tag)}">
@@ -80,7 +81,7 @@
 						</div>
 						<div class="w3-container w3-col s11 m6 l5">
 							
-							<p><select id="author" name="author" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
+							<p class="w3-margin-0 w3-padding-top"><select id="author" name="author" class="w3-select w3-round-large w3-hover-text-blue w3-border w3-padding">
 								<option value="">[Select an Author]</option>
 								<s:iterator value="authorOptions" status="ao" var="authorOp">
 								<s:if test="%{#authorOp.uri_name.equals(author)}">
@@ -92,14 +93,14 @@
 							</select></p>
 						
 						</div>
-						<div class="w3-container w3-col s11 m6 l5">
-							<p>
-							<input type="text" size="50" name="title" id="title" value="<s:property value="title" />" style="width:90%"
+						<div class="w3-container w3-col s11 m6 l7">
+							<p class="w3-margin-0 w3-padding-top">
+							<input type="text" size="50" name="title" id="title" value="<s:property value="title" />"
 								placeholder="Article Title" class="w3-input w3-round-large w3-hover-text-blue w3-border w3-padding" />
 							</p>
 						</div>
-						<div class="w3-container w3-col s11 m6 l5">
-							<p>
+						<div class="w3-container w3-col s11 m6 l3">
+							<p class="w3-margin-0 w3-padding-top">
 							<button class="w3-btn w3-round w3-card w3-theme-light" type="submit" value="Search" title="Search for posts"><span class="icon-search w3-large w3-margin-right"></span>Search</button>
 							</p>
 						</div>
