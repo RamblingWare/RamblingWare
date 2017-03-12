@@ -68,7 +68,56 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 		if(uri == null && uriTemp.startsWith("/manage/editpost/"))
 			uri = ApplicationStore.removeBadChars(uriTemp.substring(17,uriTemp.length()));
 		
-		if(servletRequest.getParameter("submit")!=null)
+		if(servletRequest.getParameter("delete")!=null)
+		{
+			// they've requested to delete a post
+			Connection conn = null;
+			Statement st = null;
+			try {
+				conn = ApplicationStore.getConnection();
+				st = conn.createStatement();
+				conn.setAutoCommit(false);
+				
+				int r = st.executeUpdate("delete from posts where post_id = "+id);
+				
+				if(r == 0) {
+					conn.rollback();
+					addActionError("Oops. Failed to delete the post. Please try again.");
+					System.out.println("Failed to delete post: "+id);
+					return ERROR;
+				}
+				
+				int t = st.executeUpdate("delete from tags where post_id = "+id);
+				
+				if(t == 0) {
+					conn.rollback();
+					addActionError("Oops. Failed to delete the post tags. Please try again.");
+					System.out.println("Failed to delete post tags: "+id);
+					return ERROR;
+				}
+				
+				// done
+				conn.commit();
+				
+			} catch (Exception e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {}
+				addActionError("An error occurred: "+e.getMessage());
+				e.printStackTrace();
+				return ERROR;
+			} finally {
+				try {
+					st.close();
+					conn.close();
+				} catch (Exception e) {}
+			}
+			
+			System.out.println("User "+user.getUsername()+" deleted post: "+uri);
+			addActionMessage("The post was deleted!");
+			return "edit";
+		}
+		else if(servletRequest.getParameter("submitForm")!=null)
 		{
 			// Validate each field
     		if(title == null || title.trim().isEmpty())
@@ -221,55 +270,6 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 			// successfully updated
 			System.out.println("User "+user.getUsername()+" saved changes to the post: "+uri);
 			addActionMessage("Successfully saved changes to the post.");
-			return "edit";
-		}
-		else if(servletRequest.getParameter("delete")!=null)
-		{
-			// they've requested to delete a post
-			Connection conn = null;
-			Statement st = null;
-			try {
-				conn = ApplicationStore.getConnection();
-				st = conn.createStatement();
-				conn.setAutoCommit(false);
-				
-				int r = st.executeUpdate("delete from posts where post_id = "+id);
-				
-				if(r == 0) {
-					conn.rollback();
-					addActionError("Oops. Failed to delete the post. Please try again.");
-					System.out.println("Failed to delete post: "+id);
-					return ERROR;
-				}
-				
-				int t = st.executeUpdate("delete from tags where post_id = "+id);
-				
-				if(t == 0) {
-					conn.rollback();
-					addActionError("Oops. Failed to delete the post tags. Please try again.");
-					System.out.println("Failed to delete post tags: "+id);
-					return ERROR;
-				}
-				
-				// done
-				conn.commit();
-				
-			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {}
-				addActionError("An error occurred: "+e.getMessage());
-				e.printStackTrace();
-				return ERROR;
-			} finally {
-				try {
-					st.close();
-					conn.close();
-				} catch (Exception e) {}
-			}
-			
-			System.out.println("User "+user.getUsername()+" deleted post: "+uri);
-			addActionMessage("The post was deleted!");
 			return "edit";
 		}
 		else

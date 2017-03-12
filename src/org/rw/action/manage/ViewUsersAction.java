@@ -56,8 +56,6 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 				author.setUriName(rs.getString("uri_name"));
 				author.setName(rs.getString("name"));
 				author.setCreateDate(rs.getDate("create_date"));
-				author.setDescription(rs.getString("description"));
-				author.setModifyDate(rs.getDate("modify_date"));
 				author.setThumbnail(rs.getString("thumbnail"));
 				//author.setHtmlContent(rs.getString("html_content"));
 				author.setEmail(rs.getString("email"));

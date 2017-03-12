@@ -38,7 +38,6 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 	// updated values
 	private String name;
     private String uriName;
-    private String email;
     
     private String thumbnail;
     private String description;
@@ -58,7 +57,47 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 		if(uri == null && uriTemp.startsWith("/manage/edituser/"))
 			uri = ApplicationStore.removeBadChars(uriTemp.substring(17,uriTemp.length()));
 		
-		if(servletRequest.getParameter("submit")!=null)
+		if(servletRequest.getParameter("delete")!=null)
+		{
+			// they've requested to delete a user
+			Connection conn = null;
+			Statement st = null;
+			try {
+				conn = ApplicationStore.getConnection();
+				st = conn.createStatement();
+				conn.setAutoCommit(false);
+				
+				int r = st.executeUpdate("delete from users where user_id = "+id);
+				
+				if(r == 0) {
+					conn.rollback();
+					addActionError("Oops. Failed to delete the user. Please try again.");
+					System.out.println("Failed to delete user: "+id);
+					return ERROR;
+				}
+				
+				// done
+				conn.commit();
+				
+			} catch (Exception e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {}
+				addActionError("An error occurred: "+e.getMessage());
+				e.printStackTrace();
+				return ERROR;
+			} finally {
+				try {
+					st.close();
+					conn.close();
+				} catch (Exception e) {}
+			}
+			
+			System.out.println("User "+user.getUsername()+" deleted user: "+uri);
+			addActionMessage("The author was deleted!");
+			return "edit";
+		}
+		else if(servletRequest.getParameter("submitForm")!=null)
 		{
 			// they've submitted an edit on a user
 			Connection conn = null;
@@ -111,46 +150,6 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 			
 			System.out.println("User "+user.getUsername()+" updated user: "+uri);
 			addActionMessage("Successfully saved changes to the author.");
-			return "edit";
-		}
-		else if(servletRequest.getParameter("delete")!=null)
-		{
-			// they've requested to delete a user
-			Connection conn = null;
-			Statement st = null;
-			try {
-				conn = ApplicationStore.getConnection();
-				st = conn.createStatement();
-				conn.setAutoCommit(false);
-				
-				int r = st.executeUpdate("delete from users where user_id = "+id);
-				
-				if(r == 0) {
-					conn.rollback();
-					addActionError("Oops. Failed to delete the user. Please try again.");
-					System.out.println("Failed to delete user: "+id);
-					return ERROR;
-				}
-				
-				// done
-				conn.commit();
-				
-			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {}
-				addActionError("An error occurred: "+e.getMessage());
-				e.printStackTrace();
-				return ERROR;
-			} finally {
-				try {
-					st.close();
-					conn.close();
-				} catch (Exception e) {}
-			}
-			
-			System.out.println("User "+user.getUsername()+" deleted user: "+uri);
-			addActionMessage("The author was deleted!");
 			return "edit";
 		}
 		else

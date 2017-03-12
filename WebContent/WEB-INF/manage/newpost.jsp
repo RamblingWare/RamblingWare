@@ -178,13 +178,13 @@ function preview() {
 					</p>
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit">
 						<span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back">
 						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" onclick="return confirm('Are you sure you want to reset?')" value="Reset" title="Reset search fields">
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" onclick="return confirm('Are you sure you want to reset?')" title="Reset search fields">
 						<span class="icon-bin w3-large w3-margin-right"></span>Clear</button>
 					
 					</form>

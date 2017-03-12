@@ -29,7 +29,9 @@
 				<!-- EDIT AUTHOR BEGIN -->
 				<div class="w3-container w3-padding-0 w3-border-0">
 					<form action="/manage/edituser/<s:property value="#request.author.uriName" />" method="post">
+					<input type="hidden" name="submitForm" value="true" />
 					<input type="hidden" name="id" value="<s:property value="#request.author.id" />" />
+					
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="title">Author Name:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" required placeholder="Rambling Man" class="w3-input w3-round-large w3-border" />
@@ -60,7 +62,7 @@
 					
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" name="submit" value="Submit" title="Submit">
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit">
 						<span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
 					<span>&nbsp;&nbsp;</span>
 					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">

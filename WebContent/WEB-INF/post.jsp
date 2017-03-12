@@ -54,30 +54,29 @@
 				<div class="w3-container w3-padding w3-margin-0 w3-center">
 
 					<div class="w3-col s12 m4 l4">
-						<p class="w3-large w3-padding-0 w3-margin-0">
+						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
 							<img class="w3-round" style="height: 33px; vertical-align: middle;" src="<s:property value="authorThumbnail" />">
 							<a href="/author/<s:property value="authorUri" />" title="Author" class="w3-text-theme" style="vertical-align: middle;">
 							<s:property value="author" /></a>
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
-						<p class="w3-large w3-text-theme w3-padding-0 w3-margin-0" title="Date Published">
+						<p class="w3-large w3-text-theme w3-padding-0" title="Date Published">
 							<s:property value="publishDate" />
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
 						<s:if test="tags != null && !tags.isEmpty()">
-							<s:iterator value="tags">
+							<p><s:iterator value="tags">
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/blog/search?tag=<s:property />"><s:property /></a>
-							</s:iterator>
+							</s:iterator></p>
 						</s:if>
 					</div>
 				</div>
-
-				<hr class="w3-hide-medium w3-hide-large" />
 				
 				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity no-print">
-					<div class="w3-padding-16 w3-center">	
+					<div class="w3-padding-16 w3-center">
+						<p class="footnote">Share this post!</p>	
 						<a title="Share on Facebook" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-indigo w3-theme-l4 icon-facebook"
 						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="uriName" />"></a>				
 						

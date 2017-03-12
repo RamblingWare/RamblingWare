@@ -50,9 +50,10 @@
 						<tr>
 						<td><a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/edituser/<s:property value="uriName" />">Edit</a></td>
 						<td>
-							<a href="/author/<s:property value="uriName" />"><img class="w3-round" src="<s:property value="thumbnail" />" height="24px" width="24px" /></a>
+							<a href="/author/<s:property value="uriName" />">
+								<img class="w3-round" src="<s:property value="thumbnail" />" height="24px" width="24px" style="vertical-align: middle;" /></a>
 							&nbsp;
-							<a href="/author/<s:property value="uriName" />"><s:property value="name" /></a>
+							<a href="/author/<s:property value="uriName" />" style="vertical-align: middle;"><s:property value="name" /></a>
 						</td>
 							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
 						<td>

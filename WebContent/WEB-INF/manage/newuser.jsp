@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Register - RamblingWare</title>
+<title>New Author - RamblingWare</title>
 <!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 <!-- META_END -->
@@ -28,6 +28,8 @@
 				<!-- REGISTER BEGIN -->
 				<div class="w3-container w3-padding-0 w3-twothird w3-border-0">
 					<form action="/manage/newuser" method="post">
+					<input type="hidden" name="submitForm" value="true" />
+					
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="name">Full Name:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="200" name="name" id="name" value="<s:property value="name" />" required placeholder="John Doe" class="w3-input w3-round-large w3-border" />
@@ -35,11 +37,11 @@
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>
 						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
-						<span class="footnote"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="#request.author.uriName" /></span>
+						<span class="footnote"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="uriName" /></span>
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="200" name="username" id="username" value="<s:property value="#session.USER.username" />" required class="w3-input w3-round-large w3-border" />
+						<input type="text" size="50" maxlength="200" name="username" id="username" value="<s:property value="username" />" required class="w3-input w3-round-large w3-border" />
 						<span class="footnote">Your username is used to login.</span>
 					</p>
 					<p>
@@ -57,13 +59,13 @@
 					</p>
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Submit" title="Submit">
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit">
 						<span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back">
 						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" value="Reset" title="Reset search fields">
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" title="Reset search fields">
 						<span class="icon-bin w3-large w3-margin-right"></span>Clear</button>
 					
 					</form>

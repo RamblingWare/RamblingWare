@@ -54,7 +54,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 			System.err.println("Failed to set UTF-8 request encoding.");
 		}
     	
-    	if(servletRequest.getParameter("submit")!=null)
+    	if(servletRequest.getParameter("submitForm")!=null)
 		{
 			// they've submitted a new post!
     		
