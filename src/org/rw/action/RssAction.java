@@ -62,9 +62,6 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 			
 			while(rs.next()) {
 				
-				if(rs.getInt("is_visible") == 0)
-					continue; // skip this post, because its  not public yet
-				
 				// get the post properties
 				Post post = new Post(rs.getInt("post_id"));
 				post.setTitle(rs.getString("title"));
@@ -86,7 +83,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 				
 				response += "<item><title>"+post.getTitle()+"</title>"+
 						"<description>"+post.getDescription()+"</description>"+
-						"<pubDate>"+post.getCreateDateReadable()+"</pubDate>"+
+						"<pubDate>"+post.getPublishDateReadable()+"</pubDate>"+
 						"<link>https://www.ramblingware.com/blog/post/"+post.getUriName()+"</link>"+
 						"</item>";
 			}
