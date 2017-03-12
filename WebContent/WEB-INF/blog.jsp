@@ -37,24 +37,25 @@
 					
 						<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
 						
-						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
+						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-l4" style="overflow: hidden;">
 							<a href="/blog/post/<s:property value="uriName" />">
-							<img style="max-height:200px;" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="<s:property value="bannerCaption" />" />
+							<img class="thumbnail" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="<s:property value="bannerCaption" />" />
 							</a>
 						</div>
 						
 						<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
 						<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/post/<s:property value="uriName" />"><s:property value="title" /></a></h3>
-						<p class="footnote"><s:property value="description" /></p>
-						<p class="footnote"><br /><s:property value="author" />&nbsp;|&nbsp;<s:property value="createDateReadable" /></p>
+						<p class="footnote"><s:property value="description" /><br/><br/></p>
+						
 						<p class="footnote">Tags:
 						<s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
+								&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if>
-						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></span>
 						</p>
+						<p class="footnote"><s:property value="author" />&nbsp;|&nbsp;<s:property value="publishDateReadable" />
+						&nbsp;|&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></p>
 						</div>
 						</div><br />
 					</s:iterator>

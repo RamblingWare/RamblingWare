@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -168,22 +167,19 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 					ResultSet rs = st.executeQuery("select * from users where uri_name= '"+uri+"'");
 					
 					if(rs.first() && uri.equals(rs.getString("uri_name"))) {
-						// get the author properties
-						int user_id = rs.getInt("user_id");
-						name = rs.getString("name");
-						email = rs.getString("email");
-						Date createDate = rs.getDate("create_date");
-						
-						// save info into an object
-						Author auth = new Author(user_id,uri,name,createDate);
-						auth.setEmail(email);
-						auth.setId(rs.getInt("user_id"));
-						auth.setDescription(rs.getString("description"));
-						auth.setHtmlContent(rs.getString("html_content"));
-						auth.setModifyDate(rs.getDate("modify_date"));
-						auth.setThumbnail(rs.getString("thumbnail"));
-						
-						author = auth;
+						// get the user properties
+						author = new Author(rs.getInt("user_id"));
+						author.setUriName(rs.getString("uri_name"));
+						author.setName(rs.getString("name"));
+						author.setCreateDate(rs.getDate("create_date"));
+						author.setDescription(rs.getString("description"));
+						author.setModifyDate(rs.getDate("modify_date"));
+						author.setThumbnail(rs.getString("thumbnail"));
+						author.setHtmlContent(rs.getString("html_content"));
+						author.setEmail(rs.getString("email"));
+						author.setAdmin(rs.getInt("role") > 0);
+						author.setModifyDate(rs.getDate("modify_date"));
+						author.setLastLoginDate(rs.getDate("last_login_date"));
 						
 						System.out.println("User "+user.getUsername()+" opened user to edit: "+uri);
 						

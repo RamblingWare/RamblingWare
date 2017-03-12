@@ -29,19 +29,16 @@ public class Post {
 	
 	private Date createDate;
 	private Date modifyDate;
+	private Date publishDate;
 	
 	private String description;
 	private String htmlContent;
 	
 	private ArrayList<String> tags;
 	
-	public Post (int id, String title, String uriName, ArrayList<String> tags, Date createDate)
+	public Post (int id)
 	{
 		this.id = id;
-		this.title = title;
-		this.uriName = uriName;
-		this.tags = tags;
-		this.createDate = createDate;
 	}
 	
 	public int getId() {
@@ -155,6 +152,18 @@ public class Post {
 
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	public Date getPublishDate() {
+		return publishDate;
+	}
+	
+	public String getPublishDateReadable() {
+		return ApplicationStore.formatReadableDate(publishDate);
+	}
+
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
 	}
 
 	public String getAuthor() {

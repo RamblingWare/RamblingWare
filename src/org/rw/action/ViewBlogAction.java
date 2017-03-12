@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -48,18 +47,16 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select p.post_id, p.user_id, p.title, p.uri_name, p.is_visible, p.create_date, p.modify_date, p.thumbnail, p.banner, p.banner_caption, p.is_featured, p.description from posts p where is_visible <> 0 order by p.create_date desc limit 10");
+			ResultSet rs = st.executeQuery("select p.* from posts p where is_visible <> 0 order by p.create_date desc limit 10");
 			
 			while(rs.next()) {
 				
 				// get the post properties
-				int post_id = rs.getInt("post_id");
-				String post_title = rs.getString("title");
-				Date create_date = rs.getDate("create_date");
-				String post_uri_name = rs.getString("uri_name");
-				
-				// save info into an object
-				Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
+				Post post = new Post(rs.getInt("post_id"));
+				post.setTitle(rs.getString("title"));
+				post.setUriName(rs.getString("uri_name"));
+				post.setCreateDate(rs.getDate("create_date"));
+				post.setPublishDate(rs.getDate("publish_date"));
 				post.setAuthorId(rs.getInt("user_id"));
 				post.setDescription(rs.getString("description"));
 				//post.setHtmlContent(rs.getString("html_content"));

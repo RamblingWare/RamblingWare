@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +56,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 		try {
 			conn = ApplicationStore.getConnection();
 			Statement st = conn.createStatement();
-			String searchQry = "select p.post_id, p.title, p.uri_name, p.is_visible, p.create_date, p.description from posts p where p.is_visible <> 0 order by p.create_date desc limit 10";
+			String searchQry = "select p.post_id, p.title, p.uri_name, p.publish_date, p.description from posts p where p.is_visible <> 0 order by p.create_date desc limit 10";
 			System.out.println("QRY = "+searchQry);
 			ResultSet rs = st.executeQuery(searchQry);
 			
@@ -67,16 +66,20 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 					continue; // skip this post, because its  not public yet
 				
 				// get the post properties
-				int post_id = rs.getInt("post_id");
-				String post_title = rs.getString("title");
-				Date create_date = rs.getDate("create_date");
-				String post_uri_name = rs.getString("uri_name");
-				String description = rs.getString("description");
-				
-				// save info into an object
-				Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
-				post.setAuthor("Unknown");
-				post.setDescription(description);
+				Post post = new Post(rs.getInt("post_id"));
+				post.setTitle(rs.getString("title"));
+				post.setUriName(rs.getString("uri_name"));
+				//post.setCreateDate(rs.getDate("create_date"));
+				post.setPublishDate(rs.getDate("publish_date"));
+				//post.setAuthorId(rs.getInt("user_id"));
+				post.setDescription(rs.getString("description"));
+				//post.setHtmlContent(rs.getString("html_content"));
+				//post.setIs_visible(rs.getInt("is_visible")==1);
+				//post.setIsFeatured(rs.getInt("is_featured")==1);
+				//post.setModifyDate(rs.getDate("modify_date"));
+				//post.setThumbnail(rs.getString("thumbnail"));
+				//post.setBanner(rs.getString("banner"));
+				//post.setBannerCaption(rs.getString("banner_caption"));
 				
 				// add to results list
 				results.add(post);

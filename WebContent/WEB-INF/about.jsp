@@ -36,7 +36,6 @@
 				</p>
 				
 				<br />
-				<br />
 				
 				<h2>About the Author</h2>
 				<div class="w3-row" style="min-height:0px">
@@ -59,7 +58,6 @@
 				</div>
 				
 				<br />
-				<br />
 				
 				<h2>This Blog is Custom Built</h2>
 				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>.
@@ -76,29 +74,6 @@
 					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare"><span class="icon-embed2 w3-large w3-margin-right"></span>View Code</a>
 				</p>
 				
-				<br />
-				<br />				
-				
-				<h2>Further Reading</h2>
-				<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
-					<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
-						<a href="/blog/post/problems-with-building-your-own-blogsite">
-						<img style="max-height:200px;" src="https://i.imgur.com/j9Et09Xl.jpg" alt="Photo for Problems with building your own blogsite" title="Problems with building your own blogsite.">
-						</a>
-					</div>
-					<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
-					<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/post/problems-with-building-your-own-blogsite">Problems with building your own blogsite</a></h3>
-					<p class="footnote">To build or not to build? That is the question. Sometimes building your own blog website can be beneficial. But not always.</p>
-					<p class="footnote"><br>Austin Delamar&nbsp;|&nbsp;Aug 11, 2016</p>
-					<p class="footnote">Tags:
-							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=web-development">web-development</a>
-							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=funny">funny</a>
-					<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="/blog/post/problems-with-building-your-own-blogsite#comments"><span class="disqus-comment-count" data-disqus-identifier="problems-with-building-your-own-blogsite">0 comments</span></a></span>
-					</p>
-					</div>
-				</div>
-				
-				<br />
 				<br />
 				<div class="w3-container">
 					<p class="footnote quote">Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.</p>

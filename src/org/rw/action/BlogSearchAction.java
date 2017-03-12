@@ -65,11 +65,12 @@ public class BlogSearchAction extends ActionSupport implements UserAware, Servle
 			authorOptions = new ArrayList<Author>();
 			while(rs.next())
 			{
-				authorOptions.add(new Author(
-						rs.getInt("user_id"),
-						rs.getString("uri_name"),
-						rs.getString("name"),
-						null));
+				// get the user properties
+				Author author = new Author(rs.getInt("user_id"));
+				author.setUriName(rs.getString("uri_name"));
+				author.setName(rs.getString("name"));
+				
+				authorOptions.add(author);
 			}
 			rs.close();
 			
@@ -100,7 +101,7 @@ public class BlogSearchAction extends ActionSupport implements UserAware, Servle
 		// /blog/search?date=
 		
 		// search by one of the parameters provided
-		String searchQry = "select p.post_id, p.title, p.uri_name, p.thumbnail, p.is_visible, p.create_date, p.modify_date, p.description from posts p ";
+		String searchQry = "select p.post_id, p.title, p.uri_name, p.thumbnail, p.is_visible, p.create_date, p.modify_date, p.publish_date, p.description from posts p ";
 		boolean parameterGiven = false;
 		if(tag != null && !tag.isEmpty())
 		{
@@ -223,17 +224,21 @@ public class BlogSearchAction extends ActionSupport implements UserAware, Servle
 					continue; // skip this post, because its  not public yet
 				
 				// get the post properties
-				int post_id = rs.getInt("post_id");
-				String post_title = rs.getString("title");
-				Date create_date = rs.getDate("create_date");
-				String post_uri_name = rs.getString("uri_name");
-				
-				// save info into an object
-				Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
+				Post post = new Post(rs.getInt("post_id"));
+				post.setTitle(rs.getString("title"));
+				post.setUriName(rs.getString("uri_name"));
+				post.setCreateDate(rs.getDate("create_date"));
+				post.setPublishDate(rs.getDate("publish_date"));
+				//post.setAuthorId(rs.getInt("user_id"));
 				post.setAuthor("Austin Delamar");
 				post.setDescription(rs.getString("description"));
-				post.setThumbnail(rs.getString("thumbnail"));
+				//post.setHtmlContent(rs.getString("html_content"));
+				//post.setIs_visible(rs.getInt("is_visible")==1);
+				//post.setIsFeatured(rs.getInt("is_featured")==1);
 				post.setModifyDate(rs.getDate("modify_date"));
+				post.setThumbnail(rs.getString("thumbnail"));
+				//post.setBanner(rs.getString("banner"));
+				//post.setBannerCaption(rs.getString("banner_caption"));
 				
 				// add to results list
 				results.add(post);

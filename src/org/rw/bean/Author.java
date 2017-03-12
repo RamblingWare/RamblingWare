@@ -25,11 +25,8 @@ public class Author {
 	private String description;
 	private String htmlContent;
 	
-	public Author(int id, String uriName, String name, Date createDate) {
-		this.setUriName(uriName);
-		this.setName(name);
-		this.setId(id);
-		this.setCreateDate(createDate);
+	public Author(int id) {
+		this.id = id;
 	}
 
 	public String getUriName() {

@@ -1,4 +1,4 @@
-package org.rw.interceptor;
+package org.rw.action.interceptor;
 
 import java.util.Map;
 

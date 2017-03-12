@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -52,16 +51,15 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 			ResultSet rs = st.executeQuery("select user_id, name, thumbnail, uri_name, email, role, create_date, modify_date, last_login_date from users order by create_date desc");
 			
 			while(rs.next()) {
-				
-				// get the author properties
-				int user_id = rs.getInt("user_id");
-				String name = rs.getString("name");
-				Date create_date = rs.getDate("create_date");
-				String uri_name = rs.getString("uri_name");
-				
-				// save info into an object
-				Author author = new Author(user_id, uri_name, name, create_date);
+				// get the user properties
+				Author author = new Author(rs.getInt("user_id"));
+				author.setUriName(rs.getString("uri_name"));
+				author.setName(rs.getString("name"));
+				author.setCreateDate(rs.getDate("create_date"));
+				author.setDescription(rs.getString("description"));
+				author.setModifyDate(rs.getDate("modify_date"));
 				author.setThumbnail(rs.getString("thumbnail"));
+				//author.setHtmlContent(rs.getString("html_content"));
 				author.setEmail(rs.getString("email"));
 				author.setAdmin(rs.getInt("role") > 0);
 				author.setModifyDate(rs.getDate("modify_date"));

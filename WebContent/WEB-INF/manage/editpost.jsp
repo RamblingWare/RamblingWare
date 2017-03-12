@@ -49,10 +49,10 @@ function preview() {
 	var tagHtml = "";
 	for (var i = 0; i < tagArray.length; i++) {
 		if(tagArray[i].length>0)
-		tagHtml += "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-shadow\" href=\"#\">"+tagArray[i]+"</a>"; 
+		tagHtml += "&nbsp;<a class=\"tag w3-round w3-theme w3-hover-shadow\" href=\"#\">"+tagArray[i]+"</a>"; 
 	}
 	if(tagHtml<=1)
-		tagHtml = "&nbsp;<a class=\"tag w3-tag w3-round w3-theme w3-hover-shadow\" href=\"#\">Tag</a>";
+		tagHtml = "&nbsp;<a class=\"tag w3-round w3-theme w3-hover-shadow\" href=\"#\">Tag</a>";
 	document.getElementById('previewTags').innerHTML = tagHtml;
 	
 	
@@ -119,14 +119,15 @@ preview();
 						
 						<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
 						<h3 class="w3-padding-0 w3-margin-0"><a id="previewTitle" href="#"><s:property value="title" /></a></h3>
-						<p id="previewDesc" class="footnote"><s:property value="description" /></p>
-						<p class="footnote"><br /><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=ApplicationStore.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %></p>
-						<p class="footnote"><b>Tags:</b>&nbsp;
+						<p id="previewDesc" class="footnote"><s:property value="description" /></p><br/>
+						
+						<p class="footnote">Tags:
 						<span id="previewTags">
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-shadow" href="#">Tags</a>
 						</span>
-						<span class="w3-right">&nbsp;&nbsp;<a class="footnote" href="#" /><span>0 comments</span></a></span>
 						</p>
+						<p class="footnote"><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=ApplicationStore.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %>
+						&nbsp;|&nbsp;<span><a class="footnote" href="#" /><span>0 comments</span></a></span></p>
 						</div>
 					</div>
 					
@@ -175,7 +176,10 @@ preview();
 					</p>
 					
 					<hr />
-					
+					<p>
+						<label class="w3-validate w3-text-grey-light w3-large" for="publishDate">Publish Date:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(DD-MM-YYYY or Month DD, YY)</span></label>
+						<input type="text" size="50" maxlength="20" name="publishDate" id="publishDate" value="<s:property value="publishDate" />" required placeholder="DD-MM-YYYY" class="w3-input w3-round-large w3-border" />
+					</p>
 					<p>
 						<s:if test="#request.post.isVisible">
 						<input type="checkbox" name="isVisible" id="isVisible" class="w3-check" checked="checked" />

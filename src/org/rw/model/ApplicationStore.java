@@ -1,6 +1,5 @@
 package org.rw.model;
 import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -17,25 +16,14 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Properties;
 
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.swing.SwingWorker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.rw.bean.Email;
 
 /**
  * AppicationStore loads the appropriate settings from application.properties file
@@ -52,8 +40,6 @@ public class ApplicationStore implements ServletContextListener {
 	private final static DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
 	private final static DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
 	private static HashMap<String, String> settingsMap;
-	private static ArrayList<Email> emailQueue;
-	private static EmailDaemon emailService;
 	private static String host;
 	public static String database;
 	private static String port;
@@ -130,18 +116,16 @@ public class ApplicationStore implements ServletContextListener {
 		System.out.println("User: "+dbuser);
 		System.out.println("Password: ******");
 		
-		
-		// startup email service
-		System.out.println("Starting EmailDaemon service.");
-		emailQueue = new ArrayList<Email>();
-		emailService = new EmailDaemon(Integer.parseInt(getSetting("emailServiceWaitInterval")));
-		//emailService.execute();
-		
 		// webapp ready
 		startDateTime = (READABLEDATETIMEFORM.format(new Date(System.currentTimeMillis())));
 		System.out.println(this.getClass().getName()+" Initialized.");
 	}
 	
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {		
+		System.out.println(this.getClass().getName()+" Destroyed.");
+	}
+
 	/**
 	 * Obtains a connection to the DB if possible.
 	 * @return
@@ -189,11 +173,6 @@ public class ApplicationStore implements ServletContextListener {
 
 	public static String getStartDateTime() {
 		return startDateTime;
-	}
-
-	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {		
-		System.out.println(this.getClass().getName()+" Destroyed.");
 	}
 
 	/**
@@ -273,9 +252,9 @@ public class ApplicationStore implements ServletContextListener {
 	 */
 	public static Date convertStringToDate(String anyFormat) {
 		String formats[] = { 
-				"MM/dd/yy", "MMMM d yy","yyyy-MM-dd", "MMM dd yyyy", "MMM dd yy",
-				"MMMM d, yy", "dd/MM/yy", 
-				"MM-dd-yy", "dd-MM-yy",
+				"MM/dd/yy", "MMMM d yy","MMM dd yyyy", "MMM dd yy",
+				"MMMM d, yy", "dd/MM/yy", "MM-dd-yyyy", "MM/dd/yyyy", "dd-MM-yyyy", "dd/MM/yyyy",
+				"MM-dd-yy", "dd-MM-yy","yyyy-MM-dd",
 				"EEE, dd MMM yy HH:mm:ss z", "EEE, dd MMM yy HH:mm:ss",
 				"dd MMM yy HH:mm:ss", "ss:mm:HH dd MM:",
 				"yyyyMMdd hh:mm:ss a", "yyyyMMdd hh:mm:ss", "yyyy-MM-dd hh:mm:ss a"};
@@ -285,6 +264,7 @@ public class ApplicationStore implements ServletContextListener {
 			try {
 				date = new SimpleDateFormat(formats[i], Locale.ENGLISH)
 						.parse(anyFormat);
+				System.out.println("Format found: \""+formats[i]+"\" for date input \""+anyFormat+"\"");
 				break; // successful
 			} catch (Exception e) {
 				continue; // try another
@@ -393,131 +373,5 @@ public class ApplicationStore implements ServletContextListener {
 			result = false;
 		}
 		return result;
-	}
-
-	/**
-	 * Adds the email message to the queue to be sent by the server.
-	 * @param email
-	 */
-	public static void addToEmailQueue(String from, String to, String subject, String message) {
-		Email email = new Email();
-		email.setFrom(from);
-		email.setTo(to);
-		email.setSubject(subject);
-		email.setMessage(message);
-		emailQueue.add(email);
-		System.out.println("A message was queued.");
-	}
-
-	/**
-	 * A private Email Service that runs in the background of the J2EE web application.
-	 * It scans for emails in the queue, and tries to send them to the support email address.
-	 * If it fails to send an email, it will wait until time is up, to send again. (Usually 1 min)
-	 * @author Austin Delamar
-	 * @date 5/28/2014
-	 */
-	private class EmailDaemon extends SwingWorker<Void, Void>{
-		private int waitInterval = 60000; // default 1 minute
-		
-		private EmailDaemon(int waitInterval) {
-			this.waitInterval = waitInterval;
-		}
-		
-		@Override
-		protected Void doInBackground() throws Exception {
-			
-			while(!this.isCancelled()) {
-				// wait for emails to be queued
-				
-				while(!emailQueue.isEmpty()) {
-					// if there is one to send,
-					// then try to send it.
-					System.out.println("Sending "+emailQueue.size()+" message(s).");
-					Email email = emailQueue.get(0);
-					try {
-						sendQuickEmail(email.getFrom(),email.getTo(),email.getSubject(),email.getMessage());
-						System.out.println("Successfully sent a message.");
-						// if successful, then remove it
-						emailQueue.remove(0);
-					} catch (Exception e) {
-						// if failed, then wait to try again
-						System.err.println("Failed to send message. "+e.getMessage());
-						System.err.println("Waiting "+waitInterval+"ms to try again.");
-						break;
-						// break now, because even if 1 email failed
-						// then the others may fail as well.
-					}
-				}
-				
-				// wait
-				Thread.sleep(waitInterval);
-			}
-			return null;
-		}
-	
-		/**
-		 * Sends a quick email message with the given properties. Returns true or false, if it was sent successfully.
-		 * @param from
-		 * @param to
-		 * @param subject
-		 * @param message
-		 * @return 
-		 */
-		private void sendQuickEmail(String from, String to, String subject, String message) throws AddressException, MessagingException {
-			
-			Properties props = System.getProperties();
-		    props.put("mail.smtp.starttls.enable", true); // added this line
-		    props.put("mail.smtp.host", "smtp.gmail.com");
-		    props.put("mail.smtp.user", "austin.delamar@gmail.com");
-		    props.put("mail.smtp.password", "???");
-		    props.put("mail.smtp.port", "587");
-		    props.put("mail.smtp.auth", true);
-
-		    Session session = Session.getInstance(props,null);
-		    MimeMessage msg = new MimeMessage(session);
-
-		    System.out.println("Port: "+session.getProperty("mail.smtp.port"));
-
-		    // Create the email addresses involved
-		    try {
-		        InternetAddress fromIA = new InternetAddress(from);
-		        msg.setSubject(subject);
-		        msg.setFrom(fromIA);
-		        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-
-		        // Create a multi-part to combine the parts
-		        Multipart multipart = new MimeMultipart("alternative");
-
-		        // Create your text message part
-		        BodyPart messageBodyPart = new MimeBodyPart();
-		        messageBodyPart.setText(message);
-
-		        // Add the text part to the multipart
-		        multipart.addBodyPart(messageBodyPart);
-
-		        // Create the html part
-		        messageBodyPart = new MimeBodyPart();
-		        String htmlMessage = message;
-		        messageBodyPart.setContent(htmlMessage, "text/html");
-
-
-		        // Add html part to multi part
-		        multipart.addBodyPart(messageBodyPart);
-
-		        // Associate multi-part with message
-		        msg.setContent(multipart);
-
-		        // Send message
-		        Transport transport = session.getTransport("smtp");
-		        transport.connect("smtp.gmail.com", "austin.delamar@gmail.com", "???");
-		        System.out.println("Transport: "+transport.toString());
-		        transport.sendMessage(msg, msg.getAllRecipients());
-
-		    } catch (AddressException e) {
-		        e.printStackTrace();
-		    } catch (MessagingException e) {
-		        e.printStackTrace();
-		    }
-		}
 	}
 }

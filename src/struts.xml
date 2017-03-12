@@ -26,9 +26,9 @@
 	<package name="root" namespace="/" extends="struts-default">
 	
 		<interceptors>
-			<interceptor name="authentication" class="org.rw.interceptor.AuthenticationInterceptor"></interceptor>
-			<interceptor name="archive" class="org.rw.interceptor.ArchiveInterceptor"></interceptor>
-			<interceptor name="recentview" class="org.rw.interceptor.RecentViewInterceptor"></interceptor>
+			<interceptor name="authentication" class="org.rw.action.interceptor.AuthenticationInterceptor"></interceptor>
+			<interceptor name="archive" class="org.rw.action.interceptor.ArchiveInterceptor"></interceptor>
+			<interceptor name="recentview" class="org.rw.action.interceptor.RecentViewInterceptor"></interceptor>
 			
 			<!-- Admin User Authentication -->
 			<interceptor-stack name="authStack">

@@ -35,6 +35,7 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 	private String uriName;
 	private String createDate;
 	private String modifyDate;
+	private String publishDate;
 	private boolean visible;
 	private boolean featured;
 	private String thumbnail;
@@ -86,6 +87,7 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 					title = rs.getString("title");
 					createDate = ApplicationStore.formatReadableDate(rs.getDate("create_date"));
 					modifyDate = ApplicationStore.formatReadableDate(rs.getDate("modify_date"));
+					publishDate = ApplicationStore.formatReadableDate(rs.getDate("publish_date"));
 					visible = rs.getInt("is_visible") > 0;
 					featured = rs.getInt("is_featured") > 0;
 					thumbnail= rs.getString("thumbnail");
@@ -270,6 +272,14 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+
+	public String getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(String publishDate) {
+		this.publishDate = publishDate;
 	}
 
 	public boolean isVisible() {

@@ -1,11 +1,11 @@
 package org.rw.action.manage;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +32,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
     private String title;
     private String uriName;
     private String thumbnail;
+    private String publishDate;
     
     private Boolean isVisible;
     private Boolean isFeatured;
@@ -126,11 +127,13 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 				
 				// save fields into database
 				PreparedStatement pt = conn.prepareStatement(
-						"insert into posts (user_id,title,uri_name,create_date,is_visible,is_featured,thumbnail,banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?)");
+						"insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,thumbnail,banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?)");
 				pt.setString(1, user.getUserId());
 				pt.setString(2, title);
 				pt.setString(3, uriName);
-				pt.setDate(4, new Date(System.currentTimeMillis()));
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(ApplicationStore.convertStringToDate(publishDate));
+				pt.setDate(4, new java.sql.Date(cal.getTimeInMillis()));
 				pt.setInt(5, isVisible!=null?1:0);
 				pt.setInt(6, isFeatured!=null?1:0);
 				pt.setString(7, thumbnail);
@@ -227,6 +230,14 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = ApplicationStore.removeNonAsciiChars(thumbnail.trim());
+	}
+
+	public String getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(String publishDate) {
+		this.publishDate = publishDate;
 	}
 
 	public Boolean getIsVisible() {

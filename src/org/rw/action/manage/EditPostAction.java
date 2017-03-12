@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +41,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 	private String title;
     private String uriName;
     private String thumbnail;
+    private String publishDate;
     
     private Boolean isVisible;
     private Boolean isFeatured;
@@ -130,7 +131,8 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 						+ "user_id = ?,"
 						+ "title = ?,"
 						+ "uri_name = ?,"
-						+ "modify_date = ?,"
+						+ "modify_date = CURRENT_TIMESTAMP,"
+						+ "publish_date = ?,"
 						+ "is_visible = ?,"
 						+ "is_featured = ?,"
 						+ "thumbnail = ?,"
@@ -142,7 +144,9 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				pt.setString(1, user.getUserId());
 				pt.setString(2, title);
 				pt.setString(3, uriName);
-				pt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(ApplicationStore.convertStringToDate(publishDate));
+				pt.setDate(4, new java.sql.Date(cal.getTimeInMillis()));
 				pt.setInt(5, isVisible!=null?1:0);
 				pt.setInt(6, isFeatured!=null?1:0);
 				pt.setString(7, thumbnail);
@@ -282,14 +286,13 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 					ResultSet rs = st.executeQuery("select * from posts where uri_name= '"+uri+"'");
 					
 					if(rs.first() && uri.equals(rs.getString("uri_name"))) {
-						// get the post properties
-						int post_id = rs.getInt("post_id");
-						String post_title = rs.getString("title");
-						Date create_date = rs.getDate("create_date");
-						String post_uri_name = rs.getString("uri_name");
 						
-						// save info into an object
-						Post post = new Post(post_id,post_title,post_uri_name,null,create_date);
+						// get the post properties
+						Post post = new Post(rs.getInt("post_id"));
+						post.setTitle(rs.getString("title"));
+						post.setUriName(rs.getString("uri_name"));
+						post.setCreateDate(rs.getDate("create_date"));
+						post.setPublishDate(rs.getDate("publish_date"));
 						post.setAuthorId(rs.getInt("user_id"));
 						post.setDescription(rs.getString("description"));
 						post.setHtmlContent(rs.getString("html_content"));
@@ -298,8 +301,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 						post.setModifyDate(rs.getDate("modify_date"));
 						post.setThumbnail(rs.getString("thumbnail"));
 						post.setBanner(rs.getString("banner"));
-						post.setBannerCaption(rs.getString("banner_caption"));
-						
+						post.setBannerCaption(rs.getString("banner_caption"));						
 						
 						ResultSet rs2 = st.executeQuery("select * from tags where post_id = "+post.getId());
 						
@@ -402,6 +404,14 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = ApplicationStore.removeNonAsciiChars(thumbnail.trim());
+	}
+
+	public String getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(String publishDate) {
+		this.publishDate = publishDate;
 	}
 
 	public Boolean getIsVisible() {

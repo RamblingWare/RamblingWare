@@ -50,7 +50,6 @@
 				
 				<% out.print(request.getAttribute("htmlContent")); %>
 				
-				<br /><br />
 				<hr />
 				<div class="w3-container w3-padding w3-margin-0 w3-center">
 
@@ -63,7 +62,7 @@
 					</div>
 					<div class="w3-col s12 m4 l4">
 						<p class="w3-large w3-text-theme w3-padding-0 w3-margin-0" title="Date Published">
-							<s:property value="createDate" />
+							<s:property value="publishDate" />
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
