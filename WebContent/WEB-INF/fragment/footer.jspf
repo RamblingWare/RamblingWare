@@ -5,7 +5,7 @@
 	<p class="w3-large w3-margin-0">
 		<a href="/" class="w3-hover-text-black" title="Home">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="/blog" class="w3-hover-text-black" title="Blog">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<a href="/tag" class="w3-hover-text-black" title="Search">Search</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/search" class="w3-hover-text-black" title="Search">Search</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="/about" class="w3-hover-text-black" title="About">About</a>
 	</p>
 	<p>
@@ -17,7 +17,7 @@
 	</p>
 	<p class="w3-small w3-margin-0">
 		&#169; RamblingWare - 2017<br/>
-		Last Updated: 3/5/2017
+		Last Updated: 3/19/2017
 	</p>
 	
 	<script id="dsq-count-scr" src="//ramblingware.disqus.com/count.js" async></script>
@@ -28,7 +28,7 @@
 	<div class="w3-left">
 		<span>
 		<a href="/terms" title="Terms of Use">Terms</a> |
-		<a href="/privacy-policy" title="Privacy Policy">Privacy</a> |
+		<a href="/privacy" title="Privacy Policy">Privacy</a> |
 		<a target="_Blank" href="https://github.com/RamblingWare/RamblingWare" title="Source Code">Source Code</a>
 		</span>
 	</div>

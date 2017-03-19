@@ -1,49 +1,68 @@
 package org.rw.action;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.bean.Author;
+import org.rw.bean.Post;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * External Search action class
+ * Tag action class
  * @author Austin Delamar
- * @date 5/9/2016
+ * @date 3/19/2017
  */
-public class SearchAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class TagAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	
-	// search parameters
-	private String s;
+	private ArrayList<Post> posts = new ArrayList<Post>();
+	private String tag;
 	
 	public String execute() {
+				
+		// /tag
 		
-		// external search was entered		
-		try {
-			if(s == null || s.isEmpty())
-				s = "About";
+		// this allows blog posts to be shown without parameter arguments (i.e. ?uri_name=foobar&test=123 )
+		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
+		if(tag == null && uriTemp.startsWith("/tag/"))
+			tag = ApplicationStore.removeBadChars(uriTemp.substring(5,uriTemp.length()));
+		else if(tag == null && uriTemp.startsWith("/manage/tag/"))
+			tag = ApplicationStore.removeBadChars(uriTemp.substring(12,uriTemp.length()));
+		
+		if(tag != null && tag.length() > 0)
+		{
+			// this shows the most recent blog posts by tag
+			try {
+				// gather posts
+				posts = ApplicationStore.getDatabaseSource().getPostsByTag(1, 25, tag, false);
+				
+				// set attributes
+				servletRequest.setCharacterEncoding("UTF-8");
+				servletRequest.setAttribute("posts", posts);
+				
+				return SUCCESS;
 			
-			// redirect to DuckDuckGo with the search text provided
-			ServletActionContext.getResponse().sendRedirect("https://duckduckgo.com/?q=site%3Aramblingware.com+"+s);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
-			return ERROR;
+			} catch (Exception e) {
+				addActionError("Error: "+e.getClass().getName()+". Please try again later.");
+				e.printStackTrace();
+				return ERROR;
+			}
 		}
-			
-		return NONE;
+		else
+		{
+			addActionError("Tag '"+tag+"' not recognized. Please try again.");
+			return Action.NONE;
+		}
 	}
 	
 	/**
@@ -72,7 +91,7 @@ public class SearchAction extends ActionSupport implements UserAware, ServletRes
 	 */
 	public void setCookie(String cookieName, String cookieValue) {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
-		
+		cookie.setPath("/");
 		// cookie will last 1 year
 		cookie.setMaxAge(60 * 60 * 24 * 365);
 		servletResponse.addCookie(cookie);
@@ -98,11 +117,19 @@ public class SearchAction extends ActionSupport implements UserAware, ServletRes
 		
 	}
 
-	public String getS() {
-		return s;
+	public ArrayList<Post> getPosts() {
+		return posts;
 	}
 
-	public void setS(String s) {
-		this.s = ApplicationStore.removeNonAsciiChars(s);
+	public void setPosts(ArrayList<Post> posts) {
+		this.posts = posts;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = ApplicationStore.removeBadChars(tag);
 	}
 }
