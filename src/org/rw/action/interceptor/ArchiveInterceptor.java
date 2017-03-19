@@ -1,16 +1,11 @@
 package org.rw.action.interceptor;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
 import org.rw.bean.Post;
 import org.rw.model.ApplicationStore;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 /**
@@ -33,87 +28,28 @@ public class ArchiveInterceptor implements Interceptor {
 		ArrayList<String> archive_tags = (ArrayList<String>) sessionAttributes.get("archive_tags");
 		
 		if (archive_years == null || archive_years.isEmpty()) 
-		{
-			//System.out.println("Archive was not set. Setting archive values...");
-			archive_featured = new ArrayList<Post>();
-			archive_years = new ArrayList<String>();
-			archive_tags = new ArrayList<String>();
-			
+		{			
 			// get the archive of posts by years and tag names
-			Connection conn = null;
-			try {
-				conn = ApplicationStore.getConnection();
-				Statement st = conn.createStatement();
-				// search in db for total posts by each year
-				ResultSet rs = st.executeQuery("select YEAR(create_date) as year, COUNT(*) as count from posts where is_visible <> 0 group by YEAR(create_date) order by YEAR(create_date) desc");
-				
-				while(rs.next()) {
-					// get year and  count
-					int year = rs.getInt("year");
-					int count = rs.getInt("count");
-					archive_years.add(year+" ("+count+")");
-				}
-				
-				// search in db for total tags by name
-				ResultSet rs2 = st.executeQuery("select t.tag_name, COUNT(*) as count from tags t inner join posts p on t.post_id = p.post_id where p.is_visible <> 0 group by t.tag_name order by COUNT(*) desc, t.tag_name");
-				
-				while(rs2.next()) {
-					// get tag name and  count
-					String tag = rs2.getString("tag_name");
-					int count = rs2.getInt("count");
-					archive_tags.add(tag+" ("+count+")");
-				}
-				
-				// search in db for featured posts
-				ResultSet rs3 = st.executeQuery("select p.post_id, p.title, p.uri_name, p.publish_date, p.thumbnail, p.description from posts p where p.is_visible <> 0 and p.is_featured <> 0 order by p.create_date desc limit 2");
-				
-				while(rs3.next()) {					
-					// get the post properties
-					Post post = new Post(rs3.getInt("post_id"));
-					post.setTitle(rs3.getString("title"));
-					post.setUriName(rs3.getString("uri_name"));
-					//post.setCreateDate(rs3.getDate("create_date"));
-					post.setPublishDate(rs3.getDate("publish_date"));
-					//post.setAuthorId(rs.getInt("user_id"));
-					post.setDescription(rs3.getString("description"));
-					//post.setHtmlContent(rs.getString("html_content"));
-					//post.setIs_visible(rs.getInt("is_visible")==1);
-					//post.setIsFeatured(rs.getInt("is_featured")==1);
-					//post.setModifyDate(rs.getDate("modify_date"));
-					post.setThumbnail(rs3.getString("thumbnail"));
-					//post.setBanner(rs.getString("banner"));
-					//post.setBannerCaption(rs.getString("banner_caption"));
-					
-					// add to results list
-					archive_featured.add(post);
-				}
-				
-				
-				// set attributes
-				sessionAttributes.put("archive_featured", archive_featured);
-				sessionAttributes.put("archive_years", archive_years);
-				sessionAttributes.put("archive_tags", archive_tags);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				return Action.ERROR;
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {/*Do Nothing*/}
-			}
+			archive_featured = ApplicationStore.getDatabaseSource().getArchiveFeatured();
+			archive_years = ApplicationStore.getDatabaseSource().getArchiveYears();
+			archive_tags = ApplicationStore.getDatabaseSource().getArchiveTags();
+			
+			// set attributes
+			sessionAttributes.put("archive_featured", archive_featured);
+			sessionAttributes.put("archive_years", archive_years);
+			sessionAttributes.put("archive_tags", archive_tags);
 		} 
 
 		return actionInvocation.invoke();
 	}
-	
-	@Override
-	public void init() {
-		//System.out.println(this.getClass().getName()+" initalized.");
-	}
 
 	@Override
 	public void destroy() {
-		//System.out.println(this.getClass().getName()+" destroyed.");
+		// Auto-generated method stub
+	}
+
+	@Override
+	public void init() {
+		// Auto-generated method stub
 	}
 }

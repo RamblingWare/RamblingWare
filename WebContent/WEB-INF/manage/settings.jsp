@@ -192,7 +192,7 @@
 								</p>
 								<p>
 									<label class="w3-validate w3-text-grey-light w3-large" for="code">Security Code:&nbsp;<span class="w3-text-red">*</span></label>
-									<input type="text" size="50" maxlength="300" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" class="w3-input w3-round-large w3-border w3-large" />
+									<input type="text" size="50" maxlength="300" name="code" id="code" value="" required autocapitalize="off" autocorrect="off" autocomplete="off" class="w3-input w3-round-large w3-border w3-large" />
 								</p>
 								<hr />
 								<p>
@@ -220,7 +220,7 @@
 								</p>
 								<p>
 									<label class="w3-validate w3-text-grey-light w3-large" for="code">Recovery Code:&nbsp;<span class="w3-text-red">*</span></label>
-									<input type="text" size="50" maxlength="20" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" class="w3-input w3-round-large w3-border w3-large" />
+									<input type="text" size="50" maxlength="20" name="code" id="code" value="" required autocapitalize="off" autocorrect="off" autocomplete="off" class="w3-input w3-round-large w3-border w3-large" />
 								</p>
 								<p>
 									<label class="w3-validate w3-text-grey-light w3-large" for="passwordOld">Password:&nbsp;<span class="w3-text-red">*</span></label>

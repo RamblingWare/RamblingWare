@@ -5,7 +5,7 @@
 	<p class="w3-large w3-margin-0">
 		<a href="/" class="w3-hover-text-black" title="Home">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="/blog" class="w3-hover-text-black" title="Blog">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<a href="/blog/search" class="w3-hover-text-black" title="Search">Search</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/tag" class="w3-hover-text-black" title="Search">Search</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="/about" class="w3-hover-text-black" title="About">About</a>
 	</p>
 	<p>

@@ -2,8 +2,6 @@ package org.rw.model;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -24,6 +22,9 @@ import javax.servlet.ServletContextListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.rw.bean.Database;
+import org.rw.model.database.DatabaseSource;
+import org.rw.model.database.MySQLDatabase;
 
 /**
  * AppicationStore loads the appropriate settings from application.properties file
@@ -40,12 +41,8 @@ public class ApplicationStore implements ServletContextListener {
 	private final static DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
 	private final static DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
 	private static HashMap<String, String> settingsMap;
-	private static String host;
-	public static String database;
-	private static String port;
-	private static String dbuser;
-	private static String dbpass;
 	private static String startDateTime;
+	private static DatabaseSource database;
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
@@ -71,19 +68,21 @@ public class ApplicationStore implements ServletContextListener {
 		}
 		
 		
-		
 		// check env variable
 		String vcap = System.getenv("VCAP_SERVICES");
+		String dbHost, dbName, dbPort;
+		String dbUrl, dbUser, dbPass;
 		if(vcap == null) {
 			// if vcap is not available, then
 			// run on local MySQL Database
 			System.err.println("Failed to locate VCAP Object. Using local Db...");
 			
-			database = getSetting("db-name");
-			host = getSetting("db-host");
-			port = getSetting("db-port");
-			dbuser = getSetting("db-user");
-			dbpass = getSetting("db-pwd");
+			dbName = getSetting("db-name");
+			dbHost = getSetting("db-host");
+			dbPort = getSetting("db-port");
+			dbUrl = getSetting("db-url");
+			dbUser = getSetting("db-user");
+			dbPass = getSetting("db-pass");
 		}
 		else {
 			// try to read env variables
@@ -91,11 +90,12 @@ public class ApplicationStore implements ServletContextListener {
 				JSONObject obj = new JSONObject(vcap);
 				JSONArray cleardb = obj.getJSONArray("cleardb");
 				JSONObject mysql = cleardb.getJSONObject(0).getJSONObject("credentials");
-				database = mysql.getString("name");
-				host = mysql.getString("hostname");
-				port = ""+mysql.getInt("port");
-				dbuser = mysql.getString("username");
-				dbpass = mysql.getString("password");    
+				dbName = mysql.getString("name");
+				dbHost = mysql.getString("hostname");
+				dbPort = ""+mysql.getInt("port");
+				dbUrl = mysql.getString("uri");
+				dbUser = mysql.getString("username");
+				dbPass = mysql.getString("password");
 				
 				System.out.println("VCAP_SERVICES were read successfully.");
 				
@@ -103,18 +103,25 @@ public class ApplicationStore implements ServletContextListener {
 				e.printStackTrace();
 				System.err.println("Failed to parse JSON object. Using local Db...");
 				
-				database = getSetting("db-name");
-				host = getSetting("db-host");
-				port = getSetting("db-port");
-				dbuser = getSetting("db-user");
-				dbpass = getSetting("db-pwd");				
+				dbName = getSetting("db-name");
+				dbHost = getSetting("db-host");
+				dbPort = getSetting("db-port");
+				dbUrl = getSetting("db-url");
+				dbUser = getSetting("db-user");
+				dbPass = getSetting("db-pass");
 			}
 		}
-		System.out.println("Database: "+database);
-		System.out.println("Host: "+host);
-		System.out.println("Port: "+port);
-		System.out.println("User: "+dbuser);
-		System.out.println("Password: ******");
+		
+		Database db = new Database(dbName);
+		db.setHost(dbHost);
+		db.setPort(dbPort);
+		db.setUrl(dbUrl);
+		db.setUsername(dbUser);
+		db.setPassword(dbPass);
+		System.out.println(db.toString());
+		
+		database = new MySQLDatabase(db);
+		
 		
 		// webapp ready
 		startDateTime = (READABLEDATETIMEFORM.format(new Date(System.currentTimeMillis())));
@@ -125,16 +132,13 @@ public class ApplicationStore implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent arg0) {		
 		System.out.println(this.getClass().getName()+" Destroyed.");
 	}
-
+	
 	/**
-	 * Obtains a connection to the DB if possible.
+	 * Gets the currently used Database Service for this app.
 	 * @return
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
 	 */
-	public static Connection getConnection() throws SQLException, ClassNotFoundException {
-		Class.forName(getSetting("driver"));
-		return DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+database,dbuser,dbpass);
+	public static DatabaseSource getDatabaseSource(){
+		return database;
 	}
 	
 	/**

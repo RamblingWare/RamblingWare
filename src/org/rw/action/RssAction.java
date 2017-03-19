@@ -1,10 +1,6 @@
 package org.rw.action;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
@@ -33,20 +29,13 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 	// no post parameters
 	
 	// search results
-	private ArrayList<Post> results = new ArrayList<Post>();
+	private ArrayList<Post> posts = new ArrayList<Post>();
 	
 	public String execute() {
 		
-		try{ /* Try to set UTF-8 page encoding */
-			servletRequest.setCharacterEncoding("UTF-8");
-		} catch(Exception e) {
-			System.err.println("Failed to set UTF-8 request encoding.");
-		}
+		// /rss
 		
 		// this page shows the RSS feed
-
-		// search in db for all posts up to 100
-		Connection conn = null;
 		String response = "<?xml version=\"1.0\"?>"+
 				"<rss version=\"2.0\">"+
 				"<channel>"+
@@ -54,33 +43,10 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 				"<description>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</description>"+
 				"<link>https://www.ramblingware.com</link>";
 		try {
-			conn = ApplicationStore.getConnection();
-			Statement st = conn.createStatement();
-			String searchQry = "select p.post_id, p.title, p.uri_name, p.publish_date, p.description from posts p where p.is_visible <> 0 order by p.create_date desc limit 10";
-			System.out.println("QRY = "+searchQry);
-			ResultSet rs = st.executeQuery(searchQry);
+			// gather posts
+			posts = ApplicationStore.getDatabaseSource().getPosts(1, 10, false);
 			
-			while(rs.next()) {
-				
-				// get the post properties
-				Post post = new Post(rs.getInt("post_id"));
-				post.setTitle(rs.getString("title"));
-				post.setUriName(rs.getString("uri_name"));
-				//post.setCreateDate(rs.getDate("create_date"));
-				post.setPublishDate(rs.getDate("publish_date"));
-				//post.setAuthorId(rs.getInt("user_id"));
-				post.setDescription(rs.getString("description"));
-				//post.setHtmlContent(rs.getString("html_content"));
-				//post.setIs_visible(rs.getInt("is_visible")==1);
-				//post.setIsFeatured(rs.getInt("is_featured")==1);
-				//post.setModifyDate(rs.getDate("modify_date"));
-				//post.setThumbnail(rs.getString("thumbnail"));
-				//post.setBanner(rs.getString("banner"));
-				//post.setBannerCaption(rs.getString("banner_caption"));
-				
-				// add to results list
-				results.add(post);
-				
+			for(Post post : posts) {
 				response += "<item><title>"+post.getTitle()+"</title>"+
 						"<description>"+post.getDescription()+"</description>"+
 						"<pubDate>"+post.getPublishDateReadable()+"</pubDate>"+
@@ -88,6 +54,10 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 						"</item>";
 			}
 			response += "</channel></rss>";
+			
+			// set attributes
+			servletRequest.setCharacterEncoding("UTF-8");
+			servletResponse.setCharacterEncoding("UTF-8");
 			
 			PrintWriter out = null;
 			try {
@@ -106,12 +76,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 			e.printStackTrace();
 			return ERROR;
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {/*Do Nothing*/}
-		}
-	
+		}	
 	}
 	
 	/**

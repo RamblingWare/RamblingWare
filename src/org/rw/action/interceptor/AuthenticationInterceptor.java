@@ -46,12 +46,12 @@ public class AuthenticationInterceptor implements Interceptor {
 	}
 	
 	@Override
-	public void init() {
-		//System.out.println(this.getClass().getName()+" initalized.");
+	public void destroy() {
+		// Auto-generated method stub
 	}
 
 	@Override
-	public void destroy() {
-		//System.out.println(this.getClass().getName()+" destroyed.");
+	public void init() {
+		// Auto-generated method stub
 	}
 }

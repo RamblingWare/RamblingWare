@@ -25,15 +25,15 @@
 				
 				<h1>Blog</h1>
 				
-				<!-- RESULTS START -->
-				<s:if test="results != null">
-				<s:if test="results.isEmpty()">
+				<!-- POSTS START -->
+				<s:if test="posts != null">
+				<s:if test="posts.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
 						Something went wrong because no results were found. Please try again later?</p>
 				</s:if>
 				<s:else>
 					<p>Check out the most recent blog posts.<br /></p>
-					<s:iterator value="results" status="r">
+					<s:iterator value="posts" status="r">
 					
 						<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
 						
@@ -50,11 +50,11 @@
 						<p class="footnote">Tags:
 						<s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/blog/search?tag=<s:property />"><s:property /></a>
+								&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/tag/<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if>
 						</p>
-						<p class="footnote"><s:property value="author" />&nbsp;|&nbsp;<s:property value="publishDateReadable" />
+						<p class="footnote"><s:property value="author.name" />&nbsp;|&nbsp;<s:property value="publishDateReadable" />
 						&nbsp;|&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></p>
 						</div>
 						</div><br />
@@ -62,7 +62,7 @@
 				
 				</s:else>
 				</s:if>
-				<!-- RESULTS END -->
+				<!-- POSTS END -->
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

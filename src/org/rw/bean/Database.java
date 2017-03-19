@@ -2,17 +2,35 @@ package org.rw.bean;
 
 /**
  * Simple Database Bean object
+ * 
  * @author Austin Delamar
- * @date 6/2/2016
+ * @date 3/12/2017
  */
 public class Database {
-	
+
 	private String name;
-	private double size;
+	private String host;
+	private String port;
+	private String url;
+	private String username;
+	private String password;
+
+	public Database() {
+	}
+
+	public Database(String name) {
+		this.name = name;
+	}
 	
-	public Database(String name, double size) {
-		this.setName(name);
-		this.setSize(size);
+	@Override
+	public String toString() {
+		StringBuilder string = new StringBuilder("Database:\nName: "+getName());
+		string.append("\nHost: "+getHost());
+		string.append("\nPort: "+getPort());
+		string.append("\nURL: "+getUrl());
+		string.append("\nUser: "+getUsername());
+		string.append("\nPassword: ******");
+		return string.toString();
 	}
 
 	public String getName() {
@@ -23,13 +41,44 @@ public class Database {
 		this.name = name;
 	}
 
-	public double getSize() {
-		return size;
+	public String getHost() {
+		return host;
 	}
 
-	public void setSize(double size) {
-		this.size = size;
+	public void setHost(String host) {
+		this.host = host;
 	}
-	
-	
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }

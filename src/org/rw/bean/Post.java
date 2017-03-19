@@ -7,72 +7,57 @@ import org.rw.model.ApplicationStore;
 
 /**
  * Post class is just a bean.
- * @author AMD
- * @created 11/24/2015
+ * 
+ * @author Austin Delamar
+ * @date 11/24/2015
  */
 public class Post {
 
 	private int id;
 	private String title;
 	private String uriName;
-	
-	private int authorId;
-	private String author;
-	private String uriAuthor;
-	
 	private Boolean isFeatured;
 	private Boolean isVisible;
 
 	private String thumbnail;
 	private String banner;
 	private String bannerCaption;
-	
+	private String description;
+	private String htmlContent;
+
 	private Date createDate;
 	private Date modifyDate;
 	private Date publishDate;
-	
-	private String description;
-	private String htmlContent;
-	
+
+	private Author author;
 	private ArrayList<String> tags;
-	
-	public Post (int id)
-	{
+
+	public Post(int id) {
 		this.id = id;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int getAuthorId() {
-		return authorId;
-	}
-
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
 	}
 
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getUriName() {
 		return uriName;
 	}
+
 	public void setUriName(String uriName) {
 		this.uriName = uriName;
-	}
-	public String getUriAuthor() {
-		return uriAuthor;
-	}
-
-	public void setUriAuthor(String uriAuthor) {
-		this.uriAuthor = uriAuthor;
 	}
 
 	public Boolean getIsFeatured() {
@@ -98,7 +83,7 @@ public class Post {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	
+
 	public String getBanner() {
 		return banner;
 	}
@@ -123,17 +108,18 @@ public class Post {
 		this.description = description;
 	}
 
-	public ArrayList<String> getTags() {
-		return tags;
+	public String getHtmlContent() {
+		return htmlContent;
 	}
-	public void setTags(ArrayList<String> tags) {
-		this.tags = tags;
+
+	public void setHtmlContent(String htmlContent) {
+		this.htmlContent = htmlContent;
 	}
 
 	public Date getCreateDate() {
 		return createDate;
 	}
-	
+
 	public String getCreateDateReadable() {
 		return ApplicationStore.formatReadableDate(createDate);
 	}
@@ -145,7 +131,7 @@ public class Post {
 	public Date getModifyDate() {
 		return modifyDate;
 	}
-	
+
 	public String getModifyDateReadable() {
 		return ApplicationStore.formatReadableDate(modifyDate);
 	}
@@ -157,7 +143,7 @@ public class Post {
 	public Date getPublishDate() {
 		return publishDate;
 	}
-	
+
 	public String getPublishDateReadable() {
 		return ApplicationStore.formatReadableDate(publishDate);
 	}
@@ -166,20 +152,20 @@ public class Post {
 		this.publishDate = publishDate;
 	}
 
-	public String getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(Author author) {
 		this.author = author;
 	}
 
-	public String getHtmlContent() {
-		return htmlContent;
+	public ArrayList<String> getTags() {
+		return tags;
 	}
 
-	public void setHtmlContent(String htmlContent) {
-		this.htmlContent = htmlContent;
+	public void setTags(ArrayList<String> tags) {
+		this.tags = tags;
 	}
-	
+
 }

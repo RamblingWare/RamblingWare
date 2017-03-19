@@ -1,9 +1,5 @@
 package org.rw.action.interceptor;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,7 +9,6 @@ import org.apache.struts2.ServletActionContext;
 import org.rw.bean.Post;
 import org.rw.model.ApplicationStore;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 /**
@@ -25,7 +20,6 @@ public class RecentViewInterceptor implements Interceptor {
 
 	private static final long serialVersionUID = 1L;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
 
@@ -37,66 +31,31 @@ public class RecentViewInterceptor implements Interceptor {
 		if(ck != null && !ck.getValue().isEmpty())
 		{
 			// set the recent_view attribute with Post information if they do
-			ArrayList<Post> recent_view = (ArrayList<Post>) sessionAttributes.get("recent_view");
+			@SuppressWarnings("unchecked")
+			ArrayList<Post> archive_recent = (ArrayList<Post>) sessionAttributes.get("recent_view");
 			
-			recent_view = new ArrayList<Post>();
+			archive_recent = new ArrayList<Post>();
 			
 			// NEVER TRUST USER INPUT
 			ck.setValue(ApplicationStore.removeNonAsciiChars(ck.getValue()));
 			ck.setValue(ApplicationStore.removeBadChars(ck.getValue()));
-			String condition = "";
+			
+			// Build clean list
+			ArrayList<String> uriList = new ArrayList<String>();
 			for(String uri : ck.getValue().split("\\|"))
 			{
 				if(!uri.trim().isEmpty())
-					condition += "'"+uri+"',";
+					uriList.add(uri);
 			}
-			condition = condition.substring(0,condition.length()-1);
 			
-			// get the recently viewed posts
-			Connection conn = null;
-			try {
-				conn = ApplicationStore.getConnection();
-				Statement st = conn.createStatement();
-				
-				// search in db for recently viewed posts
-				String query = "select p.post_id, p.title, p.uri_name, p.description, p.publish_date from posts p where p.uri_name IN ("+
-						condition+") AND p.is_visible <> 0 order by p.create_date desc limit 3";
-				//System.out.println(query);
-				ResultSet rs3 = st.executeQuery(query);
-				
-				while(rs3.next()) {
-					
-					// get the post properties
-					Post post = new Post(rs3.getInt("post_id"));
-					post.setTitle(rs3.getString("title"));
-					post.setUriName(rs3.getString("uri_name"));
-					//post.setCreateDate(rs.getDate("create_date"));
-					post.setPublishDate(rs3.getDate("publish_date"));
-					//post.setAuthorId(rs.getInt("user_id"));
-					post.setDescription(rs3.getString("description"));
-					//post.setHtmlContent(rs.getString("html_content"));
-					//post.setIs_visible(rs.getInt("is_visible")==1);
-					//post.setIsFeatured(rs.getInt("is_featured")==1);
-					//post.setModifyDate(rs.getDate("modify_date"));
-					//post.setThumbnail(rs.getString("thumbnail"));
-					//post.setBanner(rs.getString("banner"));
-					//post.setBannerCaption(rs.getString("banner_caption"));
-					
-					// add to results list
-					recent_view.add(post);
-				}
-				
-				// set attributes
-				sessionAttributes.put("recent_view", recent_view);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				return Action.ERROR;
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {/*Do Nothing*/}
-			}
+			// ArrayList to String[]
+			String[] list = new String[uriList.size()];
+			list = uriList.toArray(list);
+			
+			archive_recent = ApplicationStore.getDatabaseSource().getArchiveRecent(list);
+			
+			// set attributes
+			sessionAttributes.put("recent_view", archive_recent);
 		}
 		else
 		{
@@ -109,13 +68,13 @@ public class RecentViewInterceptor implements Interceptor {
 	}
 	
 	@Override
-	public void init() {
-		//System.out.println(this.getClass().getName()+" initalized.");
+	public void destroy() {
+		// Auto-generated method stub
 	}
 
 	@Override
-	public void destroy() {
-		//System.out.println(this.getClass().getName()+" destroyed.");
+	public void init() {
+		// Auto-generated method stub
 	}
 
 	/**
