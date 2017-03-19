@@ -7,5 +7,5 @@ package org.rw.bean;
  */
 public interface UserAware {
 	 
-    public void setUser(User user);
+    public void setUser(Author user);
 }

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.rw.bean.Author;
 import org.rw.bean.Post;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -24,6 +24,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ViewPostAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
+	private Author user;
+	private boolean canSeeHidden = false;
 	
 	// post parameters
 	private Post post;
@@ -38,13 +40,17 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 		if(uriName == null && uriTemp.startsWith("/blog/post/"))
 			uriName = ApplicationStore.removeBadChars(uriTemp.substring(11,uriTemp.length()));
 		else if(uriName == null && uriTemp.startsWith("/manage/viewpost/"))
+		{
 			uriName = ApplicationStore.removeBadChars(uriTemp.substring(17,uriTemp.length()));
+			if(user != null)
+				canSeeHidden = true;
+		}
 		
 		if(uriName != null && uriName.length() > 0)
 		{
 			// search in db for post by title
 			try {
-				post = ApplicationStore.getDatabaseSource().getPost(uriName, false);
+				post = ApplicationStore.getDatabaseSource().getPost(uriName, canSeeHidden);
 				
 				// was post found AND is it publicly visible yet?
 				if(post != null)
@@ -160,8 +166,7 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	@Override
-	public void setUser(User user) {
-		// TODO Auto-generated method stub
-		
+	public void setUser(Author user) {
+		this.user = user;
 	}
 }

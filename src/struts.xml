@@ -65,13 +65,10 @@
 		<action name="about">
 			<result>/WEB-INF/about.jsp</result>
 		</action>
-		<action name="contact">
-			<result>/WEB-INF/about.jsp</result>
-		</action>
 		<action name="terms">
 			<result>/WEB-INF/other/terms.jsp</result>
 		</action>
-		<action name="privacy-policy">
+		<action name="privacy">
 			<result>/WEB-INF/other/privacy.jsp</result>
 		</action>
 		<action name="rss" class="org.rw.action.RssAction">
@@ -86,6 +83,12 @@
 		<!-- FORWARD ACTIONS -->
 		<action name="blog">
 			<result type="redirect">/blog/</result>
+		</action>
+		<action name="tag">
+			<result type="redirect">/tag/</result>
+		</action>
+		<action name="year">
+			<result type="redirect">/year/</result>
 		</action>
 		<action name="author">
 			<result type="redirect">/author/</result>

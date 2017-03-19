@@ -1,17 +1,12 @@
 package org.rw.action.manage;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Date;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.User;
+import org.rw.bean.Author;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 import org.rw.model.PasswordHash;
@@ -27,7 +22,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class NewUserAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
-	private User user;
+	private Author user;
 
 	private String username;
 	private String uriName;
@@ -53,52 +48,37 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 					// passwords match
 					if (password.length() >= 8) {
 						// password is long enough
-						// check if user exists or not
+						
 						try {
-							Connection conn = ApplicationStore.getConnection();
-							Statement st = conn.createStatement();
-							ResultSet rs = st.executeQuery("select * from users where email = '" + email + "'");
-
-							if (!rs.next()) {
+							// check if user exists or not
+							if (ApplicationStore.getDatabaseSource().getAuthor(uriName) == null) {
 								// user does not already exist.
 								// add new user
 								// salt and hash the password
 								password = PasswordHash.createHash(password);
 
-								int r = st.executeUpdate(
-										"insert into users (username,name,uri_name,email,create_date) values " + "('"
-												+ username + "','" + name + "','" + uriName + "','" + email + "','"
-												+ ApplicationStore.formatMySQLDate(new Date(System.currentTimeMillis()))
-												+ "')");
-
-								ResultSet results = st
-										.executeQuery("select user_id from users where email = '" + email + "'");
-								String userId = "";
-								if (results.next())
-									userId = results.getString("user_id");
-
-								int r2 = st.executeUpdate("insert into passwords (user_id,pwd) values " + "('" + userId
-										+ "','" + password + "')");
-
-								if (r == 1 && r2 == 1 && !userId.isEmpty()) {
-
-									// successfully registered new user!
-
-									// get new user eid
-									rs = st.executeQuery("select * from users where email = '" + email + "'");
-									rs.next();
-									// auto-login user
-									user = new User();
-									user.setEmail(email);
-									user.setName(name);
-									user.setFirstName(name.substring(0, name.indexOf(" ")));
-									user.setUsername(username);
-									user.setUriName(uriName);
-									user.setUserId(userId);
+								Author newUser = new Author(-1);
+								newUser.setEmail(email);
+								newUser.setName(name);
+								newUser.setUsername(username);
+								newUser.setUriName(uriName);
+								newUser.setPassword(password);
+								
+								// insert into database
+								newUser = ApplicationStore.getDatabaseSource().newUser(newUser);
+								
+								if (newUser.getId() != -1) {
+									// Successfully registered new user!
 
 									addActionMessage("Successfully created new Author.");
-									System.out.println("User created new author: " + username);
+									System.out.println("User "+user.getUsername()+" created new author: " + username);
 									return "edit";
+								}
+								else {
+									// failed to insert new user
+									addActionError("Failed to create new author. ");
+									System.out.println("Failed to create new author. "+username);
+									return ERROR;
 								}
 							} else {
 								// user is already registered
@@ -107,7 +87,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 								return ERROR;
 							}
 						} catch (Exception e) {
-							addActionError(e.getMessage());
+							addActionError("Failed to create new author: "+e.getMessage());
 							e.printStackTrace();
 							return ERROR;
 						}
@@ -137,7 +117,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		this.user = user;
 	}
 

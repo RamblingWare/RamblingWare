@@ -25,15 +25,17 @@ public abstract class DatabaseSource {
 
 	public abstract Post getPost(String uri, boolean includeHidden);
 	
-	public abstract void newPost(Post post);
+	public abstract Post newPost(Post post);
 	
-	public abstract void editPost(Post post);
+	public abstract boolean editPost(Post post);
+	
+	public abstract boolean deletePost(Post post);
 	
 	public abstract Author getAuthor(String uri);
 	
-	public abstract void newAuthor(Author author);
+	public abstract boolean editAuthor(Author author);
 	
-	public abstract void editAuthor(Author author);
+	public abstract boolean deleteAuthor(Author author);
 	
 	public abstract ArrayList<Post> getArchiveFeatured();
 	
@@ -45,7 +47,17 @@ public abstract class DatabaseSource {
 	
 	public abstract ArrayList<Post> getPosts(int page, int limit, boolean includeHidden);
 	
-	public abstract ArrayList<Post> getPostsByTag(int page, int limit, String tag);
+	public abstract ArrayList<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden);
 	
-	public abstract ArrayList<Author> getAuthors();
+	public abstract ArrayList<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden);
+	
+	public abstract ArrayList<Author> getAuthors(int page, int limit, boolean includeAdmins);
+	
+	public abstract Author getUser(String username);
+	
+	public abstract Author newUser(Author user);
+	
+	public abstract boolean editUser(Author user);
+	
+	public abstract boolean loginUser(Author user);
 }

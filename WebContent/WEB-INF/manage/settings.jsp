@@ -23,18 +23,17 @@
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<h1>Settings</h1>
-				<p>Use this page to make changes to your account settings.</p>
 				
 				<!-- SETTINGS BEGIN -->
 				<div class="w3-row">	
 				
-				<div class="w3-container w3-padding w3-col m12 l6">
+				<div class="w3-container w3-padding w3-col s12 m12 l6">
 				
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Account</h3>
 						</div>
-						<div class="w3-padding w3-theme-light">
+						<div class="w3-padding w3-small w3-theme-light">
 						
 							<form action="/manage/settings" method="post">
 							<input type="hidden" name="account" value="true" />
@@ -69,13 +68,13 @@
 					</div>
 				
 				</div>
-				<div class="w3-container w3-padding w3-col m12 l6">
+				<div class="w3-container w3-padding w3-col s12 m12 l6">
 				
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Password</h3>
 						</div>
-						<div class="w3-padding w3-theme-light">
+						<div class="w3-padding w3-small w3-theme-light">
 							
 							<form action="/manage/settings" method="post">
 							<input type="hidden" name="password" value="true" />
@@ -102,13 +101,13 @@
 					</div>
 				
 				</div>
-				<div class="w3-container w3-padding w3-col m12 l12">
+				<div class="w3-container w3-padding w3-col s12 m12 l12">
 				
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Security</h3>
 						</div>
-						<div class="w3-padding w3-theme-light">
+						<div class="w3-padding w3-small w3-theme-light">
 							
 							<form action="/manage/settings" method="post">
 							<input type="hidden" name="security" value="true" />
@@ -155,7 +154,7 @@
 								<h3>Recovery Code
 								<a title="Close" onclick="closePopup('recover-2fa')" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
-								<p>
+								<p class="w3-small">
 									In case you ever lose access to your mobile device or third-party Authentication app. Use this recovery code to login to your account.
 								</p>
 								<p>
@@ -187,7 +186,7 @@
 									<b>Secret:</b> <s:property value="secret" />
 								</span>
 								</p>
-								<p>
+								<p class="w3-small">
 									To confirm the third-party app is setup correctly. Please enter the security code shown on your mobile device here:
 								</p>
 								<p>
@@ -215,7 +214,7 @@
 									Disabling Two Factor Authentication will bypass the additional security provided from using a OTP (One-Time Password) at every login request.
 									Your account will still use a regular password, but would no longer ask for a Two-Factor code.
 								</p>
-								<p>
+								<p class="w3-small">
 									To confirm the removal of this security feature. Please enter the recovery code and password:
 								</p>
 								<p>
@@ -262,15 +261,14 @@
 					</script>
 				
 				</div>
-				<div class="w3-container w3-padding w3-col m12 l12">
+				<div class="w3-container w3-padding w3-col s12 m12 l12">
 				
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">About you</h3>
 						</div>
-						<div class="w3-padding w3-theme-light">
+						<div class="w3-padding w3-small w3-theme-light">
 							<p>Review your public information from your Author page.</p>
-							
 							
 							<span class="w3-col s3 m3 l3 w3-padding-16">
 								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
@@ -291,13 +289,13 @@
 					</div>
 				
 				</div>
-				<div class="w3-container w3-padding w3-col m12 l12">
+				<div class="w3-container w3-padding w3-col s12 m12 l12">
 				
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Additional Info</h3>
 						</div>
-						<div class="w3-padding w3-theme-light">
+						<div class="w3-padding w3-small w3-theme-light">
 						
 							<p class="w3-small">Some important dates regarding your account.<br/>
 							<br/>

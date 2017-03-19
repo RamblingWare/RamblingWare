@@ -1,9 +1,5 @@
 package org.rw.action.manage;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
@@ -13,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.bean.Author;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -27,48 +22,23 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ViewUsersAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
-	private User user;
+	private Author user;
 	
 	// results
-	private ArrayList<Author> results = new ArrayList<Author>();
+	private ArrayList<Author> authors;
 	
 	public String execute() {
 		
-		try{ /* Try to set UTF-8 page encoding */
-			servletRequest.setCharacterEncoding("UTF-8");
-		} catch(Exception e) {
-			System.err.println("Failed to set UTF-8 request encoding.");
-		}
+		// /manage/users
 		
-		// /blog
-		
-		// this shows the blog posts
-		System.out.println("User "+user.getUsername()+" has requested to view all users.");
-		Connection conn = null;
+		// this shows the authors
 		try {
-			conn = ApplicationStore.getConnection();
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select user_id, name, thumbnail, uri_name, email, role, create_date, modify_date, last_login_date from users order by create_date desc");
+			// gather authors
+			authors = ApplicationStore.getDatabaseSource().getAuthors(1,10,true);
 			
-			while(rs.next()) {
-				// get the user properties
-				Author author = new Author(rs.getInt("user_id"));
-				author.setUriName(rs.getString("uri_name"));
-				author.setName(rs.getString("name"));
-				author.setCreateDate(rs.getDate("create_date"));
-				author.setThumbnail(rs.getString("thumbnail"));
-				//author.setHtmlContent(rs.getString("html_content"));
-				author.setEmail(rs.getString("email"));
-				author.setAdmin(rs.getInt("role") > 0);
-				author.setModifyDate(rs.getDate("modify_date"));
-				author.setLastLoginDate(rs.getDate("last_login_date"));
-				
-				
-				// add to results list
-				results.add(author);
-			}
-			
-			servletRequest.setAttribute("results", results);
+			// set attributes
+			servletRequest.setCharacterEncoding("UTF-8");
+			servletRequest.setAttribute("authors", authors);
 			
 			return SUCCESS;
 		
@@ -76,10 +46,6 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 			e.printStackTrace();
 			return ERROR;
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {/*Do Nothing*/}
 		}
 	}
 	
@@ -130,15 +96,15 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 	}
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		this.user = user;		
 	}
 
-	public ArrayList<Author> getResults() {
-		return results;
+	public ArrayList<Author> getAuthors() {
+		return authors;
 	}
 
-	public void setResults(ArrayList<Author> results) {
-		this.results = results;
+	public void setAuthors(ArrayList<Author> authors) {
+		this.authors = authors;
 	}
 }

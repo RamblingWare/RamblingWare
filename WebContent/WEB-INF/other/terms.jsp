@@ -39,7 +39,7 @@
 				<font class="bold">Access Using a Mobile Device.</font> In order to access and use this website via a mobile device, you must have a mobile device with internet access.  The mobile version of this website will not be optimized or supported on all mobile devices.  <br /><br />
 				We do not charge you to access and use this website via a mobile device; however, your wireless carrier may charge you for using your mobile device to access and use this website.  Please check with your wireless carrier regarding any airtime, data usage, roaming, text messaging and other charges that may apply when using your mobile device.  You are responsible for all such charges.<br /><br />
 				<font class="bold">Above All.</font> I hope that you enjoy reading this site. Thank you for visiting!<br /><br />
-				Please be sure to read our <a href="/privacy-policy">Privacy Policy</a> as well.
+				Please be sure to read our <a href="/privacy">Privacy Policy</a> as well.
 				</p>
 				
 			</div>

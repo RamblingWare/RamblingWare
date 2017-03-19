@@ -19,15 +19,21 @@ public class CloudantDatabase extends DatabaseSource {
 	}
 
 	@Override
-	public void newPost(Post post) {
+	public Post newPost(Post post) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
-	public void editPost(Post post) {
+	public boolean editPost(Post post) {
 		// TODO Auto-generated method stub
+		return false;
+	}
 
+	@Override
+	public boolean deletePost(Post post) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -37,15 +43,15 @@ public class CloudantDatabase extends DatabaseSource {
 	}
 
 	@Override
-	public void newAuthor(Author author) {
+	public boolean editAuthor(Author author) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 
 	@Override
-	public void editAuthor(Author author) {
+	public boolean deleteAuthor(Author author) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 
 	@Override
@@ -65,7 +71,7 @@ public class CloudantDatabase extends DatabaseSource {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public ArrayList<Post> getArchiveRecent(String[] uri) {
 		// TODO Auto-generated method stub
@@ -79,15 +85,45 @@ public class CloudantDatabase extends DatabaseSource {
 	}
 
 	@Override
-	public ArrayList<Post> getPostsByTag(int page, int limit, String tag) {
+	public ArrayList<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Author> getAuthors() {
+	public ArrayList<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ArrayList<Author> getAuthors(int page, int limit, boolean includeAdmins) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Author getUser(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Author newUser(Author user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean editUser(Author user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean loginUser(Author user) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

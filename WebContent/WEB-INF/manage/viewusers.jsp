@@ -23,19 +23,18 @@
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<h1>View/Edit Authors</h1>
-				<p>Use this page to view or edit authors of this blog.</p>
 				
 				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-user-tie w3-large w3-margin-right"></span>Add Author</a>
 				<span class="footnote nowrap">Add a new Author!</span>
 				</p>
 				
-				<!-- RESULTS START -->
-				<s:if test="results != null">
-				<s:if test="results.isEmpty()">
+				<!-- AUTHORS START -->
+				<s:if test="authors != null">
+				<s:if test="authors.isEmpty()">
 					<p class="footnote">Something went wrong because no results were found. Please try again later?</p>
 				</s:if>
 				<s:else>
-					<p class="footnote"><s:property value="results.size()" /> result(s) found.</p>
+					<p class="footnote"><s:property value="authors.size()" /> result(s) found.</p>
 					<table class="w3-table-all w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
@@ -46,14 +45,14 @@
 						<th>Last Login</th>
 					</tr>
 					
-					<s:iterator value="results" status="r">
+					<s:iterator value="authors" status="r">
 						<tr>
 						<td><a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/edituser/<s:property value="uriName" />">Edit</a></td>
 						<td>
 							<a href="/author/<s:property value="uriName" />">
 								<img class="w3-round" src="<s:property value="thumbnail" />" height="24px" width="24px" style="vertical-align: middle;" /></a>
 							&nbsp;
-							<a href="/author/<s:property value="uriName" />" style="vertical-align: middle;"><s:property value="name" /></a>
+							<a href="/author/<s:property value="uriName" />" class="w3-medium" style="vertical-align: middle;"><s:property value="name" /></a>
 						</td>
 							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
 						<td>
@@ -71,7 +70,7 @@
 				
 				</s:else>
 				</s:if>
-				<!-- RESULTS END -->
+				<!-- AUTHORS END -->
 					
 				<br />
 				<br />

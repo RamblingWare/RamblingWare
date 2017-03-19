@@ -1,9 +1,5 @@
 package org.rw.action.manage;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
@@ -12,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.rw.bean.Author;
 import org.rw.bean.Post;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -27,80 +23,22 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ViewPostsAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
-	private User user;
+	private Author user;
 	
 	// results
-	private ArrayList<Post> results = new ArrayList<Post>();
+	private ArrayList<Post> posts;;
 	
 	public String execute() {
 		
-		try{ /* Try to set UTF-8 page encoding */
-			servletRequest.setCharacterEncoding("UTF-8");
-		} catch(Exception e) {
-			System.err.println("Failed to set UTF-8 request encoding.");
-		}
+		// /manage/posts
 		
-		// /blog
-		
-		// this shows the blog posts
-		System.out.println("User "+user.getUsername()+" has requested to view all posts.");
-		Connection conn = null;
 		try {
-			conn = ApplicationStore.getConnection();
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select p.post_id, p.user_id, p.title, p.uri_name, p.is_visible, p.create_date, p.modify_date, p.publish_date, p.thumbnail, p.banner, p.banner_caption, p.is_featured, p.description from posts p order by p.create_date desc");
+			// gather posts
+			posts = ApplicationStore.getDatabaseSource().getPosts(1, 10, true);
 			
-			while(rs.next()) {
-				
-				// get the post properties
-				Post post = new Post(rs.getInt("post_id"));
-				post.setTitle(rs.getString("title"));
-				post.setUriName(rs.getString("uri_name"));
-				post.setCreateDate(rs.getDate("create_date"));
-				post.setPublishDate(rs.getDate("publish_date"));
-				post.setAuthorId(rs.getInt("user_id"));
-				post.setDescription(rs.getString("description"));
-				//post.setHtmlContent(rs.getString("html_content"));
-				post.setIs_visible(rs.getInt("is_visible")==1);
-				post.setIsFeatured(rs.getInt("is_featured")==1);
-				post.setModifyDate(rs.getDate("modify_date"));
-				post.setThumbnail(rs.getString("thumbnail"));
-				post.setBanner(rs.getString("banner"));
-				post.setBannerCaption(rs.getString("banner_caption"));
-				
-				// add to results list
-				results.add(post);
-			}
-			
-			// gather tags
-			//System.out.println("Gathering tags...");
-			for(Post p : results)
-			{
-				ResultSet rs2 = st.executeQuery("select * from tags where post_id = "+p.getId());
-				
-				// get this post's tags - there could be more than 1
-				ArrayList<String> post_tags = new ArrayList<String>();
-				while(rs2.next()) {
-					post_tags.add(rs2.getString("tag_name"));
-				}
-				p.setTags(post_tags);
-				
-				ResultSet rs3 = st.executeQuery("select name, uri_name from users where user_id = "+p.getAuthorId());
-				if(rs3.next())
-				{
-					p.setAuthor(rs3.getString("name"));
-					p.setUriAuthor(rs3.getString("uri_name"));
-				}
-				else
-				{
-					p.setAuthor("Anonymous");
-					p.setUriAuthor("anonymous");
-				}
-			}
-			
-			//System.out.println(results.size()+" result(s) found.");
-			
-			servletRequest.setAttribute("results", results);
+			// set attributes
+			servletRequest.setCharacterEncoding("UTF-8");
+			servletRequest.setAttribute("posts", posts);
 			
 			return SUCCESS;
 		
@@ -108,10 +46,6 @@ public class ViewPostsAction extends ActionSupport implements UserAware, Servlet
 			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 			e.printStackTrace();
 			return ERROR;
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {/*Do Nothing*/}
 		}
 	}
 	
@@ -162,15 +96,15 @@ public class ViewPostsAction extends ActionSupport implements UserAware, Servlet
 	}
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		this.user = user;		
 	}
 
-	public ArrayList<Post> getResults() {
-		return results;
+	public ArrayList<Post> getPosts() {
+		return posts;
 	}
 
-	public void setResults(ArrayList<Post> results) {
-		this.results = results;
+	public void setPosts(ArrayList<Post> posts) {
+		this.posts = posts;
 	}
 }

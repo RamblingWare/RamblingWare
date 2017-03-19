@@ -1,11 +1,5 @@
 package org.rw.action.manage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.bean.Author;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -28,7 +21,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class EditUserAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
-	private User user;
+	private Author user;
 	
 	// post parameters
 	private Author author;
@@ -60,137 +53,89 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 		if(servletRequest.getParameter("delete")!=null)
 		{
 			// they've requested to delete a user
-			Connection conn = null;
-			Statement st = null;
 			try {
-				conn = ApplicationStore.getConnection();
-				st = conn.createStatement();
-				conn.setAutoCommit(false);
-				
-				int r = st.executeUpdate("delete from users where user_id = "+id);
-				
-				if(r == 0) {
-					conn.rollback();
+				author = new Author(id);
+				if(ApplicationStore.getDatabaseSource().deleteAuthor(author)) {
+					// Success
+					System.out.println("User "+user.getUsername()+" deleted user: "+uri);
+					addActionMessage("The author was deleted!");
+					return "edit";
+				}
+				else {
+					// failed to delete user
 					addActionError("Oops. Failed to delete the user. Please try again.");
-					System.out.println("Failed to delete user: "+id);
 					return ERROR;
 				}
 				
-				// done
-				conn.commit();
-				
 			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {}
 				addActionError("An error occurred: "+e.getMessage());
 				e.printStackTrace();
 				return ERROR;
-			} finally {
-				try {
-					st.close();
-					conn.close();
-				} catch (Exception e) {}
-			}
-			
-			System.out.println("User "+user.getUsername()+" deleted user: "+uri);
-			addActionMessage("The author was deleted!");
-			return "edit";
+			} 
 		}
 		else if(servletRequest.getParameter("submitForm")!=null)
 		{
 			// they've submitted an edit on a user
-			Connection conn = null;
-			Statement st = null;
 			try {
-				conn = ApplicationStore.getConnection();
-				st = conn.createStatement();
-				conn.setAutoCommit(false);
+				// check if uri exists or not
+				Author existingUser = ApplicationStore.getDatabaseSource().getAuthor(uriName);
 				
-				String update = "update users set "
-						+ "name = ?,"
-						+ "uri_name = ?,"
-						+ "modify_date = ?,"
-						+ "thumbnail = ?,"
-						+ "description = ?,"
-						+ "html_content = ? where user_id = "+id;
-				PreparedStatement pt = conn.prepareStatement(update);
-				pt.setString(1, name);
-				pt.setString(2, uriName);
-				pt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
-				pt.setString(4, thumbnail);
-				pt.setString(5, description);
-				pt.setString(6, htmlContent);
-				
-				if(pt.execute())
-				{
-					// failed to update user
-					conn.rollback();
-					addActionError("Oops. Failed to update the user. Please try again.");
-					System.out.println("Failed to update the user. "+uriName);
+				if(existingUser.getId() != id) {
+					// URI was not unique. Please try again.
+					addActionError("URI is not unique. Its being used by another author. Please change it, and try again.");
+					System.out.println("URI was not unique.");
 					return ERROR;
 				}
 				
-				// done
-				conn.commit();
+				// save fields into object
+				author = new Author(id);
+				author.setUriName(uriName);
+				author.setName(name);
+				author.setDescription(description);
+				author.setThumbnail(thumbnail);
+				author.setHtmlContent(htmlContent);
 				
+				// update author in database
+				if(ApplicationStore.getDatabaseSource().editAuthor(author))
+				{
+					// Success
+					System.out.println("User "+user.getUsername()+" saved changes to the author: "+uriName);
+					addActionMessage("Successfully saved changes to the author.");
+					return "edit";
+				}
+				{
+					// failed to update
+					addActionError("Oops. Failed to update author. Please try again.");
+					System.out.println("Failed to update author. "+uriName);
+					return ERROR;
+				}
 			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {}
 				addActionError("An error occurred: "+e.getMessage());
 				e.printStackTrace();
 				return ERROR;
-			} finally {
-				try {
-					st.close();
-					conn.close();
-				} catch (Exception e) {}
 			}
-			
-			System.out.println("User "+user.getUsername()+" updated user: "+uri);
-			addActionMessage("Successfully saved changes to the author.");
-			return "edit";
 		}
 		else
-		{
-			//System.out.println("URI: "+uri+" (ViewPost = "+uri+")");
-			
+		{			
 			if(uri != null && uri.length() > 0)
 			{
 				// search in db for user by name
-				Connection conn = null;
 				try {
-					conn = ApplicationStore.getConnection();
-					Statement st = conn.createStatement();
-					ResultSet rs = st.executeQuery("select * from users where uri_name= '"+uri+"'");
+					author = ApplicationStore.getDatabaseSource().getAuthor(uri);
 					
-					if(rs.first() && uri.equals(rs.getString("uri_name"))) {
-						// get the user properties
-						author = new Author(rs.getInt("user_id"));
-						author.setUriName(rs.getString("uri_name"));
-						author.setName(rs.getString("name"));
-						author.setCreateDate(rs.getDate("create_date"));
-						author.setDescription(rs.getString("description"));
-						author.setModifyDate(rs.getDate("modify_date"));
-						author.setThumbnail(rs.getString("thumbnail"));
-						author.setHtmlContent(rs.getString("html_content"));
-						author.setEmail(rs.getString("email"));
-						author.setAdmin(rs.getInt("role") > 0);
-						author.setModifyDate(rs.getDate("modify_date"));
-						author.setLastLoginDate(rs.getDate("last_login_date"));
-						
-						System.out.println("User "+user.getUsername()+" opened user to edit: "+uri);
-						
+					// was author found
+					if(author != null)
+					{					
 						// set attributes
 						servletRequest.setAttribute("author", author);
+						servletRequest.setCharacterEncoding("UTF-8");
 						
+						System.out.println("User "+user.getUsername()+" opened author to edit: "+uri);
 						return Action.SUCCESS;
 					}
 					else
 					{
-						System.out.println("User "+user.getUsername()+" tried to edit user: "+uri);
-						addActionError("User '"+uri+"' not found. Please try again.");
+						addActionError("Author '"+uri+"' not found. Please try again.");
 						return Action.NONE;
 					}
 				
@@ -198,10 +143,6 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 					addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 					e.printStackTrace();
 					return ERROR;
-				} finally {
-					try {
-						conn.close();
-					} catch (SQLException e) {/*Do Nothing*/}
 				}
 			}
 			else
@@ -233,7 +174,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 	protected HttpServletRequest servletRequest;
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		this.user = user;		
 	}
 

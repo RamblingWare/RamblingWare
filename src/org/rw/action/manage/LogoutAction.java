@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.User;
+import org.rw.bean.Author;
 import org.rw.bean.UserAware;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -21,7 +21,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class LogoutAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware{
  
     private static final long serialVersionUID = 1L;
-    public User user;
+    public Author user;
     public Map<String, Object> sessionAttributes = null;
     
     private String message;
@@ -31,7 +31,7 @@ public class LogoutAction extends ActionSupport implements UserAware, ServletRes
 		
 		try{
 			sessionAttributes = ActionContext.getContext().getSession();
-			user = (User) sessionAttributes.get("USER");
+			user = (Author) sessionAttributes.get("USER");
 			System.out.println("User "+user.getUsername()+" logged out.");
 			
 			setMessage("You have been logged out.");
@@ -63,7 +63,7 @@ public class LogoutAction extends ActionSupport implements UserAware, ServletRes
 	}
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		this.user = user;
 	}
 

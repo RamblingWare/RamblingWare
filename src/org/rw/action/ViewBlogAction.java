@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.rw.bean.Author;
 import org.rw.bean.Post;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -24,7 +24,6 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 
 	private static final long serialVersionUID = 1L;
 	
-	// results
 	private ArrayList<Post> posts = new ArrayList<Post>();
 	
 	public String execute() {
@@ -96,7 +95,7 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		// TODO Auto-generated method stub
 		
 	}

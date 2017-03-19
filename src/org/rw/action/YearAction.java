@@ -13,43 +13,57 @@ import org.rw.bean.Post;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * View Home action class
+ * Year action class
  * @author Austin Delamar
- * @date 11/30/2015
+ * @date 3/19/2017
  */
-public class ViewHomeAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class YearAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<Post> posts = new ArrayList<Post>();
-	private ArrayList<Author> authors = new ArrayList<Author>();
+	private String year;
 	
 	public String execute() {
+				
+		// /year
 		
-		// /home
-		
-		// this shows the most recent blog posts
-		try {
-			// gather posts
-			posts = ApplicationStore.getDatabaseSource().getPosts(1, 10, false);
+		// this allows blog posts to be shown without parameter arguments (i.e. ?uri_name=foobar&test=123 )
+		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
+		if(year == null && uriTemp.startsWith("/year/"))
+			year = ApplicationStore.removeBadChars(uriTemp.substring(6,uriTemp.length()));
+		else if(year == null && uriTemp.startsWith("/manage/year/"))
+			year = ApplicationStore.removeBadChars(uriTemp.substring(13,uriTemp.length()));
+				
+		if(year != null && year.length() > 0)
+		{
+			try {
+				// this shows the most recent blog posts by year
+				int yr = Integer.parseInt(year);
+				
+				// gather posts
+				posts = ApplicationStore.getDatabaseSource().getPostsByYear(1, 25, yr, false);
+				
+				// set attributes
+				servletRequest.setCharacterEncoding("UTF-8");
+				servletRequest.setAttribute("posts", posts);
+				
+				return SUCCESS;
 			
-			// gather authors
-			authors = ApplicationStore.getDatabaseSource().getAuthors(1, 10, true);
-			
-			// set attributes
-			servletRequest.setCharacterEncoding("UTF-8");
-			servletRequest.setAttribute("posts", posts);
-			servletRequest.setAttribute("authors", authors);
-			
-			return SUCCESS;
-		
-		} catch (Exception e) {
-			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
-			e.printStackTrace();
-			return ERROR;
+			} catch (Exception e) {
+				addActionError("Error: "+e.getClass().getName()+". Please try again later.");
+				e.printStackTrace();
+				return ERROR;
+			}
+		}
+		else
+		{
+			addActionError("Year '"+year+"' not recognized. Please try again.");
+			return Action.NONE;
 		}
 	}
 	
@@ -113,11 +127,11 @@ public class ViewHomeAction extends ActionSupport implements UserAware, ServletR
 		this.posts = posts;
 	}
 
-	public ArrayList<Author> getAuthors() {
-		return authors;
+	public String getYear() {
+		return year;
 	}
 
-	public void setAuthors(ArrayList<Author> authors) {
-		this.authors = authors;
+	public void setYear(String year) {
+		this.year = ApplicationStore.removeBadChars(year);
 	}
 }

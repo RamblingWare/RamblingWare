@@ -1,10 +1,5 @@
 package org.rw.action.manage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -14,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.rw.bean.Author;
 import org.rw.bean.Post;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -30,7 +25,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class EditPostAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
-	private User user;
+	private Author user;
 	
 	// post parameters
 	private Post post;
@@ -43,10 +38,10 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     private String thumbnail;
     private String publishDate;
     
-    private Boolean isVisible;
-    private Boolean isFeatured;
+    private boolean isVisible;
+    private boolean isFeatured;
     
-    private Boolean hasBanner;
+    private boolean hasBanner;
     private String banner;
     private String bannerCaption;
     
@@ -71,51 +66,25 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 		if(servletRequest.getParameter("delete")!=null)
 		{
 			// they've requested to delete a post
-			Connection conn = null;
-			Statement st = null;
 			try {
-				conn = ApplicationStore.getConnection();
-				st = conn.createStatement();
-				conn.setAutoCommit(false);
-				
-				int r = st.executeUpdate("delete from posts where post_id = "+id);
-				
-				if(r == 0) {
-					conn.rollback();
-					addActionError("Oops. Failed to delete the post. Please try again.");
-					System.out.println("Failed to delete post: "+id);
+				post = new Post(id);
+				if(ApplicationStore.getDatabaseSource().deletePost(post)) {
+					// Success
+					System.out.println("User "+user.getUsername()+" deleted post: "+uri);
+					addActionMessage("The post was deleted!");
+					return "edit";
+				}
+				else {
+					// failed to delete post
+					addActionError("Failed to delete post: "+uri);
 					return ERROR;
 				}
-				
-				int t = st.executeUpdate("delete from tags where post_id = "+id);
-				
-				if(t == 0) {
-					conn.rollback();
-					addActionError("Oops. Failed to delete the post tags. Please try again.");
-					System.out.println("Failed to delete post tags: "+id);
-					return ERROR;
-				}
-				
-				// done
-				conn.commit();
 				
 			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {}
 				addActionError("An error occurred: "+e.getMessage());
 				e.printStackTrace();
 				return ERROR;
-			} finally {
-				try {
-					st.close();
-					conn.close();
-				} catch (Exception e) {}
 			}
-			
-			System.out.println("User "+user.getUsername()+" deleted post: "+uri);
-			addActionMessage("The post was deleted!");
-			return "edit";
 		}
 		else if(servletRequest.getParameter("submitForm")!=null)
 		{
@@ -156,7 +125,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				System.out.println(user.getUsername()+" failed to edit post. Content too large.");
 				return ERROR;
 			}
-			if(hasBanner!=null && (banner == null || banner.trim().isEmpty()))
+			if(hasBanner && (banner == null || banner.trim().isEmpty()))
 			{
 				addActionError("Banner Image was empty. Please fill out all fields before saving.");
 				System.out.println(user.getUsername()+" failed to edit post. Banner was empty.");
@@ -166,64 +135,35 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     		{
     			tags = "none";
     		}
-    		
 
-			// they've submitted an edit on a post
-			Connection conn = null;
-			Statement st = null;
+    		
+    		// check that the URI is unique
 			try {
-				conn = ApplicationStore.getConnection();
-				st = conn.createStatement();
-				conn.setAutoCommit(false);
+				Post existingPost = ApplicationStore.getDatabaseSource().getPost(uri, true);
 				
-				String update = "update posts set "
-						+ "user_id = ?,"
-						+ "title = ?,"
-						+ "uri_name = ?,"
-						+ "modify_date = CURRENT_TIMESTAMP,"
-						+ "publish_date = ?,"
-						+ "is_visible = ?,"
-						+ "is_featured = ?,"
-						+ "thumbnail = ?,"
-						+ "description = ?,"
-						+ "banner = ?,"
-						+ "banner_caption = ?,"
-						+ "html_content = ? where post_id = "+id;
-				PreparedStatement pt = conn.prepareStatement(update);
-				pt.setString(1, user.getUserId());
-				pt.setString(2, title);
-				pt.setString(3, uriName);
+				if(existingPost.getId() != id)
+				{
+					// URI was not unique. Please try again.
+					addActionError("URI is not unique. Its being used by another post. Please change it, and try again.");
+					System.out.println("URI was not unique.");
+					return ERROR;
+				}
+				
+				// save fields into object
+				post = new Post(id);
+				post.setUriName(uriName);
+				post.setTitle(title);
+				post.setAuthor(user);
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(ApplicationStore.convertStringToDate(publishDate));
-				pt.setDate(4, new java.sql.Date(cal.getTimeInMillis()));
-				pt.setInt(5, isVisible!=null?1:0);
-				pt.setInt(6, isFeatured!=null?1:0);
-				pt.setString(7, thumbnail);
-				pt.setString(8, description);
-				pt.setString(9, banner);
-				pt.setString(10, bannerCaption);
-				pt.setString(11, htmlContent);
-				
-				if(pt.execute())
-				{
-					// failed to update post
-					conn.rollback();
-					addActionError("Oops. Failed to update the post. Please try again.");
-					System.out.println("Failed to update the post. "+uriName);
-					return ERROR;
-				}
-				
-				// remove old tags
-				int rt = st.executeUpdate("delete from tags where post_id = "+id);
-				
-				if(rt == 0) {
-					conn.rollback();
-					addActionError("Oops. Failed to delete the post tags. Please try again.");
-					System.out.println("Failed to delete post tags: "+id);
-					return ERROR;
-				}
-				
-				// insert new tags
+				post.setPublishDate(new java.sql.Date(cal.getTimeInMillis()));
+				post.setVisible(isVisible);
+				post.setFeatured(isFeatured);
+				post.setBanner(banner);
+				post.setBannerCaption(bannerCaption);
+				post.setThumbnail(thumbnail);
+				post.setDescription(description);
+				post.setHtmlContent(htmlContent);
 				
 				// chop off [ ] if they added them
 				tags = tags.replaceAll("\\[", "");
@@ -231,110 +171,54 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				System.out.println("Tags: '"+tags+"'");
 				
 				String[] tagsArray = tags.split(",");
-				
-				String qry = "insert into tags (post_id,tag_name) values ";
+				ArrayList<String> tagsList = new ArrayList<String>();
 				for(String t : tagsArray) {
 					if(!t.trim().isEmpty())
-						qry+="("+id+",'"+t.trim()+"'),";
+						tagsList.add(t.trim());
 				}
-				qry = qry.substring(0, qry.length()-1); // remove last comma
+				post.setTags(tagsList);
 				
-				// insert tags
-				int r = st.executeUpdate(qry);
-				
-				if(r == 0) {
-					// error inserting tags
-					conn.rollback();
-					addActionError("Oops. Failed to add tags to the post. Please try adding them later.");
-					System.out.println("Failed to add tags to the post: "+uriName);
+				// update post in database
+				if(ApplicationStore.getDatabaseSource().editPost(post))
+				{
+					// Success
+					System.out.println("User "+user.getUsername()+" saved changes to the post: "+uri);
+					addActionMessage("Successfully saved changes to the post.");
+					return "edit";
+				}
+				{
+					// failed to update
+					addActionError("Oops. Failed to update post. Please try again.");
+					System.out.println("Failed to update post. "+uriName);
 					return ERROR;
 				}
 				
-				// done
-				conn.commit();
-				
 			} catch (Exception e) {
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {}
 				addActionError("An error occurred: "+e.getMessage());
 				e.printStackTrace();
 				return ERROR;
-			} finally {
-				try {
-					st.close();
-					conn.close();
-				} catch (Exception e) {}
 			}
-			
-			// successfully updated
-			System.out.println("User "+user.getUsername()+" saved changes to the post: "+uri);
-			addActionMessage("Successfully saved changes to the post.");
-			return "edit";
 		}
 		else
-		{
-			//System.out.println("URI: "+uri+" (ViewPost = "+uri+")");
-			
+		{			
 			if(uri != null && uri.length() > 0)
 			{
 				// search in db for post by title
-				Connection conn = null;
 				try {
-					conn = ApplicationStore.getConnection();
-					Statement st = conn.createStatement();
-					ResultSet rs = st.executeQuery("select * from posts where uri_name= '"+uri+"'");
+					post = ApplicationStore.getDatabaseSource().getPost(uri, true);
 					
-					if(rs.first() && uri.equals(rs.getString("uri_name"))) {
-						
-						// get the post properties
-						Post post = new Post(rs.getInt("post_id"));
-						post.setTitle(rs.getString("title"));
-						post.setUriName(rs.getString("uri_name"));
-						post.setCreateDate(rs.getDate("create_date"));
-						post.setPublishDate(rs.getDate("publish_date"));
-						post.setAuthorId(rs.getInt("user_id"));
-						post.setDescription(rs.getString("description"));
-						post.setHtmlContent(rs.getString("html_content"));
-						post.setIs_visible(rs.getInt("is_visible")==1);
-						post.setIsFeatured(rs.getInt("is_featured")==1);
-						post.setModifyDate(rs.getDate("modify_date"));
-						post.setThumbnail(rs.getString("thumbnail"));
-						post.setBanner(rs.getString("banner"));
-						post.setBannerCaption(rs.getString("banner_caption"));						
-						
-						ResultSet rs2 = st.executeQuery("select * from tags where post_id = "+post.getId());
-						
-						// get this post's tags - there could be more than 1
-						ArrayList<String> post_tags = new ArrayList<String>();
-						while(rs2.next()) {
-							post_tags.add(rs2.getString("tag_name"));
-						}
-						post.setTags(post_tags);
-						
-						ResultSet rs3 = st.executeQuery("select name, uri_name from users where user_id = "+post.getAuthorId());
-						if(rs3.next())
-						{
-							post.setAuthor(rs3.getString("name"));
-							post.setUriAuthor(rs3.getString("uri_name"));
-						}
-						else
-						{
-							post.setAuthor("Anonymous");
-							post.setUriAuthor("anonymous");
-						}
-						
-						
-						System.out.println("User "+user.getUsername()+" opened post to edit: "+uri);
-						
+					// was post found
+					if(post != null)
+					{					
 						// set attributes
 						servletRequest.setAttribute("post", post);
+						servletRequest.setCharacterEncoding("UTF-8");
 						
+						System.out.println("User "+user.getUsername()+" opened post to edit: "+uri);
 						return Action.SUCCESS;
 					}
 					else
 					{
-						System.out.println("User "+user.getUsername()+" tried to edit post: "+uri);
 						addActionError("Post '"+uri+"' not found. Please try again.");
 						return Action.NONE;
 					}
@@ -343,10 +227,6 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 					addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 					e.printStackTrace();
 					return ERROR;
-				} finally {
-					try {
-						conn.close();
-					} catch (SQLException e) {/*Do Nothing*/}
 				}
 			}
 			else
@@ -378,7 +258,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 	protected HttpServletRequest servletRequest;
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		this.user = user;		
 	}
 
@@ -414,27 +294,27 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 		this.publishDate = publishDate;
 	}
 
-	public Boolean getIsVisible() {
+	public boolean getIsVisible() {
 		return isVisible;
 	}
 
-	public void setIsVisible(Boolean isVisible) {
+	public void setIsVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
 
-	public Boolean getIsFeatured() {
+	public boolean getIsFeatured() {
 		return isFeatured;
 	}
 
-	public void setIsFeatured(Boolean isFeatured) {
+	public void setIsFeatured(boolean isFeatured) {
 		this.isFeatured = isFeatured;
 	}
 
-	public Boolean getHasBanner() {
+	public boolean getHasBanner() {
 		return hasBanner;
 	}
 
-	public void setHasBanner(Boolean hasBanner) {
+	public void setHasBanner(boolean hasBanner) {
 		this.hasBanner = hasBanner;
 	}
 

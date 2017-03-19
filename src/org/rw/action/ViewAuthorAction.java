@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.bean.Author;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -114,7 +113,7 @@ public class ViewAuthorAction extends ActionSupport implements UserAware, Servle
 	}
 	
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		// TODO Auto-generated method stub
 		
 	}

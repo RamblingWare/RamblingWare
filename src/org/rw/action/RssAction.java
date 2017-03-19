@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.rw.bean.Author;
 import org.rw.bean.Post;
-import org.rw.bean.User;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
@@ -126,7 +126,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 	}
 
 	@Override
-	public void setUser(User user) {
+	public void setUser(Author user) {
 		// TODO Auto-generated method stub
 		
 	}
