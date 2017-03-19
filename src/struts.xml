@@ -105,12 +105,7 @@
 	<package name="blog" namespace="/blog" extends="root">
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
-		
-		<action name="search" class="org.rw.action.BlogSearchAction">
-			<result name="success">/WEB-INF/search.jsp</result>
-			<result name="error">/WEB-INF/search.jsp</result>
-		</action>
-		
+				
 		<action name="" class="org.rw.action.ViewBlogAction">
 			<result name="success">/WEB-INF/blog.jsp</result>
 			<result name="error">/WEB-INF/blog.jsp</result>
@@ -126,6 +121,32 @@
 		<action name="*">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result>/WEB-INF/error/404.jsp</result>
+		</action>
+		
+	</package>
+	
+	<!-- /TAG/ -->
+	<package name="tag" namespace="/tag" extends="root">
+
+		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
+		
+		<action name="*" class="org.rw.action.TagAction">
+			<result name="success">/WEB-INF/tag.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
+	</package>
+	
+	<!-- /YEAR/ -->
+	<package name="year" namespace="/year" extends="root">
+
+		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
+		
+		<action name="*" class="org.rw.action.YearAction">
+			<result name="success">/WEB-INF/year.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
