@@ -38,8 +38,8 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     private String thumbnail;
     private String publishDate;
     
-    private boolean isVisible;
-    private boolean isFeatured;
+    private boolean visible;
+    private boolean featured;
     
     private boolean hasBanner;
     private String banner;
@@ -157,8 +157,8 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(ApplicationStore.convertStringToDate(publishDate));
 				post.setPublishDate(new java.sql.Date(cal.getTimeInMillis()));
-				post.setVisible(isVisible);
-				post.setFeatured(isFeatured);
+				post.setVisible(visible);
+				post.setFeatured(featured);
 				post.setBanner(banner);
 				post.setBannerCaption(bannerCaption);
 				post.setThumbnail(thumbnail);
@@ -219,7 +219,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 					}
 					else
 					{
-						addActionError("Post '"+uri+"' not found. Please try again.");
+						System.err.println("Post '"+uri+"' not found. Please try again.");
 						return Action.NONE;
 					}
 				
@@ -231,7 +231,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 			}
 			else
 			{
-				addActionError("Post '"+uri+"' not found. Please try again.");
+				System.err.println("Post '"+uri+"' not found. Please try again.");
 				return Action.NONE;
 			}
 		}
@@ -294,20 +294,20 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 		this.publishDate = publishDate;
 	}
 
-	public boolean getIsVisible() {
-		return isVisible;
+	public boolean isVisible() {
+		return visible;
 	}
 
-	public void setIsVisible(boolean isVisible) {
-		this.isVisible = isVisible;
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
-	public boolean getIsFeatured() {
-		return isFeatured;
+	public boolean isFeatured() {
+		return featured;
 	}
 
-	public void setIsFeatured(boolean isFeatured) {
-		this.isFeatured = isFeatured;
+	public void setFeatured(boolean featured) {
+		this.featured = featured;
 	}
 
 	public boolean getHasBanner() {

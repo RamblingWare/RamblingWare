@@ -23,7 +23,6 @@
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<h1>Add New Author</h1>
-				<p>Use this page to add a new author to the blog.</p>
 		
 				<!-- REGISTER BEGIN -->
 				<div class="w3-container w3-padding-0 w3-twothird w3-border-0">

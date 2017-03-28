@@ -68,21 +68,19 @@
 						</td>
 						<td><s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/tag/<s:property />"><s:property /></a>
+								&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/tag/<s:property />" title="<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if></td>
 						<td><a href="/author/<s:property value="author.uriName" />"><s:property value="author.name" /></a></td>
-						<td><s:property value="publishDateReadable" /></td>
-						<td><s:property value="modifyDateReadable" /></td>
+						<td><span title="<s:property value="publishDate" />"><s:property value="publishDateReadable" /></span></td>
+						<td><span title="<s:property value="modifyDate" />"><s:property value="modifyDateReadable" /></span></td>
 					</s:iterator>
 					</table>
 				
 				</s:else>
 				</s:if>
 				<!-- POSTS END -->
-					
-				<br />
-				<br />
+				
 			</div>
 		</div>
 	</article>

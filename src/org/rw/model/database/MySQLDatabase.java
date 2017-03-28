@@ -202,9 +202,9 @@ public class MySQLDatabase extends DatabaseSource {
 			pt.setInt(5, post.isVisible()?1:0);
 			pt.setInt(6, post.isFeatured()?1:0);
 			pt.setString(7, post.getThumbnail());
-			pt.setString(8, post.getBanner());
-			pt.setString(9, post.getBannerCaption());
-			pt.setString(10, post.getDescription());
+			pt.setString(8, post.getDescription());
+			pt.setString(9, post.getBanner());
+			pt.setString(10, post.getBannerCaption());
 			pt.setString(11, post.getHtmlContent());
 			
 			if(pt.execute()) {

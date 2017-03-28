@@ -66,6 +66,7 @@ function preview() {
 	if(src.length<=1)
 		src = "https://i.imgur.com/pHKz09F.png";
 	document.getElementById('previewImg').src = src;
+	changeForm();
 }
 </script>
 <!-- META_END -->
@@ -86,7 +87,6 @@ function preview() {
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<h1>Create New Post</h1>
-				<p>Use this page to make a new blog post to the webapp.</p>
 		
 				<!-- NEW POST BEGIN -->
 				<div class="w3-container w3-padding-0 w3-border-0">
@@ -142,7 +142,7 @@ function preview() {
 					<hr />
 					
 					<p>
-						<input type="checkbox" name="hasBanner" id="hasBanner" class="w3-check" onchange="changeForm()" />
+						<input type="checkbox" name="hasBanner" id="hasBanner" class="w3-check" onchange="changeForm()" value="true" />
 						<label class="w3-validate w3-text-grey-light w3-large" for="hasBanner">Add a banner image?&nbsp;<span class="footnote quote">(A large image above the title of the post.)</span></label>
 					</p>
 					<p id="bannerDiv1" style="display:none" class="w3-animate-right">   
@@ -165,16 +165,16 @@ function preview() {
 					
 					<hr />
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="publishDate">Publish Date:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(DD-MM-YYYY or Month DD, YY)</span></label>
-						<input type="text" size="50" maxlength="20" name="publishDate" id="publishDate" value="<s:property value="publishDate" />" required placeholder="DD-MM-YYYY" class="w3-input w3-round-large w3-border" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="publishDate">Publish Date:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(MM-DD-YYYY or Month DD, YY)</span></label>
+						<input type="text" size="50" maxlength="20" name="publishDate" id="publishDate" value="<s:property value="publishDateReadable" />" required placeholder="MM-DD-YYYY" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<input type="checkbox" name="isVisible" id="isVisible" class="w3-check" />
-						<label class="w3-validate w3-text-grey-light w3-large" for="isVisible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="footnote quote">(You can make it public later if you want.)</span></label>
+						<input type="checkbox" name="visible" id="visible" class="w3-check" value="true" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="visible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="footnote quote">(You can make it public later if you want.)</span></label>
 					</p>
 					<p>
-						<input type="checkbox" name="isFeatured" id="isFeatured" class="w3-check" />
-						<label class="w3-validate w3-text-grey-light w3-large" for="isFeatured">Make this a "Featured" post?&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square"></span><span class="footnote quote">(Gets put on the Featured sidebar of every page.)</span></label>
+						<input type="checkbox" name="featured" id="featured" class="w3-check" value="true" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square"></span><span class="footnote quote">(Gets put on the Featured sidebar of every page.)</span></label>
 					</p>
 					
 					<hr />
@@ -194,8 +194,6 @@ function preview() {
 				</script>
 				<!-- NEW POST END -->
 				
-				<br />
-				<br />
 			</div>
 		</div>
 	</article>

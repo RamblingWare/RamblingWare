@@ -135,7 +135,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 					}
 					else
 					{
-						addActionError("Author '"+uri+"' not found. Please try again.");
+						System.err.println("Author '"+uri+"' not found. Please try again.");
 						return Action.NONE;
 					}
 				
@@ -147,7 +147,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 			}
 			else
 			{
-				addActionError("User '"+uri+"' not found. Please try again.");
+				System.err.println("User '"+uri+"' not found. Please try again.");
 				return Action.NONE;
 			}
 		}
