@@ -76,7 +76,7 @@
 				
 				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity no-print">
 					<div class="w3-padding-16 w3-center">
-						<p class="footnote">Share this post!</p>	
+						<p class="footnote">Share this post.</p>	
 						<a title="Share on Facebook" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-indigo w3-theme-l4 icon-facebook"
 						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="post.uriName" />"></a>				
 						

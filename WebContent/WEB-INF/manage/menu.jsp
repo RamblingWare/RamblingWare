@@ -32,7 +32,7 @@
 							</div>
 							<div class="w3-padding w3-small w3-theme-light">
 								<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large w3-margin-right"></span>Create New Post</a> 
-								<span class="footnote nowrap">Make a new blog post!</span>
+								<span class="footnote nowrap">Make a new blog post.</span>
 								</p>
 								<p>
 								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/posts"><span class="icon-clipboard w3-large w3-margin-right"></span>View/Edit Posts</a>
@@ -52,7 +52,7 @@
 							</div>
 							<div class="w3-padding w3-small w3-theme-light">
 								<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-user-tie w3-large w3-margin-right"></span>Add Author</a>
-								<span class="footnote nowrap">Add a new Author!</span>
+								<span class="footnote nowrap">Add a new Author.</span>
 								</p>
 								<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/users"><span class="icon-briefcase w3-large w3-margin-right"></span>View/Edit Authors</a>
 								<span class="footnote nowrap">Modify current Authors.</span>

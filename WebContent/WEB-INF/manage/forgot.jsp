@@ -42,7 +42,7 @@
 							</p>
 						</form>
 							<p class="footnote w3-center">
-								<a href="/manage/">Wait, I remember it now!</a>
+								<a href="/manage/">Wait, I remember it now.</a>
 							</p>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 							</p>
 						</form>
 							<p class="footnote w3-center"> 
-								<a href="/manage/">Wait, I remember it now!</a>
+								<a href="/manage/">Wait, I remember it now.</a>
 							</p>
 						</div>
 					</div>

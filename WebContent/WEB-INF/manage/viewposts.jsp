@@ -25,7 +25,7 @@
 				<h1>View/Edit Posts</h1>
 				
 				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large w3-margin-right"></span>Create New Post</a> 
-				<span class="footnote nowrap">Make a new blog post!</span>
+				<span class="footnote nowrap">Make a new blog post.</span>
 				</p>
 				<p>
 				<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/"><span class="icon-bubbles w3-large w3-margin-right"></span>View Comments</a>
