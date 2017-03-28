@@ -29,7 +29,8 @@
 				<s:if test="posts != null">
 				<s:if test="posts.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
-						No results were found.</p>
+					<span class="icon-cross w3-large w3-margin-right"></span>
+						No results were found for that year.</p>
 				</s:if>
 				<s:else>
 					<s:if test="posts.size() == 1">	

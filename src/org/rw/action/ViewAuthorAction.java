@@ -49,7 +49,7 @@ public class ViewAuthorAction extends ActionSupport implements UserAware, Servle
 				}
 				else
 				{
-					addActionError("Author '"+uri_name+"' not found. Please try again.");
+					System.err.println("Author '"+uri_name+"' not found. Please try again.");
 					return Action.NONE;
 				}
 			
@@ -61,7 +61,7 @@ public class ViewAuthorAction extends ActionSupport implements UserAware, Servle
 		}
 		else
 		{
-			addActionError("Author '"+uri_name+"' not found. Please try again.");
+			System.err.println("Author '"+uri_name+"' not found. Please try again.");
 			return Action.NONE;
 		}
 	}

@@ -16,8 +16,8 @@ public class Post {
 	private int id;
 	private String title;
 	private String uriName;
-	private boolean isFeatured;
-	private boolean isVisible;
+	private boolean featured;
+	private boolean visible;
 
 	private String thumbnail;
 	private String banner;
@@ -61,19 +61,19 @@ public class Post {
 	}
 
 	public boolean isFeatured() {
-		return isFeatured;
+		return featured;
 	}
 
-	public void setFeatured(boolean isFeatured) {
-		this.isFeatured = isFeatured;
+	public void setFeatured(boolean featured) {
+		this.featured = featured;
 	}
 
 	public boolean isVisible() {
-		return isVisible;
+		return visible;
 	}
 
-	public void setVisible(boolean isVisible) {
-		this.isVisible = isVisible;
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
 	public String getThumbnail() {

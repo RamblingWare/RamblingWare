@@ -23,7 +23,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Welcome!</h1>
+				<h1>Welcome</h1>
 				<p>
 					This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
 					<a href="/about">Read more...</a>
@@ -31,10 +31,12 @@
 				
 				<!-- BLOG POSTS START -->
 				<br />
-				<h2>Blog Posts</h2>
+				<h2>Latest Posts</h2>
 				<s:if test="posts != null">
 				<s:if test="posts.isEmpty()">
-					<p class="footnote">Something went wrong because no posts were found. Please try again later?</p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+					<span class="icon-cross w3-large w3-margin-right"></span>
+						Something went wrong because no posts were found. Please try again later?</p>
 				</s:if>
 				<s:else>
 					<div class="w3-row" style="min-height:0px">
@@ -81,7 +83,9 @@
 				
 				<s:if test="authors != null">
 				<s:if test="authors.isEmpty()">
-					<p class="footnote">Something went wrong because no results were found. Please try again later?</p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+					<span class="icon-cross w3-large w3-margin-right"></span>
+						Something went wrong because no authors were found. Please try again later?</p>
 				</s:if>
 				<s:else>
 					<div class="w3-row" style="min-height:0px">

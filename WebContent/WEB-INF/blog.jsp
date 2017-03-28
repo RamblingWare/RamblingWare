@@ -28,11 +28,12 @@
 				<!-- POSTS START -->
 				<s:if test="posts != null">
 				<s:if test="posts.isEmpty()">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" data-close="">
-						Something went wrong because no results were found. Please try again later?</p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+					<span class="icon-cross w3-large w3-margin-right"></span>
+						Something went wrong because no posts were found. Please try again later?</p>
 				</s:if>
 				<s:else>
-					<p>Check out the most recent blog posts.<br /></p>
+					
 					<s:iterator value="posts" status="r">
 					
 						<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">

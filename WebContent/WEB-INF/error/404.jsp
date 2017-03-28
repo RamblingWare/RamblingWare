@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta.jspf"%>
+<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 
 <title>404 File Not Found - RamblingWare</title>
 </head>
@@ -22,11 +22,11 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Error: 404</h1>
+				<h1>404: File Not Found</h1>
 				
 				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>
-					File Not Found. Looks like the page you've requested is no longer available, or was moved.
+					Looks like the page you've requested is no longer available, or was moved. Try searching for it below, or go back to the <a href="/">home page</a>.
 				</p>
 				
 				<div class="w3-center">
@@ -34,9 +34,9 @@
 				</div>
 				
 				<br />
-				<p>Try searching:</p>
 				
 				<div class="w3-center">
+					<p>Try searching:</p>
 					<form action="/search" method="get">
 					<label for="s" class="icon-search w3-xlarge w3-text-theme"></label>
 					<input id="s" name="s" class="w3-input w3-hover-shadow w3-card w3-round-large" style="display:inline; width:75%" maxlength="50" size="20" placeholder="Search..." type="text">

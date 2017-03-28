@@ -257,8 +257,8 @@ public class ApplicationStore implements ServletContextListener {
 	public static Date convertStringToDate(String anyFormat) {
 		String formats[] = { 
 				"MM/dd/yy", "MMMM d yy","MMM dd yyyy", "MMM dd yy",
-				"MMMM d, yy", "dd/MM/yy", "MM-dd-yyyy", "MM/dd/yyyy", "dd-MM-yyyy", "dd/MM/yyyy",
-				"MM-dd-yy", "dd-MM-yy","yyyy-MM-dd",
+				"MMMM d, yy", "MM-dd-yy", "MM-dd-yyyy", "MM/dd/yyyy", "dd/MM/yy", "dd-MM-yyyy", "dd/MM/yyyy",
+				"dd-MM-yy","yyyy-MM-dd",
 				"EEE, dd MMM yy HH:mm:ss z", "EEE, dd MMM yy HH:mm:ss",
 				"dd MMM yy HH:mm:ss", "ss:mm:HH dd MM:",
 				"yyyyMMdd hh:mm:ss a", "yyyyMMdd hh:mm:ss", "yyyy-MM-dd hh:mm:ss a"};

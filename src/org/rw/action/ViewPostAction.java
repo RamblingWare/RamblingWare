@@ -86,7 +86,7 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 				}
 				else
 				{
-					addActionError("Post '"+uriName+"' not found. Please try again.");
+					System.err.println("Post '"+uriName+"' not found. Please try again.");
 					return Action.NONE;
 				}
 			
@@ -98,7 +98,7 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 		}
 		else
 		{
-			addActionError("Post '"+uriName+"' not found. Please try again.");
+			System.err.println("Post '"+uriName+"' not found. Please try again.");
 			return Action.NONE;
 		}
 	}
