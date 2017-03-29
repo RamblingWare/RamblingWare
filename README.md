@@ -1,12 +1,13 @@
 # <img src="https://www.ramblingware.com/img/logo-medium.png" height="50px" alt="RamblingWare" title="Logo">
 
-The code that powers [RamblingWare.com](https://www.ramblingware.com)
+This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too. 
+https://www.ramblingware.com
 
 ---
 
 ### Features:
 
-- JavaScript independent (Only used for comments and minor admin page bits)
+- JavaScript independent (Only used for comments and admin page bits)
 - Responsive Design, Mobile Friendly, Simple Interface
 - Blog management, Create/edit/delete posts, Add/edit/delete authors
 - Social Media ready with OpenGraph API and Twitter API
