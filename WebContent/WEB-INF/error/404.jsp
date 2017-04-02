@@ -22,21 +22,21 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
+				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
+					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for WTF?!" title="Sad Robot" src="https://i.imgur.com/pHKz09F.png">
+					<p class="footnote w3-tiny w3-right">Photo Credit: bamenny</p>
+				</div>
+				
 				<h1>404: File Not Found</h1>
 				
-				<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
-					<span class="icon-cross w3-large w3-margin-right"></span>
-					Looks like the page you've requested is no longer available, or was moved. Try searching for it below, or go back to the <a href="/">home page</a>.
+				<p>
+					Looks like the page you've requested is no longer available, or was moved.
 				</p>
-				
-				<div class="w3-center">
-					<img class="w3-round w3-border w3-opacity" alt="Sad Robot" title="Sad Robot" src="//i.imgur.com/pHKz09Fm.png">
-				</div>
 				
 				<br />
 				
 				<div class="w3-center">
-					<p>Try searching:</p>
+					<p>Maybe try searching for it?</p>
 					<form action="/search" method="get">
 					<label for="s" class="icon-search w3-xlarge w3-text-theme"></label>
 					<input id="s" name="s" class="w3-input w3-hover-shadow w3-card w3-round-large" style="display:inline; width:75%" maxlength="50" size="20" placeholder="Search..." type="text">
