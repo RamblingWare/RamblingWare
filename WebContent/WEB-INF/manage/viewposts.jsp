@@ -46,7 +46,6 @@
 						<th>Tags</th>
 						<th>Author</th>
 						<th>Published</th>
-						<th>Modified</th>
 					</tr>
 					
 					<s:iterator value="posts" status="r">
@@ -54,13 +53,13 @@
 						<td>
 							<a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
 						<td>
-						
+						<img src="<s:property value="thumbnail" />" height="27px" width="48px" style="vertical-align: middle;" />
 						<s:if test="isVisible() == false">
 							<a href="/manage/viewpost/<s:property value="uriName" />" class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
 							&nbsp;<span class="icon-eye-blocked w3-large w3-text-red w3-padding-square" title="This post is hidden from public."></span>
 						</s:if>
 						<s:else>
-							<a href="/blog/post/<s:property value="uriName" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
+							<a href="/blog/<s:property value="uriName" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
 						</s:else>
 						<s:if test="isFeatured() == true">
 							&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square" title="This is a featured post."></span>
@@ -73,7 +72,6 @@
 						</s:if></td>
 						<td><a href="/author/<s:property value="author.uriName" />"><s:property value="author.name" /></a></td>
 						<td><span title="<s:property value="publishDate" />"><s:property value="publishDateReadable" /></span></td>
-						<td><span title="<s:property value="modifyDate" />"><s:property value="modifyDateReadable" /></span></td>
 					</s:iterator>
 					</table>
 				

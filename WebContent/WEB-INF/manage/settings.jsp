@@ -26,7 +26,33 @@
 				
 				<!-- SETTINGS BEGIN -->
 				<div class="w3-row">	
+				<div class="w3-container w3-padding w3-col s12 m12 l12">
 				
+					<div class="w3-border w3-round">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
+							<h3 class="w3-margin-0 w3-padding uppercase">About you</h3>
+						</div>
+						<div class="w3-padding w3-small w3-theme-light">
+							
+							<span class="w3-col s3 m3 l3 w3-padding-16">
+								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
+							</span>
+							<span class="w3-col s9 m9 l9 w3-padding-16">
+								<span class="footnote w3-padding-right">
+								<b><s:property value="#session.USER.name" /></b><br />
+								<span class="w3-small"><s:property value="#session.USER.description" /></span> 
+								</span>
+							</span>								
+							<hr />
+							<p>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />"><span class="icon-quill w3-large w3-margin-right"></span>Edit</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uriName" />">View My Page</a>
+							</p>
+						
+						</div>
+					</div>
+				
+				</div>
 				<div class="w3-container w3-padding w3-col s12 m12 l6">
 				
 					<div class="w3-border w3-round">
@@ -265,40 +291,11 @@
 				
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">About you</h3>
-						</div>
-						<div class="w3-padding w3-small w3-theme-light">
-							<p>Review your public information from your Author page.</p>
-							
-							<span class="w3-col s3 m3 l3 w3-padding-16">
-								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
-							</span>
-							<span class="w3-col s9 m9 l9 w3-padding-16">
-								<span class="footnote w3-padding-right">
-								<b><s:property value="#session.USER.name" /></b><br />
-								<span class="w3-small"><s:property value="#session.USER.description" /></span> 
-								</span>
-							</span>								
-							<hr />
-							<p>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />"><span class="icon-quill w3-large w3-margin-right"></span>Edit</a>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uriName" />">View My Page</a>
-							</p>
-						
-						</div>
-					</div>
-				
-				</div>
-				<div class="w3-container w3-padding w3-col s12 m12 l12">
-				
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">Additional Info</h3>
+							<h3 class="w3-margin-0 w3-padding uppercase">Extras</h3>
 						</div>
 						<div class="w3-padding w3-small w3-theme-light">
 						
-							<p class="w3-small">Some important dates regarding your account.<br/>
-							<br/>
+							<p class="w3-small">
 							Date your Account was Created:&nbsp;<span class="bold"><s:property value="#session.USER.createDateReadable"/></span>
 							<br />
 							Date your Account was Last Modified:&nbsp;<span class="bold"><s:property value="#session.USER.modifyDateReadable"/></span>

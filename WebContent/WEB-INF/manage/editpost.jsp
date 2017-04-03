@@ -9,14 +9,13 @@
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
 function changeForm() {
-	var b = document.getElementById('hasBanner').checked;
-	if(b)
+	if(document.getElementById('hasBanner').checked)
 	{
+		document.getElementById('bannerDiv1').style.display = 'block';
+		document.getElementById('bannerDiv2').style.display = 'block';
 		document.getElementById('banner').disabled = false;
 		document.getElementById('banner').required = true;
 		document.getElementById('bannerCaption').disabled = false;
-		document.getElementById('bannerDiv1').style.display = 'block';
-		document.getElementById('bannerDiv2').style.display = 'block';
 	}
 	else
 	{
@@ -26,6 +25,32 @@ function changeForm() {
 		document.getElementById('bannerDiv1').style.display = 'none';
 		document.getElementById('bannerDiv2').style.display = 'none';
 	}
+}
+function validate() {
+	var pattern = /^((https):\/\/)/;
+	if(!pattern.test(document.getElementById('thumbnail').value)) {
+		if(!confirm('Thumbnail is not secure (HTTPS). Do you want to continue?')) {
+			document.getElementById('thumbnail').focus();
+			return false;
+		}
+	}
+	if(document.getElementById('hasBanner').checked) {
+		if(document.getElementById('banner').value.length <= 0) {
+			alert('Banner is empty! Please provide a URL to an image.');
+			return false;
+		}
+		if(!pattern.test(document.getElementById('banner').value)) {
+			if(!confirm('Banner is not secure (HTTPS). Do you want to continue?')) {
+				document.getElementById('banner').focus();
+				return false;
+			}
+		}
+	}
+	if(document.getElementById('htmlContent').value.length > 12288) {
+		alert('Sorry! The post is too long.\nMax length = 12288 chars\nPost length = '+document.getElementById('htmlContent').value.length+'\n\nPlease shorten your post.');
+		return false;
+	}
+	return true;
 }
 function preview() {
 	var title = document.getElementById('title').value;
@@ -129,7 +154,7 @@ preview();
 						</span>
 						</p>
 						<p class="footnote"><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=ApplicationStore.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %>
-						&nbsp;|&nbsp;<span><a class="footnote" href="#" /><span>0 comments</span></a></span></p>
+						&nbsp;|&nbsp;<span><a class="footnote" href="#"><span>0 comments</span></a></span></p>
 						</div>
 					</div>
 					
@@ -168,7 +193,7 @@ preview();
 					<h2 id="previewTitle2">Post Title</h2>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Max 12288 chars.)</span></label>
-						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%">
+						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%" maxlength="12288">
 						<s:property value="#request.post.htmlContent" />
 						</textarea>
 			            <script>
@@ -199,7 +224,7 @@ preview();
 					
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit">
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit" onclick="return validate()">
 						<span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
 					<span>&nbsp;&nbsp;</span>
 					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back">

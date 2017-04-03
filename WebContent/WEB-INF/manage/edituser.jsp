@@ -6,6 +6,40 @@
 <!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 <script src="/ckeditor/ckeditor.js"></script>
+<script>
+function validate() {
+	var pattern = /^((https):\/\/)/;
+	if(!pattern.test(document.getElementById('thumbnail').value)) {
+		if(!confirm('Thumbnail is not secure (HTTPS). Do you want to continue?')) {
+			document.getElementById('thumbnail').focus();
+			return false;
+		}
+	}
+	if(document.getElementById('htmlContent').value.length > 12288) {
+		alert('Sorry! The content is too long.\nMax length = 12288 chars\Page length = '+document.getElementById('htmlContent').value.length+'\n\nPlease shorten your page content.');
+		return false;
+	}
+	return true;
+}
+function preview() {
+	var title = document.getElementById('title').value;
+	if(title.length<=1)
+		title = "Your Name Here";
+	document.getElementById('previewTitle').innerHTML = title;
+	
+	var desc = document.getElementById('description').value;
+	if(desc.length<=1)
+		desc = "About You Description.";
+	document.getElementById('previewDesc').innerHTML = desc;
+	
+	var src = document.getElementById('thumbnail').value;
+	if(src.length<=1)
+		src = "https://i.imgur.com/pHKz09F.png";
+	document.getElementById('previewImg').src = src;
+	changeForm();
+}
+preview();
+</script>
 <!-- META_END -->
 </head>
 <body class="w3-theme-dark">
@@ -24,7 +58,6 @@
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<h1>Edit Author</h1>
-				<p>Use this page to make changes to an existing author.</p>
 				
 				<!-- EDIT AUTHOR BEGIN -->
 				<div class="w3-container w3-padding-0 w3-border-0">
@@ -34,7 +67,7 @@
 					
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="title">Author Name:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" required placeholder="Rambling Man" class="w3-input w3-round-large w3-border" />
+						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" onkeypress="preview()" onchange="preview()" required placeholder="Rambling Man" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>
@@ -42,12 +75,39 @@
 						<span class="footnote"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="#request.author.uriName" /></span>
 					</p>
 					<p>   
-						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" required placeholder="https://imgur.com/image.png" class="w3-input w3-round-large  w3-border" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
+						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.author.description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
+					<p>   
+						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:&nbsp;<span class="w3-text-red">*</span></label>
+						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" onkeyup="preview()" onchange="preview()" required placeholder="https://imgur.com/image.png" class="w3-input w3-round-large  w3-border" />
+					</p>
+					
+					<h3>About You Preview</h3>
+					<div class="w3-container w3-padding-0">
+						
+						<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
+							<a href="#">
+							<span class="w3-col s3 m3 l3 w3-padding-16">
+								<img id="previewImg" class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="thumbnail" />">
+							</span>
+							<span class="w3-col s9 m9 l9 w3-padding-16">
+								<p class="footnote w3-padding-right">
+								<b><span id="previewTitle"><s:property value="Name" /></span></b><br />
+								<span id="previewDesc" class="w3-small"><s:property value="description" /></span> 
+								</p>
+							</span>
+							</a>						
+						</div>
+						
+					</div>
+					
+					<br />
+					<hr />
+					
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Max 12288 chars.)</span></label>
-						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%">
+						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Page Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Max 12288 chars.)</span></label>
+						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%" maxlength="12288">
 						<s:property value="#request.author.htmlContent" />
 						</textarea>
 			            <script>
@@ -55,14 +115,10 @@
 			                CKEDITOR.replace('htmlContent');
 			            </script>
 					</p>
-					<p>   
-						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.author.description" />" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
-					</p>
 					
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit">
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit" onclick="return validate()">
 						<span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
 					<span>&nbsp;&nbsp;</span>
 					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back">
@@ -73,11 +129,10 @@
 					
 					</form>
 				</div>
-				<!-- EDIT POST END -->
-			
-								
-				<br />
-				<br />
+				<script>
+					preview();
+				</script>
+				<!-- EDIT AUTHOR END -->
 			</div>
 		</div>
 	</article>
