@@ -33,14 +33,19 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 	
 	public String execute() {
 				
-		// /blog/post/file-name-goes-here
+		// /blog/file-name-goes-here
 		
 		// this allows blog posts to be shown without parameter arguments (i.e. ?uri_name=foobar&test=123 )
 		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
-		if(uriName == null && uriTemp.startsWith("/blog/post/"))
+		if(uriName == null && uriTemp.startsWith("/blog/post/")) {
+			// /blog/post/post-name-goes-here
 			uriName = ApplicationStore.removeBadChars(uriTemp.substring(11,uriTemp.length()));
-		else if(uriName == null && uriTemp.startsWith("/manage/viewpost/"))
+		} else if(uriName == null && uriTemp.startsWith("/blog/")) {
+			// /blog/post-name-goes-here
+			uriName = ApplicationStore.removeBadChars(uriTemp.substring(6,uriTemp.length()));
+		} else if(uriName == null && uriTemp.startsWith("/manage/viewpost/"))
 		{
+			// /manage/viewpost/post-name-goes-here
 			uriName = ApplicationStore.removeBadChars(uriTemp.substring(17,uriTemp.length()));
 			if(user != null)
 				canSeeHidden = true;

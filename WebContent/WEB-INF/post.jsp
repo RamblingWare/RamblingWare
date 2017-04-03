@@ -4,18 +4,19 @@
 <head>
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <%@include file="/WEB-INF/fragment/meta-post.jspf"%>
-<meta name="author" content="<s:property value="author" />">
-<meta name="description" content="<s:property value="description" />" />
+<meta name="author" content="<s:property value="post.author.name" />">
+<meta name="description" content="<s:property value="post.description" />" />
 
-<meta property="og:url" content="https://www.ramblingware.com/blog/post/<s:property value="post.uriName" />">
+<meta property="og:url" content="https://www.ramblingware.com/blog/<s:property value="post.uriName" />">
 <meta property="og:type" content="blog">
 <meta property="og:locale" content="en_US">
+<meta property="article:author" content="<s:property value="post.author.name" />">
 <meta property="og:title" content="<s:property value="post.title" />">
 <meta property="og:image" content="<s:property value="post.thumbnail" />">
 <meta property="og:description" content="<s:property value="post.description" />">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="https://www.ramblingware.com/blog/post/<s:property value="post.uriName" />">
+<meta name="twitter:site" content="https://www.ramblingware.com/blog/<s:property value="post.uriName" />">
 <meta name="twitter:creator" content="<s:property value="post.author.name" />">
 <meta name="twitter:title" content="<s:property value="post.title" />">
 <meta name="twitter:description" content="<s:property value="post.description" />">
@@ -61,15 +62,16 @@
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
-						<p class="w3-large w3-text-theme w3-padding-0" title="Date Published">
-							<s:property value="post.publishDate" />
+						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
+							<a href="/year/<s:property value="post.publishYear" />" title="Date Published" class="w3-text-theme"><s:property value="post.publishDateReadable" /></a>
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
 						<s:if test="post.tags != null && !post.tags.isEmpty()">
-							<p><s:iterator value="post.tags">
+							<p class="w3-large w3-padding-0">
+							<span class="footnote"><s:iterator value="post.tags">
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/tag/<s:property />"><s:property /></a>
-							</s:iterator></p>
+							</s:iterator></span></p>
 						</s:if>
 					</div>
 				</div>
@@ -78,22 +80,22 @@
 					<div class="w3-padding-16 w3-center">
 						<p class="footnote">Share this post.</p>	
 						<a title="Share on Facebook" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-indigo w3-theme-l4 icon-facebook"
-						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="post.uriName" />"></a>				
+						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />"></a>				
 						
 						<a title="Share on Twitter"  class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue w3-theme-l4 icon-twitter"
-						target="_Blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="post.uriName" />"></a>
+						target="_Blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />"></a>
 						
 						<a title="Share on LinkedIn" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue-grey w3-theme-l4 icon-linkedin2"
-						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="post.uriName" />'"></a>
+						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />'"></a>
 						
 						<a title="Share on Google+" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-red w3-theme-l4 icon-google-plus"
-						 target="_Blank" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="post.uriName" />'"></a>
+						 target="_Blank" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />'"></a>
 						
 						<a title="Share on Reddit" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-black w3-theme-l4 icon-reddit"
-						 target="_Blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="post.uriName" />'"></a>
+						 target="_Blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />'"></a>
 						
 						<a title="Email to a friend" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-teal w3-theme-l4 icon-mail2"
-						 target="_Blank" href="mailto:?subject=Check%20out%20this%20RamblingWare%20post&body=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2Fpost%2F<s:property value="post.uriName" />"></a>
+						 target="_Blank" href="mailto:?subject=Check%20out%20this%20RamblingWare%20post&body=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />"></a>
 						
 						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup()" class="w3-btn w3-round-large w3-large w3-padding-square  w3-hover-shadow w3-hover-green w3-theme-l4 icon-share2"></a>
 						
@@ -104,7 +106,7 @@
 								<h3>Copy this link:
 								<a title="Close" onclick="closePopup()" class="icon-cross w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
-								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="https://www.ramblingware.com/blog/post/<s:property value="post.uriName" />" type="text" /><br />
+								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="https://www.ramblingware.com/blog/<s:property value="post.uriName" />" type="text" /><br />
 							</div>
 						</div>
 					</div>
@@ -151,7 +153,7 @@
 			<div id="disqus_thread"></div>
 			<script>
 			    var disqus_config = function () {
-			        this.page.url = "https://www.ramblingware.com/blog/post/<%=request.getAttribute("post.uriName") %>";
+			        this.page.url = "https://www.ramblingware.com/blog/<%=request.getAttribute("post.uriName") %>";
 			        this.page.identifier = "<%=request.getAttribute("post.uriName") %>";
 			        this.page.title = "<%=request.getAttribute("post.title") %>";
 			    };

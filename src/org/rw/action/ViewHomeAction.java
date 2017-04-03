@@ -26,6 +26,7 @@ public class ViewHomeAction extends ActionSupport implements UserAware, ServletR
 	
 	private ArrayList<Post> posts = new ArrayList<Post>();
 	private ArrayList<Author> authors = new ArrayList<Author>();
+	private int limit = 7;
 	
 	public String execute() {
 		
@@ -34,10 +35,10 @@ public class ViewHomeAction extends ActionSupport implements UserAware, ServletR
 		// this shows the most recent blog posts
 		try {
 			// gather posts
-			posts = ApplicationStore.getDatabaseSource().getPosts(1, 10, false);
+			posts = ApplicationStore.getDatabaseSource().getPosts(1, limit, false);
 			
 			// gather authors
-			authors = ApplicationStore.getDatabaseSource().getAuthors(1, 10, true);
+			authors = ApplicationStore.getDatabaseSource().getAuthors(1, limit, true);
 			
 			// set attributes
 			servletRequest.setCharacterEncoding("UTF-8");

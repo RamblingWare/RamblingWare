@@ -16,7 +16,7 @@
 		<s:iterator value="#session.recent_view" status="f">
 			<s:set var="fval" value="#session.recent_view[#f.index].substring(0,4)" />
 							
-				<li class="w3-opacity w3-hover-opaque"><a title="<s:property value="description" />" href="/blog/post/<s:property value="uriName" />"><s:property value="title" /></a></li>
+				<li class="w3-opacity w3-hover-opaque"><a title="<s:property value="description" />" href="/blog/<s:property value="uriName" />"><s:property value="title" /></a></li>
 			
 		</s:iterator>
 		</ul>

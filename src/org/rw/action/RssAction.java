@@ -50,7 +50,7 @@ public class RssAction extends ActionSupport implements UserAware, ServletRespon
 				response += "<item><title>"+post.getTitle()+"</title>"+
 						"<description>"+post.getDescription()+"</description>"+
 						"<pubDate>"+post.getPublishDateReadable()+"</pubDate>"+
-						"<link>https://www.ramblingware.com/blog/post/"+post.getUriName()+"</link>"+
+						"<link>https://www.ramblingware.com/blog/"+post.getUriName()+"</link>"+
 						"</item>";
 			}
 			response += "</channel></rss>";

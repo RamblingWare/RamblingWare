@@ -1,6 +1,7 @@
 package org.rw.bean;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.rw.model.ApplicationStore;
@@ -146,6 +147,12 @@ public class Post {
 
 	public String getPublishDateReadable() {
 		return ApplicationStore.formatReadableDate(publishDate);
+	}
+	
+	public int getPublishYear() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(publishDate);		
+		return cal.get(Calendar.YEAR);
 	}
 
 	public void setPublishDate(Date publishDate) {
