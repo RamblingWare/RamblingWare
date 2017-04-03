@@ -39,13 +39,13 @@
 						<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
 						
 						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-l4" style="overflow: hidden;">
-							<a href="/blog/post/<s:property value="uriName" />">
+							<a href="/blog/<s:property value="uriName" />">
 							<img class="thumbnail" src="<s:property value="thumbnail" />" alt="Photo for <s:property value="title" />" title="<s:property value="bannerCaption" />" />
 							</a>
 						</div>
 						
 						<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
-						<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/post/<s:property value="uriName" />"><s:property value="title" /></a></h3>
+						<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/<s:property value="uriName" />"><s:property value="title" /></a></h3>
 						<p class="footnote"><s:property value="description" /><br/><br/></p>
 						
 						<p class="footnote">Tags:
@@ -56,10 +56,26 @@
 						</s:if>
 						</p>
 						<p class="footnote"><s:property value="author.name" />&nbsp;|&nbsp;<s:property value="publishDateReadable" />
-						&nbsp;|&nbsp;<a class="footnote" href="/blog/post/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></p>
+						&nbsp;|&nbsp;<a class="footnote" href="/blog/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></p>
 						</div>
 						</div><br />
 					</s:iterator>
+					
+					<div class="w3-container w3-row">
+						<div class="w3-col s4 m4 l4">
+						<s:if test="prevPage == true">
+							<a class="w3-btn w3-round w3-small w3-theme-l3 w3-left" href="/blog/page/<s:property value="page - 1" />"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
+						</s:if><s:else>&nbsp;</s:else>
+						</div>
+						<div class="w3-col s4 m4 l4 w3-center">
+							<span class="footnote">Page <s:property value="page" /></span>
+						</div>
+						<div class="w3-col s4 m4 l4">
+						<s:if test="nextPage == true">
+							<a class="w3-btn w3-round w3-small w3-theme-l3 w3-right" href="/blog/page/<s:property value="page + 1" />"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
+						</s:if><s:else>&nbsp;</s:else>
+						</div>
+					</div>
 				
 				</s:else>
 				</s:if>

@@ -13,6 +13,7 @@ import org.rw.bean.Post;
 import org.rw.bean.UserAware;
 import org.rw.model.ApplicationStore;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -25,6 +26,10 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<Post> posts = new ArrayList<Post>();
+	private int page;
+	private int limit = 7;
+	private boolean nextPage;
+	private boolean prevPage;
 	
 	public String execute() {
 				
@@ -32,20 +37,42 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 		
 		// this shows the most recent blog posts
 		try {
+			// jump to page if provided
+			String  pageTemp = servletRequest.getRequestURI().toLowerCase();
+			if(pageTemp.startsWith("/blog/page/"))
+			{
+				pageTemp = ApplicationStore.removeBadChars(pageTemp.substring(11,pageTemp.length()));
+				page = Integer.parseInt(pageTemp);
+			} else {
+				page = 1;
+			}
+			
+			
 			// gather posts
-			posts = ApplicationStore.getDatabaseSource().getPosts(1, 10, false);
+			posts = ApplicationStore.getDatabaseSource().getPosts(page, limit, false);
+			
+			// determine pagination
+			nextPage = posts.size() <= limit;
+			prevPage = page > 1;
 			
 			// set attributes
 			servletRequest.setCharacterEncoding("UTF-8");
 			servletRequest.setAttribute("posts", posts);
+			servletRequest.setAttribute("page", page);
+			servletRequest.setAttribute("nextPage", nextPage);
+			servletRequest.setAttribute("prevPage", prevPage);
 			
 			return SUCCESS;
 		
+		} catch (NumberFormatException e) {
+			System.err.println("Page not found. Please try again.");
+			return Action.NONE;
 		} catch (Exception e) {
 			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
 			e.printStackTrace();
 			return ERROR;
 		}
+		
 	}
 	
 	/**
@@ -106,5 +133,29 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 
 	public void setPosts(ArrayList<Post> posts) {
 		this.posts = posts;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public boolean isNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(boolean nextPage) {
+		this.nextPage = nextPage;
+	}
+
+	public boolean isPrevPage() {
+		return prevPage;
+	}
+
+	public void setPrevPage(boolean prevPage) {
+		this.prevPage = prevPage;
 	}
 }

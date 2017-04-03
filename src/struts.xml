@@ -114,16 +114,22 @@
 			<result name="error">/WEB-INF/blog.jsp</result>
 		</action>
 		
-		<action name="post/**" class="org.rw.action.ViewPostAction">
+		<action name="page/*" class="org.rw.action.ViewBlogAction">
+			<result name="success">/WEB-INF/blog.jsp</result>
+			<result name="error">/WEB-INF/blog.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
+		<action name="post/*" class="org.rw.action.ViewPostAction">
 			<result name="success">/WEB-INF/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
-		<action name="*">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result>/WEB-INF/error/404.jsp</result>
+		<action name="*" class="org.rw.action.ViewPostAction">
+			<result name="success">/WEB-INF/post.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
