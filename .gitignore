@@ -1,56 +1,102 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
 
-# eclipse files
-.settings
-.classpath
-.factorypath
+# Created by https://www.gitignore.io/api/java,gradle,eclipse
+
+### Eclipse ###
+
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# Eclipse Core
 .project
-.class
-.apt_generated
-build/
 
-# Folder config file
-Desktop.ini
+# External tool builders
+.externalToolBuilders/
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# Locally stored "Eclipse launch configurations"
+*.launch
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+# PyDev specific (Python IDE for Eclipse)
+*.pydevproject
 
-# Windows shortcuts
-*.lnk
+# CDT-specific (C/C++ Development Tooling)
+.cproject
 
-# =========================
-# Operating System Files
-# =========================
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
 
-# OSX
-# =========================
+# Java annotation processor (APT)
+.factorypath
 
-.DS_Store
-.AppleDouble
-.LSOverride
+# PDT-specific (PHP Development Tools)
+.buildpath
 
-# Thumbnails
-._*
+# sbteclipse plugin
+.target
 
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
+# Tern plugin
+.tern-project
 
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+# TeXlipse plugin
+.texlipse
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+.cache-main
+.scala_dependencies
+.worksheet
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+### Gradle ###
+.gradle
+/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+# End of https://www.gitignore.io/api/java,gradle,eclipse
