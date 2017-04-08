@@ -73,12 +73,6 @@ public class CloudantDatabase extends DatabaseSource {
 	}
 
 	@Override
-	public ArrayList<Post> getArchiveRecent(String[] uri) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Post> getPosts(int page, int limit, boolean includeHidden) {
 		// TODO Auto-generated method stub
 		return null;

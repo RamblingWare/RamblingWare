@@ -513,53 +513,6 @@ public class MySQLDatabase extends DatabaseSource {
 	}
 
 	@Override
-	public ArrayList<Post> getArchiveRecent(String[] uri) {
-		ArrayList<Post> archive_recent = new ArrayList<Post>();
-
-		String condition = "";
-		for (String u : uri) {
-			if (!u.trim().isEmpty())
-				condition += "'" + uri + "',";
-		}
-		condition = condition.substring(0, condition.length() - 1);
-
-		// get the recently viewed posts
-		Connection conn = null;
-		try {
-			conn = getConnection();
-			Statement st = conn.createStatement();
-
-			// search in db for recently viewed posts
-			String query = "select p.post_id, p.title, p.uri_name, p.description, p.publish_date from posts p where p.uri_name IN ("
-					+ condition + ") AND p.is_visible <> 0 order by p.create_date desc limit 3";
-			// System.out.println(query);
-			ResultSet rs = st.executeQuery(query);
-
-			while (rs.next()) {
-
-				// get the post properties
-				Post post = new Post(rs.getInt("post_id"));
-				post.setTitle(rs.getString("title"));
-				post.setUriName(rs.getString("uri_name"));
-				post.setPublishDate(rs.getDate("publish_date"));
-				post.setDescription(rs.getString("description"));
-
-				// add to results list
-				archive_recent.add(post);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				/* Do Nothing */}
-		}
-		return archive_recent;
-	}
-
-	@Override
 	public ArrayList<Post> getPosts(int page, int limit, boolean includeHidden) {
 		ArrayList<Post> posts = new ArrayList<Post>();
 

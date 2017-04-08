@@ -43,8 +43,6 @@ public abstract class DatabaseSource {
 	
 	public abstract ArrayList<String> getArchiveTags();
 	
-	public abstract ArrayList<Post> getArchiveRecent(String[] uri);
-	
 	public abstract ArrayList<Post> getPosts(int page, int limit, boolean includeHidden);
 	
 	public abstract ArrayList<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden);

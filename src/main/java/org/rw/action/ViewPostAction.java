@@ -1,7 +1,5 @@
 package org.rw.action;
 
-import java.util.HashSet;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,29 +61,6 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 					// set attributes
 					servletRequest.setAttribute("post", post);
 					servletRequest.setCharacterEncoding("UTF-8");
-					
-					// Remember the most recently viewed articles/posts using cookies
-					Cookie ck = getCookie("recent-view");
-					if(ck != null && !ck.getValue().isEmpty())
-					{
-						// Put them into a hashset so we don't have duplicates
-						HashSet<String> hs = new HashSet<String>();
-						String[] ckv = ck.getValue().split("\\|");
-						for(String uri : ckv)
-						{
-							hs.add(uri);
-						}
-						hs.add(uriName);
-						ck.setValue("");
-						ckv = (String[]) hs.toArray(new String[hs.size()]);
-						for(String uri : ckv)
-						{
-							ck.setValue(ck.getValue()+"|"+uri);
-						}
-						setCookie("recent-view",ck.getValue());
-					}
-					else
-						setCookie("recent-view",uriName);
 					
 					return Action.SUCCESS;
 				}

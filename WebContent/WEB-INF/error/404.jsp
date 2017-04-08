@@ -49,9 +49,6 @@
 			<%@include file="/WEB-INF/fragment/archive.jspf" %>
 			<!-- ARCHIVE END -->
 			
-			<!-- RECENTLY VIEWED BEGIN -->
-			<%@include file="/WEB-INF/fragment/recentlyviewed.jspf" %>
-			<!-- RECENTLY VIEWED END -->
 		</div>
 	</article>
 	
