@@ -12,7 +12,7 @@
 <meta property="og:type" content="blog">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="RamblingWare">
-<meta property="og:image" content="https://www.ramblingware.com/img/favicon-large.png">
+<meta property="og:image" content="https://www.ramblingware.com/img/rw-round.png">
 <meta property="og:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
 
 <meta name="twitter:card" content="summary">
@@ -20,7 +20,7 @@
 <meta name="twitter:creator" content="Austin Delamar">
 <meta name="twitter:title" content="RamblingWare">
 <meta name="twitter:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
-<meta name="twitter:image" content="https://www.ramblingware.com/img/favicon-large.png">
+<meta name="twitter:image" content="https://www.ramblingware.com/img/rw-round.png">
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="stylesheet" href="/css/style.css?v=1.2">
+<link rel="stylesheet" href="/css/style.css?v=1.3">
