@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.Post;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -61,14 +62,14 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 		// this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123 )
 		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
 		if(uri == null && uriTemp.startsWith("/manage/editpost/"))
-			uri = ApplicationStore.removeBadChars(uriTemp.substring(17,uriTemp.length()));
+			uri = Utils.removeBadChars(uriTemp.substring(17,uriTemp.length()));
 		
 		if(servletRequest.getParameter("delete")!=null)
 		{
 			// they've requested to delete a post
 			try {
 				post = new Post(id);
-				if(ApplicationStore.getDatabaseSource().deletePost(post)) {
+				if(Application.getDatabaseSource().deletePost(post)) {
 					// Success
 					System.out.println("User "+user.getUsername()+" deleted post: "+uri);
 					addActionMessage("The post was deleted!");
@@ -139,7 +140,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     		
     		// check that the URI is unique
 			try {
-				Post existingPost = ApplicationStore.getDatabaseSource().getPost(uri, true);
+				Post existingPost = Application.getDatabaseSource().getPost(uri, true);
 				
 				if(existingPost.getId() != id)
 				{
@@ -155,7 +156,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				post.setTitle(title);
 				post.setAuthor(user);
 				Calendar cal = Calendar.getInstance();
-				cal.setTime(ApplicationStore.convertStringToDate(publishDate));
+				cal.setTime(Utils.convertStringToDate(publishDate));
 				post.setPublishDate(new java.sql.Date(cal.getTimeInMillis()));
 				post.setVisible(visible);
 				post.setFeatured(featured);
@@ -179,7 +180,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				post.setTags(tagsList);
 				
 				// update post in database
-				if(ApplicationStore.getDatabaseSource().editPost(post))
+				if(Application.getDatabaseSource().editPost(post))
 				{
 					// Success
 					System.out.println("User "+user.getUsername()+" saved changes to the post: "+uri);
@@ -205,7 +206,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 			{
 				// search in db for post by title
 				try {
-					post = ApplicationStore.getDatabaseSource().getPost(uri, true);
+					post = Application.getDatabaseSource().getPost(uri, true);
 					
 					// was post found
 					if(post != null)
@@ -275,7 +276,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setUriName(String uriName) {
-		this.uriName = ApplicationStore.removeAllSpaces(uriName.trim().toLowerCase());
+		this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
 	}
 
 	public String getThumbnail() {
@@ -283,7 +284,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setThumbnail(String thumbnail) {
-		this.thumbnail = ApplicationStore.removeNonAsciiChars(thumbnail.trim());
+		this.thumbnail = Utils.removeNonAsciiChars(thumbnail.trim());
 	}
 
 	public String getPublishDate() {
@@ -339,7 +340,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setTags(String tags) {
-		this.tags = ApplicationStore.removeNonAsciiChars(tags.trim());
+		this.tags = Utils.removeNonAsciiChars(tags.trim());
 	}
 
 	public String getDescription() {
@@ -347,7 +348,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setDescription(String description) {
-		this.description = ApplicationStore.removeNonAsciiChars(description.trim());
+		this.description = Utils.removeNonAsciiChars(description.trim());
 	}
 
 	public String getHtmlContent() {

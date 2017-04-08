@@ -6,9 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -31,13 +32,13 @@ public class ViewAuthorAction extends ActionSupport implements UserAware, Servle
 		// /author/person-name-goes-here
 		String  uri = servletRequest.getRequestURI();
 		if(uri_name == null && uri.startsWith("/author/"))
-			uri_name = ApplicationStore.removeBadChars(uri.substring(8,uri.length()));
+			uri_name = Utils.removeBadChars(uri.substring(8,uri.length()));
 		
 		if(uri_name != null && uri_name.length() > 0)
 		{
 			// search in db for author
 			try {
-				author = ApplicationStore.getDatabaseSource().getAuthor(uri_name);
+				author = Application.getDatabaseSource().getAuthor(uri_name);
 				
 				if(author != null)
 				{					

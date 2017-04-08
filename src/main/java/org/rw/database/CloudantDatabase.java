@@ -1,10 +1,10 @@
-package org.rw.model.database;
+package org.rw.database;
 
 import java.util.ArrayList;
 
-import org.rw.bean.Author;
-import org.rw.bean.Database;
-import org.rw.bean.Post;
+import org.rw.action.model.Author;
+import org.rw.action.model.Database;
+import org.rw.action.model.Post;
 
 public class CloudantDatabase extends DatabaseSource {
 

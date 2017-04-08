@@ -1,4 +1,4 @@
-package org.rw.model.database;
+package org.rw.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.rw.bean.Author;
-import org.rw.bean.Database;
-import org.rw.bean.Post;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Database;
+import org.rw.action.model.Post;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 public class MySQLDatabase extends DatabaseSource {
 
@@ -30,7 +31,7 @@ public class MySQLDatabase extends DatabaseSource {
 	 * @throws ClassNotFoundException
 	 */
 	private static Connection getConnection() throws SQLException, ClassNotFoundException {
-		Class.forName(ApplicationStore.getSetting("driver"));
+		Class.forName(Application.getSetting("driver"));
 		return DriverManager.getConnection(
 				"jdbc:mysql://" + database.getHost() + ":" + database.getPort() + "/" + database.getName(),
 				database.getUsername(), database.getPassword());
@@ -1011,7 +1012,7 @@ public class MySQLDatabase extends DatabaseSource {
 
 			// update last login date
 			int r = st.executeUpdate("update users set last_login_date='"
-					+ ApplicationStore.formatMySQLDate(new Date(System.currentTimeMillis())) + "'" + "where user_id = '"
+					+ Utils.formatMySQLDate(new Date(System.currentTimeMillis())) + "'" + "where user_id = '"
 					+ user.getId() + "'");
 
 			if (r <= 0) {

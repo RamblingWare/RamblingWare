@@ -5,7 +5,7 @@
 	<display-name>RamblingWare</display-name>
 
 	<listener>
-		<listener-class>org.rw.model.ApplicationStore</listener-class>
+		<listener-class>org.rw.config.Application</listener-class>
 	</listener>
 
 	<session-config>
@@ -25,8 +25,6 @@
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-		<!-- <init-param> <param-name>actionPackages</param-name> <param-value>action</param-value> 
-			</init-param> -->
 	</filter>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>

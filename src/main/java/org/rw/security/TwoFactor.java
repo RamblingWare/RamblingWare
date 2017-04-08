@@ -1,4 +1,4 @@
-package org.rw.model;
+package org.rw.security;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

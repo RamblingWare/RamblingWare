@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.Post;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -41,7 +42,7 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 			String  pageTemp = servletRequest.getRequestURI().toLowerCase();
 			if(pageTemp.startsWith("/blog/page/"))
 			{
-				pageTemp = ApplicationStore.removeBadChars(pageTemp.substring(11,pageTemp.length()));
+				pageTemp = Utils.removeBadChars(pageTemp.substring(11,pageTemp.length()));
 				page = Integer.parseInt(pageTemp);
 			} else {
 				page = 1;
@@ -49,7 +50,7 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 			
 			
 			// gather posts
-			posts = ApplicationStore.getDatabaseSource().getPosts(page, limit, false);
+			posts = Application.getDatabaseSource().getPosts(page, limit, false);
 			
 			// determine pagination
 			nextPage = posts.size() <= limit;

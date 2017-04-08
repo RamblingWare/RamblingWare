@@ -3,8 +3,8 @@ package org.rw.action.interceptor;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.rw.bean.Post;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Post;
+import org.rw.config.Application;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
@@ -30,9 +30,9 @@ public class ArchiveInterceptor implements Interceptor {
 		if (archive_years == null || archive_years.isEmpty()) 
 		{			
 			// get the archive of posts by years and tag names
-			archive_featured = ApplicationStore.getDatabaseSource().getArchiveFeatured();
-			archive_years = ApplicationStore.getDatabaseSource().getArchiveYears();
-			archive_tags = ApplicationStore.getDatabaseSource().getArchiveTags();
+			archive_featured = Application.getDatabaseSource().getArchiveFeatured();
+			archive_years = Application.getDatabaseSource().getArchiveYears();
+			archive_tags = Application.getDatabaseSource().getArchiveTags();
 			
 			// set attributes
 			sessionAttributes.put("archive_featured", archive_featured);

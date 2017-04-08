@@ -1,8 +1,8 @@
-package org.rw.bean;
+package org.rw.action.model;
 
 import java.util.Date;
 
-import org.rw.model.ApplicationStore;
+import org.rw.config.Utils;
 
 /**
  * This class represents an Author
@@ -143,7 +143,7 @@ public class Author {
 	}
 
 	public String getCreateDateReadable() {
-		return ApplicationStore.formatReadableDate(createDate);
+		return Utils.formatReadableDate(createDate);
 	}
 
 	public Date getModifyDate() {
@@ -155,7 +155,7 @@ public class Author {
 	}
 
 	public String getModifyDateReadable() {
-		return ApplicationStore.formatReadableDate(modifyDate);
+		return Utils.formatReadableDate(modifyDate);
 	}
 
 	public Date getLastLoginDate() {
@@ -167,7 +167,7 @@ public class Author {
 	}
 
 	public String getLastLoginDateReadable() {
-		return ApplicationStore.formatReadableDate(lastLoginDate);
+		return Utils.formatReadableDate(lastLoginDate);
 	}
 
 	public String getDescription() {

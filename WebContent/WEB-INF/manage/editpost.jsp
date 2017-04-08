@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="org.rw.model.ApplicationStore" %>
+<%@ page import="org.rw.config.Utils" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -153,7 +153,7 @@ preview();
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-shadow" href="#">Tags</a>
 						</span>
 						</p>
-						<p class="footnote"><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=ApplicationStore.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %>
+						<p class="footnote"><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=Utils.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %>
 						&nbsp;|&nbsp;<span><a class="footnote" href="#"><span>0 comments</span></a></span></p>
 						</div>
 					</div>

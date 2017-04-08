@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
-import org.rw.model.PasswordHash;
-import org.rw.model.TwoFactor;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
+import org.rw.security.PasswordHash;
+import org.rw.security.TwoFactor;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -50,7 +51,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 		// now try to see if they can login
 		if (username != null && password != null) {
 			try {
-				user = ApplicationStore.getDatabaseSource().getUser(username);
+				user = Application.getDatabaseSource().getUser(username);
 
 				if (user != null && PasswordHash.validatePassword(password, user.getPassword())) {
 					// password matches!
@@ -72,7 +73,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 						// user didn't enable OTP / 2FA yet.
 
 						// update user's last login date
-						ApplicationStore.getDatabaseSource().loginUser(user);
+						Application.getDatabaseSource().loginUser(user);
 
 						attempts = 0;
 						lastAttempt = 0;
@@ -82,7 +83,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 						sessionAttributes.put("USER", user);
 
 						addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
-								+ ApplicationStore.formatReadableDate(user.getLastLoginDate()));
+								+ Utils.formatReadableDate(user.getLastLoginDate()));
 						System.out.println(
 								"User logged in: " + user.getUsername() + " (" + servletRequest.getRemoteAddr() + ")");
 
@@ -116,10 +117,10 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 
 				try {
 					// update user's last login date
-					ApplicationStore.getDatabaseSource().loginUser(user);
+					Application.getDatabaseSource().loginUser(user);
 
 					addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
-							+ ApplicationStore.formatReadableDate(user.getLastLoginDate()));
+							+ Utils.formatReadableDate(user.getLastLoginDate()));
 					System.out.println("User logged in: " + user.getUsername() + " with their OTP ("
 							+ servletRequest.getRemoteAddr() + ")");
 
@@ -232,7 +233,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 	}
 
 	public void setUsername(String username) {
-		this.username = ApplicationStore.removeBadChars(username);
+		this.username = Utils.removeBadChars(username);
 	}
 
 	public String getPassword() {
@@ -248,7 +249,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 	}
 
 	public void setCode(String code) {
-		this.code = ApplicationStore.removeBadChars(code);
+		this.code = Utils.removeBadChars(code);
 	}
 
 	public int getAttempts() {

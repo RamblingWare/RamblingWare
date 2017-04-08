@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.Post;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.ActionSupport;
  
@@ -106,7 +107,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 
 			// check that the URI is unique
 			try {
-				Post post = ApplicationStore.getDatabaseSource().getPost(uriName, true);
+				Post post = Application.getDatabaseSource().getPost(uriName, true);
 				
 				if(post != null)
 				{
@@ -122,7 +123,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 				post.setTitle(title);
 				post.setAuthor(user);
 				Calendar cal = Calendar.getInstance();
-				cal.setTime(ApplicationStore.convertStringToDate(publishDate));
+				cal.setTime(Utils.convertStringToDate(publishDate));
 				post.setPublishDate(new java.sql.Date(cal.getTimeInMillis()));
 				post.setVisible(visible);
 				post.setFeatured(featured);
@@ -146,7 +147,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 				post.setTags(tagsList);
 				
 				// insert into database
-				post = ApplicationStore.getDatabaseSource().newPost(post);
+				post = Application.getDatabaseSource().newPost(post);
 				
 				if(post.getId() != -1)
 				{
@@ -187,7 +188,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	public void setUriName(String uriName) {
-		this.uriName = ApplicationStore.removeAllSpaces(uriName.trim().toLowerCase());
+		this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
 	}
 
 	public String getThumbnail() {
@@ -195,7 +196,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	public void setThumbnail(String thumbnail) {
-		this.thumbnail = ApplicationStore.removeNonAsciiChars(thumbnail.trim());
+		this.thumbnail = Utils.removeNonAsciiChars(thumbnail.trim());
 	}
 
 	public String getPublishDate() {
@@ -251,7 +252,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	public void setTags(String tags) {
-		this.tags = ApplicationStore.removeNonAsciiChars(tags.trim());
+		this.tags = Utils.removeNonAsciiChars(tags.trim());
 	}
 
 	public String getDescription() {
@@ -259,7 +260,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	public void setDescription(String description) {
-		this.description = ApplicationStore.removeNonAsciiChars(description.trim());
+		this.description = Utils.removeNonAsciiChars(description.trim());
 	}
 
 	public String getHtmlContent() {

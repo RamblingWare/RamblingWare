@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -50,7 +50,7 @@ public class ForgotAction extends ActionSupport implements UserAware, ServletRes
 				return Action.ERROR;
 			}
 
-			if (email != null && ApplicationStore.isValidEmail(email)) {
+			if (email != null && Utils.isValidEmail(email)) {
 
 				// TODO
 				// if email is good, and remind, then send reminder email
@@ -191,7 +191,7 @@ public class ForgotAction extends ActionSupport implements UserAware, ServletRes
 	}
 
 	public void setEmail(String email) {
-		this.email = ApplicationStore.removeBadChars(email);
+		this.email = Utils.removeBadChars(email);
 	}
 
 	public String getCode() {
@@ -199,7 +199,7 @@ public class ForgotAction extends ActionSupport implements UserAware, ServletRes
 	}
 
 	public void setCode(String code) {
-		this.code = ApplicationStore.removeBadChars(code);
+		this.code = Utils.removeBadChars(code);
 	}
 
 	public String getType() {
@@ -209,7 +209,7 @@ public class ForgotAction extends ActionSupport implements UserAware, ServletRes
 	public void setType(String type) {
 		if (type == null)
 			type = "username";
-		this.type = ApplicationStore.removeBadChars(type);
+		this.type = Utils.removeBadChars(type);
 	}
 
 	public int getAttempts() {

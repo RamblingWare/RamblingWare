@@ -6,11 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
-import org.rw.model.PasswordHash;
-import org.rw.model.TwoFactor;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
+import org.rw.security.PasswordHash;
+import org.rw.security.TwoFactor;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -61,7 +62,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 			// they've changed their account info
 
 			// validate inputs
-			if (!ApplicationStore.isValidEmail(email) || email.isEmpty()) {
+			if (!Utils.isValidEmail(email) || email.isEmpty()) {
 				addActionError("Email address is not valid. Please try again.");
 				return ERROR;
 			}
@@ -76,7 +77,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 				updatedUser.setUsername(username);
 				updatedUser.setEmail(email);
 
-				if (ApplicationStore.getDatabaseSource().editUser(updatedUser)) {
+				if (Application.getDatabaseSource().editUser(updatedUser)) {
 					// Success
 					// update user settings in session
 					user.setUsername(username);
@@ -131,7 +132,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 					// salt and hash the password
 					updatedUser.setPassword(PasswordHash.createHash(passwordNew));
 
-					if (ApplicationStore.getDatabaseSource().editUser(updatedUser)) {
+					if (Application.getDatabaseSource().editUser(updatedUser)) {
 						// Success
 						// update user settings in session
 						user.setPassword(updatedUser.getPassword());
@@ -166,8 +167,8 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 					addActionError("Password is not valid. Please try again.");
 					return ERROR;
 				}
-				if (!ApplicationStore.removeAllSpaces(code)
-						.equals(ApplicationStore.removeAllSpaces(user.getKeyRecover()))) {
+				if (!Utils.removeAllSpaces(code)
+						.equals(Utils.removeAllSpaces(user.getKeyRecover()))) {
 					addActionError("Recovery Code is not valid. Please try again.");
 					return ERROR;
 				}
@@ -183,7 +184,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 						updatedUser.setKeySecret(null);
 						updatedUser.setKeyRecover(null);
 						
-						if (ApplicationStore.getDatabaseSource().editUser(updatedUser)) {
+						if (Application.getDatabaseSource().editUser(updatedUser)) {
 							// Success
 							// update user settings in session
 							user.setOTPAuthenticated(true);
@@ -229,7 +230,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 					updatedUser.setKeyRecover(recover);
 
 					// code matches, so enable 2FA
-					if (ApplicationStore.getDatabaseSource().editUser(updatedUser)) {
+					if (Application.getDatabaseSource().editUser(updatedUser)) {
 						// Success
 						// update user settings in session
 						user.setOTPEnabled(true);
@@ -346,7 +347,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setUsername(String username) {
-		this.username = ApplicationStore.removeBadChars(username);
+		this.username = Utils.removeBadChars(username);
 	}
 
 	public String getEmail() {
@@ -406,6 +407,6 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setCode(String code) {
-		this.code = ApplicationStore.removeBadChars(code);
+		this.code = Utils.removeBadChars(code);
 	}
 }

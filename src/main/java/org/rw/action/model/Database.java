@@ -1,4 +1,4 @@
-package org.rw.bean;
+package org.rw.action.model;
 
 /**
  * Simple Database Bean object

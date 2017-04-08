@@ -1,4 +1,4 @@
-package org.rw.bean;
+package org.rw.action.model;
 /**
  * Email message class is used for queuing emails for the daemon service to send.
  * @author Austin Delamar

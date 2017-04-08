@@ -1,10 +1,10 @@
-package org.rw.bean;
+package org.rw.action.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.rw.model.ApplicationStore;
+import org.rw.config.Utils;
 
 /**
  * Post class is just a bean.
@@ -122,7 +122,7 @@ public class Post {
 	}
 
 	public String getCreateDateReadable() {
-		return ApplicationStore.formatReadableDate(createDate);
+		return Utils.formatReadableDate(createDate);
 	}
 
 	public void setCreateDate(Date createDate) {
@@ -134,7 +134,7 @@ public class Post {
 	}
 
 	public String getModifyDateReadable() {
-		return ApplicationStore.formatReadableDate(modifyDate);
+		return Utils.formatReadableDate(modifyDate);
 	}
 
 	public void setModifyDate(Date modifyDate) {
@@ -146,7 +146,7 @@ public class Post {
 	}
 
 	public String getPublishDateReadable() {
-		return ApplicationStore.formatReadableDate(publishDate);
+		return Utils.formatReadableDate(publishDate);
 	}
 	
 	public int getPublishYear() {

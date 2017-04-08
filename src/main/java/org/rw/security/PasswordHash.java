@@ -1,4 +1,4 @@
-package org.rw.model;
+package org.rw.security;
 
 import java.security.SecureRandom;
 import javax.crypto.spec.PBEKeySpec;

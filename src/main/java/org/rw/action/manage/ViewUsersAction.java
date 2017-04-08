@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -34,7 +34,7 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 		// this shows the authors
 		try {
 			// gather authors
-			authors = ApplicationStore.getDatabaseSource().getAuthors(1,10,true);
+			authors = Application.getDatabaseSource().getAuthors(1,10,true);
 			
 			// set attributes
 			servletRequest.setCharacterEncoding("UTF-8");

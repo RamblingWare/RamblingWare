@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.Post;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -35,16 +36,16 @@ public class TagAction extends ActionSupport implements UserAware, ServletRespon
 		// this allows blog posts to be shown without parameter arguments (i.e. ?uri_name=foobar&test=123 )
 		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
 		if(tag == null && uriTemp.startsWith("/tag/"))
-			tag = ApplicationStore.removeBadChars(uriTemp.substring(5,uriTemp.length()));
+			tag = Utils.removeBadChars(uriTemp.substring(5,uriTemp.length()));
 		else if(tag == null && uriTemp.startsWith("/manage/tag/"))
-			tag = ApplicationStore.removeBadChars(uriTemp.substring(12,uriTemp.length()));
+			tag = Utils.removeBadChars(uriTemp.substring(12,uriTemp.length()));
 		
 		if(tag != null && tag.length() > 0)
 		{
 			// this shows the most recent blog posts by tag
 			try {
 				// gather posts
-				posts = ApplicationStore.getDatabaseSource().getPostsByTag(1, 25, tag, false);
+				posts = Application.getDatabaseSource().getPostsByTag(1, 25, tag, false);
 				
 				// set attributes
 				servletRequest.setCharacterEncoding("UTF-8");
@@ -130,6 +131,6 @@ public class TagAction extends ActionSupport implements UserAware, ServletRespon
 	}
 
 	public void setTag(String tag) {
-		this.tag = ApplicationStore.removeBadChars(tag);
+		this.tag = Utils.removeBadChars(tag);
 	}
 }

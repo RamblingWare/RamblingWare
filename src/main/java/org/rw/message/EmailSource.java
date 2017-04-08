@@ -1,6 +1,6 @@
-package org.rw.model.message;
+package org.rw.message;
 
-import org.rw.bean.Email;
+import org.rw.action.model.Email;
 
 /**
  * A blueprint to communicate to a Email Service.

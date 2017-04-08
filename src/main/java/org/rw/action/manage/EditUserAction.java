@@ -6,9 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -48,14 +49,14 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 		// this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123 )
 		String  uriTemp = servletRequest.getRequestURI();
 		if(uri == null && uriTemp.startsWith("/manage/edituser/"))
-			uri = ApplicationStore.removeBadChars(uriTemp.substring(17,uriTemp.length()));
+			uri = Utils.removeBadChars(uriTemp.substring(17,uriTemp.length()));
 		
 		if(servletRequest.getParameter("delete")!=null)
 		{
 			// they've requested to delete a user
 			try {
 				author = new Author(id);
-				if(ApplicationStore.getDatabaseSource().deleteAuthor(author)) {
+				if(Application.getDatabaseSource().deleteAuthor(author)) {
 					// Success
 					System.out.println("User "+user.getUsername()+" deleted user: "+uri);
 					addActionMessage("The author was deleted!");
@@ -78,7 +79,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 			// they've submitted an edit on a user
 			try {
 				// check if uri exists or not
-				Author existingUser = ApplicationStore.getDatabaseSource().getAuthor(uriName);
+				Author existingUser = Application.getDatabaseSource().getAuthor(uriName);
 				
 				if(existingUser.getId() != id) {
 					// URI was not unique. Please try again.
@@ -96,7 +97,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 				author.setHtmlContent(htmlContent);
 				
 				// update author in database
-				if(ApplicationStore.getDatabaseSource().editAuthor(author))
+				if(Application.getDatabaseSource().editAuthor(author))
 				{
 					// Success
 					System.out.println("User "+user.getUsername()+" saved changes to the author: "+uriName);
@@ -121,7 +122,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 			{
 				// search in db for user by name
 				try {
-					author = ApplicationStore.getDatabaseSource().getAuthor(uri);
+					author = Application.getDatabaseSource().getAuthor(uri);
 					
 					// was author found
 					if(author != null)
@@ -191,7 +192,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setUriName(String uriName) {
-		this.uriName = ApplicationStore.removeAllSpaces(uriName.trim().toLowerCase());
+		this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
 	}
 
 	public String getThumbnail() {
@@ -199,7 +200,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setThumbnail(String thumbnail) {
-		this.thumbnail = ApplicationStore.removeNonAsciiChars(thumbnail.trim());
+		this.thumbnail = Utils.removeNonAsciiChars(thumbnail.trim());
 	}
 
 	public String getDescription() {
@@ -207,7 +208,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setDescription(String description) {
-		this.description = ApplicationStore.removeNonAsciiChars(description.trim());
+		this.description = Utils.removeNonAsciiChars(description.trim());
 	}
 
 	public String getHtmlContent() {

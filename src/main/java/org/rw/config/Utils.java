@@ -1,4 +1,5 @@
-package org.rw.model;
+package org.rw.config;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -12,134 +13,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Properties;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.rw.bean.Database;
-import org.rw.model.database.DatabaseSource;
-import org.rw.model.database.MySQLDatabase;
 
 /**
- * AppicationStore loads the appropriate settings from application.properties file
- * and contains basic common methods used across actions.
+ * A simple utility class that contains common methods used across classes.
+ * 
  * @author Austin Delamar
- * @date 11/9/2015
+ * @date 4/8/2017
  */
-public class ApplicationStore implements ServletContextListener {
-
-	private final static String PROP_FILE = "/application.properties";
+public class Utils {
+	
 	private final static DecimalFormat BYTEFORM = new DecimalFormat("0.00");
 	private final static DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
 	private final static DateFormat READABLEDATETIMEFORM = new SimpleDateFormat("MMM dd, yyyy (hh:mm:ss a)");
 	private final static DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
 	private final static DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
-	private static HashMap<String, String> settingsMap;
-	private static String startDateTime;
-	private static DatabaseSource database;
-
-	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
-		
-		// Server Initializing...
-		System.out.println(this.getClass().getName()+" Initializing...");
-		
-		try{
-			// load settings from properties file
-			settingsMap = new HashMap<String, String>();
-			Properties properties = new Properties();
-			System.out.println("Reading "+PROP_FILE);
-			properties.load(ApplicationStore.class.getResourceAsStream(PROP_FILE));
-
-			// put into map
-			for (String key : properties.stringPropertyNames()) {
-				String value = properties.getProperty(key);
-				settingsMap.put(key, value);
-			}
-			
-		} catch (IOException e) {
-			System.err.println(e);
-		}
-		
-		
-		// check env variable
-		String vcap = System.getenv("VCAP_SERVICES");
-		String dbHost, dbName, dbPort;
-		String dbUrl, dbUser, dbPass;
-		if(vcap == null) {
-			// if vcap is not available, then
-			// run on local MySQL Database
-			System.err.println("Failed to locate VCAP Object. Using local Db...");
-			
-			dbName = getSetting("db-name");
-			dbHost = getSetting("db-host");
-			dbPort = getSetting("db-port");
-			dbUrl = getSetting("db-url");
-			dbUser = getSetting("db-user");
-			dbPass = getSetting("db-pass");
-		}
-		else {
-			// try to read env variables
-			try {
-				JSONObject obj = new JSONObject(vcap);
-				JSONArray cleardb = obj.getJSONArray("cleardb");
-				JSONObject mysql = cleardb.getJSONObject(0).getJSONObject("credentials");
-				dbName = mysql.getString("name");
-				dbHost = mysql.getString("hostname");
-				dbPort = ""+mysql.getInt("port");
-				dbUrl = mysql.getString("uri");
-				dbUser = mysql.getString("username");
-				dbPass = mysql.getString("password");
-				
-				System.out.println("VCAP_SERVICES were read successfully.");
-				
-			} catch (JSONException e) {
-				e.printStackTrace();
-				System.err.println("Failed to parse JSON object. Using local Db...");
-				
-				dbName = getSetting("db-name");
-				dbHost = getSetting("db-host");
-				dbPort = getSetting("db-port");
-				dbUrl = getSetting("db-url");
-				dbUser = getSetting("db-user");
-				dbPass = getSetting("db-pass");
-			}
-		}
-		
-		Database db = new Database(dbName);
-		db.setHost(dbHost);
-		db.setPort(dbPort);
-		db.setUrl(dbUrl);
-		db.setUsername(dbUser);
-		db.setPassword(dbPass);
-		System.out.println(db.toString());
-		
-		database = new MySQLDatabase(db);
-		
-		
-		// webapp ready
-		startDateTime = (READABLEDATETIMEFORM.format(new Date(System.currentTimeMillis())));
-		System.out.println(this.getClass().getName()+" Initialized.");
-	}
-	
-	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {		
-		System.out.println(this.getClass().getName()+" Destroyed.");
-	}
-	
-	/**
-	 * Gets the currently used Database Service for this app.
-	 * @return
-	 */
-	public static DatabaseSource getDatabaseSource(){
-		return database;
-	}
 	
 	/**
 	 * Converts the ResultSet to an ArrayList of HashMap records.
@@ -165,18 +55,6 @@ public class ApplicationStore implements ServletContextListener {
 		}
 	
 		return list;
-	}
-
-	public static String getSetting(String key) {
-		return settingsMap.get(key);
-	}
-
-	public static void setSetting(String key, String value) {
-		settingsMap.put(key, value);
-	}
-
-	public static String getStartDateTime() {
-		return startDateTime;
 	}
 
 	/**
@@ -222,6 +100,18 @@ public class ApplicationStore implements ServletContextListener {
 		if(date == null)
 			return "Null";
 		return READABLEDATEFORM.format(date);
+	}
+	
+	/**
+	 * Get a readable format of the given date. "MMM dd, yyyy (hh:mm:ss a)"
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String formatReadableDateTime(Date date) {
+		if(date == null)
+			return "Null";
+		return READABLEDATETIMEFORM.format(date);
 	}
 
 	/**

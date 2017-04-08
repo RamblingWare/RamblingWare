@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.Post;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -35,9 +36,9 @@ public class YearAction extends ActionSupport implements UserAware, ServletRespo
 		// this allows blog posts to be shown without parameter arguments (i.e. ?uri_name=foobar&test=123 )
 		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
 		if(year == null && uriTemp.startsWith("/year/"))
-			year = ApplicationStore.removeBadChars(uriTemp.substring(6,uriTemp.length()));
+			year = Utils.removeBadChars(uriTemp.substring(6,uriTemp.length()));
 		else if(year == null && uriTemp.startsWith("/manage/year/"))
-			year = ApplicationStore.removeBadChars(uriTemp.substring(13,uriTemp.length()));
+			year = Utils.removeBadChars(uriTemp.substring(13,uriTemp.length()));
 				
 		if(year != null && year.length() > 0)
 		{
@@ -46,7 +47,7 @@ public class YearAction extends ActionSupport implements UserAware, ServletRespo
 				int yr = Integer.parseInt(year);
 				
 				// gather posts
-				posts = ApplicationStore.getDatabaseSource().getPostsByYear(1, 25, yr, false);
+				posts = Application.getDatabaseSource().getPostsByYear(1, 25, yr, false);
 				
 				// set attributes
 				servletRequest.setCharacterEncoding("UTF-8");
@@ -132,6 +133,6 @@ public class YearAction extends ActionSupport implements UserAware, ServletRespo
 	}
 
 	public void setYear(String year) {
-		this.year = ApplicationStore.removeBadChars(year);
+		this.year = Utils.removeBadChars(year);
 	}
 }

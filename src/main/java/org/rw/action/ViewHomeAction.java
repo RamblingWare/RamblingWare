@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.Post;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -35,10 +35,10 @@ public class ViewHomeAction extends ActionSupport implements UserAware, ServletR
 		// this shows the most recent blog posts
 		try {
 			// gather posts
-			posts = ApplicationStore.getDatabaseSource().getPosts(1, limit, false);
+			posts = Application.getDatabaseSource().getPosts(1, limit, false);
 			
 			// gather authors
-			authors = ApplicationStore.getDatabaseSource().getAuthors(1, limit, true);
+			authors = Application.getDatabaseSource().getAuthors(1, limit, true);
 			
 			// set attributes
 			servletRequest.setCharacterEncoding("UTF-8");

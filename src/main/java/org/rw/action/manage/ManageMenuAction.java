@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 

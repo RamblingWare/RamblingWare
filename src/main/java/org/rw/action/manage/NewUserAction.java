@@ -6,10 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
-import org.rw.model.PasswordHash;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
+import org.rw.security.PasswordHash;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -43,7 +44,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 		if (servletRequest.getParameter("submitForm") != null) {
 			// submitted new user!
 
-			if (email != null && ApplicationStore.isValidEmail(email)) {
+			if (email != null && Utils.isValidEmail(email)) {
 				if (password != null && password2 != null && password.equals(password2)) {
 					// passwords match
 					if (password.length() >= 8) {
@@ -51,7 +52,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 						
 						try {
 							// check if user exists or not
-							if (ApplicationStore.getDatabaseSource().getAuthor(uriName) == null) {
+							if (Application.getDatabaseSource().getAuthor(uriName) == null) {
 								// user does not already exist.
 								// add new user
 								// salt and hash the password
@@ -65,7 +66,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 								newUser.setPassword(password);
 								
 								// insert into database
-								newUser = ApplicationStore.getDatabaseSource().newUser(newUser);
+								newUser = Application.getDatabaseSource().newUser(newUser);
 								
 								if (newUser.getId() != -1) {
 									// Successfully registered new user!
@@ -154,7 +155,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	public void setUsername(String username) {
-		this.username = ApplicationStore.removeBadChars(username);
+		this.username = Utils.removeBadChars(username);
 	}
 
 	public String getEmail() {
@@ -170,7 +171,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	public void setName(String name) {
-		this.name = ApplicationStore.removeNonAsciiChars(name);
+		this.name = Utils.removeNonAsciiChars(name);
 	}
 
 	public String getUriName() {
@@ -178,7 +179,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 	}
 
 	public void setUriName(String uriName) {
-		this.uriName = ApplicationStore.removeAllSpaces(uriName.trim().toLowerCase());
+		this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
 	}
 
 	public String getPassword() {

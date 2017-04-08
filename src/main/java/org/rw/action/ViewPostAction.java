@@ -6,10 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.rw.bean.Author;
-import org.rw.bean.Post;
-import org.rw.bean.UserAware;
-import org.rw.model.ApplicationStore;
+import org.rw.action.model.Author;
+import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
+import org.rw.config.Application;
+import org.rw.config.Utils;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,14 +38,14 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
 		if(uriName == null && uriTemp.startsWith("/blog/post/")) {
 			// /blog/post/post-name-goes-here
-			uriName = ApplicationStore.removeBadChars(uriTemp.substring(11,uriTemp.length()));
+			uriName = Utils.removeBadChars(uriTemp.substring(11,uriTemp.length()));
 		} else if(uriName == null && uriTemp.startsWith("/blog/")) {
 			// /blog/post-name-goes-here
-			uriName = ApplicationStore.removeBadChars(uriTemp.substring(6,uriTemp.length()));
+			uriName = Utils.removeBadChars(uriTemp.substring(6,uriTemp.length()));
 		} else if(uriName == null && uriTemp.startsWith("/manage/viewpost/"))
 		{
 			// /manage/viewpost/post-name-goes-here
-			uriName = ApplicationStore.removeBadChars(uriTemp.substring(17,uriTemp.length()));
+			uriName = Utils.removeBadChars(uriTemp.substring(17,uriTemp.length()));
 			if(user != null)
 				canSeeHidden = true;
 		}
@@ -53,7 +54,7 @@ public class ViewPostAction extends ActionSupport implements UserAware, ServletR
 		{
 			// search in db for post by title
 			try {
-				post = ApplicationStore.getDatabaseSource().getPost(uriName, canSeeHidden);
+				post = Application.getDatabaseSource().getPost(uriName, canSeeHidden);
 				
 				// was post found AND is it publicly visible yet?
 				if(post != null)

@@ -2,8 +2,8 @@ package org.rw.action.interceptor;
 
 import java.util.Map;
 
-import org.rw.bean.Author;
-import org.rw.bean.UserAware;
+import org.rw.action.model.Author;
+import org.rw.action.model.UserAware;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
