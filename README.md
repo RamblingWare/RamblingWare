@@ -1,4 +1,8 @@
-# <img src="https://www.ramblingware.com/img/logo-medium.png" height="50px" alt="RamblingWare" title="Logo">
+[![Build Status](https://travis-ci.org/RamblingWare/RamblingWare.svg?branch=master)](https://travis-ci.org/RamblingWare/RamblingWare)
+[![Coverage Status](https://coveralls.io/repos/github/RamblingWare/RamblingWare/badge.svg?branch=master)](https://coveralls.io/github/RamblingWare/RamblingWare?branch=master)
+[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
+<img src="https://www.ramblingware.com/img/logo-medium.png" height="50px" alt="RamblingWare" title="Logo">
 
 This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too. 
 https://www.ramblingware.com
