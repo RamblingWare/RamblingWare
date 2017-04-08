@@ -184,7 +184,11 @@ function preview() {
 						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" maxlength="12288" style="width:100%"><s:property value="htmlContent" /></textarea>
 			            <script>
 			                // Replace the <textarea id="htmlContent"> with a CKEditor instance, using default configuration.
-			                CKEDITOR.replace('htmlContent');
+			                CKEDITOR.replace('htmlContent', {
+								language: 'en',
+								height: 500,
+								toolbarCanCollapse: true,
+							});
 			            </script>
 					</p>
 					

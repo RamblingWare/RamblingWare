@@ -112,7 +112,11 @@ preview();
 						</textarea>
 			            <script>
 			                // Replace the <textarea id="htmlContent"> with a CKEditor instance, using default configuration.
-			                CKEDITOR.replace('htmlContent');
+			                CKEDITOR.replace('htmlContent', {
+								language: 'en',
+								height: 500,
+								toolbarCanCollapse: true,
+							});
 			            </script>
 					</p>
 					
