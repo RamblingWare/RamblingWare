@@ -3,7 +3,6 @@ package org.rw.action.manage;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -357,38 +356,6 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 
 	public void setHtmlContent(String htmlContent) {
 		this.htmlContent = htmlContent;
-	}
-
-	/**
-	 * Return a cookie's value by its given name.
-	 * @param cookieName
-	 * @return Cookie
-	 */
-	public Cookie getCookie(String cookieName) {
-		Cookie cookies[] = servletRequest.getCookies();
-		Cookie myCookie = null;
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals(cookieName)) {
-					myCookie = cookies[i];
-					break;
-				}
-			}
-		}
-		return myCookie;
-	}
-
-	/**
-	 * Sets a cookie's value for the given name.
-	 * @param cookieName
-	 * @param cookieValue
-	 */
-	public void setCookie(String cookieName, String cookieValue) {
-		Cookie cookie = new Cookie(cookieName, cookieValue);
-		cookie.setPath("/");
-		// cookie will last 1 year
-		cookie.setMaxAge(60 * 60 * 24 * 365);
-		servletResponse.addCookie(cookie);
 	}
 
 	@Override

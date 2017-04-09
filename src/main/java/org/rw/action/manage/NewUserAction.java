@@ -1,6 +1,5 @@
 package org.rw.action.manage;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -120,20 +119,6 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 	@Override
 	public void setUser(Author user) {
 		this.user = user;
-	}
-
-	public Cookie getCookie(String cookieName) {
-		Cookie cookies[] = servletRequest.getCookies();
-		Cookie myCookie = null;
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals(cookieName)) {
-					myCookie = cookies[i];
-					break;
-				}
-			}
-		}
-		return myCookie;
 	}
 
 	protected HttpServletResponse servletResponse;

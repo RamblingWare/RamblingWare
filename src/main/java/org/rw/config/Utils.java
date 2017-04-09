@@ -16,6 +16,9 @@ import java.util.Locale;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 
 /**
  * A simple utility class that contains common methods used across classes.
@@ -30,6 +33,38 @@ public class Utils {
 	private final static DateFormat READABLEDATETIMEFORM = new SimpleDateFormat("MMM dd, yyyy (hh:mm:ss a)");
 	private final static DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
 	private final static DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+	
+	/**
+	 * Return a cookie's value by its given name.
+	 * @param cookieName
+	 * @return Cookie
+	 */
+	public static Cookie getCookie(HttpServletRequest servletRequest, String cookieName) {
+		Cookie cookies[] = servletRequest.getCookies();
+		Cookie myCookie = null;
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals(cookieName)) {
+					myCookie = cookies[i];
+					break;
+				}
+			}
+		}
+		return myCookie;
+	}
+	
+	/**
+	 * Sets a cookie's value for the given name.
+	 * @param cookieName
+	 * @param cookieValue
+	 */
+	public static void setCookie(HttpServletResponse servletResponse, String cookieName, String cookieValue) {
+		Cookie cookie = new Cookie(cookieName, cookieValue);
+		
+		// cookie will last 1 year
+		cookie.setMaxAge(60 * 60 * 24 * 365);
+		servletResponse.addCookie(cookie);
+	}
 	
 	/**
 	 * Converts the ResultSet to an ArrayList of HashMap records.
