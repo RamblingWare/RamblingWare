@@ -41,7 +41,7 @@
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/">Cancel</a>
 							</p>
 						</form>
-							<p class="footnote w3-center">
+							<p class="w3-small w3-text-grey w3-center">
 								<a href="/manage/">Wait, I remember it now.</a>
 							</p>
 						</div>
@@ -66,7 +66,7 @@
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/">Cancel</a>
 							</p>
 						</form>
-							<p class="footnote w3-center"> 
+							<p class="w3-small w3-text-grey w3-center"> 
 								<a href="/manage/">Wait, I remember it now.</a>
 							</p>
 						</div>
@@ -101,7 +101,7 @@
 								<label class="w3-validate w3-text-grey-light w3-large" for="code">Recovery Code:</label>
 								<input type="text" size="50" maxlength="100" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" placeholder="" class="w3-input w3-round-large w3-border" />
 							</p>
-							<p class="footnote">Your recovery code was created when you enabled 2FA.</p>
+							<p class="w3-small w3-text-grey">Your recovery code was created when you enabled 2FA.</p>
 							<hr />
 							<p>
 								<button class="w3-btn w3-right w3-round w3-card w3-pale-red" type="submit" value="Submit" title="Unlock">Unlock</button>
@@ -109,7 +109,7 @@
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/manage/logout">Cancel</a>
 							</p>
 						</form>
-							<p class="footnote w3-center"> 
+							<p class="w3-small w3-text-grey w3-center"> 
 								<a href="javascript: void(0);" onclick="alert('Please contact your system admin.')">What if I don't have this?</a>
 							</p>
 						</div>

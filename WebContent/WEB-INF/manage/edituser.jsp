@@ -70,9 +70,9 @@ preview();
 						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" onkeypress="preview()" onchange="preview()" required placeholder="Rambling Man" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
 						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
-						<span class="footnote"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="#request.author.uriName" /></span>
+						<span class="w3-small w3-text-grey"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="#request.author.uriName" /></span>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
@@ -92,7 +92,7 @@ preview();
 								<img id="previewImg" class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="thumbnail" />">
 							</span>
 							<span class="w3-col s9 m9 l9 w3-padding-16">
-								<p class="footnote w3-padding-right">
+								<p class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
 								<b><span id="previewTitle"><s:property value="Name" /></span></b><br />
 								<span id="previewDesc" class="w3-small"><s:property value="description" /></span> 
 								</p>
@@ -106,7 +106,7 @@ preview();
 					<hr />
 					
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Page Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Max 12288 chars.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Page Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
 						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%" maxlength="12288">
 						<s:property value="#request.author.htmlContent" />
 						</textarea>

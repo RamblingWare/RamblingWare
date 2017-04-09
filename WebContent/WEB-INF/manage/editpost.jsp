@@ -119,7 +119,7 @@ preview();
 						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.post.title" />" onkeypress="preview()" onchange="preview()" required placeholder="How to make a blog post!" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
 						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.post.uriName" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
@@ -127,7 +127,7 @@ preview();
 						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.post.description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
-						<label class="w3-validate w3-text-grey-light w3-large" for="tags">Tags:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Separated by commas.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="tags">Tags:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Separated by commas.)</span></label>
 						<input type="text" size="50" maxlength="200" name="tags" id="tags" value="<s:property value="#request.post.tags" />" onkeyup="preview()" onchange="preview()" required placeholder="java, interview, funny" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
@@ -138,23 +138,23 @@ preview();
 					<h3>Social Card Preview</h3>
 					<div class="w3-container w3-round w3-border w3-card w3-hover-shadow w3-padding-0">
 						
-						<div class="w3-container w3-round w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-light" style="overflow: hidden;">
+						<div class="w3-container w3-round-large w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-l4" style="overflow: hidden;">
 							<a href="#">
-							<img id="previewImg" style="max-height:200px;" src="<s:property value="thumbnail" />" alt="Photo for your Post" title="Blog post photo." />
+							<img id="previewImg" class="thumbnail" src="<s:property value="thumbnail" />" alt="Photo for your Post" title="Blog post photo." />
 							</a>
 						</div>
 						
 						<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
 						<h3 class="w3-padding-0 w3-margin-0"><a id="previewTitle" href="#"><s:property value="title" /></a></h3>
-						<p id="previewDesc" class="footnote"><s:property value="description" /></p><br/>
+						<p id="previewDesc" class="w3-small"><s:property value="description" /></p>
 						
-						<p class="footnote">Tags:
+						<p class="w3-small w3-text-grey w3-padding-top">Tags:
 						<span id="previewTags">
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-shadow" href="#">Tags</a>
 						</span>
 						</p>
-						<p class="footnote"><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=Utils.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %>
-						&nbsp;|&nbsp;<span><a class="footnote" href="#"><span>0 comments</span></a></span></p>
+						<p class="w3-small w3-text-grey"><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=Utils.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %>
+						&nbsp;|&nbsp;<span><a class="w3-small w3-text-grey" href="#"><span>0 comments</span></a></span></p>
 						</div>
 					</div>
 					
@@ -168,7 +168,7 @@ preview();
 						<s:else>
 						<input type="checkbox" name="hasBanner" id="hasBanner" class="w3-check" onchange="changeForm()" value="true" />
 						</s:else>
-						<label class="w3-validate w3-text-grey-light w3-large" for="hasBanner">Add a banner image?&nbsp;<span class="footnote quote">(A large image above the title of the post.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="hasBanner">Add a banner image?&nbsp;<span class="w3-small w3-text-grey quote">(A large image above the title of the post.)</span></label>
 					</p>
 					<s:if test="#request.post.banner != null && !#request.post.banner.isEmpty()">
 					<p id="bannerDiv1" style="display:block" class="w3-animate-right">   
@@ -192,7 +192,7 @@ preview();
 					</s:else>
 					<h2 id="previewTitle2">Post Title</h2>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: Max 12288 chars.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
 						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%" maxlength="12288">
 						<s:property value="#request.post.htmlContent" />
 						</textarea>
@@ -208,7 +208,7 @@ preview();
 					
 					<hr />
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="publishDate">Publish Date:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(MM-DD-YYYY or Month DD, YY)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="publishDate">Publish Date:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(MM-DD-YYYY or Month DD, YY)</span></label>
 						<input type="text" size="50" maxlength="20" name="publishDate" id="publishDate" value="<s:property value="#request.post.publishDateReadable" />" required placeholder="MM-DD-YYYY" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
@@ -216,14 +216,14 @@ preview();
 						<input type="checkbox" name="visible" id="visible" class="w3-check" checked="checked" value="true" />
 						</s:if>
 						<s:else><input type="checkbox" name="visible" id="visible" class="w3-check" value="true" /></s:else>
-						<label class="w3-validate w3-text-grey-light w3-large" for="visible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="footnote quote">(You can make it public later if you want.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="visible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="w3-small w3-text-grey quote">(You can make it public later if you want.)</span></label>
 					</p>
 					<p>
 						<s:if test="#request.post.isFeatured() == true">
 						<input type="checkbox" name="featured" id="featured" class="w3-check" checked="checked" value="true" />
 						</s:if>
 						<s:else><input type="checkbox" name="featured" id="featured" class="w3-check" value="true" /></s:else>
-						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square"></span><span class="footnote quote">(Gets put on the Featured sidebar of every page.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square"></span><span class="w3-small w3-text-grey quote">(Gets put on the Featured sidebar of every page.)</span></label>
 					</p>
 					
 					

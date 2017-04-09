@@ -38,7 +38,7 @@
 								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
 							</span>
 							<span class="w3-col s9 m9 l9 w3-padding-16">
-								<span class="footnote w3-padding-right">
+								<span class="w3-small w3-text-grey w3-padding-right">
 								<b><s:property value="#session.USER.name" /></b><br />
 								<span class="w3-small"><s:property value="#session.USER.description" /></span> 
 								</span>
@@ -66,23 +66,23 @@
 							<p>
 								<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:&nbsp;<span class="w3-text-red">*</span></label>
 								<input type="text" size="50" maxlength="200" name="username" id="username" value="<s:property value="#session.USER.username" />" required class="w3-input w3-round-large w3-border" />
-								<span class="footnote">Your username is used to login.</span>
+								<span class="w3-small w3-text-grey">Your username is used to login.</span>
 							</p>
 							<p>
 								<label class="w3-validate w3-text-grey-light w3-large" for="email">Email:&nbsp;<span class="w3-text-red">*</span></label>
 								<input type="text" size="50" maxlength="200" name="email" id="email" value="<s:property value="#session.USER.email" />" required class="w3-input w3-round-large w3-border" />
-								<span class="footnote">Your email address is used to validate your identity.</span>
+								<span class="w3-small w3-text-grey">Your email address is used to validate your identity.</span>
 							</p>
 							<p>
 								<s:if test="#session.USER.isAdmin()">
 									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-theme">Admin</span>
 									<br/>
-									<span class="footnote">Admins have full access.</span>
+									<span class="w3-small w3-text-grey">Admins have full access.</span>
 								</s:if>
 								<s:else>
 									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-pale-blue">Author</span>
 									<br/>
-									<span class="footnote">Authors can create/edit blog posts.</span>
+									<span class="w3-small w3-text-grey">Authors can create/edit blog posts.</span>
 								</s:else>
 							</p>
 							<hr />
@@ -112,7 +112,7 @@
 								<label class="w3-validate w3-text-grey-light w3-large" for="passwordNew">New Password:&nbsp;<span class="w3-text-red">*</span></label>
 								<input type="password" size="50" maxlength="300" name="passwordNew" id="passwordNew" value="" required class="w3-input w3-round-large w3-border" />
 								<br/>
-								<span class="footnote">Must be 8 or more characters. Or just <a href="https://duckduckgo.com/?q=strong+password&t=ffsb&ia=answer" target="_blank">generate one</a>.</span>
+								<span class="w3-small w3-text-grey">Must be 8 or more characters. Or just <a href="https://duckduckgo.com/?q=strong+password&t=ffsb&ia=answer" target="_blank">generate one</a>.</span>
 							</p>
 							<p>
 								<label class="w3-validate w3-text-grey-light w3-large" for="passwordVerify">New Password (Verify):&nbsp;<span class="w3-text-red">*</span></label>
@@ -143,7 +143,7 @@
 								<label for="otpEnabled" class="w3-validate w3-text-grey-light w3-large" for="title">Two-Factor Authentication:</label>
 								&nbsp;<span class="w3-tag w3-round w3-pale-green">Enabled</span>
 								<br/>
-								<span class="footnote">Your account is secured with 2FA by using a OTP (One-Time Password) every time you log in.</span>
+								<span class="w3-small w3-text-grey">Your account is secured with 2FA by using a OTP (One-Time Password) every time you log in.</span>
 							</p>
 							<hr />
 							<p>
@@ -158,8 +158,8 @@
 								<label for="otpEnabled" class="w3-validate w3-text-grey-light w3-large" for="title">Two-Factor Authentication:</label>
 								&nbsp;<span class="w3-tag w3-round w3-pale-red">Disabled</span>
 								<br/>
-								<span class="footnote">Secure your account with 2FA by using a OTP (One-Time Password) every time you log in.</span>
-								<span class="footnote">
+								<span class="w3-small w3-text-grey">Secure your account with 2FA by using a OTP (One-Time Password) every time you log in.</span>
+								<span class="w3-small w3-text-grey">
 									Use a third-party Authentication app on your mobile device to enable your two factor authentication. If you do not have an Authentication app
 									then we recommend using <a target="_blank" href="https://mattrubin.me/authenticator/">Authenticator</a>, <a target="_blank" href="https://www.authy.com/app/mobile/">Authy</a>, or <a target="_blank" href="https://goo.gl/gtjo1w">Google Authenticator</a>.
 								</span>
@@ -187,7 +187,7 @@
 									<label class="w3-validate w3-text-grey-light w3-large">Recovery Code:</label>
 									<input type="text" size="50" maxlength="20" value="<s:property value="#session.USER.keyRecover" />" readonly class="w3-input w3-round-large w3-border w3-large w3-pale-yellow" />
 								</p>
-								<p class="footnote">
+								<p class="w3-small w3-text-grey">
 									Keep it somewhere safe where you can always find it!
 								</p>
 								<hr />
@@ -208,7 +208,7 @@
 								<p class="w3-center">
 								<img class="w3-card w3-round-large" src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/RamblingWare:<s:property value="#session.USER.email" />?secret=<s:property value="secret" />&issuer=RamblingWare&algorithm=SHA1&digits=6&period=30" />
 								<br />
-								<span class="footnote">
+								<span class="w3-small w3-text-grey">
 									<b>Secret:</b> <s:property value="secret" />
 								</span>
 								</p>
@@ -236,7 +236,7 @@
 								</h3>
 								<form action="/manage/settings" method="post">
 								<input type="hidden" name="security" value="true" />
-								<p class="footnote">
+								<p class="w3-small w3-text-grey">
 									Disabling Two Factor Authentication will bypass the additional security provided from using a OTP (One-Time Password) at every login request.
 									Your account will still use a regular password, but would no longer ask for a Two-Factor code.
 								</p>

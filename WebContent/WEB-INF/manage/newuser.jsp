@@ -34,19 +34,19 @@
 						<input type="text" size="50" maxlength="200" name="name" id="name" value="<s:property value="name" />" required placeholder="John Doe" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="footnote quote">(Note: This must be lowercase and unique!)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
 						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
-						<span class="footnote"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="uriName" /></span>
+						<span class="w3-small w3-text-grey"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="uriName" /></span>
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="200" name="username" id="username" value="<s:property value="username" />" required class="w3-input w3-round-large w3-border" />
-						<span class="footnote">Your username is used to login.</span>
+						<span class="w3-small w3-text-grey">Your username is used to login.</span>
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="email">Email:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="100" name="email" id="email" value="<s:property value="email" />" required placeholder="jdoe@mail.com" class="w3-input w3-round-large w3-border" />
-						<span class="footnote">Your email address is used to validate your identity.</span>
+						<span class="w3-small w3-text-grey">Your email address is used to validate your identity.</span>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:&nbsp;<span class="w3-text-red">*</span></label>

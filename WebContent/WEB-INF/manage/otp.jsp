@@ -45,7 +45,7 @@
 							</p>
 						</form>
 						
-							<p class="footnote w3-center">
+							<p class="w3-small w3-text-grey w3-center">
 								<a href="/manage/forgot?type=twofactor">I don't have this.</a>
 							</p>
 						</div>
