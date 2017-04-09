@@ -47,7 +47,6 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 				page = 1;
 			}
 			
-			
 			// gather posts
 			posts = Application.getDatabaseSource().getPosts(page, limit, false);
 			

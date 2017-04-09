@@ -38,21 +38,7 @@
 						<%@include file="/WEB-INF/fragment/card-post.jspf" %>
 					</s:iterator>
 					
-					<div class="w3-container w3-row">
-						<div class="w3-col s4 m4 l4">
-						<s:if test="prevPage == true">
-							<a class="w3-btn w3-round w3-small w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-left" href="/blog/page/<s:property value="page - 1" />"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
-						</s:if><s:else>&nbsp;</s:else>
-						</div>
-						<div class="w3-col s4 m4 l4 w3-center">
-							<span class="w3-small w3-text-grey">Page <s:property value="page" /></span>
-						</div>
-						<div class="w3-col s4 m4 l4">
-						<s:if test="nextPage == true">
-							<a class="w3-btn w3-round w3-small w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-right" href="/blog/page/<s:property value="page + 1" />"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
-						</s:if><s:else>&nbsp;</s:else>
-						</div>
-					</div>
+					<%@include file="/WEB-INF/fragment/pagination.jspf" %>
 				
 				</s:else>
 				</s:if>

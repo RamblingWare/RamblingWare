@@ -25,16 +25,18 @@
 				<h1>View/Edit Authors</h1>
 				
 				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-user-tie w3-large w3-margin-right"></span>Add Author</a>
-				<span class="footnote nowrap">Add a new Author.</span>
+				<span class="w3-small w3-text-grey nowrap">Add a new Author.</span>
 				</p>
 				
 				<!-- AUTHORS START -->
 				<s:if test="authors != null">
 				<s:if test="authors.isEmpty()">
-					<p class="footnote">Something went wrong because no results were found. Please try again later?</p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+					<span class="icon-cross w3-large w3-margin-right"></span>
+						Something went wrong because no users were found. Please try again later?</p>
 				</s:if>
 				<s:else>
-					<p class="footnote"><s:property value="authors.size()" /> result(s) found.</p>
+					<p class="w3-small w3-text-grey w3-margin-0 w3-right"><s:property value="authors.size()" /> result(s) found.</p>
 					<table class="w3-table-all w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
@@ -67,6 +69,8 @@
 						<td><s:property value="lastLoginDateReadable" /></td>
 					</s:iterator>
 					</table>
+					
+					<%@include file="/WEB-INF/fragment/pagination.jspf" %>
 				
 				</s:else>
 				</s:if>

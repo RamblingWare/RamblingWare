@@ -25,20 +25,22 @@
 				<h1>View/Edit Posts</h1>
 				
 				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large w3-margin-right"></span>Create New Post</a> 
-				<span class="footnote nowrap">Make a new blog post.</span>
+				<span class="w3-small w3-text-grey nowrap">Make a new blog post.</span>
 				</p>
 				<p>
 				<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/"><span class="icon-bubbles w3-large w3-margin-right"></span>View Comments</a>
-				<span class="footnote nowrap">Manage comments on blog posts using Disqus.</span>
+				<span class="w3-small w3-text-grey nowrap">Manage comments on blog posts using Disqus.</span>
 				</p>
 				
 				<!-- POSTS START -->
 				<s:if test="posts != null">
 				<s:if test="posts.isEmpty()">
-					<p class="footnote">Something went wrong because no results were found. Please try again later?</p>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+					<span class="icon-cross w3-large w3-margin-right"></span>
+						Something went wrong because no posts were found. Please try again later?</p>
 				</s:if>
 				<s:else>
-					<p class="footnote"><s:property value="posts.size()" /> result(s) found.</p>
+					<p class="w3-small w3-text-grey w3-margin-0 w3-right"><s:property value="posts.size()" /> result(s) found.</p>
 					<table class="w3-table-all w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
@@ -74,6 +76,8 @@
 						<td><span title="<s:property value="publishDate" />"><s:property value="publishDateReadable" /></span></td>
 					</s:iterator>
 					</table>
+					
+					<%@include file="/WEB-INF/fragment/pagination.jspf" %>
 				
 				</s:else>
 				</s:if>

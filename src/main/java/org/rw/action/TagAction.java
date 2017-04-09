@@ -13,7 +13,6 @@ import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -27,41 +26,50 @@ public class TagAction extends ActionSupport implements UserAware, ServletRespon
 	
 	private ArrayList<Post> posts = new ArrayList<Post>();
 	private String tag;
+	private int page;
+	private int limit = 7;
+	private boolean nextPage;
+	private boolean prevPage;
 	
 	public String execute() {
 				
 		// /tag
 		
-		// this allows blog posts to be shown without parameter arguments (i.e. ?uri_name=foobar&test=123 )
-		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
-		if(tag == null && uriTemp.startsWith("/tag/"))
-			tag = Utils.removeBadChars(uriTemp.substring(5,uriTemp.length()));
-		else if(tag == null && uriTemp.startsWith("/manage/tag/"))
-			tag = Utils.removeBadChars(uriTemp.substring(12,uriTemp.length()));
-		
-		if(tag != null && tag.length() > 0)
-		{
-			// this shows the most recent blog posts by tag
-			try {
-				// gather posts
-				posts = Application.getDatabaseSource().getPostsByTag(1, 25, tag, false);
-				
-				// set attributes
-				servletRequest.setCharacterEncoding("UTF-8");
-				servletRequest.setAttribute("posts", posts);
-				
-				return SUCCESS;
-			
-			} catch (Exception e) {
-				addActionError("Error: "+e.getClass().getName()+". Please try again later.");
-				e.printStackTrace();
-				return ERROR;
+		// this shows the most recent blog posts by tag
+		try {
+			// jump to page if provided
+			String  pageTemp = servletRequest.getRequestURI().toLowerCase();
+			if(pageTemp.startsWith("/tag/page/"))
+			{
+				pageTemp = Utils.removeBadChars(pageTemp.substring(10,pageTemp.length()));
+				page = Integer.parseInt(pageTemp);
+			} 
+			else if(pageTemp.startsWith("/tag/"))
+			{
+				tag = Utils.removeBadChars(pageTemp.substring(5,pageTemp.length()));
+				page = 1;
 			}
-		}
-		else
-		{
-			addActionError("Tag '"+tag+"' not recognized. Please try again.");
-			return Action.NONE;
+			
+			// gather posts
+			posts = Application.getDatabaseSource().getPostsByTag(page, limit, tag, false);
+			
+			// determine pagination
+			nextPage = posts.size() <= limit;
+			prevPage = page > 1;
+			
+			// set attributes
+			servletRequest.setCharacterEncoding("UTF-8");
+			servletRequest.setAttribute("posts", posts);
+			servletRequest.setAttribute("page", page);
+			servletRequest.setAttribute("nextPage", nextPage);
+			servletRequest.setAttribute("prevPage", prevPage);
+			
+			return SUCCESS;
+		
+		} catch (Exception e) {
+			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
+			e.printStackTrace();
+			return ERROR;
 		}
 	}
 
@@ -99,5 +107,29 @@ public class TagAction extends ActionSupport implements UserAware, ServletRespon
 
 	public void setTag(String tag) {
 		this.tag = Utils.removeBadChars(tag);
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public boolean isNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(boolean nextPage) {
+		this.nextPage = nextPage;
+	}
+
+	public boolean isPrevPage() {
+		return prevPage;
+	}
+
+	public void setPrevPage(boolean prevPage) {
+		this.prevPage = prevPage;
 	}
 }

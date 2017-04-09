@@ -176,6 +176,12 @@
 			<result name="error">/WEB-INF/manage/viewposts.jsp</result>
 		</action>
 		
+		<action name="posts/page/*" class="org.rw.action.manage.ViewPostsAction">
+			<result name="success">/WEB-INF/manage/viewposts.jsp</result>
+			<result name="error">/WEB-INF/manage/viewposts.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
 		<action name="newpost" class="org.rw.action.manage.NewPostAction">
 			<result name="success">/WEB-INF/manage/newpost.jsp</result>
 			<result name="edit" type="chain">
@@ -203,6 +209,12 @@
 		<action name="users" class="org.rw.action.manage.ViewUsersAction">
 			<result name="success">/WEB-INF/manage/viewusers.jsp</result>
 			<result name="error">/WEB-INF/manage/viewusers.jsp</result>
+		</action>
+		
+		<action name="users/page/*" class="org.rw.action.manage.ViewUsersAction">
+			<result name="success">/WEB-INF/manage/viewusers.jsp</result>
+			<result name="error">/WEB-INF/manage/viewusers.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 		<action name="newuser" class="org.rw.action.manage.NewUserAction">

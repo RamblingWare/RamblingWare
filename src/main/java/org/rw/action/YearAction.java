@@ -13,7 +13,6 @@ import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -27,43 +26,52 @@ public class YearAction extends ActionSupport implements UserAware, ServletRespo
 	
 	private ArrayList<Post> posts = new ArrayList<Post>();
 	private String year;
+	private int page;
+	private int limit = 7;
+	private boolean nextPage;
+	private boolean prevPage;
 	
 	public String execute() {
 				
 		// /year
-		
-		// this allows blog posts to be shown without parameter arguments (i.e. ?uri_name=foobar&test=123 )
-		String  uriTemp = servletRequest.getRequestURI().toLowerCase();
-		if(year == null && uriTemp.startsWith("/year/"))
-			year = Utils.removeBadChars(uriTemp.substring(6,uriTemp.length()));
-		else if(year == null && uriTemp.startsWith("/manage/year/"))
-			year = Utils.removeBadChars(uriTemp.substring(13,uriTemp.length()));
-				
-		if(year != null && year.length() > 0)
-		{
-			try {
-				// this shows the most recent blog posts by year
-				int yr = Integer.parseInt(year);
-				
-				// gather posts
-				posts = Application.getDatabaseSource().getPostsByYear(1, 25, yr, false);
-				
-				// set attributes
-				servletRequest.setCharacterEncoding("UTF-8");
-				servletRequest.setAttribute("posts", posts);
-				
-				return SUCCESS;
-			
-			} catch (Exception e) {
-				addActionError("Error: "+e.getClass().getName()+". Please try again later.");
-				e.printStackTrace();
-				return ERROR;
+		 
+		// this shows the most recent blog posts by year
+		try {
+			// jump to page if provided
+			String  pageTemp = servletRequest.getRequestURI().toLowerCase();
+			if(pageTemp.startsWith("/year/page/"))
+			{
+				pageTemp = Utils.removeBadChars(pageTemp.substring(11,pageTemp.length()));
+				page = Integer.parseInt(pageTemp);
+			} 
+			else if(pageTemp.startsWith("/year/"))
+			{
+				year = Utils.removeBadChars(pageTemp.substring(6,pageTemp.length()));
+				page = 1;
 			}
-		}
-		else
-		{
-			addActionError("Year '"+year+"' not recognized. Please try again.");
-			return Action.NONE;
+			
+			int yr = Integer.parseInt(year);
+			
+			// gather posts
+			posts = Application.getDatabaseSource().getPostsByYear(page, limit, yr, false);
+			
+			// determine pagination
+			nextPage = posts.size() <= limit;
+			prevPage = page > 1;
+			
+			// set attributes
+			servletRequest.setCharacterEncoding("UTF-8");
+			servletRequest.setAttribute("posts", posts);
+			servletRequest.setAttribute("page", page);
+			servletRequest.setAttribute("nextPage", nextPage);
+			servletRequest.setAttribute("prevPage", prevPage);
+			
+			return SUCCESS;
+		
+		} catch (Exception e) {
+			addActionError("Error: "+e.getClass().getName()+". Please try again later.");
+			e.printStackTrace();
+			return ERROR;
 		}
 	}
 	
@@ -101,5 +109,29 @@ public class YearAction extends ActionSupport implements UserAware, ServletRespo
 
 	public void setYear(String year) {
 		this.year = Utils.removeBadChars(year);
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public boolean isNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(boolean nextPage) {
+		this.nextPage = nextPage;
+	}
+
+	public boolean isPrevPage() {
+		return prevPage;
+	}
+
+	public void setPrevPage(boolean prevPage) {
+		this.prevPage = prevPage;
 	}
 }
