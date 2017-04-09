@@ -32,7 +32,7 @@
 				</p>	
 				<% } %>
 				
-				<p class="footnote"><% if(exception!=null)System.err.println("Exception: "+exception.getClass().getName()+" "+exception.getMessage()); %></p>
+				<p class="w3-small w3-text-grey"><% if(exception!=null)System.err.println("Exception: "+exception.getClass().getName()+" "+exception.getMessage()); %></p>
 				
 				<br />
 				

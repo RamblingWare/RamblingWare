@@ -37,7 +37,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 							
-				<h1><font class="footnote w3-right"><s:property value="createDate" /></font>
+				<h1><font class="w3-small w3-text-grey w3-right"><s:property value="createDate" /></font>
 				<s:property value="author.name" /></h1>
 				
 				<div class="w3-container w3-padding">
@@ -46,9 +46,7 @@
 				</div>
 					
 				<br />
-				<div class="w3-container">
-					<p class="footnote quote">Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.</p>
-				</div>
+				<p class="w3-small w3-text-grey quote">Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.</p>
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

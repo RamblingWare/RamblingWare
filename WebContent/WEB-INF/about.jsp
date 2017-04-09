@@ -22,7 +22,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 							
-				<h1><font class="footnote w3-right">Feb 16th, 2017</font>
+				<h1><font class="w3-small w3-text-grey w3-right">Apr 9th, 2017</font>
 				About</h1>
 				
 				<p>
@@ -33,6 +33,9 @@
 				</p>
 				<p>
 					I hope you enjoy reading, and leave a comment if you like! Thanks. And don't forget to subscribe for more.				
+				</p>
+				<p class="w3-small w3-text-grey quote">
+					Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.
 				</p>
 				
 				<br />
@@ -45,7 +48,7 @@
 						<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="https://i.imgur.com/21fYx3ks.jpg">
 					</div>
 					<div class="w3-col s9 m9 l9 w3-padding-16">
-						<p class="footnote w3-padding-right">
+						<p class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
 						<b>Austin Delamar</b><br />
 						<span class="w3-small">
 						Java Developer, Burger &amp; Beer enthusiast, and Owner of RamblingWare.
@@ -74,13 +77,6 @@
 					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare"><span class="icon-embed2 w3-large w3-margin-right"></span>View Code</a>
 				</p>
 				
-				<br />
-				<div class="w3-container">
-					<p class="footnote quote">Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.</p>
-				</div>
-				<%! int hits = 1; %>
-				<!-- About JSP Hits: <%=hits++ %>  -->
-				<br />
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

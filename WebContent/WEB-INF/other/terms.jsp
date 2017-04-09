@@ -24,7 +24,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 			
-				<h1><font class="footnote w3-right">Jan 6th, 2017</font>
+				<h1><font class="w3-small w3-text-grey w3-right">Jan 6th, 2017</font>
 				Terms of Use</h1>
 				<p>
 				<font class="bold">Defined Terms.</font> As used herein: (1) the terms "you," "your" or "user" refer to any visitor to this website, (2) the terms "we," "our," or "us" refer to RamblingWare, (3) the terms "this website" or "this site" refer to this website, including the mobile version of this website, and any other pages that are part of this website, (4) the term "Social Media" refers to other websites such as Facebook, LinkedIn, Twitter, or Google+, (4) the term "Terms of Use" refer to the terms and conditions set forth or referenced below.<br /><br />

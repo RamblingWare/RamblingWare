@@ -43,7 +43,7 @@
 				<% if(request.getAttribute("post.banner")!=null && !request.getAttribute("post.banner").toString().isEmpty()) { %>
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
 					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for <s:property value="post.title" />" title="<s:property value="post.bannerCaption" />" src="<s:property value="post.banner" />">
-					<p class="footnote w3-tiny"><s:property value="post.bannerCaption" /></p>
+					<p class="w3-tiny w3-text-grey w3-margin-0 w3-right"><s:property value="post.bannerCaption" /></p>
 				</div>
 				<% } %>
 				
@@ -57,7 +57,7 @@
 					<div class="w3-col s12 m4 l4">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
 							<img class="w3-round" style="height: 33px; vertical-align: middle;" src="<s:property value="post.author.thumbnail" />">
-							<a href="/author/<s:property value="post.author.uriName" />" title="Author" class="w3-text-theme" style="vertical-align: middle;">
+							<a href="/author/<s:property value="post.author.uriName" />" title="Author" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">
 							<s:property value="post.author.name" /></a>
 						</p>
 					</div>
@@ -69,7 +69,7 @@
 					<div class="w3-col s12 m4 l4">
 						<s:if test="post.tags != null && !post.tags.isEmpty()">
 							<p class="w3-large w3-padding-0">
-							<span class="footnote"><s:iterator value="post.tags">
+							<span class="w3-small w3-text-grey"><s:iterator value="post.tags">
 							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/tag/<s:property />"><s:property /></a>
 							</s:iterator></span></p>
 						</s:if>
@@ -78,7 +78,7 @@
 				
 				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity no-print">
 					<div class="w3-padding-16 w3-center">
-						<p class="footnote">Share this post.</p>	
+						<p class="w3-small w3-text-grey w3-margin-0">Share this post.</p>	
 						<a title="Share on Facebook" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-indigo w3-theme-l4 icon-facebook"
 						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />"></a>				
 						

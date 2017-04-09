@@ -24,7 +24,7 @@
 				
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
 					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for WTF?!" title="Sad Robot" src="https://i.imgur.com/pHKz09F.png">
-					<p class="footnote w3-tiny w3-right">Photo Credit: bamenny</p>
+					<p class="w3-tiny w3-text-grey w3-margin-0 w3-right">Photo Credit: bamenny</p>
 				</div>
 				
 				<h1>404: File Not Found</h1>

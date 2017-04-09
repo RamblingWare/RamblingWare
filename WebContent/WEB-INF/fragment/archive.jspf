@@ -27,7 +27,7 @@
 	<div class="w3-container">
 		<s:if test="#session.archive_tags != null && !#session.archive_tags.isEmpty()">
 			<h3 class="w3-margin-top">Tags</h3>
-			<p class="footnote">
+			<p class="w3-small w3-text-grey">
 			<s:iterator value="#session.archive_tags" status="t">
 				<s:set var="tval" value="#session.archive_tags[#t.index].substring(0,#session.archive_tags[#t.index].lastIndexOf('('))" />
 				<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/tag/<s:property value="tval" />"><s:property value="tval" /></a>
