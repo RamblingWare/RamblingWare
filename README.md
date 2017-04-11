@@ -20,7 +20,7 @@ https://www.ramblingware.com
 - 2FA security for Author logins
 
 ### Technologies Used:
-- Java EE Programming Language
+- [Java EE](https://www.java.com/) Programming Language
 - [Apache Struts 2](https://struts.apache.org/) Framework
 - [MySQL 5.5](https://www.mysql.com/) Database
 - [W3.CSS](http://www.w3schools.com/css/) Styling
