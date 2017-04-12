@@ -202,6 +202,7 @@ preview();
 								language: 'en',
 								height: 500,
 								toolbarCanCollapse: true,
+								codeSnippet_theme: 'dark'
 							});
 			            </script>
 					</p>
