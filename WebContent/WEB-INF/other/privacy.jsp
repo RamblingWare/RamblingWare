@@ -24,7 +24,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 			
-				<h1><font class="w3-small w3-text-grey w3-right">Jan 6th, 2017</font>
+				<h1><span class="w3-small w3-text-grey w3-right">Jan 6th, 2017</span>
 				Privacy Policy</h1>
 				<p>
 				<span class="bold">Personal Info.</span> This website does not collect or disclose personal information of users.<br /><br />

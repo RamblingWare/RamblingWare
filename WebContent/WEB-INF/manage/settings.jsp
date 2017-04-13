@@ -175,7 +175,7 @@
 					</div>
 					
 					<div id="recover-2fa" class="w3-modal">
-						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-16">
+						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Recovery Code
 								<a title="Close" onclick="closePopup('recover-2fa')" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
@@ -198,7 +198,7 @@
 						</div>
 					</div>
 					<div id="setup-2fa" class="w3-modal">
-						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-16">
+						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Enable 2FA
 								<a title="Close" onclick="closePopup('setup-2fa')" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
@@ -229,7 +229,7 @@
 						</div>
 					</div>
 					<div id="remove-2fa" class="w3-modal">
-						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-16">
+						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Disable 2FA
 								<a title="Close" onclick="closePopup('remove-2fa')" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>

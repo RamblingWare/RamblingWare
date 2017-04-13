@@ -22,7 +22,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 							
-				<h1><font class="w3-small w3-text-grey w3-right">Apr 9th, 2017</font>
+				<h1><span class="w3-small w3-text-grey w3-right">Apr 9th, 2017</span>
 				About</h1>
 				
 				<p>

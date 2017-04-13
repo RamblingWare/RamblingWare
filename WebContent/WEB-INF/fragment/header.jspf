@@ -2,7 +2,7 @@
 <header>
 	<div class="page w3-container w3-theme-dark">
 		<div class="w3-col s10 m7 l7 w3-container w3-padding-0">
-		<a href="/"><img class="logo" src="/img/logo-medium.png" alt="RamblingWare" /></a>
+		<a href="/"><img id="logo" src="/img/logo-medium.png" alt="RamblingWare" /></a>
 	</div>
 	<%@include file="/WEB-INF/fragment/admin-menu.jspf"%>
 	<div id="search" class="w3-col s2 m3 l3 w3-padding-square w3-right w3-small w3-hide-small no-print">

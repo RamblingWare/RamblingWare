@@ -37,7 +37,7 @@
 				</s:if>
 				<s:else>
 					<p class="w3-small w3-text-grey w3-margin-0 w3-right"><s:property value="authors.size()" /> result(s) found.</p>
-					<table class="w3-table-all w3-small">
+					<table class="w3-table w3-bordered w3-striped w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
 						<th>Author</th>

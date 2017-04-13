@@ -13,7 +13,7 @@ https://www.ramblingware.com
 
 ### Features:
 
-- JavaScript independent (Only used for comments and admin page bits)
+- JavaScript independent (Only used for comments and code snippets)
 - Responsive Design, Mobile Friendly, Simple Interface
 - Blog management, Create/edit/delete posts, Add/edit/delete authors
 - Social Media ready with OpenGraph API and Twitter API
@@ -29,6 +29,7 @@ https://www.ramblingware.com
 - Comments by [Disqus](https://disqus.com/)
 - Search by [DuckDuckGo](https://duckduckgo.com)
 - WYSIWYG editor by [CKEditor](http://ckeditor.com/download)
+- Code syntax highlighting by [Highlight.js](https://highlightjs.org/)
 - Webfont Icons by [Icomoon](https://icomoon.io/)
 - Secure Password Hashing with [defuse/password-hashing](https://github.com/defuse/password-hashing)
 - TwoFactor Authentication with [kamranzafar/libotp](https://github.com/kamranzafar/libotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)

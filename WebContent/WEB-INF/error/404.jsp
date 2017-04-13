@@ -38,7 +38,7 @@
 				<div class="w3-center">
 					<p>Maybe try searching for it?</p>
 					<form action="/search" method="get">
-					<label for="s" class="icon-search w3-xlarge w3-text-theme"></label>
+					<label for="s" class="icon-search w3-large w3-text-theme"></label>
 					<input id="s" name="s" class="w3-input w3-hover-shadow w3-card w3-round-large" style="display:inline; width:75%" maxlength="50" size="20" placeholder="Search..." type="text">
 					</form>
 				</div>

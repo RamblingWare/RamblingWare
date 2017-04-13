@@ -43,7 +43,7 @@
 				<% if(request.getAttribute("post.banner")!=null && !request.getAttribute("post.banner").toString().isEmpty()) { %>
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
 					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for <s:property value="post.title" />" title="<s:property value="post.bannerCaption" />" src="<s:property value="post.banner" />">
-					<p class="w3-tiny w3-text-grey w3-margin-0 w3-right"><s:property value="post.bannerCaption" /></p>
+					<p class="w3-tiny w3-text-grey w3-margin-0" style="text-align: right;"><s:property value="post.bannerCaption" /></p>
 				</div>
 				<% } %>
 				
