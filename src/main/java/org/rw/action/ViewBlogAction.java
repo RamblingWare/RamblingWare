@@ -27,7 +27,7 @@ public class ViewBlogAction extends ActionSupport implements UserAware, ServletR
 	
 	private ArrayList<Post> posts = new ArrayList<Post>();
 	private int page;
-	private int limit = 7;
+	private int limit = 10;
 	private boolean nextPage;
 	private boolean prevPage;
 	

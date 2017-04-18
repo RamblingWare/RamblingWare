@@ -32,7 +32,7 @@
 					I cover topics around web development, web security, and programming. Really, anything that I can ramble on about!
 				</p>
 				<p>
-					I hope you enjoy reading, and leave a comment if you like! Thanks. And don't forget to subscribe for more.				
+					I hope you enjoy reading, and leave a comment if you like! And don't forget to subscribe for more. Thanks!			
 				</p>
 				<p class="w3-small w3-text-grey quote">
 					Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.
@@ -45,15 +45,14 @@
 				<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
 					<a href="/author/austin-delamar">
 					<div class="w3-col s3 m3 l3 w3-padding-16">
-						<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="https://i.imgur.com/21fYx3ks.jpg">
+						<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="https://i.imgur.com/cvT1kr8m.jpg">
 					</div>
 					<div class="w3-col s9 m9 l9 w3-padding-16">
 						<p class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
 						<b>Austin Delamar</b><br />
 						<span class="w3-small">
-						Java Developer, Burger &amp; Beer enthusiast, and Owner of RamblingWare.
-						When Austin's not at his computer, he likes to relax outdoors, play tennis,
-						snow ski, play guitar, and talk about himself in third-person.</span> 
+						Java, full-stack, web developer. Burger & beer enthusiast, and owner of RamblingWare. When I'm not at my 
+						computer I like to relax outdoors, play tennis, snow ski, and talk about technology.</span> 
 						</p>
 					</div>
 					</a>

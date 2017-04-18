@@ -2,7 +2,7 @@
 <div class="w3-container w3-row w3-margin-top">
 <div class="w3-col s4 m4 l4">
 <s:if test="prevPage == true">
-	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-left" href="${requestScope['javax.servlet.forward.request_uri']}page/<s:property value="page - 1" />"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
+	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-left" href="/blog/page/${page - 1}"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
 </s:if><s:else>&nbsp;</s:else>
 </div>
 <div class="w3-col s4 m4 l4 w3-center">
@@ -10,7 +10,7 @@
 </div>
 <div class="w3-col s4 m4 l4">
 <s:if test="nextPage == true">
-	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-right" href="${requestScope['javax.servlet.forward.request_uri']}page/<s:property value="page + 1" />"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
+	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-right" href="/blog/page/${page + 1}"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
 </s:if><s:else>&nbsp;</s:else>
 	</div>
 </div>
