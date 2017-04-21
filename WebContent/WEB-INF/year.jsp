@@ -47,6 +47,10 @@
 				</s:else>
 				</s:if>
 				<!-- POSTS END -->
+				
+				<div class="w3-container w3-padding-left w3-padding-right w3-center">
+					<p class="w3-large"><a href="/year/">See more years...</a></p>
+				</div>
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

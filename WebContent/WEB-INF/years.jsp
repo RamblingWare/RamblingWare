@@ -5,7 +5,7 @@
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
 
-<title>Tag <s:property value="tag" /> - RamblingWare</title>
+<title>Years - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -23,34 +23,37 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Tag: <s:property value="tag" /></h1>
+				<h1>Years</h1>
 				
-				<!-- POSTS START -->
-				<s:if test="posts != null">
-				<s:if test="posts.isEmpty()">
+				<!-- YEARS START -->
+				<s:if test="years != null">
+				<s:if test="years.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>
-						No posts were found with that tag.</p>
+						No results were found for any year.</p>
 				</s:if>
 				<s:else>
-					<s:if test="posts.size() == 1">	
-						<p>1 blog post tagged with <s:property value="tag" />.<br /></p>
+					<s:if test="years.size() == 1">	
+						<p>1 year containing blog posts.<br /></p>
 					</s:if>
 					<s:else>
-						<p><s:property value="posts.size()" /> blog posts tagged with <s:property value="tag" />.<br /></p>
+						<p><s:property value="years.size()" /> years of blog posts.<br /></p>
 					</s:else>
 					
-					<s:iterator value="posts" status="r">
-						<%@include file="/WEB-INF/fragment/card-post.jspf" %>
+					<ul>
+					<s:iterator value="years" status="y">
+						<s:set var="yval" value="years[#y.index].substring(0,4)" />
+						<s:set var="ycnt" value="years[#y.index].substring(6,years[#y.index].length-1)" />
+						<li><a title="<s:property value="yval" />" href="/year/<s:property value="yval" />"><s:property value="yval" /></a>
+						&nbsp;
+						<s:property value="ycnt" /> posts.
+						</li>
 					</s:iterator>
+					</ul>
 				
 				</s:else>
 				</s:if>
-				<!-- POSTS END -->
-				
-				<div class="w3-container w3-padding-left w3-padding-right w3-center">
-					<p class="w3-large"><a href="/tag/">See more tags...</a></p>
-				</div>
+				<!-- YEARS END -->
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

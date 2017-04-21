@@ -5,7 +5,7 @@
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
 
-<title>Tag <s:property value="tag" /> - RamblingWare</title>
+<title>Tags - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -23,34 +23,37 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Tag: <s:property value="tag" /></h1>
+				<h1>Tags</h1>
 				
-				<!-- POSTS START -->
-				<s:if test="posts != null">
-				<s:if test="posts.isEmpty()">
+				<!-- TAGS START -->
+				<s:if test="tags != null">
+				<s:if test="tags.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>
-						No posts were found with that tag.</p>
+						No tags were found.</p>
 				</s:if>
 				<s:else>
-					<s:if test="posts.size() == 1">	
-						<p>1 blog post tagged with <s:property value="tag" />.<br /></p>
+					<s:if test="tags.size() == 1">	
+						<p>1 tag found.<br /></p>
 					</s:if>
 					<s:else>
-						<p><s:property value="posts.size()" /> blog posts tagged with <s:property value="tag" />.<br /></p>
+						<p><s:property value="tags.size()" /> tags found. (Sorted alphabetically.)<br /></p>
 					</s:else>
 					
-					<s:iterator value="posts" status="r">
-						<%@include file="/WEB-INF/fragment/card-post.jspf" %>
+					<ol>
+					<s:iterator value="tags" status="t">
+						<s:set var="tval" value="tags[#t.index].substring(0,tags[#t.index].lastIndexOf('('))" />
+						<s:set var="tcnt" value="tags[#t.index].substring(tags[#t.index].lastIndexOf('(')+1,tags[#t.index].length-1)" />
+						<li><a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property value="tval" />" href="/tag/<s:property value="tval" />"><s:property value="tval" /></a>
+						&nbsp;
+						<s:property value="tcnt" /> posts.
+						</li>
 					</s:iterator>
+					</ol>
 				
 				</s:else>
 				</s:if>
-				<!-- POSTS END -->
-				
-				<div class="w3-container w3-padding-left w3-padding-right w3-center">
-					<p class="w3-large"><a href="/tag/">See more tags...</a></p>
-				</div>
+				<!-- TAGS END -->
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

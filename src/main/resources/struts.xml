@@ -120,10 +120,14 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
+		<action name="" class="org.rw.action.TagsAction">
+			<result name="success">/WEB-INF/tags.jsp</result>
+			<result name="error">/WEB-INF/tags.jsp</result>
+		</action>
+		
 		<action name="*" class="org.rw.action.TagAction">
 			<result name="success">/WEB-INF/tag.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
@@ -133,10 +137,14 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
+		<action name="" class="org.rw.action.YearsAction">
+			<result name="success">/WEB-INF/years.jsp</result>
+			<result name="error">/WEB-INF/years.jsp</result>
+		</action>
+		
 		<action name="*" class="org.rw.action.YearAction">
 			<result name="success">/WEB-INF/year.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
@@ -149,7 +157,6 @@
 		<action name="*" class="org.rw.action.ViewAuthorAction">
 			<result name="success">/WEB-INF/author.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
