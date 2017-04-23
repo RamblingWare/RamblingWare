@@ -51,7 +51,7 @@ public class BlogAction extends ActionSupport implements UserAware, ServletRespo
 			posts = Application.getDatabaseSource().getPosts(page, limit, false);
 			
 			// determine pagination
-			nextPage = posts.size() <= limit;
+			nextPage = posts.size() >= limit;
 			prevPage = page > 1;
 			
 			// set attributes

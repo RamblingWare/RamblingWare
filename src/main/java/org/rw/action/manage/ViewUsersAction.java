@@ -50,7 +50,7 @@ public class ViewUsersAction extends ActionSupport implements UserAware, Servlet
 			authors = Application.getDatabaseSource().getAuthors(page, limit, true);
 			
 			// determine pagination
-			nextPage = authors.size() <= limit;
+			nextPage = authors.size() >= limit;
 			prevPage = page > 1;
 			
 			// set attributes

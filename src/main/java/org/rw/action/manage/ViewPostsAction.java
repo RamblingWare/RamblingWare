@@ -27,7 +27,7 @@ public class ViewPostsAction extends ActionSupport implements UserAware, Servlet
 	// results
 	private ArrayList<Post> posts;
 	private int page;
-	private int limit = 7;
+	private int limit = 15;
 	private boolean nextPage;
 	private boolean prevPage;
 	
@@ -50,7 +50,7 @@ public class ViewPostsAction extends ActionSupport implements UserAware, Servlet
 			posts = Application.getDatabaseSource().getPosts(page, limit, true);
 			
 			// determine pagination
-			nextPage = posts.size() <= limit;
+			nextPage = posts.size() >= limit;
 			prevPage = page > 1;
 			
 			// set attributes
