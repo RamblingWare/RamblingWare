@@ -12,17 +12,26 @@
 	<p class="w3-small w3-margin-0"><s:property value="description" /></p>
 
 	<p class="w3-small w3-text-theme w3-padding-top">
-		<span class="icon-author w3-medium w3-text-theme w3-padding-square"></span><s:property value="author.name" />&nbsp;
-		<span class="icon-time w3-medium w3-text-theme w3-padding-square"></span><s:property value="publishDateReadable" />
+		<s:if test="author.thumbnail != null && !author.thumbnail.trim().isEmpty()">
+			<span class="w3-padding-square"><img class="w3-round" alt="Author" title="Author" style="vertical-align: middle;" src="<s:property value="author.thumbnail" />" height="16" width="16"></span>
+		</s:if>
+		<s:else>
+			<span class="icon-author w3-medium w3-text-theme w3-padding-square" title="Author"></span>
+		</s:else>
+		<a href="/author/<s:property value="author.uriName" />" title="Author" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">
+		<s:property value="author.name" /></a>
+		
+		<span class="icon-time w3-medium w3-text-theme w3-padding-square" title="Publish Date"></span>
+		<a href="/year/<s:property value="publishYear" />" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="publishDateReadable" /></a>
 	</p>
 	<p class="w3-small w3-text-theme">
-		<span class="icon-tag w3-medium w3-text-theme w3-padding-square"></span>
+		<span class="icon-tag w3-medium w3-text-theme w3-padding-square" title="Tags"></span>
 		<s:if test="tags != null && !tags.isEmpty()">
 			<s:iterator value="tags">
 				<a class="w3-text-theme" href="/tag/<s:property />"><s:property /></a>&nbsp;
 			</s:iterator>
 		</s:if>
-		<span class="icon-comments w3-medium w3-text-theme w3-padding-square"></span><a class="w3-small w3-text-grey" href="/blog/<s:property value="uriName" />#comments">0</a>
+		<span class="icon-comments w3-medium w3-text-theme w3-padding-square" title="Comments"></span><a class="w3-small w3-text-grey" href="/blog/<s:property value="uriName" />#comments">0</a>
 	</p>
 </div>
 </div><br />

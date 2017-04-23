@@ -1,6 +1,6 @@
 <div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small no-print">
 	<ul>
-		<li><a href="/blog" class="w3-round w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
+		<li><a href="/blog/" class="w3-round w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
 		<li><a href="/about" class="w3-round w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
 	</ul>
 	<br/>
@@ -14,7 +14,7 @@
 </div>
 <div id="menu" class="w3-col w3-hide-large w3-hide-small no-print">
 	<ul>
-		<li class="w3-left w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/blog" title="Blog">Blog</a></li>
+		<li class="w3-left w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/blog/" title="Blog">Blog</a></li>
 		<li class="w3-left">&nbsp;</li>
 		<li class="w3-left w3-round w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/about" title="About">About</a></li>
 		<li><a class="w3-right w3-opacity w3-hover-opaque w3-hover-text-orange w3-padding-4" target="_blank" title="RSS Feed" href="/rss" style="text-align: left;"><span class="icon-rss w3-large w3-margin-right"></span></a></li>
