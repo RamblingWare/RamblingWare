@@ -40,11 +40,11 @@
 					<table class="w3-table w3-bordered w3-striped w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
-						<th>Author</th>
-						<th>Email</th>
-						<th>Role</th>
-						<th>Added</th>
-						<th>Last Login</th>
+						<th><span class="icon-author w3-large w3-text-theme w3-padding-square" title="Title"></span>Author</th>
+						<th><span class="icon-mail w3-large w3-text-theme w3-padding-square" title="Title"></span>Email</th>
+						<th><span class="icon-star w3-large w3-text-theme w3-padding-square" title="Title"></span>Role</th>
+						<th><span class="icon-time w3-large w3-text-theme w3-padding-square" title="Title"></span>Added</th>
+						<th><span class="icon-time w3-large w3-text-theme w3-padding-square" title="Title"></span>Last Login</th>
 					</tr>
 					
 					<s:iterator value="authors" status="r">

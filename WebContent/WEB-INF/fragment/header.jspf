@@ -20,8 +20,8 @@
 	<s:iterator value="actionErrors">
 	<div style="float:left; position:absolute; left:50%; top:1%;">
 	<div class="w3-animate-top w3-padding w3-margin w3-border w3-card-4 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" style="left:-50%; min-width:280px;" data-close="">
-		<span class="w3-medium">
-			<span class="icon-cross w3-large w3-margin-right"></span><s:property/>
+		<span class="w3-medium w3-text-black w3-margin-right">
+			<span class="icon-cross w3-large w3-margin-right w3-text-red"></span><s:property/>
 		</span>
 	</div>
 	</div>
@@ -31,8 +31,8 @@
 	<s:iterator value="actionMessages">
 	<div style="float:left; position:absolute; left:50%; top:1%;">
 	<div class="w3-animate-top w3-padding w3-margin w3-border w3-card-4 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" style="left:-50%; min-width:280px;" data-close="">
-		<span class="w3-medium">
-			<span class="icon-checkmark w3-large w3-margin-right"></span><s:property/>
+		<span class="w3-medium w3-text-black w3-margin-right">
+			<span class="icon-checkmark w3-large w3-margin-right w3-text-green"></span><s:property/>
 		</span>
 	</div>
 	</div>

@@ -40,10 +40,10 @@
 					<table class="w3-table w3-bordered w3-striped w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
-						<th>Title</th>
-						<th>Tags</th>
-						<th>Author</th>
-						<th>Published</th>
+						<th><span class="icon-quill w3-large w3-text-theme w3-padding-square" title="Title"></span>Title</th>
+						<th><span class="icon-tag w3-large w3-text-theme w3-padding-square" title="Tags"></span>Tags</th>
+						<th><span class="icon-author w3-large w3-text-theme w3-padding-square" title="Author"></span>Author</th>
+						<th><span class="icon-time w3-large w3-text-theme w3-padding-square" title="Publish Date"></span>Published</th>
 					</tr>
 					
 					<s:iterator value="posts" status="r">
@@ -68,8 +68,8 @@
 								&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/tag/<s:property />" title="<s:property />"><s:property /></a>
 							</s:iterator>
 						</s:if></td>
-						<td><a href="/author/<s:property value="author.uriName" />"><s:property value="author.name" /></a></td>
-						<td><span title="<s:property value="publishDate" />"><s:property value="publishDateReadable" /></span></td>
+						<td><a class="w3-text-black" href="/author/<s:property value="author.uriName" />"><s:property value="author.name" /></a></td>
+						<td><a class="w3-text-black" href="/year/<s:property value="publishYear" />" title="<s:property value="publishDate" />"><s:property value="publishDateReadable" /></a></td>
 					</s:iterator>
 					</table>
 					
