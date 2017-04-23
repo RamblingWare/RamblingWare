@@ -38,7 +38,7 @@
 		</global-exception-mappings>
 		
 		<!-- ACTIONS -->	
-		<action name="" class="org.rw.action.ViewHomeAction">
+		<action name="" class="org.rw.action.HomeAction">
 			<result name="success">/WEB-INF/home.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -90,25 +90,25 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 				
-		<action name="" class="org.rw.action.ViewBlogAction">
-			<result name="success">/WEB-INF/blog.jsp</result>
-			<result name="error">/WEB-INF/blog.jsp</result>
+		<action name="" class="org.rw.action.BlogAction">
+			<result name="success">/WEB-INF/blog/blog.jsp</result>
+			<result name="error">/WEB-INF/blog/blog.jsp</result>
 		</action>
 		
-		<action name="page/*" class="org.rw.action.ViewBlogAction">
-			<result name="success">/WEB-INF/blog.jsp</result>
-			<result name="error">/WEB-INF/blog.jsp</result>
+		<action name="page/*" class="org.rw.action.BlogAction">
+			<result name="success">/WEB-INF/blog/blog.jsp</result>
+			<result name="error">/WEB-INF/blog/blog.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="post/*" class="org.rw.action.ViewPostAction">
-			<result name="success">/WEB-INF/post.jsp</result>
+		<action name="post/*" class="org.rw.action.PostAction">
+			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="org.rw.action.ViewPostAction">
-			<result name="success">/WEB-INF/post.jsp</result>
+		<action name="*" class="org.rw.action.PostAction">
+			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
@@ -121,12 +121,12 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
 		<action name="" class="org.rw.action.TagsAction">
-			<result name="success">/WEB-INF/tags.jsp</result>
-			<result name="error">/WEB-INF/tags.jsp</result>
+			<result name="success">/WEB-INF/tag/tags.jsp</result>
+			<result name="error">/WEB-INF/tag/tags.jsp</result>
 		</action>
 		
 		<action name="*" class="org.rw.action.TagAction">
-			<result name="success">/WEB-INF/tag.jsp</result>
+			<result name="success">/WEB-INF/tag/tag.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
@@ -138,12 +138,12 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
 		<action name="" class="org.rw.action.YearsAction">
-			<result name="success">/WEB-INF/years.jsp</result>
-			<result name="error">/WEB-INF/years.jsp</result>
+			<result name="success">/WEB-INF/year/years.jsp</result>
+			<result name="error">/WEB-INF/year/years.jsp</result>
 		</action>
 		
 		<action name="*" class="org.rw.action.YearAction">
-			<result name="success">/WEB-INF/year.jsp</result>
+			<result name="success">/WEB-INF/year/year.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
@@ -154,8 +154,13 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="*" class="org.rw.action.ViewAuthorAction">
-			<result name="success">/WEB-INF/author.jsp</result>
+		<action name="" class="org.rw.action.AuthorsAction">
+			<result name="success">/WEB-INF/author/authors.jsp</result>
+			<result name="error">/WEB-INF/author/authors.jsp</result>
+		</action>
+		
+		<action name="*" class="org.rw.action.AuthorAction">
+			<result name="success">/WEB-INF/author/author.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
@@ -190,7 +195,7 @@
 		</action>
 		
 		<action name="newpost" class="org.rw.action.manage.NewPostAction">
-			<result name="success">/WEB-INF/manage/newpost.jsp</result>
+			<result name="success">/WEB-INF/manage/newblog/post.jsp</result>
 			<result name="edit" type="chain">
 		        <param name="actionName">posts</param>
 		    </result>
@@ -198,15 +203,15 @@
 		</action>
 		
 		<action name="editpost/**" class="org.rw.action.manage.EditPostAction">
-			<result name="success">/WEB-INF/manage/editpost.jsp</result>
+			<result name="success">/WEB-INF/manage/editblog/post.jsp</result>
 			<result name="edit" type="chain">
 		        <param name="actionName">posts</param>
 		    </result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
-		<action name="viewpost/**" class="org.rw.action.ViewPostAction">
-			<result name="success">/WEB-INF/post.jsp</result>
+		<action name="viewpost/**" class="org.rw.action.PostAction">
+			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>

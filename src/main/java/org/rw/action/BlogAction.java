@@ -17,11 +17,11 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * View Blog list action class
+ * Blog list action class
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class ViewBlogAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class BlogAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	

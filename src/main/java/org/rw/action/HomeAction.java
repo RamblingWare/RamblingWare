@@ -15,11 +15,11 @@ import org.rw.config.Application;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * View Home action class
+ * Home action class
  * @author Austin Delamar
  * @date 11/30/2015
  */
-public class ViewHomeAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class HomeAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	

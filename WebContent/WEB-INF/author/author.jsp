@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="<s:property value="author.description" />">
 <meta name="twitter:image" content="<s:property value="author.thumbnail" />">
 
-<title>About - <s:property value="author.name" /></title>
+<title>About - <s:property value="author.name" /> - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -44,9 +44,11 @@
 					<img src="<s:property value="author.thumbnail" />" class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height:200px" alt="Profile Picture" />
 					<% out.print(request.getAttribute("author.htmlContent")); %>
 				</div>
-					
-				<br />
-				<p class="w3-small w3-text-grey quote">Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.</p>
+				
+				<div class="w3-container w3-padding-left w3-padding-right w3-center">
+					<hr />
+					<p class="w3-large"><a href="/author/">See more authors...</a></p>
+				</div>
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

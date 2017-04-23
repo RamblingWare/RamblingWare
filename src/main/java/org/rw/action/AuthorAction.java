@@ -14,11 +14,11 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * View Author action class
+ * Author action class
  * @author Austin Delamar
  * @date 10/23/2016
  */
-public class ViewAuthorAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class AuthorAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	

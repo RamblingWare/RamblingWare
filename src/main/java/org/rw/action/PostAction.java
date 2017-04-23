@@ -19,7 +19,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class ViewPostAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class PostAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	private Author user;
