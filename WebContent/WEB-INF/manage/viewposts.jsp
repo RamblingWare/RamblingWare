@@ -54,7 +54,7 @@
 						<img src="<s:property value="thumbnail" />" height="27px" width="48px" style="vertical-align: middle;" />
 						<s:if test="isVisible() == false">
 							<a href="/manage/viewpost/<s:property value="uriName" />" class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
-							&nbsp;<span class="icon-eye-blocked w3-large w3-text-red w3-padding-square" title="This post is hidden from public."></span>
+							&nbsp;<span class="icon-eye w3-large w3-text-red w3-padding-square" title="This post is hidden from public."></span>
 						</s:if>
 						<s:else>
 							<a href="/blog/<s:property value="uriName" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>

@@ -537,3 +537,61 @@ blockquote {
 .icon-reddit:before{content:"\eac6";}
 .icon-linkedin:before{content:"\eaca";}
 .icon-stackoverflow:before{content:"\ead0";}
+[type="checkbox"]:not(:checked),[type="checkbox"]:checked,
+[type="radio"]:not(:checked),[type="radio"]:checked {position: absolute;  left: -9999px;}
+[type="checkbox"]:not(:checked) + label,[type="checkbox"]:checked + label,
+[type="radio"]:not(:checked) + label,[type="radio"]:checked + label {position: relative;padding-left: 1.95em;cursor: pointer;}
+[type="checkbox"]:not(:checked) + label:before,[type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.25em; height: 1.25em;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+[type="radio"]:not(:checked) + label:before,[type="radio"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.25em; height: 1.25em;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+[type="checkbox"]:not(:checked) + label:after,[type="checkbox"]:checked + label:after, 
+[type="radio"]:not(:checked) + label:after,[type="radio"]:checked + label:after {
+  font-family: 'icomoon';
+  content: '\ea10';
+  position: absolute;
+  left: .1em; top: -.25em;
+  width: 1.25em; height: 1.3em;
+  color: #09ad7e;
+  transition: all .2s;
+}
+[type="checkbox"]:not(:checked) + label:after, [type="radio"]:not(:checked) + label:after {
+  opacity: 0;  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;  transform: scale(1);
+}
+[type="checkbox"]:disabled:not(:checked) + label:before,[type="checkbox"]:disabled:checked + label:before,
+[type="radio"]:disabled:not(:checked) + label:before,[type="radio"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
+}
+[type="checkbox"]:disabled:checked + label:after, [type="radio"]:disabled:checked + label:after {color: #999;}
+[type="checkbox"]:disabled + label, [type="radio"]:disabled + label {color: #aaa;}
+[type="checkbox"]:checked:focus + label:before,[type="checkbox"]:not(:checked):focus + label:before, [type="radio"]:checked:focus + label:before,[type="radio"]:not(:checked):focus + label:before {border: 1px dotted #4f4fdd;}
+label:hover:before {border: 1px solid #4f4fdd !important;}
+[type="text"] {
+	border: 1px solid #ccc;
+	background: #fff;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+[type="text"]:focus, [type="password"]:focus {border: 1px dotted #4f4fdd !important;}
+[type="text"]:active, [type="text"]:hover, [type="password"]:active, [type="password"]:hover {border: 1px solid #4f4fdd !important;}
