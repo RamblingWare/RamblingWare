@@ -30,13 +30,10 @@ public class Application implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		
-		System.out.println(this.getClass().getName()+" Initializing...");
-		
 		try{
 			// load settings from properties file
 			settingsMap = new HashMap<String, String>();
 			Properties properties = new Properties();
-			System.out.println("Reading "+PROP_FILE);
 			properties.load(Application.class.getResourceAsStream(PROP_FILE));
 
 			// put into map
@@ -79,11 +76,11 @@ public class Application implements ServletContextListener {
 				dbUser = mysql.getString("username");
 				dbPass = mysql.getString("password");
 				
-				System.out.println("VCAP_SERVICES were read successfully.");
+				// VCAP_SERVICES were read successfully.
 				
 			} catch (JSONException e) {
-				e.printStackTrace();
 				System.err.println("Failed to parse JSON object. Using local Db...");
+				e.printStackTrace();
 				
 				dbName = getSetting("db-name");
 				dbHost = getSetting("db-host");
@@ -103,12 +100,12 @@ public class Application implements ServletContextListener {
 		
 		database = new MySQLDatabase(db);
 		
-		System.out.println(this.getClass().getName()+" Initialized.");
+		System.out.println("Ready to start blogging!");
 	}
 	
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {		
-		System.out.println(this.getClass().getName()+" Destroyed.");
+		;
 	}
 	
 	/**
