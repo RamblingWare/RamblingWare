@@ -204,7 +204,7 @@ function preview() {
 					</p>
 					<p>
 						<input type="checkbox" name="featured" id="featured" class="w3-check" value="true" />
-						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square"></span><span class="w3-small w3-text-grey quote">(Gets put on the Featured sidebar of every page.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star w3-large w3-text-yellow w3-padding-square"></span><span class="w3-small w3-text-grey quote">(Gets put on the Featured sidebar of every page.)</span></label>
 					</p>
 					
 					<hr />
@@ -214,8 +214,7 @@ function preview() {
 					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back">
 						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" onclick="return confirm('Are you sure you want to reset?')" title="Reset search fields">
-						<span class="icon-bin w3-large w3-margin-right"></span>Clear</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" onclick="return confirm('Are you sure you want to reset?')" title="Reset search fields">Clear</button>
 					
 					</form>
 				</div>

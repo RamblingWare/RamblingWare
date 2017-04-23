@@ -56,21 +56,26 @@
 
 					<div class="w3-col s12 m4 l4">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<img class="w3-round" style="height: 33px; vertical-align: middle;" src="<s:property value="post.author.thumbnail" />">
+							<s:if test="post.author.thumbnail != null && !post.author.thumbnail.trim().isEmpty()">
+								<img class="w3-round" alt="Author" title="Author" style="vertical-align: middle;" src="<s:property value="post.author.thumbnail" />" height="24" width="24">&nbsp;
+							</s:if>
+							<s:else>
+								<span class="icon-author w3-large w3-text-theme w3-padding-square"></span>
+							</s:else>
 							<a href="/author/<s:property value="post.author.uriName" />" title="Author" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">
 							<s:property value="post.author.name" /></a>
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<a href="/year/<s:property value="post.publishYear" />" title="Date Published" class="w3-text-theme"><s:property value="post.publishDateReadable" /></a>
+							<span class="icon-time w3-large w3-text-theme w3-padding-square"></span><a href="/year/<s:property value="post.publishYear" />" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="post.publishDateReadable" /></a>
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l4">
 						<s:if test="post.tags != null && !post.tags.isEmpty()">
-							<p class="w3-large w3-padding-0">
-							<span class="w3-small w3-text-grey"><s:iterator value="post.tags">
-							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/tag/<s:property />"><s:property /></a>
+							<p class="w3-large w3-padding-0" style="vertical-align: middle;">
+							<span class="icon-tag w3-large w3-text-theme w3-padding-square"></span><span class="w3-text-grey" style="vertical-align: middle;"><s:iterator value="post.tags">
+							<a class="w3-text-theme" title="<s:property />" href="/tag/<s:property />"><s:property /></a>&nbsp;
 							</s:iterator></span></p>
 						</s:if>
 					</div>
@@ -78,14 +83,14 @@
 				
 				<div class="w3-container w3-padding-0 w3-margin-0 w3-animate-opacity no-print">
 					<div class="w3-padding-16 w3-center">
-						<p class="w3-small w3-text-grey w3-margin-0">Share this post.</p>	
+						<p class="w3-small w3-text-grey w3-margin-0" style="vertical-align: middle;">Share this post.</p>	
 						<a title="Share on Facebook" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-indigo w3-theme-l4 icon-facebook"
 						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />"></a>				
 						
 						<a title="Share on Twitter"  class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue w3-theme-l4 icon-twitter"
 						target="_Blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />"></a>
 						
-						<a title="Share on LinkedIn" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue-grey w3-theme-l4 icon-linkedin2"
+						<a title="Share on LinkedIn" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue-grey w3-theme-l4 icon-linkedin"
 						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />'"></a>
 						
 						<a title="Share on Google+" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-red w3-theme-l4 icon-google-plus"
@@ -94,17 +99,17 @@
 						<a title="Share on Reddit" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-black w3-theme-l4 icon-reddit"
 						 target="_Blank" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />'"></a>
 						
-						<a title="Email to a friend" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-teal w3-theme-l4 icon-mail2"
+						<a title="Email to a friend" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-teal w3-theme-l4 icon-mail"
 						 target="_Blank" href="mailto:?subject=Check%20out%20this%20RamblingWare%20post&body=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />"></a>
 						
-						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup()" class="w3-btn w3-round-large w3-large w3-padding-square  w3-hover-shadow w3-hover-green w3-theme-l4 icon-share2"></a>
+						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup()" class="w3-btn w3-round-large w3-large w3-padding-square  w3-hover-shadow w3-hover-green w3-theme-l4 icon-share"></a>
 						
 					</div>
 					<div id="share-popup" class="w3-modal">
 						<div class="w3-modal-content page-half w3-theme-light w3-animate-top w3-card-16">
 							<div class="w3-container w3-padding-8">
 								<h3>Copy this link:
-								<a title="Close" onclick="closePopup()" class="icon-cross w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup()" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="https://www.ramblingware.com/blog/<s:property value="post.uriName" />" type="text" /><br />
 							</div>

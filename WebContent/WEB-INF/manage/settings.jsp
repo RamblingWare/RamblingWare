@@ -87,7 +87,7 @@
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes"><span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
+								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
 							</p>
 							</form>
 						</div>
@@ -120,7 +120,7 @@
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes"><span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
+								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
 							</p>
 							</form>
 						</div>
@@ -148,7 +148,7 @@
 							<hr />
 							<p>
 								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Review 2FA"><span class="icon-qrcode w3-large w3-margin-right"></span>View 2FA</a>
-								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('recover-2fa')" title="View Recovery Code"><span class="icon-warning w3-large w3-margin-right"></span>Recovery Code</a>
+								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('recover-2fa')" title="View Recovery Code"><span class="icon-embed w3-large w3-margin-right"></span>Recovery Code</a>
 								&nbsp;
 								<a class="w3-small" href="javascript:void(0)" onclick="openPopup('remove-2fa')" value="Disable" title="Disable 2FA">Disable 2FA</a>
 							</p>
@@ -160,8 +160,8 @@
 								<br/>
 								<span class="w3-small w3-text-grey">Secure your account with 2FA by using a OTP (One-Time Password) every time you log in.</span>
 								<span class="w3-small w3-text-grey">
-									Use a third-party Authentication app on your mobile device to enable your two factor authentication. If you do not have an Authentication app
-									then we recommend using <a target="_blank" href="https://mattrubin.me/authenticator/">Authenticator</a>, <a target="_blank" href="https://www.authy.com/app/mobile/">Authy</a>, or <a target="_blank" href="https://goo.gl/gtjo1w">Google Authenticator</a>.
+									Use an app on your mobile device to enable this feature. If you do not have an Authentication app
+									then I recommend using <a target="_blank" href="https://mattrubin.me/authenticator/">Authenticator</a>, <a target="_blank" href="https://www.authy.com/app/mobile/">Authy</a>, or <a target="_blank" href="https://goo.gl/gtjo1w">Google Authenticator</a>.
 								</span>
 							</p>
 							<hr />
@@ -178,7 +178,7 @@
 						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Recovery Code
-								<a title="Close" onclick="closePopup('recover-2fa')" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup('recover-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<p class="w3-small">
 									In case you ever lose access to your mobile device or third-party Authentication app. Use this recovery code to login to your account.
@@ -201,7 +201,7 @@
 						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Enable 2FA
-								<a title="Close" onclick="closePopup('setup-2fa')" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup('setup-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<form action="/manage/settings" method="post">
 								<input type="hidden" name="security" value="true" />
@@ -232,7 +232,7 @@
 						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Disable 2FA
-								<a title="Close" onclick="closePopup('remove-2fa')" class="icon-delete w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup('remove-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<form action="/manage/settings" method="post">
 								<input type="hidden" name="security" value="true" />
@@ -254,7 +254,7 @@
 								<hr />
 								<p>
 									<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="closePopup('remove-2fa')" title="Cancel">Cancel</a>
-									<button type="submit" class="w3-btn w3-right w3-round w3-card w3-pale-red" value="submit" title="Submit"><span class="icon-checkmark2 w3-large w3-margin-right"></span>Submit</button>
+									<button type="submit" class="w3-btn w3-right w3-round w3-card w3-pale-red" value="submit" title="Submit"><span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
 								</p>
 								</form>
 							</div>

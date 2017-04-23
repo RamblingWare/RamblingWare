@@ -64,8 +64,7 @@
 					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back">
 						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" title="Reset search fields">
-						<span class="icon-bin w3-large w3-margin-right"></span>Clear</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="reset" title="Reset search fields">Clear</button>
 					
 					</form>
 				</div>

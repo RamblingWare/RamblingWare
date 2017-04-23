@@ -24,7 +24,7 @@
 				
 				<h1>View/Edit Authors</h1>
 				
-				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-user-tie w3-large w3-margin-right"></span>Add Author</a>
+				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-author w3-large w3-margin-right"></span>Add Author</a>
 				<span class="w3-small w3-text-grey nowrap">Add a new Author.</span>
 				</p>
 				

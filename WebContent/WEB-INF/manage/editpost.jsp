@@ -224,19 +224,16 @@ preview();
 						<input type="checkbox" name="featured" id="featured" class="w3-check" checked="checked" value="true" />
 						</s:if>
 						<s:else><input type="checkbox" name="featured" id="featured" class="w3-check" value="true" /></s:else>
-						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square"></span><span class="w3-small w3-text-grey quote">(Gets put on the Featured sidebar of every page.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star w3-large w3-text-yellow w3-padding-square"></span><span class="w3-small w3-text-grey quote">(Gets put on the Featured sidebar of every page.)</span></label>
 					</p>
 					
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit" onclick="return validate()">
-						<span class="icon-floppy-disk w3-large w3-margin-right"></span>Save Changes</button>
+					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit" onclick="return validate()">Save Changes</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back">
-						<span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
+					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back"><span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-pale-red" type="submit" onclick="return confirm('Are you sure you want to delete?')" name="delete" value="Delete" title="Delete this post">
-						<span class="icon-bin w3-large w3-margin-right"></span>Delete</button>
+					<button class="w3-btn w3-round w3-card w3-pale-red" type="submit" onclick="return confirm('Are you sure you want to delete?')" name="delete" value="Delete" title="Delete this post">Delete</button>
 					
 					</form>
 				</div>

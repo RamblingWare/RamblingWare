@@ -8,18 +8,21 @@
 </div>
 
 <div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
-<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/<s:property value="uriName" />"><s:property value="title" /></a></h3>
-<p class="w3-small w3-margin-0"><s:property value="description" /></p>
+	<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/<s:property value="uriName" />"><s:property value="title" /></a></h3>
+	<p class="w3-small w3-margin-0"><s:property value="description" /></p>
 
-<p class="w3-small w3-text-grey w3-padding-top">Tags:
-<s:if test="tags != null && !tags.isEmpty()">
-	<s:iterator value="tags">
-		&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/tag/<s:property />"><s:property /></a>
-	</s:iterator>
-</s:if>
-
-<p class="w3-small w3-text-grey"><s:property value="author.name" />&nbsp;|&nbsp;<s:property value="publishDateReadable" />
-&nbsp;|&nbsp;<a class="w3-small w3-text-grey" href="/blog/<s:property value="uriName" />#comments">0 Comments</a></p>
-
+	<p class="w3-small w3-text-theme w3-padding-top">
+		<span class="icon-author w3-medium w3-text-theme w3-padding-square"></span><s:property value="author.name" />&nbsp;
+		<span class="icon-time w3-medium w3-text-theme w3-padding-square"></span><s:property value="publishDateReadable" />
+	</p>
+	<p class="w3-small w3-text-theme">
+		<span class="icon-tag w3-medium w3-text-theme w3-padding-square"></span>
+		<s:if test="tags != null && !tags.isEmpty()">
+			<s:iterator value="tags">
+				<a class="w3-text-theme" href="/tag/<s:property />"><s:property /></a>&nbsp;
+			</s:iterator>
+		</s:if>
+		<span class="icon-comments w3-medium w3-text-theme w3-padding-square"></span><a class="w3-small w3-text-grey" href="/blog/<s:property value="uriName" />#comments">0</a>
+	</p>
 </div>
 </div><br />

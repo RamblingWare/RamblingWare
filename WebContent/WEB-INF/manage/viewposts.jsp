@@ -60,7 +60,7 @@
 							<a href="/blog/<s:property value="uriName" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
 						</s:else>
 						<s:if test="isFeatured() == true">
-							&nbsp;<span class="icon-star-full w3-large w3-text-yellow w3-padding-square" title="This is a featured post."></span>
+							&nbsp;<span class="icon-star w3-large w3-text-yellow w3-padding-square" title="This is a featured post."></span>
 						</s:if>
 						</td>
 						<td><s:if test="tags != null && !tags.isEmpty()">

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="author" content="Austin Delamar">
-<meta name="keywords" content="blog,tech,ramblings,software,hardware,web,developer,design,java,vbs,html,css,programming,computers">
+<meta name="keywords" content="blog,tech,ramblings,software,hardware,web,developer,design,java,vbs,html,css,programming,privacy,open-source,computers">
 <meta name="description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too." />
 <meta name="robots" content="all">
 
@@ -23,4 +23,4 @@
 <meta name="twitter:image" content="https://www.ramblingware.com/img/rw-round.png">
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="stylesheet" href="/css/style.css?v=1.4">
+<link rel="stylesheet" href="/css/style.css?v=1.5">

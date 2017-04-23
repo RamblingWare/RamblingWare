@@ -38,8 +38,7 @@
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Login" title="Login">
-									<span class="icon-key w3-large w3-margin-right"></span>Login</button>
+								<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" value="Login" title="Login">Login</button>
 								
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/">Cancel</a>
 							</p>
