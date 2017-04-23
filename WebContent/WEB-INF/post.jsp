@@ -40,12 +40,12 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<% if(request.getAttribute("post.banner")!=null && !request.getAttribute("post.banner").toString().isEmpty()) { %>
+				<s:if test="post.banner != null && !post.banner.trim().isEmpty()">
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
 					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for <s:property value="post.title" />" title="<s:property value="post.bannerCaption" />" src="<s:property value="post.banner" />">
 					<p class="w3-tiny w3-text-grey w3-margin-0" style="text-align: right;"><s:property value="post.bannerCaption" /></p>
 				</div>
-				<% } %>
+				</s:if>
 				
 				<h1><s:property value="post.title" /></h1>
 				
@@ -146,21 +146,7 @@
 			<div id="comments-left" class="w3-col m2 w3-hide-medium w3-hide-small w3-padding"></div>
 			<div id="comments" class="w3-col m10 l8 w3-container w3-padding">
 			<h3>Comments</h3>
-			<div id="disqus_thread"></div>
-			<script>
-			    var disqus_config = function () {
-			        this.page.url = "https://www.ramblingware.com/blog/<%=request.getAttribute("post.uriName") %>";
-			        this.page.identifier = "<%=request.getAttribute("post.uriName") %>";
-			        this.page.title = "<%=request.getAttribute("post.title") %>";
-			    };
-			    (function() {
-			        var d = document, s = d.createElement('script');
-			        s.src = '//ramblingware.disqus.com/embed.js';
-			        s.setAttribute('data-timestamp', +new Date());
-			        (d.head || d.body).appendChild(s);
-			    })();
-			</script>
-			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+			<blockquote>Disqus comments were removed. I plan to add a privacy-focused commenting system that doesn't track users across websites.<br><br>Email me if you have any suggestions!</blockquote>
 			</div>
 			<div id="comments-right" class="w3-col m2 w3-hide-small w3-padding"></div>
 		</div>

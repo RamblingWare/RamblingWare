@@ -1,27 +1,25 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <footer>
 <div class="w3-container w3-padding-16 w3-theme-l4 w3-border-top w3-border-bottom no-print">
-
 	<p class="w3-large w3-margin-0">
-		<a href="/" class="w3-hover-text-black" title="Home">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<a href="/blog" class="w3-hover-text-black" title="Blog">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<a href="/search" class="w3-hover-text-black" title="Search">Search</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<a href="/about" class="w3-hover-text-black" title="About">About</a>
+		<a href="/blog/" class="w3-hover-text-black" title="Home">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/about" class="w3-hover-text-black" title="About">About</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/search" class="w3-hover-text-black" title="Search">Search</a>
+		<br/>
+		<a href="/tag/" class="w3-hover-text-black" title="Tags">Tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/year/" class="w3-hover-text-black" title="Tags">Years</a>
 	</p>
 	<p>
 		<a target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/"><span class="icon-facebook2 w3-xlarge w3-hover-text-indigo"></span></a>&nbsp;&nbsp;
 		<a target="_blank" title="Twitter" href="https://twitter.com/RamblingWare/"><span class="icon-twitter w3-xlarge w3-hover-text-blue"></span></a>&nbsp;&nbsp;
 		<a target="_blank" title="GitHub" href="https://github.com/RamblingWare/"><span class="icon-github w3-xlarge w3-hover-text-black"></span></a>&nbsp;&nbsp;
-		<a target="_blank" title="Email" href="mailto:info@ramblingware.com"><span class="icon-mail w3-xlarge w3-hover-text-teal"></span></a>&nbsp;&nbsp;
-		<a target="_blank" title="RSS Feed" href="/rss"><span class="icon-rss2 w3-xlarge w3-hover-text-orange"></span></a>
+		<a target="_blank" title="Email" href="mailto:info@ramblingware.com"><span class="icon-mail2 w3-xlarge w3-hover-text-teal"></span></a>&nbsp;&nbsp;
+		<a target="_blank" title="RSS Feed" href="/rss"><span class="icon-rss w3-xlarge w3-hover-text-orange"></span></a>
 	</p>
 	<p class="w3-small w3-margin-0">
 		&#169; RamblingWare - 2017<br/>
-		Last Updated: 4/12/2017
-	</p>
-	
-	<script id="dsq-count-scr" src="//ramblingware.disqus.com/count.js" async></script>
-  
+		Last Updated: 4/22/2017
+	</p>  
 </div>
 <div class="w3-container w3-padding-16 w3-theme-dark no-print">
 	<div class="page w3-small">

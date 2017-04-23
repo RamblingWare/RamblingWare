@@ -31,16 +31,12 @@
 								<h3 class="w3-margin-0 w3-padding uppercase">Blog Posts</h3>
 							</div>
 							<div class="w3-padding w3-small w3-theme-light">
-								<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large w3-margin-right"></span>Create New Post</a> 
-								<span class="w3-small w3-text-grey nowrap">Make a new blog post.</span>
+								<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large w3-margin-right"></span>New Post</a> 
+								<span class="w3-small w3-text-grey nowrap">Add a new blog post.</span>
 								</p>
 								<p>
 								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/posts"><span class="icon-clipboard w3-large w3-margin-right"></span>View/Edit Posts</a>
-								<span class="w3-small w3-text-grey nowrap">Modify current blog posts.</span>
-								</p>
-								<p>
-								<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/"><span class="icon-bubbles w3-large w3-margin-right"></span>View Comments</a>
-								<span class="w3-small w3-text-grey nowrap">Manage comments using Disqus.</span>
+								<span class="w3-small w3-text-grey nowrap">Modify a blog post.</span>
 								</p>
 							</div>
 						</div>
@@ -55,7 +51,7 @@
 								<span class="w3-small w3-text-grey nowrap">Add a new Author.</span>
 								</p>
 								<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/users"><span class="icon-briefcase w3-large w3-margin-right"></span>View/Edit Authors</a>
-								<span class="w3-small w3-text-grey nowrap">Modify current Authors.</span>
+								<span class="w3-small w3-text-grey nowrap">Modify an Author.</span>
 								</p>
 							</div>
 						</div>
@@ -69,16 +65,17 @@
 								<h3 class="w3-margin-0 w3-padding uppercase">My Settings</h3>
 							</div>
 							<div class="w3-padding w3-small w3-theme-light">
-								<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/settings"><span class="icon-shield w3-large w3-margin-right"></span>Change Username / Email</a> 
+								<p>
+								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/edituser/<s:property value="#session.USER.uriName" />"><span class="icon-user-tie w3-large w3-margin-right"></span>Edit my Author page</a>
+								<span class="w3-small w3-text-grey nowrap">Modify your public author page.</span>
+								</p>
+								<p>
+								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/settings"><span class="icon-shield w3-large w3-margin-right"></span>Change Username / Email</a> 
 								<span class="w3-small w3-text-grey nowrap">Modify your username or email address.</span>
 								</p>
 								<p>
 								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/settings"><span class="icon-key w3-large w3-margin-right"></span>Change Password</a>
 								<span class="w3-small w3-text-grey nowrap">Modify your password to login.</span>
-								</p>
-								<p>
-								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/edituser/<s:property value="#session.USER.uriName" />"><span class="icon-user-tie w3-large w3-margin-right"></span>Update my Author page</a>
-								<span class="w3-small w3-text-grey nowrap">Modify your public author page.</span>
 								</p>
 							</div>
 						</div>

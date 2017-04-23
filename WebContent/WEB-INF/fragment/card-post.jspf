@@ -19,7 +19,7 @@
 </s:if>
 
 <p class="w3-small w3-text-grey"><s:property value="author.name" />&nbsp;|&nbsp;<s:property value="publishDateReadable" />
-&nbsp;|&nbsp;<a class="w3-small w3-text-grey" href="/blog/<s:property value="uriName" />#comments"><span class="disqus-comment-count" data-disqus-identifier="<s:property value="uriName" />"></span></a></p>
+&nbsp;|&nbsp;<a class="w3-small w3-text-grey" href="/blog/<s:property value="uriName" />#comments">0 Comments</a></p>
 
 </div>
 </div><br />

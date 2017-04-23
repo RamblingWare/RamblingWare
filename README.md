@@ -26,7 +26,6 @@ https://www.ramblingware.com
 - [Apache Struts 2](https://struts.apache.org/) Framework
 - [MySQL 5.5](https://www.mysql.com/) Database
 - [W3.CSS](http://www.w3schools.com/css/) Styling
-- Comments by [Disqus](https://disqus.com/)
 - Search by [DuckDuckGo](https://duckduckgo.com)
 - WYSIWYG editor by [CKEditor](http://ckeditor.com/download)
 - Code syntax highlighting by [Highlight.js](https://highlightjs.org/)

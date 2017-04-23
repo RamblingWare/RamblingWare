@@ -27,10 +27,6 @@
 				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large w3-margin-right"></span>Create New Post</a> 
 				<span class="w3-small w3-text-grey nowrap">Make a new blog post.</span>
 				</p>
-				<p>
-				<a class="w3-btn w3-card w3-round w3-small w3-pale-blue" target="_Blank" href="https://disqus.com/home/forums/ramblingware/"><span class="icon-bubbles w3-large w3-margin-right"></span>View Comments</a>
-				<span class="w3-small w3-text-grey nowrap">Manage comments on blog posts using Disqus.</span>
-				</p>
 				
 				<!-- POSTS START -->
 				<s:if test="posts != null">
