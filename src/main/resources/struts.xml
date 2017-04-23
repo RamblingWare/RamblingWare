@@ -195,7 +195,7 @@
 		</action>
 		
 		<action name="newpost" class="org.rw.action.manage.NewPostAction">
-			<result name="success">/WEB-INF/manage/newblog/post.jsp</result>
+			<result name="success">/WEB-INF/manage/newpost.jsp</result>
 			<result name="edit" type="chain">
 		        <param name="actionName">posts</param>
 		    </result>
@@ -203,7 +203,7 @@
 		</action>
 		
 		<action name="editpost/**" class="org.rw.action.manage.EditPostAction">
-			<result name="success">/WEB-INF/manage/editblog/post.jsp</result>
+			<result name="success">/WEB-INF/manage/editpost.jsp</result>
 			<result name="edit" type="chain">
 		        <param name="actionName">posts</param>
 		    </result>
