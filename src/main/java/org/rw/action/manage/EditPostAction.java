@@ -147,7 +147,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     		
     		// check that the URI is unique
 			try {
-				Post existingPost = Application.getDatabaseSource().getPost(uri, true);
+				Post existingPost = Application.getDatabaseSource().getPost(uri, true, false);
 				
 				if(existingPost.getId() != id)
 				{
@@ -213,7 +213,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 			{
 				// search in db for post by title
 				try {
-					post = Application.getDatabaseSource().getPost(uri, true);
+					post = Application.getDatabaseSource().getPost(uri, true, false);
 					
 					// was post found
 					if(post != null)

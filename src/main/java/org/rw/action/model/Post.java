@@ -19,6 +19,7 @@ public class Post {
 	private String uriName;
 	private boolean featured;
 	private boolean visible;
+	private long views;
 
 	private String thumbnail;
 	private String banner;
@@ -75,6 +76,14 @@ public class Post {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+
+	public long getViews() {
+		return views;
+	}
+
+	public void setViews(long views) {
+		this.views = views;
 	}
 
 	public String getThumbnail() {

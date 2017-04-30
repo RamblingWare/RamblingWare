@@ -31,7 +31,8 @@
 				<a class="w3-text-theme" href="/tag/<s:property />"><s:property /></a>&nbsp;
 			</s:iterator>
 		</s:if>
-		<span class="icon-comments w3-medium w3-text-theme w3-padding-square" title="Comments"></span><a class="w3-small w3-text-grey" href="/blog/<s:property value="uriName" />#comments">0</a>
+		<span class="icon-eye w3-medium w3-text-theme w3-padding-square" title="Views"></span><span title="Views" class="w3-text-theme"><s:property value="views" /></span>
+		<span class="icon-comments w3-medium w3-text-theme w3-padding-square" title="Comments"></span><a class="w3-text-theme" title="Comments" href="/blog/<s:property value="uriName" />#comments">0</a>
 	</p>
 </div>
 </div><br />

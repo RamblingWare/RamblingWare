@@ -54,7 +54,7 @@
 				<hr />
 				<div class="w3-container w3-padding w3-margin-0 w3-center">
 
-					<div class="w3-col s12 m4 l4">
+					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
 							<s:if test="post.author.thumbnail != null && !post.author.thumbnail.trim().isEmpty()">
 								<img class="w3-round" alt="Author" title="Author" style="vertical-align: middle;" src="<s:property value="post.author.thumbnail" />" height="24" width="24">&nbsp;
@@ -66,12 +66,17 @@
 							<s:property value="post.author.name" /></a>
 						</p>
 					</div>
-					<div class="w3-col s12 m4 l4">
+					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
 							<span class="icon-time w3-large w3-text-theme w3-padding-square"></span><a href="/year/<s:property value="post.publishYear" />" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="post.publishDateReadable" /></a>
 						</p>
 					</div>
-					<div class="w3-col s12 m4 l4">
+					<div class="w3-col s12 m4 l3">
+						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
+							<span class="icon-eye w3-large w3-text-theme w3-padding-square"></span><span title="Views" class="w3-text-theme" style="vertical-align: middle;"><s:property value="post.views" /></span>
+						</p>
+					</div>
+					<div class="w3-col s12 m8 l3">
 						<s:if test="post.tags != null && !post.tags.isEmpty()">
 							<p class="w3-large w3-padding-0" style="vertical-align: middle;">
 							<span class="icon-tag w3-large w3-text-theme w3-padding-square"></span><span class="w3-text-grey" style="vertical-align: middle;"><s:iterator value="post.tags">
@@ -93,7 +98,7 @@
 						<a title="Share on LinkedIn" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue-grey w3-theme-l4 icon-linkedin"
 						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />'"></a>
 						
-						<a title="Share on Google+" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-red w3-theme-l4 icon-google-plus"
+						<a title="Share on Google+" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-red w3-theme-l4 icon-google"
 						 target="_Blank" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.ramblingware.com%2Fblog%2F<s:property value="post.uriName" />'"></a>
 						
 						<a title="Share on Reddit" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-black w3-theme-l4 icon-reddit"

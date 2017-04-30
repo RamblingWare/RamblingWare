@@ -53,14 +53,17 @@ public class PostAction extends ActionSupport implements UserAware, ServletRespo
 		{
 			// search in db for post by title
 			try {
-				post = Application.getDatabaseSource().getPost(uriName, canSeeHidden);
+				post = Application.getDatabaseSource().getPost(uriName, canSeeHidden, true);
 				
 				// was post found AND is it publicly visible yet?
 				if(post != null)
-				{					
+				{				
 					// set attributes
 					servletRequest.setAttribute("post", post);
 					servletRequest.setCharacterEncoding("UTF-8");
+					
+					// update page views
+					
 					
 					return Action.SUCCESS;
 				}

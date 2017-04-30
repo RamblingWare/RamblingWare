@@ -13,7 +13,7 @@ public class CloudantDatabase extends DatabaseSource {
 	}
 
 	@Override
-	public Post getPost(String uri, boolean includeHidden) {
+	public Post getPost(String uri, boolean includeHidden, boolean increaseHitCounter) {
 		// TODO Auto-generated method stub
 		return null;
 	}

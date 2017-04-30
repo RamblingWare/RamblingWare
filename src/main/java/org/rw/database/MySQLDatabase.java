@@ -38,7 +38,7 @@ public class MySQLDatabase extends DatabaseSource {
 	}
 
 	@Override
-	public Post getPost(String uri, boolean includeHidden) {
+	public Post getPost(String uri, boolean includeHidden, boolean increaseHitCounter) {
 		
 		// search in db for post by title
 		Post post = null;
@@ -78,15 +78,35 @@ public class MySQLDatabase extends DatabaseSource {
 				author.setDescription(rs.getString("authorDesc"));
 				post.setAuthor(author);
 
-				ResultSet rs2 = st.executeQuery("select * from tags where post_id = " + post.getId());
-
 				// get post tags - there could be more than 1
+				ResultSet rs2 = st.executeQuery("select * from tags where post_id = " + post.getId());
 				ArrayList<String> tags = new ArrayList<String>();
 				while (rs2.next()) {
 					tags.add(rs2.getString("tag_name"));
 				}
 				post.setTags(tags);
+				
+				// get post view count
+				ResultSet rs3 = st.executeQuery("select count from views where post_id = " + post.getId());
+				if(rs3.next()) {
+					post.setViews(rs3.getLong("count"));
+				} else {
+					post.setViews(0);
+				}
 			}
+			
+			if(post != null && increaseHitCounter) {
+				String sql = "UPDATE views SET count = count + 1 where post_id = " + post.getId();
+	            PreparedStatement stmt = conn.prepareStatement(sql);
+	            int r = stmt.executeUpdate();
+	            
+	            if(r == 0) {
+	            	sql = "INSERT INTO views (post_id,count) VALUES (" + post.getId()+",1)";
+		            PreparedStatement stmt2 = conn.prepareStatement(sql);
+		            stmt2.executeUpdate();
+	            }
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -578,7 +598,7 @@ public class MySQLDatabase extends DatabaseSource {
 				posts.add(post);
 			}
 
-			// gather tags
+			// gather tags, author, and view count
 			for (Post p : posts) {
 				ResultSet rs2 = st.executeQuery("select t.* from tags t where t.post_id = " + p.getId());
 
@@ -589,6 +609,7 @@ public class MySQLDatabase extends DatabaseSource {
 				}
 				p.setTags(post_tags);
 
+				// get post's author
 				ResultSet rs3 = st.executeQuery(
 						"select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a where a.user_id = "
 								+ p.getAuthor().getId());
@@ -605,6 +626,14 @@ public class MySQLDatabase extends DatabaseSource {
 				} else {
 					p.getAuthor().setName("Anonymous");
 					p.getAuthor().setUriName("anonymous");
+				}
+				
+				// get post's view count
+				ResultSet rs4 = st.executeQuery("select count from views where post_id = " + p.getId());
+				if(rs4.next()) {
+					p.setViews(rs4.getLong("count"));
+				} else {
+					p.setViews(0);
 				}
 			}
 
@@ -659,7 +688,7 @@ public class MySQLDatabase extends DatabaseSource {
 				posts.add(post);
 			}
 
-			// gather tags
+			// gather tags, author, and view count
 			for (Post p : posts) {
 				ResultSet rs2 = st.executeQuery("select t.* from tags t where t.post_id = " + p.getId());
 
@@ -670,6 +699,7 @@ public class MySQLDatabase extends DatabaseSource {
 				}
 				p.setTags(post_tags);
 
+				// get post's author
 				ResultSet rs3 = st.executeQuery(
 						"select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a where a.user_id = "
 								+ p.getAuthor().getId());
@@ -686,6 +716,14 @@ public class MySQLDatabase extends DatabaseSource {
 				} else {
 					p.getAuthor().setName("Anonymous");
 					p.getAuthor().setUriName("anonymous");
+				}
+				
+				// get post's view count
+				ResultSet rs4 = st.executeQuery("select count from views where post_id = " + p.getId());
+				if(rs4.next()) {
+					p.setViews(rs4.getLong("count"));
+				} else {
+					p.setViews(0);
 				}
 			}
 
@@ -738,8 +776,8 @@ public class MySQLDatabase extends DatabaseSource {
 				// add to results list
 				posts.add(post);
 			}
-
-			// gather tags
+			
+			// gather tags, author, and view count
 			for (Post p : posts) {
 				ResultSet rs2 = st.executeQuery("select t.* from tags t where t.post_id = " + p.getId());
 
@@ -750,6 +788,7 @@ public class MySQLDatabase extends DatabaseSource {
 				}
 				p.setTags(post_tags);
 
+				// get post's author
 				ResultSet rs3 = st.executeQuery(
 						"select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a where a.user_id = "
 								+ p.getAuthor().getId());
@@ -766,6 +805,14 @@ public class MySQLDatabase extends DatabaseSource {
 				} else {
 					p.getAuthor().setName("Anonymous");
 					p.getAuthor().setUriName("anonymous");
+				}
+				
+				// get post's view count
+				ResultSet rs4 = st.executeQuery("select count from views where post_id = " + p.getId());
+				if(rs4.next()) {
+					p.setViews(rs4.getLong("count"));
+				} else {
+					p.setViews(0);
 				}
 			}
 

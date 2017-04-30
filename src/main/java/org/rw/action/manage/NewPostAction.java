@@ -114,7 +114,7 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 
 			// check that the URI is unique
 			try {
-				Post post = Application.getDatabaseSource().getPost(uriName, true);
+				Post post = Application.getDatabaseSource().getPost(uriName, true, false);
 				
 				if(post != null)
 				{
