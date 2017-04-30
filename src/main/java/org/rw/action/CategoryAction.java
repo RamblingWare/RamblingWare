@@ -106,7 +106,7 @@ public class CategoryAction extends ActionSupport implements UserAware, ServletR
 	}
 
 	public void setCategory(String category) {
-		this.category = category;
+		this.category = Utils.removeBadChars(category);
 	}
 
 	public int getPage() {

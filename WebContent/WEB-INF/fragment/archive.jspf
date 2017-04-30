@@ -16,7 +16,7 @@
 	<div class="w3-container">
 		<s:if test="#session.archive_years != null && !#session.archive_years.isEmpty()">
 			<h3 class="w3-margin-top">Archive</h3>
-			<ul class="w3-margin-0">
+			<ul class="w3-medium w3-margin-0">
 			<s:iterator value="#session.archive_years" status="y">
 				<s:set var="yval" value="#session.archive_years[#y.index].substring(0,4)" />
 				<li class="w3-opacity w3-hover-opaque"><a title="<s:property value="yval" />" href="/year/<s:property value="yval" />"><s:property /></a></li>

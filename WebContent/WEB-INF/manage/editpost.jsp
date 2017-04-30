@@ -289,7 +289,7 @@ preview();
 						<input type="checkbox" name="visible" id="visible" class="w3-check" checked="checked" value="true" />
 						</s:if>
 						<s:else><input type="checkbox" name="visible" id="visible" class="w3-check" value="true" /></s:else>
-						<label class="w3-validate w3-text-grey-light w3-large" for="visible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-red w3-padding-square"></span><span class="w3-small w3-text-grey quote">(You can make it public later if you want.)</span></label>
+						<label class="w3-validate w3-text-grey-light w3-large" for="visible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="w3-small w3-text-grey quote">(You can make it public later if you want.)</span></label>
 					</p>
 					<p>
 						<s:if test="#request.post.isFeatured() == true">
