@@ -7,6 +7,22 @@
 <!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 <script src="/ckeditor/ckeditor.js"></script>
+				
+<s:if test="usedUris != null && !usedUris.isEmpty()">
+<script> var usedUris = [
+<s:iterator value="usedUris" status="u">
+	"<s:property />",
+</s:iterator>
+""];</script>
+</s:if>
+
+<s:if test="usedTags != null && !usedTags.isEmpty()">
+<script> var usedTags = [
+<s:iterator value="usedTags" status="t">
+	<s:set var="tval" value="usedTags[#t.index].substring(0,usedTags[#t.index].lastIndexOf(' ('))" />"<s:property value="tval" />",
+</s:iterator>
+""];</script>
+</s:if>
 <script>
 function changeForm() {
 	if(document.getElementById('hasBanner').checked)
@@ -46,11 +62,34 @@ function validate() {
 			}
 		}
 	}
+	var uri = document.getElementById('uriName').value;
+	for(var i=0; i<usedUris.length; i++) {
+		if(usedUris[i] == uri) {
+			alert('Sorry! That URI is already taken by another blog post.\n\nPlease change the URI.');
+			return false;
+		}
+	}
 	if(document.getElementById('htmlContent').value.length > 12288) {
 		alert('Sorry! The post is too long.\nMax length = 12288 chars\nPost length = '+document.getElementById('htmlContent').value.length+'\n\nPlease shorten your post.');
 		return false;
 	}
 	return true;
+}
+function addTag(tag) {
+	var tags = document.getElementById('tags').value;
+	// chop off [ ] if they were added
+	if(tags.startsWith('['))
+		tags = tags.substring(1);
+	if(tags.endsWith(']'))
+		tags = tags.substring(0,tags.length-1);
+	
+	if(tags.length<=1)
+		tags = tag;
+	else
+		tags += ', '+tag;
+		
+	document.getElementById('tags').value = tags;
+	preview();
 }
 function preview() {
 	var title = document.getElementById('title').value;
@@ -70,16 +109,24 @@ function preview() {
 		tags = tags.substring(1);
 	if(tags.endsWith(']'))
 		tags = tags.substring(0,tags.length-1);	
-	var tagArray = tags.split(',');
+	var tagArray = tags.split(', ');
 	var tagHtml = "";
 	for (var i = 0; i < tagArray.length; i++) {
 		if(tagArray[i].length>0)
-		tagHtml += "&nbsp;<a class=\"tag w3-round w3-theme w3-hover-shadow\" href=\"#\">"+tagArray[i]+"</a>"; 
+		tagHtml += "<a class=\"w3-text-theme\" href=\"#\">"+tagArray[i]+"</a>&nbsp;";
 	}
 	if(tagHtml<=1)
-		tagHtml = "&nbsp;<a class=\"tag w3-round w3-theme w3-hover-shadow\" href=\"#\">Tag</a>";
+		tagHtml = "<a class=\"w3-text-theme\" href=\"#\">Tag</a>&nbsp;";
 	document.getElementById('previewTags').innerHTML = tagHtml;
 	
+	var usedTagHtml = "";
+	for (var i = 0; i < usedTags.length && i < 10; i++) {
+		if(usedTags[i].length > 1 && tagArray.indexOf(usedTags[i])<0)
+			usedTagHtml += "<a class=\"tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow\" href=\"javascript:void(0)\" onclick=\"addTag('"+usedTags[i]+"')\">"+usedTags[i]+"</a>&nbsp;";
+	}
+	if(usedTagHtml<=1)
+		usedTagHtml = "No suggested tags found.";
+	document.getElementById('previewUsedTags').innerHTML = usedTagHtml;
 	
 	var src = document.getElementById('thumbnail').value;
 	if(src.length<=1)
@@ -129,6 +176,7 @@ preview();
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="tags">Tags:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Separated by commas.)</span></label>
 						<input type="text" size="50" maxlength="200" name="tags" id="tags" value="<s:property value="#request.post.tags" />" onkeyup="preview()" onchange="preview()" required placeholder="java, interview, funny" class="w3-input w3-round-large w3-border" />
+						<span class="w3-small w3-text-grey">Suggested:</span>&nbsp;<span id="previewUsedTags" class="w3-small"></span>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:&nbsp;<span class="w3-text-red">*</span></label>
@@ -146,15 +194,26 @@ preview();
 						
 						<div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
 						<h3 class="w3-padding-0 w3-margin-0"><a id="previewTitle" href="#"><s:property value="title" /></a></h3>
-						<p id="previewDesc" class="w3-small"><s:property value="description" /></p>
+						<p id="previewDesc" class="w3-small w3-margin-0"><s:property value="description" /></p>
 						
-						<p class="w3-small w3-text-grey w3-padding-top">Tags:
-						<span id="previewTags">
-							&nbsp;<a class="tag w3-tag w3-round w3-theme w3-hover-shadow" href="#">Tags</a>
-						</span>
+						<p class="w3-small w3-text-theme w3-padding-top">
+							<s:if test="#session.USER.thumbnail != null && !#session.USER.thumbnail.trim().isEmpty()">
+								<span class="w3-padding-square"><img class="w3-round" alt="Author" title="Author" style="vertical-align: middle;" src="<s:property value="#session.USER.thumbnail" />" height="16" width="16"></span>
+							</s:if>
+							<s:else>
+								<span class="icon-author w3-medium w3-text-theme w3-padding-square" title="Author"></span>
+							</s:else>
+							<a href="#" title="Author" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="#session.USER.name" /></a>
+							
+							<span class="icon-time w3-medium w3-text-theme w3-padding-square" title="Publish Date"></span>
+							<a href="#" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><%=Utils.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %></a>
 						</p>
-						<p class="w3-small w3-text-grey"><s:property value="#session.USER.getName()" />&nbsp;|&nbsp;<%=Utils.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %>
-						&nbsp;|&nbsp;<span><a class="w3-small w3-text-grey" href="#"><span>0 comments</span></a></span></p>
+						<p class="w3-small w3-text-theme">
+							<span class="icon-tag w3-medium w3-text-theme w3-padding-square" title="Tags"></span>
+							<span id="previewTags"><a class="w3-text-theme" href="#">tag</a>&nbsp;</span>
+							<span class="icon-comments w3-medium w3-text-theme w3-padding-square" title="Comments"></span><a class="w3-small w3-text-grey" href="#comments">0</a>
+						</p>
+						
 						</div>
 					</div>
 					
@@ -237,11 +296,11 @@ preview();
 					
 					</form>
 				</div>
-				<script>
-					preview();
-				</script>
-				<!-- EDIT POST END -->			
+				<!-- EDIT POST END -->
 				
+				<script>
+					preview();					
+				</script>				
 			</div>
 		</div>
 	</article>

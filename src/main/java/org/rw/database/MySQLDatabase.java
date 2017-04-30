@@ -514,6 +514,32 @@ public class MySQLDatabase extends DatabaseSource {
 	}
 
 	@Override
+	public ArrayList<String> getPostUris() {
+		ArrayList<String> uris = new ArrayList<String>();
+		
+		Connection conn = null;
+		try {
+			String query = "select p.uri_name from posts p order by p.uri_name desc";
+
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				// add to results list
+				uris.add(rs.getString("uri_name"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				/* Do Nothing */}
+		}
+		return uris;
+	}
+
+	@Override
 	public ArrayList<Post> getPosts(int page, int limit, boolean includeHidden) {
 		ArrayList<Post> posts = new ArrayList<Post>();
 

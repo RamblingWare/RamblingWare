@@ -73,6 +73,12 @@ public class CloudantDatabase extends DatabaseSource {
 	}
 
 	@Override
+	public ArrayList<String> getPostUris() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public ArrayList<Post> getPosts(int page, int limit, boolean includeHidden) {
 		// TODO Auto-generated method stub
 		return null;
@@ -119,5 +125,4 @@ public class CloudantDatabase extends DatabaseSource {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

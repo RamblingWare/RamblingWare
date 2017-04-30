@@ -48,6 +48,10 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     private String tags;
     private String description;
     private String htmlContent;
+    
+    // taken uris and tags
+    private ArrayList<String> usedUris;
+    private ArrayList<String> usedTags;
 	
 	public String execute() {
 		
@@ -56,6 +60,10 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 		} catch(Exception e) {
 			System.err.println("Failed to set UTF-8 request encoding.");
 		}
+		
+		// get used variables
+    	usedTags = Application.getDatabaseSource().getArchiveTags();
+    	usedUris = Application.getDatabaseSource().getPostUris();
 		
 		// /manage/editpost/file-name-goes-here
 		// this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123 )
@@ -209,7 +217,10 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 					
 					// was post found
 					if(post != null)
-					{					
+					{
+						// remove post URI from list
+						usedUris.remove(uri);
+						
 						// set attributes
 						servletRequest.setAttribute("post", post);
 						servletRequest.setCharacterEncoding("UTF-8");
@@ -356,6 +367,22 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 
 	public void setHtmlContent(String htmlContent) {
 		this.htmlContent = htmlContent;
+	}
+
+	public ArrayList<String> getUsedUris() {
+		return usedUris;
+	}
+
+	public void setUsedUris(ArrayList<String> usedUris) {
+		this.usedUris = usedUris;
+	}
+
+	public ArrayList<String> getUsedTags() {
+		return usedTags;
+	}
+
+	public void setUsedTags(ArrayList<String> usedTags) {
+		this.usedTags = usedTags;
 	}
 
 	@Override

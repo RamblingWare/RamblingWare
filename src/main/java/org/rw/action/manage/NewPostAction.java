@@ -42,6 +42,10 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
     private String description;
     private String htmlContent;
     
+    // taken uris and tags
+    private ArrayList<String> usedUris;
+    private ArrayList<String> usedTags;
+    
     @Override
     public String execute(){
     	
@@ -50,6 +54,10 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 		} catch(Exception e) {
 			System.err.println("Failed to set UTF-8 request encoding.");
 		}
+    	
+    	// get used variables
+    	usedTags = Application.getDatabaseSource().getArchiveTags();
+    	usedUris = Application.getDatabaseSource().getPostUris();
     	
     	if(servletRequest.getParameter("submitForm")!=null)
 		{
@@ -268,6 +276,22 @@ public class NewPostAction extends ActionSupport implements UserAware, ServletRe
 
 	public void setHtmlContent(String htmlContent) {
 		this.htmlContent = htmlContent;
+	}
+
+	public ArrayList<String> getUsedUris() {
+		return usedUris;
+	}
+
+	public void setUsedUris(ArrayList<String> usedUris) {
+		this.usedUris = usedUris;
+	}
+
+	public ArrayList<String> getUsedTags() {
+		return usedTags;
+	}
+
+	public void setUsedTags(ArrayList<String> usedTags) {
+		this.usedTags = usedTags;
 	}
 
 	@Override
