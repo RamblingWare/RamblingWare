@@ -15,7 +15,7 @@
 	</div>
 	<div class="w3-container">
 		<s:if test="#session.archive_years != null && !#session.archive_years.isEmpty()">
-			<h3 class="w3-margin-top">Archive</h3>
+			<h3 class="w3-margin-top"><a href="/year/">Archive</a></h3>
 			<ul class="w3-medium w3-margin-0">
 			<s:iterator value="#session.archive_years" status="y">
 				<s:set var="yval" value="#session.archive_years[#y.index].substring(0,4)" />
@@ -26,18 +26,18 @@
 	</div>
 	<div class="w3-container">
 		<s:if test="#session.archive_categories != null && !#session.archive_categories.isEmpty()">
-			<h3 class="w3-margin-top">Categories</h3>
+			<h3 class="w3-margin-top"><a href="/category/">Categories</a></h3>
 			<p class="w3-small w3-margin-0">
 			<s:iterator value="#session.archive_categories" status="c">
 				<s:set var="cval" value="#session.archive_categories[#c.index].substring(0,#session.archive_categories[#c.index].lastIndexOf('('))" />
-				<a class="w3-opacity w3-hover-opaque w3-margin-right" title="<s:property />" href="/category/<s:property value="cval" />"><s:property /></a>
+				<a class="w3-opacity w3-hover-opaque w3-margin-right" style="white-space:nowrap" title="<s:property />" href="/category/<s:property value="cval" />"><s:property /></a>
 			</s:iterator>
 			</p>
 		</s:if>
 	</div>
 	<div class="w3-container">
 		<s:if test="#session.archive_tags != null && !#session.archive_tags.isEmpty()">
-			<h3 class="w3-margin-top">Tags</h3>
+			<h3 class="w3-margin-top"><a href="/tag/">Tags</a></h3>
 			<p class="w3-small w3-text-grey">
 			<s:iterator value="#session.archive_tags" status="t">
 				<s:set var="tval" value="#session.archive_tags[#t.index].substring(0,#session.archive_tags[#t.index].lastIndexOf('('))" />

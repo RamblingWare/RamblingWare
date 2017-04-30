@@ -73,7 +73,7 @@
 					</div>
 					<div class="w3-col s12 m4 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<span class="icon-folder w3-large w3-text-theme w3-padding-square"></span><span title="Category" class="w3-text-theme" style="vertical-align: middle;"><s:property value="post.category" /></span>
+							<span class="icon-folder w3-large w3-text-theme w3-padding-square"></span><a href="/category/<s:property value="post.category" />" title="Category" class="w3-text-theme" style="vertical-align: middle;"><s:property value="post.category" /></a>
 						</p>
 					</div>
 					<div class="w3-col s12 m8 l3">
