@@ -46,6 +46,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     private String bannerCaption;
     
     private String tags;
+    private String category;
     private String description;
     private String htmlContent;
     
@@ -143,6 +144,10 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
     		{
     			tags = "none";
     		}
+    		if(category == null || category.trim().isEmpty())
+    		{
+    			category = "none";
+    		}
 
     		
     		// check that the URI is unique
@@ -167,6 +172,7 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 				post.setPublishDate(new java.sql.Date(cal.getTimeInMillis()));
 				post.setVisible(visible);
 				post.setFeatured(featured);
+				post.setCategory(category);
 				post.setBanner(banner);
 				post.setBannerCaption(bannerCaption);
 				post.setThumbnail(thumbnail);
@@ -351,6 +357,14 @@ public class EditPostAction extends ActionSupport implements UserAware, ServletR
 
 	public void setTags(String tags) {
 		this.tags = Utils.removeNonAsciiChars(tags.trim());
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getDescription() {

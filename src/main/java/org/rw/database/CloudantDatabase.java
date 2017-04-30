@@ -67,6 +67,12 @@ public class CloudantDatabase extends DatabaseSource {
 	}
 
 	@Override
+	public ArrayList<String> getArchiveCategories() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public ArrayList<String> getArchiveTags() {
 		// TODO Auto-generated method stub
 		return null;
@@ -80,6 +86,12 @@ public class CloudantDatabase extends DatabaseSource {
 
 	@Override
 	public ArrayList<Post> getPosts(int page, int limit, boolean includeHidden) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Post> getPostsByCategory(int page, int limit, String category, boolean includeHidden) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -20,6 +20,7 @@ public class Post {
 	private boolean featured;
 	private boolean visible;
 	private long views;
+	private String category;
 
 	private String thumbnail;
 	private String banner;
@@ -84,6 +85,14 @@ public class Post {
 
 	public void setViews(long views) {
 		this.views = views;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getThumbnail() {

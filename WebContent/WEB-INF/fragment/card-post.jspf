@@ -25,6 +25,9 @@
 		<a href="/year/<s:property value="publishYear" />" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="publishDateReadable" /></a>
 	</p>
 	<p class="w3-small w3-text-theme">
+		<span class="icon-folder w3-medium w3-text-theme w3-padding-square" title="Category"></span>
+		<a href="/category/<s:property value="category" />" title="Category" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="category" /></a>
+		
 		<span class="icon-tag w3-medium w3-text-theme w3-padding-square" title="Tags"></span>
 		<s:if test="tags != null && !tags.isEmpty()">
 			<s:iterator value="tags">

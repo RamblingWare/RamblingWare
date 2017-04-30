@@ -23,7 +23,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Years</h1>
+				<h1 style="vertical-align: middle;"><span class="icon-time w3-text-theme"></span>&nbsp;Years</h1>
 				
 				<!-- YEARS START -->
 				<s:if test="years != null">

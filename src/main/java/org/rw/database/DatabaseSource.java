@@ -41,11 +41,15 @@ public abstract class DatabaseSource {
 	
 	public abstract ArrayList<String> getArchiveYears();
 	
+	public abstract ArrayList<String> getArchiveCategories();
+	
 	public abstract ArrayList<String> getArchiveTags();
 	
 	public abstract ArrayList<String> getPostUris();
 	
 	public abstract ArrayList<Post> getPosts(int page, int limit, boolean includeHidden);
+	
+	public abstract ArrayList<Post> getPostsByCategory(int page, int limit, String category, boolean includeHidden);
 	
 	public abstract ArrayList<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden);
 	

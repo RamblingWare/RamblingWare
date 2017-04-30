@@ -5,7 +5,7 @@
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
 
-<title>Year <s:property value="year" /> - RamblingWare</title>
+<title>Category <s:property value="category" /> - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -23,21 +23,21 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1 style="vertical-align: middle;"><span class="icon-time w3-text-theme"></span>&nbsp;Year: <s:property value="year" /></h1>
+				<h1 style="vertical-align: middle;"><span class="icon-folder w3-text-theme"></span>&nbsp;Category: <s:property value="category" /></h1>
 				
 				<!-- POSTS START -->
 				<s:if test="posts != null">
 				<s:if test="posts.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>
-						No results were found for that year.</p>
+						No posts were found with that category.</p>
 				</s:if>
 				<s:else>
 					<s:if test="posts.size() == 1">	
-						<p>1 blog post published in <s:property value="year" />.<br /></p>
+						<p>1 blog post with category <s:property value="category" />.<br /></p>
 					</s:if>
 					<s:else>
-						<p><s:property value="posts.size()" /> blog posts published in <s:property value="year" />.<br /></p>
+						<p><s:property value="posts.size()" /> blog posts with category <s:property value="category" />.<br /></p>
 					</s:else>
 					
 					<s:iterator value="posts" status="r">
@@ -50,7 +50,7 @@
 				
 				<div class="w3-container w3-padding-left w3-padding-right w3-center">
 					<hr />
-					<p class="w3-large"><a href="/year/">See more years...</a></p>
+					<p class="w3-large"><a href="/category/">See more categories...</a></p>
 				</div>
 			</div>
 			

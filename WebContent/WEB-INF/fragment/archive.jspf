@@ -25,6 +25,17 @@
 		</s:if>
 	</div>
 	<div class="w3-container">
+		<s:if test="#session.archive_categories != null && !#session.archive_categories.isEmpty()">
+			<h3 class="w3-margin-top">Categories</h3>
+			<p class="w3-small w3-margin-0">
+			<s:iterator value="#session.archive_categories" status="c">
+				<s:set var="cval" value="#session.archive_categories[#c.index].substring(0,#session.archive_categories[#c.index].lastIndexOf('('))" />
+				<a class="w3-opacity w3-hover-opaque w3-margin-right" title="<s:property />" href="/category/<s:property value="cval" />"><s:property /></a>
+			</s:iterator>
+			</p>
+		</s:if>
+	</div>
+	<div class="w3-container">
 		<s:if test="#session.archive_tags != null && !#session.archive_tags.isEmpty()">
 			<h3 class="w3-margin-top">Tags</h3>
 			<p class="w3-small w3-text-grey">
@@ -34,5 +45,5 @@
 			</s:iterator>
 			</p>
 		</s:if>
-	</div>	
+	</div>
 </div>

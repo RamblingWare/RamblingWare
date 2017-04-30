@@ -5,7 +5,7 @@
 <%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
 
-<title>Year <s:property value="year" /> - RamblingWare</title>
+<title>Categories - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -23,35 +23,37 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1 style="vertical-align: middle;"><span class="icon-time w3-text-theme"></span>&nbsp;Year: <s:property value="year" /></h1>
+				<h1 style="vertical-align: middle;"><span class="icon-folder w3-text-theme"></span>&nbsp;Categories</h1>
 				
-				<!-- POSTS START -->
-				<s:if test="posts != null">
-				<s:if test="posts.isEmpty()">
+				<!-- CATEGORIES START -->
+				<s:if test="categories != null">
+				<s:if test="categories.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>
-						No results were found for that year.</p>
+						No categories were found.</p>
 				</s:if>
 				<s:else>
-					<s:if test="posts.size() == 1">	
-						<p>1 blog post published in <s:property value="year" />.<br /></p>
+					<s:if test="categories.size() == 1">	
+						<p>1 category found.<br /></p>
 					</s:if>
 					<s:else>
-						<p><s:property value="posts.size()" /> blog posts published in <s:property value="year" />.<br /></p>
+						<p><s:property value="categories.size()" /> categories found. (Sorted alphabetically.)<br /></p>
 					</s:else>
 					
-					<s:iterator value="posts" status="r">
-						<%@include file="/WEB-INF/fragment/card-post.jspf" %>
+					<ol>
+					<s:iterator value="categories" status="c">
+						<s:set var="cval" value="categories[#c.index].substring(0,categories[#c.index].lastIndexOf('('))" />
+						<s:set var="ccnt" value="categories[#c.index].substring(categories[#c.index].lastIndexOf('(')+1,categories[#c.index].length-1)" />
+						<li><a title="<s:property value="cval" />" href="/category/<s:property value="cval" />"><s:property value="cval" /></a>
+						&nbsp;
+						<s:property value="ccnt" /> posts.
+						</li>
 					</s:iterator>
+					</ol>
 				
 				</s:else>
 				</s:if>
-				<!-- POSTS END -->
-				
-				<div class="w3-container w3-padding-left w3-padding-right w3-center">
-					<hr />
-					<p class="w3-large"><a href="/year/">See more years...</a></p>
-				</div>
+				<!-- TAGS END -->
 			</div>
 			
 			<!-- ARCHIVE BEGIN -->

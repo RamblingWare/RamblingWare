@@ -23,7 +23,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Tags</h1>
+				<h1 style="vertical-align: middle;"><span class="icon-tag w3-text-theme"></span>&nbsp;Tags</h1>
 				
 				<!-- TAGS START -->
 				<s:if test="tags != null">

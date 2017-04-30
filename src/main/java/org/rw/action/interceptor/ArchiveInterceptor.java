@@ -26,6 +26,7 @@ public class ArchiveInterceptor implements Interceptor {
 		ArrayList<Post> archive_featured = (ArrayList<Post>) sessionAttributes.get("archive_featured");
 		ArrayList<String> archive_years = (ArrayList<String>) sessionAttributes.get("archive_years");
 		ArrayList<String> archive_tags = (ArrayList<String>) sessionAttributes.get("archive_tags");
+		ArrayList<String> archive_categories = (ArrayList<String>) sessionAttributes.get("archive_categories");
 		
 		if (archive_years == null || archive_years.isEmpty()) 
 		{			
@@ -33,11 +34,13 @@ public class ArchiveInterceptor implements Interceptor {
 			archive_featured = Application.getDatabaseSource().getArchiveFeatured();
 			archive_years = Application.getDatabaseSource().getArchiveYears();
 			archive_tags = Application.getDatabaseSource().getArchiveTags();
+			archive_categories = Application.getDatabaseSource().getArchiveCategories();
 			
 			// set attributes
 			sessionAttributes.put("archive_featured", archive_featured);
 			sessionAttributes.put("archive_years", archive_years);
 			sessionAttributes.put("archive_tags", archive_tags);
+			sessionAttributes.put("archive_categories", archive_categories);
 		} 
 
 		return actionInvocation.invoke();

@@ -65,6 +65,7 @@ public class MySQLDatabase extends DatabaseSource {
 				post.setPublishDate(rs.getDate("publish_date"));
 				post.setVisible(rs.getInt("is_visible") > 0);
 				post.setFeatured(rs.getInt("is_featured") > 0);
+				post.setCategory(rs.getString("category"));
 				post.setThumbnail(rs.getString("thumbnail"));
 				post.setBanner(rs.getString("banner"));
 				post.setBannerCaption(rs.getString("banner_caption"));
@@ -132,7 +133,7 @@ public class MySQLDatabase extends DatabaseSource {
 			
 			// save fields into database
 			PreparedStatement pt = conn.prepareStatement(
-					"insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,thumbnail,banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,category,thumbnail,banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?)");
 			pt.setInt(1, post.getAuthor().getId());
 			pt.setString(2, post.getTitle());
 			pt.setString(3, post.getUriName());
@@ -141,11 +142,12 @@ public class MySQLDatabase extends DatabaseSource {
 			pt.setTimestamp(4, new java.sql.Timestamp(cal.getTimeInMillis()));
 			pt.setInt(5, post.isVisible()?1:0);
 			pt.setInt(6, post.isFeatured()?1:0);
-			pt.setString(7, post.getThumbnail());
-			pt.setString(8, post.getBanner());
-			pt.setString(9, post.getBannerCaption());
-			pt.setString(10, post.getDescription());
-			pt.setString(11, post.getHtmlContent());
+			pt.setString(7, post.getCategory());
+			pt.setString(8, post.getThumbnail());
+			pt.setString(9, post.getBanner());
+			pt.setString(10, post.getBannerCaption());
+			pt.setString(11, post.getDescription());
+			pt.setString(12, post.getHtmlContent());
 			
 			if(pt.execute())
 			{
@@ -208,6 +210,7 @@ public class MySQLDatabase extends DatabaseSource {
 					+ "publish_date = ?,"
 					+ "is_visible = ?,"
 					+ "is_featured = ?,"
+					+ "category = ?,"
 					+ "thumbnail = ?,"
 					+ "description = ?,"
 					+ "banner = ?,"
@@ -222,11 +225,12 @@ public class MySQLDatabase extends DatabaseSource {
 			pt.setTimestamp(4, new java.sql.Timestamp(cal.getTimeInMillis()));
 			pt.setInt(5, post.isVisible()?1:0);
 			pt.setInt(6, post.isFeatured()?1:0);
-			pt.setString(7, post.getThumbnail());
-			pt.setString(8, post.getDescription());
-			pt.setString(9, post.getBanner());
-			pt.setString(10, post.getBannerCaption());
-			pt.setString(11, post.getHtmlContent());
+			pt.setString(7, post.getCategory());
+			pt.setString(8, post.getThumbnail());
+			pt.setString(9, post.getDescription());
+			pt.setString(10, post.getBanner());
+			pt.setString(11, post.getBannerCaption());
+			pt.setString(12, post.getHtmlContent());
 			
 			if(pt.execute()) {
 				// failed to update post
@@ -504,6 +508,33 @@ public class MySQLDatabase extends DatabaseSource {
 	}
 
 	@Override
+	public ArrayList<String> getArchiveCategories() {
+		ArrayList<String> archive_categories = new ArrayList<String>();
+		
+		Connection conn = null;
+		try {
+			String query = "select p.category, COUNT(*) as count  from posts p where is_visible <> 0 group by category order by p.category asc";
+
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				// add to results list
+				int count = rs.getInt("count");
+				archive_categories.add(rs.getString("category") + " (" + count + ")");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				/* Do Nothing */}
+		}
+		return archive_categories;
+	}
+
+	@Override
 	public ArrayList<String> getArchiveTags() {
 		ArrayList<String> archive_tags = new ArrayList<String>();
 
@@ -588,6 +619,7 @@ public class MySQLDatabase extends DatabaseSource {
 				// post.setHtmlContent(rs.getString("html_content"));
 				post.setVisible(rs.getInt("is_visible") == 1);
 				post.setFeatured(rs.getInt("is_featured") == 1);
+				post.setCategory(rs.getString("category"));
 				post.setModifyDate(rs.getDate("modify_date"));
 				post.setThumbnail(rs.getString("thumbnail"));
 				post.setBanner(rs.getString("banner"));
@@ -598,6 +630,96 @@ public class MySQLDatabase extends DatabaseSource {
 				posts.add(post);
 			}
 
+			// gather tags, author, and view count
+			for (Post p : posts) {
+				ResultSet rs2 = st.executeQuery("select t.* from tags t where t.post_id = " + p.getId());
+
+				// get this post's tags - there could be more than 1
+				ArrayList<String> post_tags = new ArrayList<String>();
+				while (rs2.next()) {
+					post_tags.add(rs2.getString("tag_name"));
+				}
+				p.setTags(post_tags);
+
+				// get post's author
+				ResultSet rs3 = st.executeQuery(
+						"select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a where a.user_id = "
+								+ p.getAuthor().getId());
+				if (rs3.next()) {
+					// get the user properties
+					Author author = new Author(rs3.getInt("user_id"));
+					author.setUriName(rs3.getString("uri_name"));
+					author.setName(rs3.getString("name"));
+					author.setCreateDate(rs3.getDate("create_date"));
+					author.setDescription(rs3.getString("description"));
+					author.setModifyDate(rs3.getDate("modify_date"));
+					author.setThumbnail(rs3.getString("thumbnail"));
+					p.setAuthor(author);
+				} else {
+					p.getAuthor().setName("Anonymous");
+					p.getAuthor().setUriName("anonymous");
+				}
+				
+				// get post's view count
+				ResultSet rs4 = st.executeQuery("select count from views where post_id = " + p.getId());
+				if(rs4.next()) {
+					p.setViews(rs4.getLong("count"));
+				} else {
+					p.setViews(0);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				/* Do Nothing */}
+		}
+		return posts;
+	}
+
+	@Override
+	public ArrayList<Post> getPostsByCategory(int page, int limit, String category, boolean includeHidden) {
+		ArrayList<Post> posts = new ArrayList<Post>();
+
+		Connection conn = null;
+		try {
+			int offset = (page - 1) * limit;
+			String query = "select p.* from posts p where category = '" + category + "'";
+
+			if (!includeHidden)
+				query += " and p.is_visible <> 0 ";
+
+			query += "order by p.create_date desc limit " + limit + " offset " + offset;
+
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+
+				// get the post properties
+				Post post = new Post(rs.getInt("post_id"));
+				post.setTitle(rs.getString("title"));
+				post.setUriName(rs.getString("uri_name"));
+				post.setCreateDate(rs.getDate("create_date"));
+				post.setPublishDate(rs.getDate("publish_date"));
+				post.setDescription(rs.getString("description"));
+				// post.setHtmlContent(rs.getString("html_content"));
+				post.setVisible(rs.getInt("is_visible") == 1);
+				post.setFeatured(rs.getInt("is_featured") == 1);
+				post.setCategory(rs.getString("category"));
+				post.setModifyDate(rs.getDate("modify_date"));
+				post.setThumbnail(rs.getString("thumbnail"));
+				post.setBanner(rs.getString("banner"));
+				post.setBannerCaption(rs.getString("banner_caption"));
+				post.setAuthor(new Author(rs.getInt("user_id")));
+
+				// add to results list
+				posts.add(post);
+			}
+			
 			// gather tags, author, and view count
 			for (Post p : posts) {
 				ResultSet rs2 = st.executeQuery("select t.* from tags t where t.post_id = " + p.getId());
@@ -678,6 +800,7 @@ public class MySQLDatabase extends DatabaseSource {
 				// post.setHtmlContent(rs.getString("html_content"));
 				post.setVisible(rs.getInt("is_visible") == 1);
 				post.setFeatured(rs.getInt("is_featured") == 1);
+				post.setCategory(rs.getString("category"));
 				post.setModifyDate(rs.getDate("modify_date"));
 				post.setThumbnail(rs.getString("thumbnail"));
 				post.setBanner(rs.getString("banner"));
@@ -767,6 +890,7 @@ public class MySQLDatabase extends DatabaseSource {
 				// post.setHtmlContent(rs.getString("html_content"));
 				post.setVisible(rs.getInt("is_visible") == 1);
 				post.setFeatured(rs.getInt("is_featured") == 1);
+				post.setCategory(rs.getString("category"));
 				post.setModifyDate(rs.getDate("modify_date"));
 				post.setThumbnail(rs.getString("thumbnail"));
 				post.setBanner(rs.getString("banner"));

@@ -41,6 +41,7 @@
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
 						<th><span class="icon-quill w3-large w3-text-theme w3-padding-square" title="Title"></span>Title</th>
+						<th><span class="icon-folder w3-large w3-text-theme w3-padding-square" title="Category"></span>Category</th>
 						<th><span class="icon-tag w3-large w3-text-theme w3-padding-square" title="Tags"></span>Tags</th>
 						<th><span class="icon-author w3-large w3-text-theme w3-padding-square" title="Author"></span>Author</th>
 						<th><span class="icon-time w3-large w3-text-theme w3-padding-square" title="Publish Date"></span>Published</th>
@@ -63,9 +64,10 @@
 							&nbsp;<span class="icon-star w3-large w3-text-yellow w3-padding-square" title="This is a featured post."></span>
 						</s:if>
 						</td>
+						<td><a class="w3-text-black" href="/category/<s:property value="category" />"><s:property value="category" /></a></td>
 						<td><s:if test="tags != null && !tags.isEmpty()">
 							<s:iterator value="tags">
-								&nbsp;<a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" href="/tag/<s:property />" title="<s:property />"><s:property /></a>
+								<a class="w3-text-black" href="/tag/<s:property />" title="<s:property />"><s:property /></a>&nbsp;
 							</s:iterator>
 						</s:if></td>
 						<td><a class="w3-text-black" href="/author/<s:property value="author.uriName" />"><s:property value="author.name" /></a></td>

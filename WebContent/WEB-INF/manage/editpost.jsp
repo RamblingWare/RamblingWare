@@ -103,6 +103,11 @@ function preview() {
 		desc = "Blog Post Description.";
 	document.getElementById('previewDesc').innerHTML = desc;
 	
+	var cat = document.getElementById('category').value;
+	if(cat.length<=1)
+		cat = "Category";
+	document.getElementById('previewCategory').innerHTML = cat;
+	
 	var tags = document.getElementById('tags').value;
 	// chop off [ ] if they were added
 	if(tags.startsWith('['))
@@ -173,7 +178,11 @@ preview();
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.post.description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
-					<p>   
+					<p class="w3-col m12 l4 w3-margin-right">
+						<label class="w3-validate w3-text-grey-light w3-large" for="category">Category:&nbsp;<span class="w3-small w3-text-grey quote">(Note: Only one.)</span></label>
+						<input type="text" size="50" maxlength="100" name="category" id="category" value="<s:property value="category" />" onkeyup="preview()" onchange="preview()" placeholder="Advice / Lists / Code ..." class="w3-input w3-round-large  w3-border" />
+					</p>
+					<p class="w3-col m12 l7">   
 						<label class="w3-validate w3-text-grey-light w3-large" for="tags">Tags:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Separated by commas.)</span></label>
 						<input type="text" size="50" maxlength="200" name="tags" id="tags" value="<s:property value="#request.post.tags" />" onkeyup="preview()" onchange="preview()" required placeholder="java, interview, funny" class="w3-input w3-round-large w3-border" />
 						<span class="w3-small w3-text-grey">Suggested:</span>&nbsp;<span id="previewUsedTags" class="w3-small"></span>
@@ -209,8 +218,12 @@ preview();
 							<a href="#" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><%=Utils.formatReadableDate(new java.util.Date(System.currentTimeMillis())) %></a>
 						</p>
 						<p class="w3-small w3-text-theme">
+							<span class="icon-folder w3-medium w3-text-theme w3-padding-square" title="Category"></span>
+							<a id="previewCategory" href="#" title="Category" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"></a>
+							
 							<span class="icon-tag w3-medium w3-text-theme w3-padding-square" title="Tags"></span>
 							<span id="previewTags"><a class="w3-text-theme" href="#">tag</a>&nbsp;</span>
+							<span class="icon-eye w3-medium w3-text-theme w3-padding-square" title="Views"></span><span title="Views" class="w3-text-theme">0</span>
 							<span class="icon-comments w3-medium w3-text-theme w3-padding-square" title="Comments"></span><a class="w3-small w3-text-grey" href="#comments">0</a>
 						</p>
 						

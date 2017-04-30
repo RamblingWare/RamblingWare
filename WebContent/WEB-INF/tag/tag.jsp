@@ -23,7 +23,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Tag: <s:property value="tag" /></h1>
+				<h1 style="vertical-align: middle;"><span class="icon-tag w3-text-theme"></span>&nbsp;Tag: <s:property value="tag" /></h1>
 				
 				<!-- POSTS START -->
 				<s:if test="posts != null">

@@ -71,6 +71,9 @@
 		<action name="year">
 			<result type="redirect">/year/</result>
 		</action>
+		<action name="category">
+			<result type="redirect">/category/</result>
+		</action>
 		<action name="author">
 			<result type="redirect">/author/</result>
 		</action>
@@ -144,6 +147,23 @@
 		
 		<action name="*" class="org.rw.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+		</action>
+		
+	</package>
+	
+	<!-- /CATEGORY/ -->
+	<package name="category" namespace="/category" extends="root">
+
+		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
+		
+		<action name="" class="org.rw.action.CategoriesAction">
+			<result name="success">/WEB-INF/category/categories.jsp</result>
+			<result name="error">/WEB-INF/category/categories.jsp</result>
+		</action>
+		
+		<action name="*" class="org.rw.action.CategoryAction">
+			<result name="success">/WEB-INF/category/category.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
