@@ -1,9 +1,8 @@
 # RamblingWare
 
 [![Build](https://travis-ci.org/RamblingWare/RamblingWare.svg?branch=master)](https://travis-ci.org/RamblingWare/RamblingWare)
-[![Coverage](https://coveralls.io/repos/github/RamblingWare/RamblingWare/badge.svg?branch=master)](https://coveralls.io/github/RamblingWare/RamblingWare?branch=master)
 [![Code Climate](https://codeclimate.com/github/RamblingWare/RamblingWare/badges/gpa.svg)](https://codeclimate.com/github/RamblingWare/RamblingWare)
-[![License](http://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/RamblingWare/blob/master/LICENSE)
+[![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/RamblingWare/blob/master/LICENSE)
 
 
 This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too. 
