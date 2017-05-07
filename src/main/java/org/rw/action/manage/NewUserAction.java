@@ -3,13 +3,13 @@ package org.rw.action.manage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.amdelamar.jhash.Hash;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.action.model.Author;
 import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
-import org.rw.security.PasswordHash;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -55,7 +55,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 								// user does not already exist.
 								// add new user
 								// salt and hash the password
-								password = PasswordHash.createHash(password);
+								password = Hash.create(password, Hash.PBKDF2_HMACSHA256);
 
 								Author newUser = new Author(-1);
 								newUser.setEmail(email);

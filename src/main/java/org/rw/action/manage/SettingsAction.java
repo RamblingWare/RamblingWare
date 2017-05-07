@@ -3,14 +3,14 @@ package org.rw.action.manage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.amdelamar.jhash.Hash;
+import org.amdelamar.jotp.OTP;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.action.model.Author;
 import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
-import org.rw.security.PasswordHash;
-import org.rw.security.TwoFactor;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -50,7 +50,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 
 		if (!user.isOTPEnabled() && user.getKeySecret() == null) {
 			// generate secret
-			secret = TwoFactor.randomBase32();
+			secret = OTP.randomBase32(20);
 			user.setKeySecret(secret);
 		} else {
 			// remember the generated secret
@@ -123,20 +123,20 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 
 			// update user information
 			try {
-				if (PasswordHash.validatePassword(passwordOld, user.getPassword())) {
+				if (Hash.verify(passwordOld, user.getPassword())) {
 					// old password matches, so update with new password
 
 					Author updatedUser = user;
 
 					// salt and hash the password
-					updatedUser.setPassword(PasswordHash.createHash(passwordNew));
+					updatedUser.setPassword(Hash.create(passwordNew, Hash.PBKDF2_HMACSHA256));
 
 					if (Application.getDatabaseSource().editUser(updatedUser)) {
 						// Success
 						// update user settings in session
 						user.setPassword(updatedUser.getPassword());
 						System.out.println("User " + user.getUsername() + " updated their password.");
-						addActionMessage("Password was saved.");
+						addActionMessage("Password was successfully changed.");
 						return SUCCESS;
 					} else {
 						// failed to update user password
@@ -176,7 +176,7 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 				try {
 					Author updatedUser = user;
 
-					if (PasswordHash.validatePassword(passwordOld, user.getPassword())) {
+					if (Hash.verify(passwordOld, user.getPassword())) {
 						// old password matches, so disable 2FA
 						updatedUser.setOTPAuthenticated(true);
 						updatedUser.setOTPEnabled(false);
@@ -214,10 +214,10 @@ public class SettingsAction extends ActionSupport implements UserAware, ServletR
 				}
 
 				
-			} else if (TwoFactor.validateTOTP(secret, code)) {
+			} else if (OTP.verifyTotp(secret, code, 6)) {
 				// they want to enable 2FA.
 				// generate recovery key
-				String recover = TwoFactor.randomString("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", 12);
+				String recover = OTP.random("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", 12);
 				recover = recover.substring(0, 3) + " " + recover.substring(3, 6) + " " + recover.substring(6, 9) + " "
 						+ recover.substring(9);
 

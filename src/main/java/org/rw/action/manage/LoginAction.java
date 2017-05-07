@@ -6,14 +6,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.amdelamar.jhash.Hash;
+import org.amdelamar.jotp.OTP;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.action.model.Author;
 import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
-import org.rw.security.PasswordHash;
-import org.rw.security.TwoFactor;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -52,7 +52,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 			try {
 				user = Application.getDatabaseSource().getUser(username);
 
-				if (user != null && PasswordHash.validatePassword(password, user.getPassword())) {
+				if (user != null && Hash.verify(password, user.getPassword())) {
 					// password matches!
 					// Login success
 
@@ -106,7 +106,7 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 			sessionAttributes = ActionContext.getContext().getSession();
 			user = (Author) sessionAttributes.get("USER");
 
-			if (TwoFactor.validateTOTP(user.getKeySecret(), code)) {
+			if (OTP.verifyTotp(user.getKeySecret(), code, 6)) {
 				user.setOTPAuthenticated(true);
 				sessionAttributes.put("login", "true");
 				sessionAttributes.put("context", new Date());

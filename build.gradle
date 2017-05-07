@@ -22,8 +22,8 @@ dependencies {
     compile "javax.mail:javax.mail-api:1.+"
     compile "org.json:json:20160810"
     
-    compile "commons-codec:commons-codec:1.8"
-    compile files('lib/libotp.jar')
+    compile files('lib/jhash-1.0.jar')
+    compile files('lib/jotp-1.0.jar')
     
     compile "mysql:mysql-connector-java:5.1.25"
     
