@@ -59,7 +59,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 					// Success
 					System.out.println("User "+user.getUsername()+" deleted user: "+uri);
 					addActionMessage("The author was deleted!");
-					return "edit";
+					return SUCCESS;
 				}
 				else {
 					// failed to delete user
@@ -101,7 +101,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 					// Success
 					System.out.println("User "+user.getUsername()+" saved changes to the author: "+uriName);
 					addActionMessage("Successfully saved changes to the author.");
-					return "edit";
+					return SUCCESS;
 				}
 				{
 					// failed to update
@@ -131,7 +131,7 @@ public class EditUserAction extends ActionSupport implements UserAware, ServletR
 						servletRequest.setCharacterEncoding("UTF-8");
 						
 						System.out.println("User "+user.getUsername()+" opened author to edit: "+uri);
-						return Action.SUCCESS;
+						return Action.INPUT;
 					}
 					else
 					{

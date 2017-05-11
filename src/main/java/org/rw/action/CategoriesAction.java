@@ -26,7 +26,7 @@ public class CategoriesAction extends ActionSupport implements UserAware, Servle
 	
 	public String execute() {
 				
-		// /year
+		// /category
 		 
 		// this shows all the categories of blog posts
 		try {

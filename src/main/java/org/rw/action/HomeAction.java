@@ -23,9 +23,10 @@ public class HomeAction extends ActionSupport implements UserAware, ServletRespo
 
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<Post> posts = new ArrayList<Post>();
-	private ArrayList<Author> authors = new ArrayList<Author>();
-	private int limit = 7;
+	private ArrayList<Post> posts;
+	private ArrayList<Author> authors;
+	private static final int PAGE = 1;
+	private static final int LIMIT = 7;
 	
 	public String execute() {
 		
@@ -34,10 +35,10 @@ public class HomeAction extends ActionSupport implements UserAware, ServletRespo
 		// this shows the most recent blog posts
 		try {
 			// gather posts
-			posts = Application.getDatabaseSource().getPosts(1, limit, false);
+			posts = Application.getDatabaseSource().getPosts(PAGE, LIMIT, false);
 			
 			// gather authors
-			authors = Application.getDatabaseSource().getAuthors(1, limit, true);
+			authors = Application.getDatabaseSource().getAuthors(PAGE, LIMIT, true);
 			
 			// set attributes
 			servletRequest.setCharacterEncoding("UTF-8");

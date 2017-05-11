@@ -81,10 +81,12 @@ public class Utils {
 		while (rs.next()) {
 			HashMap<String, Object> row = new HashMap<String, Object>(columns);
 			for (int i = 1; i <= columns; ++i) {
-				if(md.getColumnName(i).equals("DocumentScanDate"))
+				if(md.getColumnName(i).equals("DocumentScanDate")) {
 					row.put(md.getColumnName(i), formatReadableDate(rs.getDate(i)));
-				else
+				}
+				else {
 					row.put(md.getColumnName(i), rs.getObject(i));
+				}
 			}
 			list.add(row);
 		}
@@ -98,14 +100,18 @@ public class Utils {
 	 * @return String
 	 */
 	public static String formatBytes(double bytes) {
-		if (bytes >= 1073741824.0)
+		if (bytes >= 1073741824.0) {
 			return BYTEFORM.format(bytes / 1073741824.0) + " GB"; // gigabytes
-		else if (bytes >= 1048576)
+		}
+		else if (bytes >= 1048576) {
 			return BYTEFORM.format(bytes / 1048576.0) + " MB"; // megabytes
-		else if (bytes >= 1024)
+		}
+		else if (bytes >= 1024) {
 			return BYTEFORM.format(bytes / 1024.0) + " KB"; // kilobytes
-		else
+		}
+		else {
 			return BYTEFORM.format(bytes) + " B"; // bytes
+		}
 	}
 
 	/**
@@ -115,14 +121,18 @@ public class Utils {
 	 */
 	public static String formatTime(long timeInMilliseconds)
 	{
-		if (timeInMilliseconds >= 3600000)
+		if (timeInMilliseconds >= 3600000) {
 			return (timeInMilliseconds / 3600000) + " hrs " + (timeInMilliseconds / 60000 % 60) + " mins " + (timeInMilliseconds / 1000 % 60) + " secs";
-		else if (timeInMilliseconds >= 60000)
+		}
+		else if (timeInMilliseconds >= 60000) {
 			return (timeInMilliseconds / 60000 % 60) + " mins " + (timeInMilliseconds / 1000 % 60) + " secs";
-		else if (timeInMilliseconds >= 1000)
+		}
+		else if (timeInMilliseconds >= 1000) {
 			return (timeInMilliseconds / 1000 % 60) + " secs";
-		else
+		}
+		else {
 			return timeInMilliseconds + " ms";
+		}
 	}
 
 	/**
@@ -132,8 +142,9 @@ public class Utils {
 	 * @return
 	 */
 	public static String formatReadableDate(Date date) {
-		if(date == null)
+		if(date == null) {
 			return "Null";
+		}
 		return READABLEDATEFORM.format(date);
 	}
 	
@@ -144,8 +155,9 @@ public class Utils {
 	 * @return
 	 */
 	public static String formatReadableDateTime(Date date) {
-		if(date == null)
+		if(date == null) {
 			return "Null";
+		}
 		return READABLEDATETIMEFORM.format(date);
 	}
 
@@ -155,8 +167,9 @@ public class Utils {
 	 * @return
 	 */
 	public static String formatMySQLDate(Date dateTime) {
-		if(dateTime == null)
+		if(dateTime == null) {
 			return "Null";
+		}
 		return MYSQLDATEFORM.format(dateTime);
 	}
 
@@ -166,8 +179,9 @@ public class Utils {
 	 * @return
 	 */
 	public static String formatSQLServerDate(Date dateTime) {
-		if(dateTime == null)
+		if(dateTime == null) {
 			return "Null";
+		}
 		return SQLSERVERDATEFORM.format(dateTime);
 	}
 
@@ -245,8 +259,9 @@ public class Utils {
 	 */
 	public static String formatURL(String u) {
 		String url2 = u;
-		if (!u.startsWith("http://") && !u.startsWith("https://"))
+		if (!u.startsWith("http://") && !u.startsWith("https://")) {
 			url2 = "http://" + url2;
+		}
 		return url2;
 	}
 	
@@ -271,12 +286,12 @@ public class Utils {
 			
 		} catch(Exception e){
 			System.err.println("ERROR when trying to download file. "+e.getMessage());
-		}finally {
-			if (in != null)
+		} finally {
+			if (in != null) {
 				try {
 					in.close();
-				} catch (IOException e1) {
-				}
+				} catch (IOException e1) {}
+			}
 		}
 		return dataString;
 	}

@@ -24,10 +24,10 @@ public class YearAction extends ActionSupport implements UserAware, ServletRespo
 
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<Post> posts = new ArrayList<Post>();
+	private ArrayList<Post> posts;
 	private String year;
 	private int page;
-	private int limit = 7;
+	private static final int LIMIT = 7;
 	private boolean nextPage;
 	private boolean prevPage;
 	
@@ -53,10 +53,10 @@ public class YearAction extends ActionSupport implements UserAware, ServletRespo
 			int yr = Integer.parseInt(year);
 			
 			// gather posts
-			posts = Application.getDatabaseSource().getPostsByYear(page, limit, yr, false);
+			posts = Application.getDatabaseSource().getPostsByYear(page, LIMIT, yr, false);
 			
 			// determine pagination
-			nextPage = posts.size() <= limit;
+			nextPage = posts.size() <= LIMIT;
 			prevPage = page > 1;
 			
 			// set attributes

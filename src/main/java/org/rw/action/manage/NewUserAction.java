@@ -72,7 +72,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 
 									addActionMessage("Successfully created new Author.");
 									System.out.println("User "+user.getUsername()+" created new author: " + username);
-									return "edit";
+									return SUCCESS;
 								}
 								else {
 									// failed to insert new user
@@ -113,7 +113,7 @@ public class NewUserAction extends ActionSupport implements UserAware, ServletRe
 
 		// no submit yet
 		System.out.println("User " + user.getUsername() + " opened new user.");
-		return SUCCESS;
+		return INPUT;
 	}
 
 	@Override

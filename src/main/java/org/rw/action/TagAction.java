@@ -24,10 +24,10 @@ public class TagAction extends ActionSupport implements UserAware, ServletRespon
 
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<Post> posts = new ArrayList<Post>();
+	private ArrayList<Post> posts;
 	private String tag;
 	private int page;
-	private int limit = 7;
+	private static final int LIMIT = 7;
 	private boolean nextPage;
 	private boolean prevPage;
 	
@@ -51,10 +51,10 @@ public class TagAction extends ActionSupport implements UserAware, ServletRespon
 			}
 			
 			// gather posts
-			posts = Application.getDatabaseSource().getPostsByTag(page, limit, tag, false);
+			posts = Application.getDatabaseSource().getPostsByTag(page, LIMIT, tag, false);
 			
 			// determine pagination
-			nextPage = posts.size() <= limit;
+			nextPage = posts.size() <= LIMIT;
 			prevPage = page > 1;
 			
 			// set attributes

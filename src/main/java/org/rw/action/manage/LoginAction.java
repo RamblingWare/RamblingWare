@@ -49,101 +49,126 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 
 		// now try to see if they can login
 		if (username != null && password != null) {
-			try {
-				user = Application.getDatabaseSource().getUser(username);
-
-				if (user != null && Hash.verify(password, user.getPassword())) {
-					// password matches!
-					// Login success
-
-					if (user.isOTPEnabled()) {
-						// user needs to enter a OTP still before they are
-						// logged in.
-						attempts = 0;
-						lastAttempt = 0;
-						sessionAttributes = ActionContext.getContext().getSession();
-						sessionAttributes.put("USER", user);
-
-						System.out.println("User logged in " + user.getUsername() + " and now has to enter their OTP ("
-								+ servletRequest.getRemoteAddr() + ")");
-
-						return INPUT;
-					} else {
-						// user didn't enable OTP / 2FA yet.
-
-						// update user's last login date
-						Application.getDatabaseSource().loginUser(user);
-
-						attempts = 0;
-						lastAttempt = 0;
-						sessionAttributes = ActionContext.getContext().getSession();
-						sessionAttributes.put("login", "true");
-						sessionAttributes.put("context", new Date());
-						sessionAttributes.put("USER", user);
-
-						addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
-								+ Utils.formatReadableDate(user.getLastLoginDate()));
-						System.out.println(
-								"User logged in: " + user.getUsername() + " (" + servletRequest.getRemoteAddr() + ")");
-
-						return SUCCESS;
-					}
-
-				} else {
-					// no user found
-					addActionError("Invalid username or password. (" + attempts + "/" + maxAttempts + ")");
-					System.out.println("User failed to login. Invalid Username was entered " + username + " ("
-							+ attempts + "/" + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
-				}
-			} catch (Exception e) {
-				addActionError(e.getMessage());
-				e.printStackTrace();
-			}
+		    // logging in with password
+		    return passwordLogin();
 		} else if (code != null) {
-			// OTP / 2FA code provided.
-			// verify if it is correct
-
-			sessionAttributes = ActionContext.getContext().getSession();
-			user = (Author) sessionAttributes.get("USER");
-
-			if (OTP.verifyTotp(user.getKeySecret(), code, 6)) {
-				user.setOTPAuthenticated(true);
-				sessionAttributes.put("login", "true");
-				sessionAttributes.put("context", new Date());
-				sessionAttributes.put("USER", user);
-				attempts = 0;
-				lastAttempt = 0;
-
-				try {
-					// update user's last login date
-					Application.getDatabaseSource().loginUser(user);
-
-					addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
-							+ Utils.formatReadableDate(user.getLastLoginDate()));
-					System.out.println("User logged in: " + user.getUsername() + " with their OTP ("
-							+ servletRequest.getRemoteAddr() + ")");
-
-				} catch (Exception e) {
-					addActionError(e.getMessage());
-					e.printStackTrace();
-				}
-				return SUCCESS;
-
-			} else {
-				// OTP code did not match!
-				addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
-				System.out.println("User tried to login with OTP: " + user.getUsername() + " (" + attempts + "/"
-						+ maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
-
-				return INPUT;
-			}
+		    // logging in with OTP
+		    return otpLogin();
 		} else {
 			// invalid login
 			addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
 			System.out.println("User tried to login with an invalid Username. (" + attempts + "/" + maxAttempts + ") ("
 					+ servletRequest.getRemoteAddr() + ")");
-		}
-		return ERROR;
+			return ERROR;
+		}		
+	}
+	
+	/**
+	 * Check if they can login with the password entered.
+	 * 
+	 * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
+	 */
+	private String passwordLogin() {
+        try {
+            user = Application.getDatabaseSource().getUser(username);
+
+            if (user != null && Hash.verify(password, user.getPassword())) {
+                // password matches!
+                // Login success
+
+                if (user.isOTPEnabled()) {
+                    // user needs to enter a OTP still before they are
+                    // logged in.
+                    attempts = 0;
+                    lastAttempt = 0;
+                    sessionAttributes = ActionContext.getContext().getSession();
+                    sessionAttributes.put("USER", user);
+
+                    System.out.println("User logged in " + user.getUsername() + " and now has to enter their OTP ("
+                            + servletRequest.getRemoteAddr() + ")");
+
+                    return INPUT;
+                } else {
+                    // user didn't enable OTP / 2FA yet.
+
+                    // update user's last login date
+                    Application.getDatabaseSource().loginUser(user);
+
+                    attempts = 0;
+                    lastAttempt = 0;
+                    sessionAttributes = ActionContext.getContext().getSession();
+                    sessionAttributes.put("login", "true");
+                    sessionAttributes.put("context", new Date());
+                    sessionAttributes.put("USER", user);
+
+                    addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
+                            + Utils.formatReadableDate(user.getLastLoginDate()));
+                    System.out.println(
+                            "User logged in: " + user.getUsername() + " (" + servletRequest.getRemoteAddr() + ")");
+
+                    return SUCCESS;
+                }
+
+            } else {
+                // no user found
+                addActionError("Invalid username or password. (" + attempts + "/" + maxAttempts + ")");
+                System.out.println("User failed to login. Invalid Username was entered " + username + " ("
+                        + attempts + "/" + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
+                return ERROR;
+            }
+        } catch (Exception e) {
+            addActionError(e.getMessage());
+            e.printStackTrace();
+            return ERROR;
+        }
+	}
+	
+	/**
+	 * Check if they can login with the OTP code entered.
+	 * 
+	 * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
+	 */
+	private String otpLogin() {
+
+        // OTP / 2FA code provided.
+        // verify if it is correct
+
+        sessionAttributes = ActionContext.getContext().getSession();
+        user = (Author) sessionAttributes.get("USER");
+
+        if (OTP.verifyTotp(user.getKeySecret(), code, 6)) {
+            user.setOTPAuthenticated(true);
+            sessionAttributes.put("login", "true");
+            sessionAttributes.put("context", new Date());
+            sessionAttributes.put("USER", user);
+            attempts = 0;
+            lastAttempt = 0;
+
+            try {
+                // update user's last login date
+                Application.getDatabaseSource().loginUser(user);
+
+                addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
+                        + Utils.formatReadableDate(user.getLastLoginDate()));
+                System.out.println("User logged in: " + user.getUsername() + " with their OTP ("
+                        + servletRequest.getRemoteAddr() + ")");
+
+            } catch (Exception e) {
+                addActionError(e.getMessage());
+                e.printStackTrace();
+                return ERROR;
+            }
+            return SUCCESS;
+
+        } else {
+            // OTP code did not match!
+            addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
+            System.out.println("User tried to login with OTP: " + user.getUsername() + " (" + attempts + "/"
+                    + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
+
+            return INPUT;
+        }
+    
 	}
 
 	/**

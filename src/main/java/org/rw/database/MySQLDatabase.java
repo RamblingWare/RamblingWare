@@ -133,7 +133,7 @@ public class MySQLDatabase extends DatabaseSource {
 			
 			// save fields into database
 			PreparedStatement pt = conn.prepareStatement(
-					"insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,category,thumbnail,banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,category,thumbnail,banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			pt.setInt(1, post.getAuthor().getId());
 			pt.setString(2, post.getTitle());
 			pt.setString(3, post.getUriName());

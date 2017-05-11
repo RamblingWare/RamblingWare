@@ -184,7 +184,7 @@ function preview() {
 					</p>
 					<p class="w3-col m12 l4 w3-margin-right">
 						<label class="w3-validate w3-text-grey-light w3-large" for="category">Category:&nbsp;<span class="w3-small w3-text-grey quote">(Note: Only one.)</span></label>
-						<input type="text" size="50" maxlength="100" name="category" id="category" value="<s:property value="category" />" onkeyup="preview()" onchange="preview()" placeholder="Advice / Lists / Code ..." class="w3-input w3-round-large  w3-border" />
+						<input type="text" size="50" maxlength="100" name="category" id="category" value="<s:property value="category" />" onkeyup="preview()" onchange="preview()" placeholder="Advice / Code / Other ..." class="w3-input w3-round-large  w3-border" />
 					</p>
 					<p class="w3-col m12 l7">
 						<label class="w3-validate w3-text-grey-light w3-large" for="tags">Tags:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Separated by commas.)</span></label>

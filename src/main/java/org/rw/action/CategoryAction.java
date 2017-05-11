@@ -24,16 +24,16 @@ public class CategoryAction extends ActionSupport implements UserAware, ServletR
 
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<Post> posts = new ArrayList<Post>();
+	private ArrayList<Post> posts;
 	private String category;
 	private int page;
-	private int limit = 7;
+	private static final int LIMIT = 7;
 	private boolean nextPage;
 	private boolean prevPage;
 	
 	public String execute() {
 				
-		// /year
+		// /category
 		 
 		// this shows the most recent blog posts by category
 		try {
@@ -51,10 +51,10 @@ public class CategoryAction extends ActionSupport implements UserAware, ServletR
 			}
 			
 			// gather posts
-			posts = Application.getDatabaseSource().getPostsByCategory(page, limit, category, false);
+			posts = Application.getDatabaseSource().getPostsByCategory(page, LIMIT, category, false);
 			
 			// determine pagination
-			nextPage = posts.size() <= limit;
+			nextPage = posts.size() <= LIMIT;
 			prevPage = page > 1;
 			
 			// set attributes
