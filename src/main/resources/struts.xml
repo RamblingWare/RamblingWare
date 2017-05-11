@@ -262,7 +262,7 @@
 			<result name="success" type="chain">
 		        <param name="actionName">users</param>
 		    </result>
-			<result name="error">/WEB-INF/error/edituser.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
 		<action name="settings" class="org.rw.action.manage.SettingsAction">

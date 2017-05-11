@@ -22,7 +22,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 							
-				<h1><span class="w3-small w3-text-grey w3-right">Apr 9th, 2017</span>
+				<h1><span class="w3-small w3-text-grey w3-right">May 9th, 2017</span>
 				About</h1>
 				
 				<p>
@@ -73,7 +73,7 @@
 				<p>
 					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare/issues"><span class="icon-bug w3-large w3-margin-right"></span>Report Bug</a>
 					&nbsp;&nbsp;
-					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare"><span class="icon-embed2 w3-large w3-margin-right"></span>View Code</a>
+					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare"><span class="icon-embed w3-large w3-margin-right"></span>View Code</a>
 				</p>
 				
 			</div>
