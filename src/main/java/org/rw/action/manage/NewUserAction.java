@@ -3,7 +3,6 @@ package org.rw.action.manage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.amdelamar.jhash.Hash;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.action.model.Author;
@@ -11,6 +10,7 @@ import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
 
+import com.amdelamar.jhash.Hash;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**

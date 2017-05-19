@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.amdelamar.jhash.Hash;
-import org.amdelamar.jotp.OTP;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.action.model.Author;
@@ -15,6 +13,8 @@ import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
 
+import com.amdelamar.jhash.Hash;
+import com.amdelamar.jotp.OTP;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -136,7 +136,14 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
         sessionAttributes = ActionContext.getContext().getSession();
         user = (Author) sessionAttributes.get("USER");
 
-        if (OTP.verifyTotp(user.getKeySecret(), code, 6)) {
+        boolean validCode = false;
+        try {
+            validCode = OTP.verify(user.getKeySecret(), OTP.timeInHex(), code, 6, "totp");
+        } catch(Exception e) {
+            System.err.println("Error when validating OTP: "+e.getMessage());
+        }
+        
+        if (validCode) {
             user.setOTPAuthenticated(true);
             sessionAttributes.put("login", "true");
             sessionAttributes.put("context", new Date());
