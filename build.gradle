@@ -1,9 +1,10 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
 apply plugin: 'eclipse'
 apply plugin: 'war'
 
 group = 'com.ramblingware'
-version = '1.0.0'
+version = '1.0'
 war.baseName = 'ramblingware'
 project.webAppDirName = 'WebContent'
 
@@ -25,11 +26,11 @@ dependencies {
     compile "javax.mail:javax.mail-api:1.+"
     compile "org.json:json:20160810"
     compile "mysql:mysql-connector-java:5.1.25"
-    
+
     // jitpack
     compile 'com.github.amdelamar:jhash:v1.0.0'
     compile 'com.github.amdelamar:jotp:v1.0.0'
-    
+
 	testCompile "junit:junit:4.12"
 }
 
@@ -40,4 +41,11 @@ eclipse.project {
 javadoc {
 	source = sourceSets.main.allJava
 	classpath = configurations.compile
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
 }

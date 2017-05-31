@@ -1,11 +1,12 @@
 # RamblingWare
 
-[![Build](https://travis-ci.org/RamblingWare/RamblingWare.svg?branch=master)](https://travis-ci.org/RamblingWare/RamblingWare)
-[![Code Climate](https://codeclimate.com/github/RamblingWare/RamblingWare/badges/gpa.svg)](https://codeclimate.com/github/RamblingWare/RamblingWare)
+[![Build](https://img.shields.io/travis/RamblingWare/RamblingWare.svg)](https://travis-ci.org/RamblingWare/RamblingWare)
+[![Code Climate](https://img.shields.io/codeclimate/github/RamblingWare/RamblingWare.svg)](https://codeclimate.com/github/RamblingWare/RamblingWare)
+[![Codecov](https://img.shields.io/codecov/c/github/RamblingWare/RamblingWare.svg)](https://codecov.io/gh/RamblingWare/RamblingWare)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/RamblingWare/blob/master/LICENSE)
 
 
-This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too. 
+This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
 https://www.ramblingware.com
 
 ---
