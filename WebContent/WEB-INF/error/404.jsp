@@ -23,8 +23,8 @@
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
-					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for WTF?!" title="Sad Robot" src="https://i.imgur.com/pHKz09F.png">
-					<p class="w3-tiny w3-text-grey w3-margin-0 w3-right">Photo Credit: bamenny</p>
+					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="404 Robot" title="404 Robot" src="/img/robot.png" />
+					<p class="w3-tiny w3-text-grey w3-margin-0 w3-right">404 Love Not Found. (Photo Credit: bamenny)</p>
 				</div>
 				
 				<h1>404: File Not Found</h1>
