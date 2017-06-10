@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.rw.action.model.Author;
 import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
 
@@ -19,7 +21,11 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 3/19/2017
  */
-public class TagAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class TagAction extends ActionSupport
+        implements
+            UserAware,
+            ServletResponseAware,
+            ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
 
@@ -85,6 +91,12 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
+    }
+
+    @Override
+    public void setUser(Author user) {
+        // TODO Auto-generated method stub
+
     }
 
     public ArrayList<Post> getPosts() {

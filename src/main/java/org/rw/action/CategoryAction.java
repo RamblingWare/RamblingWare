@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.rw.action.model.Author;
 import org.rw.action.model.Post;
+import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
 
@@ -21,6 +23,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class CategoryAction extends ActionSupport
         implements
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
@@ -89,6 +92,12 @@ public class CategoryAction extends ActionSupport
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
+    }
+
+    @Override
+    public void setUser(Author user) {
+        // TODO Auto-generated method stub
+
     }
 
     public ArrayList<Post> getPosts() {
