@@ -8,77 +8,77 @@ package org.rw.action.model;
  */
 public class Database {
 
-	private String name;
-	private String host;
-	private String port;
-	private String url;
-	private String username;
-	private String password;
+    private String name;
+    private String host;
+    private String port;
+    private String url;
+    private String username;
+    private String password;
 
-	public Database() {
-	}
+    public Database() {
+    }
 
-	public Database(String name) {
-		this.name = name;
-	}
-	
-	@Override
-	public String toString() {
-		StringBuilder string = new StringBuilder("Database:\nName: "+getName());
-		string.append("\nHost: "+getHost());
-		string.append("\nPort: "+getPort());
-		string.append("\nURL: "+getUrl());
-		string.append("\nUser: "+getUsername());
-		string.append("\nPassword: ******");
-		return string.toString();
-	}
+    public Database(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder("Database:\nName: " + getName());
+        string.append("\nHost: " + getHost());
+        string.append("\nPort: " + getPort());
+        string.append("\nURL: " + getUrl());
+        string.append("\nUser: " + getUsername());
+        string.append("\nPassword: ******");
+        return string.toString();
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getHost() {
-		return host;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setHost(String host) {
-		this.host = host;
-	}
+    public String getHost() {
+        return host;
+    }
 
-	public String getPort() {
-		return port;
-	}
+    public void setHost(String host) {
+        this.host = host;
+    }
 
-	public void setPort(String port) {
-		this.port = port;
-	}
+    public String getPort() {
+        return port;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setPort(String port) {
+        this.port = port;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }

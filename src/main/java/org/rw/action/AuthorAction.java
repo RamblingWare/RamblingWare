@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.rw.action.model.Author;
-import org.rw.action.model.UserAware;
 import org.rw.config.Application;
 import org.rw.config.Utils;
 
@@ -15,83 +14,76 @@ import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * Author action class
+ * 
  * @author Austin Delamar
  * @date 10/23/2016
  */
-public class AuthorAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class AuthorAction extends ActionSupport
+        implements
+            ServletResponseAware,
+            ServletRequestAware {
 
-	private static final long serialVersionUID = 1L;
-	
-	// post parameters
-	private Author author;
-	private String uri_name;
-	
-	public String execute() {
-		
-		// /author/person-name-goes-here
-		String  uri = servletRequest.getRequestURI();
-		if(uri_name == null && uri.startsWith("/author/"))
-			uri_name = Utils.removeBadChars(uri.substring(8,uri.length()));
-		
-		if(uri_name != null && uri_name.length() > 0)
-		{
-			// search in db for author
-			try {
-				author = Application.getDatabaseSource().getAuthor(uri_name);
-				
-				if(author != null)
-				{					
-					// set attributes
-					servletRequest.setCharacterEncoding("UTF-8");
-					servletRequest.setAttribute("author", author);
-					
-					return Action.SUCCESS;
-				}
-				else
-				{
-					System.err.println("Author '"+uri_name+"' not found. Please try again.");
-					return Action.NONE;
-				}
-			
-			} catch (Exception e) {
-				addActionError("Error: "+e.getClass().getName()+". Please try again later.");
-				e.printStackTrace();
-				return ERROR;
-			}
-		}
-		else
-		{
-			System.err.println("Author '"+uri_name+"' not found. Please try again.");
-			return Action.NONE;
-		}
-	}
-	
-	protected HttpServletResponse servletResponse;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public void setServletResponse(HttpServletResponse servletResponse) {
-		this.servletResponse = servletResponse;
-	}
+    // post parameters
+    private Author author;
+    private String uri_name;
 
-	protected HttpServletRequest servletRequest;
+    public String execute() {
 
-	@Override
-	public void setServletRequest(HttpServletRequest servletRequest) {
-		this.servletRequest = servletRequest;
-	}
-	
-	@Override
-	public void setUser(Author user) {
-		// TODO Auto-generated method stub
-		
-	}
+        // /author/person-name-goes-here
+        String uri = servletRequest.getRequestURI();
+        if (uri_name == null && uri.startsWith("/author/")) {
+            uri_name = Utils.removeBadChars(uri.substring(8, uri.length()));
+        }
 
-	public void setAuthor(Author author) {
-		this.author = author;
-	}
+        if (uri_name != null && uri_name.length() > 0) {
+            // search in db for author
+            try {
+                author = Application.getDatabaseSource().getAuthor(uri_name);
 
-	public Author getAuthor() {
-		return author;
-	}
-	
+                if (author != null) {
+                    // set attributes
+                    servletRequest.setCharacterEncoding("UTF-8");
+                    servletRequest.setAttribute("author", author);
+
+                    return Action.SUCCESS;
+                } else {
+                    System.err.println("Author '" + uri_name + "' not found. Please try again.");
+                    return Action.NONE;
+                }
+
+            } catch (Exception e) {
+                addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+                e.printStackTrace();
+                return ERROR;
+            }
+        } else {
+            System.err.println("Author '" + uri_name + "' not found. Please try again.");
+            return Action.NONE;
+        }
+    }
+
+    protected HttpServletResponse servletResponse;
+
+    @Override
+    public void setServletResponse(HttpServletResponse servletResponse) {
+        this.servletResponse = servletResponse;
+    }
+
+    protected HttpServletRequest servletRequest;
+
+    @Override
+    public void setServletRequest(HttpServletRequest servletRequest) {
+        this.servletRequest = servletRequest;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
 }
