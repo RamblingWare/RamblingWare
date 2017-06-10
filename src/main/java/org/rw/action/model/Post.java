@@ -14,183 +14,183 @@ import org.rw.config.Utils;
  */
 public class Post {
 
-	private int id;
-	private String title;
-	private String uriName;
-	private boolean featured;
-	private boolean visible;
-	private long views;
-	private String category;
+    private int id;
+    private String title;
+    private String uriName;
+    private boolean featured;
+    private boolean visible;
+    private long views;
+    private String category;
 
-	private String thumbnail;
-	private String banner;
-	private String bannerCaption;
-	private String description;
-	private String htmlContent;
+    private String thumbnail;
+    private String banner;
+    private String bannerCaption;
+    private String description;
+    private String htmlContent;
 
-	private Date createDate;
-	private Date modifyDate;
-	private Date publishDate;
+    private Date createDate;
+    private Date modifyDate;
+    private Date publishDate;
 
-	private Author author;
-	private ArrayList<String> tags;
+    private Author author;
+    private ArrayList<String> tags;
 
-	public Post(int id) {
-		this.id = id;
-	}
+    public Post(int id) {
+        this.id = id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getUriName() {
-		return uriName;
-	}
+    public String getUriName() {
+        return uriName;
+    }
 
-	public void setUriName(String uriName) {
-		this.uriName = uriName;
-	}
+    public void setUriName(String uriName) {
+        this.uriName = uriName;
+    }
 
-	public boolean isFeatured() {
-		return featured;
-	}
+    public boolean isFeatured() {
+        return featured;
+    }
 
-	public void setFeatured(boolean featured) {
-		this.featured = featured;
-	}
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
 
-	public boolean isVisible() {
-		return visible;
-	}
+    public boolean isVisible() {
+        return visible;
+    }
 
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 
-	public long getViews() {
-		return views;
-	}
+    public long getViews() {
+        return views;
+    }
 
-	public void setViews(long views) {
-		this.views = views;
-	}
+    public void setViews(long views) {
+        this.views = views;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public String getThumbnail() {
-		return thumbnail;
-	}
+    public String getThumbnail() {
+        return thumbnail;
+    }
 
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
-	public String getBanner() {
-		return banner;
-	}
+    public String getBanner() {
+        return banner;
+    }
 
-	public void setBanner(String banner) {
-		this.banner = banner;
-	}
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
 
-	public String getBannerCaption() {
-		return bannerCaption;
-	}
+    public String getBannerCaption() {
+        return bannerCaption;
+    }
 
-	public void setBannerCaption(String bannerCaption) {
-		this.bannerCaption = bannerCaption;
-	}
+    public void setBannerCaption(String bannerCaption) {
+        this.bannerCaption = bannerCaption;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getHtmlContent() {
-		return htmlContent;
-	}
+    public String getHtmlContent() {
+        return htmlContent;
+    }
 
-	public void setHtmlContent(String htmlContent) {
-		this.htmlContent = htmlContent;
-	}
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
+    }
 
-	public Date getCreateDate() {
-		return createDate;
-	}
+    public Date getCreateDate() {
+        return createDate;
+    }
 
-	public String getCreateDateReadable() {
-		return Utils.formatReadableDate(createDate);
-	}
+    public String getCreateDateReadable() {
+        return Utils.formatReadableDate(createDate);
+    }
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
-	public Date getModifyDate() {
-		return modifyDate;
-	}
+    public Date getModifyDate() {
+        return modifyDate;
+    }
 
-	public String getModifyDateReadable() {
-		return Utils.formatReadableDate(modifyDate);
-	}
+    public String getModifyDateReadable() {
+        return Utils.formatReadableDate(modifyDate);
+    }
 
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
 
-	public Date getPublishDate() {
-		return publishDate;
-	}
+    public Date getPublishDate() {
+        return publishDate;
+    }
 
-	public String getPublishDateReadable() {
-		return Utils.formatReadableDate(publishDate);
-	}
-	
-	public int getPublishYear() {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(publishDate);		
-		return cal.get(Calendar.YEAR);
-	}
+    public String getPublishDateReadable() {
+        return Utils.formatReadableDate(publishDate);
+    }
 
-	public void setPublishDate(Date publishDate) {
-		this.publishDate = publishDate;
-	}
+    public int getPublishYear() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(publishDate);
+        return cal.get(Calendar.YEAR);
+    }
 
-	public Author getAuthor() {
-		return author;
-	}
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
 
-	public void setAuthor(Author author) {
-		this.author = author;
-	}
+    public Author getAuthor() {
+        return author;
+    }
 
-	public ArrayList<String> getTags() {
-		return tags;
-	}
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
-	public void setTags(ArrayList<String> tags) {
-		this.tags = tags;
-	}
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
 
 }

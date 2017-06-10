@@ -25,50 +25,54 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class LoginAction extends ActionSupport implements UserAware, ServletResponseAware, ServletRequestAware {
+public class LoginAction extends ActionSupport
+        implements
+            UserAware,
+            ServletResponseAware,
+            ServletRequestAware {
 
-	private static final long serialVersionUID = 1L;
-	private Author user;
-	private Map<String, Object> sessionAttributes = null;
-	private String username;
-	private String password;
-	private String code;
+    private static final long serialVersionUID = 1L;
+    private Author user;
+    private Map<String, Object> sessionAttributes = null;
+    private String username;
+    private String password;
+    private String code;
 
-	private int lockoutPeriod = 30; // minutes
-	private int maxAttempts = 3;
-	private static int attempts = 0;
-	private static long lastAttempt = 0;
+    private int lockoutPeriod = 30; // minutes
+    private int maxAttempts = 3;
+    private static int attempts = 0;
+    private static long lastAttempt = 0;
 
-	@Override
-	public String execute() {
+    @Override
+    public String execute() {
 
-		// check if locked out
-		if (isLockedOut()) {
-			return Action.ERROR;
-		}
+        // check if locked out
+        if (isLockedOut()) {
+            return Action.ERROR;
+        }
 
-		// now try to see if they can login
-		if (username != null && password != null) {
-		    // logging in with password
-		    return passwordLogin();
-		} else if (code != null) {
-		    // logging in with OTP
-		    return otpLogin();
-		} else {
-			// invalid login
-			addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
-			System.out.println("User tried to login with an invalid Username. (" + attempts + "/" + maxAttempts + ") ("
-					+ servletRequest.getRemoteAddr() + ")");
-			return ERROR;
-		}		
-	}
-	
-	/**
-	 * Check if they can login with the password entered.
-	 * 
-	 * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
-	 */
-	private String passwordLogin() {
+        // now try to see if they can login
+        if (username != null && password != null) {
+            // logging in with password
+            return passwordLogin();
+        } else if (code != null) {
+            // logging in with OTP
+            return otpLogin();
+        } else {
+            // invalid login
+            addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
+            System.out.println("User tried to login with an invalid Username. (" + attempts + "/"
+                    + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
+            return ERROR;
+        }
+    }
+
+    /**
+     * Check if they can login with the password entered.
+     * 
+     * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
+     */
+    private String passwordLogin() {
         try {
             user = Application.getDatabaseSource().getUser(username);
 
@@ -84,8 +88,9 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
                     sessionAttributes = ActionContext.getContext().getSession();
                     sessionAttributes.put("USER", user);
 
-                    System.out.println("User logged in " + user.getUsername() + " and now has to enter their OTP ("
-                            + servletRequest.getRemoteAddr() + ")");
+                    System.out.println("User logged in " + user.getUsername()
+                            + " and now has to enter their OTP (" + servletRequest.getRemoteAddr()
+                            + ")");
 
                     return INPUT;
                 } else {
@@ -103,17 +108,19 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
 
                     addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
                             + Utils.formatReadableDate(user.getLastLoginDate()));
-                    System.out.println(
-                            "User logged in: " + user.getUsername() + " (" + servletRequest.getRemoteAddr() + ")");
+                    System.out.println("User logged in: " + user.getUsername() + " ("
+                            + servletRequest.getRemoteAddr() + ")");
 
                     return SUCCESS;
                 }
 
             } else {
                 // no user found
-                addActionError("Invalid username or password. (" + attempts + "/" + maxAttempts + ")");
-                System.out.println("User failed to login. Invalid Username was entered " + username + " ("
-                        + attempts + "/" + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
+                addActionError(
+                        "Invalid username or password. (" + attempts + "/" + maxAttempts + ")");
+                System.out.println("User failed to login. Invalid Username was entered " + username
+                        + " (" + attempts + "/" + maxAttempts + ") ("
+                        + servletRequest.getRemoteAddr() + ")");
                 return ERROR;
             }
         } catch (Exception e) {
@@ -121,14 +128,14 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
             e.printStackTrace();
             return ERROR;
         }
-	}
-	
-	/**
-	 * Check if they can login with the OTP code entered.
-	 * 
-	 * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
-	 */
-	private String otpLogin() {
+    }
+
+    /**
+     * Check if they can login with the OTP code entered.
+     * 
+     * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
+     */
+    private String otpLogin() {
 
         // OTP / 2FA code provided.
         // verify if it is correct
@@ -139,10 +146,10 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
         boolean validCode = false;
         try {
             validCode = OTP.verify(user.getKeySecret(), OTP.timeInHex(), code, 6, "totp");
-        } catch(Exception e) {
-            System.err.println("Error when validating OTP: "+e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error when validating OTP: " + e.getMessage());
         }
-        
+
         if (validCode) {
             user.setOTPAuthenticated(true);
             sessionAttributes.put("login", "true");
@@ -170,107 +177,109 @@ public class LoginAction extends ActionSupport implements UserAware, ServletResp
         } else {
             // OTP code did not match!
             addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
-            System.out.println("User tried to login with OTP: " + user.getUsername() + " (" + attempts + "/"
-                    + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
+            System.out.println("User tried to login with OTP: " + user.getUsername() + " ("
+                    + attempts + "/" + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
 
             return INPUT;
         }
-    
-	}
 
-	/**
-	 * Check if the user has attempted too many times, and lock them out if they
-	 * have.
-	 * 
-	 * @return true if locked out
-	 */
-	private boolean isLockedOut() {
-		try {
-			// wait a bit, just to slow this request type down...
-			attempts++;
-			Thread.sleep(500 * attempts);
-		} catch (InterruptedException e1) {
-			/* Don't bother to catch this exception */
-		}
+    }
 
-		// lockout for 30 min, if they failed 3 times
-		if (attempts >= maxAttempts) {
-			if (lastAttempt == 0) {
-				// this is their 5th try, so record their time
-				lastAttempt = System.currentTimeMillis();
-				System.err.println("Unknown user has been locked out for " + lockoutPeriod + " min. ("
-						+ servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ")");
-				addActionError(
-						"You have been locked out for the next " + lockoutPeriod + " minutes, for too many attempts.");
-				return true;
-			} else if (System.currentTimeMillis() >= (lastAttempt + (lockoutPeriod * 60 * 1000))) {
-				// its been 30mins or more, so unlock
-				attempts = 0;
-				lastAttempt = 0;
-				System.err.println("Unknown user has waited " + lockoutPeriod + " min, proceed. ("
-						+ servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ")");
-				return false;
-			} else {
-				// they have already been locked out
-				System.err.println("Unknown user has been locked out for " + lockoutPeriod + " min. ("
-						+ servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ") ");
-				addActionError(
-						"You have been locked out for the next " + lockoutPeriod + " minutes, for too many attempts.");
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Check if the user has attempted too many times, and lock them out if they have.
+     * 
+     * @return true if locked out
+     */
+    private boolean isLockedOut() {
+        try {
+            // wait a bit, just to slow this request type down...
+            attempts++;
+            Thread.sleep(500 * attempts);
+        } catch (InterruptedException e1) {
+            /* Don't bother to catch this exception */
+        }
 
-	public void setSession(Map<String, Object> sessionAttributes) {
-		this.sessionAttributes = sessionAttributes;
-	}
+        // lockout for 30 min, if they failed 3 times
+        if (attempts >= maxAttempts) {
+            if (lastAttempt == 0) {
+                // this is their 5th try, so record their time
+                lastAttempt = System.currentTimeMillis();
+                System.err.println("Unknown user has been locked out for " + lockoutPeriod
+                        + " min. (" + servletRequest.getRemoteAddr() + ")("
+                        + servletRequest.getRemoteHost() + ")");
+                addActionError("You have been locked out for the next " + lockoutPeriod
+                        + " minutes, for too many attempts.");
+                return true;
+            } else if (System.currentTimeMillis() >= (lastAttempt + (lockoutPeriod * 60 * 1000))) {
+                // its been 30mins or more, so unlock
+                attempts = 0;
+                lastAttempt = 0;
+                System.err.println("Unknown user has waited " + lockoutPeriod + " min, proceed. ("
+                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost()
+                        + ")");
+                return false;
+            } else {
+                // they have already been locked out
+                System.err.println("Unknown user has been locked out for " + lockoutPeriod
+                        + " min. (" + servletRequest.getRemoteAddr() + ")("
+                        + servletRequest.getRemoteHost() + ") ");
+                addActionError("You have been locked out for the next " + lockoutPeriod
+                        + " minutes, for too many attempts.");
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public void setUser(Author user) {
-		this.user = user;
-	}
+    public void setSession(Map<String, Object> sessionAttributes) {
+        this.sessionAttributes = sessionAttributes;
+    }
 
-	protected HttpServletResponse servletResponse;
+    @Override
+    public void setUser(Author user) {
+        this.user = user;
+    }
 
-	@Override
-	public void setServletResponse(HttpServletResponse servletResponse) {
-		this.servletResponse = servletResponse;
-	}
+    protected HttpServletResponse servletResponse;
 
-	protected HttpServletRequest servletRequest;
+    @Override
+    public void setServletResponse(HttpServletResponse servletResponse) {
+        this.servletResponse = servletResponse;
+    }
 
-	@Override
-	public void setServletRequest(HttpServletRequest servletRequest) {
-		this.servletRequest = servletRequest;
-	}
+    protected HttpServletRequest servletRequest;
 
-	public String getUsername() {
-		return username;
-	}
+    @Override
+    public void setServletRequest(HttpServletRequest servletRequest) {
+        this.servletRequest = servletRequest;
+    }
 
-	public void setUsername(String username) {
-		this.username = Utils.removeBadChars(username);
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(String username) {
+        this.username = Utils.removeBadChars(username);
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setCode(String code) {
-		this.code = Utils.removeBadChars(code);
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public int getAttempts() {
-		return attempts;
-	}
+    public void setCode(String code) {
+        this.code = Utils.removeBadChars(code);
+    }
+
+    public int getAttempts() {
+        return attempts;
+    }
 
 }
