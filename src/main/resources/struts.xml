@@ -128,9 +128,16 @@
 			<result name="error">/WEB-INF/tag/tags.jsp</result>
 		</action>
 		
+		<action name="*/page/*" class="org.rw.action.TagAction">
+			<result name="success">/WEB-INF/tag/tag.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
 		<action name="*" class="org.rw.action.TagAction">
 			<result name="success">/WEB-INF/tag/tag.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
@@ -145,9 +152,16 @@
 			<result name="error">/WEB-INF/year/years.jsp</result>
 		</action>
 		
+		<action name="*/page/*" class="org.rw.action.YearAction">
+			<result name="success">/WEB-INF/year/year.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
 		<action name="*" class="org.rw.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
@@ -162,9 +176,16 @@
 			<result name="error">/WEB-INF/category/categories.jsp</result>
 		</action>
 		
+		<action name="*/page/*" class="org.rw.action.CategoryAction">
+			<result name="success">/WEB-INF/category/category.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
 		<action name="*" class="org.rw.action.CategoryAction">
 			<result name="success">/WEB-INF/category/category.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
@@ -182,6 +203,7 @@
 		<action name="*" class="org.rw.action.AuthorAction">
 			<result name="success">/WEB-INF/author/author.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 	</package>
@@ -204,13 +226,13 @@
 		
 		<!-- POST ACTIONS -->
 		<action name="posts" class="org.rw.action.manage.ViewPostsAction">
-			<result name="success">/WEB-INF/manage/viewposts.jsp</result>
-			<result name="error">/WEB-INF/manage/viewposts.jsp</result>
+			<result name="success">/WEB-INF/manage/posts.jsp</result>
+			<result name="error">/WEB-INF/manage/posts.jsp</result>
 		</action>
 		
 		<action name="posts/page/*" class="org.rw.action.manage.ViewPostsAction">
-			<result name="success">/WEB-INF/manage/viewposts.jsp</result>
-			<result name="error">/WEB-INF/manage/viewposts.jsp</result>
+			<result name="success">/WEB-INF/manage/posts.jsp</result>
+			<result name="error">/WEB-INF/manage/posts.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
@@ -239,13 +261,13 @@
 		
 		<!-- USER ACTIONS -->
 		<action name="users" class="org.rw.action.manage.ViewUsersAction">
-			<result name="success">/WEB-INF/manage/viewusers.jsp</result>
-			<result name="error">/WEB-INF/manage/viewusers.jsp</result>
+			<result name="success">/WEB-INF/manage/users.jsp</result>
+			<result name="error">/WEB-INF/manage/users.jsp</result>
 		</action>
 		
 		<action name="users/page/*" class="org.rw.action.manage.ViewUsersAction">
-			<result name="success">/WEB-INF/manage/viewusers.jsp</result>
-			<result name="error">/WEB-INF/manage/viewusers.jsp</result>
+			<result name="success">/WEB-INF/manage/users.jsp</result>
+			<result name="error">/WEB-INF/manage/users.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
@@ -305,7 +327,7 @@
 	<package name="unknown" namespace="/**" extends="root">
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
 		<action name="**">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="archiveStack"></interceptor-ref>
 			<result>/WEB-INF/error/404.jsp</result>
 		</action>
 	</package>

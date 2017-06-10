@@ -45,7 +45,7 @@
 					<s:if test="#r.index < 3">
 						<%@include file="/WEB-INF/fragment/card-author.jspf" %>
 					</s:if>
-					</s:iterator>					
+					</s:iterator>	
 					
 					</div>
 				
