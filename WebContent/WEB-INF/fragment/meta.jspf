@@ -3,24 +3,51 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="application-name" content="RamblingWare">
 <meta name="author" content="Austin Delamar">
 <meta name="keywords" content="blog,tech,ramblings,software,hardware,web,developer,design,java,vbs,html,css,programming,privacy,open-source,computers">
 <meta name="description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too." />
 <meta name="robots" content="all">
 
+<!-- Apple iOS Add to Home Screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RamblingWare">
+<link rel="apple-touch-icon" sizes="64x64" href="/img/rw-64.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/img/rw-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/img/rw-512.png">
+
+<!-- Android Add to home screen -->
+<meta name="theme-color" content="#4F4F4F">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" sizes="64x64" href="/img/rw-64.png">
+<link rel="icon" sizes="192x192" href="/img/rw-192.png">
+<link rel="icon" sizes="512x512" href="/img/rw-512.png">
+<link rel="manifest" href="/manifest.json">
+
+<!-- Open Graph data -->
 <meta property="og:url" content="https://www.ramblingware.com">
-<meta property="og:type" content="blog">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
+<meta property="article:author" content="Austin Delamar">
 <meta property="og:title" content="RamblingWare">
 <meta property="og:image" content="https://www.ramblingware.com/img/rw-round.png">
 <meta property="og:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
+<meta property="og:site_name" content="RamblingWare" />
 
+<!-- Twitter Card data -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="https://www.ramblingware.com">
-<meta name="twitter:creator" content="Austin Delamar">
+<meta name="twitter:site" content="@RamblingWare">
+<meta name="twitter:creator" content="@RamblingWare">
 <meta name="twitter:title" content="RamblingWare">
 <meta name="twitter:description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
 <meta name="twitter:image" content="https://www.ramblingware.com/img/rw-round.png">
 
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="RamblingWare">
+<meta itemprop="description" content="This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.">
+<meta itemprop="image" content="https://www.ramblingware.com/img/rw-round.png"> 
+
+<link rel="author" href="humans.txt">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="stylesheet" href="/css/style.css?v=1.52">

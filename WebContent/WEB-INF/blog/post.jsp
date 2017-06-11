@@ -7,20 +7,28 @@
 <meta name="author" content="<s:property value="post.author.name" />">
 <meta name="description" content="<s:property value="post.description" />" />
 
+<!-- Open Graph data -->
 <meta property="og:url" content="https://www.ramblingware.com/blog/<s:property value="post.uriName" />">
-<meta property="og:type" content="blog">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="<s:property value="post.author.name" />">
 <meta property="og:title" content="<s:property value="post.title" />">
 <meta property="og:image" content="<s:property value="post.thumbnail" />">
 <meta property="og:description" content="<s:property value="post.description" />">
+<meta property="og:site_name" content="RamblingWare" />
 
+<!-- Twitter Card data -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="https://www.ramblingware.com/blog/<s:property value="post.uriName" />">
-<meta name="twitter:creator" content="<s:property value="post.author.name" />">
+<meta name="twitter:site" content="@RamblingWare">
+<meta name="twitter:creator" content="@amdelamar">
 <meta name="twitter:title" content="<s:property value="post.title" />">
 <meta name="twitter:description" content="<s:property value="post.description" />">
 <meta name="twitter:image" content="<s:property value="post.thumbnail" />">
+
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="<s:property value="post.title" />">
+<meta itemprop="description" content="<s:property value="post.description" />">
+<meta itemprop="image" content="<s:property value="post.thumbnail" />"> 
 
 <title><s:property value="post.title" /> - RamblingWare</title>
 </head>
