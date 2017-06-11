@@ -60,12 +60,6 @@ public class EditPostAction extends ActionSupport
 
     public String execute() {
 
-        try { /* Try to set UTF-8 page encoding */
-            servletRequest.setCharacterEncoding("UTF-8");
-        } catch (Exception e) {
-            System.err.println("Failed to set UTF-8 request encoding.");
-        }
-
         // get used variables
         usedTags = Application.getDatabaseSource().getArchiveTags();
         usedUris = Application.getDatabaseSource().getPostUris();
@@ -108,7 +102,6 @@ public class EditPostAction extends ActionSupport
 
                     // set attributes
                     servletRequest.setAttribute("post", post);
-                    servletRequest.setCharacterEncoding("UTF-8");
 
                     System.out
                             .println("User " + user.getUsername() + " opened post to edit: " + uri);

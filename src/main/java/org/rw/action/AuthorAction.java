@@ -44,7 +44,6 @@ public class AuthorAction extends ActionSupport
 
                 if (author != null) {
                     // set attributes
-                    servletRequest.setCharacterEncoding("UTF-8");
                     servletRequest.setAttribute("author", author);
 
                     return Action.SUCCESS;

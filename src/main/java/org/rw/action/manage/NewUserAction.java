@@ -38,12 +38,6 @@ public class NewUserAction extends ActionSupport
     @Override
     public String execute() {
 
-        try { /* Try to set UTF-8 page encoding */
-            servletRequest.setCharacterEncoding("UTF-8");
-        } catch (Exception e) {
-            System.err.println("Failed to set UTF-8 request encoding.");
-        }
-
         if (servletRequest.getParameter("submitForm") != null) {
             // submitted new user!
 

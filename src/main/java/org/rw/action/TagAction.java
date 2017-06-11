@@ -56,7 +56,6 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             prevPage = page > 1;
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("posts", posts);
             servletRequest.setAttribute("page", page);
             servletRequest.setAttribute("nextPage", nextPage);

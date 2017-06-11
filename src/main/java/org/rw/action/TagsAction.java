@@ -42,7 +42,6 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
             });
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("tags", tags);
 
             return SUCCESS;

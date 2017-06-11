@@ -38,7 +38,6 @@ public class CategoriesAction extends ActionSupport
             // already sorted alphabetically
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("categories", categories);
 
             return SUCCESS;

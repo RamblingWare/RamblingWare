@@ -55,12 +55,6 @@ public class NewPostAction extends ActionSupport
     @Override
     public String execute() {
 
-        try { /* Try to set UTF-8 page encoding */
-            servletRequest.setCharacterEncoding("UTF-8");
-        } catch (Exception e) {
-            System.err.println("Failed to set UTF-8 request encoding.");
-        }
-
         // get used variables
         usedTags = Application.getDatabaseSource().getArchiveTags();
         usedUris = Application.getDatabaseSource().getPostUris();

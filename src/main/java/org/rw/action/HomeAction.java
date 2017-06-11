@@ -41,7 +41,6 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
             authors = Application.getDatabaseSource().getAuthors(PAGE, LIMIT, true);
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("posts", posts);
             servletRequest.setAttribute("authors", authors);
 

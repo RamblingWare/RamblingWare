@@ -46,7 +46,6 @@ public class AuthorsAction extends ActionSupport
             });
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("authors", authors);
 
             return Action.SUCCESS;

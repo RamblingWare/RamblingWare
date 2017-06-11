@@ -43,12 +43,6 @@ public class EditUserAction extends ActionSupport
 
     public String execute() {
 
-        try { /* Try to set UTF-8 page encoding */
-            servletRequest.setCharacterEncoding("UTF-8");
-        } catch (Exception e) {
-            System.err.println("Failed to set UTF-8 request encoding.");
-        }
-
         // /manage/editpost/user-name-goes-here
         // this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123
         // )
@@ -128,7 +122,6 @@ public class EditUserAction extends ActionSupport
                     if (author != null) {
                         // set attributes
                         servletRequest.setAttribute("author", author);
-                        servletRequest.setCharacterEncoding("UTF-8");
 
                         System.out.println(
                                 "User " + user.getUsername() + " opened author to edit: " + uri);

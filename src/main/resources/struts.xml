@@ -11,15 +11,18 @@
 		<interceptors>
 			<interceptor name="authentication" class="org.rw.action.interceptor.AuthenticationInterceptor"></interceptor>
 			<interceptor name="archive" class="org.rw.action.interceptor.ArchiveInterceptor"></interceptor>
+			<interceptor name="header" class="org.rw.action.interceptor.HeaderInterceptor"></interceptor>
 			
 			<!-- Admin User Authentication -->
 			<interceptor-stack name="authStack">
+				<interceptor-ref name="header"></interceptor-ref>
 				<interceptor-ref name="authentication"></interceptor-ref>
 				<interceptor-ref name="defaultStack"></interceptor-ref>
 			</interceptor-stack>
 			
 			<!-- Archive Interceptor -->
 			<interceptor-stack name="archiveStack">
+				<interceptor-ref name="header"></interceptor-ref>
 				<interceptor-ref name="archive"></interceptor-ref>
 				<interceptor-ref name="defaultStack"></interceptor-ref>
 			</interceptor-stack>

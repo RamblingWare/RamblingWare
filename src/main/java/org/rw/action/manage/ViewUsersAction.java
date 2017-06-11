@@ -56,7 +56,6 @@ public class ViewUsersAction extends ActionSupport
             prevPage = page > 1;
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("authors", authors);
             servletRequest.setAttribute("page", page);
             servletRequest.setAttribute("nextPage", nextPage);

@@ -38,7 +38,6 @@ public class YearsAction extends ActionSupport
             // already sorted chronologically
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("years", years);
 
             return SUCCESS;

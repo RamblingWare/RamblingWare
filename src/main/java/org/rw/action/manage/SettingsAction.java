@@ -46,12 +46,6 @@ public class SettingsAction extends ActionSupport
 
     public String execute() {
 
-        try { /* Try to set UTF-8 page encoding */
-            servletRequest.setCharacterEncoding("UTF-8");
-        } catch (Exception e) {
-            System.err.println("Failed to set UTF-8 request encoding.");
-        }
-
         if (!user.isOTPEnabled() && user.getKeySecret() == null) {
             // generate secret
             secret = OTP.randomBase32(20);

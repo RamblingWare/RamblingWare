@@ -66,8 +66,7 @@ public class PostAction extends ActionSupport
                 // was post found AND is it publicly visible yet?
                 if (post != null) {
                     // set attributes
-                    servletRequest.setAttribute("post", post);
-                    servletRequest.setCharacterEncoding("UTF-8");
+                    servletRequest.setAttribute("post", post);                    
 
                     // check against previously viewed pages
                     boolean newViewFromSession = false;

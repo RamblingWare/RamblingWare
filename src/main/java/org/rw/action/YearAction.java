@@ -59,7 +59,6 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             prevPage = page > 1;
 
             // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
             servletRequest.setAttribute("posts", posts);
             servletRequest.setAttribute("page", page);
             servletRequest.setAttribute("nextPage", nextPage);

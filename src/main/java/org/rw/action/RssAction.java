@@ -51,10 +51,6 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
             }
             response += "</channel></rss>";
 
-            // set attributes
-            servletRequest.setCharacterEncoding("UTF-8");
-            servletResponse.setCharacterEncoding("UTF-8");
-
             PrintWriter out = null;
             try {
                 // return message to user
