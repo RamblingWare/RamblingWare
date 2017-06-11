@@ -1,14 +1,10 @@
 {
-  "lang": "en",
+  "lang": "en-US",
   "dir": "ltr",
-  "name": "RamblingWare Blog",
+  "name": "RamblingWare",
   "description": "This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.",
   "short_name": "RamblingWare",
   "icons": [{
-    "src": "img/rw-64.png",
-    "sizes": "64x64",
-    "type": "image/png"
-  },{
     "src": "img/rw-192.png",
     "sizes": "192x192",
     "type": "image/png"
@@ -16,11 +12,15 @@
     "src": "icon/rw-512.png",
     "sizes": "512x512",
     "type": "image/png"
+  },{
+    "src": "img/rw-64.png",
+    "sizes": "64x64",
+    "type": "image/png"
   }],
-  "scope": "www.ramblingware.com",
+  "scope": "*",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "landscape",
-  "theme_color": "darkgrey",
-  "background_color": "darkgrey"
+  "orientation": "any",
+  "theme_color": "#4F4F4F",
+  "background_color": "#4F4F4F"
 }

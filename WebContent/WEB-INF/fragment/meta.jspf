@@ -11,18 +11,20 @@
 
 <!-- Apple iOS Add to Home Screen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="RamblingWare">
-<link rel="apple-touch-icon" sizes="64x64" href="/img/rw-64.png">
+<link rel="apple-touch-icon" href="/img/rw-192.png">
 <link rel="apple-touch-icon" sizes="192x192" href="/img/rw-192.png">
 <link rel="apple-touch-icon" sizes="512x512" href="/img/rw-512.png">
+<link rel="apple-touch-icon" sizes="64x64" href="/img/rw-64.png">
 
 <!-- Android Add to home screen -->
 <meta name="theme-color" content="#4F4F4F">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="icon" sizes="64x64" href="/img/rw-64.png">
+<link rel="icon" href="/img/rw-192.png">
 <link rel="icon" sizes="192x192" href="/img/rw-192.png">
 <link rel="icon" sizes="512x512" href="/img/rw-512.png">
+<link rel="icon" sizes="64x64" href="/img/rw-64.png">
 <link rel="manifest" href="/manifest.json">
 
 <!-- Open Graph data -->
