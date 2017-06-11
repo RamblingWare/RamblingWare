@@ -35,7 +35,7 @@ public class HeaderInterceptor implements Interceptor {
         response.addHeader("Referrer-Policy", "origin-when-cross-origin");
 
         // Enforce TLS on all assets like JS and CSS and prevent mixed secure content warnings.
-        response.addHeader("Content-Security-Policy", "default-src 'self'");
+        response.addHeader("Content-Security-Policy", "default-src 'self' cdn.ramblingware.com");
 
         // Public-Key-Pins
         // Public-Key-Pins-Report-Only
