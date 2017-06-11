@@ -132,7 +132,7 @@ public class NewPostAction extends ActionSupport
 
         // check that the URI is unique
         try {
-            Post post = Application.getDatabaseSource().getPost(uriName, true, false);
+            Post post = Application.getDatabaseSource().getPost(uriName, true);
 
             if (post != null) {
                 // URI was not unique. Please try again.

@@ -1,7 +1,10 @@
 package org.rw.action;
 
+import java.util.HashSet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -58,7 +61,7 @@ public class PostAction extends ActionSupport
         if (uriName != null && uriName.length() > 0) {
             // search in db for post by title
             try {
-                post = Application.getDatabaseSource().getPost(uriName, canSeeHidden, true);
+                post = Application.getDatabaseSource().getPost(uriName, canSeeHidden);
 
                 // was post found AND is it publicly visible yet?
                 if (post != null) {
@@ -66,7 +69,24 @@ public class PostAction extends ActionSupport
                     servletRequest.setAttribute("post", post);
                     servletRequest.setCharacterEncoding("UTF-8");
 
+                    // check against previously viewed pages
+                    boolean newViewFromSession = false;
+                    if (servletRequest.getSession(false) != null) {
+                        HttpSession session = servletRequest.getSession();
+                        @SuppressWarnings("unchecked")
+                        HashSet<String> viewedPages = (HashSet<String>) session
+                                .getAttribute("viewedPages");
+
+                        if (viewedPages == null) {
+                            viewedPages = new HashSet<String>();
+                        }
+
+                        newViewFromSession = viewedPages.add(post.getUriName());
+                        session.setAttribute("viewedPages", viewedPages);
+                    }
+
                     // update page views
+                    Application.getDatabaseSource().incrementPageViews(post, newViewFromSession);
 
                     return Action.SUCCESS;
                 } else {

@@ -99,7 +99,7 @@ public class EditPostAction extends ActionSupport
         if (uri != null && uri.length() > 0) {
             // search in db for post by title
             try {
-                post = Application.getDatabaseSource().getPost(uri, true, false);
+                post = Application.getDatabaseSource().getPost(uri, true);
 
                 // was post found
                 if (post != null) {
@@ -186,7 +186,7 @@ public class EditPostAction extends ActionSupport
 
         // check that the URI is unique
         try {
-            Post existingPost = Application.getDatabaseSource().getPost(uri, true, false);
+            Post existingPost = Application.getDatabaseSource().getPost(uri, true);
 
             if (existingPost.getId() != id) {
                 // URI was not unique. Please try again.

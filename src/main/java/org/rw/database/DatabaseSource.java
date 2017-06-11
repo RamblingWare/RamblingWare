@@ -24,7 +24,7 @@ public abstract class DatabaseSource {
         return database;
     }
 
-    public abstract Post getPost(String uri, boolean includeHidden, boolean increaseHitCounter);
+    public abstract Post getPost(String uri, boolean includeHidden);
 
     public abstract Post newPost(Post post);
 
@@ -68,4 +68,6 @@ public abstract class DatabaseSource {
     public abstract boolean editUser(Author user);
 
     public abstract boolean loginUser(Author user);
+
+    public abstract boolean incrementPageViews(Post post, boolean sessionView);
 }

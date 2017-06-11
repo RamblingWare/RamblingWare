@@ -40,7 +40,7 @@ public class MySQLDatabase extends DatabaseSource {
     }
 
     @Override
-    public Post getPost(String uri, boolean includeHidden, boolean increaseHitCounter) {
+    public Post getPost(String uri, boolean includeHidden) {
 
         // search in db for post by title
         Post post = null;
@@ -98,18 +98,6 @@ public class MySQLDatabase extends DatabaseSource {
                     post.setViews(rs3.getLong("count"));
                 } else {
                     post.setViews(0);
-                }
-            }
-
-            if (post != null && increaseHitCounter) {
-                String sql = "UPDATE views SET count = count + 1 where post_id = " + post.getId();
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                int r = stmt.executeUpdate();
-
-                if (r == 0) {
-                    sql = "INSERT INTO views (post_id,count) VALUES (" + post.getId() + ",1)";
-                    PreparedStatement stmt2 = conn.prepareStatement(sql);
-                    stmt2.executeUpdate();
                 }
             }
 
@@ -1189,12 +1177,12 @@ public class MySQLDatabase extends DatabaseSource {
 
             if (user.getKeySecret() != null) {
                 pt2.setString(3, user.getKeySecret());
-            }else{
+            } else {
                 pt2.setNull(3, Types.VARCHAR);
             }
             if (user.getKeyRecover() != null) {
                 pt2.setString(4, user.getKeyRecover());
-            }else{
+            } else {
                 pt2.setNull(4, Types.VARCHAR);
             }
             if (pt2.execute()) {
@@ -1238,6 +1226,57 @@ public class MySQLDatabase extends DatabaseSource {
 
             if (r <= 0) {
                 throw new Exception("Failed to update last login date.");
+            }
+
+            // done
+            conn.commit();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                /* Do Nothing */}
+        }
+    }
+
+    @Override
+    public boolean incrementPageViews(Post post, boolean sessionView) {
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            conn.setAutoCommit(false);
+
+            if (post == null) {
+                throw new NullPointerException();
+            }
+
+            if (sessionView) {
+                String sql = "UPDATE views SET count = count + 1, session = session + 1 where post_id = "
+                        + post.getId();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                int r = stmt.executeUpdate();
+
+                if (r == 0) {
+                    sql = "INSERT INTO views (post_id,count,session) VALUES (" + post.getId()
+                            + ",1,1)";
+                    PreparedStatement stmt2 = conn.prepareStatement(sql);
+                    stmt2.executeUpdate();
+                }
+            } else {
+                String sql = "UPDATE views SET count = count + 1 where post_id = " + post.getId();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                int r = stmt.executeUpdate();
+
+                if (r == 0) {
+                    sql = "INSERT INTO views (post_id,count,session) VALUES (" + post.getId()
+                            + ",1,0)";
+                    PreparedStatement stmt2 = conn.prepareStatement(sql);
+                    stmt2.executeUpdate();
+                }
             }
 
             // done

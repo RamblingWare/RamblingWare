@@ -13,7 +13,7 @@ public class CloudantDatabase extends DatabaseSource {
     }
 
     @Override
-    public Post getPost(String uri, boolean includeHidden, boolean increaseHitCounter) {
+    public Post getPost(String uri, boolean includeHidden) {
         // Auto-generated method stub
         return null;
     }
@@ -135,6 +135,12 @@ public class CloudantDatabase extends DatabaseSource {
 
     @Override
     public boolean loginUser(Author user) {
+        // Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean incrementPageViews(Post post, boolean sessionView) {
         // Auto-generated method stub
         return false;
     }
