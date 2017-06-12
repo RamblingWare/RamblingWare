@@ -2,8 +2,8 @@
   "lang": "en-US",
   "dir": "ltr",
   "name": "RamblingWare",
-  "description": "This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.",
   "short_name": "RamblingWare",
+  "description": "This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.",
   "icons": [{
     "src": "img/rw-192.png",
     "sizes": "192x192",

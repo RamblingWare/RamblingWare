@@ -35,7 +35,14 @@ public class HeaderInterceptor implements Interceptor {
         response.addHeader("Referrer-Policy", "origin-when-cross-origin");
 
         // Enforce TLS on all assets like JS and CSS and prevent mixed secure content warnings.
-        response.addHeader("Content-Security-Policy", "default-src 'self' cdn.ramblingware.com 'unsafe-inline'");
+        response.addHeader("Content-Security-Policy",
+                "default-src 'self' cdn.ramblingware.com 'unsafe-inline' 'unsafe-eval'");
+        // 'unsafe-inline' is used for inline CSS
+        // 'unsafe-eval' is used for inline JS and CKEditor
+        // In a perfect scenario, we would remove these two attributes and fix any inline CSS/JS and
+        // unsafe javascript code like CKEditor. But unfortunately these are critical to the
+        // function of this blog.
+        // @see https://scotthelme.co.uk/content-security-policy-an-introduction/
 
         // Public-Key-Pins
         // Public-Key-Pins-Report-Only
