@@ -26,8 +26,6 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
 
     private static final long serialVersionUID = 1L;
 
-    private static final int LIMIT = 10;
-
     // search results
     private ArrayList<Post> posts;
 
@@ -52,7 +50,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
         try {
 
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(1, LIMIT, false);
+            posts = Application.getDatabaseSource().getPosts(1, Application.getLimit(), false);
             for (Post post : posts) {
                 response += "<item><title>" + post.getTitle() + "</title>\n" + "<description>"
                         + post.getDescription() + "</description>\n" + "<pubDate>"

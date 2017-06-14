@@ -26,7 +26,6 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
 
     private ArrayList<Post> posts;
     private int page;
-    private static final int LIMIT = 10;
     private boolean nextPage;
     private boolean prevPage;
 
@@ -46,10 +45,10 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(page, LIMIT, false);
+            posts = Application.getDatabaseSource().getPosts(page, Application.getLimit(), false);
 
             // determine pagination
-            nextPage = posts.size() >= LIMIT;
+            nextPage = posts.size() >= Application.getLimit();
             prevPage = page > 1;
 
             // set attributes

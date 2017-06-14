@@ -45,7 +45,7 @@
 					</s:iterator>
 					
 					<div class="w3-container w3-padding-left w3-padding-right w3-center">
-						<p class="w3-large"><a href="/blog">See more blog posts...</a></p>
+						<p class="w3-large"><a href="/blog/">See more blog posts...</a></p>
 					</div>
 					
 				</s:else>

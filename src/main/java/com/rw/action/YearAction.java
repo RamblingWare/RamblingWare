@@ -26,7 +26,6 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
     private ArrayList<Post> posts;
     private String year;
     private int page;
-    private static final int LIMIT = 7;
     private boolean nextPage;
     private boolean prevPage;
 
@@ -52,10 +51,10 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             int yr = Integer.parseInt(year);
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByYear(page, LIMIT, yr, false);
+            posts = Application.getDatabaseSource().getPostsByYear(page, Application.getLimit(), yr, false);
 
             // determine pagination
-            nextPage = posts.size() >= LIMIT;
+            nextPage = posts.size() >= Application.getLimit();
             prevPage = page > 1;
 
             // set attributes

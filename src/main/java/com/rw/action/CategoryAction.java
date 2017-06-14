@@ -29,7 +29,6 @@ public class CategoryAction extends ActionSupport
     private ArrayList<Post> posts;
     private String category;
     private int page;
-    private static final int LIMIT = 7;
     private boolean nextPage;
     private boolean prevPage;
 
@@ -52,11 +51,11 @@ public class CategoryAction extends ActionSupport
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByCategory(page, LIMIT, category,
+            posts = Application.getDatabaseSource().getPostsByCategory(page, Application.getLimit(), category,
                     false);
 
             // determine pagination
-            nextPage = posts.size() >= LIMIT;
+            nextPage = posts.size() >= Application.getLimit();
             prevPage = page > 1;
 
             // set attributes

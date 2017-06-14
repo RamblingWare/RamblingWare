@@ -27,6 +27,7 @@ public class Application implements ServletContextListener {
 
     private static HashMap<String, String> settingsMap;
     private static DatabaseSource database;
+    private static int limit;
 
     @Override
     public void contextInitialized(ServletContextEvent arg0) {
@@ -97,8 +98,15 @@ public class Application implements ServletContextListener {
         db.setUrl(dbUrl);
         db.setUsername(dbUser);
         db.setPassword(dbPass);
-
         database = new MySQLDatabase(db);
+
+        try {
+            // set result limit per page
+            setLimit(Integer.parseInt(getSetting("limit")));
+        } catch (Exception e) {
+            // default 10
+            setLimit(10);
+        }
 
         System.out.println("Ready to start blogging!");
     }
@@ -111,17 +119,58 @@ public class Application implements ServletContextListener {
     /**
      * Gets the currently used Database Service for this app.
      * 
-     * @return
+     * @return Database
      */
     public static DatabaseSource getDatabaseSource() {
         return database;
     }
 
+    /**
+     * Get a Setting value
+     * 
+     * @param key
+     *            name of value
+     * @return value
+     */
     public static String getSetting(String key) {
         return settingsMap.get(key);
     }
 
+    /**
+     * Set a Setting value
+     * 
+     * @param key
+     *            name of value
+     * @param value
+     *            the value to set
+     */
     public static void setSetting(String key, String value) {
         settingsMap.put(key, value);
+    }
+
+    /**
+     * Get the global page result limit.
+     * 
+     * @return limit
+     */
+    public static int getLimit() {
+        return limit;
+    }
+
+    /**
+     * Set the global page result limit.
+     * 
+     * @param limit
+     *            integer between 7 and 25. (10 default)
+     */
+    public static void setLimit(int limit) {
+
+        if (limit < 7) {
+            limit = 7;
+        } else if (limit > 25) {
+            limit = 25;
+        }
+
+        Application.limit = limit;
     }
 }

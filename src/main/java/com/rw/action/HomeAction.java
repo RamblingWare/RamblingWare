@@ -25,8 +25,6 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
 
     private ArrayList<Post> posts;
     private ArrayList<Author> authors;
-    private static final int PAGE = 1;
-    private static final int LIMIT = 7;
 
     public String execute() {
 
@@ -35,10 +33,10 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
         // this shows the most recent blog posts
         try {
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(PAGE, LIMIT, false);
+            posts = Application.getDatabaseSource().getPosts(1, Application.getLimit()-3, false);
 
             // gather authors
-            authors = Application.getDatabaseSource().getAuthors(PAGE, LIMIT, true);
+            authors = Application.getDatabaseSource().getAuthors(1, Application.getLimit()-3, true);
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
