@@ -17,7 +17,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
 import com.rw.config.Utils;
 import com.rw.model.Author;
-import com.rw.model.UserAware;
+import com.rw.model.AuthorAware;
 
 /**
  * Login action class
@@ -27,7 +27,7 @@ import com.rw.model.UserAware;
  */
 public class LoginAction extends ActionSupport
         implements
-            UserAware,
+            AuthorAware,
             ServletResponseAware,
             ServletRequestAware {
 

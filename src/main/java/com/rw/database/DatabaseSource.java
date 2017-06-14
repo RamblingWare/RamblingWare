@@ -14,15 +14,23 @@ import com.rw.model.Post;
  */
 public abstract class DatabaseSource {
 
-    protected static Database database;
+    protected Database database;
 
     public DatabaseSource(Database database) {
-        DatabaseSource.database = database;
+        this.database = database;
+    }
+    
+    public void setDatabase(Database database) {
+        this.database = database;
     }
 
     public Database getDatabase() {
         return database;
     }
+    
+    public abstract void init();
+    
+    public abstract void destroy();
 
     public abstract Post getPost(String uri, boolean includeHidden);
 

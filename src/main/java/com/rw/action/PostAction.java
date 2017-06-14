@@ -15,7 +15,7 @@ import com.rw.config.Application;
 import com.rw.config.Utils;
 import com.rw.model.Author;
 import com.rw.model.Post;
-import com.rw.model.UserAware;
+import com.rw.model.AuthorAware;
 
 /**
  * View Post action class
@@ -25,7 +25,7 @@ import com.rw.model.UserAware;
  */
 public class PostAction extends ActionSupport
         implements
-            UserAware,
+            AuthorAware,
             ServletResponseAware,
             ServletRequestAware {
 

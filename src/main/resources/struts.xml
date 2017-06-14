@@ -216,30 +216,30 @@
 	
 		<default-interceptor-ref name="authStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rw.action.manage.ManageMenuAction">
+		<action name="" class="com.rw.action.manage.MenuAction">
 			<result name="success">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
-		<action name="menu" class="com.rw.action.manage.ManageMenuAction">
+		<action name="menu" class="com.rw.action.manage.MenuAction">
 			<result name="success">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
 		
 		<!-- POST ACTIONS -->
-		<action name="posts" class="com.rw.action.manage.ViewPostsAction">
+		<action name="posts" class="com.rw.action.manage.post.PostsAction">
 			<result name="success">/WEB-INF/manage/posts.jsp</result>
 			<result name="error">/WEB-INF/manage/posts.jsp</result>
 		</action>
 		
-		<action name="posts/page/*" class="com.rw.action.manage.ViewPostsAction">
+		<action name="posts/page/*" class="com.rw.action.manage.post.PostsAction">
 			<result name="success">/WEB-INF/manage/posts.jsp</result>
 			<result name="error">/WEB-INF/manage/posts.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="newpost" class="com.rw.action.manage.NewPostAction">
+		<action name="newpost" class="com.rw.action.manage.post.NewPostAction">
 			<result name="input">/WEB-INF/manage/newpost.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">posts</param>
@@ -247,7 +247,7 @@
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
-		<action name="editpost/**" class="com.rw.action.manage.EditPostAction">
+		<action name="editpost/**" class="com.rw.action.manage.post.EditPostAction">
 			<result name="input">/WEB-INF/manage/editpost.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">posts</param>
@@ -263,18 +263,18 @@
 		
 		
 		<!-- USER ACTIONS -->
-		<action name="users" class="com.rw.action.manage.ViewUsersAction">
+		<action name="users" class="com.rw.action.manage.user.UsersAction">
 			<result name="success">/WEB-INF/manage/users.jsp</result>
 			<result name="error">/WEB-INF/manage/users.jsp</result>
 		</action>
 		
-		<action name="users/page/*" class="com.rw.action.manage.ViewUsersAction">
+		<action name="users/page/*" class="com.rw.action.manage.user.UsersAction">
 			<result name="success">/WEB-INF/manage/users.jsp</result>
 			<result name="error">/WEB-INF/manage/users.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="newuser" class="com.rw.action.manage.NewUserAction">
+		<action name="newuser" class="com.rw.action.manage.user.NewUserAction">
 			<result name="input">/WEB-INF/manage/newuser.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">users</param>
@@ -282,7 +282,7 @@
 			<result name="error">/WEB-INF/manage/newuser.jsp</result>
 		</action>
 		
-		<action name="edituser/**" class="com.rw.action.manage.EditUserAction">
+		<action name="edituser/**" class="com.rw.action.manage.user.EditUserAction">
 			<result name="input">/WEB-INF/manage/edituser.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">users</param>

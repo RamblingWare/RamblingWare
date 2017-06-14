@@ -10,5 +10,9 @@ import com.rw.model.Email;
  */
 public abstract class EmailSource {
 
-    public abstract void sendEmail(Email email);
+    public abstract void init();
+
+    public abstract void destroy();
+
+    public abstract boolean sendEmail(Email email);
 }

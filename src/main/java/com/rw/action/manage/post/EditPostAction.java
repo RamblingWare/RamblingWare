@@ -1,4 +1,4 @@
-package com.rw.action.manage;
+package com.rw.action.manage.post;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,23 +14,29 @@ import com.rw.config.Application;
 import com.rw.config.Utils;
 import com.rw.model.Author;
 import com.rw.model.Post;
-import com.rw.model.UserAware;
+import com.rw.model.AuthorAware;
 
 /**
- * New Post action class
+ * Edit Post action class
  * 
  * @author Austin Delamar
  * @date 5/30/2016
  */
-public class NewPostAction extends ActionSupport
+public class EditPostAction extends ActionSupport
         implements
-            UserAware,
+            AuthorAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
     private Author user;
 
+    // post parameters
+    private Post post;
+    private int id;
+    private String uri;
+
+    // updated values
     private String title;
     private String uriName;
     private String thumbnail;
@@ -52,29 +58,76 @@ public class NewPostAction extends ActionSupport
     private ArrayList<String> usedUris;
     private ArrayList<String> usedTags;
 
-    @Override
     public String execute() {
 
         // get used variables
         usedTags = Application.getDatabaseSource().getArchiveTags();
         usedUris = Application.getDatabaseSource().getPostUris();
 
-        if (servletRequest.getParameter("submitForm") != null) {
-            // user submitted new post
-            return newPost();
+        // /manage/editpost/file-name-goes-here
+        // this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123
+        // )
+        String uriTemp = servletRequest.getRequestURI().toLowerCase();
+        if (uri == null && uriTemp.startsWith("/manage/editpost/")) {
+            uri = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
         }
 
-        // they opened the form
-        System.out.println("User " + user.getUsername() + " opened new post page.");
-        return INPUT;
+        if (servletRequest.getParameter("delete") != null) {
+            // delete the post
+            return deletePost();
+        } else if (servletRequest.getParameter("submitForm") != null) {
+            // validate and save changes
+            return editPost();
+        } else {
+            // user opened post to edit
+            return openPost();
+        }
     }
 
     /**
-     * Check if the user can submit a new post
+     * Check if the user opened a post to edit.
+     * 
+     * @return INPUT if found, NONE if not, and ERROR if error
+     */
+    private String openPost() {
+        if (uri != null && uri.length() > 0) {
+            // search in db for post by title
+            try {
+                post = Application.getDatabaseSource().getPost(uri, true);
+
+                // was post found
+                if (post != null) {
+                    // remove post URI from list
+                    usedUris.remove(uri);
+
+                    // set attributes
+                    servletRequest.setAttribute("post", post);
+
+                    System.out
+                            .println("User " + user.getUsername() + " opened post to edit: " + uri);
+                    return INPUT;
+                } else {
+                    System.err.println("Post '" + uri + "' not found. Please try again.");
+                    return NONE;
+                }
+
+            } catch (Exception e) {
+                addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+                e.printStackTrace();
+                return ERROR;
+            }
+        } else {
+            System.err.println("Post '" + uri + "' not found. Please try again.");
+            return NONE;
+        }
+    }
+
+    /**
+     * Check if user submitted valid data for the post.
      * 
      * @return SUCCESS if saved, ERROR if error
      */
-    private String newPost() {
+    private String editPost() {
         // Validate each field
         if (title == null || title.trim().isEmpty()) {
             addActionError("Title was empty. Please fill out all fields before saving.");
@@ -126,9 +179,9 @@ public class NewPostAction extends ActionSupport
 
         // check that the URI is unique
         try {
-            Post post = Application.getDatabaseSource().getPost(uriName, true);
+            Post existingPost = Application.getDatabaseSource().getPost(uri, true);
 
-            if (post != null) {
+            if (existingPost.getId() != id) {
                 // URI was not unique. Please try again.
                 addActionError(
                         "URI is not unique. Its being used by another post. Please change it, and try again.");
@@ -137,7 +190,7 @@ public class NewPostAction extends ActionSupport
             }
 
             // save fields into object
-            post = new Post(-1);
+            post = new Post(id);
             post.setUriName(uriName);
             post.setTitle(title);
             post.setAuthor(user);
@@ -161,25 +214,23 @@ public class NewPostAction extends ActionSupport
             String[] tagsArray = tags.split(",");
             ArrayList<String> tagsList = new ArrayList<String>();
             for (String t : tagsArray) {
-                if (!t.trim().isEmpty()) {
+                if (!t.trim().isEmpty())
                     tagsList.add(t.trim());
-                }
             }
             post.setTags(tagsList);
 
-            // insert into database
-            post = Application.getDatabaseSource().newPost(post);
-
-            if (post.getId() != -1) {
+            // update post in database
+            if (Application.getDatabaseSource().editPost(post)) {
                 // Success
                 System.out.println(
-                        "User " + user.getUsername() + " submitted a new post: " + uriName);
-                addActionMessage("Successfully created new post.");
+                        "User " + user.getUsername() + " saved changes to the post: " + uri);
+                addActionMessage("Successfully saved changes to the post.");
                 return SUCCESS;
-            } else {
-                // failed to insert
-                addActionError("Oops. Failed to create new post. Please try again.");
-                System.out.println("Failed to create new post. " + uriName);
+            }
+            {
+                // failed to update
+                addActionError("Oops. Failed to update post. Please try again.");
+                System.out.println("Failed to update post. " + uriName);
                 return ERROR;
             }
 
@@ -188,6 +239,58 @@ public class NewPostAction extends ActionSupport
             e.printStackTrace();
             return ERROR;
         }
+    }
+
+    /**
+     * Check if user can delete the post.
+     * 
+     * @return SUCCESS if deleted, ERROR if error
+     */
+    private String deletePost() {
+        // they've requested to delete a post
+        try {
+            post = new Post(id);
+            if (Application.getDatabaseSource().deletePost(post)) {
+                // Success
+                System.out.println("User " + user.getUsername() + " deleted post: " + uri);
+                addActionMessage("The post was deleted!");
+                return SUCCESS;
+            } else {
+                // failed to delete post
+                addActionError("Failed to delete post: " + uri);
+                return ERROR;
+            }
+
+        } catch (Exception e) {
+            addActionError("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    protected HttpServletResponse servletResponse;
+
+    protected HttpServletRequest servletRequest;
+
+    @Override
+    public void setUser(Author user) {
+        this.user = user;
     }
 
     public String getTitle() {
@@ -311,22 +414,12 @@ public class NewPostAction extends ActionSupport
     }
 
     @Override
-    public void setUser(Author user) {
-        this.user = user;
-    }
-
-    protected HttpServletResponse servletResponse;
-
-    @Override
     public void setServletResponse(HttpServletResponse servletResponse) {
         this.servletResponse = servletResponse;
     }
-
-    protected HttpServletRequest servletRequest;
 
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
     }
-
 }

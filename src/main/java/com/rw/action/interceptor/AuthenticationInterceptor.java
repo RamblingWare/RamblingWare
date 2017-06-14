@@ -6,7 +6,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import com.rw.model.Author;
-import com.rw.model.UserAware;
+import com.rw.model.AuthorAware;
 
 /**
  * Authentication Interceptor class
@@ -34,8 +34,8 @@ public class AuthenticationInterceptor implements Interceptor {
             return Action.INPUT;
         } else {
             Action action = (Action) actionInvocation.getAction();
-            if (action instanceof UserAware) {
-                ((UserAware) action).setUser(user);
+            if (action instanceof AuthorAware) {
+                ((AuthorAware) action).setUser(user);
             }
             return actionInvocation.invoke();
         }

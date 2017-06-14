@@ -13,6 +13,16 @@ public class CloudantDatabase extends DatabaseSource {
     }
 
     @Override
+    public void init() {
+        // Auto-generated method stub
+    }
+
+    @Override
+    public void destroy() {
+        // Auto-generated method stub
+    }
+
+    @Override
     public Post getPost(String uri, boolean includeHidden) {
         // Auto-generated method stub
         return null;

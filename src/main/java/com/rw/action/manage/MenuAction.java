@@ -8,17 +8,17 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rw.model.Author;
-import com.rw.model.UserAware;
+import com.rw.model.AuthorAware;
 
 /**
- * Manage Menu action class
+ * Menu action class
  * 
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class ManageMenuAction extends ActionSupport
+public class MenuAction extends ActionSupport
         implements
-            UserAware,
+            AuthorAware,
             ServletResponseAware,
             ServletRequestAware {
 
@@ -27,7 +27,7 @@ public class ManageMenuAction extends ActionSupport
 
     public String execute() {
 
-        System.out.println("User " + user.getUsername() + " opened Manage Menu.");
+        System.out.println("User " + user.getUsername() + " opened the Menu.");
 
         return SUCCESS;
     }

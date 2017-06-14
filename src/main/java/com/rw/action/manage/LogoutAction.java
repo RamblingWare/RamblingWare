@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rw.model.Author;
-import com.rw.model.UserAware;
+import com.rw.model.AuthorAware;
 
 /**
  * Logout action class
@@ -21,7 +21,7 @@ import com.rw.model.UserAware;
  */
 public class LogoutAction extends ActionSupport
         implements
-            UserAware,
+            AuthorAware,
             ServletResponseAware,
             ServletRequestAware {
 

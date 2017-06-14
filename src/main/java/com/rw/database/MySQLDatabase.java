@@ -23,6 +23,16 @@ public class MySQLDatabase extends DatabaseSource {
         super(database);
     }
 
+    @Override
+    public void init() {
+        // Auto-generated method stub
+    }
+
+    @Override
+    public void destroy() {
+        // Auto-generated method stub
+    }
+
     /**
      * Obtains a connection to the MySQL DB if possible.
      * 
@@ -30,7 +40,7 @@ public class MySQLDatabase extends DatabaseSource {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    private static Connection getConnection() throws SQLException, ClassNotFoundException {
+    private Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName(Application.getSetting("driver"));
         return DriverManager
                 .getConnection(

@@ -1,4 +1,4 @@
-package com.rw.action.manage;
+package com.rw.action.manage.user;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
 import com.rw.config.Utils;
 import com.rw.model.Author;
-import com.rw.model.UserAware;
+import com.rw.model.AuthorAware;
 
 /**
  * New User action class
@@ -21,7 +21,7 @@ import com.rw.model.UserAware;
  */
 public class NewUserAction extends ActionSupport
         implements
-            UserAware,
+            AuthorAware,
             ServletResponseAware,
             ServletRequestAware {
 

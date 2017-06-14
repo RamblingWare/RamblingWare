@@ -1,4 +1,4 @@
-package com.rw.action.manage;
+package com.rw.action.manage.post;
 
 import java.util.ArrayList;
 
@@ -11,15 +11,15 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
 import com.rw.config.Utils;
-import com.rw.model.Author;
+import com.rw.model.Post;
 
 /**
- * View/Edit Users action class
+ * View/Edit Posts action class
  * 
  * @author Austin Delamar
- * @date 10/23/2016
+ * @date 5/30/2016
  */
-public class ViewUsersAction extends ActionSupport
+public class PostsAction extends ActionSupport
         implements
             ServletResponseAware,
             ServletRequestAware {
@@ -27,36 +27,35 @@ public class ViewUsersAction extends ActionSupport
     private static final long serialVersionUID = 1L;
 
     // results
-    private ArrayList<Author> authors;
+    private ArrayList<Post> posts;
     private int page;
-    private int limit = 7;
+    private int limit = 15;
     private boolean nextPage;
     private boolean prevPage;
 
     public String execute() {
 
-        // /manage/users
+        // /manage/posts
 
-        // this shows the authors
         try {
             // jump to page if provided
             String pageTemp = servletRequest.getRequestURI().toLowerCase();
-            if (pageTemp.startsWith("/manage/users/page/")) {
+            if (pageTemp.startsWith("/manage/posts/page/")) {
                 pageTemp = Utils.removeBadChars(pageTemp.substring(19, pageTemp.length()));
                 page = Integer.parseInt(pageTemp);
             } else {
                 page = 1;
             }
 
-            // gather authors
-            authors = Application.getDatabaseSource().getAuthors(page, limit, true);
+            // gather posts
+            posts = Application.getDatabaseSource().getPosts(page, limit, true);
 
             // determine pagination
-            nextPage = authors.size() >= limit;
+            nextPage = posts.size() >= limit;
             prevPage = page > 1;
 
             // set attributes
-            servletRequest.setAttribute("authors", authors);
+            servletRequest.setAttribute("posts", posts);
             servletRequest.setAttribute("page", page);
             servletRequest.setAttribute("nextPage", nextPage);
             servletRequest.setAttribute("prevPage", prevPage);
@@ -84,12 +83,12 @@ public class ViewUsersAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Author> getAuthors() {
-        return authors;
+    public ArrayList<Post> getPosts() {
+        return posts;
     }
 
-    public void setAuthors(ArrayList<Author> authors) {
-        this.authors = authors;
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
     }
 
     public int getPage() {
