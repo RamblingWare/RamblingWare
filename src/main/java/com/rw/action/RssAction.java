@@ -2,6 +2,7 @@ package com.rw.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
+import com.rw.config.Utils;
 import com.rw.model.Post;
 
 /**
@@ -27,35 +29,55 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
     private static final int LIMIT = 10;
 
     // search results
-    private ArrayList<Post> posts = new ArrayList<Post>();
+    private ArrayList<Post> posts;
 
     public String execute() {
 
         // /rss
+        System.out.println("RSS Feed Requested.");
 
         // this page shows the RSS feed
-        String response = "<?xml version=\"1.0\"?>" + "<rss version=\"2.0\">" + "<channel>"
-                + "<title>RamblingWare Blog</title>"
-                + "<description>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</description>"
-                + "<link>https://www.ramblingware.com</link>";
+        String response = "<?xml version=\"1.0\"?>" + "<rss version=\"2.0\">\n" + "<channel>\n"
+                + "<title>RamblingWare Blog</title>\n"
+                + "<description>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</description>\n"
+                + "<link>https://www.ramblingware.com</link>" + "<image>\n"
+                + "<url>/img/logo-medium.png</url>" + "<title>RamblingWare</title>\n"
+                + "<link>https://www.ramblingware.com/img/logo-medium.png</link>" + "</image>\n"
+                + "<language>en-us</language>\n"
+                + "<webMaster>webmaster@ramblingware.com</webMaster>\n" + "<ttl>1440</ttl>\n"
+                + "<skipDays><day>Saturday</day><day>Sunday</day></skipDays>\n"
+                + "<skipHours><hour>0</hour><hour>1</hour><hour>2</hour><hour>3</hour><hour>4</hour><hour>5</hour><hour>6</hour><hour>7</hour>"
+                + "<hour>17</hour><hour>18</hour><hour>19</hour><hour>20</hour><hour>21</hour><hour>22</hour><hour>23</hour></skipHours>\n"
+                + "<copyright>RamblingWare 2017.</copyright>\n";
         try {
+
             // gather posts
             posts = Application.getDatabaseSource().getPosts(1, LIMIT, false);
-
             for (Post post : posts) {
-                response += "<item><title>" + post.getTitle() + "</title>" + "<description>"
-                        + post.getDescription() + "</description>" + "<pubDate>"
-                        + post.getPublishDateReadable() + "</pubDate>"
+                response += "<item><title>" + post.getTitle() + "</title>\n" + "<description>"
+                        + post.getDescription() + "</description>\n" + "<pubDate>"
+                        + post.getPublishDateReadable() + "</pubDate>\n"
+
                         + "<link>https://www.ramblingware.com/blog/" + post.getUriName() + "</link>"
-                        + "</item>";
+                        + "</item>\n";
             }
-            response += "</channel></rss>";
+
+            // add publish date from latest blog post
+            if (posts != null && !posts.isEmpty()) {
+                response += "<pubDate>" + posts.get(0).getPublishDateReadable() + "</pubDate>\n";
+            }
+
+            response += "<lastBuildDate>"
+                    + Utils.formatReadableDate(new Date(System.currentTimeMillis()))
+                    + "</lastBuildDate>\n";
+
+            response += "</channel>\n</rss>";
 
             PrintWriter out = null;
             try {
                 // return message to user
                 out = ServletActionContext.getResponse().getWriter();
-                ServletActionContext.getResponse().setContentType("text/xml;charset=UTF-8");
+                ServletActionContext.getResponse().setContentType("text/xml");
                 out.write(response);
             } catch (Exception e) {
                 e.printStackTrace();
