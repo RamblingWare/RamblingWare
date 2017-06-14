@@ -5,7 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.rw.config.Utils;
+
+import com.rw.config.Utils;
 
 /**
  * Unit tests for Utils

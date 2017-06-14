@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="org.rw.config.Utils" %>
+<%@ page import="com.rw.config.Utils" %>
 <!DOCTYPE HTML>
 <html>
 <head>

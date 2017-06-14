@@ -5,7 +5,7 @@
 	<display-name>RamblingWare</display-name>
 
 	<listener>
-		<listener-class>org.rw.config.Application</listener-class>
+		<listener-class>com.rw.config.Application</listener-class>
 	</listener>
 
 	<session-config>
