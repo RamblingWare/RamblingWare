@@ -103,11 +103,13 @@ public class MySQLDatabase extends DatabaseSource {
 
                 // get post view count
                 ResultSet rs3 = st
-                        .executeQuery("select count from views where post_id = " + post.getId());
+                        .executeQuery("select * from views where post_id = " + post.getId());
                 if (rs3.next()) {
-                    post.setViews(rs3.getLong("count"));
+                    post.setRawViews(rs3.getLong("count"));
+                    post.setSessionViews(rs3.getLong("session"));
                 } else {
-                    post.setViews(0);
+                    post.setRawViews(0);
+                    post.setSessionViews(0);
                 }
             }
 
@@ -665,12 +667,13 @@ public class MySQLDatabase extends DatabaseSource {
                 }
 
                 // get post's view count
-                ResultSet rs4 = st
-                        .executeQuery("select count from views where post_id = " + p.getId());
+                ResultSet rs4 = st.executeQuery("select * from views where post_id = " + p.getId());
                 if (rs4.next()) {
-                    p.setViews(rs4.getLong("count"));
+                    p.setRawViews(rs4.getLong("count"));
+                    p.setSessionViews(rs4.getLong("session"));
                 } else {
-                    p.setViews(0);
+                    p.setRawViews(0);
+                    p.setSessionViews(0);
                 }
             }
 
@@ -759,12 +762,13 @@ public class MySQLDatabase extends DatabaseSource {
                 }
 
                 // get post's view count
-                ResultSet rs4 = st
-                        .executeQuery("select count from views where post_id = " + p.getId());
+                ResultSet rs4 = st.executeQuery("select * from views where post_id = " + p.getId());
                 if (rs4.next()) {
-                    p.setViews(rs4.getLong("count"));
+                    p.setRawViews(rs4.getLong("count"));
+                    p.setSessionViews(rs4.getLong("session"));
                 } else {
-                    p.setViews(0);
+                    p.setRawViews(0);
+                    p.setSessionViews(0);
                 }
             }
 
@@ -853,12 +857,13 @@ public class MySQLDatabase extends DatabaseSource {
                 }
 
                 // get post's view count
-                ResultSet rs4 = st
-                        .executeQuery("select count from views where post_id = " + p.getId());
+                ResultSet rs4 = st.executeQuery("select * from views where post_id = " + p.getId());
                 if (rs4.next()) {
-                    p.setViews(rs4.getLong("count"));
+                    p.setRawViews(rs4.getLong("count"));
+                    p.setSessionViews(rs4.getLong("session"));
                 } else {
-                    p.setViews(0);
+                    p.setRawViews(0);
+                    p.setSessionViews(0);
                 }
             }
 
@@ -946,12 +951,13 @@ public class MySQLDatabase extends DatabaseSource {
                 }
 
                 // get post's view count
-                ResultSet rs4 = st
-                        .executeQuery("select count from views where post_id = " + p.getId());
+                ResultSet rs4 = st.executeQuery("select * from views where post_id = " + p.getId());
                 if (rs4.next()) {
-                    p.setViews(rs4.getLong("count"));
+                    p.setRawViews(rs4.getLong("count"));
+                    p.setSessionViews(rs4.getLong("session"));
                 } else {
-                    p.setViews(0);
+                    p.setRawViews(0);
+                    p.setSessionViews(0);
                 }
             }
 

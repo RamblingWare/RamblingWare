@@ -19,9 +19,10 @@ public class Post {
     private String uriName;
     private boolean featured;
     private boolean visible;
-    private long views;
-    private String category;
+    private long rawViews;
+    private long sessionViews;
 
+    private String category;
     private String thumbnail;
     private String banner;
     private String bannerCaption;
@@ -79,12 +80,28 @@ public class Post {
         this.visible = visible;
     }
 
-    public long getViews() {
-        return views;
+    public long getRawViews() {
+        return rawViews;
+    }
+    
+    public String getRawViewsReadable() {
+        return Utils.formatLong(rawViews);
     }
 
-    public void setViews(long views) {
-        this.views = views;
+    public void setRawViews(long rawViews) {
+        this.rawViews = rawViews;
+    }
+
+    public long getSessionViews() {
+        return sessionViews;
+    }
+    
+    public String getSessionViewsReadable() {
+        return Utils.formatLong(sessionViews);
+    }
+
+    public void setSessionViews(long sessionViews) {
+        this.sessionViews = sessionViews;
     }
 
     public String getCategory() {

@@ -31,11 +31,11 @@
 		<span class="icon-tag w3-medium w3-text-theme w3-padding-square" title="Tags"></span>
 		<s:if test="tags != null && !tags.isEmpty()">
 			<s:iterator value="tags">
-				<a class="w3-text-theme" href="/tag/<s:property />"><s:property /></a>&nbsp;
+				<a class="w3-text-theme" title="<s:property />" href="/tag/<s:property />"><s:property /></a>&nbsp;
 			</s:iterator>
 		</s:if>
-		<span class="icon-eye w3-medium w3-text-theme w3-padding-square" title="Views"></span><span title="Views" class="w3-text-theme"><s:property value="views" /></span>
-		<span class="icon-comments w3-medium w3-text-theme w3-padding-square" title="Comments"></span><a class="w3-text-theme" title="Comments" href="/blog/<s:property value="uriName" />#comments">0</a>
+		<span title="Views (<s:property value="rawViews" />) / Actual (<s:property value="sessionViews" />)"><span class="icon-eye w3-medium w3-text-theme w3-padding-square"></span><span class="w3-text-theme"><s:property value="rawViewsReadable" /></span></span>
+		<span title="Comments (0)"><span class="icon-comments w3-medium w3-text-theme w3-padding-square"></span><a class="w3-text-theme" href="/blog/<s:property value="uriName" />#comments">0</a></span>
 	</p>
 </div>
 </div><br />

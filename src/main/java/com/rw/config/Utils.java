@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map.Entry;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -264,6 +267,43 @@ public class Utils {
         } else {
             return u;
         }
+    }
+
+    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
+    static {
+        suffixes.put(1_000L, "k");
+        suffixes.put(1_000_000L, "M");
+        suffixes.put(1_000_000_000L, "B");
+        suffixes.put(1_000_000_000_000L, "T");
+        suffixes.put(1_000_000_000_000_000L, "P");
+        suffixes.put(1_000_000_000_000_000_000L, "E");
+    }
+
+    /**
+     * Get a nice label for large numbers, e.g. 100, 1.3k, 12.5B, 500k, 1.1M...
+     * 
+     * @param value
+     * @return
+     */
+    public static String formatLong(long value) {
+        // Long.MIN_VALUE == -Long.MIN_VALUE so we need an adjustment here
+        if (value == Long.MIN_VALUE) {
+            return formatLong(Long.MIN_VALUE + 1);
+        }
+        else if (value < 0) {
+            return "-" + formatLong(-value);
+        }
+        else if (value < 1000) {
+            return Long.toString(value); // deal with easy case
+        }
+
+        Entry<Long, String> e = suffixes.floorEntry(value);
+        Long divideBy = e.getKey();
+        String suffix = e.getValue();
+
+        long truncated = value / (divideBy / 10); // the number part of the output times 10
+        boolean hasDecimal = truncated < 100 && (truncated / 10d) != (truncated / 10);
+        return hasDecimal ? (truncated / 10d) + suffix : (truncated / 10) + suffix;
     }
 
     /**
