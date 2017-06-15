@@ -1,0 +1,37 @@
+---
+stages:
+  - name: Build
+    inputs:
+      - type: git
+        branch: master
+    triggers:
+      - type: commit
+    jobs:
+      - name: Build
+        type: builder
+        build_type: gradle
+        script: |-
+            #!/bin/bash
+            gradlew.bat build
+        artifact_dir: output
+  - name: Deploy to dev
+    inputs:
+      - type: job
+        stage: Build
+        job: Build
+    triggers:
+      - type: stage
+    jobs:
+      - name: dev
+        type: deployer
+        script: |-
+            #!/bin/bash
+            cf create-service cloudantNoSQLDB Shared cs-${CF_APP}
+            cf push "${CF_APP}" --no-start
+            cf bind-service ${CF_APP} cs-${CF_APP}
+            cf start "${CF_APP}"
+        target:
+          organization: ${CF_ORGANIZATION}
+          space: ${CF_SPACE}
+          url: ${CF_TARGET_URL}
+          application: ${CF_APP}

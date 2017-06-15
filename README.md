@@ -28,6 +28,9 @@ Feel free to fork, clone, and reused any or all of this code. Be sure to include
 
 I plan to make a version that is easily modifiable for "new" blogs. I'm not sure what to call it. But I plan to get an `.io` domain and give the code away for free.
 
+You can quickly deploy a copy of this app by signing into Bluemix and clicking this button:
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/RamblingWare)  
+
 ### Technologies Used
 
 - [Java EE](https://www.java.com/) Programming Language
