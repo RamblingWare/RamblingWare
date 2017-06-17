@@ -7,6 +7,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.amdelamar.jhash.Hash;
+import com.amdelamar.jhash.algorithms.Type;
 import com.amdelamar.jotp.OTP;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
@@ -127,7 +128,7 @@ public class SettingsAction extends ActionSupport
                     Author updatedUser = user;
 
                     // salt and hash the password
-                    updatedUser.setPassword(Hash.create(passwordNew, Hash.PBKDF2_HMACSHA256));
+                    updatedUser.setPassword(Hash.create(passwordNew, Type.PBKDF2_SHA256));
 
                     if (Application.getDatabaseSource().editUser(updatedUser)) {
                         // Success
@@ -218,7 +219,7 @@ public class SettingsAction extends ActionSupport
 
             boolean validCode = false;
             try {
-                validCode = OTP.verify(secret, OTP.timeInHex(), code, 6, "totp");
+                validCode = OTP.verify(secret, OTP.timeInHex(), code, 6, com.amdelamar.jotp.type.Type.TOTP);
             } catch (Exception e) {
                 System.err.println("Error when validating OTP: " + e.getMessage());
             }

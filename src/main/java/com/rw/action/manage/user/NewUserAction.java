@@ -7,6 +7,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.amdelamar.jhash.Hash;
+import com.amdelamar.jhash.algorithms.Type;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
 import com.rw.config.Utils;
@@ -53,7 +54,7 @@ public class NewUserAction extends ActionSupport
                                 // user does not already exist.
                                 // add new user
                                 // salt and hash the password
-                                password = Hash.create(password, Hash.PBKDF2_HMACSHA256);
+                                password = Hash.create(password, Type.PBKDF2_SHA256);
 
                                 Author newUser = new Author(-1);
                                 newUser.setEmail(email);

@@ -29,8 +29,8 @@ dependencies {
     //compile "com.cloudant:cloudant-client:2.9.0"
 
     // jitpack
-    compile 'com.github.amdelamar:jhash:v1.0.0'
-    compile 'com.github.amdelamar:jotp:v1.0.0'
+    compile 'com.github.amdelamar:jhash:v1.1.0'
+    compile 'com.github.amdelamar:jotp:v1.1.0'
 
 	testCompile "junit:junit:4.12"
 }

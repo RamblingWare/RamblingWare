@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.amdelamar.jhash.Hash;
 import com.amdelamar.jotp.OTP;
+import com.amdelamar.jotp.type.Type;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -145,7 +146,7 @@ public class LoginAction extends ActionSupport
 
         boolean validCode = false;
         try {
-            validCode = OTP.verify(user.getKeySecret(), OTP.timeInHex(), code, 6, "totp");
+            validCode = OTP.verify(user.getKeySecret(), OTP.timeInHex(), code, 6, Type.TOTP);
         } catch (Exception e) {
             System.err.println("Error when validating OTP: " + e.getMessage());
         }
