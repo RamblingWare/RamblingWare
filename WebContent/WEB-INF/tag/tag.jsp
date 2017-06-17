@@ -41,7 +41,7 @@
 					</s:else>
 					
 					<s:iterator value="posts" status="r">
-						<%@include file="/WEB-INF/fragment/card-post.jspf" %>
+						<%@include file="/WEB-INF/blog/card-post.jspf" %>
 					</s:iterator>
 					
 					<%@include file="/WEB-INF/fragment/pagination.jspf" %>

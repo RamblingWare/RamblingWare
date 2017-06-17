@@ -43,7 +43,7 @@
 					<div class="w3-row" style="min-height:0px">
 					<s:iterator value="authors" status="r">
 					<s:if test="#r.index < 3">
-						<%@include file="/WEB-INF/fragment/card-author.jspf" %>
+						<%@include file="/WEB-INF/author/card-author.jspf" %>
 					</s:if>
 					</s:iterator>	
 					

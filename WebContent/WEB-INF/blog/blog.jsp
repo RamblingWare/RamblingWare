@@ -23,7 +23,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Blog</h1>
+				<h1>All Posts</h1>
 				
 				<!-- POSTS START -->
 				<s:if test="posts != null">
@@ -35,7 +35,7 @@
 				<s:else>
 					
 					<s:iterator value="posts" status="r">
-						<%@include file="/WEB-INF/fragment/card-post.jspf" %>
+						<%@include file="/WEB-INF/blog/card-post.jspf" %>
 					</s:iterator>
 					
 					<%@include file="/WEB-INF/fragment/pagination.jspf" %>

@@ -45,9 +45,11 @@
 			<result name="success">/WEB-INF/home.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
-		</action>	
+		</action>
+		
+		<!-- Static pages -->
 		<action name="about">
-			<result>/WEB-INF/about.jsp</result>
+			<result>/WEB-INF/other/about.jsp</result>
 		</action>
 		<action name="terms">
 			<result>/WEB-INF/other/terms.jsp</result>
@@ -55,6 +57,8 @@
 		<action name="privacy">
 			<result>/WEB-INF/other/privacy.jsp</result>
 		</action>
+		
+		<!-- RSS and Search -->
 		<action name="rss" class="com.rw.action.RssAction">
 			<!-- success already returns the RSS XML -->
 			<result name="error">/WEB-INF/error/error.jsp</result>
@@ -229,18 +233,18 @@
 		
 		<!-- POST ACTIONS -->
 		<action name="posts" class="com.rw.action.manage.post.PostsAction">
-			<result name="success">/WEB-INF/manage/posts.jsp</result>
-			<result name="error">/WEB-INF/manage/posts.jsp</result>
+			<result name="success">/WEB-INF/manage/post/posts.jsp</result>
+			<result name="error">/WEB-INF/manage/post/posts.jsp</result>
 		</action>
 		
 		<action name="posts/page/*" class="com.rw.action.manage.post.PostsAction">
-			<result name="success">/WEB-INF/manage/posts.jsp</result>
-			<result name="error">/WEB-INF/manage/posts.jsp</result>
+			<result name="success">/WEB-INF/manage/post/posts.jsp</result>
+			<result name="error">/WEB-INF/manage/post/posts.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 		<action name="newpost" class="com.rw.action.manage.post.NewPostAction">
-			<result name="input">/WEB-INF/manage/newpost.jsp</result>
+			<result name="input">/WEB-INF/manage/post/newpost.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">posts</param>
 		    </result>
@@ -248,7 +252,7 @@
 		</action>
 		
 		<action name="editpost/**" class="com.rw.action.manage.post.EditPostAction">
-			<result name="input">/WEB-INF/manage/editpost.jsp</result>
+			<result name="input">/WEB-INF/manage/post/editpost.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">posts</param>
 		    </result>
@@ -264,26 +268,26 @@
 		
 		<!-- USER ACTIONS -->
 		<action name="users" class="com.rw.action.manage.user.UsersAction">
-			<result name="success">/WEB-INF/manage/users.jsp</result>
-			<result name="error">/WEB-INF/manage/users.jsp</result>
+			<result name="success">/WEB-INF/manage/user/users.jsp</result>
+			<result name="error">/WEB-INF/manage/user/users.jsp</result>
 		</action>
 		
 		<action name="users/page/*" class="com.rw.action.manage.user.UsersAction">
-			<result name="success">/WEB-INF/manage/users.jsp</result>
-			<result name="error">/WEB-INF/manage/users.jsp</result>
+			<result name="success">/WEB-INF/manage/user/users.jsp</result>
+			<result name="error">/WEB-INF/manage/user/users.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
 		<action name="newuser" class="com.rw.action.manage.user.NewUserAction">
-			<result name="input">/WEB-INF/manage/newuser.jsp</result>
+			<result name="input">/WEB-INF/manage/user/newuser.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">users</param>
 		    </result>
-			<result name="error">/WEB-INF/manage/newuser.jsp</result>
+			<result name="error">/WEB-INF/manage/user/newuser.jsp</result>
 		</action>
 		
 		<action name="edituser/**" class="com.rw.action.manage.user.EditUserAction">
-			<result name="input">/WEB-INF/manage/edituser.jsp</result>
+			<result name="input">/WEB-INF/manage/user/edituser.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">users</param>
 		    </result>

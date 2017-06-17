@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.amdelamar.jhash.Hash;
+import com.amdelamar.jhash.algorithms.Type;
 import com.amdelamar.jhash.exception.BadOperationException;
 import com.amdelamar.jhash.exception.InvalidHashException;
 
@@ -22,17 +23,17 @@ public class PasswordTests {
         String password = "Hello World!";
 
         // sha1 no pepper
-        String hash = Hash.create(password, Hash.PBKDF2_HMACSHA1);
+        String hash = Hash.create(password, Type.PBKDF2_SHA1);
         System.out.println(hash);
         assertTrue(Hash.verify(password, hash));
 
         // sha256 no pepper
-        String hash2 = Hash.create(password, Hash.PBKDF2_HMACSHA256);
+        String hash2 = Hash.create(password, Type.PBKDF2_SHA256);
         System.out.println(hash2);
         assertTrue(Hash.verify(password, hash2));
 
         // sha512 no pepper
-        String hash3 = Hash.create(password, Hash.PBKDF2_HMACSHA512);
+        String hash3 = Hash.create(password, Type.PBKDF2_SHA512);
         System.out.println(hash3);
         assertTrue(Hash.verify(password, hash3));
     }
