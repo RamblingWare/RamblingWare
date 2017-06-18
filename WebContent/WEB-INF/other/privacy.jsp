@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"
+	errorPage="/WEB-INF/error/error.jsp"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@ page errorPage="/WEB-INF/error/error.jsp" %>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
-<!-- META_END -->
+
 <title>Privacy Policy - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">

@@ -1,13 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"
+	errorPage="/WEB-INF/error/error.jsp"%>
 <%@ page import="com.rw.config.Utils" %>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>New Post - RamblingWare</title>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
-<script src="/ckeditor/ckeditor.js"></script>
 
+<title>New Post - RamblingWare</title>
+
+<script src="/ckeditor/ckeditor.js"></script>
 <s:if test="usedUris != null && !usedUris.isEmpty()">
 <script> var usedUris = [
 <s:iterator value="usedUris" status="u">
@@ -148,7 +150,6 @@ function preview() {
 	changeForm();
 }
 </script>
-<!-- META_END -->
 </head>
 <body class="w3-theme-dark">
 

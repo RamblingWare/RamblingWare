@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"
+	errorPage="/WEB-INF/error/error.jsp"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <%@include file="/WEB-INF/fragment/meta-post.jspf"%>
 <meta name="author" content="<s:property value="post.author.name" />">
 <meta name="description" content="<s:property value="post.description" />" />

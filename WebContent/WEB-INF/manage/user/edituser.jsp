@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"
+	errorPage="/WEB-INF/error/error.jsp"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Edit Author - RamblingWare</title>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
+
+<title>Edit Author - RamblingWare</title>
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
 function validate() {
@@ -40,7 +42,6 @@ function preview() {
 	document.getElementById('previewImg').src = src;
 }
 </script>
-<!-- META_END -->
 </head>
 <body class="w3-theme-dark">
 

@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"
+	errorPage="/WEB-INF/error/error.jsp"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>New Author - RamblingWare</title>
-<!-- META_BEGIN -->
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
+
+<title>New Author - RamblingWare</title>
 <script>
 function makeUri() {
 	var title = document.getElementById('name').value;
@@ -13,7 +15,6 @@ function makeUri() {
 	document.getElementById('uriName').value = title;
 }
 </script>
-<!-- META_END -->
 </head>
 <body class="w3-theme-dark">
 

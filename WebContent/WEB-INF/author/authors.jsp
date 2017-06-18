@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"
+	errorPage="/WEB-INF/error/error.jsp"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@ page errorPage="/WEB-INF/error/error.jsp" %>
 <%@include file="/WEB-INF/fragment/meta.jspf"%>
 
 <title>Authors - RamblingWare</title>
@@ -37,7 +38,7 @@
 						<p>Only 1 author writes this blog!<br /></p>
 					</s:if>
 					<s:else>
-						<p><s:property value="authors.size()" /> authors writes for this blog.<br /></p>
+						<p><s:property value="authors.size()" /> authors write for this blog.<br /></p>
 					</s:else>
 					
 					<div class="w3-row" style="min-height:0px">
