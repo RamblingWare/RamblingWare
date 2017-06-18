@@ -1,6 +1,7 @@
 package com.rw.test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,5 +42,19 @@ public class UtilsTests {
                 throw new AssertionError("Expected: " + expected[i] + " but found: " + formatted);
         }
 
+    }
+    
+    @Test
+    public void emailFormat() {
+        assertTrue(Utils.isValidEmail("jdoe@gmail.com"));
+        assertTrue(Utils.isValidEmail("jdoe@yahoo.com"));
+        assertTrue(Utils.isValidEmail("jdoe@us.example.com"));
+        assertTrue(Utils.isValidEmail("j.doe@gmail.com"));
+        
+        assertTrue(!Utils.isValidEmail("jdoe@@gmail.com"));
+        assertTrue(!Utils.isValidEmail("@gmail.com"));
+        assertTrue(!Utils.isValidEmail("jdoe@"));
+        assertTrue(!Utils.isValidEmail("jdoe@gmail."));
+        assertTrue(!Utils.isValidEmail(""));
     }
 }

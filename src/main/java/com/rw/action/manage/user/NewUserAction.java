@@ -35,86 +35,127 @@ public class NewUserAction extends ActionSupport
     private String name;
     private String password;
     private String password2;
+    private String role;
 
     @Override
     public String execute() {
 
+        System.out.println("/manage/newuser Requested");
+
         if (servletRequest.getParameter("submitForm") != null) {
             // submitted new user!
-
-            if (email != null && Utils.isValidEmail(email)) {
-                if (password != null && password2 != null && password.equals(password2)) {
-                    // passwords match
-                    if (password.length() >= 8) {
-                        // password is long enough
-
-                        try {
-                            // check if user exists or not
-                            if (Application.getDatabaseSource().getAuthor(uriName) == null) {
-                                // user does not already exist.
-                                // add new user
-                                // salt and hash the password
-                                password = Hash.create(password, Type.PBKDF2_SHA256);
-
-                                Author newUser = new Author(-1);
-                                newUser.setEmail(email);
-                                newUser.setName(name);
-                                newUser.setUsername(username);
-                                newUser.setUriName(uriName);
-                                newUser.setPassword(password);
-
-                                // insert into database
-                                newUser = Application.getDatabaseSource().newUser(newUser);
-
-                                if (newUser.getId() != -1) {
-                                    // Successfully registered new user!
-
-                                    addActionMessage("Successfully created new Author.");
-                                    System.out.println("User " + user.getUsername()
-                                            + " created new author: " + username);
-                                    return SUCCESS;
-                                } else {
-                                    // failed to insert new user
-                                    addActionError("Failed to create new author. ");
-                                    System.out.println("Failed to create new author. " + username);
-                                    return ERROR;
-                                }
-                            } else {
-                                // user is already registered
-                                addActionError("Invalid Email Address.");
-                                System.out.println(
-                                        "User tried to register with a Email that already exists!");
-                                return ERROR;
-                            }
-                        } catch (Exception e) {
-                            addActionError("Failed to create new author: " + e.getMessage());
-                            e.printStackTrace();
-                            return ERROR;
-                        }
-                    } else {
-                        // password is too short
-                        addActionError(
-                                "Password needs to be at least 8 characters long. Please try again.");
-                        System.out.println("User tried to register with a short password.");
-                        return ERROR;
-                    }
-                } else {
-                    // passwords do not match
-                    addActionError("Passwords do not match. Please try again.");
-                    System.out.println("User tried to register with non-matching passwords.");
-                    return ERROR;
-                }
-            } else {
-                // invalid Email Address
-                addActionError("Invalid Email Address. Please try again.");
-                System.out.println("User tried to register with an invalid Email Address.");
-                return ERROR;
-            }
+            return newUser();
         }
 
-        // no submit yet
+        // they opened the form
         System.out.println("User " + user.getUsername() + " opened new user.");
         return INPUT;
+    }
+
+    private String newUser() {
+        // Validate each field
+        if (name == null || name.trim().isEmpty()) {
+            addActionError("Name was empty. Please fill out all fields before saving.");
+            System.out.println(user.getUsername() + " failed to create user. Name was empty.");
+            return ERROR;
+        }
+        if (uriName == null || uriName.trim().isEmpty()) {
+            addActionError("URI Name was empty. Please fill out all fields before saving.");
+            System.out.println(user.getUsername() + " failed to create user. URI was empty.");
+            return ERROR;
+        }
+        if (username == null || username.trim().isEmpty()) {
+            addActionError("Username was empty. Please fill out all fields before saving.");
+            System.out.println(user.getUsername() + " failed to create user. Username was empty.");
+            return ERROR;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            addActionError("Email was empty. Please fill out all fields before saving.");
+            System.out.println(user.getUsername() + " failed to create user. Email was empty.");
+            return ERROR;
+        }
+        if (!Utils.isValidEmail(email)) {
+            addActionError("Invalid Email Address. Please try again.");
+            System.out.println(
+                    user.getUsername() + " tried to create user with an invalid Email Address.");
+            return ERROR;
+        }
+
+        // valid passwords?
+        if (password == null || password2 == null || password.isEmpty() || password2.isEmpty()) {
+            addActionError("Password was empty. Please fill out all fields before saving.");
+            System.out.println(user.getUsername() + " failed to create user. Password was empty.");
+            return ERROR;
+        }
+        if (password.length() < 8) {
+            addActionError("Password needs to be at least 8 characters long. Please try again.");
+            System.out.println(user.getUsername() + " tried to create user with a short password.");
+            return ERROR;
+        }
+        if (!password.equals(password2)) {
+            // passwords do not match
+            addActionError("Passwords do not match. Please try again.");
+            System.out.println(
+                    user.getUsername() + " tried to create user with non-matching passwords.");
+            return ERROR;
+        }
+
+        if (role == null || role.trim().isEmpty()) {
+            addActionError("Role was empty. Please fill out all fields before saving.");
+            System.out.println(user.getUsername() + " failed to create user. Role was empty.");
+            return ERROR;
+        }
+        if (!role.equalsIgnoreCase("author") && !role.equalsIgnoreCase("admin")) {
+            addActionError("Role was invalid. Please fill out all fields before saving.");
+            System.out.println(user.getUsername() + " failed to create user. Role was invalid.");
+            return ERROR;
+        }
+
+        try {
+            // check that the URI is unique
+            Author author = Application.getDatabaseSource().getAuthor(uriName);
+
+            if (author != null) {
+                // URI was not unique. Please try again.
+                addActionError(
+                        "URI is not unique. Its being used by another author. Please change it, and try again.");
+                System.out.println("URI was not unique.");
+                return ERROR;
+            }
+
+            // salt and hash the password
+            password = Hash.create(password, Type.PBKDF2_SHA256);
+
+            // add new user
+            Author newUser = new Author(-1);
+            newUser.setEmail(email);
+            newUser.setName(name);
+            newUser.setUsername(username);
+            newUser.setUriName(uriName);
+            newUser.setPassword(password);
+            newUser.setThumbnail("/img/placeholder-200.png");
+            newUser.setAdmin(role.equalsIgnoreCase("admin"));
+
+            // insert into database
+            newUser = Application.getDatabaseSource().newUser(newUser);
+
+            if (newUser.getId() != -1) {
+                // Success
+                addActionMessage("Successfully created new Author: " + username);
+                System.out
+                        .println("User " + user.getUsername() + " created new author: " + username);
+                return SUCCESS;
+            } else {
+                // failed to insert new user
+                addActionError("Failed to create new author. ");
+                System.out.println(user.getUsername() + " failed to create new user. " + username);
+                return ERROR;
+            }
+        } catch (Exception e) {
+            addActionError("Failed to create new user: " + e.getMessage());
+            e.printStackTrace();
+            return ERROR;
+        }
     }
 
     @Override
@@ -182,6 +223,14 @@ public class NewUserAction extends ActionSupport
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

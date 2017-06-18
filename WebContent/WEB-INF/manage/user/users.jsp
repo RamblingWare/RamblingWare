@@ -59,10 +59,10 @@
 							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
 						<td>
 							<s:if test="isAdmin()">
-								<span class="w3-tag w3-round w3-theme">Admin</span>
+								<span class="w3-tag w3-round w3-theme-l4">Admin</span>
 							</s:if>
 							<s:else>
-								<span class="w3-tag w3-round w3-pale-blue">Author</span>
+								<span class="w3-tag w3-round w3-pale-green">Author</span>
 							</s:else>
 						</td>
 						<td><s:property value="createDateReadable" /></td>

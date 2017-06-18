@@ -44,10 +44,12 @@ function changeForm() {
 }
 function validate() {
 	var pattern = /^((https):\/\/)/;
-	if(!pattern.test(document.getElementById('thumbnail').value)) {
-		if(!confirm('Thumbnail is not secure (HTTPS). Do you want to continue?')) {
-			document.getElementById('thumbnail').focus();
-			return false;
+	if(document.getElementById('thumbnail').value.length > 0) {
+		if(!pattern.test(document.getElementById('thumbnail').value)) {
+			if(!confirm('Thumbnail is not secure (HTTPS). Do you want to continue?')) {
+				document.getElementById('thumbnail').focus();
+				return false;
+			}
 		}
 	}
 	if(document.getElementById('hasBanner').checked) {
@@ -125,7 +127,7 @@ function preview() {
 	document.getElementById('previewTags').innerHTML = tagHtml;
 	
 	var usedTagHtml = "";
-	for (var i = 0; i < usedTags.length && i < 10; i++) {
+	for (var i = 0; i < usedTags.length && i < 15; i++) {
 		if(usedTags[i].length > 1 && tagArray.indexOf(usedTags[i])<0)
 			usedTagHtml += "<a class=\"tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow\" href=\"javascript:void(0)\" onclick=\"addTag('"+usedTags[i]+"')\">"+usedTags[i]+"</a>&nbsp;";
 	}
@@ -135,11 +137,10 @@ function preview() {
 	
 	var src = document.getElementById('thumbnail').value;
 	if(src.length<=1)
-		src = "https://i.imgur.com/pHKz09F.png";
+		src = "/img/placeholder-640.png";
 	document.getElementById('previewImg').src = src;
 	changeForm();
 }
-preview();
 </script>
 <!-- META_END -->
 </head>
@@ -188,8 +189,8 @@ preview();
 						<span class="w3-small w3-text-grey">Suggested:</span>&nbsp;<span id="previewUsedTags" class="w3-small"></span>
 					</p>
 					<p>   
-						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.post.thumbnail" />" onkeyup="preview()" onchange="preview()" required placeholder="https://imgur.com/image.png" class="w3-input w3-round-large  w3-border" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:</label>
+						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.post.thumbnail" />" onkeyup="preview()" onchange="preview()" placeholder="https://www.ramblingware.com/img/placeholder-640.png" class="w3-input w3-round-large  w3-border" />
 					</p>
 					
 					<h3>Social Card Preview</h3>

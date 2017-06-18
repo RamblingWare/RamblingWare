@@ -9,10 +9,8 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import com.rw.config.Application;
-import com.rw.config.Utils;
 import com.rw.model.Author;
 import com.rw.model.Database;
 import com.rw.model.Post;
@@ -57,7 +55,7 @@ public class MySQLDatabase extends DatabaseSource {
         Connection conn = null;
         try {
             String query = "select p.*, u.name, u.uri_name as 'authorUri', u.description as 'authorDesc', u.thumbnail as 'authorThumbnail' "
-                    + "from posts p " + "left join users u on p.user_id = u.user_id "
+                    + "from posts p left join users u on p.user_id = u.user_id "
                     + "where p.uri_name = '" + uri + "'";
 
             if (!includeHidden) {
@@ -210,10 +208,10 @@ public class MySQLDatabase extends DatabaseSource {
             st = conn.createStatement();
             conn.setAutoCommit(false);
 
-            String update = "update posts set " + "user_id = ?," + "title = ?," + "uri_name = ?,"
-                    + "modify_date = CURRENT_TIMESTAMP," + "publish_date = ?," + "is_visible = ?,"
-                    + "is_featured = ?," + "category = ?," + "thumbnail = ?," + "description = ?,"
-                    + "banner = ?," + "banner_caption = ?," + "html_content = ? where post_id = "
+            String update = "update posts set user_id = ?,title = ?,uri_name = ?,"
+                    + "modify_date = CURRENT_TIMESTAMP,publish_date = ?,is_visible = ?,"
+                    + "is_featured = ?,category = ?,thumbnail = ?,description = ?,"
+                    + "banner = ?,banner_caption = ?,html_content = ? where post_id = "
                     + post.getId();
             PreparedStatement pt = conn.prepareStatement(update);
             pt.setInt(1, post.getAuthor().getId());
@@ -368,8 +366,8 @@ public class MySQLDatabase extends DatabaseSource {
             st = conn.createStatement();
             conn.setAutoCommit(false);
 
-            String update = "update users set " + "name = ?," + "uri_name = ?,"
-                    + "modify_date = CURRENT_TIMESTAMP," + "thumbnail = ?," + "description = ?,"
+            String update = "update users set name = ?,uri_name = ?,"
+                    + "modify_date = CURRENT_TIMESTAMP,thumbnail = ?,description = ?,"
                     + "html_content = ? where user_id = " + author.getId();
             PreparedStatement pt = conn.prepareStatement(update);
             pt.setString(1, author.getName());
@@ -1086,14 +1084,18 @@ public class MySQLDatabase extends DatabaseSource {
             conn.setAutoCommit(false);
 
             // insert account
-            int r = st.executeUpdate(
-                    "insert into users (username,name,uri_name,email,create_date) values " + "('"
-                            + user.getUsername() + "','" + user.getName() + "','"
-                            + user.getUriName() + "','" + user.getEmail() + "',"
-                            + "CURRENT_TIMESTAMP)");
+            PreparedStatement pt = conn.prepareStatement(
+                    "insert into users (username,name,uri_name,email,role,thumbnail) values (?,?,?,?,?,?)");
+            pt.setString(1, user.getUsername());
+            pt.setString(2, user.getName());
+            pt.setString(3, user.getUriName());
+            pt.setString(4, user.getEmail());
+            pt.setInt(5, user.isAdmin()?1:0);
+            pt.setString(6, user.getThumbnail());
 
-            if (r == 0) {
-                throw new Exception("Failed to create new user's account.");
+            if (pt.execute()) {
+                // failed to insert
+                throw new Exception("Oops. Failed to create new user. Please try again.");
             }
 
             // get user ID
@@ -1105,11 +1107,15 @@ public class MySQLDatabase extends DatabaseSource {
             }
 
             // insert password
-            int r2 = st.executeUpdate("insert into passwords (user_id,pwd) values " + "('"
-                    + user.getId() + "','" + user.getPassword() + "')");
+            PreparedStatement ps = conn
+                    .prepareStatement("insert into passwords (user_id,pwd) values (?,?)");
+            ps.setInt(1, user.getId());
+            ps.setString(2, user.getPassword());
 
-            if (r2 == 0) {
-                throw new Exception("Failed to create new user's security.");
+            if (ps.execute()) {
+                // failed to insert
+                throw new Exception(
+                        "Oops. Failed to create new user's password hash. Please try again.");
             }
 
             // get new user
@@ -1171,23 +1177,21 @@ public class MySQLDatabase extends DatabaseSource {
             conn.setAutoCommit(false);
 
             // update user account
-            String updateAccount = "update users set " + "username = ?," + "email = ?,"
-                    + "modify_date = ? where user_id = " + user.getId();
-            PreparedStatement pt = conn.prepareStatement(updateAccount);
+            PreparedStatement pt = conn.prepareStatement(
+                    "update users set username = ?, email = ?, modify_date = ? where user_id = ?");
             pt.setString(1, user.getUsername());
             pt.setString(2, user.getEmail());
             pt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+            pt.setInt(4, user.getId());
 
             if (pt.execute()) {
                 // failed to update user account
-                throw new Exception("Failed to update account. Please try again.");
+                throw new Exception("Oops. Failed to update account. Please try again.");
             }
 
             // update user security
-            String updateSecurity = "update passwords set " + "pwd = ?," + "is_otp_enabled = ?,"
-                    + "otp_key = ?," + "recover_key = ? where user_id = " + user.getId();
-
-            PreparedStatement pt2 = conn.prepareStatement(updateSecurity);
+            PreparedStatement pt2 = conn.prepareStatement("update passwords set "
+                    + "pwd = ?, is_otp_enabled = ?, otp_key = ?, recover_key = ? where user_id = ?");
             pt2.setString(1, user.getPassword());
             pt2.setBoolean(2, user.isOTPEnabled());
 
@@ -1201,6 +1205,8 @@ public class MySQLDatabase extends DatabaseSource {
             } else {
                 pt2.setNull(4, Types.VARCHAR);
             }
+            pt2.setInt(5, user.getId());
+
             if (pt2.execute()) {
                 // failed to update user security
                 throw new Exception("Failed to update security. Please try again.");
@@ -1232,15 +1238,14 @@ public class MySQLDatabase extends DatabaseSource {
         Connection conn = null;
         try {
             conn = getConnection();
-            Statement st = conn.createStatement();
             conn.setAutoCommit(false);
 
             // update last login date
-            int r = st.executeUpdate("update users set last_login_date='"
-                    + Utils.formatMySQLDate(new Date(System.currentTimeMillis())) + "'"
-                    + "where user_id = '" + user.getId() + "'");
+            PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE users SET last_login_date=CURRENT_TIMESTAMP where user_id = ?");
+            stmt.setInt(1, user.getId());
 
-            if (r <= 0) {
+            if (stmt.execute()) {
                 throw new Exception("Failed to update last login date.");
             }
 
@@ -1271,26 +1276,27 @@ public class MySQLDatabase extends DatabaseSource {
             }
 
             if (sessionView) {
-                String sql = "UPDATE views SET count = count + 1, session = session + 1 where post_id = "
-                        + post.getId();
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn.prepareStatement(
+                        "UPDATE views SET count = count + 1, session = session + 1 where post_id = ?");
+                stmt.setInt(1, post.getId());
                 int r = stmt.executeUpdate();
 
                 if (r == 0) {
-                    sql = "INSERT INTO views (post_id,count,session) VALUES (" + post.getId()
-                            + ",1,1)";
-                    PreparedStatement stmt2 = conn.prepareStatement(sql);
+                    PreparedStatement stmt2 = conn.prepareStatement(
+                            "INSERT INTO views (post_id,count,session) VALUES (?,1,1)");
+                    stmt2.setInt(1, post.getId());
                     stmt2.executeUpdate();
                 }
             } else {
-                String sql = "UPDATE views SET count = count + 1 where post_id = " + post.getId();
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn
+                        .prepareStatement("UPDATE views SET count = count + 1 where post_id = ?");
+                stmt.setInt(1, post.getId());
                 int r = stmt.executeUpdate();
 
                 if (r == 0) {
-                    sql = "INSERT INTO views (post_id,count,session) VALUES (" + post.getId()
-                            + ",1,0)";
-                    PreparedStatement stmt2 = conn.prepareStatement(sql);
+                    PreparedStatement stmt2 = conn.prepareStatement(
+                            "INSERT INTO views (post_id,count,session) VALUES (?,1,0)");
+                    stmt2.setInt(1, post.getId());
                     stmt2.executeUpdate();
                 }
             }

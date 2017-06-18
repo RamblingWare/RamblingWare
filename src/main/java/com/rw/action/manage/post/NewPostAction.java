@@ -87,9 +87,7 @@ public class NewPostAction extends ActionSupport
             return ERROR;
         }
         if (thumbnail == null || thumbnail.trim().isEmpty()) {
-            addActionError("Thumbnail was empty. Please fill out all fields before saving.");
-            System.out.println(user.getUsername() + " failed to edit post. Thumbnail was empty.");
-            return ERROR;
+            thumbnail = "/img/placeholder-640.png";
         }
         if (description == null || description.trim().isEmpty()) {
             addActionError("Description was empty. Please fill out all fields before saving.");

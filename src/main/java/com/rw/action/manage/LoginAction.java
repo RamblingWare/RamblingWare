@@ -107,8 +107,12 @@ public class LoginAction extends ActionSupport
                     sessionAttributes.put("context", new Date());
                     sessionAttributes.put("USER", user);
 
-                    addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
-                            + Utils.formatReadableDate(user.getLastLoginDate()));
+                    if (user.getLastLoginDate() != null) {
+                        addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
+                                + Utils.formatReadableDate(user.getLastLoginDate()));
+                    } else {
+                        addActionMessage("Welcome, " + user.getName() + ".");
+                    }
                     System.out.println("User logged in: " + user.getUsername() + " ("
                             + servletRequest.getRemoteAddr() + ")");
 

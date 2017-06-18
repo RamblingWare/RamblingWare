@@ -9,10 +9,12 @@
 <script>
 function validate() {
 	var pattern = /^((https):\/\/)/;
-	if(!pattern.test(document.getElementById('thumbnail').value)) {
-		if(!confirm('Thumbnail is not secure (HTTPS). Do you want to continue?')) {
-			document.getElementById('thumbnail').focus();
-			return false;
+	if(document.getElementById('thumbnail').value.length > 0) {
+		if(!pattern.test(document.getElementById('thumbnail').value)) {
+			if(!confirm('Thumbnail is not secure (HTTPS). Do you want to continue?')) {
+				document.getElementById('thumbnail').focus();
+				return false;
+			}
 		}
 	}
 	if(document.getElementById('htmlContent').value.length > 12288) {
@@ -34,11 +36,9 @@ function preview() {
 	
 	var src = document.getElementById('thumbnail').value;
 	if(src.length<=1)
-		src = "https://i.imgur.com/pHKz09F.png";
+		src = "/img/placeholder-200.png";
 	document.getElementById('previewImg').src = src;
-	changeForm();
 }
-preview();
 </script>
 <!-- META_END -->
 </head>
@@ -79,8 +79,8 @@ preview();
 						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.author.description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
-						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" onkeyup="preview()" onchange="preview()" required placeholder="https://imgur.com/image.png" class="w3-input w3-round-large  w3-border" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL</label>
+						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" onkeyup="preview()" onchange="preview()" placeholder="https://www.ramblingware.com/img/placeholder-200.png" class="w3-input w3-round-large  w3-border" />
 					</p>
 					
 					<h3>About You Preview</h3>
