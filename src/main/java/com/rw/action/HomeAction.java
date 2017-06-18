@@ -10,7 +10,6 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
-import com.rw.model.Author;
 import com.rw.model.Post;
 
 /**
@@ -24,7 +23,6 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
     private static final long serialVersionUID = 1L;
 
     private ArrayList<Post> posts;
-    private ArrayList<Author> authors;
 
     public String execute() {
 
@@ -33,14 +31,10 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
         // this shows the most recent blog posts
         try {
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(1, Application.getLimit()-3, false);
-
-            // gather authors
-            authors = Application.getDatabaseSource().getAuthors(1, Application.getLimit()-3, true);
+            posts = Application.getDatabaseSource().getPosts(1, Application.getLimit() - 3, false);
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
-            servletRequest.setAttribute("authors", authors);
 
             return SUCCESS;
 
@@ -71,13 +65,5 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
 
     public void setPosts(ArrayList<Post> posts) {
         this.posts = posts;
-    }
-
-    public ArrayList<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(ArrayList<Author> authors) {
-        this.authors = authors;
     }
 }

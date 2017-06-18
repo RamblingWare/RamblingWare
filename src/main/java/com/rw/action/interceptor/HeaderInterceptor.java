@@ -39,7 +39,7 @@ public class HeaderInterceptor implements Interceptor {
                 "default-src 'self' cdn.ramblingware.com 'unsafe-inline' 'unsafe-eval'");
         // "Content-Security-Policy-Report-Only" can also be used.
 
-        // "default-src 'none'; img-src 'self' cdn.ramblingware.com; style-src 'self'
+        // "default-src 'none'; img-src 'self' cdn.ramblingware.com chart.googleapis.com; style-src 'self'
         // 'unsafe-inline'; script-src 'self' 'nonce-123456789'; form-action 'self'; font-src
         // 'self'
 

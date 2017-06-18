@@ -1,7 +1,6 @@
 package com.rw.database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,8 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import javax.naming.NamingException;
 
 import com.rw.config.Application;
 import com.rw.model.Author;
@@ -21,30 +22,17 @@ public class MySQLDatabase extends DatabaseSource {
         super(database);
     }
 
-    @Override
-    public void init() {
-        // Auto-generated method stub
-    }
-
-    @Override
-    public void destroy() {
-        // Auto-generated method stub
-    }
-
     /**
      * Obtains a connection to the MySQL DB if possible.
      * 
      * @return
      * @throws SQLException
      * @throws ClassNotFoundException
+     * @throws NamingException
      */
-    private Connection getConnection() throws SQLException, ClassNotFoundException {
-        Class.forName(Application.getSetting("driver"));
-        return DriverManager
-                .getConnection(
-                        "jdbc:mysql://" + database.getHost() + ":" + database.getPort() + "/"
-                                + database.getName(),
-                        database.getUsername(), database.getPassword());
+    private Connection getConnection()
+            throws SQLException, ClassNotFoundException, NamingException {
+        return Application.getBasicDatabaseSource().getConnection();
     }
 
     @Override
@@ -131,7 +119,6 @@ public class MySQLDatabase extends DatabaseSource {
         Statement st = null;
         try {
             conn = getConnection();
-            st = conn.createStatement();
             conn.setAutoCommit(false);
 
             // save fields into database
@@ -158,6 +145,7 @@ public class MySQLDatabase extends DatabaseSource {
             }
 
             // get the post_id and add the tags
+            st = conn.createStatement();
             ResultSet rs1 = st.executeQuery(
                     "select post_id from posts where uri_name = '" + post.getUriName() + "'");
             rs1.next();
@@ -205,7 +193,6 @@ public class MySQLDatabase extends DatabaseSource {
         Statement st = null;
         try {
             conn = getConnection();
-            st = conn.createStatement();
             conn.setAutoCommit(false);
 
             String update = "update posts set user_id = ?,title = ?,uri_name = ?,"
@@ -235,6 +222,7 @@ public class MySQLDatabase extends DatabaseSource {
             }
 
             // remove old tags
+            st = conn.createStatement();
             int rt = st.executeUpdate("delete from tags where post_id = " + post.getId());
 
             if (rt == 0) {
@@ -360,10 +348,8 @@ public class MySQLDatabase extends DatabaseSource {
     @Override
     public boolean editAuthor(Author author) {
         Connection conn = null;
-        Statement st = null;
         try {
             conn = getConnection();
-            st = conn.createStatement();
             conn.setAutoCommit(false);
 
             String update = "update users set name = ?,uri_name = ?,"
@@ -394,7 +380,6 @@ public class MySQLDatabase extends DatabaseSource {
             return false;
         } finally {
             try {
-                st.close();
                 conn.close();
             } catch (Exception e) {
             }
@@ -1090,7 +1075,7 @@ public class MySQLDatabase extends DatabaseSource {
             pt.setString(2, user.getName());
             pt.setString(3, user.getUriName());
             pt.setString(4, user.getEmail());
-            pt.setInt(5, user.isAdmin()?1:0);
+            pt.setInt(5, user.isAdmin() ? 1 : 0);
             pt.setString(6, user.getThumbnail());
 
             if (pt.execute()) {

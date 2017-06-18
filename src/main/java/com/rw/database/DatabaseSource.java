@@ -19,7 +19,7 @@ public abstract class DatabaseSource {
     public DatabaseSource(Database database) {
         this.database = database;
     }
-    
+
     public void setDatabase(Database database) {
         this.database = database;
     }
@@ -27,10 +27,6 @@ public abstract class DatabaseSource {
     public Database getDatabase() {
         return database;
     }
-    
-    public abstract void init();
-    
-    public abstract void destroy();
 
     public abstract Post getPost(String uri, boolean includeHidden);
 

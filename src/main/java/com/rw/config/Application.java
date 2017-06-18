@@ -6,6 +6,7 @@ import java.util.Properties;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ public class Application implements ServletContextListener {
 
     private static HashMap<String, String> settingsMap;
     private static DatabaseSource database;
+    private static BasicDataSource bdbs;
     private static int limit;
 
     @Override
@@ -50,55 +52,64 @@ public class Application implements ServletContextListener {
 
         // check env variable
         String vcap = System.getenv("VCAP_SERVICES");
-        String dbHost, dbName, dbPort;
-        String dbUrl, dbUser, dbPass;
+        Database db = new Database();
         if (vcap == null) {
             // if vcap is not available, then
             // run on local MySQL Database
             System.err.println(
                     "Failed to locate VCAP Object. Continuing with Datasource from properties.");
 
-            dbName = getSetting("db-name");
-            dbHost = getSetting("db-host");
-            dbPort = getSetting("db-port");
-            dbUrl = getSetting("db-url");
-            dbUser = getSetting("db-user");
-            dbPass = getSetting("db-pass");
+            db.setName(getSetting("db-name"));
+            db.setHost(getSetting("db-host"));
+            db.setPort(getSetting("db-port"));
+            db.setUrl(getSetting("db-url"));
+            db.setUsername(getSetting("db-user"));
+            db.setPassword(getSetting("db-pass"));
         } else {
             // try to read env variables
             try {
                 JSONObject obj = new JSONObject(vcap);
                 JSONArray cleardb = obj.getJSONArray("cleardb");
                 JSONObject mysql = cleardb.getJSONObject(0).getJSONObject("credentials");
-                dbName = mysql.getString("name");
-                dbHost = mysql.getString("hostname");
-                dbPort = "" + mysql.getInt("port");
-                dbUrl = mysql.getString("uri");
-                dbUser = mysql.getString("username");
-                dbPass = mysql.getString("password");
-
-                // VCAP_SERVICES were read successfully.
+                db.setName(mysql.getString("name"));
+                db.setHost(mysql.getString("hostname"));
+                db.setPort("" + mysql.getInt("port"));
+                db.setUrl(mysql.getString("uri"));
+                db.setUsername(mysql.getString("username"));
+                db.setPassword(mysql.getString("password"));
 
             } catch (JSONException e) {
-                System.err.println("Failed to parse JSON object. Using local Db...");
+                System.err.println("Failed to parse JSON object VCAP_SERVICES for Datasource.");
                 e.printStackTrace();
-
-                dbName = getSetting("db-name");
-                dbHost = getSetting("db-host");
-                dbPort = getSetting("db-port");
-                dbUrl = getSetting("db-url");
-                dbUser = getSetting("db-user");
-                dbPass = getSetting("db-pass");
             }
         }
 
-        Database db = new Database(dbName);
-        db.setHost(dbHost);
-        db.setPort(dbPort);
-        db.setUrl(dbUrl);
-        db.setUsername(dbUser);
-        db.setPassword(dbPass);
-        database = new MySQLDatabase(db);
+        try {
+            // Construct BasicDataSource
+            bdbs = new BasicDataSource();
+            bdbs.setDriverClassName(Application.getSetting("driver"));
+            bdbs.setUrl(
+                    "jdbc:mysql://" + db.getHost() + ":" + db.getPort() + "/" + db.getName());
+            bdbs.setUsername(db.getUsername());
+            bdbs.setPassword(db.getPassword());
+            bdbs.setMaxActive(4);
+            bdbs.setMaxIdle(4);
+            bdbs.setMinIdle(1);
+            bdbs.setMaxWait(10000);
+            bdbs.setTimeBetweenEvictionRunsMillis(5000);
+            bdbs.setMinEvictableIdleTimeMillis(60000);    
+            bdbs.setValidationQuery("SELECT 1");
+            bdbs.setValidationQueryTimeout(3);
+            bdbs.setTestOnBorrow(true);
+            bdbs.setTestWhileIdle(true);
+            bdbs.setTestOnReturn(false);
+                    
+            database = new MySQLDatabase(db);
+
+        } catch (Exception e) {
+            System.err.println("Failed to bind JNDI for BasicDatabaseSource.");
+            e.printStackTrace();
+        }
 
         try {
             // set result limit per page
@@ -123,6 +134,15 @@ public class Application implements ServletContextListener {
      */
     public static DatabaseSource getDatabaseSource() {
         return database;
+    }
+
+    /**
+     * Gets the JNDI bound BasicDatabaseSource for this app.
+     * 
+     * @return BasicDatabaseSource
+     */
+    public static BasicDataSource getBasicDatabaseSource() {
+        return bdbs;
     }
 
     /**
