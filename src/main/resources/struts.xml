@@ -42,7 +42,7 @@
 		
 		<!-- ACTIONS -->	
 		<action name="" class="com.rw.action.HomeAction">
-			<result name="success">/WEB-INF/home.jsp</result>
+			<result name="success">/WEB-INF/index.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
@@ -294,6 +294,7 @@
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
+		<!-- SETTINGS -->
 		<action name="settings" class="com.rw.action.manage.SettingsAction">
 			<result name="success">/WEB-INF/manage/settings.jsp</result>
 			<result name="error">/WEB-INF/manage/settings.jsp</result>
