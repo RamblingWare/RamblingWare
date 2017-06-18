@@ -17,11 +17,10 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Cookie;
 
 /**
  * A simple utility class that contains common methods used across classes.
@@ -289,11 +288,9 @@ public class Utils {
         // Long.MIN_VALUE == -Long.MIN_VALUE so we need an adjustment here
         if (value == Long.MIN_VALUE) {
             return formatLong(Long.MIN_VALUE + 1);
-        }
-        else if (value < 0) {
+        } else if (value < 0) {
             return "-" + formatLong(-value);
-        }
-        else if (value < 1000) {
+        } else if (value < 1000) {
             return Long.toString(value); // deal with easy case
         }
 
@@ -356,7 +353,7 @@ public class Utils {
         try {
             InternetAddress emailAddr = new InternetAddress(email);
             emailAddr.validate();
-        } catch (AddressException ex) {
+        } catch (Exception ex) {
             result = false;
         }
         return result;
