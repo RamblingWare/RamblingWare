@@ -27,13 +27,13 @@
 				About</h1>
 				
 				<p>
-					RamblingWare is a blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
+					RamblingWare is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
 				</p>
 				<p>
-					I cover topics around web development, web security, and programming. Really, anything that I can ramble on about!
+					I cover topics around web development, web security, and programming. Really, anything that I can ramble about.
 				</p>
 				<p>
-					I hope you enjoy reading, and leave a comment if you like! And don't forget to subscribe for more. Thanks! ~ <a href="/author/austin-delamar">Austin</a>			
+					I hope you enjoy reading, and leave a comment if you like! Thanks! ~ <a href="/author/austin-delamar">Austin</a>			
 				</p>
 				<p class="w3-small w3-text-grey quote">
 					Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.
@@ -55,6 +55,13 @@
 					&nbsp;&nbsp;
 					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare"><span class="icon-embed w3-large w3-margin-right"></span>View Code</a>
 				</p>
+				
+				<br />
+				
+				<h2>Contact</h2>
+				<p>You can reach RamblingWare via the social links on the bottom of every page, or send us an email at <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>.
+				
+				<br />
 				
 			</div>
 			
