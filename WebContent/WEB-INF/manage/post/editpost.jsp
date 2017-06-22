@@ -156,7 +156,7 @@ function preview() {
 		<div class="page w3-row">
 		
 			<!-- TABS_BEGIN -->
-			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
+			<%@include file="/WEB-INF/manage/manage-tabs.jspf"%>
 			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">

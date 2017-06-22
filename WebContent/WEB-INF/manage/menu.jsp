@@ -18,12 +18,12 @@
 		<div class="page w3-row">
 		
 			<!-- TABS_BEGIN -->
-			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
+			<%@include file="/WEB-INF/manage/manage-tabs.jspf"%>
 			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Manage Menu</h1>		
+				<h1>Management Menu</h1>		
 				
 				<div class="w3-row">
 					<div class="w3-container w3-padding w3-col s12 m12 l6">

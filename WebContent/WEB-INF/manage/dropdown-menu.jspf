@@ -8,8 +8,8 @@
 			<a class="w3-hover-light-grey w3-hover-text-black" title="Management Menu" href="/manage/"><span class="icon-home w3-large w3-margin-right"></span>Manage Menu</a>
 			<a class="w3-hover-light-grey w3-hover-text-black" title="Edit Posts" href="/manage/posts"><span class="icon-quill w3-large w3-margin-right"></span>Edit Posts</a>
 			<a class="w3-hover-light-grey w3-hover-text-black" title="Edit Authors" href="/manage/users"><span class="icon-author w3-large w3-margin-right"></span>Edit Authors</a>
-			<a class="w3-hover-light-grey w3-hover-text-black" title="My Settings" href="/manage/settings"><span class="icon-cog w3-large w3-margin-right"></span>Settings</a>
-			<a class="w3-hover-light-grey w3-hover-text-red w3-border-top" title="Logout" href="/manage/logout"><span class="icon-arrow-left w3-large w3-margin-right"></span>Logout</a>
+			<a class="w3-hover-light-grey w3-hover-text-black w3-border-top" title="My Settings" href="/manage/settings"><span class="icon-cog w3-large w3-margin-right"></span>Settings</a>
+			<a class="w3-hover-light-grey w3-hover-text-red" title="Logout" href="/manage/logout"><span class="icon-arrow-left w3-large w3-margin-right"></span>Logout</a>
 		</div>
 	</div>
 </s:if>

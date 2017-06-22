@@ -1,7 +1,7 @@
 <div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small no-print">
-	<ul>
-		<li><a href="/blog/" class="w3-round w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
-		<li><a href="/about" class="w3-round w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
+	<ul class="w3-card w3-round">
+		<li><a href="/blog/" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
+		<li><a href="/about" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
 	</ul>
 	<br/>
 	<ul>	
