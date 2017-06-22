@@ -295,9 +295,24 @@
 		</action>
 		
 		<!-- SETTINGS -->
-		<action name="settings" class="com.rw.action.manage.SettingsAction">
-			<result name="success">/WEB-INF/manage/settings.jsp</result>
-			<result name="error">/WEB-INF/manage/settings.jsp</result>
+		<action name="settings">
+			<result type="redirect">/manage/settings/profile</result>
+		</action>
+		<action name="settings/profile" class="com.rw.action.manage.SettingsAction">
+			<result name="success">/WEB-INF/manage/settings/profile.jsp</result>
+			<result name="error">/WEB-INF/manage/settings/profile.jsp</result>
+		</action>
+		<action name="settings/account" class="com.rw.action.manage.SettingsAction">
+			<result name="success">/WEB-INF/manage/settings/account.jsp</result>
+			<result name="error">/WEB-INF/manage/settings/account.jsp</result>
+		</action>
+		<action name="settings/password" class="com.rw.action.manage.SettingsAction">
+			<result name="success">/WEB-INF/manage/settings/password.jsp</result>
+			<result name="error">/WEB-INF/manage/settings/password.jsp</result>
+		</action>
+		<action name="settings/security" class="com.rw.action.manage.SettingsAction">
+			<result name="success">/WEB-INF/manage/settings/security.jsp</result>
+			<result name="error">/WEB-INF/manage/settings/security.jsp</result>
 		</action>
 		
 		

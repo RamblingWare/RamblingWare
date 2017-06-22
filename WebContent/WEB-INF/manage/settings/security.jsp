@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
 
-<title>Settings - RamblingWare</title>
+<title>Security - RamblingWare</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -18,116 +18,15 @@
 		<div class="page w3-row">
 		
 			<!-- TABS_BEGIN -->
-			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
+			<%@include file="/WEB-INF/manage/settings/settings-tabs.jspf"%>
 			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1>Settings</h1>
+				<h1>Security</h1>
 				
 				<!-- SETTINGS BEGIN -->
-				<div class="w3-row">	
-				<div class="w3-container w3-padding w3-col s12 m12 l12">
-				
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">About you</h3>
-						</div>
-						<div class="w3-padding w3-small w3-theme-light">
-							
-							<span class="w3-col s3 m3 l3 w3-padding-16">
-								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
-							</span>
-							<span class="w3-col s9 m9 l9 w3-padding-16">
-								<span class="w3-small w3-text-grey w3-padding-right">
-								<b><s:property value="#session.USER.name" /></b><br />
-								<span class="w3-small"><s:property value="#session.USER.description" /></span> 
-								</span>
-							</span>								
-							<hr />
-							<p>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />"><span class="icon-quill w3-large w3-margin-right"></span>Edit</a>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uriName" />">View My Page</a>
-							</p>
-						
-						</div>
-					</div>
-				
-				</div>
-				<div class="w3-container w3-padding w3-col s12 m12 l6">
-				
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">Account</h3>
-						</div>
-						<div class="w3-padding w3-small w3-theme-light">
-						
-							<form action="/manage/settings" method="post">
-							<input type="hidden" name="account" value="true" />
-							<p>
-								<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:&nbsp;<span class="w3-text-red">*</span></label>
-								<input type="text" size="50" maxlength="200" name="username" id="username" value="<s:property value="#session.USER.username" />" required class="w3-input w3-round-large w3-border" />
-								<span class="w3-small w3-text-grey">Your username is used to login.</span>
-							</p>
-							<p>
-								<label class="w3-validate w3-text-grey-light w3-large" for="email">Email:&nbsp;<span class="w3-text-red">*</span></label>
-								<input type="text" size="50" maxlength="200" name="email" id="email" value="<s:property value="#session.USER.email" />" required class="w3-input w3-round-large w3-border" />
-								<span class="w3-small w3-text-grey">Your email address is used to validate your identity.</span>
-							</p>
-							<p>
-								<s:if test="#session.USER.isAdmin()">
-									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-theme">Admin</span>
-									<br/>
-									<span class="w3-small w3-text-grey">Admins have full access.</span>
-								</s:if>
-								<s:else>
-									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-pale-blue">Author</span>
-									<br/>
-									<span class="w3-small w3-text-grey">Authors can create/edit blog posts.</span>
-								</s:else>
-							</p>
-							<hr />
-							<p>
-								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
-							</p>
-							</form>
-						</div>
-					</div>
-				
-				</div>
-				<div class="w3-container w3-padding w3-col s12 m12 l6">
-				
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">Password</h3>
-						</div>
-						<div class="w3-padding w3-small w3-theme-light">
-							
-							<form action="/manage/settings" method="post">
-							<input type="hidden" name="password" value="true" />
-							<p>
-								<label class="w3-validate w3-text-grey-light w3-large" for="passwordOld">Current Password:&nbsp;<span class="w3-text-red">*</span></label>
-								<input type="password" size="50" maxlength="300" name="passwordOld" id="passwordOld" value="" required class="w3-input w3-round-large w3-border" />
-							</p>
-							<p>
-								<label class="w3-validate w3-text-grey-light w3-large" for="passwordNew">New Password:&nbsp;<span class="w3-text-red">*</span></label>
-								<input type="password" size="50" maxlength="300" name="passwordNew" id="passwordNew" value="" required class="w3-input w3-round-large w3-border" />
-								<br/>
-								<span class="w3-small w3-text-grey">Must be 8 or more characters. Or just <a href="https://duckduckgo.com/?q=strong+password&t=ffsb&ia=answer" target="_blank">generate one</a>.</span>
-							</p>
-							<p>
-								<label class="w3-validate w3-text-grey-light w3-large" for="passwordVerify">New Password (Verify):&nbsp;<span class="w3-text-red">*</span></label>
-								<input type="password" size="50" maxlength="300" name="passwordVerify" id="passwordVerify" value="" required class="w3-input w3-round-large w3-border" />
-							</p>
-							<hr />
-							<p>
-								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
-							</p>
-							</form>
-						</div>
-					</div>
-				
-				</div>
+				<div class="w3-row">
 				<div class="w3-container w3-padding w3-col s12 m12 l12">
 				
 					<div class="w3-border w3-round">
@@ -136,7 +35,7 @@
 						</div>
 						<div class="w3-padding w3-small w3-theme-light">
 							
-							<form action="/manage/settings" method="post">
+							<form action="/manage/settings/security" method="post">
 							<input type="hidden" name="security" value="true" />
 							
 							<s:if test="#session.USER.isOTPEnabled()">
@@ -286,27 +185,6 @@
 						document.getElementById(name).style.display='none';
 					}
 					</script>
-				
-				</div>
-				<div class="w3-container w3-padding w3-col s12 m12 l12">
-				
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">Extras</h3>
-						</div>
-						<div class="w3-padding w3-small w3-theme-light">
-						
-							<p class="w3-small">
-							Date your Account was Created:&nbsp;<span class="bold"><s:property value="#session.USER.createDateReadable"/></span>
-							<br />
-							Date your Account was Last Modified:&nbsp;<span class="bold"><s:property value="#session.USER.modifyDateReadable"/></span>
-							<br />
-							Date of your Last Login:&nbsp;<span class="bold"><s:property value="#session.USER.lastLoginDateReadable" /></span>
-							</p>
-							
-						
-						</div>
-					</div>
 				
 				</div>				
 				</div>
