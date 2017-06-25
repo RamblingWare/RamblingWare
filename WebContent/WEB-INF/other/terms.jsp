@@ -10,17 +10,12 @@
 </head>
 <body class="w3-theme-dark">
 
-	<!-- HEADER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/header.jspf"%>
-	<!-- HEADER_END -->
 
-	<!-- CONTENT BEGIN -->
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 
-			<!-- TABS_BEGIN -->
 			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
-			<!-- TABS_END -->
 
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 
@@ -97,17 +92,10 @@
 
 			</div>
 
-			<!-- ARCHIVE BEGIN -->
 			<%@include file="/WEB-INF/fragment/archive.jspf"%>
-			<!-- ARCHIVE END -->
-
 		</div>
 	</article>
-	<!-- CONTENT END -->
 
-	<!-- FOOTER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/footer.jspf"%>
-	<!-- FOOTER_END -->
-
 </body>
 </html>

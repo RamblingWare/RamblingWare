@@ -10,16 +10,13 @@
 </head>
 <body class="w3-theme-dark">
 
-	<!-- HEADER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/header.jspf"%>
-	<!-- HEADER_END -->
 	
 	<article class="w3-theme-dark">
 		<div class="page w3-row">
 		
 			<div id="page-content">
 			
-				<!-- FORGOT BEGIN -->
 				<div class="w3-container w3-padding w3-col m3 l4"></div>
 				<div class="w3-container w3-padding w3-col m6 l4">
 
@@ -124,20 +121,15 @@
 							<h3 class="w3-margin-0 w3-padding uppercase">Forgot</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
-						
-						
 							<p>   
 								What did you forget?
 							</p>
 							<hr />
 							<p>   
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Forgot Username" href="/manage/forgot?type=username">Username</a>
-								
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Forgot Password" href="/manage/forgot?type=password">Password</a>
-								
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Forgot 2FA device" href="/manage/forgot?type=twofactor">2FA</a>
 							</p>
-						
 							<p class="w3-small w3-text-grey w3-center">
 								<a href="/manage/">Back to Login.</a>
 							</p>
@@ -147,16 +139,8 @@
 				
 				</div>
 				<div class="w3-container w3-padding w3-col m3 l3"></div>
-				<!-- FORGOT END -->
-					
-				
-				<br />
-				<br />
-				<br />
-				<br />
 			</div>
 		</div>
-	</article>
-	
+	</article>	
 </body>
 </html>

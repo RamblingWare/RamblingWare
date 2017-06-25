@@ -45,22 +45,17 @@ function preview() {
 </head>
 <body class="w3-theme-dark">
 
-	<!-- HEADER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/header.jspf"%>
-	<!-- HEADER_END -->
 	
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 		
-			<!-- TABS_BEGIN -->
 			<%@include file="/WEB-INF/manage/manage-tabs.jspf"%>
-			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
 				<h1>Edit Author</h1>
 				
-				<!-- EDIT AUTHOR BEGIN -->
 				<div class="w3-container w3-padding-0 w3-border-0">
 					<form action="/manage/edituser/<s:property value="#request.author.uriName" />" method="post">
 					<input type="hidden" name="submitForm" value="true" />
@@ -135,14 +130,10 @@ function preview() {
 				<script>
 					preview();
 				</script>
-				<!-- EDIT AUTHOR END -->
 			</div>
 		</div>
 	</article>
 	
-	<!-- FOOTER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/footer.jspf"%>
-	<!-- FOOTER_END -->
-	
 </body>
 </html>

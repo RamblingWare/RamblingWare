@@ -10,16 +10,12 @@
 </head>
 <body class="w3-theme-dark">
 
-	<!-- HEADER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/header.jspf"%>
-	<!-- HEADER_END -->
-	
+
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 		
-			<!-- TABS_BEGIN -->
 			<%@include file="/WEB-INF/manage/settings/settings-tabs.jspf"%>
-			<!-- TABS_END -->
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
@@ -160,7 +156,6 @@
 						</div>
 					</div>
 					<script>
-					// Get the popup
 					var setupPopup = document.getElementById('setup-2fa');
 					var recoverPopup = document.getElementById('recover-2fa');
 					var removePopup = document.getElementById('remove-2fa');
@@ -184,16 +179,12 @@
 						document.getElementById(name).style.display='none';
 					}
 					</script>
-				
 				</div>				
 				</div>
 			</div>
 		</div>
 	</article>
-	
-	<!-- FOOTER_BEGIN -->
+
 	<%@include file="/WEB-INF/fragment/footer.jspf"%>
-	<!-- FOOTER_END -->
-	
 </body>
 </html>

@@ -10,16 +10,13 @@
 </head>
 <body class="w3-theme-dark">
 
-	<!-- HEADER_BEGIN -->
 	<%@include file="/WEB-INF/fragment/header.jspf"%>
-	<!-- HEADER_END -->
 	
 	<article class="w3-theme-dark">
 		<div class="page w3-row">
 		
 			<div id="page-content">
 			
-				<!-- LOGIN BEGIN -->
 				<div class="w3-container w3-padding w3-col m3 l4"></div>
 				<div class="w3-container w3-padding w3-col m6 l4">
 					
@@ -53,16 +50,8 @@
 					</div>
 				</div>
 				<div class="w3-container w3-padding w3-col m3 l3"></div>
-				<!-- LOGIN END -->
-					
-				
-				<br />
-				<br />
-				<br />
-				<br />
 			</div>
 		</div>
-	</article>
-	
+	</article>	
 </body>
 </html>
