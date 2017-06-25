@@ -22,7 +22,8 @@
 				<!-- FORGOT BEGIN -->
 				<div class="w3-container w3-padding w3-col m3 l4"></div>
 				<div class="w3-container w3-padding w3-col m6 l4">
-					
+
+				<s:if test="type.equalsIgnoreCase('username') || type.equalsIgnoreCase('password') || type.equalsIgnoreCase('twofactor')">
 				<s:if test="type.equalsIgnoreCase('username')">
 					<div class="w3-border w3-round">
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
@@ -116,6 +117,33 @@
 						</div>
 					</div>
 				</s:if>
+				</s:if>
+				<s:else>
+					<div class="w3-border w3-round">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
+							<h3 class="w3-margin-0 w3-padding uppercase">Forgot</h3>
+						</div>
+						<div class="w3-padding w3-theme-light">
+						
+						
+							<p>   
+								What did you forget?
+							</p>
+							<hr />
+							<p>   
+								<a class="w3-btn w3-round w3-card w3-theme-light" title="Forgot Username" href="/manage/forgot?type=username">Username</a>
+								
+								<a class="w3-btn w3-round w3-card w3-theme-light" title="Forgot Password" href="/manage/forgot?type=password">Password</a>
+								
+								<a class="w3-btn w3-round w3-card w3-theme-light" title="Forgot 2FA device" href="/manage/forgot?type=twofactor">2FA</a>
+							</p>
+						
+							<p class="w3-small w3-text-grey w3-center">
+								<a href="/manage/">Back to Login.</a>
+							</p>
+						</div>
+					</div>
+				</s:else>
 				
 				</div>
 				<div class="w3-container w3-padding w3-col m3 l3"></div>
