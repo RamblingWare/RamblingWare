@@ -1016,7 +1016,7 @@ public class MySQLDatabase extends DatabaseSource {
             String query = "select * from users a ";
 
             if (!includeAdmins) {
-                query += "where role <> 1 ";
+                query += "where role <> 3 ";
             }
 
             query += "order by a.create_date desc limit " + limit + " offset " + offset;
