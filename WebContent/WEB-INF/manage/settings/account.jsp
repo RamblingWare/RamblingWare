@@ -25,7 +25,6 @@
 				
 				<h1>Account</h1>
 				
-				<!-- SETTINGS BEGIN -->
 				<div class="w3-row">	
 				<div class="w3-container w3-padding w3-col s12 m12 l6">
 				
@@ -48,16 +47,26 @@
 								<span class="w3-small w3-text-grey">Your email address is used to validate your identity.</span>
 							</p>
 							<p>
-								<s:if test="#session.USER.isAdmin()">
-									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-theme">Admin</span>
+								<s:if test="#session.USER.getRole() == 0">
+									<label class="w3-validate w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-medium w3-pale-blue"><span class="icon-author"></span>&nbsp;Author</span>
 									<br/>
-									<span class="w3-small w3-text-grey">Admins have full access.</span>
+									<span class="w3-small w3-text-grey">Authors can create/edit their own posts. Edit their Profile page.</span>
 								</s:if>
-								<s:else>
-									<label class="w3-validate w3-text-grey-light w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-pale-blue">Author</span>
+								<s:elseif test="#session.USER.getRole() == 1">
+									<label class="w3-validate w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-medium w3-pale-blue"><span class="icon-search"></span>&nbsp;Editor</span>
 									<br/>
-									<span class="w3-small w3-text-grey">Authors can create/edit blog posts.</span>
-								</s:else>
+									<span class="w3-small w3-text-grey">Editors can create/edit any post. See all hidden posts. Edit any Profile page.</span>
+								</s:elseif>
+								<s:elseif test="#session.USER.getRole() == 2">
+									<label class="w3-validate w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-medium w3-pale-yellow"><span class="icon-star"></span>&nbsp;Owner</span>
+									<br/>
+									<span class="w3-small w3-text-grey">Owners can create/edit any post. Edit their own Profile page. Add/Delete users.</span>
+								</s:elseif>
+								<s:elseif test="#session.USER.getRole() == 3">
+									<label class="w3-validate w3-large" for="title">Role:</label>&nbsp;<span class="w3-tag w3-round w3-medium w3-theme"><span class="icon-eye"></span>&nbsp;Admin</span>
+									<br/>
+									<span class="w3-small w3-text-grey">Admins can edit any post. See all hidden posts. Edit any profile pages. No profile page. Add/Delete users.</span>
+								</s:elseif>
 							</p>
 							<hr />
 							<p>
@@ -68,12 +77,7 @@
 					</div>
 				
 				</div>
-				</div>
-				<!-- SETTINGS END -->
-			
-								
-				<br />
-				<br />
+				</div>	
 			</div>
 		</div>
 	</article>

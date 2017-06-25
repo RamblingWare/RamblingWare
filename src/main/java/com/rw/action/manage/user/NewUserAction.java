@@ -105,7 +105,8 @@ public class NewUserAction extends ActionSupport
             System.out.println(user.getUsername() + " failed to create user. Role was empty.");
             return ERROR;
         }
-        if (!role.equalsIgnoreCase("author") && !role.equalsIgnoreCase("admin")) {
+        if (!role.equalsIgnoreCase("author") && !role.equalsIgnoreCase("editor")
+                && !role.equalsIgnoreCase("owner") && !role.equalsIgnoreCase("admin")) {
             addActionError("Role was invalid. Please fill out all fields before saving.");
             System.out.println(user.getUsername() + " failed to create user. Role was invalid.");
             return ERROR;
@@ -134,7 +135,24 @@ public class NewUserAction extends ActionSupport
             newUser.setUriName(uriName);
             newUser.setPassword(password);
             newUser.setThumbnail("/img/placeholder-200.png");
-            newUser.setAdmin(role.equalsIgnoreCase("admin"));
+
+            switch (role) {
+                case "author" :
+                    newUser.setRole(0);
+                    break;
+                case "editor" :
+                    newUser.setRole(1);
+                    break;
+                case "owner" :
+                    newUser.setRole(2);
+                    break;
+                case "admin" :
+                    newUser.setRole(3);
+                    break;
+                default :
+                    newUser.setRole(0);
+                    break;
+            }
 
             // insert into database
             newUser = Application.getDatabaseSource().newUser(newUser);

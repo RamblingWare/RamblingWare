@@ -25,7 +25,6 @@
 				
 				<h1>Password</h1>
 				
-				<!-- SETTINGS BEGIN -->
 				<div class="w3-row">
 				<div class="w3-container w3-padding w3-col s12 m12 l6">
 				
@@ -61,11 +60,6 @@
 				
 				</div>
 				</div>
-				<!-- SETTINGS END -->
-			
-								
-				<br />
-				<br />
 			</div>
 		</div>
 	</article>

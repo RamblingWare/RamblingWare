@@ -28,8 +28,6 @@
 				<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-author w3-large w3-margin-right"></span>Add Author</a>
 				<span class="w3-small w3-text-grey nowrap">Add a new Author.</span>
 				</p>
-				
-				<!-- AUTHORS START -->
 				<s:if test="authors != null">
 				<s:if test="authors.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
@@ -59,12 +57,18 @@
 						</td>
 							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
 						<td>
-							<s:if test="isAdmin()">
-								<span class="w3-tag w3-round w3-theme-l4">Admin</span>
+							<s:if test="role == 0">
+								<span class="w3-tag w3-round w3-pale-green" title="Authors can create/edit their own posts. Edit their Profile page."><span class="icon-author"></span>&nbsp;Author</span>
 							</s:if>
-							<s:else>
-								<span class="w3-tag w3-round w3-pale-green">Author</span>
-							</s:else>
+							<s:elseif test="role == 1">
+								<span class="w3-tag w3-round w3-pale-blue" title="Editors can create/edit any post. See all hidden posts. Edit any Profile page."><span class="icon-search"></span>&nbsp;Editor</span>
+							</s:elseif>
+							<s:elseif test="role == 2">
+								<span class="w3-tag w3-round w3-pale-yellow" title="Owners can create/edit any post. Edit their own Profile page. Add/Delete users."><span class="icon-star"></span>&nbsp;Owner</span>
+							</s:elseif>
+							<s:elseif test="role == 3">
+								<span class="w3-tag w3-round w3-theme-l4" title="Admins can edit any post. See all hidden posts. Edit any profile pages. No profile page. Add/Delete users."><span class="icon-eye"></span>&nbsp;Admin</span>
+							</s:elseif>
 						</td>
 						<td><s:property value="createDateReadable" /></td>
 						<td><s:property value="lastLoginDateReadable" /></td>
@@ -75,10 +79,6 @@
 				
 				</s:else>
 				</s:if>
-				<!-- AUTHORS END -->
-					
-				<br />
-				<br />
 			</div>
 		</div>
 	</article>

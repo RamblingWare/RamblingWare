@@ -360,7 +360,7 @@ public class MySQLDatabase extends DatabaseSource {
                 author.setModifyDate(rs.getDate("modify_date"));
                 author.setLastLoginDate(rs.getDate("last_login_date"));
                 author.setEmail(rs.getString("email"));
-                author.setAdmin(rs.getInt("role") > 0);
+                author.setRole(rs.getInt("role"));
             }
 
         } catch (Exception e) {
@@ -1039,7 +1039,7 @@ public class MySQLDatabase extends DatabaseSource {
                 author.setModifyDate(rs.getDate("modify_date"));
                 author.setLastLoginDate(rs.getDate("last_login_date"));
                 author.setEmail(rs.getString("email"));
-                author.setAdmin(rs.getInt("role") > 0);
+                author.setRole(rs.getInt("role"));
 
                 // add to results list
                 authors.add(author);
@@ -1080,7 +1080,7 @@ public class MySQLDatabase extends DatabaseSource {
                 user.setModifyDate(rs.getDate("modify_date"));
                 user.setLastLoginDate(rs.getDate("last_login_date"));
                 user.setEmail(rs.getString("email"));
-                user.setAdmin(rs.getInt("role") > 0);
+                user.setRole(rs.getInt("role"));
             }
             close(rs, pt, null);
 
@@ -1124,7 +1124,7 @@ public class MySQLDatabase extends DatabaseSource {
             pt.setString(2, user.getName());
             pt.setString(3, user.getUriName());
             pt.setString(4, user.getEmail());
-            pt.setInt(5, user.isAdmin() ? 1 : 0);
+            pt.setInt(5, user.getRole());
             pt.setString(6, user.getThumbnail());
 
             if (pt.execute()) {
@@ -1171,7 +1171,7 @@ public class MySQLDatabase extends DatabaseSource {
                 user.setModifyDate(rs.getDate("modify_date"));
                 user.setLastLoginDate(rs.getDate("last_login_date"));
                 user.setEmail(rs.getString("email"));
-                user.setAdmin(rs.getInt("role") > 0);
+                user.setRole(rs.getInt("role"));
             }
             rs.close();
             pt.close();

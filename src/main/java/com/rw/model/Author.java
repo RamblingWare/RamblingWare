@@ -19,7 +19,17 @@ public class Author {
     private String username;
 
     private String password;
-    private boolean isAdmin;
+
+    /**
+     * Roles:
+     * <li>0 = Author - Create/Edit their own posts. Edit their own Profile page.</li>
+     * <li>1 = Editor - Create/Edit any posts. See all hidden posts. Edit any Profile page.</li>
+     * <li>2 = Owner - Create/Edit any posts. Edit their own Profile page. Add/Delete users.</li>
+     * <li>3 = Admin - Edit any posts. See all hidden posts. Edit any profile pages. No profile
+     * page. Add/Delete users.</li>
+     */
+    private int role;
+
     private boolean isOTPEnabled;
     private boolean isOTPAuthenticated;
     private String keySecret;
@@ -78,8 +88,18 @@ public class Author {
         this.email = email;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        if (role < 0) {
+            this.role = 0;
+        } else if (role > 3) {
+            this.role = 3;
+        } else {
+            this.role = role;
+        }
     }
 
     public String getPassword() {
@@ -88,10 +108,6 @@ public class Author {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 
     public boolean isOTPEnabled() {
