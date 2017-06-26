@@ -29,9 +29,6 @@ public class LogoutAction extends ActionSupport
     public Author user;
     public Map<String, Object> sessionAttributes = null;
 
-    private String message;
-
-    // all struts logic here
     public String execute() {
 
         try {
@@ -39,7 +36,7 @@ public class LogoutAction extends ActionSupport
             user = (Author) sessionAttributes.get("USER");
             System.out.println("User " + user.getUsername() + " logged out.");
 
-            setMessage("You have been logged out.");
+            addActionMessage("You have been logged out.");
 
             sessionAttributes.remove("login");
             sessionAttributes.remove("context");
@@ -54,14 +51,6 @@ public class LogoutAction extends ActionSupport
             return ERROR;
         }
 
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public void setSession(Map<String, Object> sessionAttributes) {

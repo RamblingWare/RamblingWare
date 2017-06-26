@@ -328,7 +328,9 @@
 		
 		<action name="logout" class="com.rw.action.manage.LogoutAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="redirect">/</result>
+			<result name="success" type="chain">
+				<param name="actionName">login</param>
+			</result>
 		</action>
 		
 		<action name="forgot" class="com.rw.action.manage.ForgotAction">
