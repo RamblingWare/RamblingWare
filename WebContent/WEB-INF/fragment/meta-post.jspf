@@ -27,7 +27,7 @@
 
 <link rel="author" href="humans.txt">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="stylesheet" href="/css/style.css?v=1.52">
+<link rel="stylesheet" href="/css/style.css?v=1.53">
 <link href="/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">
 <script type="text/javascript" src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
