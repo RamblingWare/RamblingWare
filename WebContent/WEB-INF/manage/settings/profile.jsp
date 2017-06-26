@@ -15,7 +15,7 @@
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 		
-			<%@include file="/WEB-INF/manage/settings/settings-tabs.jspf"%>
+			<%@include file="/WEB-INF/fragment/tabs/tabs.jspf"%>
 		
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
@@ -28,7 +28,7 @@
 						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">About you</h3>
 						</div>
-						<div class="w3-padding w3-small w3-theme-light">
+						<div class="w3-container w3-padding w3-small w3-theme-light">
 							
 							<span class="w3-col s3 m3 l3 w3-padding-16">
 								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">

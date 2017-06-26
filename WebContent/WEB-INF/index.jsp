@@ -15,7 +15,7 @@
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 			
-			<%@include file="/WEB-INF/fragment/tabs.jspf"%>
+			<%@include file="/WEB-INF/fragment/tabs/tabs.jspf"%>
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 								
@@ -37,8 +37,10 @@
 					</div>
 				</s:else>
 				</s:if>				
-				<p>
+				<p class="w3-hide-large">
 					This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
+					<br/><br/>
+					Follow or Subscribe for the latest updates!
 				</p>
 			</div>
 			

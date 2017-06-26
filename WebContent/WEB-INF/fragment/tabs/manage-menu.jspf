@@ -1,0 +1,5 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<s:if test="#session != null && #session.USER != null">
+	<li class="w3-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding w3-border-right"><a href="/manage/posts" title="Posts">Posts</a></li>
+	<li class="w3-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding w3-border-right"><a href="/manage/users" title="Authors">Authors</a></li>
+</s:if>

@@ -1,10 +1,11 @@
-<div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small no-print">
-	<a class="w3-opacity w3-hover-opaque w3-margin-bottom" href="/manage/menu"><span class="icon-arrow-left w3-margin-right"></span>Menu</a>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<s:if test="#session != null && #session.USER != null">
 	<ul class="w3-card w3-round">
-		<li><a href="#" class="w3-padding w3-theme-light w3-text-theme uppercase" title="Settings">Settings</a></li>
+		<li><a href="/manage/settings" class="w3-padding w3-opacity w3-hover-opaque uppercase" title="Settings">Settings</a></li>
 		<li><a href="/manage/settings/profile" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Profile">Profile</a></li>
 		<li><a href="/manage/settings/account" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Account">Account</a></li>
 		<li><a href="/manage/settings/password" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Password">Password</a></li>
 		<li><a href="/manage/settings/security" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Security">Security</a></li>
 	</ul>
-</div>
+	<br/>
+</s:if>

@@ -1,0 +1,14 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<s:if test="#session != null && #session.USER != null">
+<div class="w3-left w3-dropdown-hover">
+	<div title="Settings" class="w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding w3-border-right">
+		Settings
+	</div>
+  	<div class="w3-dropdown-content w3-white w3-card-4 w3-large w3-text-grey">
+		<a class="w3-hover-light-grey w3-hover-text-black" href="/manage/settings/profile" title="Profile">Profile</a>
+		<a class="w3-hover-light-grey w3-hover-text-black" href="/manage/settings/account" title="Account">Account</a>
+		<a class="w3-hover-light-grey w3-hover-text-black" href="/manage/settings/password" title="Password">Password</a>
+		<a class="w3-hover-light-grey w3-hover-text-black" href="/manage/settings/security" title="Security">Security</a>
+	</div>
+</div>
+</s:if>
