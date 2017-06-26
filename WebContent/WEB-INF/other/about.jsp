@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>About - RamblingWare</title>
+<title>About - <%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -23,7 +23,7 @@
 				About</h1>
 				
 				<p>
-					RamblingWare is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
+					<%=Application.getSetting("name")%> is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
 				</p>
 				<p>
 					I cover topics around web development, web security, and programming. Really, anything that I can ramble about.
@@ -38,24 +38,24 @@
 				<br />
 				
 				<h2>This Blog is Custom Built</h2>
-				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>.
+				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="<%=Application.getSetting("sourceCode")%>">GitHub repo</a>.
 				I've used blog services before, but decided to program it myself. And I know Its not perfect but I have been having fun with it! I typically work on it at least once a month.<br />
 				</p>
 				<blockquote>“Talk is cheap. Show me the code.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Linus Torvalds</blockquote>
 				<p>
 				If you want to help inform me of any problems with this website, you can open an issue on the 
-				<a target="_blank" href="https://github.com/RamblingWare/RamblingWare">GitHub repo</a>. Or if you like this website and wanted to deploy your own using this code, you can do that too.
+				<a target="_blank" href="<%=Application.getSetting("sourceCode")%>">GitHub repo</a>. Or if you like this website and wanted to deploy your own using this code, you can do that too.
 				</p>
 				<p>
-					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare/issues"><span class="icon-bug w3-large w3-margin-right"></span>Report Bug</a>
+					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="<%=Application.getSetting("sourceCode")%>/issues"><span class="icon-bug w3-large w3-margin-right"></span>Report Bug</a>
 					&nbsp;&nbsp;
-					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="https://github.com/RamblingWare/RamblingWare"><span class="icon-embed w3-large w3-margin-right"></span>View Code</a>
+					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="<%=Application.getSetting("sourceCode")%>"><span class="icon-embed w3-large w3-margin-right"></span>View Code</a>
 				</p>
 				
 				<br />
 				
 				<h2>Contact</h2>
-				<p>You can reach RamblingWare via the social links on the bottom of every page, or send us an email at <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>.
+				<p>You can reach <%=Application.getSetting("name")%> via the social links on the bottom of every page, or send us an email at <a href="mailto:<%=Application.getSetting("email")%>"><%=Application.getSetting("email")%></a>.
 				
 				<br />
 				

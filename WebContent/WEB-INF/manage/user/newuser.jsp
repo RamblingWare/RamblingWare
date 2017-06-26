@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>New Author - RamblingWare</title>
+<title>New Author - <%=Application.getSetting("name")%></title>
 <script>
 function makeUri() {
 	var title = document.getElementById('name').value;

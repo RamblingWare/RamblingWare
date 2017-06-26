@@ -5,9 +5,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Edit Post - RamblingWare</title>
+<title>Edit Post - <%=Application.getSetting("name")%></title>
 
 <script src="/ckeditor/ckeditor.js"></script>
 <s:if test="usedUris != null && !usedUris.isEmpty()">
@@ -186,7 +186,7 @@ function preview() {
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:</label>
-						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.post.thumbnail" />" onkeyup="preview()" onchange="preview()" placeholder="https://www.ramblingware.com/img/placeholder-640.png" class="w3-input w3-round-large  w3-border" />
+						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.post.thumbnail" />" onkeyup="preview()" onchange="preview()" placeholder="<%=Application.getSetting("url")%>/img/placeholder-640.png" class="w3-input w3-round-large  w3-border" />
 					</p>
 					
 					<h3>Social Card Preview</h3>

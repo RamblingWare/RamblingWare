@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Edit Author - RamblingWare</title>
+<title>Edit Author - <%=Application.getSetting("name")%></title>
 <script src="/ckeditor/ckeditor.js"></script>
 <script>
 function validate() {
@@ -76,7 +76,7 @@ function preview() {
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL</label>
-						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" onkeyup="preview()" onchange="preview()" placeholder="https://www.ramblingware.com/img/placeholder-200.png" class="w3-input w3-round-large  w3-border" />
+						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" onkeyup="preview()" onchange="preview()" placeholder="<%=Application.getSetting("url")%>/img/placeholder-200.png" class="w3-input w3-round-large  w3-border" />
 					</p>
 					
 					<h3>About You Preview</h3>
@@ -88,10 +88,10 @@ function preview() {
 								<img id="previewImg" class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="thumbnail" />">
 							</span>
 							<span class="w3-col s9 m9 l9 w3-padding-16">
-								<p class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
+								<span class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
 								<b><span id="previewTitle"><s:property value="Name" /></span></b><br />
 								<span id="previewDesc" class="w3-small"><s:property value="description" /></span> 
-								</p>
+								</span>
 							</span>
 							</a>						
 						</div>

@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Security - RamblingWare</title>
+<title>Security - <%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -101,7 +101,7 @@
 								<form action="/manage/settings/security" method="post">
 								<input type="hidden" name="security" value="true" />
 								<p class="w3-center">
-								<img class="w3-card w3-round-large" src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/RamblingWare:<s:property value="#session.USER.email" />?secret=<s:property value="secret" />&issuer=RamblingWare&algorithm=SHA1&digits=6&period=30" />
+								<img class="w3-card w3-round-large" src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/<%=Application.getSetting("name")%>:<s:property value="#session.USER.email" />?secret=<s:property value="secret" />&issuer=<%=Application.getSetting("name")%>&algorithm=SHA1&digits=6&period=30" />
 								<br />
 								<span class="w3-small w3-text-grey">
 									<b>Secret:</b> <s:property value="secret" />

@@ -5,10 +5,10 @@
 		<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="thumbnail" />">
 	</span>
 	<span class="w3-col s9 m9 l9 w3-padding-16">
-		<p class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
+		<span class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
 		<b><s:property value="Name" /></b><br />
 		<span class="w3-small"><s:property value="description" /></span> 
-		</p>
+		</span>
 	</span>
 	</a>						
 </div>

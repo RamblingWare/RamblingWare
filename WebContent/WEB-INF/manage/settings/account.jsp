@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta-manage.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Account - RamblingWare</title>
+<title>Account - <%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
 

@@ -1,4 +1,4 @@
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rw.config.Application" %>
 <header>
 	<div class="page w3-container w3-theme-dark">
 		<nav id="main-menu" class="w3-col s2 w3-padding-top w3-hide-medium w3-hide-large no-print w3-dropdown-hover">
@@ -13,7 +13,7 @@
 			</div>
 		</nav>
 		<div class="w3-col s10 m7 l7 w3-container w3-padding-0">
-			<a href="/"><img id="logo" src="/img/logo.png" alt="RamblingWare" /></a>
+			<a href="/"><img id="logo" src="/img/logo.png" alt="<%=Application.getSetting("name")%>" /></a>
 		</div>
 		<%@include file="/WEB-INF/manage/dropdown-menu.jspf"%>
 		<div id="search" class="w3-col s2 m3 l3 w3-padding-square w3-right w3-small w3-hide-small no-print">

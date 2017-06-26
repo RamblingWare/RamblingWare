@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>RamblingWare</title>
+<title><%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -38,7 +38,7 @@
 				</s:else>
 				</s:if>				
 				<p class="w3-hide-large">
-					This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
+					<%=Application.getSetting("description")%>
 					<br/><br/>
 					Follow or Subscribe for the latest updates!
 				</p>

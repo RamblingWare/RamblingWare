@@ -4,24 +4,35 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta-post.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-post.jspf"%>
 <meta name="author" content="<s:property value="author.name" />">
 <meta name="description" content="<s:property value="author.description" />" />
-<meta property="og:url" content="https://www.ramblingware.com/author/<s:property value="author.uriName" />">
-<meta property="og:type" content="website">
+<meta name="keywords" content="<%=Application.getSetting("keywords")%>">
+
+<!-- Open Graph data -->
+<meta property="og:url" content="<%=Application.getSetting("url")%>/author/<s:property value="author.uriName" />">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
+<meta property="article:author" content="<s:property value="author.name" />">
 <meta property="og:title" content="<s:property value="author.name" />">
 <meta property="og:image" content="<s:property value="author.thumbnail" />">
 <meta property="og:description" content="<s:property value="author.description" />">
+<meta property="og:site_name" content="<%=Application.getSetting("name")%>" />
 
+<!-- Twitter Card data -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="https://www.ramblingware.com/author/<s:property value="author.uriName" />">
-<meta name="twitter:creator" content="<s:property value="author.name" />">
+<meta name="twitter:site" content="<%=Application.getSetting("twitterHandle")%>">
+<meta name="twitter:creator" content="<%=Application.getSetting("twitterAuthorHandle")%>">
 <meta name="twitter:title" content="<s:property value="author.name" />">
 <meta name="twitter:description" content="<s:property value="author.description" />">
 <meta name="twitter:image" content="<s:property value="author.thumbnail" />">
 
-<title>About - <s:property value="author.name" /> - RamblingWare</title>
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="<s:property value="author.name" />">
+<meta itemprop="description" content="<s:property value="author.description" />">
+<meta itemprop="image" content="<s:property value="author.thumbnail" />">
+
+<title><s:property value="author.name" /> - <%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
 

@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>Year <s:property value="year" /> - RamblingWare</title>
+<title>Year <s:property value="year" /> - <%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
 

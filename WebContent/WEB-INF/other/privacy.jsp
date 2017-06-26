@@ -4,9 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>Privacy Policy - RamblingWare</title>
+<title>Privacy Policy - <%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -59,7 +59,7 @@
 					<br />
 					<span class="bold">Effective Date.</span> June 18th, 2017<br />
 					<br />
-					<span class="bold">Contact.</span> RamblingWare <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>
+					<span class="bold">Contact.</span> <%=Application.getSetting("name")%> <a href="mailto:<%=Application.getSetting("email")%>"><%=Application.getSetting("email")%></a>
 				</p>
 				
 				<br />

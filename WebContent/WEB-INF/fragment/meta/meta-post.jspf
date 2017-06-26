@@ -1,0 +1,15 @@
+<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rw.config.Application" %>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="application-name" content="<%=Application.getSetting("name")%>">
+<meta name="robots" content="all">
+<%@include file="/WEB-INF/fragment/meta/meta-webapp.jspf"%>
+
+<link rel="author" href="humans.txt">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css?v=1.53">
+<link href="/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">
+<script type="text/javascript" src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
