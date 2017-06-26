@@ -98,7 +98,7 @@
 								<h3>Enable 2FA
 								<a title="Close" onclick="closePopup('setup-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
-								<form action="/manage/settings" method="post">
+								<form action="/manage/settings/security" method="post">
 								<input type="hidden" name="security" value="true" />
 								<p class="w3-center">
 								<img class="w3-card w3-round-large" src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/RamblingWare:<s:property value="#session.USER.email" />?secret=<s:property value="secret" />&issuer=RamblingWare&algorithm=SHA1&digits=6&period=30" />
@@ -129,7 +129,7 @@
 								<h3>Disable 2FA
 								<a title="Close" onclick="closePopup('remove-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
-								<form action="/manage/settings" method="post">
+								<form action="/manage/settings/security" method="post">
 								<input type="hidden" name="security" value="true" />
 								<p class="w3-small w3-text-grey">
 									Disabling Two Factor Authentication will bypass the additional security provided from using a OTP (One-Time Password) at every login request.

@@ -63,7 +63,7 @@ public class PostAction extends ActionSupport
             try {
                 post = Application.getDatabaseSource().getPost(uriName, canSeeHidden);
 
-                // was post found AND is it publicly visible yet?
+                // was post found?
                 if (post != null) {
                     // set attributes
                     servletRequest.setAttribute("post", post);                    
@@ -85,7 +85,9 @@ public class PostAction extends ActionSupport
                     }
 
                     // update page views
-                    Application.getDatabaseSource().incrementPageViews(post, newViewFromSession);
+                    if(!canSeeHidden) {
+                        Application.getDatabaseSource().incrementPageViews(post, newViewFromSession);
+                    }
 
                     return Action.SUCCESS;
                 } else {
