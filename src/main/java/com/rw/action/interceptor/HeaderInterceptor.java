@@ -1,5 +1,6 @@
 package com.rw.action.interceptor;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.StrutsStatics;
@@ -22,8 +23,14 @@ public class HeaderInterceptor implements Interceptor {
     public String intercept(ActionInvocation actionInvocation) throws Exception {
 
         final ActionContext ac = actionInvocation.getInvocationContext();
-        HttpServletResponse response = (HttpServletResponse) ac.get(StrutsStatics.HTTP_RESPONSE);
 
+        // Remember the original URI request, because if we forward, chain, redirect at all
+        // then this value is lost. Its beneficial to keep for pagination and such.
+        HttpServletRequest request = (HttpServletRequest) ac.get(StrutsStatics.HTTP_REQUEST);
+        request.setAttribute("URI", request.getRequestURI());
+
+        // Set UTF-8 encoding
+        HttpServletResponse response = (HttpServletResponse) ac.get(StrutsStatics.HTTP_RESPONSE);
         response.setCharacterEncoding("UTF-8");
 
         // Tell a browser that you always want a user to connect using HTTPS instead of HTTP for 1
@@ -39,7 +46,8 @@ public class HeaderInterceptor implements Interceptor {
                 "default-src 'self' cdn.ramblingware.com 'unsafe-inline' 'unsafe-eval'");
         // "Content-Security-Policy-Report-Only" can also be used.
 
-        // "default-src 'none'; img-src 'self' cdn.ramblingware.com chart.googleapis.com; style-src 'self'
+        // "default-src 'none'; img-src 'self' cdn.ramblingware.com chart.googleapis.com; style-src
+        // 'self'
         // 'unsafe-inline'; script-src 'self' 'nonce-123456789'; form-action 'self'; font-src
         // 'self'
 
