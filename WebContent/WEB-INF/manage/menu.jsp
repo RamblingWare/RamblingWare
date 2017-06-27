@@ -54,7 +54,6 @@
 						</div>
 					</div>	
 				</div>
-				
 				<div class="w3-row">
 					<div class="w3-container w3-padding w3-col s12 m12 l12">
 						<div class="w3-border w3-round">
@@ -85,7 +84,6 @@
 						</div>
 					</div>			
 				</div>
-				
 			</div>
 		</div>
 	</article>

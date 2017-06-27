@@ -230,6 +230,10 @@
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
+		<action name="test">
+			<result>/WEB-INF/manage/test.jsp</result>
+		</action>
+		
 		
 		<!-- POST ACTIONS -->
 		<action name="posts" class="com.rw.action.manage.post.PostsAction">

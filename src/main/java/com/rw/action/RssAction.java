@@ -2,7 +2,6 @@ package com.rw.action;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,9 +64,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
                 response += "<pubDate>" + posts.get(0).getPublishDateReadable() + "</pubDate>\n";
             }
 
-            response += "<lastBuildDate>"
-                    + Utils.formatReadableDate(new Date(System.currentTimeMillis()))
-                    + "</lastBuildDate>\n";
+            response += "<lastBuildDate>" + Utils.getDate() + "</lastBuildDate>\n";
 
             response += "</channel>\n</rss>";
 

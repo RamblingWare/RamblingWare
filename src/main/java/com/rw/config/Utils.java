@@ -38,6 +38,15 @@ public class Utils {
     private final static DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
 
     /**
+     * Gets the current time in a readable format. "MMM dd, yyyy (hh:mm:ss a)"
+     * 
+     * @return "MMM dd, yyyy"
+     */
+    public static String getDate() {
+        return formatReadableDate(new Date(System.currentTimeMillis()));
+    }
+
+    /**
      * Return a cookie's value by its given name.
      * 
      * @param cookieName

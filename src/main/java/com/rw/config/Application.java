@@ -30,6 +30,7 @@ public class Application implements ServletContextListener {
     private static DatabaseSource database;
     private static BasicDataSource bdbs;
     private static int limit;
+    private static int manageLimit;
 
     @Override
     public void contextInitialized(ServletContextEvent arg0) {
@@ -118,6 +119,13 @@ public class Application implements ServletContextListener {
             // default 10
             setLimit(10);
         }
+        try {
+            // set management limit per page
+            setManageLimit(Integer.parseInt(getSetting("manageLimit")));
+        } catch (Exception e) {
+            // default 15
+            setManageLimit(15);
+        }
 
         System.out.println("Ready to start blogging!");
     }
@@ -181,16 +189,42 @@ public class Application implements ServletContextListener {
      * Set the global page result limit.
      * 
      * @param limit
-     *            integer between 7 and 25. (10 default)
+     *            integer between 3 and 25. (10 default)
      */
     public static void setLimit(int limit) {
 
-        if (limit < 7) {
-            limit = 7;
+        if (limit < 3) {
+            limit = 3;
         } else if (limit > 25) {
             limit = 25;
         }
 
         Application.limit = limit;
+    }
+    
+    /**
+     * Get the global management result limit.
+     * 
+     * @return manageLimit
+     */
+    public static int getManageLimit() {
+        return manageLimit;
+    }
+
+    /**
+     * Set the global management result limit.
+     * 
+     * @param manageLimit
+     *            integer between 3 and 25. (15 default)
+     */
+    public static void setManageLimit(int manageLimit) {
+
+        if (limit < 3) {
+            limit = 3;
+        } else if (limit > 25) {
+            limit = 25;
+        }
+
+        Application.manageLimit = manageLimit;
     }
 }

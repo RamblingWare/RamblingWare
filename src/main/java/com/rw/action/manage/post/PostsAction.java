@@ -29,7 +29,7 @@ public class PostsAction extends ActionSupport
     // results
     private ArrayList<Post> posts;
     private int page;
-    private int limit = 15;
+    private int limit = Application.getManageLimit();
     private boolean nextPage;
     private boolean prevPage;
 

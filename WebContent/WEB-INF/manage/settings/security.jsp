@@ -179,7 +179,24 @@
 						document.getElementById(name).style.display='none';
 					}
 					</script>
-				</div>				
+				</div>
+				<div class="w3-container w3-padding w3-col s12 m12 l12">
+				
+					<div class="w3-border w3-round">
+						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
+							<h3 class="w3-margin-0 w3-padding uppercase">Extras</h3>
+						</div>
+						<div class="w3-padding w3-small w3-theme-light">
+						
+							<p>
+								<a class="w3-btn w3-round w3-card w3-theme-light" href="/manage/test" title="Test"><span class="icon-embed w3-large"></span>&nbsp;Test</a>
+								<span class="w3-small w3-text-grey nowrap">Show system properties and variables.</span>
+							</p>
+						
+						</div>
+					</div>
+				
+				</div>			
 				</div>
 			</div>
 		</div>

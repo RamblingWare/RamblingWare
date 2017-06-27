@@ -29,7 +29,7 @@ public class UsersAction extends ActionSupport
     // results
     private ArrayList<Author> authors;
     private int page;
-    private int limit = 7;
+    private int limit = Application.getManageLimit();
     private boolean nextPage;
     private boolean prevPage;
 
