@@ -73,7 +73,7 @@
 						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Recovery Code
-								<a title="Close" onclick="closePopup('recover-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup('recover-2fa')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<p class="w3-small">
 									In case you ever lose access to your mobile device or third-party Authentication app. Use this recovery code to login to your account.
@@ -96,7 +96,7 @@
 						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Enable 2FA
-								<a title="Close" onclick="closePopup('setup-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup('setup-2fa')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<form action="/manage/settings/security" method="post">
 								<input type="hidden" name="security" value="true" />
@@ -127,7 +127,7 @@
 						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Disable 2FA
-								<a title="Close" onclick="closePopup('remove-2fa')" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup('remove-2fa')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<form action="/manage/settings/security" method="post">
 								<input type="hidden" name="security" value="true" />
@@ -156,12 +156,11 @@
 						</div>
 					</div>
 					<script>
-					var setupPopup = document.getElementById('setup-2fa');
-					var recoverPopup = document.getElementById('recover-2fa');
-					var removePopup = document.getElementById('remove-2fa');
-					
-					// When the user clicks anywhere outside of the modal, close it
 					window.onclick = function(event) {
+						// When the user clicks anywhere outside of the modal, close it
+						var setupPopup = document.getElementById('setup-2fa');
+						var recoverPopup = document.getElementById('recover-2fa');
+						var removePopup = document.getElementById('remove-2fa');
 					    if (event.target == setupPopup) {
 					    	setupPopup.style.display = "none";
 					    }
@@ -171,12 +170,6 @@
 					    if (event.target == removePopup) {
 					    	removePopup.style.display = "none";
 					    }
-					}
-					function openPopup(name) {
-						document.getElementById(name).style.display='block';
-					}
-					function closePopup(name) {
-						document.getElementById(name).style.display='none';
 					}
 					</script>
 				</div>

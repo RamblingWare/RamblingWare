@@ -39,3 +39,6 @@
 	</div>
 </div>
 </footer>
+<script type="text/javascript" src="/js/rant.js?v=1.0"></script>
+<script type="text/javascript" src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>

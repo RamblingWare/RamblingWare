@@ -112,40 +112,19 @@
 						<a title="Email to a friend" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-teal w3-theme-l4 icon-mail"
 						 target="_Blank" href="mailto:?subject=Check%20out%20this%20<%=Application.getSetting("name")%>%20post&body=https%3A%2F%2F<%=Application.getSetting("domain")%>%2Fblog%2F<s:property value="post.uriName" />"></a>
 						
-						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup()" class="w3-btn w3-round-large w3-large w3-padding-square  w3-hover-shadow w3-hover-green w3-theme-l4 icon-share"></a>
+						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup('share-popup')" class="w3-btn w3-round-large w3-large w3-padding-square  w3-hover-shadow w3-hover-green w3-theme-l4 icon-share"></a>
 						
 					</div>
 					<div id="share-popup" class="w3-modal">
 						<div class="w3-modal-content page-half w3-theme-light w3-animate-top w3-card-16">
 							<div class="w3-container w3-padding-8">
 								<h3>Copy this link:
-								<a title="Close" onclick="closePopup()" class="icon-cross w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
+								<a title="Close" onclick="closePopup('share-popup')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
 								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="<%=Application.getSetting("url")%>/blog/<s:property value="post.uriName" />" type="text" /><br />
 							</div>
 						</div>
 					</div>
-					<script>
-					// Get the modal
-					var modal = document.getElementById('share-popup');
-					
-					// When the user clicks anywhere outside of the modal, close it
-					window.onclick = function(event) {
-					    if (event.target == modal) {
-					        modal.style.display = "none";
-					    }
-					}
-					function openPopup() {
-						document.getElementById('share-popup').style.display='block';
-						var plink = document.getElementById('plink');
-						plink.focus();
-						plink.setSelectionRange(0, plink.value.length);
-					}
-					function closePopup() {
-						document.getElementById('share-popup').style.display='none';
-					}
-					</script>
-
 				</div>
 				<hr />
 			</div>

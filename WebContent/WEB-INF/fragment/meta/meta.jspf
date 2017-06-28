@@ -35,4 +35,5 @@
 
 <link rel="author" href="humans.txt">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="stylesheet" href="/css/style.css?v=1.53">
+<link rel="stylesheet" href="/css/rant.css?v=1.0">
+<link href="/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">

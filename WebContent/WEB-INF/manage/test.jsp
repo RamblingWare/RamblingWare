@@ -5,9 +5,6 @@
 <html>
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
-<link href="/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">
-<script type="text/javascript" src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
 <title>Test - <%=Application.getSetting("name")%></title>
 </head>
 <body class="w3-theme-dark">
