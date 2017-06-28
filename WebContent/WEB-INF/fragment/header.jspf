@@ -1,17 +1,18 @@
 <%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rw.config.Application" %>
+<nav id="sidebar" class="w3-sidebar w3-bar-block w3-black w3-card-4 w3-animate-left">
+  	<button onclick="closeSidebar()" class="w3-bar-item uppercase w3-black w3-text-theme w3-large" data-close="">Menu</span></button>
+  	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Home" href="/blog/"><span class="icon-home w3-large w3-margin-right"></span>Blog</a>
+	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Years" href="/year/"><span class="icon-time w3-large w3-margin-right"></span>Archive</a>
+	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Categories" href="/category/"><span class="icon-folder w3-large w3-margin-right"></span>Categories</a>
+	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Tags" href="/tag/"><span class="icon-tag w3-large w3-margin-right"></span>Tags</a>
+	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Authors" href="/author/"><span class="icon-author w3-large w3-margin-right"></span>Authors</a>
+	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="About" href="/about">About</a>
+</nav>
 <header>
 	<div class="page w3-container w3-theme-dark">
-		<nav id="main-menu" class="w3-col s2 w3-padding-top w3-hide-medium w3-hide-large no-print w3-dropdown-hover">
-			<span title="Menu" class="icon-menu w3-padding-top w3-opacity w3-hover-opaque w3-text-theme w3-xxlarge"></span>
-			<div class="w3-dropdown-content w3-padding-top w3-theme-dark w3-medium w3-animate-left w3-left">
-				<a class="w3-opacity w3-hover-opaque w3-round" title="Home" href="/blog/"><span class="icon-home w3-large w3-margin-right"></span>Blog</a>
-				<a class="w3-opacity w3-hover-opaque w3-round" title="Years" href="/year/"><span class="icon-time w3-large w3-margin-right"></span>Archive</a>
-				<a class="w3-opacity w3-hover-opaque w3-round" title="Categories" href="/category/"><span class="icon-folder w3-large w3-margin-right"></span>Categories</a>
-				<a class="w3-opacity w3-hover-opaque w3-round" title="Tags" href="/tag/"><span class="icon-tag w3-large w3-margin-right"></span>Tags</a>
-				<a class="w3-opacity w3-hover-opaque w3-round" title="Authors" href="/author/"><span class="icon-author w3-large w3-margin-right"></span>Authors</a>
-				<a class="w3-opacity w3-hover-opaque w3-round w3-border-top w3-padding-left w3-small" title="About" href="/about">About</a>
-			</div>
-		</nav>
+		<div class="w3-col s2 w3-padding-4 w3-hide-medium w3-hide-large no-print w3-dropdown-hover">
+			<button class="w3-btn icon-menu w3-padding-square w3-theme-dark w3-text-theme w3-xxlarge" onclick="openSidebar()"></button>		
+		</div>
 		<div class="w3-col s10 m7 l7 w3-container w3-padding-0">
 			<a href="/"><img id="logo" src="/img/logo.png" alt="<%=Application.getSetting("name")%>" /></a>
 		</div>
