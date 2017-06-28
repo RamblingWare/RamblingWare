@@ -11,6 +11,7 @@
 	<session-config>
 		<session-timeout>60</session-timeout>
 		<cookie-config>
+        	<name>_id</name>
 			<http-only>true</http-only>
 			<secure>true</secure>
 		</cookie-config>

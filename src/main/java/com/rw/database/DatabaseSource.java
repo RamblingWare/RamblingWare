@@ -74,4 +74,5 @@ public abstract class DatabaseSource {
     public abstract boolean loginUser(Author user);
 
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
+    
 }
