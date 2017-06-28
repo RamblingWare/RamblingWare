@@ -10,6 +10,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.rw.config.Application;
 import com.rw.config.Utils;
 
 /**
@@ -32,13 +33,13 @@ public class SearchAction extends ActionSupport
 
         // external search was entered
         try {
-            if (s == null || s.isEmpty()) {
-                s = "About";
+            if (s == null) {
+                s = "";
             }
 
             // redirect to DuckDuckGo with the search text provided
             ServletActionContext.getResponse()
-                    .sendRedirect("https://duckduckgo.com/?q=site%3Aramblingware.com+" + s);
+                    .sendRedirect(Application.getSetting("searchProvider")+"site%3A"+ Application.getSetting("domain") + ' ' + s);
 
         } catch (IOException e) {
             e.printStackTrace();
