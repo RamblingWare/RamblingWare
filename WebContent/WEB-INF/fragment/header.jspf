@@ -19,9 +19,9 @@
 		<%@include file="/WEB-INF/manage/dropdown-menu.jspf"%>
 		<div id="search" class="w3-col s2 m3 l3 w3-padding-square w3-right w3-small w3-hide-small no-print">
 			<div class="w3-padding-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-card w3-round-large">
-				<form action="/search" method="get" class="w3-medium">
-				<label for="s" class="icon-search w3-large w3-text-theme"></label>
-				<input id="s" name="s" class="w3-input w3-hover-light-grey w3-theme-l3 w3-border-0 w3-padding-4" style="display:inline;width:75%;border:none!important;box-shadow:none;" maxlength="50" size="20" placeholder="Search..." type="text">
+				<form action="/search" method="post" class="w3-medium">
+				<label for="searchHead" class="icon-search w3-large w3-text-theme"></label>
+				<input id="searchHead" name="q" class="w3-input w3-hover-light-grey w3-theme-l3 w3-border-0 w3-padding-4" style="display:inline;width:75%;border:none!important;box-shadow:none;" maxlength="50" size="20" placeholder="Search..." type="text">
 				</form>
 			</div>
 		</div>

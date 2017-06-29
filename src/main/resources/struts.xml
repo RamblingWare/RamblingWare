@@ -2,7 +2,6 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
     "http://struts.apache.org/dtds/struts-2.5.dtd">
-
 <struts>
 	
 	<!-- / (ROOT) -->
@@ -40,7 +39,7 @@
 			<exception-mapping exception="java.lang.Exception" result="error"/>
 		</global-exception-mappings>
 		
-		<!-- ACTIONS -->	
+		<!-- ACTIONS -->
 		<action name="" class="com.rw.action.HomeAction">
 			<result name="success">/WEB-INF/index.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
@@ -65,8 +64,9 @@
 		</action>
 		<action name="search" class="com.rw.action.SearchAction">
 			<!-- success already redirects to search website -->
+			<result name="input">/WEB-INF/other/search.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
-		</action>	
+		</action>
 		
 		<!-- FORWARD ACTIONS -->
 		<action name="blog">

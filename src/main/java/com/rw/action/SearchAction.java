@@ -26,28 +26,29 @@ public class SearchAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    // search parameters
-    private String s;
+    // search parameter
+    private String q;
 
     public String execute() {
 
-        // external search was entered
-        try {
-            if (s == null) {
-                s = "";
+        
+        if(q != null && !q.isEmpty()) {
+            // POST external search
+            try {
+                // redirect to DuckDuckGo with the search text provided
+                ServletActionContext.getResponse().sendRedirect(Application.getSetting("searchProvider")
+                        + "site%3A" + Application.getSetting("domain") + ' ' + q);
+                return SUCCESS;
+            } catch (IOException e) {
+                e.printStackTrace();
+                addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+                return ERROR;
             }
-
-            // redirect to DuckDuckGo with the search text provided
-            ServletActionContext.getResponse()
-                    .sendRedirect(Application.getSetting("searchProvider")+"site%3A"+ Application.getSetting("domain") + ' ' + s);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
-            return ERROR;
+        } 
+        else {
+            // GET search page
+            return INPUT;
         }
-
-        return NONE;
     }
 
     protected HttpServletResponse servletResponse;
@@ -64,11 +65,11 @@ public class SearchAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public String getS() {
-        return s;
+    public String getQ() {
+        return q;
     }
 
-    public void setS(String s) {
-        this.s = Utils.removeNonAsciiChars(s);
+    public void setQ(String q) {
+        this.q = Utils.removeNonAsciiChars(q);
     }
 }
