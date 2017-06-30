@@ -89,17 +89,13 @@ public class NewPostAction extends ActionSupport
         if (thumbnail == null || thumbnail.trim().isEmpty()) {
             thumbnail = "/img/placeholder-640.png";
         }
-        if (description == null || description.trim().isEmpty()) {
-            addActionError("Description was empty. Please fill out all fields before saving.");
-            System.out.println(user.getUsername() + " failed to edit post. Description was empty.");
-            return ERROR;
+        if (description == null) {
+            description = "";
         }
-        if (htmlContent == null || htmlContent.trim().isEmpty()) {
-            addActionError("Post Content was empty. Please fill out all fields before saving.");
-            System.out.println(user.getUsername() + " failed to edit post. Content was empty.");
-            return ERROR;
+        if (htmlContent == null) {
+            htmlContent = "";
         }
-        if (htmlContent.length() > 12288) {
+        if (htmlContent != null && htmlContent.length() > 12288) {
             addActionError(
                     "Post Content is too long. Character limit is 12,288. Please shorten the post.");
             System.out.println(user.getUsername() + " failed to edit post. Content too large.");

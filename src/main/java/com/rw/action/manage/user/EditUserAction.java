@@ -109,17 +109,13 @@ public class EditUserAction extends ActionSupport
         if (thumbnail == null || thumbnail.trim().isEmpty()) {
             thumbnail = "/img/placeholder-200.png";
         }
-        if (description == null || description.trim().isEmpty()) {
-            addActionError("Description was empty. Please fill out all fields before saving.");
-            System.out.println(user.getUsername() + " failed to edit user. Description was empty.");
-            return ERROR;
+        if (description == null) {
+            description = "";
         }
-        if (htmlContent == null || htmlContent.trim().isEmpty()) {
-            addActionError("Post Content was empty. Please fill out all fields before saving.");
-            System.out.println(user.getUsername() + " failed to edit user. Content was empty.");
-            return ERROR;
+        if (htmlContent == null) {
+            htmlContent = "";
         }
-        if (htmlContent.length() > 12288) {
+        if (htmlContent != null && htmlContent.length() > 12288) {
             addActionError(
                     "Post Content is too long. Character limit is 12,288. Please shorten the content.");
             System.out.println(user.getUsername() + " failed to edit user. Content too large.");
