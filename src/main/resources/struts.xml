@@ -298,6 +298,12 @@
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
+		<action name="viewuser/**" class="com.rw.action.AuthorAction">
+			<result name="success">/WEB-INF/author/author.jsp</result>
+			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none">/WEB-INF/error/404.jsp</result>
+		</action>
+		
 		<!-- SETTINGS -->
 		<action name="settings">
 			<result type="redirect">/manage/settings/profile</result>

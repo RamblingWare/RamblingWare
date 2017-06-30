@@ -114,7 +114,7 @@ public class NewUserAction extends ActionSupport
 
         try {
             // check that the URI is unique
-            Author author = Application.getDatabaseSource().getAuthor(uriName);
+            Author author = Application.getDatabaseSource().getAuthor(uriName, true);
 
             if (author != null) {
                 // URI was not unique. Please try again.

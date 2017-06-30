@@ -36,7 +36,7 @@ public abstract class DatabaseSource {
 
     public abstract boolean deletePost(Post post);
 
-    public abstract Author getAuthor(String uri);
+    public abstract Author getAuthor(String uri, boolean includeHidden);
 
     public abstract boolean editAuthor(Author author);
 

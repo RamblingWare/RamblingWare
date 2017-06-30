@@ -37,7 +37,7 @@ public class CloudantDatabase extends DatabaseSource {
     }
 
     @Override
-    public Author getAuthor(String uri) {
+    public Author getAuthor(String uri, boolean includeHidden) {
         // Auto-generated method stub
         return null;
     }

@@ -335,15 +335,21 @@ public class MySQLDatabase extends DatabaseSource {
     }
 
     @Override
-    public Author getAuthor(String uri) {
+    public Author getAuthor(String uri, boolean includeHidden) {
 
         Author author = null;
         Connection conn = null;
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
+            String query = "select * from users where uri_name = ?";
+
+            if (!includeHidden) {
+                query += " and role <> 3";
+            }
+            
             conn = getConnection();
-            pt = conn.prepareStatement("select * from users where uri_name = ?");
+            pt = conn.prepareStatement(query);
             pt.setString(1, uri);
             rs = pt.executeQuery();
 

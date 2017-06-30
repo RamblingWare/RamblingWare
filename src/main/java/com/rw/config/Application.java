@@ -127,12 +127,12 @@ public class Application implements ServletContextListener {
             setManageLimit(15);
         }
 
-        System.out.println("Ready to start blogging!");
+        System.out.println("Started Ranting!");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
-        System.out.println("Stopped blogging.");
+        System.out.println("Stopped Ranting.");
     }
 
     /**

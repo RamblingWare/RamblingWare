@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rw.config.Application;
 import com.rw.config.Utils;
 import com.rw.model.Author;
+import com.rw.model.AuthorAware;
 
 /**
  * Author action class
@@ -20,27 +21,36 @@ import com.rw.model.Author;
  */
 public class AuthorAction extends ActionSupport
         implements
+            AuthorAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
+    private Author user;
+    private boolean canSeeHidden = false;
 
     // post parameters
     private Author author;
-    private String uri_name;
+    private String uriName;
 
     public String execute() {
 
         // /author/person-name-goes-here
         String uri = servletRequest.getRequestURI();
-        if (uri_name == null && uri.startsWith("/author/")) {
-            uri_name = Utils.removeBadChars(uri.substring(8, uri.length()));
+        if (uriName == null && uri.startsWith("/author/")) {
+            uriName = Utils.removeBadChars(uri.substring(8, uri.length()));
+        } else if (uriName == null && uri.startsWith("/manage/viewuser/")) {
+            // /manage/viewuser/user-name-goes-here
+            uriName = Utils.removeBadChars(uri.substring(17, uri.length()));
+            if (user != null) {
+                canSeeHidden = true;
+            }
         }
 
-        if (uri_name != null && uri_name.length() > 0) {
+        if (uriName != null && uriName.length() > 0) {
             // search in db for author
             try {
-                author = Application.getDatabaseSource().getAuthor(uri_name);
+                author = Application.getDatabaseSource().getAuthor(uriName, canSeeHidden);
 
                 if (author != null) {
                     // set attributes
@@ -48,7 +58,7 @@ public class AuthorAction extends ActionSupport
 
                     return Action.SUCCESS;
                 } else {
-                    System.err.println("Author '" + uri_name + "' not found. Please try again.");
+                    System.err.println("Author '" + uriName + "' not found. Please try again.");
                     return Action.NONE;
                 }
 
@@ -58,7 +68,7 @@ public class AuthorAction extends ActionSupport
                 return ERROR;
             }
         } else {
-            System.err.println("Author '" + uri_name + "' not found. Please try again.");
+            System.err.println("Author '" + uriName + "' not found. Please try again.");
             return Action.NONE;
         }
     }
@@ -85,4 +95,8 @@ public class AuthorAction extends ActionSupport
         return author;
     }
 
+    @Override
+    public void setUser(Author user) {
+        this.user = user;
+    }
 }

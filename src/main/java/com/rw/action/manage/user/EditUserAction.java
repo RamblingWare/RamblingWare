@@ -66,7 +66,7 @@ public class EditUserAction extends ActionSupport
         if (uri != null && uri.length() > 0) {
             // search in db for user by name
             try {
-                author = Application.getDatabaseSource().getAuthor(uri);
+                author = Application.getDatabaseSource().getAuthor(uri, true);
 
                 // was author found
                 if (author != null) {
@@ -124,7 +124,7 @@ public class EditUserAction extends ActionSupport
 
         try {
             // check if uri exists or not
-            Author existingUser = Application.getDatabaseSource().getAuthor(uriName);
+            Author existingUser = Application.getDatabaseSource().getAuthor(uriName, true);
 
             if (existingUser.getId() != id) {
                 // URI was not unique. Please try again.
