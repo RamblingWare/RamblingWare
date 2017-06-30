@@ -8,9 +8,9 @@
 	<package name="root" namespace="/" extends="struts-default">
 	
 		<interceptors>
-			<interceptor name="authentication" class="com.rw.action.interceptor.AuthenticationInterceptor"></interceptor>
-			<interceptor name="archive" class="com.rw.action.interceptor.ArchiveInterceptor"></interceptor>
-			<interceptor name="header" class="com.rw.action.interceptor.HeaderInterceptor"></interceptor>
+			<interceptor name="authentication" class="com.rant.action.interceptor.AuthenticationInterceptor"></interceptor>
+			<interceptor name="archive" class="com.rant.action.interceptor.ArchiveInterceptor"></interceptor>
+			<interceptor name="header" class="com.rant.action.interceptor.HeaderInterceptor"></interceptor>
 			
 			<!-- Admin User Authentication -->
 			<interceptor-stack name="authStack">
@@ -40,7 +40,7 @@
 		</global-exception-mappings>
 		
 		<!-- ACTIONS -->
-		<action name="" class="com.rw.action.HomeAction">
+		<action name="" class="com.rant.action.HomeAction">
 			<result name="success">/WEB-INF/index.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -58,11 +58,11 @@
 		</action>
 		
 		<!-- RSS and Search -->
-		<action name="rss" class="com.rw.action.RssAction">
+		<action name="rss" class="com.rant.action.RssAction">
 			<!-- success already returns the RSS XML -->
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
-		<action name="search" class="com.rw.action.SearchAction">
+		<action name="search" class="com.rant.action.SearchAction">
 			<!-- success already redirects to search website -->
 			<result name="input">/WEB-INF/other/search.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
@@ -100,24 +100,24 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 				
-		<action name="" class="com.rw.action.BlogAction">
+		<action name="" class="com.rant.action.BlogAction">
 			<result name="success">/WEB-INF/blog/blog.jsp</result>
 			<result name="error">/WEB-INF/blog/blog.jsp</result>
 		</action>
 		
-		<action name="page/*" class="com.rw.action.BlogAction">
+		<action name="page/*" class="com.rant.action.BlogAction">
 			<result name="success">/WEB-INF/blog/blog.jsp</result>
 			<result name="error">/WEB-INF/blog/blog.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="post/*" class="com.rw.action.PostAction">
+		<action name="post/*" class="com.rant.action.PostAction">
 			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rw.action.PostAction">
+		<action name="*" class="com.rant.action.PostAction">
 			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -130,18 +130,18 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rw.action.TagsAction">
+		<action name="" class="com.rant.action.TagsAction">
 			<result name="success">/WEB-INF/tag/tags.jsp</result>
 			<result name="error">/WEB-INF/tag/tags.jsp</result>
 		</action>
 		
-		<action name="*/page/*" class="com.rw.action.TagAction">
+		<action name="*/page/*" class="com.rant.action.TagAction">
 			<result name="success">/WEB-INF/tag/tag.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rw.action.TagAction">
+		<action name="*" class="com.rant.action.TagAction">
 			<result name="success">/WEB-INF/tag/tag.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -154,18 +154,18 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rw.action.YearsAction">
+		<action name="" class="com.rant.action.YearsAction">
 			<result name="success">/WEB-INF/year/years.jsp</result>
 			<result name="error">/WEB-INF/year/years.jsp</result>
 		</action>
 		
-		<action name="*/page/*" class="com.rw.action.YearAction">
+		<action name="*/page/*" class="com.rant.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rw.action.YearAction">
+		<action name="*" class="com.rant.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -178,18 +178,18 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rw.action.CategoriesAction">
+		<action name="" class="com.rant.action.CategoriesAction">
 			<result name="success">/WEB-INF/category/categories.jsp</result>
 			<result name="error">/WEB-INF/category/categories.jsp</result>
 		</action>
 		
-		<action name="*/page/*" class="com.rw.action.CategoryAction">
+		<action name="*/page/*" class="com.rant.action.CategoryAction">
 			<result name="success">/WEB-INF/category/category.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rw.action.CategoryAction">
+		<action name="*" class="com.rant.action.CategoryAction">
 			<result name="success">/WEB-INF/category/category.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -202,12 +202,12 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rw.action.AuthorsAction">
+		<action name="" class="com.rant.action.AuthorsAction">
 			<result name="success">/WEB-INF/author/authors.jsp</result>
 			<result name="error">/WEB-INF/author/authors.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rw.action.AuthorAction">
+		<action name="*" class="com.rant.action.AuthorAction">
 			<result name="success">/WEB-INF/author/author.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -220,12 +220,12 @@
 	
 		<default-interceptor-ref name="authStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rw.action.manage.MenuAction">
+		<action name="" class="com.rant.action.manage.MenuAction">
 			<result name="success">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
 		
-		<action name="menu" class="com.rw.action.manage.MenuAction">
+		<action name="menu" class="com.rant.action.manage.MenuAction">
 			<result name="success">/WEB-INF/manage/menu.jsp</result>
 			<result name="error">/WEB-INF/manage/menu.jsp</result>
 		</action>
@@ -236,18 +236,18 @@
 		
 		
 		<!-- POST ACTIONS -->
-		<action name="posts" class="com.rw.action.manage.post.PostsAction">
+		<action name="posts" class="com.rant.action.manage.post.PostsAction">
 			<result name="success">/WEB-INF/manage/post/posts.jsp</result>
 			<result name="error">/WEB-INF/manage/post/posts.jsp</result>
 		</action>
 		
-		<action name="posts/page/*" class="com.rw.action.manage.post.PostsAction">
+		<action name="posts/page/*" class="com.rant.action.manage.post.PostsAction">
 			<result name="success">/WEB-INF/manage/post/posts.jsp</result>
 			<result name="error">/WEB-INF/manage/post/posts.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="newpost" class="com.rw.action.manage.post.NewPostAction">
+		<action name="newpost" class="com.rant.action.manage.post.NewPostAction">
 			<result name="input">/WEB-INF/manage/post/newpost.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">posts</param>
@@ -255,7 +255,7 @@
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
-		<action name="editpost/**" class="com.rw.action.manage.post.EditPostAction">
+		<action name="editpost/**" class="com.rant.action.manage.post.EditPostAction">
 			<result name="input">/WEB-INF/manage/post/editpost.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">posts</param>
@@ -263,7 +263,7 @@
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
-		<action name="viewpost/**" class="com.rw.action.PostAction">
+		<action name="viewpost/**" class="com.rant.action.PostAction">
 			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -271,18 +271,18 @@
 		
 		
 		<!-- USER ACTIONS -->
-		<action name="users" class="com.rw.action.manage.user.UsersAction">
+		<action name="users" class="com.rant.action.manage.user.UsersAction">
 			<result name="success">/WEB-INF/manage/user/users.jsp</result>
 			<result name="error">/WEB-INF/manage/user/users.jsp</result>
 		</action>
 		
-		<action name="users/page/*" class="com.rw.action.manage.user.UsersAction">
+		<action name="users/page/*" class="com.rant.action.manage.user.UsersAction">
 			<result name="success">/WEB-INF/manage/user/users.jsp</result>
 			<result name="error">/WEB-INF/manage/user/users.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="newuser" class="com.rw.action.manage.user.NewUserAction">
+		<action name="newuser" class="com.rant.action.manage.user.NewUserAction">
 			<result name="input">/WEB-INF/manage/user/newuser.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">users</param>
@@ -290,7 +290,7 @@
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
-		<action name="edituser/**" class="com.rw.action.manage.user.EditUserAction">
+		<action name="edituser/**" class="com.rant.action.manage.user.EditUserAction">
 			<result name="input">/WEB-INF/manage/user/edituser.jsp</result>
 			<result name="success" type="chain">
 		        <param name="actionName">users</param>
@@ -298,7 +298,7 @@
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
-		<action name="viewuser/**" class="com.rw.action.AuthorAction">
+		<action name="viewuser/**" class="com.rant.action.AuthorAction">
 			<result name="success">/WEB-INF/author/author.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -308,26 +308,26 @@
 		<action name="settings">
 			<result type="redirect">/manage/settings/profile</result>
 		</action>
-		<action name="settings/profile" class="com.rw.action.manage.SettingsAction">
+		<action name="settings/profile" class="com.rant.action.manage.SettingsAction">
 			<result name="success">/WEB-INF/manage/settings/profile.jsp</result>
 			<result name="error">/WEB-INF/manage/settings/profile.jsp</result>
 		</action>
-		<action name="settings/account" class="com.rw.action.manage.SettingsAction">
+		<action name="settings/account" class="com.rant.action.manage.SettingsAction">
 			<result name="success">/WEB-INF/manage/settings/account.jsp</result>
 			<result name="error">/WEB-INF/manage/settings/account.jsp</result>
 		</action>
-		<action name="settings/password" class="com.rw.action.manage.SettingsAction">
+		<action name="settings/password" class="com.rant.action.manage.SettingsAction">
 			<result name="success">/WEB-INF/manage/settings/password.jsp</result>
 			<result name="error">/WEB-INF/manage/settings/password.jsp</result>
 		</action>
-		<action name="settings/security" class="com.rw.action.manage.SettingsAction">
+		<action name="settings/security" class="com.rant.action.manage.SettingsAction">
 			<result name="success">/WEB-INF/manage/settings/security.jsp</result>
 			<result name="error">/WEB-INF/manage/settings/security.jsp</result>
 		</action>
 		
 		
 		<!-- LOGIN / LOGOUT ACTIONS -->
-		<action name="login" class="com.rw.action.manage.LoginAction">
+		<action name="login" class="com.rant.action.manage.LoginAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="success" type="chain">
 		        <param name="actionName">menu</param>
@@ -336,14 +336,14 @@
 			<result name="error">/WEB-INF/manage/login.jsp</result>
 		</action>
 		
-		<action name="logout" class="com.rw.action.manage.LogoutAction">
+		<action name="logout" class="com.rant.action.manage.LogoutAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="success" type="chain">
 				<param name="actionName">login</param>
 			</result>
 		</action>
 		
-		<action name="forgot" class="com.rw.action.manage.ForgotAction">
+		<action name="forgot" class="com.rant.action.manage.ForgotAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="success">/WEB-INF/manage/forgot.jsp</result>
 		    <result name="none">/WEB-INF/manage/forgot.jsp</result>

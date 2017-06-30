@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" session="false"
 	errorPage="/WEB-INF/error/error.jsp"%>
-<%@ page import="com.rw.config.Utils" %>
+<%@ page import="com.rant.config.Utils" %>
 <!DOCTYPE HTML>
 <html>
 <head>

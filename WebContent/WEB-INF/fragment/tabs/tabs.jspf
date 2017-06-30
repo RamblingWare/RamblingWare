@@ -1,5 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page import="com.rw.config.Application" %>
+<%@ page import="com.rant.config.Application" %>
 <div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small w3-medium no-print">
 
 	<%@include file="/WEB-INF/fragment/tabs/manage-tabs.jspf"%>

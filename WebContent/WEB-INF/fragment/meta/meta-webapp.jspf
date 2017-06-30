@@ -1,4 +1,4 @@
-<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rw.config.Application" %>
+<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rant.config.Application" %>
 <!-- Apple iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
