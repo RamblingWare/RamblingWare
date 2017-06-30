@@ -9,25 +9,27 @@
 <meta name="description" content="<s:property value="post.description" />" />
 <meta name="keywords" content="<s:iterator value="post.tags"><s:property />,</s:iterator><%=Application.getSetting("keywords")%>">
 
-<!-- Open Graph data -->
+<!-- Facebook Open Graph -->
+<meta property="fb:app_id" content="<%=Application.getSetting("facebookAppId")%>" />
 <meta property="og:url" content="<%=Application.getSetting("url")%>/blog/<s:property value="post.uriName" />">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="<s:property value="post.author.name" />">
 <meta property="og:title" content="<s:property value="post.title" />">
 <meta property="og:image" content="<s:property value="post.thumbnail" />">
 <meta property="og:description" content="<s:property value="post.description" />">
 <meta property="og:site_name" content="<%=Application.getSetting("name")%>" />
+<meta property="article:author" content="<s:property value="post.author.name" />">
 
-<!-- Twitter Card data -->
+<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="<%=Application.getSetting("twitterHandle")%>">
 <meta name="twitter:creator" content="<%=Application.getSetting("twitterAuthorHandle")%>">
 <meta name="twitter:title" content="<s:property value="post.title" />">
 <meta name="twitter:description" content="<s:property value="post.description" />">
 <meta name="twitter:image" content="<s:property value="post.thumbnail" />">
+<meta name="twitter:domain" content="<%=Application.getSetting("domain")%>">
 
-<!-- Schema.org markup for Google+ -->
+<!-- Google+ Schema.org -->
 <meta itemprop="name" content="<s:property value="post.title" />">
 <meta itemprop="description" content="<s:property value="post.description" />">
 <meta itemprop="image" content="<s:property value="post.thumbnail" />"> 

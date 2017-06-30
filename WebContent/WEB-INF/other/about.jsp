@@ -34,7 +34,6 @@
 				<p class="w3-small w3-text-grey quote">
 					Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.
 				</p>
-				
 				<br />
 				
 				<h2>This Blog is Custom Built</h2>
@@ -42,6 +41,10 @@
 				I've used blog services before, but decided to program it myself. And I know Its not perfect but I have been having fun with it! I typically work on it at least once a month.<br />
 				</p>
 				<blockquote>“Talk is cheap. Show me the code.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Linus Torvalds</blockquote>
+				<br />
+				
+				
+				<h2>Report an Issue</h2>
 				<p>
 				If you want to help inform me of any problems with this website, you can open an issue on the 
 				<a target="_blank" href="<%=Application.getSetting("sourceCode")%>">GitHub repo</a>. Or if you like this website and wanted to deploy your own using this code, you can do that too.
@@ -51,8 +54,8 @@
 					&nbsp;&nbsp;
 					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="<%=Application.getSetting("sourceCode")%>"><span class="icon-embed w3-large w3-margin-right"></span>View Code</a>
 				</p>
-				
 				<br />
+				
 				
 				<h2>Contact</h2>
 				<p>You can reach <%=Application.getSetting("name")%> via the social links on the bottom of every page, or send us an email at <a href="mailto:<%=Application.getSetting("email")%>"><%=Application.getSetting("email")%></a>.

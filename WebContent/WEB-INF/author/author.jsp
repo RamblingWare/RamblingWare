@@ -5,32 +5,34 @@
 <html>
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-post.jspf"%>
-<meta name="author" content="<s:property value="author.name" />">
-<meta name="description" content="<s:property value="author.description" />" />
-<meta name="keywords" content="<%=Application.getSetting("keywords")%>">
+<meta name="author" content="<s:property value="author.name" />"/>
+<meta name="description" content="<s:property value="author.description" />"/>
+<meta name="keywords" content="<%=Application.getSetting("keywords")%>"/>
 
-<!-- Open Graph data -->
-<meta property="og:url" content="<%=Application.getSetting("url")%>/author/<s:property value="author.uriName" />">
-<meta property="og:type" content="article">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="<s:property value="author.name" />">
-<meta property="og:title" content="<s:property value="author.name" />">
-<meta property="og:image" content="<s:property value="author.thumbnail" />">
-<meta property="og:description" content="<s:property value="author.description" />">
-<meta property="og:site_name" content="<%=Application.getSetting("name")%>" />
+<!-- Facebook Open Graph -->
+<meta property="fb:app_id" content="<%=Application.getSetting("facebookAppId")%>"/>
+<meta property="og:url" content="<%=Application.getSetting("url")%>/author/<s:property value="author.uriName" />"/>
+<meta property="og:type" content="article"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:title" content="<s:property value="author.name" /> - <%=Application.getSetting("name")%>"/>
+<meta property="og:image" content="<s:property value="author.thumbnail" />"/>
+<meta property="og:description" content="<s:property value="author.description" />"/>
+<meta property="og:site_name" content="<%=Application.getSetting("name")%>"/>
+<meta property="article:author" content="<s:property value="author.name" />"/>
 
-<!-- Twitter Card data -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="<%=Application.getSetting("twitterHandle")%>">
-<meta name="twitter:creator" content="<%=Application.getSetting("twitterAuthorHandle")%>">
-<meta name="twitter:title" content="<s:property value="author.name" />">
-<meta name="twitter:description" content="<s:property value="author.description" />">
-<meta name="twitter:image" content="<s:property value="author.thumbnail" />">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:site" content="<%=Application.getSetting("twitterHandle")%>"/>
+<meta name="twitter:creator" content="<%=Application.getSetting("twitterAuthorHandle")%>"/>
+<meta name="twitter:title" content="<s:property value="author.name" /> - <%=Application.getSetting("name")%>"/>
+<meta name="twitter:description" content="<s:property value="author.description" />"/>
+<meta name="twitter:image" content="<s:property value="author.thumbnail" />"/>
+<meta name="twitter:domain" content="<%=Application.getSetting("domain")%>"/>
 
-<!-- Schema.org markup for Google+ -->
-<meta itemprop="name" content="<s:property value="author.name" />">
-<meta itemprop="description" content="<s:property value="author.description" />">
-<meta itemprop="image" content="<s:property value="author.thumbnail" />">
+<!-- Google+ Schema.org -->
+<meta itemprop="name" content="<s:property value="author.name" /> - <%=Application.getSetting("name")%>"/>
+<meta itemprop="description" content="<s:property value="author.description" />"/>
+<meta itemprop="image" content="<s:property value="author.thumbnail" />"/>
 
 <title><s:property value="author.name" /> - <%=Application.getSetting("name")%></title>
 </head>
