@@ -1,35 +1,44 @@
-# RamblingWare
+# Rant
 
-[![Build](https://img.shields.io/travis/RamblingWare/RamblingWare.svg)](https://travis-ci.org/RamblingWare/RamblingWare)
-[![Code Climate](https://img.shields.io/codeclimate/github/RamblingWare/RamblingWare.svg)](https://codeclimate.com/github/RamblingWare/RamblingWare)
-[![Codecov](https://img.shields.io/codecov/c/github/RamblingWare/RamblingWare.svg)](https://codecov.io/gh/RamblingWare/RamblingWare)
-[![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/RamblingWare/blob/master/LICENSE)
+[![Build](https://img.shields.io/travis/RamblingWare/Rant.svg)](https://travis-ci.org/RamblingWare/Rant)
+[![Code Climate](https://img.shields.io/codeclimate/github/Rant/RamblingWare.svg)](https://codeclimate.com/github/RamblingWare/Rant)
+[![Codecov](https://img.shields.io/codecov/c/github/RamblingWare/Rant.svg)](https://codecov.io/gh/RamblingWare/Rant)
+[![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/Rant/blob/master/LICENSE)
 
 
-This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
-https://www.ramblingware.com
+Blog management system written in Java.
+
+Demo: https://www.ramblingware.com
 
 ---
 
+### Goals
+
+These goals are planned in the future. For now, solidifying the current features is first priority.
+
+- Endless length posts for **ranting** on and on.
+- Self sufficient features and management for one or multiple authors
+- Swappable databases (MySQL, CouchDB, etc)
+- Swappable comment systems (Disqus, Facebook, etc)
+
 ### Features
 
-- Blog management, Create/edit/delete posts, Add/edit/delete authors
+- Multi-Author Blog system with roles (Author,Editor,Owner,Admin)
 - Social Media ready with OpenGraph API and Twitter API
-- Independent Thumbnails and Banner images for posts
-- WYSIWYG editor for blot posts and author bios
-- 2FA security for Author logins
-- Archive Years, Tags, Categories to easily find posts
-- JavaScript independent (Only used for comments and code snippets)
 - Responsive Design, Mobile Friendly, Simple Interface
+- Easy WYSIWYG editor for creating posts
+- Tagging, Categories and Archive Years
+- JavaScript independent (Minimal usage, not required)
+- 2FA security and encrypted passwords for logins
 
 ### Usage
 
 Feel free to fork, clone, and reused any or all of this code. Be sure to include the license.
 
-I plan to make a version that is easily modifiable for "new" blogs. I'm not sure what to call it. But I plan to get an `.io` domain and give the code away for free.
+Right now this code has lots of 'ramblingware' in it. I plan to make a version that is easily modifiable for "new" blogs. Stay tuned.
 
 You can quickly deploy a copy of this app by signing into Bluemix and clicking this button:
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/RamblingWare)  
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/Rant)  
 
 ### Technologies Used
 
@@ -47,4 +56,4 @@ You can quickly deploy a copy of this app by signing into Bluemix and clicking t
 
 ### License
 
-[Apache 2.0](https://github.com/RamblingWare/RamblingWare/blob/master/LICENSE)
+[Apache 2.0](https://github.com/RamblingWare/Rant/blob/master/LICENSE)

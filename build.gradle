@@ -3,9 +3,9 @@ apply plugin: 'jacoco'
 apply plugin: 'eclipse'
 apply plugin: 'war'
 
-group = 'com.ramblingware'
+group = 'com.rant'
 version = '1.0'
-war.baseName = 'ramblingware'
+war.baseName = 'rant'
 project.webAppDirName = 'WebContent'
 
 sourceCompatibility = 1.8
