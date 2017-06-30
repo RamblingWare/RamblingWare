@@ -31,7 +31,7 @@
 						<div class="w3-container w3-padding w3-small w3-theme-light">
 							
 							<span class="w3-col s3 m3 l3 w3-padding-16">
-								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="#session.USER.thumbnail" />">
+								<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile" src="<s:property value="#session.USER.thumbnail" />" onerror="this.src='/img/error-200.png'"/>
 							</span>
 							<span class="w3-col s9 m9 l9 w3-padding-16">
 								<span class="w3-small w3-text-grey w3-padding-right">

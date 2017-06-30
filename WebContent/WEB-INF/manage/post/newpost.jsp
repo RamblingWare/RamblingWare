@@ -175,10 +175,11 @@ function preview() {
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
 						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="uriName" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large  w3-border" />
+						<a href="#" class="w3-medium"><%=Application.getSetting("url")%>/blog/<s:property value="uriName" /></a>
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large  w3-border" />
+						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="description" />" onkeyup="preview()" onchange="preview()" placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large  w3-border" />
 					</p>
 					<p class="w3-col m12 l4 w3-margin-right">
 						<label class="w3-validate w3-text-grey-light w3-large" for="category">Category:&nbsp;<span class="w3-small w3-text-grey quote">(Note: Only one.)</span></label>
@@ -191,7 +192,7 @@ function preview() {
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:</label>
-						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="thumbnail" />" onchange="preview()" placeholder="<%=Application.getSetting("url")%>/img/placeholder-640.png" class="w3-input w3-round-large  w3-border" />
+						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="thumbnail" />" onchange="preview()" placeholder="https://example.com/image-640x420.png" class="w3-input w3-round-large  w3-border" />
 					</p>							
 					
 					<h3>Social Card Preview</h3>
@@ -199,7 +200,7 @@ function preview() {
 						
 						<div class="w3-container w3-round-large w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-l4" style="overflow: hidden;">
 							<a href="#">
-							<img id="previewImg" class="thumbnail" src="<s:property value="thumbnail" />" alt="Photo for your Post" title="Blog post photo." />
+							<img id="previewImg" class="thumbnail" src="<s:property value="thumbnail" />" alt="Thumbnail" title="Thumbnail" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'" />
 							</a>
 						</div>
 												
@@ -241,11 +242,11 @@ function preview() {
 					</p>
 					<p id="bannerDiv1" style="display:none" class="w3-animate-right">   
 						<label class="w3-validate w3-text-grey-light w3-large" for="banner">Banner Image URL:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" disabled="disabled" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="banner" />" placeholder="https://imgur.com/image.png" class="w3-input w3-round-large  w3-border" />
+						<input type="text" disabled="disabled" size="50" maxlength="200" name="banner" id="banner" value="<s:property value="banner" />" placeholder="https://example.com/image-1024x680.png" class="w3-input w3-round-large  w3-border" />
 					</p>
 					<p id="bannerDiv2" style="display:none" class="w3-animate-right">
 						<label class="w3-validate w3-text-grey-light w3-large" for="bannerCaption">Banner Caption/Credit:&nbsp;</label>
-						<input type="text" disabled="disabled" size="50" maxlength="200" name="bannerCaption" id="bannerCaption" value="<s:property value="bannerCaption" />" placeholder="Image Source: imgur" class="w3-input w3-round-large  w3-border" />
+						<input type="text" disabled="disabled" size="50" maxlength="200" name="bannerCaption" id="bannerCaption" value="<s:property value="bannerCaption" />" placeholder="Image Source: Example.com" class="w3-input w3-round-large  w3-border" />
 					</p>
 					<h2 id="previewTitle2">Post Title</h2>
 					<p>

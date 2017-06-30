@@ -33,7 +33,7 @@ function preview() {
 	
 	var desc = document.getElementById('description').value;
 	if(desc.length<=1)
-		desc = "About You Description.";
+		desc = "This author hasn't provided a bio yet.";
 	document.getElementById('previewDesc').innerHTML = desc;
 	
 	var src = document.getElementById('thumbnail').value;
@@ -68,32 +68,30 @@ function preview() {
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
 						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
-						<a class="w3-small"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="#request.author.uriName" /></a>
+						<a href="#" class="w3-medium"><%=Application.getSetting("url")%>/author/<s:property value="#request.author.uriName" /></a>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
-						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.author.description" />" onkeyup="preview()" onchange="preview()" required placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
+						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.author.description" />" onkeyup="preview()" onchange="preview()" placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL</label>
-						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" onkeyup="preview()" onchange="preview()" placeholder="<%=Application.getSetting("url")%>/img/placeholder-200.png" class="w3-input w3-round-large  w3-border" />
+						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.author.thumbnail" />" onchange="preview()" placeholder="https://example.com/image-200x200.png" class="w3-input w3-round-large  w3-border" />
 					</p>
 					
-					<h3>About You Preview</h3>
+					<h3>Social Card Preview</h3>
 					<div class="w3-container w3-padding-0">
 						
 						<div class="w3-col s12 m10 l7 w3-padding-0 w3-margin-0 w3-round w3-hover-shadow w3-card">
-							<a href="#">
-							<span class="w3-col s3 m3 l3 w3-padding-16">
-								<img id="previewImg" class="w3-round w3-margin-left" style="width: 75%;" alt="Profile Picture" src="<s:property value="thumbnail" />">
-							</span>
-							<span class="w3-col s9 m9 l9 w3-padding-16">
-								<span class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
-								<b><span id="previewTitle"><s:property value="Name" /></span></b><br />
-								<span id="previewDesc" class="w3-small"><s:property value="description" /></span> 
-								</span>
-							</span>
-							</a>						
+							<div class="w3-col s3 m3 l3 w3-padding-16">
+								<a href="#"><img id="previewImg" class="w3-round w3-margin-left" style="width: 75%;" alt="Profile" src="<s:property value="thumbnail" />"  onerror="this.src='/img/error-200.png';this.title='Failed to load image.'" /></a>
+							</div>
+							<div class="w3-col s9 m9 l9 w3-padding-16">
+								<div class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
+								<h3 class="w3-padding-0 w3-margin-0"><a href="#"><span id="previewTitle"><s:property value="Name" /></span></a></h3>
+								<p id="previewDesc" class="w3-small w3-margin-0"><s:property value="description" /></p> 
+								</div>
+							</div>					
 						</div>
 						
 					</div>

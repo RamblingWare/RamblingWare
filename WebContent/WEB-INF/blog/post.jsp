@@ -49,22 +49,24 @@
 				
 				<s:if test="post.banner != null && !post.banner.trim().isEmpty()">
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
-					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for <s:property value="post.title" />" title="<s:property value="post.bannerCaption" />" src="<s:property value="post.banner" />">
+					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for <s:property value="post.title" />" title="<s:property value="post.bannerCaption" />" src="<s:property value="post.banner" />" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
 					<p class="w3-tiny w3-text-grey w3-margin-0" style="text-align: right;"><s:property value="post.bannerCaption" /></p>
 				</div>
 				</s:if>
 				
 				<h1><s:property value="post.title" /></h1>
-				
-				<% out.print(request.getAttribute("post.htmlContent")); %>
-				
+				<% String htmlContent = (String) request.getAttribute("post.htmlContent");
+					if(htmlContent == null || htmlContent.isEmpty()) {
+						out.print("This post seems to be empty or failed to load correctly. Please try again later?");
+					} else {
+					out.print(htmlContent); } %>				
 				<hr />
 				<div class="w3-container w3-padding w3-margin-0 w3-center">
 
 					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
 							<s:if test="post.author.thumbnail != null && !post.author.thumbnail.trim().isEmpty()">
-								<img class="w3-round" alt="Author" title="Author" style="vertical-align: middle;" src="<s:property value="post.author.thumbnail" />" height="24" width="24">&nbsp;
+								<img class="w3-round" alt="Profile" title="Author" style="vertical-align: middle;" src="<s:property value="post.author.thumbnail" />" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
 							</s:if>
 							<s:else>
 								<span class="icon-author w3-large w3-text-theme w3-padding-square"></span>
