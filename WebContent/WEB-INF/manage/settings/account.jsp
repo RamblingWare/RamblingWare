@@ -66,7 +66,7 @@
 							</p>
 							<hr />
 							<p>
-								<button class="w3-btn w3-round w3-card w3-pale-green" type="submit" value="Save" title="Save Changes">Save Changes</button>
+								<button class="w3-btn w3-round w3-green w3-hover-teal" type="submit" value="Save" title="Save Changes">Save Changes</button>
 							</p>
 							</form>
 						</div>

@@ -117,11 +117,11 @@ function preview() {
 					
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit" onclick="return validate()">Save Changes</button>
+					<button class="w3-btn w3-right w3-round w3-green w3-hover-teal" type="submit" title="Submit" onclick="return validate()">Save Changes</button>
 					<span>&nbsp;&nbsp;</span>
 					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" value="Back" title="Go back"><span class="icon-arrow-left w3-large w3-margin-right"></span>Back</button>
 					<span>&nbsp;&nbsp;</span>
-					<button class="w3-btn w3-round w3-card w3-pale-red" type="submit" onclick="return confirm('Are you sure you want to delete?\n\nAny blog posts by this author will still exist.')" name="delete" value="Delete" title="Delete this Author">Delete</button>
+					<button class="w3-btn w3-round w3-deep-orange w3-hover-red" type="submit" onclick="return confirm('Are you sure you want to delete?\n\nAny blog posts by this author will still exist.')" name="delete" value="Delete" title="Delete this Author">Delete</button>
 					
 					</form>
 				</div>

@@ -78,7 +78,7 @@ function makeUri() {
 					</p>
 					
 					<hr />
-					<button class="w3-btn w3-right w3-round w3-card w3-pale-green" type="submit" title="Submit">
+					<button class="w3-btn w3-right w3-round w3-green w3-hover-teal" type="submit" title="Submit">
 						<span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
 					<span>&nbsp;&nbsp;</span>
 					<button class="w3-btn w3-round w3-card w3-theme-light" type="button" onclick="history.back();" title="Go back">

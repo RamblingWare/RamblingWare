@@ -22,22 +22,18 @@
 
 				<s:if test="type.equalsIgnoreCase('username') || type.equalsIgnoreCase('password') || type.equalsIgnoreCase('twofactor')">
 				<s:if test="type.equalsIgnoreCase('username')">
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
+					<div class="w3-border w3-round w3-padding w3-theme-light">
+						<div class="w3-margin-0 w3-padding-0 w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Resend Username</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
 						<form action="/manage/forgot" method="post">
 							<input type="hidden" name="remind" value="true" />
-							<p>   
-								<label class="w3-validate w3-text-grey-light w3-large" for="email">Email:</label>
-								<input type="text" size="50" maxlength="100" name="email" id="email" value="<s:property value="email" />" required autofocus placeholder="" class="w3-input w3-round-large w3-border" />
-							</p>
-							<hr />
 							<p>
-								<button class="w3-btn w3-right w3-round w3-card w3-pale-blue" type="submit" value="Send" title="Send a reminder email">Send Reminder</button>
-								
-								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/">Cancel</a>
+								<input type="text" size="50" maxlength="100" name="email" id="email" value="<s:property value="email" />" required autofocus placeholder="Email Address" class="w3-input w3-round-large w3-border" />
+							</p>
+							<p class="w3-center">
+								<button class="w3-btn-wide w3-round w3-deep-orange w3-hover-red" type="submit" value="Send" title="Send a reminder email">Send</button>
 							</p>
 						</form>
 							<p class="w3-small w3-text-grey w3-center">
@@ -47,22 +43,18 @@
 					</div>
 				</s:if>
 				<s:if test="type.equalsIgnoreCase('password')">
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
+					<div class="w3-border w3-round w3-padding w3-theme-light">
+						<div class="w3-margin-0 w3-padding-0 w3-center">
 							<h3 class="w3-margin-0 w3-padding uppercase">Reset Password</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
 						<form action="/manage/forgot" method="post">
 							<input type="hidden" name="reset" value="true" />
-							<p>   
-								<label class="w3-validate w3-text-grey-light w3-large" for="email">Email:</label>
-								<input type="text" size="50" maxlength="100" name="email" id="email" value="<s:property value="email" />" required autofocus placeholder="" class="w3-input w3-round-large w3-border" />
-							</p>
-							<hr />
 							<p>
-								<button class="w3-btn w3-right w3-round w3-card w3-pale-red" type="submit" value="Send" title="Send a reset link">Send Reset</button>
-								
-								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/">Cancel</a>
+								<input type="text" size="50" maxlength="100" name="email" id="email" value="<s:property value="email" />" required autofocus placeholder="Email Address" class="w3-input w3-round-large w3-border" />
+							</p>
+							<p class="w3-center">
+								<button class="w3-btn-wide w3-round w3-deep-orange w3-hover-red" type="submit" value="Send" title="Send a reset link">Send</button>
 							</p>
 						</form>
 							<p class="w3-small w3-text-grey w3-center"> 
@@ -72,9 +64,9 @@
 					</div>
 				</s:if>
 				<s:if test="type.equalsIgnoreCase('twofactor')">
-					<div class="w3-border w3-round">
-						<div class="w3-margin-0 w3-padding-0 w3-theme-light w3-center">
-							<h3 class="w3-margin-0 w3-padding uppercase">Two Factor Recovery</h3>
+					<div class="w3-border w3-round w3-padding w3-theme-light">
+						<div class="w3-margin-0 w3-padding-0 w3-center">
+							<h3 class="w3-margin-0 w3-padding uppercase">Recover</h3>
 						</div>
 						<div class="w3-padding w3-theme-light">
 						<form action="/manage/forgot" method="post">
@@ -87,23 +79,19 @@
 							</div>
 							</s:if>
 							<s:else>
-								<p>   
-									<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:</label>
-									<input type="text" size="50" maxlength="100" name="username" id="username" value="<s:property value="username" />" required placeholder="" class="w3-input w3-round-large w3-border" />
+								<p>
+									<input type="text" size="50" maxlength="100" name="username" id="username" value="<s:property value="username" />" required placeholder="Email Address" class="w3-input w3-round-large w3-border" />
 								</p>
-								<p>   
-									<label class="w3-validate w3-text-grey-light w3-large" for="password">Password:</label>
-									<input type="password" size="50" maxlength="200" name="password" id="password" value="" required placeholder="" class="w3-input w3-round-large w3-border" />
+								<p>
+									<input type="password" size="50" maxlength="200" name="password" id="password" value="" required placeholder="Password" class="w3-input w3-round-large w3-border" />
 								</p>
 							</s:else>
-							<p>   
-								<label class="w3-validate w3-text-grey-light w3-large" for="code">Recovery Code:</label>
-								<input type="text" size="50" maxlength="100" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" placeholder="" class="w3-input w3-round-large w3-border" />
+							<p>
+								<input type="text" size="50" maxlength="100" name="code" id="code" value="" required autofocus autocapitalize="off" autocorrect="off" autocomplete="off" placeholder="Recovery Code" class="w3-input w3-round-large w3-border" />
 							</p>
 							<p class="w3-small w3-text-grey">Your recovery code was created when you enabled 2FA.</p>
-							<hr />
-							<p>
-								<button class="w3-btn w3-right w3-round w3-card w3-pale-red" type="submit" value="Submit" title="Unlock">Unlock</button>
+							<p class="w3-center">
+								<button class="w3-btn-wide w3-round w3-deep-orange w3-hover-red" type="submit" value="Submit" title="Unlock">Unlock</button>
 								
 								<a class="w3-btn w3-round w3-card w3-theme-light" title="Go to the home page" href="/manage/logout">Cancel</a>
 							</p>

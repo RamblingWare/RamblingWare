@@ -1,5 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<s:if test="#session != null && #session.USER != null">
+<s:if test="#session != null && #session.USER != null && #session.login">
 	<div id="admin-menu" class="w3-col s2 m2 l2 w3-padding-square w3-right no-print w3-dropdown-hover">
 		<button title="Menu" style="vertical-align: middle;" class="w3-small w3-card w3-round w3-theme-l3 w3-hover-shadow w3-padding-4">
 			<img class="w3-round" src="<s:property value="#session.USER.thumbnail" />" style="width:25px; height:25px;vertical-align: middle;" align="top">

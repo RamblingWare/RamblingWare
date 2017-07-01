@@ -40,7 +40,6 @@
 								<br/>
 								<span class="w3-small w3-text-grey">Your account is secured with 2FA by using a OTP (One-Time Password) every time you log in.</span>
 							</p>
-							<hr />
 							<p>
 								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Review 2FA"><span class="icon-qrcode w3-large w3-margin-right"></span>View 2FA</a>
 								<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="openPopup('recover-2fa')" title="View Recovery Code"><span class="icon-embed w3-large w3-margin-right"></span>Recovery Code</a>
@@ -59,10 +58,9 @@
 									then I recommend using <a target="_blank" href="https://mattrubin.me/authenticator/">Authenticator</a>, <a target="_blank" href="https://www.authy.com/app/mobile/">Authy</a>, or <a target="_blank" href="https://goo.gl/gtjo1w">Google Authenticator</a>.
 								</span>
 							</p>
-							<hr />
 							<p>
 								<input type="hidden" name="twofactor" value="true" />
-								<a class="w3-btn w3-round w3-card w3-pale-green" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Enable"><span class="icon-qrcode w3-large w3-margin-right"></span>Enable 2FA</a>
+								<a class="w3-btn-wide w3-round w3-green w3-hover-teal" href="javascript:void(0)" onclick="openPopup('setup-2fa')" title="Enable"><span class="icon-qrcode w3-large w3-margin-right"></span>Enable 2FA</a>
 							</p>
 							</s:else>
 							</form>
@@ -70,7 +68,7 @@
 					</div>
 					
 					<div id="recover-2fa" class="w3-modal">
-						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
+						<div class="w3-modal-content w3-round page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Recovery Code
 								<a title="Close" onclick="closePopup('recover-2fa')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
@@ -85,15 +83,14 @@
 								<p class="w3-small w3-text-grey">
 									Keep it somewhere safe where you can always find it!
 								</p>
-								<hr />
-								<p>
+								<p class="w3-center">
 									<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="closePopup('recover-2fa')" title="Done">Done</a>
 								</p>
 							</div>
 						</div>
 					</div>
 					<div id="setup-2fa" class="w3-modal">
-						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
+						<div class="w3-modal-content w3-round page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Enable 2FA
 								<a title="Close" onclick="closePopup('setup-2fa')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
@@ -114,17 +111,16 @@
 									<label class="w3-validate w3-text-grey-light w3-large" for="code">Security Code:&nbsp;<span class="w3-text-red">*</span></label>
 									<input type="text" size="50" maxlength="300" name="code" id="code" value="" required autocapitalize="off" autocorrect="off" autocomplete="off" class="w3-input w3-round-large w3-border w3-large" />
 								</p>
-								<hr />
-								<p>
+								<p class="w3-center">
 									<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="closePopup('setup-2fa')" title="Cancel">Cancel</a>
-									<button type="submit" class="w3-btn w3-right w3-round w3-card w3-pale-green" value="submit" title="Submit"><span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
+									<button type="submit" class="w3-btn w3-round w3-green w3-hover-teal" value="submit" title="Enable 2FA">Enable</button>
 								</p>
 								</form>
 							</div>
 						</div>
 					</div>
 					<div id="remove-2fa" class="w3-modal">
-						<div class="w3-modal-content page-quarter w3-theme-light w3-animate-top w3-card-4">
+						<div class="w3-modal-content w3-round page-quarter w3-theme-light w3-animate-top w3-card-4">
 							<div class="w3-container w3-padding-8">
 								<h3>Disable 2FA
 								<a title="Close" onclick="closePopup('remove-2fa')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
@@ -146,10 +142,9 @@
 									<label class="w3-validate w3-text-grey-light w3-large" for="passwordOld">Password:&nbsp;<span class="w3-text-red">*</span></label>
 									<input type="password" size="50" maxlength="300" name="passwordOld" id="passwordOld" value="" required class="w3-input w3-round-large w3-border" />
 								</p>
-								<hr />
-								<p>
+								<p class="w3-center">
 									<a class="w3-btn w3-round w3-card w3-theme-light" href="javascript:void(0)" onclick="closePopup('remove-2fa')" title="Cancel">Cancel</a>
-									<button type="submit" class="w3-btn w3-right w3-round w3-card w3-pale-red" value="submit" title="Submit"><span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>
+									<button type="submit" class="w3-btn w3-round w3-deep-orange w3-hover-red" value="submit" title="Remove 2FA">Remove</button>
 								</p>
 								</form>
 							</div>
@@ -182,7 +177,7 @@
 						<div class="w3-padding w3-small w3-theme-light">
 						
 							<p>
-								<a class="w3-btn w3-round w3-card w3-theme-light" href="/manage/test" title="Test"><span class="icon-embed w3-large"></span>&nbsp;Test</a>
+								<a class="w3-btn w3-round w3-card w3-theme-light" href="/manage/test" title="Test"><span class="icon-embed w3-large w3-margin-right"></span>Test</a>
 								<span class="w3-small w3-text-grey nowrap">Show system properties and variables.</span>
 							</p>
 						

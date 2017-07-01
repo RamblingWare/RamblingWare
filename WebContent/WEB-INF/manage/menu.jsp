@@ -28,11 +28,11 @@
 								<h3 class="w3-margin-0 w3-padding uppercase">Blog Posts</h3>
 							</div>
 							<div class="w3-padding w3-small w3-theme-light">
-								<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newpost"><span class="icon-quill w3-large"></span>&nbsp;New Post</a> 
+								<p><a class="w3-btn w3-round w3-small w3-green w3-hover-teal" href="/manage/newpost"><span class="icon-quill w3-large"></span>&nbsp;New Post</a> 
 								<span class="w3-small w3-text-grey nowrap">Add a new blog post.</span>
 								</p>
 								<p>
-								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/posts"><span class="icon-quill w3-large"></span>&nbsp;View Posts</a>
+								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/posts"><span class="icon-quill w3-large"></span>&nbsp;Edit Posts</a>
 								<span class="w3-small w3-text-grey nowrap">Modify a blog post.</span>
 								</p>
 							</div>
@@ -44,10 +44,10 @@
 								<h3 class="w3-margin-0 w3-padding uppercase">Authors</h3>
 							</div>
 							<div class="w3-padding w3-small w3-theme-light">
-								<p><a class="w3-btn w3-card w3-round w3-small w3-pale-green" href="/manage/newuser"><span class="icon-author w3-large"></span>&nbsp;Add Author</a>
+								<p><a class="w3-btn w3-round w3-small w3-blue w3-hover-indigo" href="/manage/newuser"><span class="icon-author w3-large"></span>&nbsp;Add Author</a>
 								<span class="w3-small w3-text-grey nowrap">Add a new Author.</span>
 								</p>
-								<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/users"><span class="icon-author w3-large"></span>&nbsp;View Authors</a>
+								<p><a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/users"><span class="icon-author w3-large"></span>&nbsp;Edit Authors</a>
 								<span class="w3-small w3-text-grey nowrap">Modify an Author.</span>
 								</p>
 							</div>
