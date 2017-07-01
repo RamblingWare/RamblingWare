@@ -24,15 +24,12 @@
 				
 				<p>
 					<%=Application.getSetting("name")%> is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
-				</p>
-				<p>
-					I cover topics around web development, web security, and programming. Really, anything that I can ramble about.
-				</p>
-				<p>
-					I hope you enjoy reading, and leave a comment if you like! Thanks! ~ <a href="/author/austin-delamar">Austin</a>			
-				</p>
-				<p class="w3-small w3-text-grey quote">
+					<br/><br/>
+					I cover topics around web development, web security, and programming. Really, anything that I can rant about.
+					<br/><br/>
 					Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.
+					<br/><br/>
+					I hope you enjoy reading, and leave a comment if you like! Thanks! ~ <a href="/author/austin-delamar">Austin</a>			
 				</p>
 				<br />
 				
@@ -40,7 +37,7 @@
 				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="<%=Application.getSetting("sourceCode")%>">GitHub repo</a>.
 				I've used blog services before, but decided to program it myself. And I know Its not perfect but I have been having fun with it! I typically work on it at least once a month.<br />
 				</p>
-				<blockquote>“Talk is cheap. Show me the code.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Linus Torvalds</blockquote>
+				<blockquote>“I reinvent the wheel because mine is rounder.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Anonymous</blockquote>
 				<br />
 				
 				
@@ -54,6 +51,7 @@
 					&nbsp;&nbsp;
 					<a class="w3-btn w3-card w3-round w3-light-grey" target="_blank" href="<%=Application.getSetting("sourceCode")%>"><span class="icon-embed w3-large w3-margin-right"></span>View Code</a>
 				</p>
+				<blockquote>“Talk is cheap. Show me the code.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Linus Torvalds</blockquote>
 				<br />
 				
 				
