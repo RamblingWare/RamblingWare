@@ -1,6 +1,22 @@
 /* TEAM */
-Owner: Austin Delamar
-Twitter: @amdelamar
-Location: Michigan, USA
+	Owner: Austin Delamar
+	Contact: amdelamar [at] protonmail.com
+	Twitter: @amdelamar
+	Location: Michigan, USA
 
-/* additional members go here... */
+	Developer: Austin Delamar
+	Contact: amdelamar [at] protonmail.com
+	Twitter: @amdelamar
+	From: Michigan, USA
+
+	/* additional members go here... */
+
+/* THANKS */
+
+	/* additional contributors go here... */
+
+/* SITE */
+	Last update: 2017/07/02
+	Language: English
+	Doctype: HTML5
+	IDE: Eclipse, Notepad++, CloudFoundry, Git, GIMP
