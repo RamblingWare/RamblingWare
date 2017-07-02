@@ -13,7 +13,6 @@
 <%@include file="/WEB-INF/fragment/meta/meta-webapp.jspf"%>
 
 <link rel="author" href="humans.txt"/>
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <link rel="stylesheet" href="/css/rant.css?v=1.01"/>
 <link href="/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet"/>
 <link rel="alternate" href="<%=Application.getSetting("rss")%>" type="application/rss+xml" title="RSS">
