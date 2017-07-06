@@ -8,10 +8,7 @@
   "success_url": "/",
   "image": "heroku/java",
   "addons": [
-    {
-      "plan": "cleardb:ignite",
-      "as": "mysql"
-    }
+    "cleardb:ignite"
   ],
   "buildpacks": [
     {
