@@ -10,8 +10,6 @@ Blog management system written in Java.
 
 Live Demo: https://www.ramblingware.com
 
----
-
 ## Features
 
  *  Multi-Author Blog system with roles (Author,Editor,Owner,Admin)
@@ -43,6 +41,9 @@ Load this app onto on a Cloud Platform of your choice:
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/Rant)
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/RamblingWare/Rant)
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/RamblingWare/Rant)
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/RamblingWare/Rant)
+
+Some of these might not work at this time.
 
 ## Technologies Used
 

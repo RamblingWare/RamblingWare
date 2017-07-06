@@ -9,10 +9,5 @@
   "image": "heroku/java",
   "addons": [
     "cleardb:ignite"
-  ],
-  "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-java.git"
-    }
   ]
 }
