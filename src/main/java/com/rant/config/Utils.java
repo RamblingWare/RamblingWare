@@ -30,12 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Utils {
 
-    private final static DecimalFormat BYTEFORM = new DecimalFormat("0.00");
-    private final static DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
-    private final static DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
+    private static final DecimalFormat BYTEFORM = new DecimalFormat("0.00");
+    private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
+    private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
             "MMM dd, yyyy (hh:mm:ss a)");
-    private final static DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
-    private final static DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+    private static final DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
 
     /**
      * Gets the current time in a readable format. "MMM dd, yyyy (hh:mm:ss a)"
@@ -50,10 +50,11 @@ public class Utils {
      * Return a cookie's value by its given name.
      * 
      * @param cookieName
+     *            name of cookie
      * @return Cookie
      */
     public static Cookie getCookie(HttpServletRequest servletRequest, String cookieName) {
-        Cookie cookies[] = servletRequest.getCookies();
+        Cookie[] cookies = servletRequest.getCookies();
         Cookie myCookie = null;
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
@@ -70,7 +71,9 @@ public class Utils {
      * Sets a cookie's value for the given name.
      * 
      * @param cookieName
+     *            name of cookie
      * @param cookieValue
+     *            value of cookie
      */
     public static void setCookie(HttpServletResponse servletResponse, String cookieName,
             String cookieValue) {
@@ -85,8 +88,10 @@ public class Utils {
      * Converts the ResultSet to an ArrayList of HashMap records.
      * 
      * @param ResultSet
+     *            SQL results from query
      * @return ArrayList of HashMaps
      * @throws SQLException
+     *             if resultset is null or closed
      */
     public static ArrayList<HashMap<String, Object>> resultSetToHashMapArrayList(ResultSet rs)
             throws SQLException {
@@ -113,6 +118,7 @@ public class Utils {
      * Format bytes to a readable unit of measure. B, KB, MB, GB, etc...
      * 
      * @param bytes
+     *            double number
      * @return String
      */
     public static String formatBytes(double bytes) {
@@ -132,6 +138,7 @@ public class Utils {
      * ms
      * 
      * @param timeInMilliseconds
+     *            time in millis (long)
      * @return String
      */
     public static String formatTime(long timeInMilliseconds) {
@@ -152,7 +159,8 @@ public class Utils {
      * Get a readable format of the given date. "MMM dd, yyyy"
      * 
      * @param date
-     * @return
+     *            "MMM dd, yyyy"
+     * @return String
      */
     public static String formatReadableDate(Date date) {
         if (date == null) {
@@ -165,7 +173,8 @@ public class Utils {
      * Get a readable format of the given date. "MMM dd, yyyy (hh:mm:ss a)"
      * 
      * @param date
-     * @return
+     *            "MMM dd, yyyy (hh:mm:ss a)"
+     * @return String
      */
     public static String formatReadableDateTime(Date date) {
         if (date == null) {
@@ -178,7 +187,8 @@ public class Utils {
      * Get a MySQL database format of the given date. "yyyy-MM-dd"
      * 
      * @param dateTime
-     * @return
+     *            "yyyy-MM-dd"
+     * @return String
      */
     public static String formatMySQLDate(Date dateTime) {
         if (dateTime == null) {
@@ -191,7 +201,8 @@ public class Utils {
      * Get a SQLServer database format of the given datetime. "yyyyMMdd hh:mm:ss a"
      * 
      * @param dateTime
-     * @return
+     *            "yyyyMMdd hh:mm:ss a"
+     * @return String
      */
     public static String formatSQLServerDate(Date dateTime) {
         if (dateTime == null) {
@@ -205,10 +216,11 @@ public class Utils {
      * figure out what Date the String represents, then it will return null.
      * 
      * @param anyFormat
+     *            "MM/dd/yy", "MMMM d yy", "MMM dd yyyy"...
      * @return Date
      */
     public static Date convertStringToDate(String anyFormat) {
-        String formats[] = {"MM/dd/yy", "MMMM d yy", "MMM dd yyyy", "MMM dd yy", "MMMM d, yy",
+        String[] formats = {"MM/dd/yy", "MMMM d yy", "MMM dd yyyy", "MMM dd yy", "MMMM d, yy",
                 "MM-dd-yy", "MM-dd-yyyy", "MM/dd/yyyy", "dd/MM/yy", "dd-MM-yyyy", "dd/MM/yyyy",
                 "dd-MM-yy", "yyyy-MM-dd", "EEE, dd MMM yy HH:mm:ss z", "EEE, dd MMM yy HH:mm:ss",
                 "dd MMM yy HH:mm:ss", "ss:mm:HH dd MM:", "yyyyMMdd hh:mm:ss a", "yyyyMMdd hh:mm:ss",
@@ -233,7 +245,8 @@ public class Utils {
      * Strips out all spaces, newlines, returns, and tabs.
      * 
      * @param text
-     * @return
+     *            to clean
+     * @return String
      */
     public static String removeAllSpaces(String text) {
         return text.replaceAll("\\s", "");
@@ -243,6 +256,7 @@ public class Utils {
      * Strips out bad text characters from the given string.
      * 
      * @param text
+     *            to clean
      * @return String
      */
     public static String removeBadChars(String text) {
@@ -254,6 +268,7 @@ public class Utils {
      * Strips out all Non-ASCII characters from the given string.
      * 
      * @param text
+     *            to clean
      * @return String
      */
     public static String removeNonAsciiChars(String text) {
@@ -266,18 +281,20 @@ public class Utils {
     /**
      * Make sure the URL starts with 'http://' or 'https://'
      * 
-     * @param u
-     * @return
+     * @param url
+     *            URL string
+     * @return String
      */
-    public static String formatURL(String u) {
-        if (!u.startsWith("http://") && !u.startsWith("https://")) {
-            return "http://" + u;
+    public static String formatURL(String url) {
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            return "http://" + url;
         } else {
-            return u;
+            return url;
         }
     }
 
     private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
+
     static {
         suffixes.put(1_000L, "k");
         suffixes.put(1_000_000L, "M");
@@ -291,7 +308,8 @@ public class Utils {
      * Get a nice label for large numbers, e.g. 100, 1.3k, 12.5B, 500k, 1.1M...
      * 
      * @param value
-     * @return
+     *            long
+     * @return String
      */
     public static String formatLong(long value) {
         // Long.MIN_VALUE == -Long.MIN_VALUE so we need an adjustment here
@@ -316,6 +334,7 @@ public class Utils {
      * Downloads the urlString to the filename at the current directory.
      * 
      * @param urlString
+     *            URL string
      * @return String
      */
     public static String downloadUrlFile(String urlString) {
@@ -325,7 +344,7 @@ public class Utils {
         try {
             URL url = new URL(urlString);
             in = new BufferedInputStream(url.openStream());
-            byte data[] = new byte[1024];
+            byte[] data = new byte[1024];
             int bytesRead = 0;
             while ((bytesRead = in.read(data)) != -1) {
                 dataString += (new String(data, 0, bytesRead));
@@ -338,6 +357,7 @@ public class Utils {
                 try {
                     in.close();
                 } catch (IOException e1) {
+                    System.err.println("Error: " + e1.getMessage());
                 }
             }
         }
@@ -350,10 +370,11 @@ public class Utils {
      * <li>Must have one @ symbol</li>
      * <li>Must have domain name like .com</li>
      * <li>Must not have illegal characters</li>
-     * <ul>
+     * </ul>
      * See Javax.Mail.Internet package for more details.
      * 
      * @param email
+     *            string
      * @return boolean
      */
     public static boolean isValidEmail(String email) {

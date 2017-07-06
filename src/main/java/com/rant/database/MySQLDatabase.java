@@ -1,5 +1,10 @@
 package com.rant.database;
 
+import com.rant.config.Application;
+import com.rant.model.Author;
+import com.rant.model.Database;
+import com.rant.model.Post;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,11 +12,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import com.rant.config.Application;
-import com.rant.model.Author;
-import com.rant.model.Database;
-import com.rant.model.Post;
 
 public class MySQLDatabase extends DatabaseSource {
 
@@ -45,18 +45,21 @@ public class MySQLDatabase extends DatabaseSource {
                 rs.close();
             }
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         try {
             if (ps != null) {
                 ps.close();
             }
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         try {
             if (conn != null) {
                 conn.close();
             }
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -68,7 +71,8 @@ public class MySQLDatabase extends DatabaseSource {
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select p.*, u.name, u.uri_name as 'authorUri', u.description as 'authorDesc', u.thumbnail as 'authorThumbnail' "
+            String query = "select p.*, u.name, u.uri_name as 'authorUri', u.description as 'authorDesc',"
+                    + " u.thumbnail as 'authorThumbnail' "
                     + "from posts p left join users u on p.user_id = u.user_id "
                     + "where p.uri_name = ?";
 
@@ -151,7 +155,8 @@ public class MySQLDatabase extends DatabaseSource {
 
             // save fields into database
             pt = conn.prepareStatement(
-                    "insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,category,thumbnail,banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+                    "insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,category,thumbnail,"
+                    + "banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?,?)");
             pt.setInt(1, post.getAuthor().getId());
             pt.setString(2, post.getTitle());
             pt.setString(3, post.getUriName());
@@ -347,7 +352,7 @@ public class MySQLDatabase extends DatabaseSource {
             if (!includeHidden) {
                 query += " and role <> 3";
             }
-            
+
             conn = getConnection();
             pt = conn.prepareStatement(query);
             pt.setString(1, uri);
@@ -464,12 +469,14 @@ public class MySQLDatabase extends DatabaseSource {
     @Override
     public ArrayList<Post> getArchiveFeatured() {
 
-        ArrayList<Post> archive_featured = new ArrayList<Post>();
+        ArrayList<Post> archiveFeatured = new ArrayList<Post>();
         Connection conn = null;
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select p.post_id, p.title, p.uri_name, p.publish_date, p.thumbnail, p.description from posts p where p.is_visible <> 0 and p.is_featured <> 0 order by p.create_date desc limit 2";
+            String query = "select p.post_id, p.title, p.uri_name, p.publish_date, p.thumbnail, p.description "
+                    + "from posts p where p.is_visible <> 0 and p.is_featured <> 0 "
+                    + "order by p.create_date desc limit 2";
             conn = getConnection();
             pt = conn.prepareStatement(query);
             rs = pt.executeQuery();
@@ -484,7 +491,7 @@ public class MySQLDatabase extends DatabaseSource {
                 post.setThumbnail(rs.getString("thumbnail"));
 
                 // add to results list
-                archive_featured.add(post);
+                archiveFeatured.add(post);
             }
 
         } catch (Exception e) {
@@ -492,18 +499,20 @@ public class MySQLDatabase extends DatabaseSource {
         } finally {
             close(rs, pt, conn);
         }
-        return archive_featured;
+        return archiveFeatured;
     }
 
     @Override
     public ArrayList<String> getArchiveYears() {
 
-        ArrayList<String> archive_years = new ArrayList<String>();
+        ArrayList<String> archiveYears = new ArrayList<String>();
         Connection conn = null;
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select YEAR(create_date) as year, COUNT(*) as count from posts where is_visible <> 0 group by YEAR(create_date) order by YEAR(create_date) desc";
+            String query = "select YEAR(create_date) as year, COUNT(*) as count "
+                    + "from posts where is_visible <> 0 group by YEAR(create_date) "
+                    + "order by YEAR(create_date) desc";
             conn = getConnection();
             pt = conn.prepareStatement(query);
             rs = pt.executeQuery();
@@ -512,7 +521,7 @@ public class MySQLDatabase extends DatabaseSource {
                 // get year and count
                 int year = rs.getInt("year");
                 int count = rs.getInt("count");
-                archive_years.add(year + " (" + count + ")");
+                archiveYears.add(year + " (" + count + ")");
             }
 
         } catch (Exception e) {
@@ -520,18 +529,20 @@ public class MySQLDatabase extends DatabaseSource {
         } finally {
             close(rs, pt, conn);
         }
-        return archive_years;
+        return archiveYears;
     }
 
     @Override
     public ArrayList<String> getArchiveCategories() {
 
-        ArrayList<String> archive_categories = new ArrayList<String>();
+        ArrayList<String> archiveCategories = new ArrayList<String>();
         Connection conn = null;
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select p.category, COUNT(*) as count  from posts p where is_visible <> 0 group by category order by p.category asc";
+            String query = "select p.category, COUNT(*) as count "
+                    + "from posts p where is_visible <> 0 "
+                    + "group by category order by p.category asc";
             conn = getConnection();
             pt = conn.prepareStatement(query);
             rs = pt.executeQuery();
@@ -539,25 +550,28 @@ public class MySQLDatabase extends DatabaseSource {
             while (rs.next()) {
                 // add to results list
                 int count = rs.getInt("count");
-                archive_categories.add(rs.getString("category") + " (" + count + ")");
+                archiveCategories.add(rs.getString("category") + " (" + count + ")");
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             close(rs, pt, conn);
         }
-        return archive_categories;
+        return archiveCategories;
     }
 
     @Override
     public ArrayList<String> getArchiveTags() {
 
-        ArrayList<String> archive_tags = new ArrayList<String>();
+        ArrayList<String> archiveTags = new ArrayList<String>();
         Connection conn = null;
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select t.tag_name, COUNT(*) as count from tags t inner join posts p on t.post_id = p.post_id where p.is_visible <> 0 group by t.tag_name order by COUNT(*) desc, t.tag_name";
+            String query = "select t.tag_name, COUNT(*) as count "
+                    + "from tags t "
+                    + "inner join posts p on t.post_id = p.post_id where p.is_visible <> 0 "
+                    + "group by t.tag_name order by COUNT(*) desc, t.tag_name";
             conn = getConnection();
             pt = conn.prepareStatement(query);
             rs = pt.executeQuery();
@@ -566,7 +580,7 @@ public class MySQLDatabase extends DatabaseSource {
                 // get tag name and count
                 String tag = rs.getString("tag_name");
                 int count = rs.getInt("count");
-                archive_tags.add(tag + " (" + count + ")");
+                archiveTags.add(tag + " (" + count + ")");
             }
 
         } catch (Exception e) {
@@ -574,7 +588,7 @@ public class MySQLDatabase extends DatabaseSource {
         } finally {
             close(rs, pt, conn);
         }
-        return archive_tags;
+        return archiveTags;
     }
 
     @Override
@@ -662,7 +676,8 @@ public class MySQLDatabase extends DatabaseSource {
 
                 // get post's author
                 pt = conn.prepareStatement(
-                        "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a where a.user_id = ?");
+                        "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, "
+                        + "a.create_date, a.modify_date from users a where a.user_id = ?");
                 pt.setInt(1, p.getAuthor().getId());
                 rs = pt.executeQuery();
 
@@ -764,7 +779,8 @@ public class MySQLDatabase extends DatabaseSource {
 
                 // get post's author
                 pt = conn.prepareStatement(
-                        "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a where a.user_id = ?");
+                        "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, "
+                        + "a.create_date, a.modify_date from users a where a.user_id = ?");
                 pt.setInt(1, p.getAuthor().getId());
                 rs = pt.executeQuery();
 
@@ -815,7 +831,8 @@ public class MySQLDatabase extends DatabaseSource {
         ResultSet rs = null;
         try {
             int offset = (page - 1) * limit;
-            String query = "select distinct t.tag_name, p.* from tags t inner join posts p on t.post_id = p.post_id "
+            String query = "select distinct t.tag_name, p.* "
+                    + "from tags t inner join posts p on t.post_id = p.post_id "
                     + "where t.tag_name = '" + tag + "'";
 
             if (!includeHidden) {
@@ -866,7 +883,8 @@ public class MySQLDatabase extends DatabaseSource {
 
                 // get post's author
                 pt = conn.prepareStatement(
-                        "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, a.create_date, a.modify_date from users a where a.user_id = ?");
+                        "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, "
+                        + "a.create_date, a.modify_date from users a where a.user_id = ?");
                 pt.setInt(1, p.getAuthor().getId());
                 rs = pt.executeQuery();
 

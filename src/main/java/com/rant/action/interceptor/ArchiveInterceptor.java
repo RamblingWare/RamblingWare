@@ -24,26 +24,26 @@ public class ArchiveInterceptor implements Interceptor {
         Map<String, Object> sessionAttributes = actionInvocation.getInvocationContext()
                 .getSession();
 
-        ArrayList<Post> archive_featured = (ArrayList<Post>) sessionAttributes
-                .get("archive_featured");
-        ArrayList<String> archive_years = (ArrayList<String>) sessionAttributes
-                .get("archive_years");
-        ArrayList<String> archive_tags = (ArrayList<String>) sessionAttributes.get("archive_tags");
-        ArrayList<String> archive_categories = (ArrayList<String>) sessionAttributes
-                .get("archive_categories");
+        ArrayList<Post> archiveFeatured = (ArrayList<Post>) sessionAttributes
+                .get("archiveFeatured");
+        ArrayList<String> archiveYears = (ArrayList<String>) sessionAttributes
+                .get("archiveYears");
+        ArrayList<String> archiveTags = (ArrayList<String>) sessionAttributes.get("archiveTags");
+        ArrayList<String> archiveCategories = (ArrayList<String>) sessionAttributes
+                .get("archiveCategories");
 
-        if (archive_years == null || archive_years.isEmpty()) {
+        if (archiveYears == null || archiveYears.isEmpty()) {
             // get the archive of posts by years and tag names
-            archive_featured = Application.getDatabaseSource().getArchiveFeatured();
-            archive_years = Application.getDatabaseSource().getArchiveYears();
-            archive_tags = Application.getDatabaseSource().getArchiveTags();
-            archive_categories = Application.getDatabaseSource().getArchiveCategories();
+            archiveFeatured = Application.getDatabaseSource().getArchiveFeatured();
+            archiveYears = Application.getDatabaseSource().getArchiveYears();
+            archiveTags = Application.getDatabaseSource().getArchiveTags();
+            archiveCategories = Application.getDatabaseSource().getArchiveCategories();
 
             // set attributes
-            sessionAttributes.put("archive_featured", archive_featured);
-            sessionAttributes.put("archive_years", archive_years);
-            sessionAttributes.put("archive_tags", archive_tags);
-            sessionAttributes.put("archive_categories", archive_categories);
+            sessionAttributes.put("archiveFeatured", archiveFeatured);
+            sessionAttributes.put("archiveYears", archiveYears);
+            sessionAttributes.put("archiveTags", archiveTags);
+            sessionAttributes.put("archiveCategories", archiveCategories);
         }
 
         return actionInvocation.invoke();

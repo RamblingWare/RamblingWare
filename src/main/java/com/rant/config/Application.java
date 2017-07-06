@@ -33,7 +33,7 @@ public class Application implements ServletContextListener {
     private static int manageLimit;
 
     @Override
-    public void contextInitialized(ServletContextEvent arg0) {
+    public void contextInitialized(ServletContextEvent servletContext) {
 
         try {
             // load settings from properties file
