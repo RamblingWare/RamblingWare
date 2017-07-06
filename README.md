@@ -36,18 +36,12 @@ Right now this code has lots of 'ramblingware' in it. I plan to make a version t
  1. WAR file is located at: `/build/libs/rant-1.0.war`
  1. Deploy on your Server of choice.
 
-### Or Quick Deploy on a Cloud Platform:
+### One-Click Deploy 
 
- *Bluemix:*
+Load this app onto on a Cloud Platform of your choice:
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/Rant)  
-
- *Heroku:*
-
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/Rant)
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/RamblingWare/Rant)
-
- *Azure:*
-
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/RamblingWare/Rant)
 
 ## Technologies Used

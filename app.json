@@ -10,7 +10,7 @@
   "addons": [
     "cleardb",
     {
-      "plan": "ignite",
+      "plan": "cleardb:ignite",
       "as": "mysql"
     }
   ],
