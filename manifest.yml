@@ -10,5 +10,9 @@ applications:
   env:
     IBM_JVM_LICENSE: L-PMAA-A3Z8P2
     IBM_LIBERTY_LICENSE: L-SWIS-AKWR6K
+  declared-services:
+    clearDB:
+      label: MySQL-DB
+      plan: Spark
   services:
   - MySQL-DB
