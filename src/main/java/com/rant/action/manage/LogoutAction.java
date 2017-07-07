@@ -33,9 +33,15 @@ public class LogoutAction extends ActionSupport
 
         try {
             sessionAttributes = ActionContext.getContext().getSession();
-            user = (Author) sessionAttributes.get("USER");
-            System.out.println("User " + user.getUsername() + " logged out.");
 
+            // are they already logged out?
+            if (sessionAttributes.get("login") == null) {
+                // logged out already.
+            } else {
+                // user loggin gout
+                user = (Author) sessionAttributes.get("USER");
+                System.out.println("User " + user.getUsername() + " logged out.");
+            }
             addActionMessage("You have been logged out.");
 
             sessionAttributes.remove("login");

@@ -41,15 +41,18 @@ public class LoginAction extends ActionSupport
 
     private int lockoutPeriod = 30; // minutes
     private int maxAttempts = 3;
-    private static int attempts = 0;
-    private static long lastAttempt = 0;
+    private int attempts = 0;
+    private long lastAttempt = 0;
 
     @Override
     public String execute() {
 
-        // check if locked out
-        if (isLockedOut()) {
-            return Action.ERROR;
+        // are they already logged in?
+        sessionAttributes = ActionContext.getContext().getSession();
+        if (sessionAttributes.get("login") != null) {
+            // logged in already.
+            addActionMessage("You are already logged in.");
+            return SUCCESS;
         }
 
         // now try to see if they can login
@@ -60,10 +63,7 @@ public class LoginAction extends ActionSupport
             // logging in with OTP
             return otpLogin();
         } else {
-            // invalid login
-            addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
-            System.out.println("User tried to login with an invalid Username. (" + attempts + "/"
-                    + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
+            // they opened the form
             return ERROR;
         }
     }
@@ -74,6 +74,12 @@ public class LoginAction extends ActionSupport
      * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
      */
     private String passwordLogin() {
+
+        // check if locked out
+        if (isLockedOut()) {
+            return Action.ERROR;
+        }
+
         try {
             user = Application.getDatabaseSource().getUser(username);
 
@@ -84,8 +90,8 @@ public class LoginAction extends ActionSupport
                 if (user.isOTPEnabled()) {
                     // user needs to enter a OTP still before they are
                     // logged in.
-                    attempts = 0;
-                    lastAttempt = 0;
+                    sessionAttributes.remove("attempts");
+                    sessionAttributes.remove("lastAttempt");
                     sessionAttributes = ActionContext.getContext().getSession();
                     sessionAttributes.put("USER", user);
 
@@ -100,8 +106,8 @@ public class LoginAction extends ActionSupport
                     // update user's last login date
                     Application.getDatabaseSource().loginUser(user);
 
-                    attempts = 0;
-                    lastAttempt = 0;
+                    sessionAttributes.remove("attempts");
+                    sessionAttributes.remove("lastAttempt");
                     sessionAttributes = ActionContext.getContext().getSession();
                     sessionAttributes.put("login", "true");
                     sessionAttributes.put("context", new Date());
@@ -142,6 +148,11 @@ public class LoginAction extends ActionSupport
      */
     private String otpLogin() {
 
+        // check if locked out
+        if (isLockedOut()) {
+            return Action.ERROR;
+        }
+
         // OTP / 2FA code provided.
         // verify if it is correct
 
@@ -160,8 +171,8 @@ public class LoginAction extends ActionSupport
             sessionAttributes.put("login", "true");
             sessionAttributes.put("context", new Date());
             sessionAttributes.put("USER", user);
-            attempts = 0;
-            lastAttempt = 0;
+            sessionAttributes.remove("attempts");
+            sessionAttributes.remove("lastAttempt");
 
             try {
                 // update user's last login date
@@ -196,29 +207,30 @@ public class LoginAction extends ActionSupport
      * @return true if locked out
      */
     private boolean isLockedOut() {
-        try {
-            // wait a bit, just to slow this request type down...
+
+        // count login attempts
+        // and remember when their last attempt was
+        if (sessionAttributes.get("attempts") == null) {
+            attempts = 1;
+        } else {
+            attempts = (int) sessionAttributes.get("attempts");
             attempts++;
-            Thread.sleep(500 * attempts);
-        } catch (InterruptedException e1) {
-            /* Don't bother to catch this exception */
         }
+        if (sessionAttributes.get("lastAttempt") == null) {
+            lastAttempt = System.currentTimeMillis();
+        } else {
+            lastAttempt = (long) sessionAttributes.get("lastAttempt");
+        }
+        sessionAttributes.put("attempts", attempts);
+        sessionAttributes.put("lastAttempt", lastAttempt);
 
         // lockout for 30 min, if they failed 3 times
         if (attempts >= maxAttempts) {
-            if (lastAttempt == 0) {
-                // this is their 5th try, so record their time
-                lastAttempt = System.currentTimeMillis();
-                System.err.println("Unknown user has been locked out for " + lockoutPeriod
-                        + " min. (" + servletRequest.getRemoteAddr() + ")("
-                        + servletRequest.getRemoteHost() + ")");
-                addActionError("You have been locked out for the next " + lockoutPeriod
-                        + " minutes, for too many attempts.");
-                return true;
-            } else if (System.currentTimeMillis() >= (lastAttempt + (lockoutPeriod * 60 * 1000))) {
+
+            if (System.currentTimeMillis() >= (lastAttempt + (lockoutPeriod * 60 * 1000))) {
                 // its been 30mins or more, so unlock
-                attempts = 0;
-                lastAttempt = 0;
+                sessionAttributes.remove("attempts");
+                sessionAttributes.remove("lastAttempt");
                 System.err.println("Unknown user has waited " + lockoutPeriod + " min, proceed. ("
                         + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost()
                         + ")");
