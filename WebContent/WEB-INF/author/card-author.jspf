@@ -11,6 +11,15 @@
 		<p class="w3-small w3-margin-0">
 		<s:if test="description == null || description.isEmpty()">This author hasn't provided a bio yet.</s:if><s:else><s:property value="description" /></s:else>
 		</p> 
+		
+		<p class="w3-small w3-text-theme w3-padding-top">
+			<span class="icon-author w3-medium w3-text-theme w3-padding-square" title="Title"></span>
+			<span title="This person is an <s:property value="role.name" />" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="role.name" /></span>
+					
+			<span class="icon-time w3-medium w3-text-theme w3-padding-square" title="Date Joined"></span>
+			<span title="Date Joined" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="createDateReadable" /></span>
+		</p>
+		
 		</div>
 	</div>
 </div>

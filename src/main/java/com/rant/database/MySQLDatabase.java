@@ -1,10 +1,5 @@
 package com.rant.database;
 
-import com.rant.config.Application;
-import com.rant.model.Author;
-import com.rant.model.Database;
-import com.rant.model.Post;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import com.rant.config.Application;
+import com.rant.model.Author;
+import com.rant.model.Database;
+import com.rant.model.Post;
+import com.rant.model.Role;
 
 public class MySQLDatabase extends DatabaseSource {
 
@@ -156,7 +157,7 @@ public class MySQLDatabase extends DatabaseSource {
             // save fields into database
             pt = conn.prepareStatement(
                     "insert into posts (user_id,title,uri_name,publish_date,is_visible,is_featured,category,thumbnail,"
-                    + "banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+                            + "banner,banner_caption,description,html_content) values (?,?,?,?,?,?,?,?,?,?,?,?)");
             pt.setInt(1, post.getAuthor().getId());
             pt.setString(2, post.getTitle());
             pt.setString(3, post.getUriName());
@@ -346,11 +347,11 @@ public class MySQLDatabase extends DatabaseSource {
         Connection conn = null;
         PreparedStatement pt = null;
         ResultSet rs = null;
-        try {
-            String query = "select * from users where uri_name = ?";
+        try {            
+            String query = "select u.*, r.name as 'name2', r.description as 'desc2', r.* from users u inner join roles r on r.role_id = u.role where u.uri_name = ?";
 
             if (!includeHidden) {
-                query += " and role <> 3";
+                query += " and r.is_public <> 0 ";
             }
 
             conn = getConnection();
@@ -371,7 +372,35 @@ public class MySQLDatabase extends DatabaseSource {
                 author.setModifyDate(rs.getDate("modify_date"));
                 author.setLastLoginDate(rs.getDate("last_login_date"));
                 author.setEmail(rs.getString("email"));
-                author.setRole(rs.getInt("role"));
+                
+                // get role properties
+                Role role = new Role(rs.getInt("role"));
+                role.setName(rs.getString("name2"));
+                role.setDescription(rs.getString("desc2"));
+                role.setPublic(rs.getBoolean("is_public"));
+                role.setPostsCreate(rs.getBoolean("posts_create"));
+                role.setPostsEdit(rs.getBoolean("posts_edit_own"));
+                role.setPostsEditOthers(rs.getBoolean("posts_edit_others"));
+                role.setPostsSeeHidden(rs.getBoolean("posts_see_hidden"));
+                role.setPostsDelete(rs.getBoolean("posts_delete"));
+                role.setUsersCreate(rs.getBoolean("users_create"));
+                role.setUsersEdit(rs.getBoolean("users_edit_own"));
+                role.setUsersEditOthers(rs.getBoolean("users_edit_others"));
+                role.setUsersDelete(rs.getBoolean("users_delete"));
+                role.setRolesCreate(rs.getBoolean("roles_create"));
+                role.setRolesEdit(rs.getBoolean("roles_edit"));
+                role.setRolesDelete(rs.getBoolean("roles_delete"));
+                role.setPagesCreate(rs.getBoolean("pages_create"));
+                role.setPagesEdit(rs.getBoolean("pages_edit"));
+                role.setPagesDelete(rs.getBoolean("pages_delete"));
+                role.setCommentsCreate(rs.getBoolean("comments_create"));
+                role.setCommentsEdit(rs.getBoolean("comments_edit_own"));
+                role.setCommentsEditOthers(rs.getBoolean("comments_edit_others"));
+                role.setCommentsDelete(rs.getBoolean("comments_delete"));
+                role.setSettingsCreate(rs.getBoolean("settings_create"));
+                role.setSettingsEdit(rs.getBoolean("settings_edit"));
+                role.setSettingsDelete(rs.getBoolean("settings_delete"));
+                author.setRole(role);
             }
 
         } catch (Exception e) {
@@ -568,8 +597,7 @@ public class MySQLDatabase extends DatabaseSource {
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select t.tag_name, COUNT(*) as count "
-                    + "from tags t "
+            String query = "select t.tag_name, COUNT(*) as count " + "from tags t "
                     + "inner join posts p on t.post_id = p.post_id where p.is_visible <> 0 "
                     + "group by t.tag_name order by COUNT(*) desc, t.tag_name";
             conn = getConnection();
@@ -677,7 +705,7 @@ public class MySQLDatabase extends DatabaseSource {
                 // get post's author
                 pt = conn.prepareStatement(
                         "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, "
-                        + "a.create_date, a.modify_date from users a where a.user_id = ?");
+                                + "a.create_date, a.modify_date from users a where a.user_id = ?");
                 pt.setInt(1, p.getAuthor().getId());
                 rs = pt.executeQuery();
 
@@ -780,7 +808,7 @@ public class MySQLDatabase extends DatabaseSource {
                 // get post's author
                 pt = conn.prepareStatement(
                         "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, "
-                        + "a.create_date, a.modify_date from users a where a.user_id = ?");
+                                + "a.create_date, a.modify_date from users a where a.user_id = ?");
                 pt.setInt(1, p.getAuthor().getId());
                 rs = pt.executeQuery();
 
@@ -884,7 +912,7 @@ public class MySQLDatabase extends DatabaseSource {
                 // get post's author
                 pt = conn.prepareStatement(
                         "select a.user_id, a.name, a.uri_name, a.thumbnail, a.description, "
-                        + "a.create_date, a.modify_date from users a where a.user_id = ?");
+                                + "a.create_date, a.modify_date from users a where a.user_id = ?");
                 pt.setInt(1, p.getAuthor().getId());
                 rs = pt.executeQuery();
 
@@ -1037,13 +1065,13 @@ public class MySQLDatabase extends DatabaseSource {
         ResultSet rs = null;
         try {
             int offset = (page - 1) * limit;
-            String query = "select * from users a ";
+            String query = "select u.*, r.name as 'name2', r.description as 'desc2', r.* from users u inner join roles r on r.role_id = u.role ";
 
             if (!includeAdmins) {
-                query += "where role <> 3 ";
+                query += "where r.is_public <> 0 ";
             }
 
-            query += "order by a.create_date desc limit " + limit + " offset " + offset;
+            query += "order by u.create_date desc limit " + limit + " offset " + offset;
 
             conn = getConnection();
             pt = conn.prepareStatement(query);
@@ -1063,7 +1091,35 @@ public class MySQLDatabase extends DatabaseSource {
                 author.setModifyDate(rs.getDate("modify_date"));
                 author.setLastLoginDate(rs.getDate("last_login_date"));
                 author.setEmail(rs.getString("email"));
-                author.setRole(rs.getInt("role"));
+
+                // get role properties
+                Role role = new Role(rs.getInt("role"));
+                role.setName(rs.getString("name2"));
+                role.setDescription(rs.getString("desc2"));
+                role.setPublic(rs.getBoolean("is_public"));
+                role.setPostsCreate(rs.getBoolean("posts_create"));
+                role.setPostsEdit(rs.getBoolean("posts_edit_own"));
+                role.setPostsEditOthers(rs.getBoolean("posts_edit_others"));
+                role.setPostsSeeHidden(rs.getBoolean("posts_see_hidden"));
+                role.setPostsDelete(rs.getBoolean("posts_delete"));
+                role.setUsersCreate(rs.getBoolean("users_create"));
+                role.setUsersEdit(rs.getBoolean("users_edit_own"));
+                role.setUsersEditOthers(rs.getBoolean("users_edit_others"));
+                role.setUsersDelete(rs.getBoolean("users_delete"));
+                role.setRolesCreate(rs.getBoolean("roles_create"));
+                role.setRolesEdit(rs.getBoolean("roles_edit"));
+                role.setRolesDelete(rs.getBoolean("roles_delete"));
+                role.setPagesCreate(rs.getBoolean("pages_create"));
+                role.setPagesEdit(rs.getBoolean("pages_edit"));
+                role.setPagesDelete(rs.getBoolean("pages_delete"));
+                role.setCommentsCreate(rs.getBoolean("comments_create"));
+                role.setCommentsEdit(rs.getBoolean("comments_edit_own"));
+                role.setCommentsEditOthers(rs.getBoolean("comments_edit_others"));
+                role.setCommentsDelete(rs.getBoolean("comments_delete"));
+                role.setSettingsCreate(rs.getBoolean("settings_create"));
+                role.setSettingsEdit(rs.getBoolean("settings_edit"));
+                role.setSettingsDelete(rs.getBoolean("settings_delete"));
+                author.setRole(role);
 
                 // add to results list
                 authors.add(author);
@@ -1086,7 +1142,8 @@ public class MySQLDatabase extends DatabaseSource {
         ResultSet rs = null;
         try {
             conn = getConnection();
-            pt = conn.prepareStatement("select * from users where username = ?");
+            pt = conn.prepareStatement(
+                    "select u.*, r.name as 'name2', r.description as 'desc2', r.* from users u inner join roles r on r.role_id = u.role where u.username = ?");
             pt.setString(1, username);
 
             // get the author properties
@@ -1104,7 +1161,35 @@ public class MySQLDatabase extends DatabaseSource {
                 user.setModifyDate(rs.getDate("modify_date"));
                 user.setLastLoginDate(rs.getDate("last_login_date"));
                 user.setEmail(rs.getString("email"));
-                user.setRole(rs.getInt("role"));
+
+                // get role properties
+                Role role = new Role(rs.getInt("role"));
+                role.setName(rs.getString("name2"));
+                role.setDescription(rs.getString("desc2"));
+                role.setPublic(rs.getBoolean("is_public"));
+                role.setPostsCreate(rs.getBoolean("posts_create"));
+                role.setPostsEdit(rs.getBoolean("posts_edit_own"));
+                role.setPostsEditOthers(rs.getBoolean("posts_edit_others"));
+                role.setPostsSeeHidden(rs.getBoolean("posts_see_hidden"));
+                role.setPostsDelete(rs.getBoolean("posts_delete"));
+                role.setUsersCreate(rs.getBoolean("users_create"));
+                role.setUsersEdit(rs.getBoolean("users_edit_own"));
+                role.setUsersEditOthers(rs.getBoolean("users_edit_others"));
+                role.setUsersDelete(rs.getBoolean("users_delete"));
+                role.setRolesCreate(rs.getBoolean("roles_create"));
+                role.setRolesEdit(rs.getBoolean("roles_edit"));
+                role.setRolesDelete(rs.getBoolean("roles_delete"));
+                role.setPagesCreate(rs.getBoolean("pages_create"));
+                role.setPagesEdit(rs.getBoolean("pages_edit"));
+                role.setPagesDelete(rs.getBoolean("pages_delete"));
+                role.setCommentsCreate(rs.getBoolean("comments_create"));
+                role.setCommentsEdit(rs.getBoolean("comments_edit_own"));
+                role.setCommentsEditOthers(rs.getBoolean("comments_edit_others"));
+                role.setCommentsDelete(rs.getBoolean("comments_delete"));
+                role.setSettingsCreate(rs.getBoolean("settings_create"));
+                role.setSettingsEdit(rs.getBoolean("settings_edit"));
+                role.setSettingsDelete(rs.getBoolean("settings_delete"));
+                user.setRole(role);
             }
             close(rs, pt, null);
 
@@ -1148,7 +1233,7 @@ public class MySQLDatabase extends DatabaseSource {
             pt.setString(2, user.getName());
             pt.setString(3, user.getUriName());
             pt.setString(4, user.getEmail());
-            pt.setInt(5, user.getRole());
+            pt.setInt(5, user.getRole().getId());
             pt.setString(6, user.getThumbnail());
 
             if (pt.execute()) {
@@ -1180,7 +1265,8 @@ public class MySQLDatabase extends DatabaseSource {
             pt.close();
 
             // get new user
-            pt = conn.prepareStatement("select * from users where user_id = ?");
+            pt = conn.prepareStatement(
+                    "select u.*, r.name as 'name2', r.description as 'desc2', r.* from users u inner join roles r on r.role_id = u.role where u.user_id = ?");
             pt.setInt(1, user.getId());
             rs = pt.executeQuery();
             if (rs.first()) {
@@ -1195,7 +1281,35 @@ public class MySQLDatabase extends DatabaseSource {
                 user.setModifyDate(rs.getDate("modify_date"));
                 user.setLastLoginDate(rs.getDate("last_login_date"));
                 user.setEmail(rs.getString("email"));
-                user.setRole(rs.getInt("role"));
+
+                // get role properties
+                Role role = new Role(rs.getInt("role"));
+                role.setName(rs.getString("name2"));
+                role.setDescription(rs.getString("desc2"));
+                role.setPublic(rs.getBoolean("is_public"));
+                role.setPostsCreate(rs.getBoolean("posts_create"));
+                role.setPostsEdit(rs.getBoolean("posts_edit_own"));
+                role.setPostsEditOthers(rs.getBoolean("posts_edit_others"));
+                role.setPostsSeeHidden(rs.getBoolean("posts_see_hidden"));
+                role.setPostsDelete(rs.getBoolean("posts_delete"));
+                role.setUsersCreate(rs.getBoolean("users_create"));
+                role.setUsersEdit(rs.getBoolean("users_edit_own"));
+                role.setUsersEditOthers(rs.getBoolean("users_edit_others"));
+                role.setUsersDelete(rs.getBoolean("users_delete"));
+                role.setRolesCreate(rs.getBoolean("roles_create"));
+                role.setRolesEdit(rs.getBoolean("roles_edit"));
+                role.setRolesDelete(rs.getBoolean("roles_delete"));
+                role.setPagesCreate(rs.getBoolean("pages_create"));
+                role.setPagesEdit(rs.getBoolean("pages_edit"));
+                role.setPagesDelete(rs.getBoolean("pages_delete"));
+                role.setCommentsCreate(rs.getBoolean("comments_create"));
+                role.setCommentsEdit(rs.getBoolean("comments_edit_own"));
+                role.setCommentsEditOthers(rs.getBoolean("comments_edit_others"));
+                role.setCommentsDelete(rs.getBoolean("comments_delete"));
+                role.setSettingsCreate(rs.getBoolean("settings_create"));
+                role.setSettingsEdit(rs.getBoolean("settings_edit"));
+                role.setSettingsDelete(rs.getBoolean("settings_delete"));
+                user.setRole(role);
             }
             rs.close();
             pt.close();

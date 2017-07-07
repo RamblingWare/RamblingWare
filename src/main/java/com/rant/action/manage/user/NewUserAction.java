@@ -13,6 +13,7 @@ import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.Author;
 import com.rant.model.AuthorAware;
+import com.rant.model.Role;
 
 /**
  * New User action class
@@ -35,12 +36,19 @@ public class NewUserAction extends ActionSupport
     private String name;
     private String password;
     private String password2;
-    private String role;
+    private int role;
 
     @Override
     public String execute() {
 
         System.out.println("/manage/newuser Requested");
+        
+        if(!user.getRole().isUsersCreate()) {
+            addActionError("You do not have permission to add authors.");
+            addActionMessage("Only certain roles can add authors. Contact your sysadmin or manager.");
+            System.out.println("User " + user.getUsername() + " tried opened new user. Does not have permission.");
+            return ERROR;
+        }
 
         if (servletRequest.getParameter("submitForm") != null) {
             // submitted new user!
@@ -99,16 +107,9 @@ public class NewUserAction extends ActionSupport
                     user.getUsername() + " tried to create user with non-matching passwords.");
             return ERROR;
         }
-
-        if (role == null || role.trim().isEmpty()) {
+        if (role <= 0) {
             addActionError("Role was empty. Please fill out all fields before saving.");
             System.out.println(user.getUsername() + " failed to create user. Role was empty.");
-            return ERROR;
-        }
-        if (!role.equalsIgnoreCase("author") && !role.equalsIgnoreCase("editor")
-                && !role.equalsIgnoreCase("owner") && !role.equalsIgnoreCase("admin")) {
-            addActionError("Role was invalid. Please fill out all fields before saving.");
-            System.out.println(user.getUsername() + " failed to create user. Role was invalid.");
             return ERROR;
         }
 
@@ -135,24 +136,7 @@ public class NewUserAction extends ActionSupport
             newUser.setUriName(uriName);
             newUser.setPassword(password);
             newUser.setThumbnail("/img/placeholder-200.png");
-
-            switch (role) {
-                case "author" :
-                    newUser.setRole(0);
-                    break;
-                case "editor" :
-                    newUser.setRole(1);
-                    break;
-                case "owner" :
-                    newUser.setRole(2);
-                    break;
-                case "admin" :
-                    newUser.setRole(3);
-                    break;
-                default :
-                    newUser.setRole(0);
-                    break;
-            }
+            newUser.setRole(new Role(role));
 
             // insert into database
             newUser = Application.getDatabaseSource().newUser(newUser);
@@ -243,11 +227,11 @@ public class NewUserAction extends ActionSupport
         this.password2 = password2;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

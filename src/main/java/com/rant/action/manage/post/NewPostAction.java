@@ -54,6 +54,13 @@ public class NewPostAction extends ActionSupport
 
     @Override
     public String execute() {
+        
+        if(!user.getRole().isPostsCreate()) {
+            addActionError("You do not have permission to create posts.");
+            addActionMessage("Only certain roles can create blog posts. Contact your sysadmin or manager.");
+            System.out.println("User " + user.getUsername() + " tried opened new post. Does not have permission.");
+            return ERROR;
+        }
 
         // get used variables
         usedTags = Application.getDatabaseSource().getArchiveTags();

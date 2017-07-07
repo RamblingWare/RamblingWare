@@ -94,6 +94,20 @@ public class EditPostAction extends ActionSupport
 
                 // was post found
                 if (post != null) {
+                    
+                    if(post.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEdit()) {
+                        addActionError("You do not have permission to edit your post.");
+                        addActionMessage("Only certain roles can edit their posts. Contact your sysadmin or manager.");
+                        System.out.println("User " + user.getUsername() + " tried to edit their post ("+uri+"). Does not have permission.");
+                        return ERROR;
+                    }
+                    if(!post.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEditOthers()) {
+                        addActionError("You do not have permission to edit other posts.");
+                        addActionMessage("Only certain roles can edit other posts. Contact your sysadmin or manager.");
+                        System.out.println("User " + user.getUsername() + " tried to edit a post ("+uri+"). Does not have permission.");
+                        return ERROR;
+                    }
+                    
                     // remove post URI from list
                     usedUris.remove(uri);
 
@@ -125,6 +139,7 @@ public class EditPostAction extends ActionSupport
      * @return SUCCESS if saved, ERROR if error
      */
     private String editPost() {
+        
         // Validate each field
         if (title == null || title.trim().isEmpty()) {
             addActionError("Title was empty. Please fill out all fields before saving.");
@@ -179,12 +194,25 @@ public class EditPostAction extends ActionSupport
                 System.out.println("URI was not unique.");
                 return ERROR;
             }
+            
+            if(existingPost.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEdit()) {
+                addActionError("You do not have permission to edit your post.");
+                addActionMessage("Only certain roles can edit their posts. Contact your sysadmin or manager.");
+                System.out.println("User " + user.getUsername() + " tried to edit their post ("+uri+"). Does not have permission.");
+                return ERROR;
+            }
+            if(!existingPost.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEditOthers()) {
+                addActionError("You do not have permission to edit other posts.");
+                addActionMessage("Only certain roles can edit other posts. Contact your sysadmin or manager.");
+                System.out.println("User " + user.getUsername() + " tried to edit a post ("+uri+"). Does not have permission.");
+                return ERROR;
+            }
 
             // save fields into object
             post = new Post(id);
             post.setUriName(uriName);
             post.setTitle(title);
-            post.setAuthor(user);
+            post.setAuthor(existingPost.getAuthor());
             Calendar cal = Calendar.getInstance();
             cal.setTime(Utils.convertStringToDate(publishDate));
             post.setPublishDate(new java.sql.Date(cal.getTimeInMillis()));
@@ -238,8 +266,18 @@ public class EditPostAction extends ActionSupport
      * @return SUCCESS if deleted, ERROR if error
      */
     private String deletePost() {
+        
         // they've requested to delete a post
         try {
+            Post existingPost = Application.getDatabaseSource().getPost(uri, true);
+            
+            if(!existingPost.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsDelete()) {
+                addActionError("You do not have permission to delete other posts.");
+                addActionMessage("Only certain roles can delete other posts. Contact your sysadmin or manager.");
+                System.out.println("User " + user.getUsername() + " tried to delete a post ("+uri+"). Does not have permission.");
+                return ERROR;
+            }
+            
             post = new Post(id);
             if (Application.getDatabaseSource().deletePost(post)) {
                 // Success
