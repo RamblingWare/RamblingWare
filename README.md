@@ -12,19 +12,18 @@ Live Demo: https://www.ramblingware.com
 
 ## Features
 
- *  Multi-Author Blog system with roles (Author,Editor,Owner,Admin)
+ *  Multi-Author blog system with roles (Author,Editor,Owner,Admin)
  *  Social Media ready with OpenGraph API and Twitter API
- *  Simple Interface, Responsive Design, Mobile Friendly
- *  Tagging, Categories and Archive Years
- *  JavaScript independent (Minimal usage, not required)
- *  Easy WYSIWYG editor for creating posts
- *  2FA security and encrypted passwords for logins
+ *  Simple interface, responsive design, mobile friendly
+ *  Tagging, categories, featured, and archives
+ *  Easy html editor for creating posts
+ *  2FA security and encrypted passwords for authors
 
 ## Usage
 
 Feel free to fork, clone, and reused any or all of this code. Be sure to include the license.
 
-Right now this code has lots of 'ramblingware' in it. I plan to make a version that is easily modifiable for "new" blogs. Stay tuned. But if you'd like to try out this exact version, feel free to do so.
+Right now this code has lots of 'ramblingware' in it. I plan to make a self-installing version that is easily modifiable for "new" blogs. Stay tuned. But if you'd like to try this out now, feel free to do so.
 
 ### Manually Deploy
 
@@ -43,20 +42,20 @@ Load this app onto on a Cloud Platform of your choice:
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/RamblingWare/Rant)
 [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/RamblingWare/Rant)
 
-Some of these might not work at this time.
+Sorry, Some of these might not work at this time.
 
 ## Technologies Used
 
- *  [Java EE](https://www.java.com/) Programming Language
- *  [Apache Struts 2](https://struts.apache.org/) Framework
- *  [MySQL 5.7](https://www.mysql.com/) Database
- *  [W3.CSS](http://www.w3schools.com/css/) Styling
- *  Search by [DuckDuckGo](https://duckduckgo.com)
- *  WYSIWYG editor by [CKEditor](http://ckeditor.com/download)
+ *  [Java EE 1.8](https://www.java.com/) Programming Language
+ *  [Apache Struts 2.5](https://struts.apache.org/) Framework
+ *  [MySQL 5.7](https://www.mysql.com/) Database --> Soon to be replaced by [CouchDB](https://couchdb.apache.org/).
+ *  [W3.CSS](http://www.w3schools.com/css/) Styling --> Planning to use theme templates.
+ *  Search by [DuckDuckGo](https://duckduckgo.com) --> Changeable in properties.
+ *  WYSIWYG editor by [CKEditor](http://ckeditor.com/download) --> Planning markdown editor instead of html.
  *  Code syntax highlighting by [Highlight.js](https://highlightjs.org/)
  *  Webfont Icons by [Icomoon](https://icomoon.io/)
  *  Secure Password Hashing with [amdelamar/jhash](https://github.com/amdelamar/jhash)
- *  TwoFactor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
+ *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
  *  UTF-8 encoded and HTML5 / CSS3 verified
 
 ## License
