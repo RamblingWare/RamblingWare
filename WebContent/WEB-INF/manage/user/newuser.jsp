@@ -63,18 +63,22 @@ function makeUri() {
 					</p>
 					<p>
 						<label class="w3-text-grey-light w3-large">Select Role:&nbsp;<span class="w3-text-red">*</span></label><br/>
-						
-						<input type="radio" name="role" id="role1" class="w3-check" checked="checked" value="1" />
-						<label class="w3-validate w3-large" for="role1"><span class="w3-tag w3-round w3-pale-green"><span class="icon-author w3-large"></span>&nbsp;Author</span>&nbsp;<span class="w3-small w3-text-grey quote">Authors can create/edit their own posts. Edit their Profile page.</span></label>
-						<br/>
-						<input type="radio" name="role" id="role2" class="w3-check" value="2" />
-						<label class="w3-validate w3-large" for="role2"><span class="w3-tag w3-round w3-pale-blue"><span class="icon-search w3-large"></span>&nbsp;Editor</span>&nbsp;<span class="w3-small w3-text-grey quote">Editors can create/edit any post. See all hidden posts. Edit any Profile page.</span></label>
-						<br/>
-						<input type="radio" name="role" id="role3" class="w3-check" value="3" />
-						<label class="w3-validate w3-large" for="role3"><span class="w3-tag w3-round w3-pale-yellow"><span class="icon-star w3-large"></span>&nbsp;Owner</span>&nbsp;<span class="w3-small w3-text-grey quote">Owners can create/edit any post. Edit their own Profile page. Add/Delete users.</span></label>
-						<br/>
-						<input type="radio" name="role" id="role4" class="w3-check" value="4" />
-						<label class="w3-validate w3-large" for="role4"><span class="w3-tag w3-round w3-theme-l4"><span class="icon-eye w3-large"></span>&nbsp;Admin</span>&nbsp;<span class="w3-small w3-text-grey quote">Admins can edit any post. See all hidden posts. Edit any profile pages. No profile page. Add/Delete users.</span></label>
+						<s:iterator value="roles" status="r">
+							<input type="radio" name="role" id="role<s:property value="#r.index" />" class="w3-check" value="<s:property value="id" />" />
+							<s:if test="id % 4 == 0">
+								<label class="w3-validate w3-large" for="role<s:property value="#r.index" />"><span class="w3-tag w3-round w3-pale-red"><span class="icon-cog w3-large"></span>&nbsp;<s:property value="name" /></span>&nbsp;<span class="w3-small w3-text-grey quote"><s:property value="description" /></span></label>
+							</s:if>
+							<s:elseif test="id % 3 == 0">
+								<label class="w3-validate w3-large" for="role<s:property value="#r.index" />"><span class="w3-tag w3-round w3-pale-yellow"><span class="icon-star w3-large"></span>&nbsp;<s:property value="name" /></span>&nbsp;<span class="w3-small w3-text-grey quote"><s:property value="description" /></span></label>
+							</s:elseif>
+							<s:elseif test="id % 2 == 0">
+								<label class="w3-validate w3-large" for="role<s:property value="#r.index" />"><span class="w3-tag w3-round w3-pale-blue"><span class="icon-quill w3-large"></span>&nbsp;<s:property value="name" /></span>&nbsp;<span class="w3-small w3-text-grey quote"><s:property value="description" /></span></label>
+							</s:elseif>
+							<s:elseif test="id % 1 == 0">
+								<label class="w3-validate w3-large" for="role<s:property value="#r.index" />"><span class="w3-tag w3-round w3-pale-green"><span class="icon-author w3-large"></span>&nbsp;<s:property value="name" /></span>&nbsp;<span class="w3-small w3-text-grey quote"><s:property value="description" /></span></label>
+							</s:elseif>
+							<br/>
+						</s:iterator>
 					</p>
 					
 					<hr />

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.rant.model.Author;
 import com.rant.model.Database;
 import com.rant.model.Post;
+import com.rant.model.Role;
 
 public class CloudantDatabase extends DatabaseSource {
 
@@ -143,5 +144,11 @@ public class CloudantDatabase extends DatabaseSource {
     public boolean incrementPageViews(Post post, boolean sessionView) {
         // Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public ArrayList<Role> getRoles() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.rant.model.Author;
 import com.rant.model.Database;
 import com.rant.model.Post;
+import com.rant.model.Role;
 
 /**
  * A blueprint to communicate to a Database Service.
@@ -74,5 +75,7 @@ public abstract class DatabaseSource {
     public abstract boolean loginUser(Author user);
 
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
+    
+    public abstract ArrayList<Role> getRoles();
     
 }

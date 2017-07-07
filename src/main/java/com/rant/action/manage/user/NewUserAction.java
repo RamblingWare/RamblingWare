@@ -1,5 +1,7 @@
 package com.rant.action.manage.user;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +31,7 @@ public class NewUserAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
     private Author user;
+    private ArrayList<Role> roles;
 
     private String username;
     private String uriName;
@@ -55,6 +58,18 @@ public class NewUserAction extends ActionSupport
             return newUser();
         }
 
+        // get roles        
+        try {
+            roles = Application.getDatabaseSource().getRoles();
+            
+            servletRequest.setAttribute("roles", roles);
+            
+        } catch (Exception e) {
+            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            e.printStackTrace();
+            return ERROR;
+        }
+        
         // they opened the form
         System.out.println("User " + user.getUsername() + " opened new user.");
         return INPUT;
@@ -233,6 +248,14 @@ public class NewUserAction extends ActionSupport
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public ArrayList<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(ArrayList<Role> roles) {
+        this.roles = roles;
     }
 
 }

@@ -53,7 +53,18 @@
 						</td>
 							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
 						<td>
-							<span class="w3-tag w3-round w3-pale-green" title="<s:property value="role.description" />"><span class="icon-author"></span>&nbsp;<s:property value="role.name" /></span>
+							<s:if test="role.id % 4 == 0">
+								<span class="w3-tag w3-round w3-pale-red" title="<s:property value="role.description" />"><span class="icon-cog"></span>&nbsp;<s:property value="role.name" /></span>
+							</s:if>
+							<s:elseif test="role.id % 3 == 0">
+								<span class="w3-tag w3-round w3-pale-yellow" title="<s:property value="role.description" />"><span class="icon-star"></span>&nbsp;<s:property value="role.name" /></span>
+							</s:elseif>
+							<s:elseif test="role.id % 2 == 0">
+								<span class="w3-tag w3-round w3-pale-blue" title="<s:property value="role.description" />"><span class="icon-quill"></span>&nbsp;<s:property value="role.name" /></span>
+							</s:elseif>
+							<s:elseif test="role.id % 1 == 0">
+								<span class="w3-tag w3-round w3-pale-green" title="<s:property value="role.description" />"><span class="icon-author"></span>&nbsp;<s:property value="role.name" /></span>
+							</s:elseif>
 						</td>
 						<td><s:property value="createDateReadable" /></td>
 						<td><s:property value="lastLoginDateReadable" /></td>

@@ -1488,4 +1488,61 @@ public class MySQLDatabase extends DatabaseSource {
         }
     }
 
+    @Override
+    public ArrayList<Role> getRoles() {
+        ArrayList<Role> roles = new ArrayList<Role>();
+        Connection conn = null;
+        PreparedStatement pt = null;
+        ResultSet rs = null;
+        try {
+            String query = "select r.* from roles r order by create_date desc";
+
+            conn = getConnection();
+            pt = conn.prepareStatement(query);
+            rs = pt.executeQuery();
+            while (rs.next()) {
+
+                // get role properties
+                Role role = new Role(rs.getInt("role_id"));
+                role.setName(rs.getString("name"));
+                role.setDescription(rs.getString("description"));
+                role.setCreateDate(rs.getDate("create_date"));
+                role.setModifyDate(rs.getDate("modify_date"));
+                role.setPublic(rs.getBoolean("is_public"));
+                role.setPostsCreate(rs.getBoolean("posts_create"));
+                role.setPostsEdit(rs.getBoolean("posts_edit_own"));
+                role.setPostsEditOthers(rs.getBoolean("posts_edit_others"));
+                role.setPostsSeeHidden(rs.getBoolean("posts_see_hidden"));
+                role.setPostsDelete(rs.getBoolean("posts_delete"));
+                role.setUsersCreate(rs.getBoolean("users_create"));
+                role.setUsersEdit(rs.getBoolean("users_edit_own"));
+                role.setUsersEditOthers(rs.getBoolean("users_edit_others"));
+                role.setUsersDelete(rs.getBoolean("users_delete"));
+                role.setRolesCreate(rs.getBoolean("roles_create"));
+                role.setRolesEdit(rs.getBoolean("roles_edit"));
+                role.setRolesDelete(rs.getBoolean("roles_delete"));
+                role.setPagesCreate(rs.getBoolean("pages_create"));
+                role.setPagesEdit(rs.getBoolean("pages_edit"));
+                role.setPagesDelete(rs.getBoolean("pages_delete"));
+                role.setCommentsCreate(rs.getBoolean("comments_create"));
+                role.setCommentsEdit(rs.getBoolean("comments_edit_own"));
+                role.setCommentsEditOthers(rs.getBoolean("comments_edit_others"));
+                role.setCommentsDelete(rs.getBoolean("comments_delete"));
+                role.setSettingsCreate(rs.getBoolean("settings_create"));
+                role.setSettingsEdit(rs.getBoolean("settings_edit"));
+                role.setSettingsDelete(rs.getBoolean("settings_delete"));
+
+                // add to results list
+                roles.add(role);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(rs, pt, conn);
+        }
+
+        return roles;
+    }
+
 }
