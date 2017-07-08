@@ -17,7 +17,7 @@
 		
 			<%@include file="/WEB-INF/fragment/tabs/tabs.jspf"%>
 		
-			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l10 w3-container w3-padding">
 				
 				<h1>View/Edit Posts</h1>
 				
@@ -41,6 +41,7 @@
 						<th><span class="icon-tag w3-large w3-text-theme w3-padding-square" title="Tags"></span>Tags</th>
 						<th><span class="icon-author w3-large w3-text-theme w3-padding-square" title="Author"></span>Author</th>
 						<th><span class="icon-time w3-large w3-text-theme w3-padding-square" title="Publish Date"></span>Published</th>
+						<th><span class="icon-eye w3-large w3-text-theme w3-padding-square" title="Views"></span>Views</th>
 					</tr>
 					
 					<s:iterator value="posts" status="r">
@@ -49,14 +50,14 @@
 							<a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
 						<td>
 						<img src="<s:property value="thumbnail" />" height="27px" width="48px" style="vertical-align: middle;" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'" />
-						<s:if test="isVisible() == false">
+						<s:if test="visible == false">
 							<a href="/manage/viewpost/<s:property value="uriName" />" class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
 							&nbsp;<span class="icon-eye w3-large w3-text-red w3-padding-square" title="This post is hidden from public."></span>
 						</s:if>
 						<s:else>
 							<a href="/blog/<s:property value="uriName" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
 						</s:else>
-						<s:if test="isFeatured() == true">
+						<s:if test="featured == true">
 							&nbsp;<span class="icon-star w3-large w3-text-yellow w3-padding-square" title="This is a featured post."></span>
 						</s:if>
 						</td>
@@ -68,6 +69,9 @@
 						</s:if></td>
 						<td><a class="w3-text-black" href="/author/<s:property value="author.uriName" />"><s:property value="author.name" /></a></td>
 						<td><a class="w3-text-black" href="/year/<s:property value="publishYear" />" title="<s:property value="publishDate" />"><s:property value="publishDateReadable" /></a></td>
+						<td><span class="w3-text-black" title="Views (<s:property value="view.count" />) / Actual (<s:property value="view.session" />)">
+						<s:property value="view.countReadable" /> (<s:property value="view.sessionReadable" />)
+						</span></td>
 					</s:iterator>
 					</table>
 					

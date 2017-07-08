@@ -28,10 +28,11 @@
 						Something went wrong because no posts were found. Please try again later?</p>
 				</s:if>
 				<s:else>
+					<div class="w3-row">
 					<s:iterator value="posts" status="r">
-						<%@include file="/WEB-INF/blog/card-post.jspf" %>
+						<div class="w3-col sm12 m6 l4 w3-padding"><%@include file="/WEB-INF/blog/block-post.jspf" %></div>
 					</s:iterator>
-					
+					</div>
 					<%@include file="/WEB-INF/fragment/pagination.jspf" %>				
 				</s:else>
 				</s:if>

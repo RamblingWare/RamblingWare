@@ -19,8 +19,6 @@ public class Post {
     private String uriName;
     private boolean featured;
     private boolean visible;
-    private long rawViews;
-    private long sessionViews;
 
     private String category;
     private String thumbnail;
@@ -35,6 +33,7 @@ public class Post {
 
     private Author author;
     private ArrayList<String> tags;
+    private View view;
 
     public Post(int id) {
         this.id = id;
@@ -78,30 +77,6 @@ public class Post {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-    public long getRawViews() {
-        return rawViews;
-    }
-    
-    public String getRawViewsReadable() {
-        return Utils.formatLong(rawViews);
-    }
-
-    public void setRawViews(long rawViews) {
-        this.rawViews = rawViews;
-    }
-
-    public long getSessionViews() {
-        return sessionViews;
-    }
-    
-    public String getSessionViewsReadable() {
-        return Utils.formatLong(sessionViews);
-    }
-
-    public void setSessionViews(long sessionViews) {
-        this.sessionViews = sessionViews;
     }
 
     public String getCategory() {
@@ -208,6 +183,14 @@ public class Post {
 
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 
 }

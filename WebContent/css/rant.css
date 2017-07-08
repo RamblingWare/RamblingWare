@@ -381,11 +381,6 @@ footer h2 {
 	text-align: center;
 	background: transparent;
 }
-.page {
-	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
-}
 #page-content {
 	word-wrap: break-word;
 }
@@ -394,6 +389,16 @@ footer h2 {
 }
 #page-content a:hover {
     color: #4f4fbb;
+}
+.page-large {
+	max-width: 1600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.page {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 }
 .page-half {
 	max-width: 800px;

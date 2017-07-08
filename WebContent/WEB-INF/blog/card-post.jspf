@@ -2,6 +2,9 @@
 <div class="w3-container w3-round-large w3-border w3-card w3-hover-shadow w3-padding-0 w3-margin-bottom">				
 <div class="w3-container w3-round-large w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-l4" style="overflow: hidden;">
 	<a href="/blog/<s:property value="uriName" />">
+<s:if test="featured == true">
+	<span class="icon-star w3-xlarge w3-text-theme w3-hover-text-yellow w3-padding-square" title="This is a featured post." style="position:absolute;"></span>
+</s:if>
 	<img class="thumbnail" src="<s:property value="thumbnail" />" alt="Thumbnail <s:property value="title" />" title="<s:property value="bannerCaption" />" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
 	</a>
 </div>
@@ -32,7 +35,7 @@
 				<a class="w3-text-theme" title="<s:property />" href="/tag/<s:property />"><s:property /></a>&nbsp;
 			</s:iterator>
 		</s:if>
-		<span title="Views (<s:property value="rawViews" />) / Actual (<s:property value="sessionViews" />)"><span class="icon-eye w3-medium w3-text-theme w3-padding-square"></span><span class="w3-text-theme"><s:property value="rawViewsReadable" /></span></span>
+		<span title="Views (<s:property value="view.count" />) / Actual (<s:property value="view.session" />)"><span class="icon-eye w3-medium w3-text-theme w3-padding-square"></span><span class="w3-text-theme"><s:property value="view.countReadable" /></span></span>
 		<span title="Comments (0)"><span class="icon-comments w3-medium w3-text-theme w3-padding-square"></span><a class="w3-text-theme" href="/blog/<s:property value="uriName" />#comments">0</a></span>
 	</p>
 </div>

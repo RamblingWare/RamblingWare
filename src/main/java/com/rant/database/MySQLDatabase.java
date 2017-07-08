@@ -13,6 +13,7 @@ import com.rant.model.Author;
 import com.rant.model.Database;
 import com.rant.model.Post;
 import com.rant.model.Role;
+import com.rant.model.View;
 
 public class MySQLDatabase extends DatabaseSource {
 
@@ -72,10 +73,10 @@ public class MySQLDatabase extends DatabaseSource {
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select p.*, u.name, u.uri_name as 'authorUri', u.description as 'authorDesc',"
-                    + " u.thumbnail as 'authorThumbnail' "
-                    + "from posts p left join users u on p.user_id = u.user_id "
-                    + "where p.uri_name = ?";
+            String query = "select p.*, v.*, u.name, u.uri_name as 'authorUri', u.description as 'authorDesc',"
+                    + " u.thumbnail as 'authorThumbnail' " + "from posts p "
+                    + "left join views v on v.post_id = p.post_id "
+                    + "left join users u on p.user_id = u.user_id " + "where p.uri_name = ?";
 
             if (!includeHidden) {
                 query += " and p.is_visible <> 0";
@@ -123,16 +124,18 @@ public class MySQLDatabase extends DatabaseSource {
                 close(rs, pt, null);
 
                 // get post view count
+                View view = new View(post.getId());
                 pt = conn.prepareStatement("select * from views where post_id = ?");
                 pt.setInt(1, post.getId());
                 rs = pt.executeQuery();
                 if (rs.next()) {
-                    post.setRawViews(rs.getLong("count"));
-                    post.setSessionViews(rs.getLong("session"));
+                    view.setCount(rs.getLong("count"));
+                    view.setSession(rs.getLong("session"));
                 } else {
-                    post.setRawViews(0);
-                    post.setSessionViews(0);
+                    view.setCount(0);
+                    view.setSession(0);
                 }
+                post.setView(view);
             }
 
         } catch (Exception e) {
@@ -347,7 +350,7 @@ public class MySQLDatabase extends DatabaseSource {
         Connection conn = null;
         PreparedStatement pt = null;
         ResultSet rs = null;
-        try {            
+        try {
             String query = "select u.*, r.name as 'name2', r.description as 'desc2', r.* from users u inner join roles r on r.role_id = u.role where u.uri_name = ?";
 
             if (!includeHidden) {
@@ -372,7 +375,7 @@ public class MySQLDatabase extends DatabaseSource {
                 author.setModifyDate(rs.getDate("modify_date"));
                 author.setLastLoginDate(rs.getDate("last_login_date"));
                 author.setEmail(rs.getString("email"));
-                
+
                 // get role properties
                 Role role = new Role(rs.getInt("role"));
                 role.setName(rs.getString("name2"));
@@ -505,7 +508,7 @@ public class MySQLDatabase extends DatabaseSource {
         try {
             String query = "select p.post_id, p.title, p.uri_name, p.publish_date, p.thumbnail, p.description "
                     + "from posts p where p.is_visible <> 0 and p.is_featured <> 0 "
-                    + "order by p.create_date desc limit 2";
+                    + "order by p.publish_date desc limit 2";
             conn = getConnection();
             pt = conn.prepareStatement(query);
             rs = pt.executeQuery();
@@ -539,9 +542,9 @@ public class MySQLDatabase extends DatabaseSource {
         PreparedStatement pt = null;
         ResultSet rs = null;
         try {
-            String query = "select YEAR(create_date) as year, COUNT(*) as count "
-                    + "from posts where is_visible <> 0 group by YEAR(create_date) "
-                    + "order by YEAR(create_date) desc";
+            String query = "select YEAR(publish_date) as year, COUNT(*) as count "
+                    + "from posts where is_visible <> 0 group by YEAR(publish_date) "
+                    + "order by YEAR(publish_date) desc";
             conn = getConnection();
             pt = conn.prepareStatement(query);
             rs = pt.executeQuery();
@@ -659,7 +662,7 @@ public class MySQLDatabase extends DatabaseSource {
                 query += "where is_visible <> 0 ";
             }
 
-            query += "order by p.create_date desc limit " + limit + " offset " + offset;
+            query += "order by p.publish_date desc limit " + limit + " offset " + offset;
 
             conn = getConnection();
             pt = conn.prepareStatement(query);
@@ -725,18 +728,20 @@ public class MySQLDatabase extends DatabaseSource {
                 }
                 close(rs, pt, null);
 
-                // get post's view count
+                // get post view count
+                View view = new View(p.getId());
                 pt = conn.prepareStatement("select * from views where post_id = ?");
                 pt.setInt(1, p.getId());
                 rs = pt.executeQuery();
-
                 if (rs.next()) {
-                    p.setRawViews(rs.getLong("count"));
-                    p.setSessionViews(rs.getLong("session"));
+                    view.setCount(rs.getLong("count"));
+                    view.setSession(rs.getLong("session"));
                 } else {
-                    p.setRawViews(0);
-                    p.setSessionViews(0);
+                    view.setCount(0);
+                    view.setSession(0);
                 }
+                p.setView(view);
+                close(rs, pt, null);
             }
 
         } catch (Exception e) {
@@ -762,7 +767,7 @@ public class MySQLDatabase extends DatabaseSource {
             if (!includeHidden) {
                 query += " and p.is_visible <> 0 ";
             }
-            query += "order by p.create_date desc limit " + limit + " offset " + offset;
+            query += "order by p.publish_date desc limit " + limit + " offset " + offset;
 
             conn = getConnection();
             pt = conn.prepareStatement(query);
@@ -828,18 +833,20 @@ public class MySQLDatabase extends DatabaseSource {
                 }
                 close(rs, pt, null);
 
-                // get post's view count
+                // get post view count
+                View view = new View(p.getId());
                 pt = conn.prepareStatement("select * from views where post_id = ?");
                 pt.setInt(1, p.getId());
                 rs = pt.executeQuery();
-
                 if (rs.next()) {
-                    p.setRawViews(rs.getLong("count"));
-                    p.setSessionViews(rs.getLong("session"));
+                    view.setCount(rs.getLong("count"));
+                    view.setSession(rs.getLong("session"));
                 } else {
-                    p.setRawViews(0);
-                    p.setSessionViews(0);
+                    view.setCount(0);
+                    view.setSession(0);
                 }
+                p.setView(view);
+                close(rs, pt, null);
             }
 
         } catch (Exception e) {
@@ -866,7 +873,7 @@ public class MySQLDatabase extends DatabaseSource {
             if (!includeHidden) {
                 query += " and p.is_visible <> 0 ";
             }
-            query += "order by p.create_date desc limit " + limit + " offset " + offset;
+            query += "order by p.publish_date desc limit " + limit + " offset " + offset;
 
             conn = getConnection();
             pt = conn.prepareStatement(query);
@@ -932,18 +939,20 @@ public class MySQLDatabase extends DatabaseSource {
                 }
                 close(rs, pt, null);
 
-                // get post's view count
+                // get post view count
+                View view = new View(p.getId());
                 pt = conn.prepareStatement("select * from views where post_id = ?");
                 pt.setInt(1, p.getId());
                 rs = pt.executeQuery();
-
                 if (rs.next()) {
-                    p.setRawViews(rs.getLong("count"));
-                    p.setSessionViews(rs.getLong("session"));
+                    view.setCount(rs.getLong("count"));
+                    view.setSession(rs.getLong("session"));
                 } else {
-                    p.setRawViews(0);
-                    p.setSessionViews(0);
+                    view.setCount(0);
+                    view.setSession(0);
                 }
+                p.setView(view);
+                close(rs, pt, null);
             }
 
         } catch (Exception e) {
@@ -968,7 +977,7 @@ public class MySQLDatabase extends DatabaseSource {
             if (!includeHidden) {
                 query += " and p.is_visible <> 0 ";
             }
-            query += "order by p.create_date desc limit " + limit + " offset " + offset;
+            query += "order by p.publish_date desc limit " + limit + " offset " + offset;
 
             conn = getConnection();
             pt = conn.prepareStatement(query);
@@ -1034,18 +1043,20 @@ public class MySQLDatabase extends DatabaseSource {
                 }
                 close(rs, pt, null);
 
-                // get post's view count
+                // get post view count
+                View view = new View(p.getId());
                 pt = conn.prepareStatement("select * from views where post_id = ?");
                 pt.setInt(1, p.getId());
                 rs = pt.executeQuery();
-
                 if (rs.next()) {
-                    p.setRawViews(rs.getLong("count"));
-                    p.setSessionViews(rs.getLong("session"));
+                    view.setCount(rs.getLong("count"));
+                    view.setSession(rs.getLong("session"));
                 } else {
-                    p.setRawViews(0);
-                    p.setSessionViews(0);
+                    view.setCount(0);
+                    view.setSession(0);
                 }
+                p.setView(view);
+                close(rs, pt, null);
             }
 
         } catch (Exception e) {

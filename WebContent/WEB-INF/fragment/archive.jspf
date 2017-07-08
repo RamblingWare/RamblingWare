@@ -4,12 +4,7 @@
 		<s:if test="#session.archiveFeatured != null && !#session.archiveFeatured.isEmpty()">
 			<h3 class="w3-margin-top">Featured</h3>
 			<s:iterator value="#session.archiveFeatured" status="f">
-				<div class="w3-display-container w3-margin-top w3-padding-0 w3-round w3-hover-shadow w3-card w3-center" style="max-height: 350px; overflow: hidden; min-height: 150px;">
-				<a href="/blog/<s:property value="uriName" />" title="<s:property value="description" />">
-					<img alt="Thumbnail" class="w3-margin-0 w3-round w3-padding-0" style="width:100%;" src="<s:property value="thumbnail" />">
-					<span class="w3-small w3-theme-light w3-padding-4 bottomright" style="width: 100%;"><s:property value="title" /></span>
-				</a>
-				</div>
+				<%@include file="/WEB-INF/blog/block-post.jspf" %>
 			</s:iterator>
 		</s:if>
 	</div>

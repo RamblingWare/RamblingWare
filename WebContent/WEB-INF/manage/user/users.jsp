@@ -17,13 +17,14 @@
 		
 			<%@include file="/WEB-INF/fragment/tabs/tabs.jspf"%>
 		
-			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
+			<div id="page-content" class="w3-col m10 l10 w3-container w3-padding">
 				
 				<h1>View/Edit Authors</h1>
 				
 				<p><a class="w3-btn w3-round w3-small w3-blue w3-hover-indigo" href="/manage/newuser"><span class="icon-author w3-large"></span>&nbsp;Add Author</a>
 				<span class="w3-small w3-text-grey nowrap">Add a new Author.</span>
 				</p>
+				
 				<s:if test="authors != null">
 				<s:if test="authors.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
