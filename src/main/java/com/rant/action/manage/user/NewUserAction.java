@@ -150,7 +150,7 @@ public class NewUserAction extends ActionSupport
             newUser.setUsername(username);
             newUser.setUriName(uriName);
             newUser.setPassword(password);
-            newUser.setThumbnail("/img/placeholder-200.png");
+            newUser.setThumbnail("");
             newUser.setRole(new Role(role));
 
             // insert into database

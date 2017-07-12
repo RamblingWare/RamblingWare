@@ -122,7 +122,7 @@ public class EditUserAction extends ActionSupport
             return ERROR;
         }
         if (thumbnail == null || thumbnail.trim().isEmpty()) {
-            thumbnail = "/img/placeholder-200.png";
+            thumbnail = "";
         }
         if (description == null) {
             description = "";

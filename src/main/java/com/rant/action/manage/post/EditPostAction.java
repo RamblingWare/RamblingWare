@@ -152,7 +152,7 @@ public class EditPostAction extends ActionSupport
             return ERROR;
         }
         if (thumbnail == null || thumbnail.trim().isEmpty()) {
-            thumbnail = "/img/placeholder-640.png";
+            thumbnail = "";
         }
         if (description == null) {
             description = "";

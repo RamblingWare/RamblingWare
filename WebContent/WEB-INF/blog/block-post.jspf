@@ -4,6 +4,12 @@
 <s:if test="featured == true">
 	<span class="icon-star w3-xlarge w3-text-theme w3-hover-text-yellow w3-padding-square" title="This is a featured post." style="position:absolute;"></span>
 </s:if>
+	<s:if test="thumbnail != null && !thumbnail.isEmpty()">
 	<img alt="Thumbnail" class="w3-margin-0 w3-round w3-padding-0" style="width:100%; min-height:100px;" src="<s:property value="thumbnail" />"></a>
 	<a href="/blog/<s:property value="uriName" />" class="w3-small w3-theme-light w3-padding-4 bottomright" style="width: 100%;"><s:property value="title" /></a>
+	</s:if>
+	<s:else>
+	<a href="/blog/<s:property value="uriName" />" class="w3-small w3-left w3-theme-light w3-padding-4" style="width: 100%;"><s:property value="title" /></a>
+	<span class="w3-small w3-left w3-padding-4 w3-text-theme"><s:property value="description"/></span>
+	</s:else>
 </div>

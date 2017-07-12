@@ -5,7 +5,9 @@
 <s:if test="featured == true">
 	<span class="icon-star w3-xlarge w3-text-theme w3-hover-text-yellow w3-padding-square" title="This is a featured post." style="position:absolute;"></span>
 </s:if>
+	<s:if test="thumbnail != null && !thumbnail.isEmpty()">
 	<img class="thumbnail" src="<s:property value="thumbnail" />" alt="Thumbnail <s:property value="title" />" title="<s:property value="bannerCaption" />" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
+	</s:if>
 	</a>
 </div>
 <div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
