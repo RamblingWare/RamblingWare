@@ -34,6 +34,13 @@ public class StaticContentFilter implements Filter {
             System.err.println("Invalid If-Modified-Since header value: '"
                     + request.getHeader("If-Modified-Since") + "', ignoring");
         }
+        
+        System.out.println(request.getRequestURI());
+        if(request.getRequestURI().endsWith(".ico")) {
+            System.out.println("Yes.");
+            response.setContentType("image/x-icon");
+            response.setHeader("Content-Type", "image/x-icon");
+        }
 
         long now = System.currentTimeMillis();
         long lastModifiedMillis = now;
@@ -58,7 +65,7 @@ public class StaticContentFilter implements Filter {
         response.setDateHeader("Date", now);
         response.setDateHeader("Expires", c.getTimeInMillis());
         response.setDateHeader("Retry-After", c.getTimeInMillis());
-        response.setHeader("Cache-Control", "public");
+        response.setHeader("Cache-Control", "max-age=2628000, public");
         response.setDateHeader("Last-Modified", lastModifiedMillis);
 
         filterChain.doFilter(servletRequest, servletResponse);

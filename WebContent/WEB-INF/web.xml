@@ -43,7 +43,7 @@
 		<url-pattern>/css/*</url-pattern>
 		<url-pattern>/fonts/*</url-pattern>
 		<url-pattern>/js/*</url-pattern>
-		<url-pattern>/favicon.*</url-pattern>
+		<url-pattern>/favicon.ico</url-pattern>
 	</filter-mapping>
 
 	<!-- (2nd) Filter for all regular content. -->
