@@ -6,10 +6,12 @@ applications:
   name: RamblingWare
   host: ramblingware
   disk_quota: 1024M
-  buildpack: https://github.com/cloudfoundry/ibm-websphere-liberty-buildpack.git
+  buildpack: liberty-for-java
   env:
     IBM_JVM_LICENSE: L-PMAA-A3Z8P2
     IBM_LIBERTY_LICENSE: L-SWIS-AKWR6K
+    JBP_CONFIG_IBMJDK: "version: 1.8.+"
+    JBP_CONFIG_LIBERTY: "app_archive: {features: [webProfile-7.0, localConnector-1.0, jsf-2.0, jsp-2.2, servlet-3.0, transportSecurity-1.0]}"
   declared-services:
     clearDB:
       label: MySQL-DB
