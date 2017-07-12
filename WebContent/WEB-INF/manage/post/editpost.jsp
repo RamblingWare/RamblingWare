@@ -9,7 +9,7 @@
 
 <title>Edit Post - <%=Application.getSetting("name")%></title>
 
-<script src="/ckeditor/ckeditor.js"></script>
+<script src="/vendor/ckeditor/ckeditor.js"></script>
 <s:if test="usedUris != null && !usedUris.isEmpty()">
 <script> var usedUris = [
 <s:iterator value="usedUris" status="u">
@@ -176,15 +176,18 @@ function preview() {
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="300" name="description" id="description" value="<s:property value="#request.post.description" />" onkeyup="preview()" onchange="preview()" placeholder="A quick description for RSS and social media..." class="w3-input w3-round-large w3-border" />
 					</p>
-					<p class="w3-col m12 l4 w3-margin-right">
+					<div class="w3-row">
+					<p class="w3-col m12 l4 w3-padding-right">
 						<label class="w3-validate w3-text-grey-light w3-large" for="category">Category:&nbsp;<span class="w3-small w3-text-grey quote">(Note: Only one.)</span></label>
 						<input type="text" size="50" maxlength="100" name="category" id="category" value="<s:property value="#request.post.category" />" onkeyup="preview()" onchange="preview()" placeholder="Advice / Code / Other ..." class="w3-input w3-round-large  w3-border" />
+						<span class="w3-small w3-text-grey">Suggested:</span>&nbsp;<span id="previewUsedCategories" class="w3-small"></span>
 					</p>
-					<p class="w3-col m12 l7">
+					<p class="w3-col m12 l8">
 						<label class="w3-validate w3-text-grey-light w3-large" for="tags">Tags:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Separated by commas.)</span></label>
 						<input type="text" size="50" maxlength="200" name="tags" id="tags" value="<s:property value="#request.post.tags" />" onkeyup="preview()" onchange="preview()" required placeholder="java, interview, funny" class="w3-input w3-round-large w3-border" />
 						<span class="w3-small w3-text-grey">Suggested:</span>&nbsp;<span id="previewUsedTags" class="w3-small"></span>
 					</p>
+					</div>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="thumbnail">Thumbnail Image URL:</label>
 						<input type="text" size="50" maxlength="200" name="thumbnail" id="thumbnail" value="<s:property value="#request.post.thumbnail" />" onchange="preview()" placeholder="https://example.com/image-640x420.png" class="w3-input w3-round-large  w3-border" />
@@ -277,11 +280,20 @@ function preview() {
 			            </script>
 					</p>
 					
-					<hr />
-					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="publishDate">Publish Date:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(MM-DD-YYYY or Month DD, YY)</span></label>
+					<div class="w3-row">
+					<p class="w3-col m12 l4 w3-padding-right">
+						<label class="w3-validate w3-text-grey-light w3-large" for="publishDate">Publish Date:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="20" name="publishDate" id="publishDate" value="<s:property value="#request.post.publishDateReadable" />" required placeholder="MM-DD-YYYY" class="w3-input w3-round-large w3-border" />
 					</p>
+					<p class="w3-col m12 l8">
+						<br>
+						<label class="w3-text-theme w3-large" for="createDate">Create Date:&nbsp;<span class="w3-small w3-text-grey quote"></span></label>
+						<span title="<s:property value="#request.post.createDate" />" class="w3-text-theme"><s:property value="#request.post.createDateReadable" /></span>
+						<br>
+						<label class="w3-text-theme w3-large" for="modifyDate">Modify Date:&nbsp;<span class="w3-small w3-text-grey quote"></span></label>
+						<span title="<s:property value="#request.post.modifyDate" />" class="w3-text-theme"><s:property value="#request.post.modifyDateReadable" /></span>
+					</p>
+					</div>
 					<p>
 						<s:if test="#request.post.isVisible() == true">
 						<input type="checkbox" name="visible" id="visible" class="w3-check" checked="checked" value="true" />
@@ -297,7 +309,7 @@ function preview() {
 						<label class="w3-validate w3-text-grey-light w3-large" for="featured">Make this a "Featured" post?&nbsp;<span class="icon-star w3-large w3-text-yellow w3-padding-square"></span><span class="w3-small w3-text-grey quote">(Gets put on the Featured sidebar of every page.)</span></label>
 					</p>
 					
-					
+					<br />
 					<hr />
 					<button class="w3-btn w3-right w3-round w3-green w3-hover-teal" type="submit" title="Submit" onclick="return validate()">Save Changes</button>
 					<span>&nbsp;&nbsp;</span>
@@ -306,9 +318,29 @@ function preview() {
 					<button class="w3-btn w3-round w3-deep-orange w3-hover-red" type="submit" onclick="return confirm('Are you sure you want to delete?')" name="delete" value="Delete" title="Delete this post">Delete</button>
 					
 					</form>
-				</div>				
+				</div>
+				<script type="text/javascript" src="/vendor/moment/moment.js"></script>
+				<script type="text/javascript" src="/vendor/pikaday/pikaday.js"></script>
+				<script type="text/javascript" src="/vendor/highlight/highlight.pack.js"></script>
+				<script>hljs.initHighlightingOnLoad();</script>
 				<script>
-					preview();					
+					preview();
+					var picker = new Pikaday({
+						i18n: {
+						    previousMonth : 'Previous Month',
+						    nextMonth     : 'Next Month',
+						    months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
+						    weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+						    weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+						},
+				        field: document.getElementById('publishDate'),
+				        format: 'MMM D YYYY',
+				        firstDay: 0, // 0=sunday, 1=monday, etc
+				        minDate: new Date(),
+				        maxDate: new Date(2030, 12, 31),
+				        yearRange: [2000,2030],
+				        theme: 'triangle-theme'
+				    });			
 				</script>				
 			</div>
 		</div>

@@ -34,10 +34,8 @@ public class StaticContentFilter implements Filter {
             System.err.println("Invalid If-Modified-Since header value: '"
                     + request.getHeader("If-Modified-Since") + "', ignoring");
         }
-        
-        System.out.println(request.getRequestURI());
-        if(request.getRequestURI().endsWith(".ico")) {
-            System.out.println("Yes.");
+
+        if (request.getRequestURI().endsWith(".ico")) {
             response.setContentType("image/x-icon");
             response.setHeader("Content-Type", "image/x-icon");
         }

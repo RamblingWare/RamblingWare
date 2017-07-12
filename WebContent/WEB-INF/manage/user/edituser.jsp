@@ -7,7 +7,8 @@
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
 <title>Edit Author - <%=Application.getSetting("name")%></title>
-<script src="/ckeditor/ckeditor.js"></script>
+
+<script src="/vendor/ckeditor/ckeditor.js"></script>
 <script>
 function validate() {
 	var pattern = /^((https):\/\/)/;
@@ -115,7 +116,7 @@ function preview() {
 			            </script>
 					</p>
 					
-					
+					<br />
 					<hr />
 					<button class="w3-btn w3-right w3-round w3-green w3-hover-teal" type="submit" title="Submit" onclick="return validate()">Save Changes</button>
 					<span>&nbsp;&nbsp;</span>

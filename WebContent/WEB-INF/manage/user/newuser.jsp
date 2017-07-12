@@ -81,6 +81,7 @@ function makeUri() {
 						</s:iterator>
 					</p>
 					
+					<br />
 					<hr />
 					<button class="w3-btn w3-right w3-round w3-green w3-hover-teal" type="submit" title="Submit">
 						<span class="icon-checkmark w3-large w3-margin-right"></span>Submit</button>

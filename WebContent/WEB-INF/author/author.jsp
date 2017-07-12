@@ -70,5 +70,7 @@
 	</article>
 
 	<%@include file="/WEB-INF/fragment/footer.jspf"%>
+	<script type="text/javascript" src="/vendor/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
