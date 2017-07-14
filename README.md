@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/Rant/blob/master/LICENSE)
 
 
-Blog management system written in Java.
+Blog management system.
 
 Live Demo: https://www.ramblingware.com
 
@@ -16,31 +16,38 @@ Live Demo: https://www.ramblingware.com
  *  Social Media ready with OpenGraph API and Twitter API
  *  Simple interface, responsive design, mobile friendly
  *  Tagging, categories, featured, and archives
- *  Easy html editor for creating posts
  *  2FA security and encrypted passwords for authors
+ 
+## Planned Features
+
+ * Migrate to CouchDB / Cloudant from MySQL.
+ * Create Angularjs console for authors.
+ * Swappable themes.
 
 ## Usage
 
-Feel free to fork, clone, and reused any or all of this code. Be sure to include the license.
+Feel free to copy any or all of this code. Be sure to include the license.
 
 Right now this code has lots of 'ramblingware' in it. I plan to make a self-installing version that is easily modifiable for "new" blogs. Stay tuned. But if you'd like to try this out now, feel free to do so.
 
 ### Manually Deploy
 
- 1. Download a copy: `git clone https://github.com/RamblingWare/Rant`
+ 1. Install [MySQL 5.7](https://www.mysql.com/) (Eventually [CouchDB 2.0](https://couchdb.apache.org/))
+ 1. Download Rant: `git clone https://github.com/RamblingWare/Rant`
  1. `cd Rant`
- 1. Gradle build: `gradle build`
+ 1. Compile code: `gradle build`
  1. WAR file is located at: `/build/libs/rant-1.0.war`
- 1. Deploy on your Server of choice.
+ 1. Deploy on your Server of choice (Tomcat,Liberty,JBoss,WildFly).
+ 1. Visit `http://localhost:8443/rant/` (depending on server).
 
 ### One-Click Deploy 
 
 Load this app onto on a Cloud Platform of your choice:
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/Rant)
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/RamblingWare/Rant)
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/RamblingWare/Rant)
-[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/RamblingWare/Rant)
+[![Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/Rant)
+[![Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/RamblingWare/Rant)
+[![Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/RamblingWare/Rant)
+[![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/RamblingWare/Rant)
 
 Sorry, Some of these might not work at this time.
 
