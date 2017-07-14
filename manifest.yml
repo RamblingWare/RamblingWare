@@ -16,5 +16,9 @@ applications:
     clearDB:
       label: MySQL-DB
       plan: Spark
+    cloudantNoSQLDB:
+      label: Cloudant
+      plan: Lite
   services:
   - MySQL-DB
+  - Cloudant

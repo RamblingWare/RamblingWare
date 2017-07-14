@@ -1,5 +1,7 @@
 package com.rant.config;
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -11,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.cloudant.client.api.ClientBuilder;
+import com.cloudant.client.api.CloudantClient;
 import com.rant.database.DatabaseSource;
 import com.rant.database.MySQLDatabase;
 import com.rant.model.Database;
@@ -25,12 +29,9 @@ import com.rant.model.Database;
 public class Application implements ServletContextListener {
 
     private final static String PROP_FILE = "/application.properties";
-
     private static HashMap<String, String> settingsMap;
     private static DatabaseSource database;
     private static BasicDataSource bdbs;
-    private static int limit;
-    private static int manageLimit;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
@@ -60,17 +61,17 @@ public class Application implements ServletContextListener {
             System.err.println(
                     "Failed to locate VCAP Object. Continuing with Datasource from properties.");
 
-            db.setName(getSetting("db-name"));
-            db.setHost(getSetting("db-host"));
-            db.setPort(getSetting("db-port"));
-            db.setUrl(getSetting("db-url"));
-            db.setUsername(getSetting("db-user"));
-            db.setPassword(getSetting("db-pass"));
+            db.setName(getString("db-name"));
+            db.setHost(getString("db-host"));
+            db.setPort(getString("db-port"));
+            db.setUrl(getString("db-url"));
+            db.setUsername(getString("db-user"));
+            db.setPassword(getString("db-pass"));
         } else {
             // try to read env variables
             try {
                 JSONObject obj = new JSONObject(vcap);
-                JSONArray cleardb = obj.getJSONArray("cleardb");
+                JSONArray cleardb = obj.getJSONArray("cloudantNoSQLDB");
                 JSONObject mysql = cleardb.getJSONObject(0).getJSONObject("credentials");
                 db.setName(mysql.getString("name"));
                 db.setHost(mysql.getString("hostname"));
@@ -88,9 +89,8 @@ public class Application implements ServletContextListener {
         try {
             // Construct BasicDataSource
             bdbs = new BasicDataSource();
-            bdbs.setDriverClassName(Application.getSetting("driver"));
-            bdbs.setUrl(
-                    "jdbc:mysql://" + db.getHost() + ":" + db.getPort() + "/" + db.getName());
+            bdbs.setDriverClassName(Application.getString("driver"));
+            bdbs.setUrl("jdbc:mysql://" + db.getHost() + ":" + db.getPort() + "/" + db.getName());
             bdbs.setUsername(db.getUsername());
             bdbs.setPassword(db.getPassword());
             bdbs.setMaxActive(4);
@@ -98,13 +98,13 @@ public class Application implements ServletContextListener {
             bdbs.setMinIdle(1);
             bdbs.setMaxWait(10000);
             bdbs.setTimeBetweenEvictionRunsMillis(5000);
-            bdbs.setMinEvictableIdleTimeMillis(60000);    
+            bdbs.setMinEvictableIdleTimeMillis(60000);
             bdbs.setValidationQuery("SELECT 1");
             bdbs.setValidationQueryTimeout(3);
             bdbs.setTestOnBorrow(true);
             bdbs.setTestWhileIdle(true);
             bdbs.setTestOnReturn(false);
-                    
+
             database = new MySQLDatabase(db);
 
         } catch (Exception e) {
@@ -112,19 +112,21 @@ public class Application implements ServletContextListener {
             e.printStackTrace();
         }
 
+        // CouchDB
         try {
-            // set result limit per page
-            setLimit(Integer.parseInt(getSetting("limit")));
+            CloudantClient client = ClientBuilder.url(new URL(getString("dbUrl")))
+                    .username(getString("dbUsername")).password(getString("dbPassword")).build();
+
+            // Show the server version
+            System.out.println("CouchDB Version: " + client.serverVersion());
+
+            // Test Create, Insert, Delete
+            com.cloudant.client.api.Database cloudant = client.database("rant-test", true);
+            cloudant.save(db);
+            client.deleteDB("rant-test");
+
         } catch (Exception e) {
-            // default 10
-            setLimit(10);
-        }
-        try {
-            // set management limit per page
-            setManageLimit(Integer.parseInt(getSetting("manageLimit")));
-        } catch (Exception e) {
-            // default 15
-            setManageLimit(15);
+            e.printStackTrace();
         }
 
         System.out.println("Started Ranting!");
@@ -154,77 +156,48 @@ public class Application implements ServletContextListener {
     }
 
     /**
-     * Get a Setting value
+     * Get a Setting value as a String
      * 
      * @param key
      *            name of value
-     * @return value
+     * @return value String
      */
-    public static String getSetting(String key) {
+    public static String getString(String key) {
         return settingsMap.get(key);
     }
 
     /**
-     * Set a Setting value
+     * Get a Setting value as a String
+     * 
+     * @param key
+     *            name of value
+     * @return value int
+     */
+    public static int getInt(String key) throws NumberFormatException {
+        return Integer.parseInt(settingsMap.get(key));
+    }
+
+    /**
+     * Get a Setting value as a String
+     * 
+     * @param key
+     *            name of value
+     * @return value double
+     */
+    public static double getDouble(String key) throws NumberFormatException {
+        return Double.parseDouble(settingsMap.get(key));
+    }
+
+    /**
+     * Set a Setting value as a String
      * 
      * @param key
      *            name of value
      * @param value
      *            the value to set
      */
-    public static void setSetting(String key, String value) {
+    public static void setString(String key, String value) {
         settingsMap.put(key, value);
     }
 
-    /**
-     * Get the global page result limit.
-     * 
-     * @return limit
-     */
-    public static int getLimit() {
-        return limit;
-    }
-
-    /**
-     * Set the global page result limit.
-     * 
-     * @param limit
-     *            integer between 3 and 25. (10 default)
-     */
-    public static void setLimit(int limit) {
-
-        if (limit < 3) {
-            limit = 3;
-        } else if (limit > 25) {
-            limit = 25;
-        }
-
-        Application.limit = limit;
-    }
-    
-    /**
-     * Get the global management result limit.
-     * 
-     * @return manageLimit
-     */
-    public static int getManageLimit() {
-        return manageLimit;
-    }
-
-    /**
-     * Set the global management result limit.
-     * 
-     * @param manageLimit
-     *            integer between 3 and 25. (15 default)
-     */
-    public static void setManageLimit(int manageLimit) {
-
-        if (limit < 3) {
-            limit = 3;
-        } else if (limit > 25) {
-            limit = 25;
-        }
-
-        Application.manageLimit = manageLimit;
-    }
 }
