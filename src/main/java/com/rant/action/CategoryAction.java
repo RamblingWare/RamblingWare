@@ -51,11 +51,11 @@ public class CategoryAction extends ActionSupport
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByCategory(page, Application.getLimit(), category,
+            posts = Application.getDatabaseSource().getPostsByCategory(page, Application.getInt("limit"), category,
                     false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getLimit();
+            nextPage = posts.size() >= Application.getInt("limit");
             prevPage = page > 1;
 
             // set attributes

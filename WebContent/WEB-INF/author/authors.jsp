@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>Authors - <%=Application.getSetting("name")%></title>
+<title>Authors - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 

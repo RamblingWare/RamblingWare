@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Edit Author - <%=Application.getSetting("name")%></title>
+<title>Edit Author - <%=Application.getString("name")%></title>
 
 <script src="/vendor/ckeditor/ckeditor.js"></script>
 <script>
@@ -69,7 +69,7 @@ function preview() {
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
 						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
-						<a href="#" class="w3-medium"><%=Application.getSetting("url")%>/author/<s:property value="#request.author.uriName" /></a>
+						<a href="#" class="w3-medium"><%=Application.getString("url")%>/author/<s:property value="#request.author.uriName" /></a>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>

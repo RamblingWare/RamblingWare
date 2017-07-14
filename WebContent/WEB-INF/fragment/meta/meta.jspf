@@ -3,38 +3,38 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="generator" content="Rant">
-<meta name="application-name" content="<%=Application.getSetting("name")%>"/>
-<meta name="author" content="<%=Application.getSetting("author")%>"/>
-<meta name="keywords" content="<%=Application.getSetting("keywords")%>"/>
-<meta name="description" content="<%=Application.getSetting("description")%>"/>
+<meta name="application-name" content="<%=Application.getString("name")%>"/>
+<meta name="author" content="<%=Application.getString("author")%>"/>
+<meta name="keywords" content="<%=Application.getString("keywords")%>"/>
+<meta name="description" content="<%=Application.getString("description")%>"/>
 <meta name="robots" content="all"/>
 <%@include file="/WEB-INF/fragment/meta/meta-webapp.jspf"%>
 
 <!-- Facebook Open Graph -->
-<meta property="fb:app_id" content="<%=Application.getSetting("facebookAppId")%>"/>
-<meta property="og:url" content="<%=Application.getSetting("url")%>"/>
+<meta property="fb:app_id" content="<%=Application.getString("facebookAppId")%>"/>
+<meta property="og:url" content="<%=Application.getString("url")%>"/>
 <meta property="og:type" content="article"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:title" content="<%=Application.getSetting("name")%>"/>
-<meta property="og:image" content="<%=Application.getSetting("url")%>/img/icon-512-round.png"/>
-<meta property="og:description" content="<%=Application.getSetting("description")%>"/>
-<meta property="og:site_name" content="<%=Application.getSetting("name")%>" />
+<meta property="og:title" content="<%=Application.getString("name")%>"/>
+<meta property="og:image" content="<%=Application.getString("url")%>/img/icon-512-round.png"/>
+<meta property="og:description" content="<%=Application.getString("description")%>"/>
+<meta property="og:site_name" content="<%=Application.getString("name")%>" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:site" content="<%=Application.getSetting("twitterHandle")%>"/>
-<meta name="twitter:creator" content="<%=Application.getSetting("twitterHandle")%>"/>
-<meta name="twitter:title" content="<%=Application.getSetting("name")%>"/>
-<meta name="twitter:description" content="<%=Application.getSetting("description")%>"/>
-<meta name="twitter:image" content="<%=Application.getSetting("url")%>/img/icon-512-round.png"/>
-<meta name="twitter:domain" content="<%=Application.getSetting("domain")%>"/>
+<meta name="twitter:site" content="<%=Application.getString("twitterHandle")%>"/>
+<meta name="twitter:creator" content="<%=Application.getString("twitterHandle")%>"/>
+<meta name="twitter:title" content="<%=Application.getString("name")%>"/>
+<meta name="twitter:description" content="<%=Application.getString("description")%>"/>
+<meta name="twitter:image" content="<%=Application.getString("url")%>/img/icon-512-round.png"/>
+<meta name="twitter:domain" content="<%=Application.getString("domain")%>"/>
 
 <!-- Google+ Schema.org -->
-<meta itemprop="name" content="<%=Application.getSetting("name")%>"/>
-<meta itemprop="description" content="<%=Application.getSetting("description")%>"/>
-<meta itemprop="image" content="<%=Application.getSetting("url")%>/img/icon-512-round.png"/> 
+<meta itemprop="name" content="<%=Application.getString("name")%>"/>
+<meta itemprop="description" content="<%=Application.getString("description")%>"/>
+<meta itemprop="image" content="<%=Application.getString("url")%>/img/icon-512-round.png"/> 
 
 <link rel="author" href="humans.txt"/>
 <link rel="shortcut icon" href="/favicon.ico"/>
 <link rel="stylesheet" href="/css/rant.css?v=1.01"/>
-<link rel="alternate" href="<%=Application.getSetting("rss")%>" type="application/rss+xml" title="RSS">
+<link rel="alternate" href="<%=Application.getString("rss")%>" type="application/rss+xml" title="RSS">

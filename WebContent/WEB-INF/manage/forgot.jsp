@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Forgot Credentials - <%=Application.getSetting("name")%></title>
+<title>Forgot Credentials - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 

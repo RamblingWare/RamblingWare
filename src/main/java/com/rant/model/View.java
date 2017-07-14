@@ -7,7 +7,6 @@ import com.rant.config.Utils;
  * 
  * @author Austin Delamar
  * @created 7/04/2017
- *
  */
 public class View {
 

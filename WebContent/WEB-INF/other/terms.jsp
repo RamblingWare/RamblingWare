@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>Terms of Use - <%=Application.getSetting("name")%></title>
+<title>Terms of Use - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -24,7 +24,7 @@
 				<p>
 					<span class="bold">Defined Terms.</span> As used herein: (1) the
 					terms "you," "your" or "user" refer to any visitor to this website,
-					(2) the terms "we," "our," or "us" refer to <%=Application.getSetting("name")%>, (3) the
+					(2) the terms "we," "our," or "us" refer to <%=Application.getString("name")%>, (3) the
 					terms "this website" or "this site" refer to this website,
 					including the mobile version of this website, and any other pages
 					that are part of this website, (4) the term "Social Media" refers
@@ -80,7 +80,7 @@
 					<br />
 					<span class="bold">Effective Date.</span> June 18th, 2017<br />
 					<br />
-					<span class="bold">Contact.</span> <%=Application.getSetting("name")%> <a href="mailto:<%=Application.getSetting("email")%>"><%=Application.getSetting("email")%></a>					
+					<span class="bold">Contact.</span> <%=Application.getString("name")%> <a href="mailto:<%=Application.getString("email")%>"><%=Application.getString("email")%></a>					
 				</p>
 
 				<br />

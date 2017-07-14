@@ -5,7 +5,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
-<title>Test - <%=Application.getSetting("name")%></title>
+<title>Test - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 

@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>404 File Not Found - <%=Application.getSetting("name")%></title>
+<title>404 File Not Found - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 

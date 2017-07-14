@@ -14,7 +14,6 @@ import java.util.Date;
  * 
  * @author Austin Delamar
  * @created 7/04/2017
- *
  */
 public class Role {
 

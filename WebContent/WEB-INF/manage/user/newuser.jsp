@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>New Author - <%=Application.getSetting("name")%></title>
+<title>New Author - <%=Application.getString("name")%></title>
 <script>
 function makeUri() {
 	var title = document.getElementById('name').value;

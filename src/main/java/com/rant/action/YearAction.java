@@ -51,10 +51,10 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             int yr = Integer.parseInt(year);
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByYear(page, Application.getLimit(), yr, false);
+            posts = Application.getDatabaseSource().getPostsByYear(page, Application.getInt("limit"), yr, false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getLimit();
+            nextPage = posts.size() >= Application.getInt("limit");
             prevPage = page > 1;
 
             // set attributes

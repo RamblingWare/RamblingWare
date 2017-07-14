@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>Tag <s:property value="tag" /> - <%=Application.getSetting("name")%></title>
+<title>Tag <s:property value="tag" /> - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
