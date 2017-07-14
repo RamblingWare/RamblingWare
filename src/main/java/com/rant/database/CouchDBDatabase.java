@@ -7,9 +7,9 @@ import com.rant.model.Database;
 import com.rant.model.Post;
 import com.rant.model.Role;
 
-public class CloudantDatabase extends DatabaseSource {
+public class CouchDBDatabase extends DatabaseSource {
 
-    public CloudantDatabase(Database database) {
+    public CouchDBDatabase(Database database) {
         super(database);
     }
 

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
+import com.rant.database.CouchDBDatabase;
 import com.rant.database.DatabaseSource;
 import com.rant.database.MySQLDatabase;
 import com.rant.model.Database;
@@ -52,12 +53,19 @@ public class Application implements ServletContextListener {
             System.err.println(e);
         }
 
+        // Set Database
+        createMySQLDB();
+
+        System.out.println("Started Ranting!");
+    }
+
+    private void createMySQLDB() {
         // check env variable
         String vcap = System.getenv("VCAP_SERVICES");
         Database db = new Database();
         if (vcap == null) {
             // if vcap is not available, then
-            // run on local MySQL Database
+            // run on local Database
             System.err.println(
                     "Failed to locate VCAP Object. Continuing with Datasource from properties.");
 
@@ -71,7 +79,8 @@ public class Application implements ServletContextListener {
             // try to read env variables
             try {
                 JSONObject obj = new JSONObject(vcap);
-                JSONArray cleardb = obj.getJSONArray("cloudantNoSQLDB");
+
+                JSONArray cleardb = obj.getJSONArray("cleardb");
                 JSONObject mysql = cleardb.getJSONObject(0).getJSONObject("credentials");
                 db.setName(mysql.getString("name"));
                 db.setHost(mysql.getString("hostname"));
@@ -85,6 +94,8 @@ public class Application implements ServletContextListener {
                 e.printStackTrace();
             }
         }
+
+        database = new MySQLDatabase(db);
 
         try {
             // Construct BasicDataSource
@@ -105,31 +116,65 @@ public class Application implements ServletContextListener {
             bdbs.setTestWhileIdle(true);
             bdbs.setTestOnReturn(false);
 
-            database = new MySQLDatabase(db);
-
         } catch (Exception e) {
             System.err.println("Failed to bind JNDI for BasicDatabaseSource.");
             e.printStackTrace();
         }
+    }
 
-        // CouchDB
+    private void createCouchDB() {
+        // check env variable
+        String vcap = System.getenv("VCAP_SERVICES");
+        Database db = new Database();
+        if (vcap == null) {
+            // if vcap is not available, then
+            // run on local Database
+            System.err.println(
+                    "Failed to locate VCAP Object. Continuing with Datasource from properties.");
+
+            db.setHost(getString("dbHost"));
+            db.setPort(getString("dbPort"));
+            db.setName(getString("dbName"));
+            db.setUrl(getString("dbUrl"));
+            db.setUsername(getString("dbUsername"));
+            db.setPassword(getString("dbPassword"));
+        } else {
+            // try to read env variables
+            try {
+                JSONObject obj = new JSONObject(vcap);
+
+                JSONArray cloudant = obj.getJSONArray("cloudantNoSQLDB");
+                JSONObject couchdb = cloudant.getJSONObject(0).getJSONObject("credentials");
+                db.setHost(couchdb.getString("host"));
+                db.setPort("" + couchdb.getInt("port"));
+                db.setName(couchdb.getString("name"));
+                db.setUrl(couchdb.getString("url"));
+                db.setUsername(couchdb.getString("username"));
+                db.setPassword(couchdb.getString("password"));
+
+            } catch (JSONException e) {
+                System.err.println("Failed to parse JSON object VCAP_SERVICES for Datasource.");
+                e.printStackTrace();
+            }
+        }
+
+        database = new CouchDBDatabase(db);
+
         try {
-            CloudantClient client = ClientBuilder.url(new URL(getString("dbUrl")))
-                    .username(getString("dbUsername")).password(getString("dbPassword")).build();
+            CloudantClient client = ClientBuilder.url(new URL(db.getUrl()))
+                    .username(db.getUsername()).password(db.getPassword()).build();
 
             // Show the server version
             System.out.println("CouchDB Version: " + client.serverVersion());
 
             // Test Create, Insert, Delete
-            com.cloudant.client.api.Database cloudant = client.database("rant-test", true);
+            com.cloudant.client.api.Database cloudant = client.database("rantdb-test", true);
             cloudant.save(db);
-            client.deleteDB("rant-test");
+            client.deleteDB("rantdb-test");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        System.out.println("Started Ranting!");
     }
 
     @Override
