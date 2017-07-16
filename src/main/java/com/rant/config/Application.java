@@ -15,9 +15,9 @@ import org.json.JSONObject;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
-import com.rant.database.CouchDBDatabase;
+import com.rant.database.CouchDB;
 import com.rant.database.DatabaseSource;
-import com.rant.database.MySQLDatabase;
+import com.rant.database.MySQL;
 import com.rant.model.Database;
 
 /**
@@ -54,7 +54,7 @@ public class Application implements ServletContextListener {
         }
 
         // Set Database
-        createMySQLDB();
+        createCouchDB();
 
         System.out.println("Started Ranting!");
     }
@@ -95,7 +95,7 @@ public class Application implements ServletContextListener {
             }
         }
 
-        database = new MySQLDatabase(db);
+        database = new MySQL(db);
 
         try {
             // Construct BasicDataSource
@@ -158,7 +158,7 @@ public class Application implements ServletContextListener {
             }
         }
 
-        database = new CouchDBDatabase(db);
+        database = new CouchDB(db);
 
         try {
             CloudantClient client = ClientBuilder.url(new URL(db.getUrl()))

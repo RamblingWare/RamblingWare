@@ -15,9 +15,9 @@ import com.rant.model.Post;
 import com.rant.model.Role;
 import com.rant.model.View;
 
-public class MySQLDatabase extends DatabaseSource {
+public class MySQL extends DatabaseSource {
 
-    public MySQLDatabase(Database database) {
+    public MySQL(Database database) {
         super(database);
     }
 

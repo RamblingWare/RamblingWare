@@ -1,16 +1,32 @@
 package com.rant.database;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
+import com.cloudant.client.api.ClientBuilder;
+import com.cloudant.client.api.CloudantClient;
 import com.rant.model.Author;
 import com.rant.model.Database;
 import com.rant.model.Post;
 import com.rant.model.Role;
 
-public class CouchDBDatabase extends DatabaseSource {
+public class CouchDB extends DatabaseSource {
 
-    public CouchDBDatabase(Database database) {
+    public CouchDB(Database database) {
         super(database);
+    }
+
+    /**
+     * Obtains a connection to the CouchDB if possible.
+     * 
+     * @return CloudantClient connection
+     * @throws MalformedURLException
+     *             if invalid url
+     */
+    private CloudantClient getConnection() throws MalformedURLException {
+        return ClientBuilder.url(new URL(database.getUrl())).username(database.getUsername())
+                .password(database.getPassword()).build();
     }
 
     @Override
