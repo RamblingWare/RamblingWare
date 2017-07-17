@@ -173,6 +173,7 @@ public class Application implements ServletContextListener {
             client.deleteDB("rantdb-test");
 
         } catch (Exception e) {
+            System.err.println("Failed CRUD test!");
             e.printStackTrace();
         }
     }

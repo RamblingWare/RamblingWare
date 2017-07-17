@@ -6,19 +6,13 @@ applications:
   name: RamblingWare
   host: ramblingware
   disk_quota: 1024M
-  buildpack: liberty-for-java
+  buildpack: java_buildpack
   env:
-    IBM_JVM_LICENSE: L-PMAA-A3Z8P2
-    IBM_LIBERTY_LICENSE: L-SWIS-AKWR6K
-    JBP_CONFIG_IBMJDK: "version: 1.8.+"
-    JBP_CONFIG_LIBERTY: "app_archive: {features: [ejbLite-3.2, managedBeans-1.0, beanValidation-1.1, ssl-1.0, jndi-1.0, transportSecurity-1.0, localConnector-1.0, jsonp-1.0, appSecurity-2.0, jdbc-4.1, jaxrs-2.0, jaxrsClient-2.0, el-3.0, json-1.0, jpaContainer-2.1, cdi-1.2, webProfile-7.0, websocket-1.1, jpa-2.1]}"
+    JBP_CONFIG_TOMCAT: '{ tomcat: { version: 8.0.+ } }'
+    JBP_CONFIG_OPEN_JDK_JRE: '{jre: { version: 1.8.0_+ }}'
   declared-services:
-    clearDB:
-      label: MySQL-DB
-      plan: Spark
     cloudantNoSQLDB:
       label: Cloudant
       plan: Lite
   services:
-  - MySQL-DB
   - Cloudant
