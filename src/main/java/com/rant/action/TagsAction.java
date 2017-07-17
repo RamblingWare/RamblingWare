@@ -34,12 +34,14 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
             tags = Application.getDatabaseSource().getArchiveTags();
 
             // sort alphabetically
-            Collections.sort(tags, new java.util.Comparator<String>() {
-                @Override
-                public int compare(String s1, String s2) {
-                    return s1.compareToIgnoreCase(s2);
-                }
-            });
+            if (tags != null) {
+                Collections.sort(tags, new java.util.Comparator<String>() {
+                    @Override
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });
+            }
 
             // set attributes
             servletRequest.setAttribute("tags", tags);

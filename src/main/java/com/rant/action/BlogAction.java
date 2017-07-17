@@ -45,11 +45,14 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(page, Application.getInt("limit"), false);
+            posts = Application.getDatabaseSource().getPosts(page, Application.getInt("limit"),
+                    false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getInt("limit");
-            prevPage = page > 1;
+            if (posts != null) {
+                nextPage = posts.size() >= Application.getInt("limit");
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("posts", posts);

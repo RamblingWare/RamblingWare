@@ -35,15 +35,18 @@ public class AuthorsAction extends ActionSupport
 
         // this shows all the authors
         try {
-            authors = Application.getDatabaseSource().getAuthors(1, Application.getInt("limit"), false);
+            authors = Application.getDatabaseSource().getAuthors(1, Application.getInt("limit"),
+                    false);
 
             // sort alphabetically
-            Collections.sort(authors, new java.util.Comparator<Author>() {
-                @Override
-                public int compare(Author a1, Author a2) {
-                    return a1.getName().compareToIgnoreCase(a2.getName());
-                }
-            });
+            if (authors != null) {
+                Collections.sort(authors, new java.util.Comparator<Author>() {
+                    @Override
+                    public int compare(Author a1, Author a2) {
+                        return a1.getName().compareToIgnoreCase(a2.getName());
+                    }
+                });
+            }
 
             // set attributes
             servletRequest.setAttribute("authors", authors);
