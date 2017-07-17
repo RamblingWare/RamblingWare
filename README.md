@@ -20,8 +20,7 @@ Live Demo: https://www.ramblingware.com
  
 ## Planned Features
 
- * Migrate to CouchDB / Cloudant from MySQL.
- * Create Angularjs console for authors.
+ * Create Angularjs dashboard for authors.
  * Swappable themes.
 
 ## Usage
@@ -32,7 +31,7 @@ Right now this code has lots of 'ramblingware' in it. I plan to make a self-inst
 
 ### Manually Deploy
 
- 1. Install [MySQL 5.7](https://www.mysql.com/) (Eventually [CouchDB 2.0](https://couchdb.apache.org/))
+ 1. Install [CouchDB 2.0](https://couchdb.apache.org/)
  1. Download Rant: `git clone https://github.com/RamblingWare/Rant`
  1. `cd Rant`
  1. Compile code: `gradle build`
@@ -55,7 +54,7 @@ Sorry, Some of these might not work at this time.
 
  *  [Java EE 1.8](https://www.java.com/) Programming Language
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
- *  [MySQL 5.7](https://www.mysql.com/) Database --> Soon to be replaced by [CouchDB](https://couchdb.apache.org/).
+ *  [CouchDB 2.0](https://couchdb.apache.org/) NoSQL Database
  *  [W3.CSS](http://www.w3schools.com/css/) Styling --> Planning to use theme templates.
  *  Search by [DuckDuckGo](https://duckduckgo.com) --> Changeable in properties.
  *  WYSIWYG editor by [CKEditor](http://ckeditor.com/download) --> Planning markdown editor instead of html.

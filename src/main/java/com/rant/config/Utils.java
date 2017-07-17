@@ -34,7 +34,6 @@ public class Utils {
     private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
     private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
             "MMM dd, yyyy (hh:mm:ss a)");
-    private static final DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
     private static final DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
 
     /**
@@ -181,20 +180,6 @@ public class Utils {
             return "Null";
         }
         return READABLEDATETIMEFORM.format(date);
-    }
-
-    /**
-     * Get a MySQL database format of the given date. "yyyy-MM-dd"
-     * 
-     * @param dateTime
-     *            "yyyy-MM-dd"
-     * @return String
-     */
-    public static String formatMySQLDate(Date dateTime) {
-        if (dateTime == null) {
-            return "Null";
-        }
-        return MYSQLDATEFORM.format(dateTime);
     }
 
     /**

@@ -1,23 +1,18 @@
 package com.rant.config;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cloudant.client.api.ClientBuilder;
-import com.cloudant.client.api.CloudantClient;
 import com.rant.database.CouchDB;
 import com.rant.database.DatabaseSource;
-import com.rant.database.MySQL;
 import com.rant.model.Database;
 
 /**
@@ -32,97 +27,45 @@ public class Application implements ServletContextListener {
     private final static String PROP_FILE = "/application.properties";
     private static HashMap<String, String> settingsMap;
     private static DatabaseSource database;
-    private static BasicDataSource bdbs;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
 
+        // Load settings from properties file
+        settingsMap = loadSettings(PROP_FILE);
+
+        // Set Database
+        database = loadDatabase();
+
+        // Test Database
+        if (!database.test()) {
+            // failure
+            System.exit(1);
+        }
+
+        System.out.println("Started Ranting!");
+    }
+
+    private HashMap<String, String> loadSettings(String propertiesFile) {
+        HashMap<String, String> map = null;
         try {
-            // load settings from properties file
-            settingsMap = new HashMap<String, String>();
+            map = new HashMap<String, String>();
             Properties properties = new Properties();
-            properties.load(Application.class.getResourceAsStream(PROP_FILE));
+            properties.load(Application.class.getResourceAsStream(propertiesFile));
 
             // put into map
             for (String key : properties.stringPropertyNames()) {
                 String value = properties.getProperty(key);
-                settingsMap.put(key, value);
+                map.put(key, value);
             }
 
         } catch (IOException e) {
             System.err.println(e);
         }
-
-        // Set Database
-        createCouchDB();
-
-        System.out.println("Started Ranting!");
+        return map;
     }
 
-    private void createMySQLDB() {
-        // check env variable
-        String vcap = System.getenv("VCAP_SERVICES");
-        Database db = new Database();
-        if (vcap == null) {
-            // if vcap is not available, then
-            // run on local Database
-            System.err.println(
-                    "Failed to locate VCAP Object. Continuing with Datasource from properties.");
-
-            db.setName(getString("db-name"));
-            db.setHost(getString("db-host"));
-            db.setPort(getString("db-port"));
-            db.setUrl(getString("db-url"));
-            db.setUsername(getString("db-user"));
-            db.setPassword(getString("db-pass"));
-        } else {
-            // try to read env variables
-            try {
-                JSONObject obj = new JSONObject(vcap);
-
-                JSONArray cleardb = obj.getJSONArray("cleardb");
-                JSONObject mysql = cleardb.getJSONObject(0).getJSONObject("credentials");
-                db.setName(mysql.getString("name"));
-                db.setHost(mysql.getString("hostname"));
-                db.setPort("" + mysql.getInt("port"));
-                db.setUrl(mysql.getString("uri"));
-                db.setUsername(mysql.getString("username"));
-                db.setPassword(mysql.getString("password"));
-
-            } catch (JSONException e) {
-                System.err.println("Failed to parse JSON object VCAP_SERVICES for Datasource.");
-                e.printStackTrace();
-            }
-        }
-
-        database = new MySQL(db);
-
-        try {
-            // Construct BasicDataSource
-            bdbs = new BasicDataSource();
-            bdbs.setDriverClassName(Application.getString("driver"));
-            bdbs.setUrl("jdbc:mysql://" + db.getHost() + ":" + db.getPort() + "/" + db.getName());
-            bdbs.setUsername(db.getUsername());
-            bdbs.setPassword(db.getPassword());
-            bdbs.setMaxActive(4);
-            bdbs.setMaxIdle(4);
-            bdbs.setMinIdle(1);
-            bdbs.setMaxWait(10000);
-            bdbs.setTimeBetweenEvictionRunsMillis(5000);
-            bdbs.setMinEvictableIdleTimeMillis(60000);
-            bdbs.setValidationQuery("SELECT 1");
-            bdbs.setValidationQueryTimeout(3);
-            bdbs.setTestOnBorrow(true);
-            bdbs.setTestWhileIdle(true);
-            bdbs.setTestOnReturn(false);
-
-        } catch (Exception e) {
-            System.err.println("Failed to bind JNDI for BasicDatabaseSource.");
-            e.printStackTrace();
-        }
-    }
-
-    private void createCouchDB() {
+    private DatabaseSource loadDatabase() {
         // check env variable
         String vcap = System.getenv("VCAP_SERVICES");
         Database db = new Database();
@@ -157,25 +100,7 @@ public class Application implements ServletContextListener {
                 e.printStackTrace();
             }
         }
-
-        database = new CouchDB(db);
-
-        try {
-            CloudantClient client = ClientBuilder.url(new URL(db.getUrl()))
-                    .username(db.getUsername()).password(db.getPassword()).build();
-
-            // Show the server version
-            System.out.println("CouchDB Version: " + client.serverVersion());
-
-            // Test Create, Insert, Delete
-            com.cloudant.client.api.Database cloudant = client.database("rantdb-test", true);
-            cloudant.save(db);
-            client.deleteDB("rantdb-test");
-
-        } catch (Exception e) {
-            System.err.println("Failed CRUD test!");
-            e.printStackTrace();
-        }
+        return new CouchDB(db);
     }
 
     @Override
@@ -190,15 +115,6 @@ public class Application implements ServletContextListener {
      */
     public static DatabaseSource getDatabaseSource() {
         return database;
-    }
-
-    /**
-     * Gets the JNDI bound BasicDatabaseSource for this app.
-     * 
-     * @return BasicDatabaseSource
-     */
-    public static BasicDataSource getBasicDatabaseSource() {
-        return bdbs;
     }
 
     /**

@@ -29,6 +29,33 @@ public class CouchDB extends DatabaseSource {
                 .password(database.getPassword()).build();
     }
 
+    /**
+     * Quick CRUD test on the Database.
+     * 
+     * @returns boolean true if successful
+     */
+    @Override
+    public boolean test() {
+        try {
+            CloudantClient client = getConnection();
+
+            // Show the server version
+            System.out.println("CouchDB Version: " + client.serverVersion());
+
+            // Test Create, Insert, Delete
+            com.cloudant.client.api.Database couchdb = client.database("rantdb-test", true);
+            couchdb.save(database);
+            client.deleteDB("rantdb-test");
+
+            return true;
+
+        } catch (Exception e) {
+            System.err.println("Failed Database Test!");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public Post getPost(String uri, boolean includeHidden) {
         // Auto-generated method stub

@@ -28,6 +28,8 @@ public abstract class DatabaseSource {
     public Database getDatabase() {
         return database;
     }
+    
+    public abstract boolean test();
 
     public abstract Post getPost(String uri, boolean includeHidden);
 

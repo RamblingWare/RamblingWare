@@ -72,7 +72,6 @@ public class UtilsTests {
         assertNotNull(Utils.getDate());
         assertNotNull(Utils.formatReadableDate(date));
         assertNotNull(Utils.formatReadableDateTime(date));
-        assertNotNull(Utils.formatMySQLDate(date));
         assertNotNull(Utils.formatSQLServerDate(date));        
     }
     
