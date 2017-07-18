@@ -58,7 +58,7 @@ function preview() {
 				<h1>Edit Author</h1>
 				
 				<div class="w3-container w3-padding-0 w3-border-0">
-					<form action="/manage/edituser/<s:property value="#request.author.uriName" />" method="post">
+					<form action="/manage/edituser/<s:property value="#request.author.uri" />" method="post">
 					<input type="hidden" name="submitForm" value="true" />
 					<input type="hidden" name="id" value="<s:property value="#request.author.id" />" />
 					
@@ -67,9 +67,9 @@ function preview() {
 						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" onkeypress="preview()" onchange="preview()" required placeholder="Rambling Man" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
-						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
-						<a href="#" class="w3-medium"><%=Application.getString("url")%>/author/<s:property value="#request.author.uriName" /></a>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uri">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
+						<input type="text" size="50" maxlength="300" name="uri" id="uri" value="<s:property value="#request.author.uri" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
+						<a href="#" class="w3-medium"><%=Application.getString("url")%>/author/<s:property value="#request.author.uri" /></a>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>

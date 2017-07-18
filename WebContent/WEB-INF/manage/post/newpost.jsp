@@ -66,7 +66,7 @@ function validate() {
 			}
 		}
 	}
-	var uri = document.getElementById('uriName').value;
+	var uri = document.getElementById('uri').value;
 	for(var i=0; i<usedUris.length; i++) {
 		if(usedUris[i] == uri) {
 			alert('Sorry! That URI is already taken by another blog post.\n\nPlease change the URI.');
@@ -83,7 +83,7 @@ function makeUri() {
 	var title = document.getElementById('title').value;
 	title = title.replace(/[^0-9a-z]/gi, ' ');
 	title = title.replace(/\s+/g, '-').toLowerCase();
-	document.getElementById('uriName').value = title;
+	document.getElementById('uri').value = title;
 }
 function addTag(tag) {
 	var tags = document.getElementById('tags').value;
@@ -173,9 +173,9 @@ function preview() {
 						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="title" />" onkeyup="makeUri()" onkeypress="preview()" onchange="preview()" required placeholder="How to make a blog post!" class="w3-input w3-round-large  w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
-						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="uriName" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large  w3-border" />
-						<a href="#" class="w3-medium"><%=Application.getString("url")%>/blog/<s:property value="uriName" /></a>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uri">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
+						<input type="text" size="50" maxlength="300" name="uri" id="uri" value="<s:property value="uri" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large  w3-border" />
+						<a href="#" class="w3-medium"><%=Application.getString("url")%>/blog/<s:property value="uri" /></a>
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>

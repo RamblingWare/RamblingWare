@@ -30,12 +30,12 @@ public class EditUserAction extends ActionSupport
 
     // post parameters
     private Author author;
-    private int id;
-    private String uri;
+    private String id;
+    private String reqUri;
 
     // updated values
     private String name;
-    private String uriName;
+    private String uri;
     private String thumbnail;
     private String description;
     private String htmlContent;
@@ -46,8 +46,8 @@ public class EditUserAction extends ActionSupport
         // this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123
         // )
         String uriTemp = servletRequest.getRequestURI();
-        if (uri == null && uriTemp.startsWith("/manage/edituser/")) {
-            uri = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
+        if (reqUri == null && uriTemp.startsWith("/manage/edituser/")) {
+            reqUri = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
         }
         
         if (servletRequest.getParameter("delete") != null) {
@@ -63,24 +63,24 @@ public class EditUserAction extends ActionSupport
     }
     
     private String openUser() {
-        if (uri != null && uri.length() > 0) {
+        if (reqUri != null && reqUri.length() > 0) {
             // search in db for user by name
             try {
-                author = Application.getDatabaseSource().getAuthor(uri, true);
+                author = Application.getDatabaseSource().getAuthor(reqUri, true);
 
                 // was author found
                 if (author != null) {
                     
-                    if(author.getUriName().equals(user.getUriName()) && !user.getRole().isUsersEdit()) {
+                    if(author.getUri().equals(user.getUri()) && !user.getRole().isUsersEdit()) {
                         addActionError("You do not have permission to edit your account.");
                         addActionMessage("Only certain roles can edit themselves. Contact your sysadmin or manager.");
                         System.out.println("User " + user.getUsername() + " tried to edit themselves. Does not have permission.");
                         return ERROR;
                     }
-                    if(!author.getUriName().equals(user.getUriName()) && !user.getRole().isUsersEditOthers()) {
+                    if(!author.getUri().equals(user.getUri()) && !user.getRole().isUsersEditOthers()) {
                         addActionError("You do not have permission to edit other authors.");
                         addActionMessage("Only certain roles can edit other authors. Contact your sysadmin or manager.");
-                        System.out.println("User " + user.getUsername() + " tried to edit a user ("+uri+"). Does not have permission.");
+                        System.out.println("User " + user.getUsername() + " tried to edit a user ("+reqUri+"). Does not have permission.");
                         return ERROR;
                     }
                     
@@ -88,10 +88,10 @@ public class EditUserAction extends ActionSupport
                     servletRequest.setAttribute("author", author);
 
                     System.out.println(
-                            "User " + user.getUsername() + " opened author to edit: " + uri);
+                            "User " + user.getUsername() + " opened author to edit: " + reqUri);
                     return Action.INPUT;
                 } else {
-                    System.err.println("Author '" + uri + "' not found. Please try again.");
+                    System.err.println("Author '" + reqUri + "' not found. Please try again.");
                     return Action.NONE;
                 }
 
@@ -102,7 +102,7 @@ public class EditUserAction extends ActionSupport
                 return ERROR;
             }
         } else {
-            System.err.println("User '" + uri + "' not found. Please try again.");
+            System.err.println("User '" + reqUri + "' not found. Please try again.");
             return Action.NONE;
         }
     
@@ -116,7 +116,7 @@ public class EditUserAction extends ActionSupport
             System.out.println(user.getUsername() + " failed to edit user. Name was empty.");
             return ERROR;
         }
-        if (uriName == null || uriName.trim().isEmpty()) {
+        if (uri == null || uri.trim().isEmpty()) {
             addActionError("URI Name was empty. Please fill out all fields before saving.");
             System.out.println(user.getUsername() + " failed to edit user. URI was empty.");
             return ERROR;
@@ -139,22 +139,22 @@ public class EditUserAction extends ActionSupport
 
         try {
             // check if uri exists or not
-            Author existingUser = Application.getDatabaseSource().getAuthor(uriName, true);
+            Author existingUser = Application.getDatabaseSource().getAuthor(uri, true);
             
-            if(existingUser.getUriName().equals(user.getUriName()) && !user.getRole().isUsersEdit()) {
+            if(existingUser.getUri().equals(user.getUri()) && !user.getRole().isUsersEdit()) {
                 addActionError("You do not have permission to edit your account.");
                 addActionMessage("Only certain roles can edit themselves. Contact your sysadmin or manager.");
                 System.out.println("User " + user.getUsername() + " tried to edit themselves. Does not have permission.");
                 return ERROR;
             }
-            if(!existingUser.getUriName().equals(user.getUriName()) && !user.getRole().isUsersEditOthers()) {
+            if(!existingUser.getUri().equals(user.getUri()) && !user.getRole().isUsersEditOthers()) {
                 addActionError("You do not have permission to edit other authors.");
                 addActionMessage("Only certain roles can edit other authors. Contact your sysadmin or manager.");
-                System.out.println("User " + user.getUsername() + " tried to edit a user ("+uri+"). Does not have permission.");
+                System.out.println("User " + user.getUsername() + " tried to edit a user ("+reqUri+"). Does not have permission.");
                 return ERROR;
             }
 
-            if (existingUser.getId() != id) {
+            if (existingUser.get_Id() != id) {
                 // URI was not unique. Please try again.
                 addActionError(
                         "URI is not unique. Its being used by another author. Please change it, and try again.");
@@ -164,7 +164,7 @@ public class EditUserAction extends ActionSupport
 
             // save fields into object
             author = new Author(id);
-            author.setUriName(uriName);
+            author.setUri(uri);
             author.setName(name);
             author.setDescription(description);
             author.setThumbnail(thumbnail);
@@ -174,14 +174,14 @@ public class EditUserAction extends ActionSupport
             if (Application.getDatabaseSource().editAuthor(author)) {
                 // Success
                 System.out.println("User " + user.getUsername()
-                        + " saved changes to the author: " + uriName);
+                        + " saved changes to the author: " + uri);
                 addActionMessage("Successfully saved changes to the author.");
                 return SUCCESS;
             }
             {
                 // failed to update
                 addActionError("Oops. Failed to update author. Please try again.");
-                System.out.println("Failed to update author. " + uriName);
+                System.out.println("Failed to update author. " + uri);
                 return ERROR;
             }
         } catch (Exception e) {
@@ -196,19 +196,19 @@ public class EditUserAction extends ActionSupport
         
         // they've requested to delete a user
         try {
-            Author existingUser = Application.getDatabaseSource().getAuthor(uriName, true);
+            Author existingUser = Application.getDatabaseSource().getAuthor(uri, true);
             
-            if(!existingUser.getUriName().equals(user.getUriName()) && !user.getRole().isUsersDelete()) {
+            if(!existingUser.getUri().equals(user.getUri()) && !user.getRole().isUsersDelete()) {
                 addActionError("You do not have permission to delete other authors.");
                 addActionMessage("Only certain roles can delete other authors. Contact your sysadmin or manager.");
-                System.out.println("User " + user.getUsername() + " tried to delete a user ("+uri+"). Does not have permission.");
+                System.out.println("User " + user.getUsername() + " tried to delete a user ("+reqUri+"). Does not have permission.");
                 return ERROR;
             }
             
             author = new Author(id);
             if (Application.getDatabaseSource().deleteAuthor(author)) {
                 // Success
-                System.out.println("User " + user.getUsername() + " deleted user: " + uri);
+                System.out.println("User " + user.getUsername() + " deleted user: " + reqUri);
                 addActionMessage("The author was deleted!");
                 return SUCCESS;
             } else {
@@ -232,11 +232,11 @@ public class EditUserAction extends ActionSupport
         this.author = author;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -257,12 +257,12 @@ public class EditUserAction extends ActionSupport
         this.name = title.trim();
     }
 
-    public String getUriName() {
-        return uriName;
+    public String getUri() {
+        return uri;
     }
 
-    public void setUriName(String uriName) {
-        this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
+    public void setUri(String uri) {
+        this.uri = Utils.removeAllSpaces(uri.trim().toLowerCase());
     }
 
     public String getThumbnail() {

@@ -34,12 +34,12 @@ public class EditPostAction extends ActionSupport
 
     // post parameters
     private Post post;
-    private int id;
-    private String uri;
+    private String id;
+    private String reqUri;
 
     // updated values
     private String title;
-    private String uriName;
+    private String uri;
     private String thumbnail;
     private String publishDate;
     private boolean visible;
@@ -66,8 +66,8 @@ public class EditPostAction extends ActionSupport
         // this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123
         // )
         String uriTemp = servletRequest.getRequestURI().toLowerCase();
-        if (uri == null && uriTemp.startsWith("/manage/editpost/")) {
-            uri = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
+        if (reqUri == null && uriTemp.startsWith("/manage/editpost/")) {
+            reqUri = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
         }
 
         if (servletRequest.getParameter("delete") != null) {
@@ -88,38 +88,38 @@ public class EditPostAction extends ActionSupport
      * @return INPUT if found, NONE if not, and ERROR if error
      */
     private String openPost() {
-        if (uri != null && uri.length() > 0) {
+        if (reqUri != null && reqUri.length() > 0) {
             // search in db for post by title
             try {
-                post = Application.getDatabaseSource().getPost(uri, true);
+                post = Application.getDatabaseSource().getPost(reqUri, true);
 
                 // was post found
                 if (post != null) {
                     
-                    if(post.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEdit()) {
+                    if(post.getAuthor().getUri().equals(user.getUri()) && !user.getRole().isPostsEdit()) {
                         addActionError("You do not have permission to edit your post.");
                         addActionMessage("Only certain roles can edit their posts. Contact your sysadmin or manager.");
-                        System.out.println("User " + user.getUsername() + " tried to edit their post ("+uri+"). Does not have permission.");
+                        System.out.println("User " + user.getUsername() + " tried to edit their post ("+reqUri+"). Does not have permission.");
                         return ERROR;
                     }
-                    if(!post.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEditOthers()) {
+                    if(!post.getAuthor().getUri().equals(user.getUri()) && !user.getRole().isPostsEditOthers()) {
                         addActionError("You do not have permission to edit other posts.");
                         addActionMessage("Only certain roles can edit other posts. Contact your sysadmin or manager.");
-                        System.out.println("User " + user.getUsername() + " tried to edit a post ("+uri+"). Does not have permission.");
+                        System.out.println("User " + user.getUsername() + " tried to edit a post ("+reqUri+"). Does not have permission.");
                         return ERROR;
                     }
                     
                     // remove post URI from list
-                    usedUris.remove(uri);
+                    usedUris.remove(reqUri);
 
                     // set attributes
                     servletRequest.setAttribute("post", post);
 
                     System.out
-                            .println("User " + user.getUsername() + " opened post to edit: " + uri);
+                            .println("User " + user.getUsername() + " opened post to edit: " + reqUri);
                     return INPUT;
                 } else {
-                    System.err.println("Post '" + uri + "' not found. Please try again.");
+                    System.err.println("Post '" + reqUri + "' not found. Please try again.");
                     return NONE;
                 }
 
@@ -129,7 +129,7 @@ public class EditPostAction extends ActionSupport
                 return ERROR;
             }
         } else {
-            System.err.println("Post '" + uri + "' not found. Please try again.");
+            System.err.println("Post '" + reqUri + "' not found. Please try again.");
             return NONE;
         }
     }
@@ -147,7 +147,7 @@ public class EditPostAction extends ActionSupport
             System.out.println(user.getUsername() + " failed to edit post. Title was empty.");
             return ERROR;
         }
-        if (uriName == null || uriName.trim().isEmpty()) {
+        if (uri == null || uri.trim().isEmpty()) {
             addActionError("URI Name was empty. Please fill out all fields before saving.");
             System.out.println(user.getUsername() + " failed to edit post. URI was empty.");
             return ERROR;
@@ -186,9 +186,9 @@ public class EditPostAction extends ActionSupport
 
         // check that the URI is unique
         try {
-            Post existingPost = Application.getDatabaseSource().getPost(uri, true);
+            Post existingPost = Application.getDatabaseSource().getPost(reqUri, true);
 
-            if (existingPost.getId() != id) {
+            if (existingPost.get_Id() != id) {
                 // URI was not unique. Please try again.
                 addActionError(
                         "URI is not unique. Its being used by another post. Please change it, and try again.");
@@ -196,22 +196,22 @@ public class EditPostAction extends ActionSupport
                 return ERROR;
             }
             
-            if(existingPost.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEdit()) {
+            if(existingPost.getAuthor().getUri().equals(user.getUri()) && !user.getRole().isPostsEdit()) {
                 addActionError("You do not have permission to edit your post.");
                 addActionMessage("Only certain roles can edit their posts. Contact your sysadmin or manager.");
-                System.out.println("User " + user.getUsername() + " tried to edit their post ("+uri+"). Does not have permission.");
+                System.out.println("User " + user.getUsername() + " tried to edit their post ("+reqUri+"). Does not have permission.");
                 return ERROR;
             }
-            if(!existingPost.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsEditOthers()) {
+            if(!existingPost.getAuthor().getUri().equals(user.getUri()) && !user.getRole().isPostsEditOthers()) {
                 addActionError("You do not have permission to edit other posts.");
                 addActionMessage("Only certain roles can edit other posts. Contact your sysadmin or manager.");
-                System.out.println("User " + user.getUsername() + " tried to edit a post ("+uri+"). Does not have permission.");
+                System.out.println("User " + user.getUsername() + " tried to edit a post ("+reqUri+"). Does not have permission.");
                 return ERROR;
             }
 
             // save fields into object
             post = new Post(id);
-            post.setUriName(uriName);
+            post.setUri(uri);
             post.setTitle(title);
             post.setAuthor(existingPost.getAuthor());
             Calendar cal = Calendar.getInstance();
@@ -243,14 +243,14 @@ public class EditPostAction extends ActionSupport
             if (Application.getDatabaseSource().editPost(post)) {
                 // Success
                 System.out.println(
-                        "User " + user.getUsername() + " saved changes to the post: " + uri);
+                        "User " + user.getUsername() + " saved changes to the post: " + reqUri);
                 addActionMessage("Successfully saved changes to the post.");
                 return SUCCESS;
             }
             {
                 // failed to update
                 addActionError("Oops. Failed to update post. Please try again.");
-                System.out.println("Failed to update post. " + uriName);
+                System.out.println("Failed to update post. " + uri);
                 return ERROR;
             }
 
@@ -270,24 +270,24 @@ public class EditPostAction extends ActionSupport
         
         // they've requested to delete a post
         try {
-            Post existingPost = Application.getDatabaseSource().getPost(uri, true);
+            Post existingPost = Application.getDatabaseSource().getPost(reqUri, true);
             
-            if(!existingPost.getAuthor().getUriName().equals(user.getUriName()) && !user.getRole().isPostsDelete()) {
+            if(!existingPost.getAuthor().getUri().equals(user.getUri()) && !user.getRole().isPostsDelete()) {
                 addActionError("You do not have permission to delete other posts.");
                 addActionMessage("Only certain roles can delete other posts. Contact your sysadmin or manager.");
-                System.out.println("User " + user.getUsername() + " tried to delete a post ("+uri+"). Does not have permission.");
+                System.out.println("User " + user.getUsername() + " tried to delete a post ("+reqUri+"). Does not have permission.");
                 return ERROR;
             }
             
             post = new Post(id);
             if (Application.getDatabaseSource().deletePost(post)) {
                 // Success
-                System.out.println("User " + user.getUsername() + " deleted post: " + uri);
+                System.out.println("User " + user.getUsername() + " deleted post: " + reqUri);
                 addActionMessage("The post was deleted!");
                 return SUCCESS;
             } else {
                 // failed to delete post
-                addActionError("Failed to delete post: " + uri);
+                addActionError("Failed to delete post: " + reqUri);
                 return ERROR;
             }
 
@@ -306,11 +306,11 @@ public class EditPostAction extends ActionSupport
         this.post = post;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -331,12 +331,12 @@ public class EditPostAction extends ActionSupport
         this.title = title.trim();
     }
 
-    public String getUriName() {
-        return uriName;
+    public String getUri() {
+        return uri;
     }
 
-    public void setUriName(String uriName) {
-        this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
+    public void setUri(String uri) {
+        this.uri = Utils.removeAllSpaces(uri.trim().toLowerCase());
     }
 
     public String getThumbnail() {

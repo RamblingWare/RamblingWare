@@ -9,31 +9,40 @@ import java.util.Date;
  */
 public class Category {
 
-    private int id;
-    private String uriName;
+    private String _id;
+    private String _rev;
+    private String uri;
     private String name;
     private String description;
     private Date createDate;
     private Date modifyDate;
 
-    public Category(int id) {
-        this.id = id;
+    public Category(String id) {
+        this._id = id;
     }
 
-    public int getId() {
-        return id;
+    public String get_Id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void set_Id(String id) {
+        this._id = id;
     }
 
-    public String getUriName() {
-        return uriName;
+    public String get_rev() {
+        return _rev;
     }
 
-    public void setUriName(String uriName) {
-        this.uriName = uriName;
+    public void set_rev(String _rev) {
+        this._rev = _rev;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public String getName() {

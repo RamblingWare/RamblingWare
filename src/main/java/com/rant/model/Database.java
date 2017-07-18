@@ -16,6 +16,7 @@ public class Database {
     private String password;
 
     public Database() {
+        // Auto-generated constructor stub
     }
 
     public Database(String name) {

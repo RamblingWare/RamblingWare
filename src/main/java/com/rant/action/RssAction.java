@@ -55,7 +55,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
                         + post.getDescription() + "</description>\n" + "<pubDate>"
                         + post.getPublishDateReadable() + "</pubDate>\n"
 
-                        + "<link>https://www.ramblingware.com/blog/" + post.getUriName() + "</link>"
+                        + "<link>https://www.ramblingware.com/blog/" + post.getUri() + "</link>"
                         + "</item>\n";
             }
 

@@ -33,7 +33,7 @@ public class NewPostAction extends ActionSupport
     private Author user;
 
     private String title;
-    private String uriName;
+    private String uri;
     private String thumbnail;
     private String publishDate;
 
@@ -89,7 +89,7 @@ public class NewPostAction extends ActionSupport
             System.out.println(user.getUsername() + " failed to edit post. Title was empty.");
             return ERROR;
         }
-        if (uriName == null || uriName.trim().isEmpty()) {
+        if (uri == null || uri.trim().isEmpty()) {
             addActionError("URI Name was empty. Please fill out all fields before saving.");
             System.out.println(user.getUsername() + " failed to edit post. URI was empty.");
             return ERROR;
@@ -128,7 +128,7 @@ public class NewPostAction extends ActionSupport
 
         // check that the URI is unique
         try {
-            Post post = Application.getDatabaseSource().getPost(uriName, true);
+            Post post = Application.getDatabaseSource().getPost(uri, true);
 
             if (post != null) {
                 // URI was not unique. Please try again.
@@ -139,8 +139,8 @@ public class NewPostAction extends ActionSupport
             }
 
             // save fields into object
-            post = new Post(-1);
-            post.setUriName(uriName);
+            post = new Post(null);
+            post.setUri(uri);
             post.setTitle(title);
             post.setAuthor(user);
             Calendar cal = Calendar.getInstance();
@@ -172,16 +172,16 @@ public class NewPostAction extends ActionSupport
             // insert into database
             post = Application.getDatabaseSource().newPost(post);
 
-            if (post.getId() != -1) {
+            if (post.get_Id() != null) {
                 // Success
                 System.out.println(
-                        "User " + user.getUsername() + " submitted a new post: " + uriName);
+                        "User " + user.getUsername() + " submitted a new post: " + uri);
                 addActionMessage("Successfully created new post.");
                 return SUCCESS;
             } else {
                 // failed to insert
                 addActionError("Oops. Failed to create new post. Please try again.");
-                System.out.println("Failed to create new post. " + uriName);
+                System.out.println("Failed to create new post. " + uri);
                 return ERROR;
             }
 
@@ -200,12 +200,12 @@ public class NewPostAction extends ActionSupport
         this.title = title.trim();
     }
 
-    public String getUriName() {
-        return uriName;
+    public String getUri() {
+        return uri;
     }
 
-    public void setUriName(String uriName) {
-        this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
+    public void setUri(String uri) {
+        this.uri = Utils.removeAllSpaces(uri.trim().toLowerCase());
     }
 
     public String getThumbnail() {

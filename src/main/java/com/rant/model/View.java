@@ -10,21 +10,8 @@ import com.rant.config.Utils;
  */
 public class View {
 
-    private int id;
     private long count;
     private long session;
-
-    public View(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
     
     public long getCount() {
         return count;

@@ -17,7 +17,8 @@ import java.util.Date;
  */
 public class Role {
 
-    private int id;
+    private String _id;
+    private String _rev;
     private String name;
     private String description;
 
@@ -48,16 +49,24 @@ public class Role {
     private boolean isSettingsEdit;
     private boolean isSettingsDelete;
 
-    public Role(int id) {
-        setId(id);
+    public Role(String id) {
+        set_Id(id);
     }
 
-    public int getId() {
-        return id;
+    public String get_Id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void set_Id(String id) {
+        this._id = id;
+    }
+
+    public String get_rev() {
+        return _rev;
+    }
+
+    public void set_rev(String _rev) {
+        this._rev = _rev;
     }
 
     public String getName() {

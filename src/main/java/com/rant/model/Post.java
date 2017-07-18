@@ -1,22 +1,23 @@
 package com.rant.model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import com.rant.config.Utils;
 
 /**
- * Post class is just a bean.
+ * This class represents a Post
  * 
  * @author Austin Delamar
- * @date 11/24/2015
+ * @created 11/24/2015
  */
 public class Post {
 
-    private int id;
+    private String _id;
+    private String _rev;
     private String title;
-    private String uriName;
+    private String uri;
     private boolean featured;
     private boolean visible;
 
@@ -32,19 +33,27 @@ public class Post {
     private Date publishDate;
 
     private Author author;
-    private ArrayList<String> tags;
+    private List<String> tags;
     private View view;
 
-    public Post(int id) {
-        this.id = id;
+    public Post(String id) {
+        this._id = id;
     }
 
-    public int getId() {
-        return id;
+    public String get_Id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void set_Id(String id) {
+        this._id = id;
+    }
+
+    public String get_rev() {
+        return _rev;
+    }
+
+    public void set_rev(String _rev) {
+        this._rev = _rev;
     }
 
     public String getTitle() {
@@ -55,12 +64,12 @@ public class Post {
         this.title = title;
     }
 
-    public String getUriName() {
-        return uriName;
+    public String getUri() {
+        return uri;
     }
 
-    public void setUriName(String uriName) {
-        this.uriName = uriName;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public boolean isFeatured() {
@@ -177,11 +186,11 @@ public class Post {
         this.author = author;
     }
 
-    public ArrayList<String> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 

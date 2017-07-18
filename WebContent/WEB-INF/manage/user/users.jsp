@@ -45,12 +45,12 @@
 					
 					<s:iterator value="authors" status="r">
 						<tr>
-						<td><a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/edituser/<s:property value="uriName" />">Edit</a></td>
+						<td><a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/edituser/<s:property value="uri" />">Edit</a></td>
 						<td>
-							<a href="/author/<s:property value="uriName" />">
+							<a href="/author/<s:property value="uri" />">
 								<img class="w3-round" src="<s:property value="thumbnail" />" height="24px" width="24px" style="vertical-align: middle;" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'" /></a>
 							&nbsp;
-							<a href="/author/<s:property value="uriName" />" class="w3-medium" style="vertical-align: middle;"><s:property value="name" /></a>
+							<a href="/author/<s:property value="uri" />" class="w3-medium" style="vertical-align: middle;"><s:property value="name" /></a>
 						</td>
 							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
 						<td>

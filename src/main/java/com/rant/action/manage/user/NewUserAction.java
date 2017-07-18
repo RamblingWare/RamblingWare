@@ -34,7 +34,7 @@ public class NewUserAction extends ActionSupport
     private List<Role> roles;
 
     private String username;
-    private String uriName;
+    private String uri;
     private String email;
     private String name;
     private String password;
@@ -82,7 +82,7 @@ public class NewUserAction extends ActionSupport
             System.out.println(user.getUsername() + " failed to create user. Name was empty.");
             return ERROR;
         }
-        if (uriName == null || uriName.trim().isEmpty()) {
+        if (uri == null || uri.trim().isEmpty()) {
             addActionError("URI Name was empty. Please fill out all fields before saving.");
             System.out.println(user.getUsername() + " failed to create user. URI was empty.");
             return ERROR;
@@ -130,7 +130,7 @@ public class NewUserAction extends ActionSupport
 
         try {
             // check that the URI is unique
-            Author author = Application.getDatabaseSource().getAuthor(uriName, true);
+            Author author = Application.getDatabaseSource().getAuthor(uri, true);
 
             if (author != null) {
                 // URI was not unique. Please try again.
@@ -144,19 +144,19 @@ public class NewUserAction extends ActionSupport
             password = Hash.create(password, Type.PBKDF2_SHA256);
 
             // add new user
-            Author newUser = new Author(-1);
+            Author newUser = new Author(null);
             newUser.setEmail(email);
             newUser.setName(name);
             newUser.setUsername(username);
-            newUser.setUriName(uriName);
+            newUser.setUri(uri);
             newUser.setPassword(password);
             newUser.setThumbnail("");
-            newUser.setRole(new Role(role));
+            newUser.setRole(new Role(""+role));
 
             // insert into database
             newUser = Application.getDatabaseSource().newUser(newUser);
 
-            if (newUser.getId() != -1) {
+            if (newUser.get_Id() != null) {
                 // Success
                 addActionMessage("Successfully created new Author: " + username);
                 System.out
@@ -219,11 +219,11 @@ public class NewUserAction extends ActionSupport
     }
 
     public String getUriName() {
-        return uriName;
+        return uri;
     }
 
     public void setUriName(String uriName) {
-        this.uriName = Utils.removeAllSpaces(uriName.trim().toLowerCase());
+        this.uri = Utils.removeAllSpaces(uriName.trim().toLowerCase());
     }
 
     public String getPassword() {

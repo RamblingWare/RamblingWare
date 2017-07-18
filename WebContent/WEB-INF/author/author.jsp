@@ -11,7 +11,7 @@
 
 <!-- Facebook Open Graph -->
 <meta property="fb:app_id" content="<%=Application.getString("facebookAppId")%>"/>
-<meta property="og:url" content="<%=Application.getString("url")%>/author/<s:property value="author.uriName" />"/>
+<meta property="og:url" content="<%=Application.getString("url")%>/author/<s:property value="author.uri" />"/>
 <meta property="og:type" content="article"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:title" content="<s:property value="author.name" /> - <%=Application.getString("name")%>"/>

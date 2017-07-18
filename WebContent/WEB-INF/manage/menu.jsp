@@ -62,7 +62,7 @@
 							</div>
 							<div class="w3-padding w3-small w3-theme-light">
 								<p>
-								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/edituser/<s:property value="#session.USER.uriName" />">
+								<a class="w3-btn w3-card w3-round w3-small w3-theme-light" href="/manage/edituser/<s:property value="#session.USER.uri" />">
 								<s:if test="#session.USER.thumbnail != null && !#session.USER.thumbnail.trim().isEmpty()">
 									<img class="w3-round w3-large" style="vertical-align: middle;" src="<s:property value="#session.USER.thumbnail" />" height="24" width="24" />
 								</s:if>

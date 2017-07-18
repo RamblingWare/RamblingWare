@@ -61,8 +61,17 @@ public class CouchDB extends DatabaseSource {
 
     @Override
     public Post getPost(String uri, boolean includeHidden) {
-        // Auto-generated method stub
-        return null;
+        Post post = null;
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            post = db.find(Post.class, uri);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return post;
     }
 
     @Override
@@ -138,7 +147,7 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("post", "posts")
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "posts")
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .includeDocs(true).build().getResponse();
 
