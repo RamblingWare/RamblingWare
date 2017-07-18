@@ -3,17 +3,20 @@ package com.rant.database;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
+import com.cloudant.client.api.Database;
+import com.cloudant.client.api.views.Key;
+import com.cloudant.client.api.views.ViewResponse;
 import com.rant.model.Author;
-import com.rant.model.Database;
 import com.rant.model.Post;
 import com.rant.model.Role;
 
 public class CouchDB extends DatabaseSource {
 
-    public CouchDB(Database database) {
+    public CouchDB(com.rant.model.Database database) {
         super(database);
     }
 
@@ -43,7 +46,7 @@ public class CouchDB extends DatabaseSource {
             System.out.println("CouchDB Version: " + client.serverVersion());
 
             // Test Create, Insert, Delete
-            com.cloudant.client.api.Database couchdb = client.database("rantdb-test", true);
+            Database couchdb = client.database("rantdb-test", true);
             couchdb.save(database);
             client.deleteDB("rantdb-test");
 
@@ -99,62 +102,75 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
-    public ArrayList<Post> getArchiveFeatured() {
+    public List<Post> getArchiveFeatured() {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<String> getArchiveYears() {
+    public List<String> getArchiveYears() {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<String> getArchiveCategories() {
+    public List<String> getArchiveCategories() {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<String> getArchiveTags() {
+    public List<String> getArchiveTags() {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<String> getPostUris() {
+    public List<String> getPostUris() {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<Post> getPosts(int page, int limit, boolean includeHidden) {
-        // Auto-generated method stub
-        return null;
+    public List<Post> getPosts(int page, int limit, boolean includeHidden) {
+        List<Post> posts = new ArrayList<Post>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("post", "posts")
+                    .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                    .includeDocs(true).build().getResponse();
+
+            posts = pg.getDocsAs(Post.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
     }
 
     @Override
-    public ArrayList<Post> getPostsByCategory(int page, int limit, String category,
+    public List<Post> getPostsByCategory(int page, int limit, String category,
             boolean includeHidden) {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden) {
+    public List<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden) {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden) {
+    public List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden) {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public ArrayList<Author> getAuthors(int page, int limit, boolean includeAdmins) {
+    public List<Author> getAuthors(int page, int limit, boolean includeAdmins) {
         // Auto-generated method stub
         return null;
     }
@@ -190,7 +206,7 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
-    public ArrayList<Role> getRoles() {
+    public List<Role> getRoles() {
         // TODO Auto-generated method stub
         return null;
     }

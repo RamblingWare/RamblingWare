@@ -1,6 +1,6 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +24,7 @@ public class YearsAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<String> years = new ArrayList<String>();
+    private List<String> years = null;
 
     public String execute() {
 
@@ -63,11 +63,11 @@ public class YearsAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<String> getYears() {
+    public List<String> getYears() {
         return years;
     }
 
-    public void setYears(ArrayList<String> years) {
+    public void setYears(List<String> years) {
         this.years = years;
     }
 }

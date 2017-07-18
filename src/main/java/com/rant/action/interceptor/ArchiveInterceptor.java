@@ -1,6 +1,6 @@
 package com.rant.action.interceptor;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionInvocation;
@@ -24,12 +24,12 @@ public class ArchiveInterceptor implements Interceptor {
         Map<String, Object> sessionAttributes = actionInvocation.getInvocationContext()
                 .getSession();
 
-        ArrayList<Post> archiveFeatured = (ArrayList<Post>) sessionAttributes
+        List<Post> archiveFeatured = (List<Post>) sessionAttributes
                 .get("archiveFeatured");
-        ArrayList<String> archiveYears = (ArrayList<String>) sessionAttributes
+        List<String> archiveYears = (List<String>) sessionAttributes
                 .get("archiveYears");
-        ArrayList<String> archiveTags = (ArrayList<String>) sessionAttributes.get("archiveTags");
-        ArrayList<String> archiveCategories = (ArrayList<String>) sessionAttributes
+        List<String> archiveTags = (List<String>) sessionAttributes.get("archiveTags");
+        List<String> archiveCategories = (List<String>) sessionAttributes
                 .get("archiveCategories");
 
         if (archiveYears == null || archiveYears.isEmpty()) {

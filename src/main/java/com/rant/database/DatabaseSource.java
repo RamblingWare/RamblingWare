@@ -1,9 +1,8 @@
 package com.rant.database;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.rant.model.Author;
-import com.rant.model.Database;
 import com.rant.model.Post;
 import com.rant.model.Role;
 
@@ -15,20 +14,20 @@ import com.rant.model.Role;
  */
 public abstract class DatabaseSource {
 
-    protected Database database;
+    protected com.rant.model.Database database;
 
-    public DatabaseSource(Database database) {
+    public DatabaseSource(com.rant.model.Database database) {
         this.database = database;
     }
 
-    public void setDatabase(Database database) {
+    public void setDatabase(com.rant.model.Database database) {
         this.database = database;
     }
 
-    public Database getDatabase() {
+    public com.rant.model.Database getDatabase() {
         return database;
     }
-    
+
     public abstract boolean test();
 
     public abstract Post getPost(String uri, boolean includeHidden);
@@ -45,28 +44,27 @@ public abstract class DatabaseSource {
 
     public abstract boolean deleteAuthor(Author author);
 
-    public abstract ArrayList<Post> getArchiveFeatured();
+    public abstract List<Post> getArchiveFeatured();
 
-    public abstract ArrayList<String> getArchiveYears();
+    public abstract List<String> getArchiveYears();
 
-    public abstract ArrayList<String> getArchiveCategories();
+    public abstract List<String> getArchiveCategories();
 
-    public abstract ArrayList<String> getArchiveTags();
+    public abstract List<String> getArchiveTags();
 
-    public abstract ArrayList<String> getPostUris();
+    public abstract List<String> getPostUris();
 
-    public abstract ArrayList<Post> getPosts(int page, int limit, boolean includeHidden);
+    public abstract List<Post> getPosts(int page, int limit, boolean includeHidden);
 
-    public abstract ArrayList<Post> getPostsByCategory(int page, int limit, String category,
+    public abstract List<Post> getPostsByCategory(int page, int limit, String category,
             boolean includeHidden);
 
-    public abstract ArrayList<Post> getPostsByTag(int page, int limit, String tag,
+    public abstract List<Post> getPostsByTag(int page, int limit, String tag,
             boolean includeHidden);
 
-    public abstract ArrayList<Post> getPostsByYear(int page, int limit, int year,
-            boolean includeHidden);
+    public abstract List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden);
 
-    public abstract ArrayList<Author> getAuthors(int page, int limit, boolean includeAdmins);
+    public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
 
     public abstract Author getUser(String username);
 
@@ -77,7 +75,7 @@ public abstract class DatabaseSource {
     public abstract boolean loginUser(Author user);
 
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
-    
-    public abstract ArrayList<Role> getRoles();
-    
+
+    public abstract List<Role> getRoles();
+
 }

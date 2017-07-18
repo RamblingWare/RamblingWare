@@ -1,7 +1,7 @@
 package com.rant.action;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class AuthorsAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Author> authors = new ArrayList<Author>();
+    private List<Author> authors = null;
 
     public String execute() {
 
@@ -74,11 +74,11 @@ public class AuthorsAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(ArrayList<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 

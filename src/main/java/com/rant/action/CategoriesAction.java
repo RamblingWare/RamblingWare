@@ -1,6 +1,6 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +24,7 @@ public class CategoriesAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<String> categories = new ArrayList<String>();
+    private List<String> categories = null;
 
     public String execute() {
 
@@ -49,11 +49,11 @@ public class CategoriesAction extends ActionSupport
         }
     }
 
-    public ArrayList<String> getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(ArrayList<String> categories) {
+    public void setCategories(List<String> categories) {
         this.categories = categories;
     }
 

@@ -1,6 +1,6 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<String> tags = new ArrayList<String>();
+    private List<String> tags = null;
 
     public String execute() {
 
@@ -69,11 +69,11 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<String> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 }

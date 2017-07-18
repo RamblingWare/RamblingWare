@@ -1,6 +1,7 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,7 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
     private int page;
     private boolean nextPage;
     private boolean prevPage;
@@ -87,11 +88,11 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 

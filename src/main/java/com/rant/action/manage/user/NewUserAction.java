@@ -1,6 +1,6 @@
 package com.rant.action.manage.user;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ public class NewUserAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
     private Author user;
-    private ArrayList<Role> roles;
+    private List<Role> roles;
 
     private String username;
     private String uriName;
@@ -250,11 +250,11 @@ public class NewUserAction extends ActionSupport
         this.role = role;
     }
 
-    public ArrayList<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

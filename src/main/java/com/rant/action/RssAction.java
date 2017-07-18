@@ -1,7 +1,7 @@
 package com.rant.action;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
     private static final long serialVersionUID = 1L;
 
     // search results
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
 
     public String execute() {
 

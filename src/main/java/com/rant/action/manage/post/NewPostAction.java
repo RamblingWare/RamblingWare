@@ -2,6 +2,7 @@ package com.rant.action.manage.post;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,8 +50,8 @@ public class NewPostAction extends ActionSupport
     private String htmlContent;
 
     // taken uris and tags
-    private ArrayList<String> usedUris;
-    private ArrayList<String> usedTags;
+    private List<String> usedUris;
+    private List<String> usedTags;
 
     @Override
     public String execute() {
@@ -295,19 +296,19 @@ public class NewPostAction extends ActionSupport
         this.htmlContent = htmlContent;
     }
 
-    public ArrayList<String> getUsedUris() {
+    public List<String> getUsedUris() {
         return usedUris;
     }
 
-    public void setUsedUris(ArrayList<String> usedUris) {
+    public void setUsedUris(List<String> usedUris) {
         this.usedUris = usedUris;
     }
 
-    public ArrayList<String> getUsedTags() {
+    public List<String> getUsedTags() {
         return usedTags;
     }
 
-    public void setUsedTags(ArrayList<String> usedTags) {
+    public void setUsedTags(List<String> usedTags) {
         this.usedTags = usedTags;
     }
 

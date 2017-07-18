@@ -1,6 +1,6 @@
 package com.rant.action.manage.user;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class UsersAction extends ActionSupport
     private static final long serialVersionUID = 1L;
 
     // results
-    private ArrayList<Author> authors;
+    private List<Author> authors;
     private int page;
     private int limit = Application.getInt("manageLimit");
     private boolean nextPage;
@@ -52,8 +52,10 @@ public class UsersAction extends ActionSupport
             authors = Application.getDatabaseSource().getAuthors(page, limit, true);
 
             // determine pagination
-            nextPage = authors.size() >= limit;
-            prevPage = page > 1;
+            if (authors != null) {
+                nextPage = authors.size() >= limit;
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("authors", authors);
@@ -84,11 +86,11 @@ public class UsersAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(ArrayList<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 

@@ -1,6 +1,6 @@
 package com.rant.action.manage.post;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class PostsAction extends ActionSupport
     private static final long serialVersionUID = 1L;
 
     // results
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
     private int page;
     private int limit = Application.getInt("manageLimit");
     private boolean nextPage;
@@ -51,8 +51,10 @@ public class PostsAction extends ActionSupport
             posts = Application.getDatabaseSource().getPosts(page, limit, true);
 
             // determine pagination
-            nextPage = posts.size() >= limit;
-            prevPage = page > 1;
+            if (posts != null) {
+                nextPage = posts.size() >= limit;
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
@@ -83,11 +85,11 @@ public class PostsAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 
