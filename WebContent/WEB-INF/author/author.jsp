@@ -52,11 +52,11 @@
 				
 				<div class="w3-container w3-padding">
 					<img src="<s:property value="author.thumbnail" />" class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height:200px" alt="Profile" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>
-					<% String htmlContent = (String) request.getAttribute("author.htmlContent");
-					if(htmlContent == null || htmlContent.isEmpty()) {
+					<% String content = (String) request.getAttribute("author.content");
+					if(content == null || content.isEmpty()) {
 						out.print("This author hasn't provided a bio yet.");
 					} else {
-					out.print(htmlContent); } %>
+					out.print(content); } %>
 				</div>
 				
 				<div class="w3-container w3-padding-left w3-padding-right w3-center">

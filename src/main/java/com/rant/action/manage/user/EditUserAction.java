@@ -38,7 +38,7 @@ public class EditUserAction extends ActionSupport
     private String uri;
     private String thumbnail;
     private String description;
-    private String htmlContent;
+    private String content;
 
     public String execute() {
 
@@ -127,10 +127,10 @@ public class EditUserAction extends ActionSupport
         if (description == null) {
             description = "";
         }
-        if (htmlContent == null) {
-            htmlContent = "";
+        if (content == null) {
+            content = "";
         }
-        if (htmlContent != null && htmlContent.length() > 12288) {
+        if (content != null && content.length() > 12288) {
             addActionError(
                     "Post Content is too long. Character limit is 12,288. Please shorten the content.");
             System.out.println(user.getUsername() + " failed to edit user. Content too large.");
@@ -163,12 +163,11 @@ public class EditUserAction extends ActionSupport
             }
 
             // save fields into object
-            author = new Author(id);
-            author.setUri(uri);
+            author = new Author(uri);
             author.setName(name);
             author.setDescription(description);
             author.setThumbnail(thumbnail);
-            author.setHtmlContent(htmlContent);
+            author.setContent(content);
 
             // update author in database
             if (Application.getDatabaseSource().editAuthor(author)) {
@@ -281,12 +280,12 @@ public class EditUserAction extends ActionSupport
         this.description = Utils.removeNonAsciiChars(description.trim());
     }
 
-    public String getHtmlContent() {
-        return htmlContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override

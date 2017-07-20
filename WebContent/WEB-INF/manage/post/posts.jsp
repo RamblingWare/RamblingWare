@@ -52,9 +52,9 @@
 						<s:if test="thumbnail != null && !thumbnail.isEmpty()">
 							<img src="<s:property value="thumbnail" />" height="27px" width="48px" style="vertical-align: middle;" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'" />
 						</s:if>
-						<s:if test="visible == false">
+						<s:if test="published == false">
 							<a href="/manage/viewpost/<s:property value="uri" />" class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
-							&nbsp;<span class="icon-eye w3-large w3-text-red w3-padding-square" title="This post is hidden from public."></span>
+							&nbsp;<span class="icon-eye w3-large w3-text-red w3-padding-square" title="This post is hidden from the public."></span>
 						</s:if>
 						<s:else>
 							<a href="/blog/<s:property value="uri" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>

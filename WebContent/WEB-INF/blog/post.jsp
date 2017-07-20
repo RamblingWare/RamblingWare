@@ -55,11 +55,11 @@
 				</s:if>
 				
 				<h1><s:property value="post.title" /></h1>
-				<% String htmlContent = (String) request.getAttribute("post.htmlContent");
-					if(htmlContent == null || htmlContent.isEmpty()) {
+				<% String content = (String) request.getAttribute("post.content");
+					if(content == null || content.isEmpty()) {
 						out.print("This post seems to be empty or failed to load correctly. Please try again later?");
 					} else {
-					out.print(htmlContent); } %>				
+					out.print(content); } %>				
 				<hr />
 				<div class="w3-container w3-padding w3-margin-0 w3-center">
 

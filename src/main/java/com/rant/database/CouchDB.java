@@ -10,6 +10,7 @@ import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewResponse;
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.rant.model.Author;
 import com.rant.model.Post;
 import com.rant.model.Role;
@@ -68,6 +69,12 @@ public class CouchDB extends DatabaseSource {
 
             post = db.find(Post.class, uri);
 
+            if (!includeHidden && !post.isPublished()) {
+                // post = null;
+            }
+
+        } catch (NoDocumentException e) {
+            post = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,8 +101,19 @@ public class CouchDB extends DatabaseSource {
 
     @Override
     public Author getAuthor(String uri, boolean includeHidden) {
-        // Auto-generated method stub
-        return null;
+        Author author = null;
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            author = db.find(Author.class, uri);
+
+        } catch (NoDocumentException e) {
+            author = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return author;
     }
 
     @Override
@@ -180,8 +198,21 @@ public class CouchDB extends DatabaseSource {
 
     @Override
     public List<Author> getAuthors(int page, int limit, boolean includeAdmins) {
-        // Auto-generated method stub
-        return null;
+        List<Author> authors = new ArrayList<Author>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "authors")
+                    .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                    .includeDocs(true).build().getResponse();
+
+            authors = pg.getDocsAs(Author.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return authors;
     }
 
     @Override
@@ -205,18 +236,18 @@ public class CouchDB extends DatabaseSource {
     @Override
     public boolean loginUser(Author user) {
         // Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean incrementPageViews(Post post, boolean sessionView) {
         // Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public List<Role> getRoles() {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
         return null;
     }
 }

@@ -16,17 +16,16 @@ public class Post {
 
     private String _id;
     private String _rev;
+    
     private String title;
-    private String uri;
     private boolean featured;
-    private boolean visible;
-
+    private boolean published;
     private String category;
     private String thumbnail;
     private String banner;
     private String bannerCaption;
     private String description;
-    private String htmlContent;
+    private String content;
 
     private Date createDate;
     private Date modifyDate;
@@ -55,6 +54,10 @@ public class Post {
     public void set_rev(String _rev) {
         this._rev = _rev;
     }
+    
+    public String getUri() {
+        return _id;
+    }
 
     public String getTitle() {
         return title;
@@ -62,14 +65,6 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
     }
 
     public boolean isFeatured() {
@@ -80,12 +75,12 @@ public class Post {
         this.featured = featured;
     }
 
-    public boolean isVisible() {
-        return visible;
+    public boolean isPublished() {
+        return published;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 
     public String getCategory() {
@@ -128,12 +123,12 @@ public class Post {
         this.description = description;
     }
 
-    public String getHtmlContent() {
-        return htmlContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Date getCreateDate() {

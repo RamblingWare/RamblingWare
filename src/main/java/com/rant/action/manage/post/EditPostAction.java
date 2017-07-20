@@ -42,7 +42,7 @@ public class EditPostAction extends ActionSupport
     private String uri;
     private String thumbnail;
     private String publishDate;
-    private boolean visible;
+    private boolean published;
     private boolean featured;
     private boolean hasBanner;
     private String banner;
@@ -50,7 +50,7 @@ public class EditPostAction extends ActionSupport
     private String tags;
     private String category;
     private String description;
-    private String htmlContent;
+    private String content;
 
     // taken uris and tags
     private List<String> usedUris;
@@ -158,10 +158,10 @@ public class EditPostAction extends ActionSupport
         if (description == null) {
             description = "";
         }
-        if (htmlContent == null) {
-            htmlContent = "";
+        if (content == null) {
+            content = "";
         }
-        if (htmlContent != null && htmlContent.length() > 12288) {
+        if (content != null && content.length() > 12288) {
             addActionError(
                     "Post Content is too long. Character limit is 12,288. Please shorten the post.");
             System.out.println(user.getUsername() + " failed to edit post. Content too large.");
@@ -211,20 +211,19 @@ public class EditPostAction extends ActionSupport
 
             // save fields into object
             post = new Post(id);
-            post.setUri(uri);
             post.setTitle(title);
             post.setAuthor(existingPost.getAuthor());
             Calendar cal = Calendar.getInstance();
             cal.setTime(Utils.convertStringToDate(publishDate));
             post.setPublishDate(new java.sql.Date(cal.getTimeInMillis()));
-            post.setVisible(visible);
+            post.setPublished(published);
             post.setFeatured(featured);
             post.setCategory(category);
             post.setBanner(banner);
             post.setBannerCaption(bannerCaption);
             post.setThumbnail(thumbnail);
             post.setDescription(description);
-            post.setHtmlContent(htmlContent);
+            post.setContent(content);
 
             // chop off [ ] if they added them
             tags = tags.replaceAll("\\[", "");
@@ -355,12 +354,12 @@ public class EditPostAction extends ActionSupport
         this.publishDate = publishDate;
     }
 
-    public boolean isVisible() {
-        return visible;
+    public boolean isPublished() {
+        return published;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 
     public boolean isFeatured() {
@@ -419,12 +418,12 @@ public class EditPostAction extends ActionSupport
         this.description = Utils.removeNonAsciiChars(description.trim());
     }
 
-    public String getHtmlContent() {
-        return htmlContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public List<String> getUsedUris() {

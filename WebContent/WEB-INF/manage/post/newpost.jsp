@@ -73,8 +73,8 @@ function validate() {
 			return false;
 		}
 	}	
-	if(document.getElementById('htmlContent').value.length > 12288) {
-		alert('Sorry! The post is too long.\nMax length = 12288 chars\nPost length = '+document.getElementById('htmlContent').value.length+'\n\nPlease shorten your post.');
+	if(document.getElementById('content').value.length > 12288) {
+		alert('Sorry! The post is too long.\nMax length = 12288 chars\nPost length = '+document.getElementById('content').value.length+'\n\nPlease shorten your post.');
 		return false;
 	}
 	return true;
@@ -253,11 +253,11 @@ function preview() {
 					</p>
 					<h2 id="previewTitle2">Post Title</h2>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
-						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" maxlength="12288" style="width:100%"><s:property value="htmlContent" /></textarea>
+						<label class="w3-validate w3-text-grey-light w3-large" for="content">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
+						<textarea name="content" id="content" rows="10" cols="100" maxlength="12288" style="width:100%"><s:property value="content" /></textarea>
 			            <script>
-			                // Replace the <textarea id="htmlContent"> with a CKEditor instance, using default configuration.
-			                CKEDITOR.replace('htmlContent', {
+			                // Replace the <textarea id="content"> with a CKEditor instance, using default configuration.
+			                CKEDITOR.replace('content', {
 								language: 'en',
 								height: 500,
 								toolbarCanCollapse: true,
@@ -281,8 +281,8 @@ function preview() {
 					</p>
 					</div>
 					<p>
-						<input type="checkbox" name="visible" id="visible" class="w3-check" value="true" />
-						<label class="w3-validate w3-text-grey-light w3-large" for="visible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="w3-small w3-text-grey quote">(You can make it public later if you want.)</span></label>
+						<input type="checkbox" name="published" id="published" class="w3-check" value="true" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="published">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="w3-small w3-text-grey quote">(You can publish it later if you want.)</span></label>
 					</p>
 					<p>
 						<input type="checkbox" name="featured" id="featured" class="w3-check" value="true" />

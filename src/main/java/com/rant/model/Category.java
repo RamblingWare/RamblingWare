@@ -11,7 +11,6 @@ public class Category {
 
     private String _id;
     private String _rev;
-    private String uri;
     private String name;
     private String description;
     private Date createDate;
@@ -38,11 +37,7 @@ public class Category {
     }
 
     public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
+        return _id;
     }
 
     public String getName() {

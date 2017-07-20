@@ -20,8 +20,8 @@ function validate() {
 			}
 		}
 	}
-	if(document.getElementById('htmlContent').value.length > 12288) {
-		alert('Sorry! The content is too long.\nMax length = 12288 chars\Page length = '+document.getElementById('htmlContent').value.length+'\n\nPlease shorten your page content.');
+	if(document.getElementById('content').value.length > 12288) {
+		alert('Sorry! The content is too long.\nMax length = 12288 chars\Page length = '+document.getElementById('content').value.length+'\n\nPlease shorten your page content.');
 		return false;
 	}
 	return true;
@@ -101,13 +101,13 @@ function preview() {
 					<hr />
 					
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Page Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
-						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%" maxlength="12288">
-						<s:property value="#request.author.htmlContent" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="content">Page Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
+						<textarea name="content" id="content" rows="10" cols="100" style="width:100%" maxlength="12288">
+						<s:property value="#request.author.content" />
 						</textarea>
 			            <script>
-			                // Replace the <textarea id="htmlContent"> with a CKEditor instance, using default configuration.
-			                CKEDITOR.replace('htmlContent', {
+			                // Replace the <textarea id="content"> with a CKEditor instance, using default configuration.
+			                CKEDITOR.replace('content', {
 								language: 'en',
 								height: 500,
 								toolbarCanCollapse: true,

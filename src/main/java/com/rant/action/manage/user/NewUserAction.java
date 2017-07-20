@@ -144,11 +144,10 @@ public class NewUserAction extends ActionSupport
             password = Hash.create(password, Type.PBKDF2_SHA256);
 
             // add new user
-            Author newUser = new Author(null);
+            Author newUser = new Author(uri);
             newUser.setEmail(email);
             newUser.setName(name);
             newUser.setUsername(username);
-            newUser.setUri(uri);
             newUser.setPassword(password);
             newUser.setThumbnail("");
             newUser.setRole(new Role(""+role));

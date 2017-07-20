@@ -14,7 +14,6 @@ public class Author {
 
     private String _id;
     private String _rev;
-    private String uri;
     private String name;
     private String email;
     private String username;
@@ -33,7 +32,7 @@ public class Author {
 
     private String thumbnail;
     private String description;
-    private String htmlContent;
+    private String content;
 
     public Author(String id) {
         this._id = id;
@@ -56,11 +55,7 @@ public class Author {
     }
 
     public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
+        return _id;
     }
 
     public String getName() {
@@ -187,12 +182,12 @@ public class Author {
         this.description = description;
     }
 
-    public String getHtmlContent() {
-        return htmlContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getThumbnail() {
