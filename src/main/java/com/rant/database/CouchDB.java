@@ -140,8 +140,22 @@ public class CouchDB extends DatabaseSource {
 
     @Override
     public List<Post> getArchiveFeatured() {
-        // Auto-generated method stub
-        return null;
+        List<Post> posts = new ArrayList<Post>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            ViewResponse<String, Object> pg = db
+                    .getViewRequestBuilder("rantdesign", "featured")
+                    .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
+                    .getResponse();
+
+            posts = pg.getDocsAs(Post.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
     }
 
     @Override
