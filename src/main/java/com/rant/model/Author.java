@@ -17,23 +17,19 @@ public class Author {
     private String name;
     private String email;
     private String username;
-    private String password;
+    
     private Role role;
 
-    private boolean isOTPEnabled;
-    private boolean isOTPAuthenticated;
-    private String keySecret;
-    private String keyRecover;
-    private String keyReset;
-
     private Date createDate;
-    private Date modifyDate;
-    private Date lastLoginDate;
 
     private String thumbnail;
     private String description;
     private String content;
 
+    public Author() {
+        // Auto-generated method stub
+    }
+    
     public Author(String id) {
         this._id = id;
     }
@@ -90,54 +86,6 @@ public class Author {
         this.role = role;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isOTPEnabled() {
-        return isOTPEnabled;
-    }
-
-    public void setOTPEnabled(boolean isOTPEnabled) {
-        this.isOTPEnabled = isOTPEnabled;
-    }
-
-    public boolean isOTPAuthenticated() {
-        return isOTPAuthenticated;
-    }
-
-    public void setOTPAuthenticated(boolean isOTPAuthenticated) {
-        this.isOTPAuthenticated = isOTPAuthenticated;
-    }
-
-    public String getKeySecret() {
-        return keySecret;
-    }
-
-    public void setKeySecret(String keySecret) {
-        this.keySecret = keySecret;
-    }
-
-    public String getKeyRecover() {
-        return keyRecover;
-    }
-
-    public void setKeyRecover(String keyRecover) {
-        this.keyRecover = keyRecover;
-    }
-
-    public String getKeyReset() {
-        return keyReset;
-    }
-
-    public void setKeyReset(String keyReset) {
-        this.keyReset = keyReset;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -148,30 +96,6 @@ public class Author {
 
     public String getCreateDateReadable() {
         return Utils.formatReadableDate(createDate);
-    }
-
-    public Date getModifyDate() {
-        return modifyDate;
-    }
-
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
-
-    public String getModifyDateReadable() {
-        return Utils.formatReadableDate(modifyDate);
-    }
-
-    public Date getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(Date lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
-
-    public String getLastLoginDateReadable() {
-        return Utils.formatReadableDate(lastLoginDate);
     }
 
     public String getDescription() {

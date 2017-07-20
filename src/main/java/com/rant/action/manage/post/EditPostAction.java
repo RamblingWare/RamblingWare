@@ -13,9 +13,9 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
 import com.rant.model.Post;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * Edit Post action class
@@ -25,12 +25,12 @@ import com.rant.model.Post;
  */
 public class EditPostAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
 
     // post parameters
     private Post post;
@@ -318,7 +318,7 @@ public class EditPostAction extends ActionSupport
     protected HttpServletRequest servletRequest;
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

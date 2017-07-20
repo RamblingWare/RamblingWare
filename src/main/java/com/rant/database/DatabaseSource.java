@@ -5,6 +5,7 @@ import java.util.List;
 import com.rant.model.Author;
 import com.rant.model.Post;
 import com.rant.model.Role;
+import com.rant.model.User;
 
 /**
  * A blueprint to communicate to a Database Service.
@@ -32,17 +33,13 @@ public abstract class DatabaseSource {
 
     public abstract Post getPost(String uri, boolean includeHidden);
 
-    public abstract Post newPost(Post post);
+    public abstract boolean newPost(Post post);
 
     public abstract boolean editPost(Post post);
 
     public abstract boolean deletePost(Post post);
 
     public abstract Author getAuthor(String uri, boolean includeHidden);
-
-    public abstract boolean editAuthor(Author author);
-
-    public abstract boolean deleteAuthor(Author author);
 
     public abstract List<Post> getArchiveFeatured();
 
@@ -66,13 +63,13 @@ public abstract class DatabaseSource {
 
     public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
 
-    public abstract Author getUser(String username);
+    public abstract User getUser(String uri);
 
-    public abstract Author newUser(Author user);
+    public abstract boolean newUser(User user);
 
-    public abstract boolean editUser(Author user);
+    public abstract boolean editUser(User user);
 
-    public abstract boolean loginUser(Author user);
+    public abstract boolean deleteUser(User user);
 
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
 

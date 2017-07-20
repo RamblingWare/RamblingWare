@@ -13,9 +13,9 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
 import com.rant.model.Post;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * View Post action class
@@ -25,12 +25,12 @@ import com.rant.model.Post;
  */
 public class PostAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
     private boolean canSeeHidden = false;
 
     // post parameters
@@ -66,7 +66,7 @@ public class PostAction extends ActionSupport
                 // was post found?
                 if (post != null) {
                     // set attributes
-                    servletRequest.setAttribute("post", post);                    
+                    servletRequest.setAttribute("post", post);
 
                     // check against previously viewed pages
                     boolean newViewFromSession = false;
@@ -85,8 +85,9 @@ public class PostAction extends ActionSupport
                     }
 
                     // update page views
-                    if(!canSeeHidden) {
-                        Application.getDatabaseSource().incrementPageViews(post, newViewFromSession);
+                    if (!canSeeHidden) {
+                        Application.getDatabaseSource().incrementPageViews(post,
+                                newViewFromSession);
                     }
 
                     return Action.SUCCESS;
@@ -137,7 +138,7 @@ public class PostAction extends ActionSupport
     }
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

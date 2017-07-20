@@ -17,8 +17,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * Login action class
@@ -28,12 +28,12 @@ import com.rant.model.AuthorAware;
  */
 public class LoginAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
     private Map<String, Object> sessionAttributes = null;
     private String username;
     private String password;
@@ -104,7 +104,7 @@ public class LoginAction extends ActionSupport
                     // user didn't enable OTP / 2FA yet.
 
                     // update user's last login date
-                    Application.getDatabaseSource().loginUser(user);
+                    // TODO Application.getDatabaseSource().loginUser(user);
 
                     sessionAttributes.remove("attempts");
                     sessionAttributes.remove("lastAttempt");
@@ -157,7 +157,7 @@ public class LoginAction extends ActionSupport
         // verify if it is correct
 
         sessionAttributes = ActionContext.getContext().getSession();
-        user = (Author) sessionAttributes.get("USER");
+        user = (User) sessionAttributes.get("USER");
 
         boolean validCode = false;
         try {
@@ -176,7 +176,7 @@ public class LoginAction extends ActionSupport
 
             try {
                 // update user's last login date
-                Application.getDatabaseSource().loginUser(user);
+                // TODO Application.getDatabaseSource().loginUser(user);
 
                 addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
                         + Utils.formatReadableDate(user.getLastLoginDate()));
@@ -253,7 +253,7 @@ public class LoginAction extends ActionSupport
     }
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

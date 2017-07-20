@@ -14,6 +14,7 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.rant.model.Author;
 import com.rant.model.Post;
 import com.rant.model.Role;
+import com.rant.model.User;
 
 public class CouchDB extends DatabaseSource {
 
@@ -82,21 +83,42 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
-    public Post newPost(Post post) {
-        // Auto-generated method stub
-        return null;
+    public boolean newPost(Post post) {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+            db.save(post);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean editPost(Post post) {
-        // Auto-generated method stub
-        return false;
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+            db.update(post);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean deletePost(Post post) {
-        // Auto-generated method stub
-        return false;
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+            db.remove(post);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -114,18 +136,6 @@ public class CouchDB extends DatabaseSource {
             e.printStackTrace();
         }
         return author;
-    }
-
-    @Override
-    public boolean editAuthor(Author author) {
-        // Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean deleteAuthor(Author author) {
-        // Auto-generated method stub
-        return false;
     }
 
     @Override
@@ -216,27 +226,59 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
-    public Author getUser(String username) {
-        // Auto-generated method stub
-        return null;
+    public User getUser(String uri) {
+        User user = null;
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            user = db.find(User.class, uri);
+
+        } catch (NoDocumentException e) {
+            user = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
-    public Author newUser(Author user) {
-        // Auto-generated method stub
-        return null;
+    public boolean newUser(User user) {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+            db.save(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean editUser(Author user) {
-        // Auto-generated method stub
-        return false;
+    public boolean editUser(User user) {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+            db.update(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean loginUser(Author user) {
-        // Auto-generated method stub
-        return true;
+    public boolean deleteUser(User user) {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+            db.remove(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -247,7 +289,20 @@ public class CouchDB extends DatabaseSource {
 
     @Override
     public List<Role> getRoles() {
-        // Auto-generated method stub
-        return null;
+        List<Role> roles = new ArrayList<Role>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "roles")
+                    .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
+                    .getResponse();
+
+            roles = pg.getDocsAs(Role.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return roles;
     }
 }

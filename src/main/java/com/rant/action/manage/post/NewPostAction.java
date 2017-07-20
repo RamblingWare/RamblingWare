@@ -13,9 +13,9 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
 import com.rant.model.Post;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * New Post action class
@@ -25,12 +25,12 @@ import com.rant.model.Post;
  */
 public class NewPostAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
 
     private String title;
     private String uri;
@@ -55,11 +55,13 @@ public class NewPostAction extends ActionSupport
 
     @Override
     public String execute() {
-        
-        if(!user.getRole().isPostsCreate()) {
+
+        if (!user.getRole().isPostsCreate()) {
             addActionError("You do not have permission to create posts.");
-            addActionMessage("Only certain roles can create blog posts. Contact your sysadmin or manager.");
-            System.out.println("User " + user.getUsername() + " tried opened new post. Does not have permission.");
+            addActionMessage(
+                    "Only certain roles can create blog posts. Contact your sysadmin or manager.");
+            System.out.println("User " + user.getUsername()
+                    + " tried opened new post. Does not have permission.");
             return ERROR;
         }
 
@@ -169,12 +171,9 @@ public class NewPostAction extends ActionSupport
             post.setTags(tagsList);
 
             // insert into database
-            post = Application.getDatabaseSource().newPost(post);
-
-            if (post.get_Id() != null) {
+            if (Application.getDatabaseSource().newPost(post)) {
                 // Success
-                System.out.println(
-                        "User " + user.getUsername() + " submitted a new post: " + uri);
+                System.out.println("User " + user.getUsername() + " submitted a new post: " + uri);
                 addActionMessage("Successfully created new post.");
                 return SUCCESS;
             } else {
@@ -312,7 +311,7 @@ public class NewPostAction extends ActionSupport
     }
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -55,8 +55,10 @@ public class CategoryAction extends ActionSupport
                     false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getInt("limit");
-            prevPage = page > 1;
+            if (posts != null) {
+                nextPage = posts.size() >= Application.getInt("limit");
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("posts", posts);

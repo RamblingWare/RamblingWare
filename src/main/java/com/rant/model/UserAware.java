@@ -6,7 +6,7 @@ package com.rant.model;
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public interface AuthorAware {
+public interface UserAware {
 
-    public void setUser(Author author);
+    public void setUser(User user);
 }

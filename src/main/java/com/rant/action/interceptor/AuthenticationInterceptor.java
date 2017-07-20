@@ -5,8 +5,8 @@ import java.util.Map;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * Authentication Interceptor class
@@ -24,7 +24,7 @@ public class AuthenticationInterceptor implements Interceptor {
         Map<String, Object> sessionAttributes = actionInvocation.getInvocationContext()
                 .getSession();
 
-        Author user = (Author) sessionAttributes.get("USER");
+        User user = (User) sessionAttributes.get("USER");
 
         if (user == null) {
             System.out.println("Unknown user was redirected to login page.");
@@ -34,8 +34,8 @@ public class AuthenticationInterceptor implements Interceptor {
             return Action.INPUT;
         } else {
             Action action = (Action) actionInvocation.getAction();
-            if (action instanceof AuthorAware) {
-                ((AuthorAware) action).setUser(user);
+            if (action instanceof UserAware) {
+                ((UserAware) action).setUser(user);
             }
             return actionInvocation.invoke();
         }

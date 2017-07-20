@@ -15,8 +15,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * Settings action class
@@ -26,12 +26,12 @@ import com.rant.model.AuthorAware;
  */
 public class SettingsAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
     private Map<String, Object> sessionAttributes = null;
 
     private boolean account; // true if they updated their account
@@ -90,7 +90,7 @@ public class SettingsAction extends ActionSupport
 
         // update user information
         try {
-            Author updatedUser = user;
+            User updatedUser = user;
             updatedUser.setUsername(username);
             updatedUser.setEmail(email);
 
@@ -144,7 +144,7 @@ public class SettingsAction extends ActionSupport
             if (Hash.verify(passwordOld, user.getPassword())) {
                 // old password matches, so update with new password
 
-                Author updatedUser = user;
+                User updatedUser = user;
 
                 // salt and hash the password
                 updatedUser.setPassword(Hash.create(passwordNew, Type.PBKDF2_SHA256));
@@ -192,7 +192,7 @@ public class SettingsAction extends ActionSupport
 
             // update user information
             try {
-                Author updatedUser = user;
+                User updatedUser = user;
 
                 if (Hash.verify(passwordOld, user.getPassword())) {
                     // old password matches, so disable 2FA
@@ -253,7 +253,7 @@ public class SettingsAction extends ActionSupport
 
             // update user information
             try {
-                Author updatedUser = user;
+                User updatedUser = user;
                 updatedUser.setOTPEnabled(true);
                 updatedUser.setKeySecret(secret);
                 updatedUser.setKeyRecover(recover);
@@ -301,7 +301,7 @@ public class SettingsAction extends ActionSupport
     protected HttpServletRequest servletRequest;
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

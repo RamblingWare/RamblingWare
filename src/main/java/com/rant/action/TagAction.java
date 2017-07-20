@@ -51,8 +51,10 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             posts = Application.getDatabaseSource().getPostsByTag(page, Application.getInt("limit"), tag, false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getInt("limit");
-            prevPage = page > 1;
+            if (posts != null) {
+                nextPage = posts.size() >= Application.getInt("limit");
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("posts", posts);

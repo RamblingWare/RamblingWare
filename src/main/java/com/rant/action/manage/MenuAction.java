@@ -7,8 +7,8 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * Menu action class
@@ -18,12 +18,12 @@ import com.rant.model.AuthorAware;
  */
 public class MenuAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
 
     public String execute() {
 
@@ -32,14 +32,14 @@ public class MenuAction extends ActionSupport
         return SUCCESS;
     }
 
-    public Author getUser() {
+    public User getUser() {
         return user;
     }
 
     protected HttpServletResponse servletResponse;
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

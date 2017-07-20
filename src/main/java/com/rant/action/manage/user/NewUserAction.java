@@ -14,8 +14,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.Author;
-import com.rant.model.AuthorAware;
 import com.rant.model.Role;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * New User action class
@@ -25,12 +26,12 @@ import com.rant.model.Role;
  */
 public class NewUserAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
     private List<Role> roles;
 
     private String username;
@@ -45,11 +46,13 @@ public class NewUserAction extends ActionSupport
     public String execute() {
 
         System.out.println("/manage/newuser Requested");
-        
-        if(!user.getRole().isUsersCreate()) {
+
+        if (!user.getRole().isUsersCreate()) {
             addActionError("You do not have permission to add authors.");
-            addActionMessage("Only certain roles can add authors. Contact your sysadmin or manager.");
-            System.out.println("User " + user.getUsername() + " tried opened new user. Does not have permission.");
+            addActionMessage(
+                    "Only certain roles can add authors. Contact your sysadmin or manager.");
+            System.out.println("User " + user.getUsername()
+                    + " tried opened new user. Does not have permission.");
             return ERROR;
         }
 
@@ -58,18 +61,18 @@ public class NewUserAction extends ActionSupport
             return newUser();
         }
 
-        // get roles        
+        // get roles
         try {
             roles = Application.getDatabaseSource().getRoles();
-            
+
             servletRequest.setAttribute("roles", roles);
-            
+
         } catch (Exception e) {
             addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }
-        
+
         // they opened the form
         System.out.println("User " + user.getUsername() + " opened new user.");
         return INPUT;
@@ -144,18 +147,16 @@ public class NewUserAction extends ActionSupport
             password = Hash.create(password, Type.PBKDF2_SHA256);
 
             // add new user
-            Author newUser = new Author(uri);
+            User newUser = new User(uri);
             newUser.setEmail(email);
             newUser.setName(name);
             newUser.setUsername(username);
             newUser.setPassword(password);
             newUser.setThumbnail("");
-            newUser.setRole(new Role(""+role));
+            newUser.setRole(new Role("" + role));
 
             // insert into database
-            newUser = Application.getDatabaseSource().newUser(newUser);
-
-            if (newUser.get_Id() != null) {
+            if (Application.getDatabaseSource().newUser(newUser)) {
                 // Success
                 addActionMessage("Successfully created new Author: " + username);
                 System.out
@@ -175,7 +176,7 @@ public class NewUserAction extends ActionSupport
     }
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
