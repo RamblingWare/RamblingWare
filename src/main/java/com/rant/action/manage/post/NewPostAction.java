@@ -66,7 +66,7 @@ public class NewPostAction extends ActionSupport
         }
 
         // get used variables
-        usedTags = Application.getDatabaseSource().getArchiveTags();
+        usedTags = Application.getDatabaseSource().getTags();
         usedUris = Application.getDatabaseSource().getPostUris();
 
         if (servletRequest.getParameter("submitForm") != null) {

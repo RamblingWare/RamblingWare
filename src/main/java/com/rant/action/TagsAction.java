@@ -31,7 +31,7 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
         // this shows the all the tags available
         try {
             // gather tags
-            tags = Application.getDatabaseSource().getArchiveTags();
+            tags = Application.getDatabaseSource().getTags();
 
             // sort alphabetically
             if (tags != null) {

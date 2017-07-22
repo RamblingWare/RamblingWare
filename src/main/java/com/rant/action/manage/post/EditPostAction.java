@@ -59,7 +59,7 @@ public class EditPostAction extends ActionSupport
     public String execute() {
 
         // get used variables
-        usedTags = Application.getDatabaseSource().getArchiveTags();
+        usedTags = Application.getDatabaseSource().getTags();
         usedUris = Application.getDatabaseSource().getPostUris();
 
         // /manage/editpost/file-name-goes-here

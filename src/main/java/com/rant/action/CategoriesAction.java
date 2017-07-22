@@ -33,7 +33,7 @@ public class CategoriesAction extends ActionSupport
         // this shows all the categories of blog posts
         try {
             // gather posts
-            categories = Application.getDatabaseSource().getArchiveCategories();
+            categories = Application.getDatabaseSource().getCategories();
 
             // already sorted alphabetically
 

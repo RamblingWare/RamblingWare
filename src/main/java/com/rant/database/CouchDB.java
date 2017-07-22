@@ -139,7 +139,7 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
-    public List<Post> getArchiveFeatured() {
+    public List<Post> getFeatured() {
         List<Post> posts = new ArrayList<Post>();
         try {
             CloudantClient client = getConnection();
@@ -158,27 +158,60 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
-    public List<String> getArchiveYears() {
+    public List<String> getYears() {
         // Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<String> getArchiveCategories() {
-        // Auto-generated method stub
-        return null;
+    public List<String> getCategories() {
+        List<String> categories = new ArrayList<String>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            categories = db.getViewRequestBuilder("rantdesign", "categories")
+                    .newPaginatedRequest(Key.Type.STRING, String.class).build().getResponse()
+                    .getKeys();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
 
     @Override
-    public List<String> getArchiveTags() {
-        // Auto-generated method stub
-        return null;
+    public List<String> getTags() {
+        List<String> tags = new ArrayList<String>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            tags = db.getViewRequestBuilder("rantdesign", "tags")
+                    .newPaginatedRequest(Key.Type.STRING, String.class).build().getResponse()
+                    .getKeys();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tags;
     }
 
     @Override
     public List<String> getPostUris() {
-        // Auto-generated method stub
-        return null;
+        List<String> uris = new ArrayList<String>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            uris = db.getViewRequestBuilder("rantdesign", "posts")
+                    .newPaginatedRequest(Key.Type.STRING, String.class).build().getResponse()
+                    .getKeys();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return uris;
     }
 
     @Override
@@ -246,8 +279,8 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            String startKey = year+"-01-01T00:00:00.000Z";
-            String endKey = year+"-12-31T23:59:59.999Z";
+            String startKey = year + "-01-01T00:00:00.000Z";
+            String endKey = year + "-12-31T23:59:59.999Z";
 
             ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "years")
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
@@ -278,6 +311,25 @@ public class CouchDB extends DatabaseSource {
             e.printStackTrace();
         }
         return authors;
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        List<Role> roles = new ArrayList<Role>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "roles")
+                    .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
+                    .getResponse();
+
+            roles = pg.getDocsAs(Role.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return roles;
     }
 
     @Override
@@ -340,24 +392,5 @@ public class CouchDB extends DatabaseSource {
     public boolean incrementPageViews(Post post, boolean sessionView) {
         // Auto-generated method stub
         return true;
-    }
-
-    @Override
-    public List<Role> getRoles() {
-        List<Role> roles = new ArrayList<Role>();
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("rantdb", false);
-
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "roles")
-                    .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
-                    .getResponse();
-
-            roles = pg.getDocsAs(Role.class);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return roles;
     }
 }

@@ -34,10 +34,10 @@ public class ArchiveInterceptor implements Interceptor {
 
         if (archiveYears == null || archiveYears.isEmpty()) {
             // get the archive of posts by years and tag names
-            archiveFeatured = Application.getDatabaseSource().getArchiveFeatured();
-            archiveYears = Application.getDatabaseSource().getArchiveYears();
-            archiveTags = Application.getDatabaseSource().getArchiveTags();
-            archiveCategories = Application.getDatabaseSource().getArchiveCategories();
+            archiveFeatured = Application.getDatabaseSource().getFeatured();
+            archiveYears = Application.getDatabaseSource().getYears();
+            archiveTags = Application.getDatabaseSource().getTags();
+            archiveCategories = Application.getDatabaseSource().getCategories();
 
             // set attributes
             sessionAttributes.put("archiveFeatured", archiveFeatured);

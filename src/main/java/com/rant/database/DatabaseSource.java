@@ -41,13 +41,13 @@ public abstract class DatabaseSource {
 
     public abstract Author getAuthor(String uri, boolean includeHidden);
 
-    public abstract List<Post> getArchiveFeatured();
+    public abstract List<Post> getFeatured();
 
-    public abstract List<String> getArchiveYears();
+    public abstract List<String> getYears();
 
-    public abstract List<String> getArchiveCategories();
+    public abstract List<String> getCategories();
 
-    public abstract List<String> getArchiveTags();
+    public abstract List<String> getTags();
 
     public abstract List<String> getPostUris();
 
@@ -63,6 +63,8 @@ public abstract class DatabaseSource {
 
     public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
 
+    public abstract List<Role> getRoles();
+
     public abstract User getUser(String uri);
 
     public abstract boolean newUser(User user);
@@ -72,7 +74,5 @@ public abstract class DatabaseSource {
     public abstract boolean deleteUser(User user);
 
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
-
-    public abstract List<Role> getRoles();
 
 }

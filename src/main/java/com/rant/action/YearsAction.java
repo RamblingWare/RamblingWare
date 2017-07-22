@@ -33,7 +33,7 @@ public class YearsAction extends ActionSupport
         // this shows all the years of blog posts
         try {
             // gather posts
-            years = Application.getDatabaseSource().getArchiveYears();
+            years = Application.getDatabaseSource().getYears();
 
             // already sorted chronologically
 
