@@ -36,7 +36,7 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
         // this shows the most recent blog posts by tag
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI().toLowerCase();
+            String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/tag/") && pageTemp.contains("/page/")) {
                 tag = Utils.removeBadChars(pageTemp.substring(5, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(

@@ -36,7 +36,7 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
         // this shows the most recent blog posts by year
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI().toLowerCase();
+            String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/year/") && pageTemp.contains("/page/")) {
                 year = Utils.removeBadChars(pageTemp.substring(6, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(

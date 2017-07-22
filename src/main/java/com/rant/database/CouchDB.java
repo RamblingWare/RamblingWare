@@ -71,7 +71,7 @@ public class CouchDB extends DatabaseSource {
             post = db.find(Post.class, uri);
 
             if (!includeHidden && !post.isPublished()) {
-                // post = null;
+                post = null;
             }
 
         } catch (NoDocumentException e) {
@@ -145,8 +145,7 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            ViewResponse<String, Object> pg = db
-                    .getViewRequestBuilder("rantdesign", "featured")
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "featured")
                     .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
                     .getResponse();
 
@@ -204,20 +203,62 @@ public class CouchDB extends DatabaseSource {
     @Override
     public List<Post> getPostsByCategory(int page, int limit, String category,
             boolean includeHidden) {
-        // Auto-generated method stub
-        return null;
+        List<Post> posts = new ArrayList<Post>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "categories")
+                    .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
+                    .keys(category).includeDocs(true).build().getResponse();
+
+            posts = pg.getDocsAs(Post.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
     }
 
     @Override
     public List<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden) {
-        // Auto-generated method stub
-        return null;
+        List<Post> posts = new ArrayList<Post>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "tags")
+                    .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit).keys(tag)
+                    .includeDocs(true).build().getResponse();
+
+            posts = pg.getDocsAs(Post.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
     }
 
     @Override
     public List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden) {
-        // Auto-generated method stub
-        return null;
+        List<Post> posts = new ArrayList<Post>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantdb", false);
+
+            String startKey = year+"-01-01T00:00:00.000Z";
+            String endKey = year+"-12-31T23:59:59.999Z";
+
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "years")
+                    .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
+                    .startKey(startKey).endKey(endKey).includeDocs(true).build().getResponse();
+
+            posts = pg.getDocsAs(Post.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return posts;
     }
 
     @Override

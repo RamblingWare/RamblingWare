@@ -39,7 +39,7 @@ public class CategoryAction extends ActionSupport
         // this shows the most recent blog posts by category
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI().toLowerCase();
+            String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/category/") && pageTemp.contains("/page/")) {
                 category = Utils.removeBadChars(pageTemp.substring(10, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(
