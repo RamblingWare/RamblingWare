@@ -37,11 +37,8 @@
 					
 					<ol>
 					<s:iterator value="tags" status="t">
-						<s:set var="tval" value="tags[#t.index].substring(0,tags[#t.index].lastIndexOf('('))" />
-						<s:set var="tcnt" value="tags[#t.index].substring(tags[#t.index].lastIndexOf('(')+1,tags[#t.index].length-1)" />
-						<li><a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property value="tval" />" href="/tag/<s:property value="tval" />"><s:property value="tval" /></a>
-						&nbsp;
-						<s:property value="tcnt" /> posts.
+						<li><a class="tag w3-round w3-theme w3-hover-light-grey w3-hover-shadow" title="<s:property value="name" />" href="/tag/<s:property value="name" />"><s:property value="name" /></a>
+						&nbsp;(<s:property value="count" /> posts)
 						</li>
 					</s:iterator>
 					</ol>

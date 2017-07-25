@@ -10,6 +10,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
+import com.rant.model.Year;
 
 /**
  * Years action class
@@ -24,7 +25,7 @@ public class YearsAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> years = null;
+    private List<Year> years = null;
 
     public String execute() {
 
@@ -63,11 +64,11 @@ public class YearsAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public List<String> getYears() {
+    public List<Year> getYears() {
         return years;
     }
 
-    public void setYears(List<String> years) {
+    public void setYears(List<Year> years) {
         this.years = years;
     }
 }

@@ -1,7 +1,7 @@
 package com.rant.action;
 
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
+import com.rant.model.Tag;
 
 /**
  * Tags action class
@@ -22,7 +23,7 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> tags = null;
+    private List<Tag> tags = null;
 
     public String execute() {
 
@@ -35,12 +36,7 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
 
             // sort alphabetically
             if (tags != null) {
-                Collections.sort(tags, new java.util.Comparator<String>() {
-                    @Override
-                    public int compare(String s1, String s2) {
-                        return s1.compareToIgnoreCase(s2);
-                    }
-                });
+                Collections.sort(tags);
             }
 
             // set attributes
@@ -69,11 +65,11 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
         this.servletRequest = servletRequest;
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 }

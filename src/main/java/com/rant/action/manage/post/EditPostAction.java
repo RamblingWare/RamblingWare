@@ -14,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.Post;
+import com.rant.model.Tag;
 import com.rant.model.User;
 import com.rant.model.UserAware;
 
@@ -54,7 +55,7 @@ public class EditPostAction extends ActionSupport
 
     // taken uris and tags
     private List<String> usedUris;
-    private List<String> usedTags;
+    private List<Tag> usedTags;
 
     public String execute() {
 
@@ -434,11 +435,11 @@ public class EditPostAction extends ActionSupport
         this.usedUris = usedUris;
     }
 
-    public List<String> getUsedTags() {
+    public List<Tag> getUsedTags() {
         return usedTags;
     }
 
-    public void setUsedTags(List<String> usedTags) {
+    public void setUsedTags(List<Tag> usedTags) {
         this.usedTags = usedTags;
     }
 

@@ -21,7 +21,7 @@
 <s:if test="usedTags != null && !usedTags.isEmpty()">
 <script> var usedTags = [
 <s:iterator value="usedTags" status="t">
-	<s:set var="tval" value="usedTags[#t.index].substring(0,usedTags[#t.index].lastIndexOf(' ('))" />"<s:property value="tval" />",
+	"<s:property value="name" />",
 </s:iterator>
 ""];</script>
 </s:if>

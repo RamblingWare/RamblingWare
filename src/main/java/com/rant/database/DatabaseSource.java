@@ -3,9 +3,12 @@ package com.rant.database;
 import java.util.List;
 
 import com.rant.model.Author;
+import com.rant.model.Category;
 import com.rant.model.Post;
 import com.rant.model.Role;
+import com.rant.model.Tag;
 import com.rant.model.User;
+import com.rant.model.Year;
 
 /**
  * A blueprint to communicate to a Database Service.
@@ -43,11 +46,11 @@ public abstract class DatabaseSource {
 
     public abstract List<Post> getFeatured();
 
-    public abstract List<String> getYears();
+    public abstract List<Year> getYears();
 
-    public abstract List<String> getCategories();
+    public abstract List<Category> getCategories();
 
-    public abstract List<String> getTags();
+    public abstract List<Tag> getTags();
 
     public abstract List<String> getPostUris();
 

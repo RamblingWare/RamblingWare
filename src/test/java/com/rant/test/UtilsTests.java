@@ -28,6 +28,17 @@ public class UtilsTests {
         time = Utils.formatLong(System.currentTimeMillis());
         assertNotNull(time);
     }
+    
+    @Test
+    public void formatURLs() {        
+        assertEquals("http://www.example.com", Utils.formatURL("www.example.com"));
+        
+        assertEquals("TL;DR", Utils.formatURI("/\\TL;DR/"));
+        assertEquals("test-one-test", Utils.formatURI("test one test"));
+        assertEquals("Question", Utils.formatURI("Question?!"));
+        assertEquals("a-bnc-d", Utils.formatURI("a=b&c=d"));
+        assertEquals("array,array", Utils.formatURI("[array,array]"));
+    }
 
     @Test
     public void formatLong() {

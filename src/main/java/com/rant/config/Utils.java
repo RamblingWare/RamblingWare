@@ -277,6 +277,22 @@ public class Utils {
             return url;
         }
     }
+    
+    /**
+     * Make sure the URI is compliant for context. Does not work on UrlParams.
+     * 
+     * @param uri
+     *            URI string
+     * @return String
+     */
+    public static String formatURI(String uri) {
+        uri = uri.replaceAll("[\\^/?<>\\.#*`'~!\\\\\\[\\]+{}\"]", "").trim();
+        uri = uri.replaceAll("[=\\s+\"]", "-");
+        uri = uri.replace(" ", "-");
+        uri = uri.replace("&", "n");
+        uri = uri.replace("=", "n");
+        return uri;
+    }
 
     private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
 

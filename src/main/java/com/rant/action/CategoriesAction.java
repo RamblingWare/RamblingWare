@@ -1,5 +1,6 @@
 package com.rant.action;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
+import com.rant.model.Category;
 
 /**
  * Categories action class
@@ -24,7 +26,7 @@ public class CategoriesAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> categories = null;
+    private List<Category> categories = null;
 
     public String execute() {
 
@@ -35,7 +37,10 @@ public class CategoriesAction extends ActionSupport
             // gather posts
             categories = Application.getDatabaseSource().getCategories();
 
-            // already sorted alphabetically
+            // sort alphabetically
+            if (categories != null) {
+                Collections.sort(categories);
+            }
 
             // set attributes
             servletRequest.setAttribute("categories", categories);
@@ -49,11 +54,11 @@ public class CategoriesAction extends ActionSupport
         }
     }
 
-    public List<String> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 

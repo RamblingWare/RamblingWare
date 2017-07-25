@@ -1,44 +1,14 @@
 package com.rant.model;
 
-import java.util.Date;
-
 /**
  * Tag class
  * @author Austin Delamar
  * @created 7/13/2017
  */
-public class Tag {
+public class Tag implements Comparable<Tag> {
 
-    private String _id;
-    private String _rev;
     private String name;
-    private String description;
-    private Date createDate;
-    private Date modifyDate;
-
-    public Tag(String id) {
-        this._id = id;
-    }
-
-    public String get_Id() {
-        return _id;
-    }
-
-    public void set_Id(String id) {
-        this._id = id;
-    }
-
-    public String get_rev() {
-        return _rev;
-    }
-
-    public void set_rev(String _rev) {
-        this._rev = _rev;
-    }
-
-    public String getUri() {
-        return _id;
-    }
+    private int count;
 
     public String getName() {
         return name;
@@ -48,27 +18,17 @@ public class Tag {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public int getCount() {
+        return count;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    @Override
+    public int compareTo(Tag tag) {
+        return this.name.compareTo(tag.name);
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getModifyDate() {
-        return modifyDate;
-    }
-
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
 }
