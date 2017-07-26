@@ -10,7 +10,7 @@ import com.rant.config.Utils;
  * @author Austin Delamar
  * @created 11/24/2015
  */
-public class Author {
+public class Author implements Comparable<Author>{
 
     private String _id;
     private String _rev;
@@ -120,5 +120,10 @@ public class Author {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    @Override
+    public int compareTo(Author author) {
+        return this.name.compareTo(author.name);
     }
 }

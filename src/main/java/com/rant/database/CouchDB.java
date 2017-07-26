@@ -258,7 +258,20 @@ public class CouchDB extends DatabaseSource {
 
             ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "posts")
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
-                    .includeDocs(true).build().getResponse();
+                    .descending(true).includeDocs(true).build().getResponse();
+
+            for (int i = 1; i < page; i++) {
+                if (pg.getNextPageToken() != null) {
+                    // next page
+                    pg = db.getViewRequestBuilder("rantdesign", "posts")
+                            .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                            .descending(true).includeDocs(true).build()
+                            .getResponse(pg.getNextPageToken());
+                } else {
+                    // page does not exist
+                    return posts;
+                }
+            }
 
             posts = pg.getDocsAs(Post.class);
 
@@ -278,7 +291,21 @@ public class CouchDB extends DatabaseSource {
 
             ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "category")
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
-                    .keys(category).includeDocs(true).build().getResponse();
+                    .reduce(false).descending(true).keys(category).includeDocs(true).build()
+                    .getResponse();
+
+            for (int i = 1; i < page; i++) {
+                if (pg.getNextPageToken() != null) {
+                    // next page
+                    pg = db.getViewRequestBuilder("rantdesign", "category")
+                            .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
+                            .reduce(false).descending(true).keys(category).includeDocs(true).build()
+                            .getResponse(pg.getNextPageToken());
+                } else {
+                    // page does not exist
+                    return posts;
+                }
+            }
 
             posts = pg.getDocsAs(Post.class);
 
@@ -296,8 +323,22 @@ public class CouchDB extends DatabaseSource {
             Database db = client.database("rantdb", false);
 
             ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "tag")
-                    .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit).keys(tag)
-                    .includeDocs(true).build().getResponse();
+                    .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
+                    .reduce(false).descending(true).keys(tag).includeDocs(true).build()
+                    .getResponse();
+
+            for (int i = 1; i < page; i++) {
+                if (pg.getNextPageToken() != null) {
+                    // next page
+                    pg = db.getViewRequestBuilder("rantdesign", "tag")
+                            .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
+                            .reduce(false).descending(true).keys(tag).includeDocs(true).build()
+                            .getResponse(pg.getNextPageToken());
+                } else {
+                    // page does not exist
+                    return posts;
+                }
+            }
 
             posts = pg.getDocsAs(Post.class);
 
@@ -314,12 +355,26 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            String startKey = year + "-01-01T00:00:00.000Z";
-            String endKey = year + "-12-31T23:59:59.999Z";
+            String endKey = year + "-01-01T00:00:00.000Z";
+            String startKey = year + "-12-31T23:59:59.999Z";
 
             ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "year")
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
-                    .startKey(startKey).endKey(endKey).includeDocs(true).build().getResponse();
+                    .reduce(false).descending(true).startKey(startKey).endKey(endKey)
+                    .includeDocs(true).build().getResponse();
+
+            for (int i = 1; i < page; i++) {
+                if (pg.getNextPageToken() != null) {
+                    // next page
+                    pg = db.getViewRequestBuilder("rantdesign", "year")
+                            .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
+                            .reduce(false).descending(true).startKey(startKey).endKey(endKey)
+                            .includeDocs(true).build().getResponse(pg.getNextPageToken());
+                } else {
+                    // page does not exist
+                    return posts;
+                }
+            }
 
             posts = pg.getDocsAs(Post.class);
 
@@ -339,6 +394,18 @@ public class CouchDB extends DatabaseSource {
             ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "authors")
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .includeDocs(true).build().getResponse();
+
+            for (int i = 1; i < page; i++) {
+                if (pg.getNextPageToken() != null) {
+                    // next page
+                    pg = db.getViewRequestBuilder("rantdesign", "authors")
+                            .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                            .includeDocs(true).build().getResponse(pg.getNextPageToken());
+                } else {
+                    // page does not exist
+                    return authors;
+                }
+            }
 
             authors = pg.getDocsAs(Author.class);
 

@@ -12,7 +12,7 @@ import com.rant.config.Utils;
  * @author Austin Delamar
  * @created 11/24/2015
  */
-public class Post {
+public class Post implements Comparable<Post> {
 
     private String _id;
     private String _rev;
@@ -195,6 +195,11 @@ public class Post {
 
     public void setView(View view) {
         this.view = view;
+    }
+
+    @Override
+    public int compareTo(Post post) {
+        return this.publishDate.compareTo(post.publishDate);
     }
 
 }
