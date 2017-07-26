@@ -16,7 +16,6 @@ public class Post implements Comparable<Post> {
 
     private String _id;
     private String _rev;
-    
     private String title;
     private boolean featured;
     private boolean published;
@@ -26,11 +25,9 @@ public class Post implements Comparable<Post> {
     private String bannerCaption;
     private String description;
     private String content;
-
     private Date createDate;
     private Date modifyDate;
     private Date publishDate;
-
     private Author author;
     private List<String> tags;
     private View view;

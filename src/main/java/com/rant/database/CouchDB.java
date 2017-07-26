@@ -129,7 +129,7 @@ public class CouchDB extends DatabaseSource {
         Author author = null;
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("rantdb", false);
+            Database db = client.database("rantusers", false);
 
             author = db.find(Author.class, uri);
 
@@ -139,6 +139,37 @@ public class CouchDB extends DatabaseSource {
             e.printStackTrace();
         }
         return author;
+    }
+
+    @Override
+    public List<Author> getAuthors(int page, int limit, boolean includeAdmins) {
+        List<Author> authors = new ArrayList<Author>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantusers", false);
+    
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "users")
+                    .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                    .includeDocs(true).build().getResponse();
+    
+            for (int i = 1; i < page; i++) {
+                if (pg.getNextPageToken() != null) {
+                    // next page
+                    pg = db.getViewRequestBuilder("rantdesign", "users")
+                            .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                            .includeDocs(true).build().getResponse(pg.getNextPageToken());
+                } else {
+                    // page does not exist
+                    return authors;
+                }
+            }
+    
+            authors = pg.getDocsAs(Author.class);
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return authors;
     }
 
     @Override
@@ -167,7 +198,7 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("rantdesign", "years")
+            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("rantdesign", "year-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
@@ -191,7 +222,8 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("rantdesign", "categories")
+            ViewResponse<String, Integer> pg = db
+                    .getViewRequestBuilder("rantdesign", "category-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
@@ -215,7 +247,7 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("rantdesign", "tags")
+            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("rantdesign", "tag-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
@@ -239,7 +271,7 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
 
-            uris = db.getViewRequestBuilder("rantdesign", "posts")
+            uris = db.getViewRequestBuilder("rantdesign", "posts-all")
                     .newPaginatedRequest(Key.Type.STRING, String.class).build().getResponse()
                     .getKeys();
 
@@ -255,15 +287,15 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
-
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "posts")
+            String view = includeHidden ? "posts-all" : "posts-published";
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", view)
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .descending(true).includeDocs(true).build().getResponse();
 
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("rantdesign", "posts")
+                    pg = db.getViewRequestBuilder("rantdesign", view)
                             .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                             .descending(true).includeDocs(true).build()
                             .getResponse(pg.getNextPageToken());
@@ -288,8 +320,8 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
-
-            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "category")
+            String view = includeHidden ? "category-all" : "category-published";
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", view)
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                     .reduce(false).descending(true).keys(category).includeDocs(true).build()
                     .getResponse();
@@ -297,7 +329,7 @@ public class CouchDB extends DatabaseSource {
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("rantdesign", "category")
+                    pg = db.getViewRequestBuilder("rantdesign", view)
                             .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                             .reduce(false).descending(true).keys(category).includeDocs(true).build()
                             .getResponse(pg.getNextPageToken());
@@ -321,8 +353,8 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
-
-            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "tag")
+            String view = includeHidden ? "tag-all" : "tag-published";
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", view)
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                     .reduce(false).descending(true).keys(tag).includeDocs(true).build()
                     .getResponse();
@@ -330,7 +362,7 @@ public class CouchDB extends DatabaseSource {
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("rantdesign", "tag")
+                    pg = db.getViewRequestBuilder("rantdesign", view)
                             .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                             .reduce(false).descending(true).keys(tag).includeDocs(true).build()
                             .getResponse(pg.getNextPageToken());
@@ -354,11 +386,11 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
-
+            String view = includeHidden ? "year-all" : "year-published";
             String endKey = year + "-01-01T00:00:00.000Z";
             String startKey = year + "-12-31T23:59:59.999Z";
 
-            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", "year")
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("rantdesign", view)
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                     .reduce(false).descending(true).startKey(startKey).endKey(endKey)
                     .includeDocs(true).build().getResponse();
@@ -366,7 +398,7 @@ public class CouchDB extends DatabaseSource {
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("rantdesign", "year")
+                    pg = db.getViewRequestBuilder("rantdesign", view)
                             .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                             .reduce(false).descending(true).startKey(startKey).endKey(endKey)
                             .includeDocs(true).build().getResponse(pg.getNextPageToken());
@@ -383,38 +415,7 @@ public class CouchDB extends DatabaseSource {
         }
         return posts;
     }
-
-    @Override
-    public List<Author> getAuthors(int page, int limit, boolean includeAdmins) {
-        List<Author> authors = new ArrayList<Author>();
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("rantdb", false);
-
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "authors")
-                    .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
-                    .includeDocs(true).build().getResponse();
-
-            for (int i = 1; i < page; i++) {
-                if (pg.getNextPageToken() != null) {
-                    // next page
-                    pg = db.getViewRequestBuilder("rantdesign", "authors")
-                            .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
-                            .includeDocs(true).build().getResponse(pg.getNextPageToken());
-                } else {
-                    // page does not exist
-                    return authors;
-                }
-            }
-
-            authors = pg.getDocsAs(Author.class);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return authors;
-    }
-
+    
     @Override
     public List<Role> getRoles() {
         List<Role> roles = new ArrayList<Role>();
@@ -439,9 +440,12 @@ public class CouchDB extends DatabaseSource {
         User user = null;
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("rantdb", false);
+            Database db = client.database("rantusers", false);
 
             user = db.find(User.class, uri);
+            
+            Role role = db.find(Role.class, user.getRole().get_Id());
+            user.setRole(role);
 
         } catch (NoDocumentException e) {
             user = null;
@@ -452,10 +456,41 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
+    public List<User> getUsers(int page, int limit, boolean includeAdmins) {
+        List<User> users = new ArrayList<User>();
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantusers", false);
+    
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "users")
+                    .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                    .includeDocs(true).build().getResponse();
+    
+            for (int i = 1; i < page; i++) {
+                if (pg.getNextPageToken() != null) {
+                    // next page
+                    pg = db.getViewRequestBuilder("rantdesign", "users")
+                            .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
+                            .includeDocs(true).build().getResponse(pg.getNextPageToken());
+                } else {
+                    // page does not exist
+                    return users;
+                }
+            }
+    
+            users = pg.getDocsAs(User.class);
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
     public boolean newUser(User user) {
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("rantdb", false);
+            Database db = client.database("rantusers", false);
             db.save(user);
             return true;
         } catch (Exception e) {
@@ -468,7 +503,7 @@ public class CouchDB extends DatabaseSource {
     public boolean editUser(User user) {
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("rantdb", false);
+            Database db = client.database("rantusers", false);
             db.update(user);
             return true;
         } catch (Exception e) {
@@ -481,7 +516,7 @@ public class CouchDB extends DatabaseSource {
     public boolean deleteUser(User user) {
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("rantdb", false);
+            Database db = client.database("rantusers", false);
             db.remove(user);
             return true;
         } catch (Exception e) {

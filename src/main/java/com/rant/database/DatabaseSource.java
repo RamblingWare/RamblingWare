@@ -43,6 +43,8 @@ public abstract class DatabaseSource {
     public abstract boolean deletePost(Post post);
 
     public abstract Author getAuthor(String uri, boolean includeHidden);
+    
+    public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
 
     public abstract List<Post> getFeatured();
 
@@ -64,11 +66,11 @@ public abstract class DatabaseSource {
 
     public abstract List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden);
 
-    public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
-
     public abstract List<Role> getRoles();
 
     public abstract User getUser(String uri);
+
+    public abstract List<User> getUsers(int page, int limit, boolean includeAdmins);
 
     public abstract boolean newUser(User user);
 

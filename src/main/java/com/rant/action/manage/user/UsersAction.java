@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
+import com.rant.model.User;
 
 /**
  * View/Edit Users action class
@@ -27,7 +27,7 @@ public class UsersAction extends ActionSupport
     private static final long serialVersionUID = 1L;
 
     // results
-    private List<Author> authors;
+    private List<User> users;
     private int page;
     private int limit = Application.getInt("manageLimit");
     private boolean nextPage;
@@ -49,16 +49,16 @@ public class UsersAction extends ActionSupport
             }
 
             // gather authors
-            authors = Application.getDatabaseSource().getAuthors(page, limit, true);
+            users = Application.getDatabaseSource().getUsers(page, limit, true);
 
             // determine pagination
-            if (authors != null) {
-                nextPage = authors.size() >= limit;
+            if (users != null) {
+                nextPage = users.size() >= limit;
                 prevPage = page > 1;
             }
 
             // set attributes
-            servletRequest.setAttribute("authors", authors);
+            servletRequest.setAttribute("users", users);
             servletRequest.setAttribute("page", page);
             servletRequest.setAttribute("nextPage", nextPage);
             servletRequest.setAttribute("prevPage", prevPage);
@@ -86,12 +86,12 @@ public class UsersAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public int getPage() {

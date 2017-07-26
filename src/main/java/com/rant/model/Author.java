@@ -16,12 +16,8 @@ public class Author implements Comparable<Author>{
     private String _rev;
     private String name;
     private String email;
-    private String username;
-    
     private Role role;
-
     private Date createDate;
-
     private String thumbnail;
     private String description;
     private String content;
@@ -63,11 +59,7 @@ public class Author implements Comparable<Author>{
     }
 
     public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        return _id;
     }
 
     public String getEmail() {

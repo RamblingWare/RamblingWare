@@ -91,13 +91,13 @@ public class SettingsAction extends ActionSupport
         // update user information
         try {
             User updatedUser = user;
-            updatedUser.setUsername(username);
+            updatedUser.set_Id(username);
             updatedUser.setEmail(email);
 
             if (Application.getDatabaseSource().editUser(updatedUser)) {
                 // Success
                 // update user settings in session
-                user.setUsername(username);
+                user.set_Id(username);
                 user.setEmail(email);
                 System.out.println("User " + user.getUsername() + " updated their account.");
                 addActionMessage("Changes were saved.");
