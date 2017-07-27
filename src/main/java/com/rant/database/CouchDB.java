@@ -10,6 +10,7 @@ import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewResponse;
+import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.rant.model.Author;
 import com.rant.model.Category;
@@ -17,6 +18,7 @@ import com.rant.model.Post;
 import com.rant.model.Role;
 import com.rant.model.Tag;
 import com.rant.model.User;
+import com.rant.model.View;
 import com.rant.model.Year;
 
 public class CouchDB extends DatabaseSource {
@@ -75,6 +77,18 @@ public class CouchDB extends DatabaseSource {
 
             if (!includeHidden && !post.isPublished()) {
                 post = null;
+            } else {
+                View view = new View();
+                try {
+                    // get view count
+                    db = client.database("rantviews", true);
+                    view = db.find(View.class, uri);
+                } catch (NoDocumentException e) {
+                    // no view count yet
+                    // so start at 0
+                    view.set_Id(uri);
+                }
+                post.setView(view);
             }
 
         } catch (NoDocumentException e) {
@@ -117,6 +131,8 @@ public class CouchDB extends DatabaseSource {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
             db.remove(post);
+            db = client.database("rantviews", false);
+            db.remove(post.getView());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,11 +163,11 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantusers", false);
-    
+
             ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "users")
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .includeDocs(true).build().getResponse();
-    
+
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
@@ -163,9 +179,9 @@ public class CouchDB extends DatabaseSource {
                     return authors;
                 }
             }
-    
+
             authors = pg.getDocsAs(Author.class);
-    
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -304,8 +320,32 @@ public class CouchDB extends DatabaseSource {
                     return posts;
                 }
             }
-
             posts = pg.getDocsAs(Post.class);
+
+            for (Post post : posts) {
+                // get author for each post
+                try {
+                    db = client.database("rantusers", false);
+                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                } catch (Exception e) {
+                    // ignore.
+                    Author author = new Author(post.getAuthor_id());
+                    author.setName(post.getAuthor_id());
+                    post.setAuthor(author);
+                }
+                // get views for each post
+                View views = new View();
+                try {
+                    // get view count
+                    db = client.database("rantviews", true);
+                    views = db.find(View.class, post.get_Id());
+                } catch (NoDocumentException e) {
+                    // no view count yet
+                    // so start at 0
+                    views.set_Id(post.get_Id());
+                }
+                post.setView(views);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -415,7 +455,7 @@ public class CouchDB extends DatabaseSource {
         }
         return posts;
     }
-    
+
     @Override
     public List<Role> getRoles() {
         List<Role> roles = new ArrayList<Role>();
@@ -443,7 +483,7 @@ public class CouchDB extends DatabaseSource {
             Database db = client.database("rantusers", false);
 
             user = db.find(User.class, uri);
-            
+
             Role role = db.find(Role.class, user.getRole().get_Id());
             user.setRole(role);
 
@@ -461,11 +501,11 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantusers", false);
-    
+
             ViewResponse<String, Object> pg = db.getViewRequestBuilder("rantdesign", "users")
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .includeDocs(true).build().getResponse();
-    
+
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
@@ -477,9 +517,9 @@ public class CouchDB extends DatabaseSource {
                     return users;
                 }
             }
-    
+
             users = pg.getDocsAs(User.class);
-    
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -527,7 +567,27 @@ public class CouchDB extends DatabaseSource {
 
     @Override
     public boolean incrementPageViews(Post post, boolean sessionView) {
-        // Auto-generated method stub
-        return true;
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantviews", true);
+
+            post.getView().setCount(post.getView().getCount() + 1);
+            if (sessionView) {
+                post.getView().setSession(post.getView().getSession() + 1);
+            }
+
+            if (db.contains(post.getView().get_Id())) {
+                db.update(post.getView());
+            } else {
+                db.save(post.getView());
+            }
+            return true;
+        } catch (IllegalArgumentException | DocumentConflictException e) {
+            // quietly ignore.
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

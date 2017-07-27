@@ -28,6 +28,7 @@ public class Post implements Comparable<Post> {
     private Date createDate;
     private Date modifyDate;
     private Date publishDate;
+    private String author_id;
     private Author author;
     private List<String> tags;
     private View view;
@@ -168,6 +169,14 @@ public class Post implements Comparable<Post> {
 
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public String getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(String author_id) {
+        this.author_id = author_id;
     }
 
     public Author getAuthor() {
