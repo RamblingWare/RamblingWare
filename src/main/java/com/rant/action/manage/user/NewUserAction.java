@@ -135,13 +135,13 @@ public class NewUserAction extends ActionSupport
             // check that the URI is unique
             Author author = Application.getDatabaseSource().getAuthor(uri, true);
 
-            if (author != null) {
+            /*if (author != null) {
                 // URI was not unique. Please try again.
                 addActionError(
                         "URI is not unique. Its being used by another author. Please change it, and try again.");
                 System.out.println("URI was not unique.");
                 return ERROR;
-            }
+            }*/
 
             // salt and hash the password
             password = Hash.create(password, Type.PBKDF2_SHA256);

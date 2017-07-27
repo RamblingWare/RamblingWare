@@ -189,13 +189,13 @@ public class EditPostAction extends ActionSupport
         try {
             Post existingPost = Application.getDatabaseSource().getPost(reqUri, true);
 
-            if (existingPost.get_Id() != id) {
+            /*if (existingPost.get_Id() != id) {
                 // URI was not unique. Please try again.
                 addActionError(
                         "URI is not unique. Its being used by another post. Please change it, and try again.");
                 System.out.println("URI was not unique.");
                 return ERROR;
-            }
+            }*/
             
             if(existingPost.getAuthor().getUri().equals(user.getUri()) && !user.getRole().isPostsEdit()) {
                 addActionError("You do not have permission to edit your post.");

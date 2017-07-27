@@ -78,7 +78,20 @@ public class CouchDB extends DatabaseSource {
             if (!includeHidden && !post.isPublished()) {
                 post = null;
             } else {
-                View view = new View();
+                // get author for each post
+                try {
+                    db = client.database("rantusers", false);
+                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                } catch (Exception e) {
+                    // ignore.
+                    Author author = new Author(post.getAuthor_id());
+                    author.setName(post.getAuthor_id());
+                    post.setAuthor(author);
+                }
+            }
+
+            View view = new View();
+            if (includeHidden) {
                 try {
                     // get view count
                     db = client.database("rantviews", true);
@@ -88,8 +101,8 @@ public class CouchDB extends DatabaseSource {
                     // so start at 0
                     view.set_Id(uri);
                 }
-                post.setView(view);
             }
+            post.setView(view);
 
         } catch (NoDocumentException e) {
             post = null;
@@ -104,6 +117,11 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
+            
+            // nullify author
+            post.setAuthor_id(post.getAuthor().get_Id());
+            post.setAuthor(null);
+            
             db.save(post);
             return true;
         } catch (Exception e) {
@@ -117,6 +135,11 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
+            
+            // nullify author
+            post.setAuthor_id(post.getAuthor().get_Id());
+            post.setAuthor(null);
+            
             db.update(post);
             return true;
         } catch (Exception e) {
@@ -333,18 +356,21 @@ public class CouchDB extends DatabaseSource {
                     author.setName(post.getAuthor_id());
                     post.setAuthor(author);
                 }
-                // get views for each post
-                View views = new View();
-                try {
-                    // get view count
-                    db = client.database("rantviews", true);
-                    views = db.find(View.class, post.get_Id());
-                } catch (NoDocumentException e) {
-                    // no view count yet
-                    // so start at 0
-                    views.set_Id(post.get_Id());
+
+                if (includeHidden) {
+                    // get views for each post
+                    View views = new View();
+                    try {
+                        // get view count
+                        db = client.database("rantviews", true);
+                        views = db.find(View.class, post.get_Id());
+                    } catch (NoDocumentException e) {
+                        // no view count yet
+                        // so start at 0
+                        views.set_Id(post.get_Id());
+                    }
+                    post.setView(views);
                 }
-                post.setView(views);
             }
 
         } catch (Exception e) {
@@ -378,8 +404,35 @@ public class CouchDB extends DatabaseSource {
                     return posts;
                 }
             }
-
             posts = pg.getDocsAs(Post.class);
+            
+            for (Post post : posts) {
+                // get author for each post
+                try {
+                    db = client.database("rantusers", false);
+                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                } catch (Exception e) {
+                    // ignore.
+                    Author author = new Author(post.getAuthor_id());
+                    author.setName(post.getAuthor_id());
+                    post.setAuthor(author);
+                }
+
+                if (includeHidden) {
+                    // get views for each post
+                    View views = new View();
+                    try {
+                        // get view count
+                        db = client.database("rantviews", true);
+                        views = db.find(View.class, post.get_Id());
+                    } catch (NoDocumentException e) {
+                        // no view count yet
+                        // so start at 0
+                        views.set_Id(post.get_Id());
+                    }
+                    post.setView(views);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -411,8 +464,35 @@ public class CouchDB extends DatabaseSource {
                     return posts;
                 }
             }
-
             posts = pg.getDocsAs(Post.class);
+            
+            for (Post post : posts) {
+                // get author for each post
+                try {
+                    db = client.database("rantusers", false);
+                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                } catch (Exception e) {
+                    // ignore.
+                    Author author = new Author(post.getAuthor_id());
+                    author.setName(post.getAuthor_id());
+                    post.setAuthor(author);
+                }
+
+                if (includeHidden) {
+                    // get views for each post
+                    View views = new View();
+                    try {
+                        // get view count
+                        db = client.database("rantviews", true);
+                        views = db.find(View.class, post.get_Id());
+                    } catch (NoDocumentException e) {
+                        // no view count yet
+                        // so start at 0
+                        views.set_Id(post.get_Id());
+                    }
+                    post.setView(views);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -447,8 +527,35 @@ public class CouchDB extends DatabaseSource {
                     return posts;
                 }
             }
-
             posts = pg.getDocsAs(Post.class);
+            
+            for (Post post : posts) {
+                // get author for each post
+                try {
+                    db = client.database("rantusers", false);
+                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                } catch (Exception e) {
+                    // ignore.
+                    Author author = new Author(post.getAuthor_id());
+                    author.setName(post.getAuthor_id());
+                    post.setAuthor(author);
+                }
+
+                if (includeHidden) {
+                    // get views for each post
+                    View views = new View();
+                    try {
+                        // get view count
+                        db = client.database("rantviews", true);
+                        views = db.find(View.class, post.get_Id());
+                    } catch (NoDocumentException e) {
+                        // no view count yet
+                        // so start at 0
+                        views.set_Id(post.get_Id());
+                    }
+                    post.setView(views);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

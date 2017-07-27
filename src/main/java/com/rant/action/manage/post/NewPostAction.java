@@ -133,13 +133,13 @@ public class NewPostAction extends ActionSupport
         try {
             Post post = Application.getDatabaseSource().getPost(uri, true);
 
-            if (post != null) {
+            /*if (post != null) {
                 // URI was not unique. Please try again.
                 addActionError(
                         "URI is not unique. Its being used by another post. Please change it, and try again.");
                 System.out.println("URI was not unique.");
                 return ERROR;
-            }
+            }*/
 
             // save fields into object
             post = new Post(uri);

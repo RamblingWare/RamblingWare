@@ -163,13 +163,13 @@ public class EditUserAction extends ActionSupport
                 return ERROR;
             }
 
-            if (existingUser.get_Id() != id) {
+            /*if (existingUser.get_Id() != id) {
                 // URI was not unique. Please try again.
                 addActionError(
                         "URI is not unique. Its being used by another author. Please change it, and try again.");
                 System.out.println("URI was not unique.");
                 return ERROR;
-            }
+            }*/
 
             // save fields into object
             author = new User(uri);
