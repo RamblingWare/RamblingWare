@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Config {
 
-    private String _id = "CONFIG";
+    private String _id = "APPCONFIG";
     private String _rev;
     private HashMap<String, String> settings;
 

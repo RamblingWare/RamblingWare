@@ -35,6 +35,7 @@ public class Application implements ServletContextListener {
 
         // Set Database
         database = loadDatabase();
+        System.out.println("Using Database:\r\n"+database.getDatabase().toString());
 
         // Test Database
         if (!database.test()) {

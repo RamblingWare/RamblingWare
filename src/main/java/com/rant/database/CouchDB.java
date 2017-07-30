@@ -1,5 +1,6 @@
 package com.rant.database;
 
+import java.io.InvalidClassException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,8 +11,10 @@ import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewResponse;
+import com.cloudant.client.org.lightcouch.CouchDbException;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
+import com.google.gson.JsonObject;
 import com.rant.config.Config;
 import com.rant.model.Author;
 import com.rant.model.Category;
@@ -50,19 +53,41 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
 
-            // Show the server version
-            System.out.println("CouchDB Version: " + client.serverVersion());
+            if (!client.serverVersion().startsWith("2.0")) {
+                throw new InvalidClassException("Failed Database Test: Unexpected CouchDB Version ("
+                        + client.serverVersion() + ") was expecting (2.0.0).");
+            }
 
-            // Test Create, Insert, Delete
-            Database couchdb = client.database("rantdb-test", true);
-            couchdb.save(database);
+            Database db = client.database("rantdb-test", true);
+            JsonObject json = new JsonObject();
+            json.addProperty("_id", "TEST");
+            db.save(json);
+            json = db.find(JsonObject.class, "TEST");
+            json.addProperty("title", "quick test edit");
+            db.update(json);
+            json = db.find(JsonObject.class, "TEST");
+            db.remove(json);
             client.deleteDB("rantdb-test");
 
             return true;
 
+        } catch (InvalidClassException e) {
+            System.err.println(e.getMessage());
+        } catch (NoDocumentException e) {
+            System.err.println(e.getMessage());
+            System.err.println(
+                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
+        } catch (DocumentConflictException e) {
+            System.err.println(e.getMessage());
+            System.err.println(
+                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
+        } catch (MalformedURLException | CouchDbException e) {
+            System.err.println(e.getMessage());
+            System.err
+                    .println("Failed Database Test: Please check the Database URL and try again.");
         } catch (Exception e) {
-            System.err.println("Failed Database Test!");
             e.printStackTrace();
+            System.err.println("Failed Database Test: Exception occured during test.");
         }
         return false;
     }
@@ -71,8 +96,8 @@ public class CouchDB extends DatabaseSource {
     public Config getConfig() {
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("rantconfig", true);
-            return db.find(Config.class, "CONFIG");
+            Database db = client.database("rantdb", false);
+            return db.find(Config.class, "APPCONFIG");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +109,7 @@ public class CouchDB extends DatabaseSource {
     public boolean editConfig(Config config) {
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("rantconfig", false);
+            Database db = client.database("rantdb", false);
             db.update(config);
             return true;
         } catch (Exception e) {
