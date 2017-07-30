@@ -24,14 +24,14 @@ import com.rant.model.Database;
 public class Application implements ServletContextListener {
 
     private final static String PROP_FILE = "/application.properties";
-    private static HashMap<String, String> settingsMap;
+    private static Config config;
     private static DatabaseSource database;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
 
         // Load settings from properties file
-        settingsMap = loadSettings(PROP_FILE);
+        config = loadSettingsFromFile(PROP_FILE);
 
         // Set Database
         database = loadDatabase();
@@ -41,14 +41,22 @@ public class Application implements ServletContextListener {
             // failure
             System.exit(1);
         }
+        
+        // Load settings from Database
+        Config configdb = loadSettingsFromDB(database);
+        config.getSettings().putAll(configdb.getSettings());
+        
+        for(String s : config.getSettings().values()) {
+            System.out.println(s);
+        }
 
         System.out.println("Started Ranting!");
     }
 
-    private HashMap<String, String> loadSettings(String propertiesFile) {
-        HashMap<String, String> map = null;
+    private Config loadSettingsFromFile(String propertiesFile) {
+        Config config = new Config();
         try {
-            map = new HashMap<String, String>();
+            HashMap<String, String> map = new HashMap<String, String>();
             Properties properties = new Properties();
             properties.load(Application.class.getResourceAsStream(propertiesFile));
 
@@ -57,11 +65,17 @@ public class Application implements ServletContextListener {
                 String value = properties.getProperty(key);
                 map.put(key, value);
             }
+            
+            config.setSettings(map);
 
         } catch (IOException e) {
             System.err.println(e);
         }
-        return map;
+        return config;
+    }
+    
+    private Config loadSettingsFromDB(DatabaseSource dbs) {
+        return dbs.getConfig();
     }
 
     private DatabaseSource loadDatabase() {
@@ -124,7 +138,7 @@ public class Application implements ServletContextListener {
      * @return value String
      */
     public static String getString(String key) {
-        return settingsMap.get(key);
+        return config.getSettings().get(key);
     }
 
     /**
@@ -135,7 +149,7 @@ public class Application implements ServletContextListener {
      * @return value int
      */
     public static int getInt(String key) throws NumberFormatException {
-        return Integer.parseInt(settingsMap.get(key));
+        return Integer.parseInt(config.getSettings().get(key));
     }
 
     /**
@@ -146,7 +160,7 @@ public class Application implements ServletContextListener {
      * @return value double
      */
     public static double getDouble(String key) throws NumberFormatException {
-        return Double.parseDouble(settingsMap.get(key));
+        return Double.parseDouble(config.getSettings().get(key));
     }
 
     /**
@@ -158,7 +172,7 @@ public class Application implements ServletContextListener {
      *            the value to set
      */
     public static void setString(String key, String value) {
-        settingsMap.put(key, value);
+        config.getSettings().put(key, value);
     }
 
 }

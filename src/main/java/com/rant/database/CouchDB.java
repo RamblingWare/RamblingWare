@@ -12,6 +12,7 @@ import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewResponse;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
+import com.rant.config.Config;
 import com.rant.model.Author;
 import com.rant.model.Category;
 import com.rant.model.Post;
@@ -67,6 +68,32 @@ public class CouchDB extends DatabaseSource {
     }
 
     @Override
+    public Config getConfig() {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantconfig", true);
+            return db.find(Config.class, "CONFIG");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean editConfig(Config config) {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("rantconfig", false);
+            db.update(config);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public Post getPost(String uri, boolean includeHidden) {
         Post post = null;
         try {
@@ -117,11 +144,11 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
-            
+
             // nullify author
             post.setAuthor_id(post.getAuthor().get_Id());
             post.setAuthor(null);
-            
+
             db.save(post);
             return true;
         } catch (Exception e) {
@@ -135,11 +162,11 @@ public class CouchDB extends DatabaseSource {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("rantdb", false);
-            
+
             // nullify author
             post.setAuthor_id(post.getAuthor().get_Id());
             post.setAuthor(null);
-            
+
             db.update(post);
             return true;
         } catch (Exception e) {
@@ -405,7 +432,7 @@ public class CouchDB extends DatabaseSource {
                 }
             }
             posts = pg.getDocsAs(Post.class);
-            
+
             for (Post post : posts) {
                 // get author for each post
                 try {
@@ -465,7 +492,7 @@ public class CouchDB extends DatabaseSource {
                 }
             }
             posts = pg.getDocsAs(Post.class);
-            
+
             for (Post post : posts) {
                 // get author for each post
                 try {
@@ -528,7 +555,7 @@ public class CouchDB extends DatabaseSource {
                 }
             }
             posts = pg.getDocsAs(Post.class);
-            
+
             for (Post post : posts) {
                 // get author for each post
                 try {

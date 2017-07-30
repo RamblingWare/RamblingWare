@@ -2,6 +2,7 @@ package com.rant.database;
 
 import java.util.List;
 
+import com.rant.config.Config;
 import com.rant.model.Author;
 import com.rant.model.Category;
 import com.rant.model.Post;
@@ -34,6 +35,10 @@ public abstract class DatabaseSource {
 
     public abstract boolean test();
 
+    public abstract Config getConfig();
+
+    public abstract boolean editConfig(Config config);
+
     public abstract Post getPost(String uri, boolean includeHidden);
 
     public abstract boolean newPost(Post post);
@@ -43,7 +48,7 @@ public abstract class DatabaseSource {
     public abstract boolean deletePost(Post post);
 
     public abstract Author getAuthor(String uri, boolean includeHidden);
-    
+
     public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
 
     public abstract List<Post> getFeatured();
