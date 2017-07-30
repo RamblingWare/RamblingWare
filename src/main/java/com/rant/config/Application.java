@@ -7,10 +7,9 @@ import java.util.Properties;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.rant.database.CouchDB;
 import com.rant.database.DatabaseSource;
 import com.rant.model.Database;
@@ -84,19 +83,19 @@ public class Application implements ServletContextListener {
         } else {
             // try to read env variables
             try {
-                JSONObject obj = new JSONObject(vcap);
+                Gson gson = new Gson();
+                JsonObject obj = gson.fromJson(vcap, JsonObject.class);
+                JsonArray cloudant = obj.getAsJsonArray("cloudantNoSQLDB");
+                JsonObject couchdb = cloudant.get(0).getAsJsonObject().getAsJsonObject("credentials");
+                db.setHost(couchdb.get("host").getAsString());
+                db.setPort(couchdb.get("port").getAsString());
+                db.setName(couchdb.get("name").getAsString());
+                db.setUrl(couchdb.get("url").getAsString());
+                db.setUsername(couchdb.get("username").getAsString());
+                db.setPassword(couchdb.get("password").getAsString());
 
-                JSONArray cloudant = obj.getJSONArray("cloudantNoSQLDB");
-                JSONObject couchdb = cloudant.getJSONObject(0).getJSONObject("credentials");
-                db.setHost(couchdb.getString("host"));
-                db.setPort("" + couchdb.getInt("port"));
-                db.setName(couchdb.getString("name"));
-                db.setUrl(couchdb.getString("url"));
-                db.setUsername(couchdb.getString("username"));
-                db.setPassword(couchdb.getString("password"));
-
-            } catch (JSONException e) {
-                System.err.println("Failed to parse JSON object VCAP_SERVICES for Datasource.");
+            } catch (Exception e) {
+                System.err.println("Failed to parse VCAP_SERVICES for Datasource properties.");
                 e.printStackTrace();
             }
         }

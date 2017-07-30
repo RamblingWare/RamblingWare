@@ -277,7 +277,7 @@ public class Utils {
             return url;
         }
     }
-    
+
     /**
      * Make sure the URI is compliant for context. Does not work on UrlParams.
      * 
@@ -340,7 +340,6 @@ public class Utils {
      */
     public static String downloadUrlFile(String urlString) {
         BufferedInputStream in = null;
-        // System.out.println("Downloading file from '"+urlString+"'");
         String dataString = "";
         try {
             URL url = new URL(urlString);
