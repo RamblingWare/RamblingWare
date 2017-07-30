@@ -23,14 +23,14 @@ import com.rant.model.Database;
  */
 public class Application implements ServletContextListener {
 
-    private final static String PROP_FILE = "/application.properties";
+    private final static String PROP_FILE = "/rant.properties";
     private static Config config;
     private static DatabaseSource database;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
 
-        // Load settings from properties file
+        // Load settings from File
         config = loadSettingsFromFile(PROP_FILE);
 
         // Set Database
@@ -45,10 +45,6 @@ public class Application implements ServletContextListener {
         // Load settings from Database
         Config configdb = loadSettingsFromDB(database);
         config.getSettings().putAll(configdb.getSettings());
-        
-        for(String s : config.getSettings().values()) {
-            System.out.println(s);
-        }
 
         System.out.println("Started Ranting!");
     }
