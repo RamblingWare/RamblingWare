@@ -2,9 +2,9 @@ package com.rant.database;
 
 import java.util.List;
 
-import com.rant.config.Config;
 import com.rant.model.Author;
 import com.rant.model.Category;
+import com.rant.model.Config;
 import com.rant.model.Post;
 import com.rant.model.Role;
 import com.rant.model.Tag;
@@ -32,8 +32,6 @@ public abstract class DatabaseSource {
     public com.rant.model.Database getDatabase() {
         return database;
     }
-
-    public abstract boolean test();
 
     public abstract Config getConfig();
 

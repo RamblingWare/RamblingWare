@@ -1,4 +1,4 @@
-package com.rant.config;
+package com.rant.model;
 
 import java.util.HashMap;
 

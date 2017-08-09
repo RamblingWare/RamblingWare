@@ -20,7 +20,7 @@ import com.rant.config.Utils;
 public class UtilsTests {
 
     @Test
-    public void test() {
+    public void time() {
 
         String time = Utils.formatTime(System.currentTimeMillis());
         assertNotNull(time);
@@ -97,5 +97,12 @@ public class UtilsTests {
         
         temp = "te\r\nst";
         assertEquals(Utils.removeNonAsciiChars(temp),"test");
+    }
+    
+    @Test public void fileLoading() {
+        
+        assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
+        
+        assertNotNull(Utils.downloadUrlFile("http://localhost:5984/"));
     }
 }

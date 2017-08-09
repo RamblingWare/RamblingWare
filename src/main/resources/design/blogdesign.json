@@ -1,0 +1,45 @@
+{
+  "_id": "_design/blogdesign",
+  "views": {
+    "featured": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    if(doc.featured) {\n      emit(doc._id, 1);\n    }\n  }\n}"
+    },
+    "posts-all": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\") {\n    emit(doc.publishDate, ''+doc.published);\n  }\n}"
+    },
+    "posts-published": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    emit(doc.publishDate, ''+doc.published);\n  }\n}"
+    },
+    "category-all": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\") {\n    emit(doc.category, 1);\n  }\n}"
+    },
+    "category-published": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    emit(doc.category, 1);\n  }\n}"
+    },
+    "tag-all": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\") {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
+    },
+    "tag-published": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
+    },
+    "year-all": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\") {\n    emit(doc.publishDate, 1);\n  }\n}"
+    },
+    "year-published": {
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    emit(doc.publishDate, 1);\n  }\n}"
+    },
+    "category-count": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    emit(doc.category, 1);\n  }\n}"
+    },
+    "tag-count": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
+    },
+    "year-count": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"post\" && doc.published) {\n    var year = doc.publishDate.substr(0,4);\n    emit(year, 1);\n  }\n}"
+    }
+  },
+  "language": "javascript"
+}

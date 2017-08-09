@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.rant.database.CouchDB;
 import com.rant.database.DatabaseSource;
+import com.rant.model.Config;
 import com.rant.model.Database;
 
 /**
@@ -38,9 +39,22 @@ public class Application implements ServletContextListener {
         System.out.println("Using Database:\r\n"+database.getDatabase().toString());
 
         // Test Database
-        if (!database.test()) {
+        Setup setup = new Setup(database.getDatabase());
+        if (!setup.test()) {
             // failure
             System.exit(1);
+        }
+        else if(!setup.verify()) {
+            System.out.println("Setup detected the Database is not configured properly.");
+            // perform first-time install
+            if(!setup.install()) {
+                // failed to install
+                System.exit(1);
+            } else {
+                System.out.println("Setup Database completed.");
+            }
+        } else {
+            System.out.println("Database was verified.");
         }
         
         // Load settings from Database
@@ -116,6 +130,15 @@ public class Application implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         System.out.println("Stopped Ranting.");
+    }
+
+    /**
+     * Gets the currently used Config for this app.
+     * 
+     * @return Config
+     */
+    public static Config getConfig() {
+        return config;
     }
 
     /**
