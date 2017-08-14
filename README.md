@@ -51,10 +51,10 @@ Sorry, Some of these might not work at this time.
 
 ## Technologies Used
 
- *  [Java EE 1.8](https://www.java.com/) Programming Language
+ *  [Java 1.8](https://www.java.com/) Programming Language
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache CouchDB 2.0](https://couchdb.apache.org/) NoSQL Database
- *  [Apache Tomcat 8.0](https://tomcat.apache.org/) Application Server
+ *  [Apache Tomcat 8.0](https://tomcat.apache.org/) Web Server
  *  Secure Password Hashing with [amdelamar/jhash](https://github.com/amdelamar/jhash)
  *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
 
