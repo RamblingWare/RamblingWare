@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 import javax.mail.internet.InternetAddress;
@@ -38,6 +39,9 @@ public class Utils {
     private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
             "MMM dd, yyyy (hh:mm:ss a)");
     private static final DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+
+    private static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("UTC");
+    private static final DateFormat ISO8601FORM = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
     /**
      * Gets the current time in a readable format. "MMM dd, yyyy (hh:mm:ss a)"
@@ -197,6 +201,21 @@ public class Utils {
             return "Null";
         }
         return SQLSERVERDATEFORM.format(dateTime);
+    }
+
+    /**
+     * Get a ISO 8601 format of the given datetime. "yyyy-MM-dd'T'HH:mm:ss'Z'"
+     * 
+     * @param dateTime
+     *            "yyyy-MM-dd'T'HH:mm:ss'Z'"
+     * @return String
+     */
+    public static String formatIso8601Date(Date dateTime) {
+        if (dateTime == null) {
+            return "Null";
+        }
+        ISO8601FORM.setTimeZone(UTC_TIMEZONE);
+        return ISO8601FORM.format(dateTime);
     }
 
     /**
@@ -391,11 +410,12 @@ public class Utils {
         }
         return result;
     }
-    
+
     /**
      * Loads a file from the resources folder.
-     *  
-     * @param resourcePath name of file
+     * 
+     * @param resourcePath
+     *            name of file
      * @return File
      */
     public static File getResourceAsFile(String resourcePath) {
@@ -409,7 +429,7 @@ public class Utils {
             tempFile.deleteOnExit();
 
             try (FileOutputStream out = new FileOutputStream(tempFile)) {
-                //copy stream
+                // copy stream
                 byte[] buffer = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = in.read(buffer)) != -1) {

@@ -13,6 +13,8 @@ import com.cloudant.client.org.lightcouch.CouchDbException;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.google.gson.JsonObject;
+import com.rant.model.Role;
+import com.rant.model.User;
 
 public class Setup {
 
@@ -103,8 +105,6 @@ public class Setup {
     public boolean verify() {
         try {
             CloudantClient client = getConnection();
-            
-            // Check user TODO
 
             Database blog = client.database("blog", false);
             blog.getDesignDocumentManager().get("_design/blogdesign");
@@ -135,9 +135,6 @@ public class Setup {
     public boolean install() {
         try {
             CloudantClient client = getConnection();
-            
-            // Create user TODO
-            //Utils.downloadUrlFile(database.getUrl()+"/_config/admins/pickles -d '\"12345\"'");
 
             Database blog = client.database("blog", true);
             DesignDocument blogdesign = DesignDocumentManager
@@ -148,6 +145,121 @@ public class Setup {
             DesignDocument accessdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/accessdesign.json"));
             access.getDesignDocumentManager().put(accessdesign);
+
+            Role own = new Role("Owner");
+            own.setPublic(true);
+            own.setPostsCreate(true);
+            own.setPostsEdit(true);
+            own.setPostsEditOthers(true);
+            own.setPostsSeeHidden(false);
+            own.setPostsDelete(true);
+            own.setUsersCreate(true);
+            own.setUsersEdit(false);
+            own.setUsersEditOthers(false);
+            own.setUsersDelete(true);
+            own.setRolesCreate(true);
+            own.setRolesEdit(true);
+            own.setRolesDelete(true);
+            own.setPagesCreate(true);
+            own.setPagesEdit(true);
+            own.setPagesDelete(true);
+            own.setCommentsCreate(true);
+            own.setCommentsEdit(true);
+            own.setCommentsEditOthers(false);
+            own.setCommentsDelete(true);
+            own.setSettingsCreate(true);
+            own.setSettingsEdit(true);
+            own.setSettingsDelete(true);
+            access.save(own);
+
+            Role adm = new Role("Admin");
+            adm.setPublic(false);
+            adm.setPostsCreate(false);
+            adm.setPostsEdit(true);
+            adm.setPostsEditOthers(true);
+            adm.setPostsSeeHidden(true);
+            adm.setPostsDelete(true);
+            adm.setUsersCreate(true);
+            adm.setUsersEdit(true);
+            adm.setUsersEditOthers(true);
+            adm.setUsersDelete(true);
+            adm.setRolesCreate(true);
+            adm.setRolesEdit(true);
+            adm.setRolesDelete(true);
+            adm.setPagesCreate(true);
+            adm.setPagesEdit(true);
+            adm.setPagesDelete(true);
+            adm.setCommentsCreate(false);
+            adm.setCommentsEdit(false);
+            adm.setCommentsEditOthers(false);
+            adm.setCommentsDelete(false);
+            adm.setSettingsCreate(true);
+            adm.setSettingsEdit(true);
+            adm.setSettingsDelete(true);
+            access.save(adm);
+
+            Role ath = new Role("Author");
+            ath.setPublic(true);
+            ath.setPostsCreate(true);
+            ath.setPostsEdit(true);
+            ath.setPostsEditOthers(false);
+            ath.setPostsSeeHidden(false);
+            ath.setPostsDelete(true);
+            ath.setUsersCreate(false);
+            ath.setUsersEdit(true);
+            ath.setUsersEditOthers(false);
+            ath.setUsersDelete(false);
+            ath.setRolesCreate(false);
+            ath.setRolesEdit(false);
+            ath.setRolesDelete(false);
+            ath.setPagesCreate(false);
+            ath.setPagesEdit(false);
+            ath.setPagesDelete(false);
+            ath.setCommentsCreate(true);
+            ath.setCommentsEdit(true);
+            ath.setCommentsEditOthers(true);
+            ath.setCommentsDelete(true);
+            ath.setSettingsCreate(false);
+            ath.setSettingsEdit(false);
+            ath.setSettingsDelete(false);
+            access.save(ath);
+
+            Role edt = new Role("Editor");
+            edt.setPublic(true);
+            edt.setPostsCreate(true);
+            edt.setPostsEdit(true);
+            edt.setPostsEditOthers(true);
+            edt.setPostsSeeHidden(true);
+            edt.setPostsDelete(true);
+            edt.setUsersCreate(false);
+            edt.setUsersEdit(true);
+            edt.setUsersEditOthers(true);
+            edt.setUsersDelete(false);
+            edt.setRolesCreate(false);
+            edt.setRolesEdit(false);
+            edt.setRolesDelete(false);
+            edt.setPagesCreate(true);
+            edt.setPagesEdit(true);
+            edt.setPagesDelete(true);
+            edt.setCommentsCreate(true);
+            edt.setCommentsEdit(true);
+            edt.setCommentsEditOthers(true);
+            edt.setCommentsDelete(true);
+            edt.setSettingsCreate(false);
+            edt.setSettingsEdit(false);
+            edt.setSettingsDelete(false);
+            access.save(edt);
+
+            User user = new User("admin");
+            user.setName("Admin");
+            user.setRole(adm);
+            user.setDescription("");
+            user.setContent("");
+            user.setEmail("");
+            user.setPassword(
+                    "pbkdf2sha256:64000:18:n:kZ8hGWvCrIv1IW6PwWrDuJ2E:y34ZAyu6Swxud5L+AlvR5NgS");
+            user.setThumbnail("");
+            access.save(user);
 
             Database views = client.database("views", true);
             DesignDocument viewsdesign = DesignDocumentManager
