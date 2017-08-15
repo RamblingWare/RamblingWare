@@ -12,13 +12,14 @@ Live Demo: https://www.ramblingware.com
 
 ## Features
 
- *  Multi-Author blog system with roles (Author,Editor,Owner,Admin)
- *  Social Media ready with OpenGraph API and Twitter API
- *  Tagging, categories, featured, and archives
+ *  Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
+ *  Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
+ *  Tags, Categories, Featured, Authors, and Dates
  *  2FA security and properly hashed passwords
  
 ## Planned Features
 
+ * Containerized with Docker
  * Create Angular/Vuejs dashboard
  * Theme Templates
 
@@ -39,22 +40,33 @@ Load this app onto on a Cloud Platform of your choice:
 
 Sorry, Some of these might not work at this time.
 
+### Docker Deploy
+
+ 1. Coming soon...
+
 ### Manually Deploy
 
  1. Install [CouchDB 2.0](https://couchdb.apache.org/)
- 1. Download Rant: `git clone https://github.com/RamblingWare/Rant`
+ 1. Download Rant: `rant-1.0.war`
+ 1. Deploy on your Server of choice (Tomcat, Liberty, WildFly).
+ 1. Visit `https://localhost:8443/` (depending on server).
+ 
+### Manually Build
+
+ 1. Install [CouchDB 2.0](https://couchdb.apache.org/)
+ 1. Clone: `git clone https://github.com/RamblingWare/Rant`
  1. `cd Rant`
- 1. Compile code: `gradle build`
+ 1. Build: `gradle build`
  1. WAR file is located at: `/build/libs/rant-1.0.war`
- 1. Deploy on your Server of choice (Tomcat,Liberty,JBoss,WildFly).
- 1. Visit `http://localhost:8443/rant/` (depending on server).
+ 1. Deploy on your Server of choice (Tomcat, Liberty, JBoss, WildFly).
+ 1. Visit `https://localhost:8443/` (depending on server).
 
 ## Technologies Used
 
  *  [Java 1.8](https://www.java.com/) Programming Language
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache CouchDB 2.0](https://couchdb.apache.org/) NoSQL Database
- *  [Apache Tomcat 8.0](https://tomcat.apache.org/) Web Server
+ *  [Apache Tomcat 9.0](https://tomcat.apache.org/) Web Server
  *  Secure Password Hashing with [amdelamar/jhash](https://github.com/amdelamar/jhash)
  *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
 
