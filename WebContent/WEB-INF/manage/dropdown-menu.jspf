@@ -2,7 +2,7 @@
 <s:if test="#session != null && #session.USER != null && #session.login">
 	<div id="admin-menu" class="w3-col s2 m2 l2 w3-padding-square w3-right no-print w3-dropdown-hover">
 		<button title="Menu" style="vertical-align: middle;" class="w3-small w3-card w3-round w3-theme-l3 w3-hover-shadow w3-padding-4">
-			<img class="w3-round" src="<s:property value="#session.USER.thumbnail" />" style="width:25px; height:25px;vertical-align: middle;" align="top">
+			<img class="w3-round" src="<s:property value="#session.USER.thumbnail" />" style="width:25px; height:25px;vertical-align: middle;" align="top" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'" />
 		</button>
    		<div class="w3-dropdown-content w3-white w3-card-4 w3-small w3-text-grey">
 			<a class="w3-hover-light-grey w3-hover-text-black" title="Management Menu" href="/manage/"><span class="icon-home w3-large w3-margin-right"></span>Manage Menu</a>

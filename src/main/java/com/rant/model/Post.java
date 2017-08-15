@@ -13,9 +13,10 @@ import com.rant.config.Utils;
  * @created 11/24/2015
  */
 public class Post implements Comparable<Post> {
-
+    
     private String _id;
     private String _rev;
+    private String doctype = "post";
     private String title;
     private boolean featured;
     private boolean published;
@@ -53,6 +54,14 @@ public class Post implements Comparable<Post> {
         this._rev = _rev;
     }
     
+    public String getDoctype() {
+        return doctype;
+    }
+
+    public void setDoctype(String doctype) {
+        this.doctype = doctype;
+    }
+
     public String getUri() {
         return _id;
     }
