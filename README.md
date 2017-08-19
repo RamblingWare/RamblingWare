@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/Rant/blob/master/LICENSE)
 
 
-Blog management system.
+Blog management system on CouchDB.
 
 Live Demo: https://www.ramblingware.com
 
@@ -20,7 +20,7 @@ Live Demo: https://www.ramblingware.com
 ## Planned Features
 
  * Containerized with Docker
- * Create Angular/Vuejs dashboard
+ * Create Vuejs dashboard
  * Theme Templates
 
 ## Usage
