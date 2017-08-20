@@ -2,7 +2,7 @@
   "_id": "_design/viewsdesign",
   "views": {
     "views": {
-      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"view\") {\n    emit(doc._id, doc.count);\n  }\n}"
+      "map": "function (doc) {\n  if(doc.count != undefined) {\n    emit(doc._id, doc.count);\n  }\n}"
     }
   },
   "language": "javascript"

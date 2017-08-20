@@ -19,7 +19,6 @@ public class Role {
     
     private String _id;
     private String _rev;
-    private String doctype = "role";
     private String name;
     private String description;
 
@@ -68,14 +67,6 @@ public class Role {
 
     public void set_rev(String _rev) {
         this._rev = _rev;
-    }
-
-    public String getDoctype() {
-        return doctype;
-    }
-
-    public void setDoctype(String doctype) {
-        this.doctype = doctype;
     }
 
     public String getName() {

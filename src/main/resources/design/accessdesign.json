@@ -2,10 +2,10 @@
   "_id": "_design/accessdesign",
   "views": {
     "users": {
-      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"user\") {\n    emit(doc._id, doc.name);\n  }\n}"
+      "map": "function (doc) {\n  if(doc.password != undefined) {\n    emit(doc._id, doc.name);\n  }\n}"
     },
     "roles": {
-      "map": "function (doc) {\n  if(doc.doctype != undefined && doc.doctype == \"role\") {\n    emit(doc._id, doc.name);\n  }\n}"
+      "map": "function (doc) {\n  if(doc.isPublic != undefined) {\n    emit(doc._id, doc.name);\n  }\n}"
     }
   },
   "language": "javascript"

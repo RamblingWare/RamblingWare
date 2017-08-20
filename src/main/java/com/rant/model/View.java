@@ -9,8 +9,6 @@ import com.rant.config.Utils;
  * @created 7/04/2017
  */
 public class View {
-    
-    public static final String doctype = "view";
 
     private String _id;
     private String _rev;

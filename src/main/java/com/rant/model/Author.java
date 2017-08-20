@@ -14,7 +14,6 @@ public class Author implements Comparable<Author> {
 
     private String _id;
     private String _rev;
-    private String doctype = "user";
     private String name;
     private String email;
     private Role role;
@@ -45,14 +44,6 @@ public class Author implements Comparable<Author> {
 
     public void set_rev(String _rev) {
         this._rev = _rev;
-    }
-
-    public String getDoctype() {
-        return doctype;
-    }
-
-    public void setDoctype(String doctype) {
-        this.doctype = doctype;
     }
 
     public String getUri() {
