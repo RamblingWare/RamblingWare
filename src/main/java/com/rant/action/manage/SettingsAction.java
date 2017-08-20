@@ -52,6 +52,7 @@ public class SettingsAction extends ActionSupport
     public String execute() {
 
         // create a secret if not already
+        sessionAttributes = ActionContext.getContext().getSession();
         if (!user.isOTPEnabled() && user.getKeySecret() == null) {
             // generate secret
             secret = OTP.randomBase32(20);
@@ -99,6 +100,7 @@ public class SettingsAction extends ActionSupport
                 // update user settings in session
                 user.set_Id(username);
                 user.setEmail(email);
+                sessionAttributes.put("USER", user);
                 System.out.println("User " + user.getUsername() + " updated their account.");
                 addActionMessage("Changes were saved.");
                 return SUCCESS;
@@ -153,6 +155,7 @@ public class SettingsAction extends ActionSupport
                     // Success
                     // update user settings in session
                     user.setPassword(updatedUser.getPassword());
+                    sessionAttributes.put("USER", user);
                     System.out.println("User " + user.getUsername() + " updated their password.");
                     addActionMessage("Password was successfully changed.");
                     return SUCCESS;
@@ -208,7 +211,6 @@ public class SettingsAction extends ActionSupport
                         user.setOTPEnabled(false);
                         user.setKeySecret(null);
                         user.setKeyRecover(null);
-                        sessionAttributes = ActionContext.getContext().getSession();
                         sessionAttributes.put("USER", user);
 
                         System.out.println(
@@ -266,7 +268,6 @@ public class SettingsAction extends ActionSupport
                     user.setOTPAuthenticated(false);
                     user.setKeySecret(secret);
                     user.setKeyRecover(recover);
-                    sessionAttributes = ActionContext.getContext().getSession();
                     sessionAttributes.put("USER", user);
 
                     System.out.println("User " + user.getUsername() + " successfully enabled 2FA.");

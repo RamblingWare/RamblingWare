@@ -1,5 +1,7 @@
 package com.rant.action.manage.user;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +9,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
@@ -27,10 +30,12 @@ public class EditUserAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
     private User user;
+    private Map<String, Object> sessionAttributes = null;
 
     // post parameters
     private User author;
     private String id;
+    private String rev;
     private String reqUri;
 
     // updated values
@@ -41,6 +46,8 @@ public class EditUserAction extends ActionSupport
     private String content;
 
     public String execute() {
+
+        sessionAttributes = ActionContext.getContext().getSession();
 
         // /manage/editpost/user-name-goes-here
         // this allows blog posts to be shown without parameter arguments (i.e. ?uri=foobar&test=123
@@ -163,24 +170,28 @@ public class EditUserAction extends ActionSupport
                 return ERROR;
             }
 
-            /*if (existingUser.get_Id() != id) {
-                // URI was not unique. Please try again.
-                addActionError(
-                        "URI is not unique. Its being used by another author. Please change it, and try again.");
-                System.out.println("URI was not unique.");
-                return ERROR;
-            }*/
+            /*
+             * if (existingUser.get_Id() != id) { // URI was not unique. Please try again.
+             * addActionError(
+             * "URI is not unique. Its being used by another author. Please change it, and try again."
+             * ); System.out.println("URI was not unique."); return ERROR; }
+             */
 
             // save fields into object
-            author = new User(uri);
-            author.setName(name);
-            author.setDescription(description);
-            author.setThumbnail(thumbnail);
-            author.setContent(content);
+            existingUser.setName(name);
+            existingUser.setDescription(description);
+            existingUser.setThumbnail(thumbnail);
+            existingUser.setContent(content);
 
             // update author in database
-            if (Application.getDatabaseSource().editUser(author)) {
+            if (Application.getDatabaseSource().editUser(existingUser)) {
                 // Success
+
+                // if current user, then update
+                if (existingUser.get_Id() == user.get_Id()) {
+                    sessionAttributes.put("USER", user);
+                }
+
                 System.out.println(
                         "User " + user.getUsername() + " saved changes to the author: " + uri);
                 addActionMessage("Successfully saved changes to the author.");
@@ -250,6 +261,14 @@ public class EditUserAction extends ActionSupport
         this.id = id;
     }
 
+    public String getRev() {
+        return rev;
+    }
+
+    public void setRev(String rev) {
+        this.rev = rev;
+    }
+
     protected HttpServletResponse servletResponse;
 
     protected HttpServletRequest servletRequest;
@@ -307,5 +326,9 @@ public class EditUserAction extends ActionSupport
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
+    }
+
+    public void setSession(Map<String, Object> sessionAttributes) {
+        this.sessionAttributes = sessionAttributes;
     }
 }

@@ -60,7 +60,8 @@ function preview() {
 				<div class="w3-container w3-padding-0 w3-border-0">
 					<form action="/manage/edituser/<s:property value="#request.author.uri" />" method="post">
 					<input type="hidden" name="submitForm" value="true" />
-					<input type="hidden" name="id" value="<s:property value="#request.author.id" />" />
+					<input type="hidden" name="id" value="<s:property value="#request.author._id" />" />
+					<input type="hidden" name="rev" value="<s:property value="#request.author._rev" />" />
 					
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="title">Author Name:&nbsp;<span class="w3-text-red">*</span></label>
