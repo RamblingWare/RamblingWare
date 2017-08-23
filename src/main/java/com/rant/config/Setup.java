@@ -107,6 +107,9 @@ public class Setup {
     public boolean verify() {
         try {
             CloudantClient client = getConnection();
+            
+            client.database("_users", false);
+            client.database("_replicator", false);
 
             Database blog = client.database("blog", false);
             blog.getDesignDocumentManager().get("_design/blogdesign");
@@ -137,6 +140,13 @@ public class Setup {
     public boolean install() {
         try {
             CloudantClient client = getConnection();
+            
+            client.createDB("_users");
+            client.createDB("_replicator");
+            client.createDB("_global_changes");
+            client.createDB("_metadata");
+            
+            // TODO create CouchDB permissions
 
             Database blog = client.database("blog", true);
             DesignDocument blogdesign = DesignDocumentManager

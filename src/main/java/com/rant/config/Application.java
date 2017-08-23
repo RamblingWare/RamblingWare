@@ -36,18 +36,17 @@ public class Application implements ServletContextListener {
 
         // Set Database
         database = loadDatabase();
-        System.out.println("Using Database:\r\n"+database.getDatabase().toString());
+        System.out.println("Using Database:\r\n" + database.getDatabase().toString());
 
         // Test Database
         Setup setup = new Setup(database.getDatabase());
         if (!setup.test()) {
             // failure
             System.exit(1);
-        }
-        else if(!setup.verify()) {
+        } else if (!setup.verify()) {
             System.out.println("Setup detected the Database is not configured properly.");
             // perform first-time install
-            if(!setup.install()) {
+            if (!setup.install()) {
                 // failed to install
                 System.exit(1);
             } else {
@@ -56,7 +55,7 @@ public class Application implements ServletContextListener {
         } else {
             System.out.println("Database was verified.");
         }
-        
+
         // Load settings from Database
         Config configdb = loadSettingsFromDB(database);
         config.getSettings().putAll(configdb.getSettings());
@@ -76,7 +75,7 @@ public class Application implements ServletContextListener {
                 String value = properties.getProperty(key);
                 map.put(key, value);
             }
-            
+
             config.setSettings(map);
 
         } catch (IOException e) {
@@ -84,7 +83,7 @@ public class Application implements ServletContextListener {
         }
         return config;
     }
-    
+
     private Config loadSettingsFromDB(DatabaseSource dbs) {
         return dbs.getConfig();
     }
@@ -93,25 +92,27 @@ public class Application implements ServletContextListener {
         // check env variable
         String vcap = System.getenv("VCAP_SERVICES");
         Database db = new Database();
-        if (vcap == null) {
-            // if vcap is not available, then
-            // run on local Database
+        if (vcap == null || vcap.isEmpty()) {
+            // if env is not available, then
+            // run on local couchdb
             System.err.println(
                     "Failed to locate VCAP Object. Continuing with Datasource from properties.");
 
-            db.setHost(getString("dbHost"));
-            db.setPort(getString("dbPort"));
-            db.setName(getString("dbName"));
-            db.setUrl(getString("dbUrl"));
-            db.setUsername(getString("dbUsername"));
-            db.setPassword(getString("dbPassword"));
+            db.setHost(getString("couchdb.host"));
+            db.setPort(getString("couchdb.port"));
+            db.setName(getString("couchdb.name"));
+            db.setUrl(getString("couchdb.url"));
+            db.setUsername(getString("couchdb.username"));
+            db.setPassword(getString("couchdb.password"));
         } else {
             // try to read env variables
+            // for couchdb / cloudant
             try {
                 Gson gson = new Gson();
                 JsonObject obj = gson.fromJson(vcap, JsonObject.class);
                 JsonArray cloudant = obj.getAsJsonArray("cloudantNoSQLDB");
-                JsonObject couchdb = cloudant.get(0).getAsJsonObject().getAsJsonObject("credentials");
+                JsonObject couchdb = cloudant.get(0).getAsJsonObject()
+                        .getAsJsonObject("credentials");
                 db.setHost(couchdb.get("host").getAsString());
                 db.setPort(couchdb.get("port").getAsString());
                 db.setName(couchdb.get("name").getAsString());
