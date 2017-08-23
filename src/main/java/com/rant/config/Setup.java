@@ -1,6 +1,7 @@
 package com.rant.config;
 
 import java.io.InvalidClassException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import com.cloudant.client.api.model.DesignDocument;
 import com.cloudant.client.org.lightcouch.CouchDbException;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
+import com.cloudant.http.Http;
+import com.cloudant.http.HttpConnection;
 import com.google.gson.JsonObject;
 import com.rant.model.Role;
 import com.rant.model.User;
@@ -107,7 +110,7 @@ public class Setup {
     public boolean verify() {
         try {
             CloudantClient client = getConnection();
-            
+
             client.database("_users", false);
             client.database("_replicator", false);
 
@@ -146,7 +149,19 @@ public class Setup {
             client.createDB("_global_changes");
             client.createDB("_metadata");
             
+            // create CouchDB _user "admin"
+            HttpConnection request = Http.PUT(new URL(client.getBaseUri() +
+                    "/_users/org.couchdb.user:admin"), "application/json");
+            request.setRequestBody("{\"_id\":\"org.couchdb.user:admin\",\"name\":\"admin\",\"password\":\"admin\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
+            HttpConnection response = client.executeRequest(request);
+            if (response.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+                // failed to create admin
+                throw new Exception("Failed to create default user 'admin'. Exception occured during install.");
+            }
+            
             // TODO create CouchDB permissions
+            // - role = author
+            // - role = admin
 
             Database blog = client.database("blog", true);
             DesignDocument blogdesign = DesignDocumentManager
@@ -190,7 +205,7 @@ public class Setup {
         }
         return false;
     }
-    
+
     private List<Role> getDefaultRoles() {
         ArrayList<Role> roles = new ArrayList<Role>();
 
@@ -218,7 +233,7 @@ public class Setup {
         adm.setSettingsCreate(true);
         adm.setSettingsEdit(true);
         adm.setSettingsDelete(true);
-        
+
         Role own = new Role("Owner");
         own.setPublic(true);
         own.setPostsCreate(true);
@@ -293,7 +308,7 @@ public class Setup {
         edt.setSettingsCreate(false);
         edt.setSettingsEdit(false);
         edt.setSettingsDelete(false);
-        
+
         roles.add(adm);
         roles.add(own);
         roles.add(edt);
