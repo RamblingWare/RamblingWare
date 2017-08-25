@@ -8,26 +8,24 @@
 
 Blog management system on CouchDB.
 
-Live Demo: https://www.ramblingware.com
+> Live Example: https://www.ramblingware.com
 
 ## Features
 
  *  Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
- *  Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
- *  Tags, Categories, Featured, Authors, and Dates
- *  2FA security and properly hashed passwords
+ *  Organize blog posts by Tags, Categories, Featured, Authors, and Dates
+ *  SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
+ *  2FA security and pbkdf2 hashed passwords
  
 ## Planned Features
 
- * Containerized with Docker
- * Create Vuejs dashboard
- * Theme Templates
+ * Containerize with Docker
+ * Offline-first Vuejs+PouchDB dashboard
+ * Freemarker Theme Templates
 
 ## Usage
 
-Feel free to copy any or all of this code. Be sure to include the license.
-
-Right now this code has lots of 'ramblingware' in it. I plan to make a self-installing version that is easily modifiable for "new" blogs. Stay tuned. But if you'd like to try this out now, feel free to do so.
+This project is still in development. It is not easily modifiable for "new" blogs, but stay tuned. I plan to make a self-installing version once the main features are complete.
 
 ### One-Click Deploy 
 
@@ -58,7 +56,7 @@ Sorry, Some of these might not work at this time.
  1. `cd Rant`
  1. Build: `gradle build`
  1. WAR file is located at: `/build/libs/rant-1.0.war`
- 1. Deploy on your Server of choice (Tomcat, Liberty, JBoss, WildFly).
+ 1. Deploy on your Server of choice (Tomcat, Liberty, WildFly).
  1. Visit `https://localhost:8443/` (depending on server).
 
 ## Technologies Used
@@ -66,7 +64,7 @@ Sorry, Some of these might not work at this time.
  *  [Java 1.8](https://www.java.com/) Programming Language
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache CouchDB 2.0](https://couchdb.apache.org/) NoSQL Database
- *  [Apache Tomcat 9.0](https://tomcat.apache.org/) Web Server
+ *  [Apache Tomcat 8.0](https://tomcat.apache.org/) Web Server
  *  Secure Password Hashing with [amdelamar/jhash](https://github.com/amdelamar/jhash)
  *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
 
