@@ -25,7 +25,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.+'
     compile 'com.cloudant:cloudant-client:2.9.+'
     compile 'javax.servlet:javax.servlet-api:4.0.+'
-    compile 'com.sun.mail:javax.mail:1.6.+'
 
     // jitpack
     compile 'com.github.amdelamar:jhash:v1.1.0'
