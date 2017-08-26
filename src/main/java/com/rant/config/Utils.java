@@ -20,8 +20,8 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.TimeZone;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
-import javax.mail.internet.InternetAddress;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +42,8 @@ public class Utils {
 
     private static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("UTC");
     private static final DateFormat ISO8601FORM = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
     /**
      * Gets the current time in a readable format. "MMM dd, yyyy (hh:mm:ss a)"
@@ -387,13 +389,12 @@ public class Utils {
     }
 
     /**
-     * Checks if the email address given is a valid form of an internet address.
+     * Checks if the email address given is a valid form of an Internet address.
      * <ul>
      * <li>Must have one @ symbol</li>
-     * <li>Must have domain name like .com</li>
+     * <li>Must have domain name like domain.com</li>
      * <li>Must not have illegal characters</li>
      * </ul>
-     * See Javax.Mail.Internet package for more details.
      * 
      * @param email
      *            string
@@ -401,10 +402,8 @@ public class Utils {
      */
     public static boolean isValidEmail(String email) {
         boolean result = true;
-        // just one email
         try {
-            InternetAddress emailAddr = new InternetAddress(email);
-            emailAddr.validate();
+            result = EMAIL_PATTERN.matcher(email).matches();
         } catch (Exception ex) {
             result = false;
         }

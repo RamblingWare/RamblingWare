@@ -1,6 +1,7 @@
 package com.rant.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -61,16 +62,16 @@ public class UtilsTests {
 
     @Test
     public void emailFormat() {
-        assertTrue(Utils.isValidEmail("jdoe@gmail.com"));
-        assertTrue(Utils.isValidEmail("jdoe@yahoo.com"));
-        assertTrue(Utils.isValidEmail("jdoe@us.example.com"));
-        assertTrue(Utils.isValidEmail("j.doe@gmail.com"));
+        assertTrue(Utils.isValidEmail("jdoe1@example.com"));
+        assertTrue(Utils.isValidEmail("jdoe1@example.com"));
+        assertTrue(Utils.isValidEmail("jdoe1@example.example.com"));
+        assertTrue(Utils.isValidEmail("j.doe1@example.com"));
 
-        assertTrue(!Utils.isValidEmail("jdoe@@gmail.com"));
-        assertTrue(!Utils.isValidEmail("@gmail.com"));
-        assertTrue(!Utils.isValidEmail("jdoe@"));
-        assertTrue(!Utils.isValidEmail("jdoe@gmail."));
-        assertTrue(!Utils.isValidEmail(""));
+        assertFalse(Utils.isValidEmail("jdoe1@@example.com"));
+        assertFalse(Utils.isValidEmail("@gmail.com"));
+        assertFalse(Utils.isValidEmail("jdoe1@"));
+        assertFalse(Utils.isValidEmail("jdoe1@example."));
+        assertFalse(Utils.isValidEmail(""));
     }
 
     @Test
