@@ -38,7 +38,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>StaticContentFilter</filter-name>
-		<url-pattern>/ckeditor/*</url-pattern>
+		<url-pattern>/dashboard/static/*</url-pattern>
+		<url-pattern>/vendor/*</url-pattern>
 		<url-pattern>/img/*</url-pattern>
 		<url-pattern>/css/*</url-pattern>
 		<url-pattern>/fonts/*</url-pattern>
