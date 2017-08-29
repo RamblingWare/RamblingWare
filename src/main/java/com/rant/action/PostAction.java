@@ -13,9 +13,9 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
 import com.rant.model.Post;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * View Post action class
@@ -25,17 +25,17 @@ import com.rant.model.Post;
  */
 public class PostAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
     private boolean canSeeHidden = false;
 
     // post parameters
     private Post post;
-    private String uriName;
+    private String uri;
 
     public String execute() {
 
@@ -44,29 +44,29 @@ public class PostAction extends ActionSupport
         // this allows blog posts to be shown without parameter arguments (i.e.
         // ?uri_name=foobar&test=123 )
         String uriTemp = servletRequest.getRequestURI().toLowerCase();
-        if (uriName == null && uriTemp.startsWith("/blog/post/")) {
+        if (uri == null && uriTemp.startsWith("/blog/post/")) {
             // /blog/post/post-name-goes-here
-            uriName = Utils.removeBadChars(uriTemp.substring(11, uriTemp.length()));
-        } else if (uriName == null && uriTemp.startsWith("/blog/")) {
+            uri = Utils.removeBadChars(uriTemp.substring(11, uriTemp.length()));
+        } else if (uri == null && uriTemp.startsWith("/blog/")) {
             // /blog/post-name-goes-here
-            uriName = Utils.removeBadChars(uriTemp.substring(6, uriTemp.length()));
-        } else if (uriName == null && uriTemp.startsWith("/manage/viewpost/")) {
+            uri = Utils.removeBadChars(uriTemp.substring(6, uriTemp.length()));
+        } else if (uri == null && uriTemp.startsWith("/manage/viewpost/")) {
             // /manage/viewpost/post-name-goes-here
-            uriName = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
+            uri = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
             if (user != null) {
                 canSeeHidden = true;
             }
         }
 
-        if (uriName != null && uriName.length() > 0) {
+        if (uri != null && uri.length() > 0) {
             // search in db for post by title
             try {
-                post = Application.getDatabaseSource().getPost(uriName, canSeeHidden);
+                post = Application.getDatabaseSource().getPost(uri, canSeeHidden);
 
                 // was post found?
                 if (post != null) {
                     // set attributes
-                    servletRequest.setAttribute("post", post);                    
+                    servletRequest.setAttribute("post", post);
 
                     // check against previously viewed pages
                     boolean newViewFromSession = false;
@@ -80,18 +80,19 @@ public class PostAction extends ActionSupport
                             viewedPages = new HashSet<String>();
                         }
 
-                        newViewFromSession = viewedPages.add(post.getUriName());
+                        newViewFromSession = viewedPages.add(post.getUri());
                         session.setAttribute("viewedPages", viewedPages);
                     }
 
                     // update page views
-                    if(!canSeeHidden) {
-                        Application.getDatabaseSource().incrementPageViews(post, newViewFromSession);
+                    if (!canSeeHidden) {
+                        Application.getDatabaseSource().incrementPageViews(post,
+                                newViewFromSession);
                     }
 
                     return Action.SUCCESS;
                 } else {
-                    System.err.println("Post '" + uriName + "' not found. Please try again.");
+                    System.err.println("Post '" + uri + "' not found. Please try again.");
                     return Action.NONE;
                 }
 
@@ -101,7 +102,7 @@ public class PostAction extends ActionSupport
                 return ERROR;
             }
         } else {
-            System.err.println("Post '" + uriName + "' not found. Please try again.");
+            System.err.println("Post '" + uri + "' not found. Please try again.");
             return Action.NONE;
         }
     }
@@ -129,15 +130,15 @@ public class PostAction extends ActionSupport
     }
 
     public String getUriName() {
-        return uriName;
+        return uri;
     }
 
     public void setUriName(String uriName) {
-        this.uriName = uriName;
+        this.uri = uriName;
     }
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

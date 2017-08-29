@@ -3,8 +3,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="generator" content="Rant">
-<meta name="application-name" content="<%=Application.getSetting("name")%>"/>
-<meta name="keywords" content="<%=Application.getSetting("keywords")%>"/>
+<meta name="application-name" content="<%=Application.getString("name")%>"/>
+<meta name="keywords" content="<%=Application.getString("keywords")%>"/>
 <meta name="robots" content="none"/>
 <meta http-equiv="cache-control" content="no-store"/>
 <meta http-equiv="expires" content="0"/>
@@ -17,4 +17,4 @@
 <link rel="stylesheet" href="/vendor/highlight/styles/dark.css"/>
 <link rel="stylesheet" href="/vendor/pikaday/css/pikaday.css"/>
 <link rel="stylesheet" href="/vendor/pikaday/css/triangle.css"/>
-<link rel="alternate" href="<%=Application.getSetting("rss")%>" type="application/rss+xml" title="RSS">
+<link rel="alternate" href="<%=Application.getString("rss")%>" type="application/rss+xml" title="RSS">

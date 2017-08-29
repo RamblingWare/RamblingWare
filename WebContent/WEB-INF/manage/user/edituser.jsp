@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Edit Author - <%=Application.getSetting("name")%></title>
+<title>Edit Author - <%=Application.getString("name")%></title>
 
 <script src="/vendor/ckeditor/ckeditor.js"></script>
 <script>
@@ -20,8 +20,8 @@ function validate() {
 			}
 		}
 	}
-	if(document.getElementById('htmlContent').value.length > 12288) {
-		alert('Sorry! The content is too long.\nMax length = 12288 chars\Page length = '+document.getElementById('htmlContent').value.length+'\n\nPlease shorten your page content.');
+	if(document.getElementById('content').value.length > 12288) {
+		alert('Sorry! The content is too long.\nMax length = 12288 chars\Page length = '+document.getElementById('content').value.length+'\n\nPlease shorten your page content.');
 		return false;
 	}
 	return true;
@@ -58,18 +58,19 @@ function preview() {
 				<h1>Edit Author</h1>
 				
 				<div class="w3-container w3-padding-0 w3-border-0">
-					<form action="/manage/edituser/<s:property value="#request.author.uriName" />" method="post">
+					<form action="/manage/edituser/<s:property value="#request.author.uri" />" method="post">
 					<input type="hidden" name="submitForm" value="true" />
-					<input type="hidden" name="id" value="<s:property value="#request.author.id" />" />
+					<input type="hidden" name="id" value="<s:property value="#request.author._id" />" />
+					<input type="hidden" name="rev" value="<s:property value="#request.author._rev" />" />
 					
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="title">Author Name:&nbsp;<span class="w3-text-red">*</span></label>
 						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.author.name" />" onkeypress="preview()" onchange="preview()" required placeholder="Rambling Man" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
-						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
-						<a href="#" class="w3-medium"><%=Application.getSetting("url")%>/author/<s:property value="#request.author.uriName" /></a>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uri">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
+						<input type="text" size="50" maxlength="300" name="uri" id="uri" value="<s:property value="#request.author.uri" />" required placeholder="rambling-man" class="w3-input w3-round-large w3-border" />
+						<a href="#" class="w3-medium"><%=Application.getString("url")%>/author/<s:property value="#request.author.uri" /></a>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
@@ -101,13 +102,13 @@ function preview() {
 					<hr />
 					
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Page Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
-						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%" maxlength="12288">
-						<s:property value="#request.author.htmlContent" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="content">Page Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
+						<textarea name="content" id="content" rows="10" cols="100" style="width:100%" maxlength="12288">
+						<s:property value="#request.author.content" />
 						</textarea>
 			            <script>
-			                // Replace the <textarea id="htmlContent"> with a CKEditor instance, using default configuration.
-			                CKEDITOR.replace('htmlContent', {
+			                // Replace the <textarea id="content"> with a CKEditor instance, using default configuration.
+			                CKEDITOR.replace('content', {
 								language: 'en',
 								height: 500,
 								toolbarCanCollapse: true,

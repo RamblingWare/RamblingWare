@@ -1,6 +1,6 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
     private String year;
     private int page;
     private boolean nextPage;
@@ -36,7 +36,7 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
         // this shows the most recent blog posts by year
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI().toLowerCase();
+            String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/year/") && pageTemp.contains("/page/")) {
                 year = Utils.removeBadChars(pageTemp.substring(6, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(
@@ -51,11 +51,13 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             int yr = Integer.parseInt(year);
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByYear(page, Application.getLimit(), yr, false);
+            posts = Application.getDatabaseSource().getPostsByYear(page, Application.getInt("limit"), yr, false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getLimit();
-            prevPage = page > 1;
+            if (posts != null) {
+                nextPage = posts.size() >= Application.getInt("limit");
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
@@ -88,11 +90,11 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 

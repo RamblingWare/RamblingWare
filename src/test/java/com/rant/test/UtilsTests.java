@@ -1,6 +1,7 @@
 package com.rant.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -20,13 +21,24 @@ import com.rant.config.Utils;
 public class UtilsTests {
 
     @Test
-    public void test() {
+    public void time() {
 
         String time = Utils.formatTime(System.currentTimeMillis());
         assertNotNull(time);
         
         time = Utils.formatLong(System.currentTimeMillis());
         assertNotNull(time);
+    }
+    
+    @Test
+    public void formatURLs() {        
+        assertEquals("http://www.example.com", Utils.formatURL("www.example.com"));
+        
+        assertEquals("TL;DR", Utils.formatURI("/\\TL;DR/"));
+        assertEquals("test-one-test", Utils.formatURI("test one test"));
+        assertEquals("Question", Utils.formatURI("Question?!"));
+        assertEquals("a-bnc-d", Utils.formatURI("a=b&c=d"));
+        assertEquals("array,array", Utils.formatURI("[array,array]"));
     }
 
     @Test
@@ -50,16 +62,16 @@ public class UtilsTests {
 
     @Test
     public void emailFormat() {
-        assertTrue(Utils.isValidEmail("jdoe@gmail.com"));
-        assertTrue(Utils.isValidEmail("jdoe@yahoo.com"));
-        assertTrue(Utils.isValidEmail("jdoe@us.example.com"));
-        assertTrue(Utils.isValidEmail("j.doe@gmail.com"));
+        assertTrue(Utils.isValidEmail("jdoe1@example.com"));
+        assertTrue(Utils.isValidEmail("jdoe1@example.com"));
+        assertTrue(Utils.isValidEmail("jdoe1@example.example.com"));
+        assertTrue(Utils.isValidEmail("j.doe1@example.com"));
 
-        assertTrue(!Utils.isValidEmail("jdoe@@gmail.com"));
-        assertTrue(!Utils.isValidEmail("@gmail.com"));
-        assertTrue(!Utils.isValidEmail("jdoe@"));
-        assertTrue(!Utils.isValidEmail("jdoe@gmail."));
-        assertTrue(!Utils.isValidEmail(""));
+        assertFalse(Utils.isValidEmail("jdoe1@@example.com"));
+        assertFalse(Utils.isValidEmail("@gmail.com"));
+        assertFalse(Utils.isValidEmail("jdoe1@"));
+        assertFalse(Utils.isValidEmail("jdoe1@example."));
+        assertFalse(Utils.isValidEmail(""));
     }
 
     @Test
@@ -72,7 +84,6 @@ public class UtilsTests {
         assertNotNull(Utils.getDate());
         assertNotNull(Utils.formatReadableDate(date));
         assertNotNull(Utils.formatReadableDateTime(date));
-        assertNotNull(Utils.formatMySQLDate(date));
         assertNotNull(Utils.formatSQLServerDate(date));        
     }
     
@@ -87,5 +98,12 @@ public class UtilsTests {
         
         temp = "te\r\nst";
         assertEquals(Utils.removeNonAsciiChars(temp),"test");
+    }
+    
+    @Test public void fileLoading() {
+        
+        assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
+        
+        assertNotNull(Utils.downloadUrlFile("http://localhost:5984/"));
     }
 }

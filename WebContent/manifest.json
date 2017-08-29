@@ -25,8 +25,7 @@
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "scope": "*",
-  "start_url": "/",
+  "start_url": "/dashboard/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#4F4F4F",

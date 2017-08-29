@@ -1,6 +1,6 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
     private String tag;
     private int page;
     private boolean nextPage;
@@ -36,7 +36,7 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
         // this shows the most recent blog posts by tag
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI().toLowerCase();
+            String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/tag/") && pageTemp.contains("/page/")) {
                 tag = Utils.removeBadChars(pageTemp.substring(5, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(
@@ -48,11 +48,13 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByTag(page, Application.getLimit(), tag, false);
+            posts = Application.getDatabaseSource().getPostsByTag(page, Application.getInt("limit"), tag, false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getLimit();
-            prevPage = page > 1;
+            if (posts != null) {
+                nextPage = posts.size() >= Application.getInt("limit");
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
@@ -85,11 +87,11 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 

@@ -1,6 +1,6 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class CategoryAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
     private String category;
     private int page;
     private boolean nextPage;
@@ -39,7 +39,7 @@ public class CategoryAction extends ActionSupport
         // this shows the most recent blog posts by category
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI().toLowerCase();
+            String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/category/") && pageTemp.contains("/page/")) {
                 category = Utils.removeBadChars(pageTemp.substring(10, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(
@@ -51,12 +51,14 @@ public class CategoryAction extends ActionSupport
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByCategory(page, Application.getLimit(), category,
+            posts = Application.getDatabaseSource().getPostsByCategory(page, Application.getInt("limit"), category,
                     false);
 
             // determine pagination
-            nextPage = posts.size() >= Application.getLimit();
-            prevPage = page > 1;
+            if (posts != null) {
+                nextPage = posts.size() >= Application.getInt("limit");
+                prevPage = page > 1;
+            }
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
@@ -89,11 +91,11 @@ public class CategoryAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 

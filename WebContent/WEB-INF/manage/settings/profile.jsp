@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Profile - <%=Application.getSetting("name")%></title>
+<title>Profile - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -41,8 +41,8 @@
 							</span>								
 							<hr />
 							<p>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uriName" />"><span class="icon-quill w3-large w3-margin-right"></span>Edit</a>
-								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uriName" />">View My Page</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Edit author page" href="/manage/edituser/<s:property value="#session.USER.uri" />"><span class="icon-quill w3-large w3-margin-right"></span>Edit</a>
+								<a class="w3-btn w3-small w3-round w3-card w3-theme-light" title="Go to the author page" href="/author/<s:property value="#session.USER.uri" />">View My Page</a>
 							</p>
 						
 						</div>

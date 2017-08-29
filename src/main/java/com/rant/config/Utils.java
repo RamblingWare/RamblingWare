@@ -1,7 +1,10 @@
 package com.rant.config;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -15,9 +18,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
+import java.util.TimeZone;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
-import javax.mail.internet.InternetAddress;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,8 +38,12 @@ public class Utils {
     private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
     private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
             "MMM dd, yyyy (hh:mm:ss a)");
-    private static final DateFormat MYSQLDATEFORM = new SimpleDateFormat("yyyy-MM-dd");
     private static final DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+
+    private static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("UTC");
+    private static final DateFormat ISO8601FORM = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
     /**
      * Gets the current time in a readable format. "MMM dd, yyyy (hh:mm:ss a)"
@@ -184,20 +192,6 @@ public class Utils {
     }
 
     /**
-     * Get a MySQL database format of the given date. "yyyy-MM-dd"
-     * 
-     * @param dateTime
-     *            "yyyy-MM-dd"
-     * @return String
-     */
-    public static String formatMySQLDate(Date dateTime) {
-        if (dateTime == null) {
-            return "Null";
-        }
-        return MYSQLDATEFORM.format(dateTime);
-    }
-
-    /**
      * Get a SQLServer database format of the given datetime. "yyyyMMdd hh:mm:ss a"
      * 
      * @param dateTime
@@ -209,6 +203,21 @@ public class Utils {
             return "Null";
         }
         return SQLSERVERDATEFORM.format(dateTime);
+    }
+
+    /**
+     * Get a ISO 8601 format of the given datetime. "yyyy-MM-dd'T'HH:mm:ss'Z'"
+     * 
+     * @param dateTime
+     *            "yyyy-MM-dd'T'HH:mm:ss'Z'"
+     * @return String
+     */
+    public static String formatIso8601Date(Date dateTime) {
+        if (dateTime == null) {
+            return "Null";
+        }
+        ISO8601FORM.setTimeZone(UTC_TIMEZONE);
+        return ISO8601FORM.format(dateTime);
     }
 
     /**
@@ -293,6 +302,22 @@ public class Utils {
         }
     }
 
+    /**
+     * Make sure the URI is compliant for context. Does not work on UrlParams.
+     * 
+     * @param uri
+     *            URI string
+     * @return String
+     */
+    public static String formatURI(String uri) {
+        uri = uri.replaceAll("[\\^/?<>\\.#*`'~!\\\\\\[\\]+{}\"]", "").trim();
+        uri = uri.replaceAll("[=\\s+\"]", "-");
+        uri = uri.replace(" ", "-");
+        uri = uri.replace("&", "n");
+        uri = uri.replace("=", "n");
+        return uri;
+    }
+
     private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
 
     static {
@@ -339,7 +364,6 @@ public class Utils {
      */
     public static String downloadUrlFile(String urlString) {
         BufferedInputStream in = null;
-        // System.out.println("Downloading file from '"+urlString+"'");
         String dataString = "";
         try {
             URL url = new URL(urlString);
@@ -365,13 +389,12 @@ public class Utils {
     }
 
     /**
-     * Checks if the email address given is a valid form of an internet address.
+     * Checks if the email address given is a valid form of an Internet address.
      * <ul>
      * <li>Must have one @ symbol</li>
-     * <li>Must have domain name like .com</li>
+     * <li>Must have domain name like domain.com</li>
      * <li>Must not have illegal characters</li>
      * </ul>
-     * See Javax.Mail.Internet package for more details.
      * 
      * @param email
      *            string
@@ -379,13 +402,43 @@ public class Utils {
      */
     public static boolean isValidEmail(String email) {
         boolean result = true;
-        // just one email
         try {
-            InternetAddress emailAddr = new InternetAddress(email);
-            emailAddr.validate();
+            result = EMAIL_PATTERN.matcher(email).matches();
         } catch (Exception ex) {
             result = false;
         }
         return result;
+    }
+
+    /**
+     * Loads a file from the resources folder.
+     * 
+     * @param resourcePath
+     *            name of file
+     * @return File
+     */
+    public static File getResourceAsFile(String resourcePath) {
+        try {
+            InputStream in = Utils.class.getResourceAsStream(resourcePath);
+            if (in == null) {
+                return null;
+            }
+
+            File tempFile = File.createTempFile(String.valueOf(in.hashCode()), ".tmp");
+            tempFile.deleteOnExit();
+
+            try (FileOutputStream out = new FileOutputStream(tempFile)) {
+                // copy stream
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+            }
+            return tempFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

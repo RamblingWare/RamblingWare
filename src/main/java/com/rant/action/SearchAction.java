@@ -36,8 +36,8 @@ public class SearchAction extends ActionSupport
             // POST external search
             try {
                 // redirect to DuckDuckGo with the search text provided
-                ServletActionContext.getResponse().sendRedirect(Application.getSetting("searchProvider")
-                        + "site%3A" + Application.getSetting("domain") + ' ' + q);
+                ServletActionContext.getResponse().sendRedirect(Application.getString("searchProvider")
+                        + "site%3A" + Application.getString("domain") + ' ' + q);
                 return SUCCESS;
             } catch (IOException e) {
                 e.printStackTrace();

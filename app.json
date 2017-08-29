@@ -3,7 +3,7 @@
   "description": "Blog management system in Java.",
   "website": "https://github.com/RamblingWare/Rant",
   "repository": "https://github.com/RamblingWare/Rant",
-  "keywords": ["java", "mysql", "blog"],
+  "keywords": ["java", "couchdb", "blog"],
   "logo": "https://www.ramblingware.com/img/icon-512-round.png",
   "success_url": "/",
   "image": "heroku/java",

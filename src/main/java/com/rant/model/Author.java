@@ -10,48 +10,44 @@ import com.rant.config.Utils;
  * @author Austin Delamar
  * @created 11/24/2015
  */
-public class Author {
+public class Author implements Comparable<Author> {
 
-    private int id;
-    private String uriName;
+    private String _id;
+    private String _rev;
     private String name;
     private String email;
-    private String username;
-    private String password;
     private Role role;
-
-    private boolean isOTPEnabled;
-    private boolean isOTPAuthenticated;
-    private String keySecret;
-    private String keyRecover;
-    private String keyReset;
-
     private Date createDate;
-    private Date modifyDate;
-    private Date lastLoginDate;
-
     private String thumbnail;
     private String description;
-    private String htmlContent;
+    private String content;
 
-    public Author(int id) {
-        this.id = id;
+    public Author() {
+        // Auto-generated method stub
     }
 
-    public int getId() {
-        return id;
+    public Author(String id) {
+        this._id = id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String get_Id() {
+        return _id;
     }
 
-    public String getUriName() {
-        return uriName;
+    public void set_Id(String id) {
+        this._id = id;
     }
 
-    public void setUriName(String uriName) {
-        this.uriName = uriName;
+    public String get_rev() {
+        return _rev;
+    }
+
+    public void set_rev(String _rev) {
+        this._rev = _rev;
+    }
+
+    public String getUri() {
+        return _id;
     }
 
     public String getName() {
@@ -63,11 +59,7 @@ public class Author {
     }
 
     public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        return _id;
     }
 
     public String getEmail() {
@@ -86,54 +78,6 @@ public class Author {
         this.role = role;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isOTPEnabled() {
-        return isOTPEnabled;
-    }
-
-    public void setOTPEnabled(boolean isOTPEnabled) {
-        this.isOTPEnabled = isOTPEnabled;
-    }
-
-    public boolean isOTPAuthenticated() {
-        return isOTPAuthenticated;
-    }
-
-    public void setOTPAuthenticated(boolean isOTPAuthenticated) {
-        this.isOTPAuthenticated = isOTPAuthenticated;
-    }
-
-    public String getKeySecret() {
-        return keySecret;
-    }
-
-    public void setKeySecret(String keySecret) {
-        this.keySecret = keySecret;
-    }
-
-    public String getKeyRecover() {
-        return keyRecover;
-    }
-
-    public void setKeyRecover(String keyRecover) {
-        this.keyRecover = keyRecover;
-    }
-
-    public String getKeyReset() {
-        return keyReset;
-    }
-
-    public void setKeyReset(String keyReset) {
-        this.keyReset = keyReset;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -146,30 +90,6 @@ public class Author {
         return Utils.formatReadableDate(createDate);
     }
 
-    public Date getModifyDate() {
-        return modifyDate;
-    }
-
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
-
-    public String getModifyDateReadable() {
-        return Utils.formatReadableDate(modifyDate);
-    }
-
-    public Date getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(Date lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
-
-    public String getLastLoginDateReadable() {
-        return Utils.formatReadableDate(lastLoginDate);
-    }
-
     public String getDescription() {
         return description;
     }
@@ -178,12 +98,12 @@ public class Author {
         this.description = description;
     }
 
-    public String getHtmlContent() {
-        return htmlContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getThumbnail() {
@@ -192,5 +112,10 @@ public class Author {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    @Override
+    public int compareTo(Author author) {
+        return this.name.compareTo(author.name);
     }
 }

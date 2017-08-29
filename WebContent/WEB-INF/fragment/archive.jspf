@@ -13,8 +13,7 @@
 			<h3 class="w3-margin-top"><a href="/year/">Archive</a></h3>
 			<ul class="w3-medium w3-margin-0">
 			<s:iterator value="#session.archiveYears" status="y">
-				<s:set var="yval" value="#session.archiveYears[#y.index].substring(0,4)" />
-				<li class="w3-opacity w3-hover-opaque"><a title="<s:property value="yval" />" href="/year/<s:property value="yval" />"><s:property /></a></li>
+				<li class="w3-opacity w3-hover-opaque"><a title="<s:property value="name" />" href="/year/<s:property value="name" />"><s:property value="name" /> (<s:property value="count" />)</a></li>
 			</s:iterator>
 			</ul>
 		</s:if>
@@ -24,8 +23,7 @@
 			<h3 class="w3-margin-top"><a href="/category/">Categories</a></h3>
 			<p class="w3-small w3-margin-0">
 			<s:iterator value="#session.archiveCategories" status="c">
-				<s:set var="cval" value="#session.archiveCategories[#c.index].substring(0,#session.archiveCategories[#c.index].lastIndexOf('('))" />
-				<a class="tag w3-round w3-theme-light w3-card w3-hover-light-grey w3-hover-shadow" style="white-space:nowrap" title="<s:property />" href="/category/<s:property value="cval" />"><s:property value="cval" /></a>
+				<a class="tag w3-round w3-theme-light w3-card w3-hover-light-grey w3-hover-shadow" style="white-space:nowrap" title="<s:property value="name" /> (<s:property value="count" />)" href="/category/<s:property value="name" />"><s:property value="name" /></a>
 			</s:iterator>
 			</p>
 		</s:if>
@@ -35,8 +33,7 @@
 			<h3 class="w3-margin-top"><a href="/tag/">Tags</a></h3>
 			<p class="w3-small w3-margin-0">
 			<s:iterator value="#session.archiveTags" status="t">
-				<s:set var="tval" value="#session.archiveTags[#t.index].substring(0,#session.archiveTags[#t.index].lastIndexOf('('))" />
-				<a class="tag w3-round w3-theme-l3 w3-card w3-hover-light-grey w3-hover-shadow" title="<s:property />" href="/tag/<s:property value="tval" />"><s:property value="tval" /></a>
+				<a class="tag w3-round w3-theme-l3 w3-card w3-hover-light-grey w3-hover-shadow" title="<s:property value="name" /> (<s:property value="count" />)" href="/tag/<s:property value="name" />"><s:property value="name" /></a>
 			</s:iterator>
 			</p>
 		</s:if>

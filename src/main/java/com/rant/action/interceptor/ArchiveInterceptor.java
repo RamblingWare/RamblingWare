@@ -1,12 +1,15 @@
 package com.rant.action.interceptor;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import com.rant.config.Application;
+import com.rant.model.Category;
 import com.rant.model.Post;
+import com.rant.model.Tag;
+import com.rant.model.Year;
 /**
  * Archive Interceptor class
  * 
@@ -24,20 +27,20 @@ public class ArchiveInterceptor implements Interceptor {
         Map<String, Object> sessionAttributes = actionInvocation.getInvocationContext()
                 .getSession();
 
-        ArrayList<Post> archiveFeatured = (ArrayList<Post>) sessionAttributes
+        List<Post> archiveFeatured = (List<Post>) sessionAttributes
                 .get("archiveFeatured");
-        ArrayList<String> archiveYears = (ArrayList<String>) sessionAttributes
+        List<Year> archiveYears = (List<Year>) sessionAttributes
                 .get("archiveYears");
-        ArrayList<String> archiveTags = (ArrayList<String>) sessionAttributes.get("archiveTags");
-        ArrayList<String> archiveCategories = (ArrayList<String>) sessionAttributes
+        List<Tag> archiveTags = (List<Tag>) sessionAttributes.get("archiveTags");
+        List<Category> archiveCategories = (List<Category>) sessionAttributes
                 .get("archiveCategories");
 
         if (archiveYears == null || archiveYears.isEmpty()) {
             // get the archive of posts by years and tag names
-            archiveFeatured = Application.getDatabaseSource().getArchiveFeatured();
-            archiveYears = Application.getDatabaseSource().getArchiveYears();
-            archiveTags = Application.getDatabaseSource().getArchiveTags();
-            archiveCategories = Application.getDatabaseSource().getArchiveCategories();
+            archiveFeatured = Application.getDatabaseSource().getFeatured();
+            archiveYears = Application.getDatabaseSource().getYears();
+            archiveTags = Application.getDatabaseSource().getTags();
+            archiveCategories = Application.getDatabaseSource().getCategories();
 
             // set attributes
             sessionAttributes.put("archiveFeatured", archiveFeatured);

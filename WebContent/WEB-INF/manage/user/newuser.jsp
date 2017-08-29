@@ -6,13 +6,13 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>New Author - <%=Application.getSetting("name")%></title>
+<title>New Author - <%=Application.getString("name")%></title>
 <script>
 function makeUri() {
 	var title = document.getElementById('name').value;
 	title = title.replace(/[^0-9a-z]/gi, ' ');
 	title = title.replace(/\s+/g, '-').toLowerCase();
-	document.getElementById('uriName').value = title;
+	document.getElementById('uri').value = title;
 }
 </script>
 </head>
@@ -38,9 +38,9 @@ function makeUri() {
 						<input type="text" size="50" maxlength="200" name="name" id="name" value="<s:property value="name" />" onkeyup="makeUri()" required placeholder="John Doe" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
-						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.author.uriName" />" required placeholder="john-doe" class="w3-input w3-round-large w3-border" />
-						<span class="w3-small w3-text-grey"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="uriName" /></span>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uri">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
+						<input type="text" size="50" maxlength="300" name="uri" id="uri" value="<s:property value="#request.author.uri" />" required placeholder="john-doe" class="w3-input w3-round-large w3-border" />
+						<span class="w3-small w3-text-grey"><%=request.getScheme()+"://"+request.getServerName() %>/author/<s:property value="uri" /></span>
 					</p>
 					<p>
 						<label class="w3-validate w3-text-grey-light w3-large" for="username">Username:&nbsp;<span class="w3-text-red">*</span></label>

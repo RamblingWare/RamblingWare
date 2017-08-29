@@ -40,7 +40,7 @@ public class AllContentFilter implements Filter {
 
         // Set CSP to ensure content and sources are explicit.
         response.addHeader("Content-Security-Policy", "default-src 'self' "
-                + Application.getSetting("cdn") + " 'unsafe-inline' 'unsafe-eval'");
+                + Application.getString("cdn") + " 'unsafe-inline' 'unsafe-eval'");
         // "Content-Security-Policy-Report-Only" can also be used.
 
         // "default-src 'none'; img-src 'self' cdn.ramblingware.com chart.googleapis.com; style-src

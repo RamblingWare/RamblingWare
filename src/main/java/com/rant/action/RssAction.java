@@ -1,7 +1,7 @@
 package com.rant.action;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
     private static final long serialVersionUID = 1L;
 
     // search results
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
 
     public String execute() {
 
@@ -49,13 +49,13 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
         try {
 
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(1, Application.getLimit(), false);
+            posts = Application.getDatabaseSource().getPosts(1, Application.getInt("limit"), false);
             for (Post post : posts) {
                 response += "<item><title>" + post.getTitle() + "</title>\n" + "<description>"
                         + post.getDescription() + "</description>\n" + "<pubDate>"
                         + post.getPublishDateReadable() + "</pubDate>\n"
 
-                        + "<link>https://www.ramblingware.com/blog/" + post.getUriName() + "</link>"
+                        + "<link>https://www.ramblingware.com/blog/" + post.getUri() + "</link>"
                         + "</item>\n";
             }
 

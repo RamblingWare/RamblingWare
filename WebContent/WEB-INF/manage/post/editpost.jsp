@@ -7,7 +7,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>Edit Post - <%=Application.getSetting("name")%></title>
+<title>Edit Post - <%=Application.getString("name")%></title>
 
 <script src="/vendor/ckeditor/ckeditor.js"></script>
 <s:if test="usedUris != null && !usedUris.isEmpty()">
@@ -21,7 +21,7 @@
 <s:if test="usedTags != null && !usedTags.isEmpty()">
 <script> var usedTags = [
 <s:iterator value="usedTags" status="t">
-	<s:set var="tval" value="usedTags[#t.index].substring(0,usedTags[#t.index].lastIndexOf(' ('))" />"<s:property value="tval" />",
+	"<s:property value="name" />",
 </s:iterator>
 ""];</script>
 </s:if>
@@ -66,15 +66,15 @@ function validate() {
 			}
 		}
 	}
-	var uri = document.getElementById('uriName').value;
+	var uri = document.getElementById('uri').value;
 	for(var i=0; i<usedUris.length; i++) {
 		if(usedUris[i] == uri) {
 			alert('Sorry! That URI is already taken by another blog post.\n\nPlease change the URI.');
 			return false;
 		}
 	}
-	if(document.getElementById('htmlContent').value.length > 12288) {
-		alert('Sorry! The post is too long.\nMax length = 12288 chars\nPost length = '+document.getElementById('htmlContent').value.length+'\n\nPlease shorten your post.');
+	if(document.getElementById('content').value.length > 12288) {
+		alert('Sorry! The post is too long.\nMax length = 12288 chars\nPost length = '+document.getElementById('content').value.length+'\n\nPlease shorten your post.');
 		return false;
 	}
 	return true;
@@ -159,7 +159,7 @@ function preview() {
 				<h1>Edit Post</h1>
 				
 				<div class="w3-container w3-padding-0 w3-border-0">
-					<form action="/manage/editpost/<s:property value="#request.post.uriName" />" method="post">
+					<form action="/manage/editpost/<s:property value="#request.post.uri" />" method="post">
 					<input type="hidden" name="submitForm" value="true" />
 					<input type="hidden" name="id" value="<s:property value="#request.post.id" />" />
 					
@@ -168,9 +168,9 @@ function preview() {
 						<input type="text" size="50" maxlength="300" name="title" id="title" value="<s:property value="#request.post.title" />" onkeypress="preview()" onchange="preview()" required placeholder="How to make a blog post!" class="w3-input w3-round-large w3-border" />
 					</p>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="uriName">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
-						<input type="text" size="50" maxlength="300" name="uriName" id="uriName" value="<s:property value="#request.post.uriName" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large w3-border" />
-						<a href="#" class="w3-medium"><%=Application.getSetting("url")%>/blog/<s:property value="#request.post.uriName" /></a>
+						<label class="w3-validate w3-text-grey-light w3-large" for="uri">URI:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: This must be lowercase and unique!)</span></label>
+						<input type="text" size="50" maxlength="300" name="uri" id="uri" value="<s:property value="#request.post.uri" />" required placeholder="how-to-make-a-blog-post" class="w3-input w3-round-large w3-border" />
+						<a href="#" class="w3-medium"><%=Application.getString("url")%>/blog/<s:property value="#request.post.uri" /></a>
 					</p>
 					<p>   
 						<label class="w3-validate w3-text-grey-light w3-large" for="description">Description:&nbsp;<span class="w3-text-red">*</span></label>
@@ -265,13 +265,13 @@ function preview() {
 					</s:else>
 					<h2 id="previewTitle2">Post Title</h2>
 					<p>
-						<label class="w3-validate w3-text-grey-light w3-large" for="htmlContent">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
-						<textarea name="htmlContent" id="htmlContent" rows="10" cols="100" style="width:100%" maxlength="12288">
-						<s:property value="#request.post.htmlContent" />
+						<label class="w3-validate w3-text-grey-light w3-large" for="content">Post Content:&nbsp;<span class="w3-text-red">*</span>&nbsp;<span class="w3-small w3-text-grey quote">(Note: Max 12288 chars.)</span></label>
+						<textarea name="content" id="content" rows="10" cols="100" style="width:100%" maxlength="12288">
+						<s:property value="#request.post.content" />
 						</textarea>
 			            <script>
-			                // Replace the <textarea id="htmlContent"> with a CKEditor instance, using default configuration.
-			                CKEDITOR.replace('htmlContent', {
+			                // Replace the <textarea id="content"> with a CKEditor instance, using default configuration.
+			                CKEDITOR.replace('content', {
 								language: 'en',
 								height: 500,
 								toolbarCanCollapse: true,
@@ -295,11 +295,11 @@ function preview() {
 					</p>
 					</div>
 					<p>
-						<s:if test="#request.post.isVisible() == true">
-						<input type="checkbox" name="visible" id="visible" class="w3-check" checked="checked" value="true" />
+						<s:if test="#request.post.isPublished() == true">
+						<input type="checkbox" name="published" id="published" class="w3-check" checked="checked" value="true" />
 						</s:if>
-						<s:else><input type="checkbox" name="visible" id="visible" class="w3-check" value="true" /></s:else>
-						<label class="w3-validate w3-text-grey-light w3-large" for="visible">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="w3-small w3-text-grey quote">(You can make it public later if you want.)</span></label>
+						<s:else><input type="checkbox" name="published" id="published" class="w3-check" value="true" /></s:else>
+						<label class="w3-validate w3-text-grey-light w3-large" for="published">Make this post publicly visible?&nbsp;<span class="icon-eye w3-large w3-text-black w3-padding-square"></span><span class="w3-small w3-text-grey quote">(You can publish it later if you want.)</span></label>
 					</p>
 					<p>
 						<s:if test="#request.post.isFeatured() == true">

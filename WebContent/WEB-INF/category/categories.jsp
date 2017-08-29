@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>Categories - <%=Application.getSetting("name")%></title>
+<title>Categories - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -37,11 +37,8 @@
 					
 					<ol>
 					<s:iterator value="categories" status="c">
-						<s:set var="cval" value="categories[#c.index].substring(0,categories[#c.index].lastIndexOf('('))" />
-						<s:set var="ccnt" value="categories[#c.index].substring(categories[#c.index].lastIndexOf('(')+1,categories[#c.index].length-1)" />
-						<li><a title="<s:property value="cval" />" href="/category/<s:property value="cval" />"><s:property value="cval" /></a>
-						&nbsp;
-						<s:property value="ccnt" /> posts.
+						<li><a title="<s:property value="name" />" href="/category/<s:property value="name" />"><s:property value="name" /></a>
+						&nbsp;(<s:property value="count" /> posts)
 						</li>
 					</s:iterator>
 					</ol>

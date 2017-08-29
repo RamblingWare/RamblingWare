@@ -1,7 +1,7 @@
 package com.rant.action;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class AuthorsAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Author> authors = new ArrayList<Author>();
+    private List<Author> authors = null;
 
     public String execute() {
 
@@ -35,15 +35,18 @@ public class AuthorsAction extends ActionSupport
 
         // this shows all the authors
         try {
-            authors = Application.getDatabaseSource().getAuthors(1, Application.getLimit(), false);
+            authors = Application.getDatabaseSource().getAuthors(1, Application.getInt("limit"),
+                    false);
 
             // sort alphabetically
-            Collections.sort(authors, new java.util.Comparator<Author>() {
-                @Override
-                public int compare(Author a1, Author a2) {
-                    return a1.getName().compareToIgnoreCase(a2.getName());
-                }
-            });
+            if (authors != null) {
+                Collections.sort(authors, new java.util.Comparator<Author>() {
+                    @Override
+                    public int compare(Author a1, Author a2) {
+                        return a1.getName().compareToIgnoreCase(a2.getName());
+                    }
+                });
+            }
 
             // set attributes
             servletRequest.setAttribute("authors", authors);
@@ -71,11 +74,11 @@ public class AuthorsAction extends ActionSupport
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(ArrayList<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 

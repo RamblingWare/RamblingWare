@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>View/Edit Authors - <%=Application.getSetting("name")%></title>
+<title>View/Edit Authors - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -25,14 +25,14 @@
 				<span class="w3-small w3-text-grey nowrap">Add a new Author.</span>
 				</p>
 				
-				<s:if test="authors != null">
-				<s:if test="authors.isEmpty()">
+				<s:if test="users != null">
+				<s:if test="users.isEmpty()">
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>
 						Something went wrong because no users were found. Please try again later?</p>
 				</s:if>
 				<s:else>
-					<p class="w3-small w3-text-grey w3-margin-0 w3-right"><s:property value="authors.size()" /> result(s) found.</p>
+					<p class="w3-small w3-text-grey w3-margin-0 w3-right"><s:property value="users.size()" /> result(s) found.</p>
 					<table class="w3-table w3-bordered w3-striped w3-small">
 					<tr class="w3-theme-dark uppercase">
 						<th></th>
@@ -43,14 +43,14 @@
 						<th><span class="icon-time w3-large w3-text-theme w3-padding-square" title="Title"></span>Last Login</th>
 					</tr>
 					
-					<s:iterator value="authors" status="r">
+					<s:iterator value="users" status="r">
 						<tr>
-						<td><a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/edituser/<s:property value="uriName" />">Edit</a></td>
+						<td><a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/edituser/<s:property value="uri" />">Edit</a></td>
 						<td>
-							<a href="/author/<s:property value="uriName" />">
+							<a href="/author/<s:property value="uri" />">
 								<img class="w3-round" src="<s:property value="thumbnail" />" height="24px" width="24px" style="vertical-align: middle;" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'" /></a>
 							&nbsp;
-							<a href="/author/<s:property value="uriName" />" class="w3-medium" style="vertical-align: middle;"><s:property value="name" /></a>
+							<a href="/author/<s:property value="uri" />" class="w3-medium" style="vertical-align: middle;"><s:property value="name" /></a>
 						</td>
 							<td class="w3-small"><a href="mailto:<s:property value="email" />"><s:property value="email" /></a></td>
 						<td>

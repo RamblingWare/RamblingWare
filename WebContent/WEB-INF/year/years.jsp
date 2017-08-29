@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title>Years - <%=Application.getSetting("name")%></title>
+<title>Years - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -37,11 +37,8 @@
 					
 					<ul>
 					<s:iterator value="years" status="y">
-						<s:set var="yval" value="years[#y.index].substring(0,4)" />
-						<s:set var="ycnt" value="years[#y.index].substring(6,years[#y.index].length-1)" />
-						<li><a title="<s:property value="yval" />" href="/year/<s:property value="yval" />"><s:property value="yval" /></a>
-						&nbsp;
-						<s:property value="ycnt" /> posts.
+						<li><a title="<s:property value="name" />" href="/year/<s:property value="name" />"><s:property value="name" /></a>
+						&nbsp;(<s:property value="count" /> posts)
 						</li>
 					</s:iterator>
 					</ul>

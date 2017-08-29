@@ -1,4 +1,4 @@
-package com.rant.action.manage;
+package com.rant.action.dashboard;
 
 import java.util.Map;
 
@@ -10,8 +10,8 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.rant.model.Author;
-import com.rant.model.AuthorAware;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * Logout action class
@@ -21,12 +21,12 @@ import com.rant.model.AuthorAware;
  */
 public class LogoutAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    public Author user;
+    public User user;
     public Map<String, Object> sessionAttributes = null;
 
     public String execute() {
@@ -39,7 +39,7 @@ public class LogoutAction extends ActionSupport
                 // logged out already.
             } else {
                 // user loggin gout
-                user = (Author) sessionAttributes.get("USER");
+                user = (User) sessionAttributes.get("USER");
                 System.out.println("User " + user.getUsername() + " logged out.");
             }
             addActionMessage("You have been logged out.");
@@ -64,7 +64,7 @@ public class LogoutAction extends ActionSupport
     }
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="generator" content="Rant">
-<meta name="application-name" content="<%=Application.getSetting("name")%>"/>
+<meta name="application-name" content="<%=Application.getString("name")%>"/>
 <meta name="robots" content="all"/>
 <%@include file="/WEB-INF/fragment/meta/meta-webapp.jspf"%>
 
@@ -11,4 +11,4 @@
 <link rel="shortcut icon" href="/favicon.ico"/>
 <link rel="stylesheet" href="/css/rant.css?v=1.01"/>
 <link rel="stylesheet" href="/vendor/highlight/styles/dark.css"/>
-<link rel="alternate" href="<%=Application.getSetting("rss")%>" type="application/rss+xml" title="RSS">
+<link rel="alternate" href="<%=Application.getString("rss")%>" type="application/rss+xml" title="RSS">

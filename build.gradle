@@ -21,18 +21,15 @@ dependencies {
 	// maven
     compile 'org.apache.struts:struts2-apps:2.5.+'
     compile 'org.apache.logging.log4j:log4j-core-its:2.+'
-    compile 'commons-codec:commons-codec:1.8'
-    compile 'javax.servlet:javax.servlet-api:+'
-    compile 'com.sun.mail:javax.mail:1.+'
-    compile 'org.json:json:20160810'
-    
-    compile 'commons-dbcp:commons-dbcp:1.4'
-    compile 'mysql:mysql-connector-java:5.1.25'
-    //compile 'com.cloudant:cloudant-client:2.9.0'
+    compile 'org.freemarker:freemarker:2.3.+'
+    compile 'com.google.code.gson:gson:2.8.+'
+    compile 'com.cloudant:cloudant-client:2.9.+'
+    compile 'javax.servlet:javax.servlet-api:4.0.+'
 
     // jitpack
     compile 'com.github.amdelamar:jhash:v1.1.0'
     compile 'com.github.amdelamar:jotp:v1.1.0'
+    compile 'commons-codec:commons-codec:1.8'
 
 	testCompile 'junit:junit:4.12'
 }

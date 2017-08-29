@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
 
-<title><%=Application.getSetting("name")%></title>
+<title><%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -38,7 +38,7 @@
 				</s:else>
 				</s:if>				
 				<p class="w3-hide-large">
-					<%=Application.getSetting("description")%>
+					<%=Application.getString("description")%>
 					<br/><br/>
 					Follow or Subscribe for the latest updates!
 				</p>

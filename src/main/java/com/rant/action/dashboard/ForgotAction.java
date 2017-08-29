@@ -1,4 +1,4 @@
-package com.rant.action.manage;
+package com.rant.action.dashboard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

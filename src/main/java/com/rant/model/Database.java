@@ -16,6 +16,7 @@ public class Database {
     private String password;
 
     public Database() {
+        // Auto-generated constructor stub
     }
 
     public Database(String name) {
@@ -24,9 +25,7 @@ public class Database {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder("Database:\nName: " + getName());
-        string.append("\nHost: " + getHost());
-        string.append("\nPort: " + getPort());
+        StringBuilder string = new StringBuilder("Database: " + getName());
         string.append("\nURL: " + getUrl());
         string.append("\nUser: " + getUsername());
         string.append("\nPassword: ******");

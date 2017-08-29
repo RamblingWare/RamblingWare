@@ -11,7 +11,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.Author;
-import com.rant.model.AuthorAware;
+import com.rant.model.User;
+import com.rant.model.UserAware;
 
 /**
  * Author action class
@@ -21,12 +22,12 @@ import com.rant.model.AuthorAware;
  */
 public class AuthorAction extends ActionSupport
         implements
-            AuthorAware,
+            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private Author user;
+    private User user;
     private boolean canSeeHidden = false;
 
     // post parameters
@@ -96,7 +97,7 @@ public class AuthorAction extends ActionSupport
     }
 
     @Override
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

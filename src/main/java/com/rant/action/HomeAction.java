@@ -1,6 +1,6 @@
 package com.rant.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Post> posts;
+    private List<Post> posts = null;
 
     public String execute() {
 
@@ -31,7 +31,7 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
         // this shows the most recent blog posts
         try {
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(1, Application.getLimit(), false);
+            posts = Application.getDatabaseSource().getPosts(1, Application.getInt("limit"), false);
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
@@ -59,11 +59,11 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
         this.servletRequest = servletRequest;
     }
 
-    public ArrayList<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 }

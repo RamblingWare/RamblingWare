@@ -1,50 +1,60 @@
 package com.rant.model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import com.rant.config.Utils;
 
 /**
- * Post class is just a bean.
+ * This class represents a Post
  * 
  * @author Austin Delamar
- * @date 11/24/2015
+ * @created 11/24/2015
  */
-public class Post {
-
-    private int id;
+public class Post implements Comparable<Post> {
+    
+    private String _id;
+    private String _rev;
     private String title;
-    private String uriName;
     private boolean featured;
-    private boolean visible;
-
+    private boolean published;
     private String category;
     private String thumbnail;
     private String banner;
     private String bannerCaption;
     private String description;
-    private String htmlContent;
-
+    private String content;
     private Date createDate;
     private Date modifyDate;
     private Date publishDate;
-
+    private String author_id;
     private Author author;
-    private ArrayList<String> tags;
+    private List<String> tags;
     private View view;
 
-    public Post(int id) {
-        this.id = id;
+    public Post(String id) {
+        this._id = id;
     }
 
-    public int getId() {
-        return id;
+    public String get_Id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void set_Id(String id) {
+        this._id = id;
+    }
+
+    public String get_rev() {
+        return _rev;
+    }
+
+    public void set_rev(String _rev) {
+        this._rev = _rev;
+    }
+
+    public String getUri() {
+        return _id;
     }
 
     public String getTitle() {
@@ -55,14 +65,6 @@ public class Post {
         this.title = title;
     }
 
-    public String getUriName() {
-        return uriName;
-    }
-
-    public void setUriName(String uriName) {
-        this.uriName = uriName;
-    }
-
     public boolean isFeatured() {
         return featured;
     }
@@ -71,12 +73,12 @@ public class Post {
         this.featured = featured;
     }
 
-    public boolean isVisible() {
-        return visible;
+    public boolean isPublished() {
+        return published;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 
     public String getCategory() {
@@ -119,12 +121,12 @@ public class Post {
         this.description = description;
     }
 
-    public String getHtmlContent() {
-        return htmlContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Date getCreateDate() {
@@ -169,6 +171,14 @@ public class Post {
         this.publishDate = publishDate;
     }
 
+    public String getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(String author_id) {
+        this.author_id = author_id;
+    }
+
     public Author getAuthor() {
         return author;
     }
@@ -177,11 +187,11 @@ public class Post {
         this.author = author;
     }
 
-    public ArrayList<String> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
@@ -191,6 +201,11 @@ public class Post {
 
     public void setView(View view) {
         this.view = view;
+    }
+
+    @Override
+    public int compareTo(Post post) {
+        return this.publishDate.compareTo(post.publishDate);
     }
 
 }

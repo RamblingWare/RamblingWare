@@ -1,13 +1,13 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="w3-col s12 m10 l7 w3-round-large w3-hover-shadow w3-card w3-padding-0 w3-margin-bottom">
 	<div class="w3-col s3 m3 l3 w3-padding-16">
-		<a href="/author/<s:property value="uriName" />">
+		<a href="/author/<s:property value="uri" />">
 		<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile" src="<s:property value="thumbnail" />" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'" />
 		</a>
 	</div>
 	<div class="w3-col s9 m9 l9 w3-padding-16">
 		<div class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
-		<h3 class="w3-padding-0 w3-margin-0"><a href="/author/<s:property value="uriName" />"><s:property value="Name" /></a></h3>
+		<h3 class="w3-padding-0 w3-margin-0"><a href="/author/<s:property value="uri" />"><s:property value="Name" /></a></h3>
 		<p class="w3-small w3-margin-0">
 		<s:if test="description == null || description.isEmpty()">This author hasn't provided a bio yet.</s:if><s:else><s:property value="description" /></s:else>
 		</p> 

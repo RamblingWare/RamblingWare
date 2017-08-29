@@ -6,7 +6,7 @@
 <head>
 <%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
 
-<title>View/Edit Posts - <%=Application.getSetting("name")%></title>
+<title>View/Edit Posts - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
@@ -47,17 +47,17 @@
 					<s:iterator value="posts" status="r">
 						<tr>
 						<td>
-							<a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/editpost/<s:property value="uriName" />">Edit</a></td>
+							<a class="w3-btn w3-card w3-round w3-tiny w3-theme-light" href="/manage/editpost/<s:property value="uri" />">Edit</a></td>
 						<td>
 						<s:if test="thumbnail != null && !thumbnail.isEmpty()">
 							<img src="<s:property value="thumbnail" />" height="27px" width="48px" style="vertical-align: middle;" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'" />
 						</s:if>
-						<s:if test="visible == false">
-							<a href="/manage/viewpost/<s:property value="uriName" />" class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
-							&nbsp;<span class="icon-eye w3-large w3-text-red w3-padding-square" title="This post is hidden from public."></span>
+						<s:if test="published == false">
+							<a href="/manage/viewpost/<s:property value="uri" />" class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
+							&nbsp;<span class="icon-eye w3-large w3-text-red w3-padding-square" title="This post is hidden from the public."></span>
 						</s:if>
 						<s:else>
-							<a href="/blog/<s:property value="uriName" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
+							<a href="/blog/<s:property value="uri" />"  class="w3-medium" title="<s:property value="description" />"><s:property value="title" /></a>
 						</s:else>
 						<s:if test="featured == true">
 							&nbsp;<span class="icon-star w3-large w3-text-yellow w3-padding-square" title="This is a featured post."></span>
@@ -69,7 +69,7 @@
 								<a class="w3-text-black" href="/tag/<s:property />" title="<s:property />"><s:property /></a>&nbsp;
 							</s:iterator>
 						</s:if></td>
-						<td><a class="w3-text-black" href="/author/<s:property value="author.uriName" />"><s:property value="author.name" /></a></td>
+						<td><a class="w3-text-black" href="/author/<s:property value="author.uri" />"><s:property value="author.name" /></a></td>
 						<td><a class="w3-text-black" href="/year/<s:property value="publishYear" />" title="<s:property value="publishDate" />"><s:property value="publishDateReadable" /></a></td>
 						<td><span class="w3-text-black" title="Views (<s:property value="view.count" />) / Actual (<s:property value="view.session" />)">
 						<s:property value="view.countReadable" /> (<s:property value="view.sessionReadable" />)

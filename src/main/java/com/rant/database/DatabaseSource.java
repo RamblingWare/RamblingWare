@@ -1,11 +1,15 @@
 package com.rant.database;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.rant.model.Author;
-import com.rant.model.Database;
+import com.rant.model.Category;
+import com.rant.model.Config;
 import com.rant.model.Post;
 import com.rant.model.Role;
+import com.rant.model.Tag;
+import com.rant.model.User;
+import com.rant.model.Year;
 
 /**
  * A blueprint to communicate to a Database Service.
@@ -15,23 +19,27 @@ import com.rant.model.Role;
  */
 public abstract class DatabaseSource {
 
-    protected Database database;
+    protected com.rant.model.Database database;
 
-    public DatabaseSource(Database database) {
+    public DatabaseSource(com.rant.model.Database database) {
         this.database = database;
     }
 
-    public void setDatabase(Database database) {
+    public void setDatabase(com.rant.model.Database database) {
         this.database = database;
     }
 
-    public Database getDatabase() {
+    public com.rant.model.Database getDatabase() {
         return database;
     }
 
+    public abstract Config getConfig();
+
+    public abstract boolean editConfig(Config config);
+
     public abstract Post getPost(String uri, boolean includeHidden);
 
-    public abstract Post newPost(Post post);
+    public abstract boolean newPost(Post post);
 
     public abstract boolean editPost(Post post);
 
@@ -39,43 +47,40 @@ public abstract class DatabaseSource {
 
     public abstract Author getAuthor(String uri, boolean includeHidden);
 
-    public abstract boolean editAuthor(Author author);
+    public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
 
-    public abstract boolean deleteAuthor(Author author);
+    public abstract List<Post> getFeatured();
 
-    public abstract ArrayList<Post> getArchiveFeatured();
+    public abstract List<Year> getYears();
 
-    public abstract ArrayList<String> getArchiveYears();
+    public abstract List<Category> getCategories();
 
-    public abstract ArrayList<String> getArchiveCategories();
+    public abstract List<Tag> getTags();
 
-    public abstract ArrayList<String> getArchiveTags();
+    public abstract List<String> getPostUris();
 
-    public abstract ArrayList<String> getPostUris();
+    public abstract List<Post> getPosts(int page, int limit, boolean includeHidden);
 
-    public abstract ArrayList<Post> getPosts(int page, int limit, boolean includeHidden);
-
-    public abstract ArrayList<Post> getPostsByCategory(int page, int limit, String category,
+    public abstract List<Post> getPostsByCategory(int page, int limit, String category,
             boolean includeHidden);
 
-    public abstract ArrayList<Post> getPostsByTag(int page, int limit, String tag,
+    public abstract List<Post> getPostsByTag(int page, int limit, String tag,
             boolean includeHidden);
 
-    public abstract ArrayList<Post> getPostsByYear(int page, int limit, int year,
-            boolean includeHidden);
+    public abstract List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden);
 
-    public abstract ArrayList<Author> getAuthors(int page, int limit, boolean includeAdmins);
+    public abstract List<Role> getRoles();
 
-    public abstract Author getUser(String username);
+    public abstract User getUser(String uri);
 
-    public abstract Author newUser(Author user);
+    public abstract List<User> getUsers(int page, int limit, boolean includeAdmins);
 
-    public abstract boolean editUser(Author user);
+    public abstract boolean newUser(User user);
 
-    public abstract boolean loginUser(Author user);
+    public abstract boolean editUser(User user);
+
+    public abstract boolean deleteUser(User user);
 
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
-    
-    public abstract ArrayList<Role> getRoles();
-    
+
 }
