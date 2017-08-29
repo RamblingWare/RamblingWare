@@ -16,7 +16,7 @@
 	/* additional contributors go here... */
 
 /* SITE */
-	Last update: 2017/07/02
+	Last update: 2017/08/29
 	Language: English
 	Doctype: HTML5
 	IDE: Eclipse, Notepad++, CloudFoundry, Git, GIMP
