@@ -5,10 +5,9 @@
 [![Codecov](https://img.shields.io/codecov/c/github/RamblingWare/Rant.svg)](https://codecov.io/gh/RamblingWare/Rant)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/Rant/blob/master/LICENSE)
 
+Blog management system on CouchDB. This is a web server for the [Rant](https://github.com/RamblingWare/Rant-Dashboard) dashboard. 
 
-Blog management system on CouchDB.
-
-> Live Example: https://www.ramblingware.com
+> Live Example: coming soon...
 
 ## Features
 
@@ -20,7 +19,7 @@ Blog management system on CouchDB.
 ## Planned Features
 
  * Containerize with Docker
- * Offline-first Vuejs+PouchDB dashboard
+ * Offline-first Vuejs + PouchDB dashboard
  * Freemarker Theme Templates
 
 ## Usage
