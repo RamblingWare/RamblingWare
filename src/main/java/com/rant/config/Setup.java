@@ -18,8 +18,8 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.cloudant.http.Http;
 import com.cloudant.http.HttpConnection;
 import com.google.gson.JsonObject;
+import com.rant.model.Author;
 import com.rant.model.Role;
-import com.rant.model.User;
 
 public class Setup {
 
@@ -113,12 +113,17 @@ public class Setup {
 
             client.database("_users", false);
             client.database("_replicator", false);
+            // don't check _metadata because its optional
+            // don't check _global_changes because its optional
 
             Database blog = client.database("blog", false);
             blog.getDesignDocumentManager().get("_design/blogdesign");
 
-            Database access = client.database("access", false);
-            access.getDesignDocumentManager().get("_design/accessdesign");
+            Database roles = client.database("roles", false);
+            roles.getDesignDocumentManager().get("_design/rolesdesign");
+            
+            Database authors = client.database("authors", false);
+            authors.getDesignDocumentManager().get("_design/authorsdesign");
 
             Database views = client.database("views", false);
             views.getDesignDocumentManager().get("_design/viewsdesign");
@@ -149,7 +154,19 @@ public class Setup {
             client.createDB("_global_changes");
             client.createDB("_metadata");
             
-            // create CouchDB _user "admin"
+            // TODO create CouchDB permissions
+            // - role = author
+            // - role = admin
+
+            // create default roles
+            Database roles = client.database("roles", true);
+            DesignDocument rolesdesign = DesignDocumentManager
+                    .fromFile(Utils.getResourceAsFile("/design/rolesdesign.json"));
+            roles.getDesignDocumentManager().put(rolesdesign);
+            List<Role> defaultRoles = getDefaultRoles();
+            roles.bulk(defaultRoles);
+            
+            // create default _user credentials
             HttpConnection request = Http.PUT(new URL(client.getBaseUri() +
                     "/_users/org.couchdb.user:admin"), "application/json");
             request.setRequestBody("{\"_id\":\"org.couchdb.user:admin\",\"name\":\"admin\",\"password\":\"admin\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
@@ -158,42 +175,35 @@ public class Setup {
                 // failed to create admin
                 throw new Exception("Failed to create default user 'admin'. Exception occured during install.");
             }
+            //response.disconnect();
             
-            // TODO create CouchDB permissions
-            // - role = author
-            // - role = admin
-
+            // create default user profile
+            Database authors = client.database("authors", true);
+            DesignDocument authorsdesign = DesignDocumentManager
+                    .fromFile(Utils.getResourceAsFile("/design/authorsdesign.json"));
+            authors.getDesignDocumentManager().put(authorsdesign);
+            
+            Author user = new Author("admin");
+            user.setName("Admin");
+            user.setRole(defaultRoles.get(0));
+            user.setDescription("");
+            user.setContent("");
+            user.setEmail("");
+            user.setThumbnail("");
+            authors.save(user);
+            
+            // create dbs
             Database blog = client.database("blog", true);
             DesignDocument blogdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/blogdesign.json"));
             blog.getDesignDocumentManager().put(blogdesign);
-
-            Database access = client.database("access", true);
-            DesignDocument accessdesign = DesignDocumentManager
-                    .fromFile(Utils.getResourceAsFile("/design/accessdesign.json"));
-            access.getDesignDocumentManager().put(accessdesign);
-
-            // default roles
-            List<Role> roles = getDefaultRoles();
-            access.bulk(roles);
             
-            // default user
-            User user = new User("admin");
-            user.setName("Admin");
-            user.setRole(roles.get(0));
-            user.setDescription("");
-            user.setContent("");
-            user.setEmail("");
-            user.setPassword(
-                    "pbkdf2sha256:64000:18:n:kZ8hGWvCrIv1IW6PwWrDuJ2E:y34ZAyu6Swxud5L+AlvR5NgS");
-            user.setThumbnail("");
-            access.save(user);
-
             Database views = client.database("views", true);
             DesignDocument viewsdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/viewsdesign.json"));
             views.getDesignDocumentManager().put(viewsdesign);
 
+            // default app config
             Database security = client.database("security", true);
             security.save(Application.getConfig());
 

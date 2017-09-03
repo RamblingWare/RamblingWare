@@ -1,101 +1,62 @@
 package com.rant.model;
 
-import java.util.Date;
-
-import com.rant.config.Utils;
-
 /**
- * This class represents a User
+ * This class represents a CouchDB User
  * 
  * @author Austin Delamar
- * @created 07/19/2017
+ * @created 09/03/2017
  */
-public class User extends Author {
+public class User {
     
+    // CouchDB variables
+    private String _id; // org.couchdb.user:admin
+    private String _rev;
+    private String name;
     private String password;
-
-    private boolean isOTPEnabled;
-    private boolean isOTPAuthenticated;
-    private String keySecret;
-    private String keyRecover;
-    private String keyReset;
+    private String[] roles;
+    private String type = "user";
     
-    private Date modifyDate;
-    private Date lastLoginDate;
+    // Rant variables
+    // TODO
+    // lastLoginDate ISO-8601 format
+    // createDate ISO-8601 format
+    // modifyDate ISO-8601 format
     
-    public User(String id) {
-        set_Id(id);
+    public String get_id() {
+        return _id;
     }
-
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+    public String get_rev() {
+        return _rev;
+    }
+    public void set_rev(String _rev) {
+        this._rev = _rev;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public boolean isOTPEnabled() {
-        return isOTPEnabled;
+    public String[] getRoles() {
+        return roles;
     }
-
-    public void setOTPEnabled(boolean isOTPEnabled) {
-        this.isOTPEnabled = isOTPEnabled;
+    public void setRoles(String[] roles) {
+        this.roles = roles;
     }
-
-    public boolean isOTPAuthenticated() {
-        return isOTPAuthenticated;
+    public String getType() {
+        return type;
     }
-
-    public void setOTPAuthenticated(boolean isOTPAuthenticated) {
-        this.isOTPAuthenticated = isOTPAuthenticated;
+    public void setType(String type) {
+        this.type = type;
     }
-
-    public String getKeySecret() {
-        return keySecret;
-    }
-
-    public void setKeySecret(String keySecret) {
-        this.keySecret = keySecret;
-    }
-
-    public String getKeyRecover() {
-        return keyRecover;
-    }
-
-    public void setKeyRecover(String keyRecover) {
-        this.keyRecover = keyRecover;
-    }
-
-    public String getKeyReset() {
-        return keyReset;
-    }
-
-    public void setKeyReset(String keyReset) {
-        this.keyReset = keyReset;
-    }
-
-    public Date getModifyDate() {
-        return modifyDate;
-    }
-
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
-
-    public String getModifyDateReadable() {
-        return Utils.formatReadableDate(modifyDate);
-    }
-
-    public Date getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(Date lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
-
-    public String getLastLoginDateReadable() {
-        return Utils.formatReadableDate(lastLoginDate);
-    }
+    
 }

@@ -17,10 +17,13 @@ public class Author implements Comparable<Author> {
     private String name;
     private String email;
     private Role role;
-    private Date createDate;
+    
     private String thumbnail;
     private String description;
     private String content;
+    
+    private Date createDate;
+    private Date modifyDate;
 
     public Author() {
         // Auto-generated method stub
@@ -78,18 +81,6 @@ public class Author implements Comparable<Author> {
         this.role = role;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getCreateDateReadable() {
-        return Utils.formatReadableDate(createDate);
-    }
-
     public String getDescription() {
         return description;
     }
@@ -112,6 +103,30 @@ public class Author implements Comparable<Author> {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getCreateDateReadable() {
+        return Utils.formatReadableDate(createDate);
+    }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+    public String getModifyDateReadable() {
+        return Utils.formatReadableDate(modifyDate);
     }
 
     @Override

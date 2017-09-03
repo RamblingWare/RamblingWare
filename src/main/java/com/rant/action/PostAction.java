@@ -14,8 +14,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.Post;
-import com.rant.model.User;
-import com.rant.model.UserAware;
 
 /**
  * View Post action class
@@ -23,15 +21,9 @@ import com.rant.model.UserAware;
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class PostAction extends ActionSupport
-        implements
-            UserAware,
-            ServletResponseAware,
-            ServletRequestAware {
+public class PostAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private User user;
-    private boolean canSeeHidden = false;
 
     // post parameters
     private Post post;
@@ -50,18 +42,12 @@ public class PostAction extends ActionSupport
         } else if (uri == null && uriTemp.startsWith("/blog/")) {
             // /blog/post-name-goes-here
             uri = Utils.removeBadChars(uriTemp.substring(6, uriTemp.length()));
-        } else if (uri == null && uriTemp.startsWith("/manage/viewpost/")) {
-            // /manage/viewpost/post-name-goes-here
-            uri = Utils.removeBadChars(uriTemp.substring(17, uriTemp.length()));
-            if (user != null) {
-                canSeeHidden = true;
-            }
         }
 
         if (uri != null && uri.length() > 0) {
             // search in db for post by title
             try {
-                post = Application.getDatabaseSource().getPost(uri, canSeeHidden);
+                post = Application.getDatabaseSource().getPost(uri, false);
 
                 // was post found?
                 if (post != null) {
@@ -85,10 +71,7 @@ public class PostAction extends ActionSupport
                     }
 
                     // update page views
-                    if (!canSeeHidden) {
-                        Application.getDatabaseSource().incrementPageViews(post,
-                                newViewFromSession);
-                    }
+                    Application.getDatabaseSource().incrementPageViews(post, newViewFromSession);
 
                     return Action.SUCCESS;
                 } else {
@@ -135,10 +118,5 @@ public class PostAction extends ActionSupport
 
     public void setUriName(String uriName) {
         this.uri = uriName;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.user = user;
     }
 }

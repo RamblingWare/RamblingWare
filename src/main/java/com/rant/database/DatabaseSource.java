@@ -39,12 +39,6 @@ public abstract class DatabaseSource {
 
     public abstract Post getPost(String uri, boolean includeHidden);
 
-    public abstract boolean newPost(Post post);
-
-    public abstract boolean editPost(Post post);
-
-    public abstract boolean deletePost(Post post);
-
     public abstract Author getAuthor(String uri, boolean includeHidden);
 
     public abstract List<Author> getAuthors(int page, int limit, boolean includeAdmins);
@@ -70,16 +64,8 @@ public abstract class DatabaseSource {
     public abstract List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden);
 
     public abstract List<Role> getRoles();
-
-    public abstract User getUser(String uri);
-
-    public abstract List<User> getUsers(int page, int limit, boolean includeAdmins);
-
-    public abstract boolean newUser(User user);
-
-    public abstract boolean editUser(User user);
-
-    public abstract boolean deleteUser(User user);
+    
+    public abstract User getUser(String name);
 
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
 

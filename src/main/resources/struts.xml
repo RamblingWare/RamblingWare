@@ -8,16 +8,8 @@
 	<package name="root" namespace="/" extends="struts-default">
 	
 		<interceptors>
-			<interceptor name="authentication" class="com.rant.action.interceptor.AuthenticationInterceptor"></interceptor>
 			<interceptor name="archive" class="com.rant.action.interceptor.ArchiveInterceptor"></interceptor>
 			<interceptor name="header" class="com.rant.action.interceptor.HeaderInterceptor"></interceptor>
-			
-			<!-- Admin User Authentication -->
-			<interceptor-stack name="authStack">
-				<interceptor-ref name="header"></interceptor-ref>
-				<interceptor-ref name="authentication"></interceptor-ref>
-				<interceptor-ref name="defaultStack"></interceptor-ref>
-			</interceptor-stack>
 			
 			<!-- Archive Interceptor -->
 			<interceptor-stack name="archiveStack">
@@ -83,9 +75,6 @@
 		</action>
 		<action name="author">
 			<result type="redirect">/author/</result>
-		</action>
-		<action name="manage">
-			<result type="redirect">/manage/</result>
 		</action>
 		<action name="dashboard">
 			<result type="redirect">/dashboard/</result>
@@ -227,22 +216,12 @@
 			<result>/dashboard/index.html</result>
 		</action>
 		
-		<!-- LOGIN / LOGOUT ACTIONS -->
 		<action name="login" class="com.rant.action.dashboard.LoginAction">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="chain">
-		        <param name="actionName"></param>
-		    </result>
+			<result name="success">/dashboard/index.html</result>
 		    <result name="input">/WEB-INF/manage/otp.jsp</result>
 		    <result name="none">/WEB-INF/manage/login.jsp</result>
 			<result name="error">/WEB-INF/manage/login.jsp</result>
-		</action>
-		
-		<action name="logout" class="com.rant.action.dashboard.LogoutAction">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success" type="chain">
-				<param name="actionName">login</param>
-			</result>
 		</action>
 		
 		<action name="forgot" class="com.rant.action.dashboard.ForgotAction">

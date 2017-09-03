@@ -48,6 +48,7 @@ public class CouchDB extends DatabaseSource {
             return db.find(Config.class, "APPCONFIG");
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return null;
@@ -61,6 +62,7 @@ public class CouchDB extends DatabaseSource {
             db.update(config);
             return true;
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
             return false;
         }
@@ -107,60 +109,10 @@ public class CouchDB extends DatabaseSource {
         } catch (NoDocumentException e) {
             post = null;
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return post;
-    }
-
-    @Override
-    public boolean newPost(Post post) {
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
-
-            // nullify author
-            post.setAuthor_id(post.getAuthor().get_Id());
-            post.setAuthor(null);
-
-            db.save(post);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean editPost(Post post) {
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
-
-            // nullify author
-            post.setAuthor_id(post.getAuthor().get_Id());
-            post.setAuthor(null);
-
-            db.update(post);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deletePost(Post post) {
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
-            db.remove(post);
-            db = client.database("views", false);
-            db.remove(post.getView());
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     @Override
@@ -175,6 +127,7 @@ public class CouchDB extends DatabaseSource {
         } catch (NoDocumentException e) {
             author = null;
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return author;
@@ -206,6 +159,7 @@ public class CouchDB extends DatabaseSource {
             authors = pg.getDocsAs(Author.class);
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return authors;
@@ -225,6 +179,7 @@ public class CouchDB extends DatabaseSource {
             posts = pg.getDocsAs(Post.class);
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -249,6 +204,7 @@ public class CouchDB extends DatabaseSource {
             }
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return years;
@@ -274,6 +230,7 @@ public class CouchDB extends DatabaseSource {
             }
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return categories;
@@ -298,6 +255,7 @@ public class CouchDB extends DatabaseSource {
             }
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return tags;
@@ -315,6 +273,7 @@ public class CouchDB extends DatabaseSource {
                     .getKeys();
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return uris;
@@ -374,6 +333,7 @@ public class CouchDB extends DatabaseSource {
             }
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -435,6 +395,7 @@ public class CouchDB extends DatabaseSource {
             }
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -495,6 +456,7 @@ public class CouchDB extends DatabaseSource {
             }
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -558,6 +520,7 @@ public class CouchDB extends DatabaseSource {
             }
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -568,108 +531,37 @@ public class CouchDB extends DatabaseSource {
         List<Role> roles = new ArrayList<Role>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("roles", false);
 
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("accessdesign", "roles")
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rolesdesign", "roles")
                     .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
                     .getResponse();
 
             roles = pg.getDocsAs(Role.class);
 
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return roles;
     }
 
     @Override
-    public User getUser(String uri) {
+    public User getUser(String name) {
         User user = null;
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("access", false);
+            Database db = client.database("_users", false);
 
-            user = db.find(User.class, uri);
-
-            Role role = db.find(Role.class, user.getRole().get_Id());
-            user.setRole(role);
+            user = db.find(User.class, "org.couchdb.user:" + name.toLowerCase());
 
         } catch (NoDocumentException e) {
             user = null;
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
         }
         return user;
-    }
-
-    @Override
-    public List<User> getUsers(int page, int limit, boolean includeAdmins) {
-        List<User> users = new ArrayList<User>();
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("access", false);
-
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("accessdesign", "users")
-                    .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
-                    .includeDocs(true).build().getResponse();
-
-            for (int i = 1; i < page; i++) {
-                if (pg.getNextPageToken() != null) {
-                    // next page
-                    pg = db.getViewRequestBuilder("accessdesign", "users")
-                            .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
-                            .includeDocs(true).build().getResponse(pg.getNextPageToken());
-                } else {
-                    // page does not exist
-                    return users;
-                }
-            }
-
-            users = pg.getDocsAs(User.class);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
-
-    @Override
-    public boolean newUser(User user) {
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("access", false);
-            db.save(user);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean editUser(User user) {
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("access", false);
-            db.update(user);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deleteUser(User user) {
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("access", false);
-            db.remove(user);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     @Override
@@ -693,6 +585,7 @@ public class CouchDB extends DatabaseSource {
             // quietly ignore.
             return true;
         } catch (Exception e) {
+            // TODO this should be thrown up
             e.printStackTrace();
             return false;
         }

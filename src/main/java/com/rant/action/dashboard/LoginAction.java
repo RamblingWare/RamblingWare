@@ -10,15 +10,12 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.amdelamar.jhash.Hash;
-import com.amdelamar.jotp.OTP;
-import com.amdelamar.jotp.type.Type;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.User;
-import com.rant.model.UserAware;
 
 /**
  * Login action class
@@ -28,7 +25,6 @@ import com.rant.model.UserAware;
  */
 public class LoginAction extends ActionSupport
         implements
-            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
@@ -59,12 +55,9 @@ public class LoginAction extends ActionSupport
         if (username != null && password != null) {
             // logging in with password
             return passwordLogin();
-        } else if (code != null) {
-            // logging in with OTP
-            return otpLogin();
         } else {
             // they opened the form
-            return ERROR;
+            return NONE;
         }
     }
 
@@ -87,43 +80,17 @@ public class LoginAction extends ActionSupport
                 // password matches!
                 // Login success
 
-                if (user.isOTPEnabled()) {
-                    // user needs to enter a OTP still before they are
-                    // logged in.
-                    sessionAttributes.remove("attempts");
-                    sessionAttributes.remove("lastAttempt");
-                    sessionAttributes = ActionContext.getContext().getSession();
-                    sessionAttributes.put("USER", user);
+                sessionAttributes.remove("attempts");
+                sessionAttributes.remove("lastAttempt");
+                sessionAttributes = ActionContext.getContext().getSession();
+                sessionAttributes.put("login", "true");
+                sessionAttributes.put("context", new Date());
+                sessionAttributes.put("USER", user);
+                addActionMessage("Welcome, " + user.getName() + ".");
+                System.out.println("User logged in: " + user.getName() + " ("
+                        + servletRequest.getRemoteAddr() + ")");
 
-                    System.out.println("User logged in " + user.getUsername()
-                            + " and now has to enter their OTP (" + servletRequest.getRemoteAddr()
-                            + ")");
-
-                    return INPUT;
-                } else {
-                    // user didn't enable OTP / 2FA yet.
-
-                    // update user's last login date
-                    // TODO Application.getDatabaseSource().loginUser(user);
-
-                    sessionAttributes.remove("attempts");
-                    sessionAttributes.remove("lastAttempt");
-                    sessionAttributes = ActionContext.getContext().getSession();
-                    sessionAttributes.put("login", "true");
-                    sessionAttributes.put("context", new Date());
-                    sessionAttributes.put("USER", user);
-
-                    if (user.getLastLoginDate() != null) {
-                        addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
-                                + Utils.formatReadableDate(user.getLastLoginDate()));
-                    } else {
-                        addActionMessage("Welcome, " + user.getName() + ".");
-                    }
-                    System.out.println("User logged in: " + user.getUsername() + " ("
-                            + servletRequest.getRemoteAddr() + ")");
-
-                    return SUCCESS;
-                }
+                return SUCCESS;
 
             } else {
                 // no user found
@@ -139,66 +106,6 @@ public class LoginAction extends ActionSupport
             e.printStackTrace();
             return ERROR;
         }
-    }
-
-    /**
-     * Check if they can login with the OTP code entered.
-     * 
-     * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
-     */
-    private String otpLogin() {
-
-        // check if locked out
-        if (isLockedOut()) {
-            return Action.ERROR;
-        }
-
-        // OTP / 2FA code provided.
-        // verify if it is correct
-
-        sessionAttributes = ActionContext.getContext().getSession();
-        user = (User) sessionAttributes.get("USER");
-
-        boolean validCode = false;
-        try {
-            validCode = OTP.verify(user.getKeySecret(), OTP.timeInHex(), code, 6, Type.TOTP);
-        } catch (Exception e) {
-            System.err.println("Error when validating OTP: " + e.getMessage());
-        }
-
-        if (validCode) {
-            user.setOTPAuthenticated(true);
-            sessionAttributes.put("login", "true");
-            sessionAttributes.put("context", new Date());
-            sessionAttributes.put("USER", user);
-            sessionAttributes.remove("attempts");
-            sessionAttributes.remove("lastAttempt");
-
-            try {
-                // update user's last login date
-                // TODO Application.getDatabaseSource().loginUser(user);
-
-                addActionMessage("Welcome back, " + user.getName() + ". Last login was on "
-                        + Utils.formatReadableDate(user.getLastLoginDate()));
-                System.out.println("User logged in: " + user.getUsername() + " with their OTP ("
-                        + servletRequest.getRemoteAddr() + ")");
-
-            } catch (Exception e) {
-                addActionError(e.getMessage());
-                e.printStackTrace();
-                return ERROR;
-            }
-            return SUCCESS;
-
-        } else {
-            // OTP code did not match!
-            addActionError("Invalid code. (" + attempts + "/" + maxAttempts + ")");
-            System.out.println("User tried to login with OTP: " + user.getUsername() + " ("
-                    + attempts + "/" + maxAttempts + ") (" + servletRequest.getRemoteAddr() + ")");
-
-            return INPUT;
-        }
-
     }
 
     /**
@@ -250,11 +157,6 @@ public class LoginAction extends ActionSupport
 
     public void setSession(Map<String, Object> sessionAttributes) {
         this.sessionAttributes = sessionAttributes;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.user = user;
     }
 
     protected HttpServletResponse servletResponse;

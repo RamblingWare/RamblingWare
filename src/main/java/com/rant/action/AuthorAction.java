@@ -11,8 +11,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.Author;
-import com.rant.model.User;
-import com.rant.model.UserAware;
 
 /**
  * Author action class
@@ -22,13 +20,10 @@ import com.rant.model.UserAware;
  */
 public class AuthorAction extends ActionSupport
         implements
-            UserAware,
             ServletResponseAware,
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private User user;
-    private boolean canSeeHidden = false;
 
     // post parameters
     private Author author;
@@ -40,18 +35,12 @@ public class AuthorAction extends ActionSupport
         String uri = servletRequest.getRequestURI();
         if (uriName == null && uri.startsWith("/author/")) {
             uriName = Utils.removeBadChars(uri.substring(8, uri.length()));
-        } else if (uriName == null && uri.startsWith("/manage/viewuser/")) {
-            // /manage/viewuser/user-name-goes-here
-            uriName = Utils.removeBadChars(uri.substring(17, uri.length()));
-            if (user != null) {
-                canSeeHidden = true;
-            }
         }
 
         if (uriName != null && uriName.length() > 0) {
             // search in db for author
             try {
-                author = Application.getDatabaseSource().getAuthor(uriName, canSeeHidden);
+                author = Application.getDatabaseSource().getAuthor(uriName, false);
 
                 if (author != null) {
                     // set attributes
@@ -94,10 +83,5 @@ public class AuthorAction extends ActionSupport
 
     public Author getAuthor() {
         return author;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.user = user;
     }
 }
