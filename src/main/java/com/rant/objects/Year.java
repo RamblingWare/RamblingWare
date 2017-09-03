@@ -1,12 +1,11 @@
-package com.rant.model;
+package com.rant.objects;
 
 /**
- * Category class
- * 
+ * Year class
  * @author Austin Delamar
  * @created 7/13/2017
  */
-public class Category implements Comparable<Category> {
+public class Year implements Comparable<Year> {
 
     private String name;
     private int count;
@@ -28,8 +27,8 @@ public class Category implements Comparable<Category> {
     }
 
     @Override
-    public int compareTo(Category cat) {
-        return this.name.compareTo(cat.name);
+    public int compareTo(Year tag) {
+        return this.name.compareTo(tag.name);
     }
 
 }

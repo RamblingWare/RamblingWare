@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Post;
+import com.rant.objects.Post;
 
 /**
  * Tag action class
@@ -48,7 +48,7 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByTag(page, Application.getInt("limit"), tag, false);
+            posts = Application.getDatabaseService().getPostsByTag(page, Application.getInt("limit"), tag, false);
 
             // determine pagination
             if (posts != null) {

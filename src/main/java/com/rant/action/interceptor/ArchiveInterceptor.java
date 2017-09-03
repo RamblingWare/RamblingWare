@@ -6,10 +6,10 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import com.rant.config.Application;
-import com.rant.model.Category;
-import com.rant.model.Post;
-import com.rant.model.Tag;
-import com.rant.model.Year;
+import com.rant.objects.Category;
+import com.rant.objects.Post;
+import com.rant.objects.Tag;
+import com.rant.objects.Year;
 /**
  * Archive Interceptor class
  * 
@@ -37,10 +37,10 @@ public class ArchiveInterceptor implements Interceptor {
 
         if (archiveYears == null || archiveYears.isEmpty()) {
             // get the archive of posts by years and tag names
-            archiveFeatured = Application.getDatabaseSource().getFeatured();
-            archiveYears = Application.getDatabaseSource().getYears();
-            archiveTags = Application.getDatabaseSource().getTags();
-            archiveCategories = Application.getDatabaseSource().getCategories();
+            archiveFeatured = Application.getDatabaseService().getFeatured();
+            archiveYears = Application.getDatabaseService().getYears();
+            archiveTags = Application.getDatabaseService().getTags();
+            archiveCategories = Application.getDatabaseService().getCategories();
 
             // set attributes
             sessionAttributes.put("archiveFeatured", archiveFeatured);

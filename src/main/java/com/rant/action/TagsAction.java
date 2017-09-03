@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
-import com.rant.model.Tag;
+import com.rant.objects.Tag;
 
 /**
  * Tags action class
@@ -32,7 +32,7 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
         // this shows the all the tags available
         try {
             // gather tags
-            tags = Application.getDatabaseSource().getTags();
+            tags = Application.getDatabaseService().getTags();
 
             // sort alphabetically
             if (tags != null) {

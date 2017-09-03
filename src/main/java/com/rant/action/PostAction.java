@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Post;
+import com.rant.objects.Post;
 
 /**
  * View Post action class
@@ -47,7 +47,7 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
         if (uri != null && uri.length() > 0) {
             // search in db for post by title
             try {
-                post = Application.getDatabaseSource().getPost(uri, false);
+                post = Application.getDatabaseService().getPost(uri, false);
 
                 // was post found?
                 if (post != null) {
@@ -71,7 +71,7 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                     }
 
                     // update page views
-                    Application.getDatabaseSource().incrementPageViews(post, newViewFromSession);
+                    Application.getDatabaseService().incrementPageViews(post, newViewFromSession);
 
                     return Action.SUCCESS;
                 } else {

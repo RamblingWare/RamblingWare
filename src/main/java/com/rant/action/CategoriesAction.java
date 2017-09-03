@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
-import com.rant.model.Category;
+import com.rant.objects.Category;
 
 /**
  * Categories action class
@@ -35,7 +35,7 @@ public class CategoriesAction extends ActionSupport
         // this shows all the categories of blog posts
         try {
             // gather posts
-            categories = Application.getDatabaseSource().getCategories();
+            categories = Application.getDatabaseService().getCategories();
 
             // sort alphabetically
             if (categories != null) {

@@ -11,9 +11,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.rant.database.CouchDB;
-import com.rant.database.DatabaseSource;
-import com.rant.model.Config;
-import com.rant.model.Database;
+import com.rant.database.CouchDBSetup;
+import com.rant.database.DatabaseService;
+import com.rant.database.DatabaseSetup;
+import com.rant.objects.Config;
+import com.rant.objects.Database;
 
 /**
  * Application class loads the settings from application.properties file and and establishes the
@@ -26,7 +28,8 @@ public class Application implements ServletContextListener {
 
     private final static String PROP_FILE = "/rant.properties";
     private static Config config;
-    private static DatabaseSource database;
+    private static DatabaseService databaseService;
+    private static DatabaseSetup databaseSetup;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
@@ -35,18 +38,19 @@ public class Application implements ServletContextListener {
         config = loadSettingsFromFile(PROP_FILE);
 
         // Set Database
-        database = loadDatabase();
-        System.out.println("Using Database:\r\n" + database.getDatabase().toString());
+        Database db = loadDatabase();
+        System.out.println("Using Database:\r\n" + db.toString());
+        databaseService = new CouchDB(db);
 
         // Test Database
-        Setup setup = new Setup(database.getDatabase());
-        if (!setup.test()) {
+        databaseSetup = new CouchDBSetup(db);
+        if (!databaseSetup.test()) {
             // failure
             System.exit(1);
-        } else if (!setup.verify()) {
+        } else if (!databaseSetup.verify()) {
             System.out.println("Setup detected the Database is not configured properly.");
             // perform first-time install
-            if (!setup.install()) {
+            if (!databaseSetup.install()) {
                 // failed to install
                 System.exit(1);
             } else {
@@ -57,7 +61,7 @@ public class Application implements ServletContextListener {
         }
 
         // Load settings from Database
-        Config configdb = loadSettingsFromDB(database);
+        Config configdb = loadSettingsFromDB(databaseService);
         config.getSettings().putAll(configdb.getSettings());
 
         System.out.println("Started App. Time to Relax.");
@@ -84,11 +88,11 @@ public class Application implements ServletContextListener {
         return config;
     }
 
-    private Config loadSettingsFromDB(DatabaseSource dbs) {
+    private Config loadSettingsFromDB(DatabaseService dbs) {
         return dbs.getConfig();
     }
 
-    private DatabaseSource loadDatabase() {
+    private Database loadDatabase() {
         // check env variable
         String vcap = System.getenv("VCAP_SERVICES");
         Database db = new Database();
@@ -125,7 +129,7 @@ public class Application implements ServletContextListener {
                 e.printStackTrace();
             }
         }
-        return new CouchDB(db);
+        return db;
     }
 
     @Override
@@ -145,10 +149,19 @@ public class Application implements ServletContextListener {
     /**
      * Gets the currently used Database Service for this app.
      * 
-     * @return Database
+     * @return DatabaseService
      */
-    public static DatabaseSource getDatabaseSource() {
-        return database;
+    public static DatabaseService getDatabaseService() {
+        return databaseService;
+    }
+
+    /**
+     * Gets the currently used Database Setup for this app.
+     * 
+     * @return DatabaseSetup
+     */
+    public static DatabaseSetup getDatabaseSetup() {
+        return databaseSetup;
     }
 
     /**

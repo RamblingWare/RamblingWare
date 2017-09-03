@@ -10,7 +10,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
-import com.rant.model.Year;
+import com.rant.objects.Year;
 
 /**
  * Years action class
@@ -34,7 +34,7 @@ public class YearsAction extends ActionSupport
         // this shows all the years of blog posts
         try {
             // gather posts
-            years = Application.getDatabaseSource().getYears();
+            years = Application.getDatabaseService().getYears();
 
             // already sorted chronologically
 

@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Author;
+import com.rant.objects.Author;
 
 /**
  * Author action class
@@ -40,7 +40,7 @@ public class AuthorAction extends ActionSupport
         if (uriName != null && uriName.length() > 0) {
             // search in db for author
             try {
-                author = Application.getDatabaseSource().getAuthor(uriName, false);
+                author = Application.getDatabaseService().getAuthor(uriName, false);
 
                 if (author != null) {
                     // set attributes

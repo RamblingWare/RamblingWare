@@ -2,14 +2,14 @@ package com.rant.database;
 
 import java.util.List;
 
-import com.rant.model.Author;
-import com.rant.model.Category;
-import com.rant.model.Config;
-import com.rant.model.Post;
-import com.rant.model.Role;
-import com.rant.model.Tag;
-import com.rant.model.User;
-import com.rant.model.Year;
+import com.rant.objects.Author;
+import com.rant.objects.Category;
+import com.rant.objects.Config;
+import com.rant.objects.Post;
+import com.rant.objects.Role;
+import com.rant.objects.Tag;
+import com.rant.objects.User;
+import com.rant.objects.Year;
 
 /**
  * A blueprint to communicate to a Database Service.
@@ -17,19 +17,19 @@ import com.rant.model.Year;
  * @author Austin Delamar
  * @date 3/8/2017
  */
-public abstract class DatabaseSource {
+public abstract class DatabaseService {
 
-    protected com.rant.model.Database database;
+    protected com.rant.objects.Database database;
 
-    public DatabaseSource(com.rant.model.Database database) {
+    public DatabaseService(com.rant.objects.Database database) {
         this.database = database;
     }
 
-    public void setDatabase(com.rant.model.Database database) {
+    public void setDatabase(com.rant.objects.Database database) {
         this.database = database;
     }
 
-    public com.rant.model.Database getDatabase() {
+    public com.rant.objects.Database getDatabase() {
         return database;
     }
 

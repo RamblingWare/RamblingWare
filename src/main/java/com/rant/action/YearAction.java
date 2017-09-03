@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Post;
+import com.rant.objects.Post;
 
 /**
  * Year action class
@@ -51,7 +51,7 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             int yr = Integer.parseInt(year);
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByYear(page, Application.getInt("limit"), yr, false);
+            posts = Application.getDatabaseService().getPostsByYear(page, Application.getInt("limit"), yr, false);
 
             // determine pagination
             if (posts != null) {

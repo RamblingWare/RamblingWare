@@ -13,7 +13,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Post;
+import com.rant.objects.Post;
 
 /**
  * View RSS action class
@@ -49,7 +49,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
         try {
 
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(1, Application.getInt("limit"), false);
+            posts = Application.getDatabaseService().getPosts(1, Application.getInt("limit"), false);
             for (Post post : posts) {
                 response += "<item><title>" + post.getTitle() + "</title>\n" + "<description>"
                         + post.getDescription() + "</description>\n" + "<pubDate>"

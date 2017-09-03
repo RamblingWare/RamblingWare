@@ -19,8 +19,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.User;
-import com.rant.model.Error;
+import com.rant.objects.Error;
+import com.rant.objects.User;
 
 /**
  * Login action class
@@ -96,7 +96,7 @@ public class LoginAction extends ActionSupport
         }
 
         try {
-            user = Application.getDatabaseSource().getUser(username);
+            user = Application.getDatabaseService().getUser(username);
 
             if (user != null && Hash.verify(password, user.getPassword())) {
                 // password matches!

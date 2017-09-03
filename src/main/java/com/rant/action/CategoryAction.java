@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Post;
+import com.rant.objects.Post;
 
 /**
  * Category action class
@@ -51,7 +51,7 @@ public class CategoryAction extends ActionSupport
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPostsByCategory(page, Application.getInt("limit"), category,
+            posts = Application.getDatabaseService().getPostsByCategory(page, Application.getInt("limit"), category,
                     false);
 
             // determine pagination

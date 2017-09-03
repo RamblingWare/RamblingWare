@@ -12,7 +12,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.model.Post;
+import com.rant.objects.Post;
 
 /**
  * Blog list action class
@@ -45,7 +45,7 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             }
 
             // gather posts
-            posts = Application.getDatabaseSource().getPosts(page, Application.getInt("limit"),
+            posts = Application.getDatabaseService().getPosts(page, Application.getInt("limit"),
                     false);
             
             // already sorted newest first

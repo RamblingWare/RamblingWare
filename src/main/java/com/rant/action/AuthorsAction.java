@@ -12,7 +12,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
-import com.rant.model.Author;
+import com.rant.objects.Author;
 
 /**
  * Authors action class
@@ -35,7 +35,7 @@ public class AuthorsAction extends ActionSupport
 
         // this shows all the authors
         try {
-            authors = Application.getDatabaseSource().getAuthors(1, Application.getInt("limit"),
+            authors = Application.getDatabaseService().getAuthors(1, Application.getInt("limit"),
                     false);
 
             // sort alphabetically

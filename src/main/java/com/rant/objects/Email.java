@@ -1,4 +1,4 @@
-package com.rant.model;
+package com.rant.objects;
 /**
  * Email message class is used for queuing emails for the daemon service to send.
  * 

@@ -1,4 +1,4 @@
-package com.rant.config;
+package com.rant.database;
 
 import java.io.InvalidClassException;
 import java.net.HttpURLConnection;
@@ -18,25 +18,24 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.cloudant.http.Http;
 import com.cloudant.http.HttpConnection;
 import com.google.gson.JsonObject;
-import com.rant.model.Author;
-import com.rant.model.Role;
+import com.rant.config.Application;
+import com.rant.config.Utils;
+import com.rant.objects.Author;
+import com.rant.objects.Role;
 
-public class Setup {
+public class CouchDBSetup extends DatabaseSetup {
 
-    protected com.rant.model.Database database;
-
-    public Setup(com.rant.model.Database database) {
-        this.database = database;
+    public CouchDBSetup(com.rant.objects.Database database) {
+        super(database);
     }
 
-    public void setDatabase(com.rant.model.Database database) {
-        this.database = database;
-    }
-
-    public com.rant.model.Database getDatabase() {
-        return database;
-    }
-
+    /**
+     * Obtains a connection to the CouchDB if possible.
+     * 
+     * @return CloudantClient connection
+     * @throws MalformedURLException
+     *             if invalid url
+     */
     private CloudantClient getConnection() throws MalformedURLException {
         return ClientBuilder.url(new URL(database.getUrl())).username(database.getUsername())
                 .password(database.getPassword()).build();
@@ -121,7 +120,7 @@ public class Setup {
 
             Database roles = client.database("roles", false);
             roles.getDesignDocumentManager().get("_design/rolesdesign");
-            
+
             Database authors = client.database("authors", false);
             authors.getDesignDocumentManager().get("_design/authorsdesign");
 
@@ -148,12 +147,12 @@ public class Setup {
     public boolean install() {
         try {
             CloudantClient client = getConnection();
-            
+
             client.createDB("_users");
             client.createDB("_replicator");
             client.createDB("_global_changes");
             client.createDB("_metadata");
-            
+
             // TODO create CouchDB permissions
             // - role = author
             // - role = admin
@@ -165,24 +164,27 @@ public class Setup {
             roles.getDesignDocumentManager().put(rolesdesign);
             List<Role> defaultRoles = getDefaultRoles();
             roles.bulk(defaultRoles);
-            
+
             // create default _user credentials
-            HttpConnection request = Http.PUT(new URL(client.getBaseUri() +
-                    "/_users/org.couchdb.user:admin"), "application/json");
-            request.setRequestBody("{\"_id\":\"org.couchdb.user:admin\",\"name\":\"admin\",\"password\":\"admin\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
+            HttpConnection request = Http.PUT(
+                    new URL(client.getBaseUri() + "/_users/org.couchdb.user:admin"),
+                    "application/json");
+            request.setRequestBody(
+                    "{\"_id\":\"org.couchdb.user:admin\",\"name\":\"admin\",\"password\":\"admin\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
             HttpConnection response = client.executeRequest(request);
             if (response.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create admin
-                throw new Exception("Failed to create default user 'admin'. Exception occured during install.");
+                throw new Exception(
+                        "Failed to create default user 'admin'. Exception occured during install.");
             }
-            //response.disconnect();
-            
+            // response.disconnect();
+
             // create default user profile
             Database authors = client.database("authors", true);
             DesignDocument authorsdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/authorsdesign.json"));
             authors.getDesignDocumentManager().put(authorsdesign);
-            
+
             Author user = new Author("admin");
             user.setName("Admin");
             user.setRole(defaultRoles.get(0));
@@ -191,13 +193,13 @@ public class Setup {
             user.setEmail("");
             user.setThumbnail("");
             authors.save(user);
-            
+
             // create dbs
             Database blog = client.database("blog", true);
             DesignDocument blogdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/blogdesign.json"));
             blog.getDesignDocumentManager().put(blogdesign);
-            
+
             Database views = client.database("views", true);
             DesignDocument viewsdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/viewsdesign.json"));

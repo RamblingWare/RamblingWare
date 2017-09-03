@@ -1,4 +1,4 @@
-package com.rant.model;
+package com.rant.objects;
 
 import java.util.Date;
 
