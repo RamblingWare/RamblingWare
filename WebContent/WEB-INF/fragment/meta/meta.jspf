@@ -1,4 +1,4 @@
-<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rant.config.Application" %>
+<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rant.config.Application" %><%@ page import="com.rant.config.Utils" %>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -8,6 +8,8 @@
 <meta name="keywords" content="<%=Application.getString("keywords")%>"/>
 <meta name="description" content="<%=Application.getString("description")%>"/>
 <meta name="robots" content="all"/>
+<meta http-equiv="cache-control" content="public"/>
+<meta http-equiv="expires" content="<%=Utils.getDateRfc1123()%>"/>
 <%@include file="/WEB-INF/fragment/meta/meta-webapp.jspf"%>
 
 <!-- Facebook Open Graph -->

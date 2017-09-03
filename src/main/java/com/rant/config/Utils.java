@@ -39,19 +39,41 @@ public class Utils {
     private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
             "MMM dd, yyyy (hh:mm:ss a)");
     private static final DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
-
-    private static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("UTC");
-    private static final DateFormat ISO8601FORM = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+    private static final DateFormat ISO8601FORM = new SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static final DateFormat RFC1123FORM = new SimpleDateFormat(
+            "EEE, dd MMM yyyy HH:mm:ss z");
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+    static {
+        ISO8601FORM.setTimeZone(TimeZone.getTimeZone("UTC"));
+        RFC1123FORM.setTimeZone(TimeZone.getTimeZone("GMT"));
+    }
 
     /**
      * Gets the current time in a readable format. "MMM dd, yyyy (hh:mm:ss a)"
      * 
-     * @return "MMM dd, yyyy"
+     * @return String
      */
     public static String getDate() {
         return formatReadableDate(new Date(System.currentTimeMillis()));
+    }
+    
+    /**
+     * Gets the current time in ISO 8601 format. "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+     * @return String
+     */
+    public static String getDateIso8601() {
+        return formatIso8601Date(new Date(System.currentTimeMillis()));
+    }
+
+    /**
+     * Gets the current time in RFC 1123 format. "EEE, dd MMM yyyy HH:mm:ss z"
+     * @return String
+     */
+    public static String getDateRfc1123() {
+        return formatRfc1123Date(new Date(System.currentTimeMillis()));
     }
 
     /**
@@ -206,18 +228,31 @@ public class Utils {
     }
 
     /**
-     * Get a ISO 8601 format of the given datetime. "yyyy-MM-dd'T'HH:mm:ss'Z'"
+     * Get a ISO 8601 format of the given datetime. "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
      * 
      * @param dateTime
-     *            "yyyy-MM-dd'T'HH:mm:ss'Z'"
-     * @return String
+     *            java.util.Date
+     * @return String "yyyy-MM-dd'T'HH:mm:ss'Z'"
      */
     public static String formatIso8601Date(Date dateTime) {
         if (dateTime == null) {
             return "Null";
         }
-        ISO8601FORM.setTimeZone(UTC_TIMEZONE);
         return ISO8601FORM.format(dateTime);
+    }
+
+    /**
+     * Get a RFC 1123 format of the given datetime. "EEE, dd MMM yyyy HH:mm:ss z"
+     * 
+     * @param dateTime
+     *            java.util.Date
+     * @return String "EEE, dd MMM yyyy HH:mm:ss z"
+     */
+    public static String formatRfc1123Date(Date dateTime) {
+        if (dateTime == null) {
+            return "Null";
+        }
+        return RFC1123FORM.format(dateTime);
     }
 
     /**
