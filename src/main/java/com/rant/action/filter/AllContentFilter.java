@@ -76,7 +76,7 @@ public class AllContentFilter implements Filter {
         response.addHeader("X-Content-Type-Options", "nosniff");
 
         // Replace information that might reveal too much to help potential attackers to exploit the
-        // server.
+        // server. Alternatively, you could put bogus info here, like .NET or other irrelevant tech.
         response.setHeader("X-Powered-By", "");
         response.setHeader("Server", "");
 

@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-nocache.jspf"%>
 
 <title>404 File Not Found - <%=Application.getString("name")%></title>
 </head>

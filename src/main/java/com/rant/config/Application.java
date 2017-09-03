@@ -60,7 +60,7 @@ public class Application implements ServletContextListener {
         Config configdb = loadSettingsFromDB(database);
         config.getSettings().putAll(configdb.getSettings());
 
-        System.out.println("Started Ranting!");
+        System.out.println("Started App. Time to Relax.");
     }
 
     private Config loadSettingsFromFile(String propertiesFile) {
@@ -130,7 +130,7 @@ public class Application implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
-        System.out.println("Stopped Ranting.");
+        System.out.println("Stopped App.");
     }
 
     /**

@@ -51,11 +51,11 @@
 		
 		<!-- RSS and Search -->
 		<action name="rss" class="com.rant.action.RssAction">
-			<!-- success already returns the RSS XML -->
+			<!-- Success already returns XML -->
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		<action name="search" class="com.rant.action.SearchAction">
-			<!-- success already redirects to search website -->
+			<!-- Success already redirects to external website -->
 			<result name="input">/WEB-INF/other/search.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
@@ -217,18 +217,13 @@
 		</action>
 		
 		<action name="login" class="com.rant.action.dashboard.LoginAction">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/dashboard/index.html</result>
-		    <result name="input">/WEB-INF/manage/otp.jsp</result>
-		    <result name="none">/WEB-INF/manage/login.jsp</result>
-			<result name="error">/WEB-INF/manage/login.jsp</result>
+			<!-- Success already returns JSON -->
+			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
 		<action name="forgot" class="com.rant.action.dashboard.ForgotAction">
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/WEB-INF/manage/forgot.jsp</result>
-		    <result name="none">/WEB-INF/manage/forgot.jsp</result>
-			<result name="error">/WEB-INF/manage/forgot.jsp</result>
+			<!-- Success already returns JSON -->
+			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
 		
 	</package>

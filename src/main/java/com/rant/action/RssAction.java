@@ -65,13 +65,11 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
             }
 
             response += "<lastBuildDate>" + Utils.getDate() + "</lastBuildDate>\n";
-
             response += "</channel>\n</rss>";
 
-            PrintWriter out = null;
             try {
                 // return message to user
-                out = ServletActionContext.getResponse().getWriter();
+                PrintWriter out = ServletActionContext.getResponse().getWriter();
                 ServletActionContext.getResponse().setContentType("text/xml");
                 out.write(response);
             } catch (Exception e) {

@@ -4,13 +4,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta/meta-manage.jspf"%>
+<%@include file="/WEB-INF/fragment/meta/meta-nocache.jspf"%>
 
 <title>Error - <%=Application.getString("name")%></title>
 </head>
 <body class="w3-theme-dark">
 
-	<%@include file="/WEB-INF/fragment/header-no-messages.jspf"%>
+	<%@include file="/WEB-INF/fragment/header.jspf"%>
 	
 	<article class="w3-theme-light">
 		<div class="page w3-row">

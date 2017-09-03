@@ -1,21 +1,26 @@
 package com.rant.action.dashboard;
 
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.amdelamar.jhash.Hash;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.model.User;
+import com.rant.model.Error;
 
 /**
  * Login action class
@@ -48,17 +53,34 @@ public class LoginAction extends ActionSupport
         if (sessionAttributes.get("login") != null) {
             // logged in already.
             addActionMessage("You are already logged in.");
-            return SUCCESS;
+            //return SUCCESS;
         }
 
         // now try to see if they can login
         if (username != null && password != null) {
             // logging in with password
-            return passwordLogin();
+            //return passwordLogin();
         } else {
             // they opened the form
-            return NONE;
+            //return NONE;
         }
+        
+        Error error = new Error();
+        error.setCode(500);
+        error.setMessage("Login Service not implemented yet. Sorry!");
+        
+        try {
+            // return message to user
+            PrintWriter out = ServletActionContext.getResponse().getWriter();
+            ServletActionContext.getResponse().setContentType("application/json");
+            Gson gson = new Gson();
+            out.write(gson.toJson(error).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            addActionError("Error: " + e.getClass().getName() + ". " + e.getMessage());
+        }
+        // no action return
+        return NONE;
     }
 
     /**
