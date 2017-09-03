@@ -1,25 +1,17 @@
 package com.rant.action.dashboard;
 
-import java.io.PrintWriter;
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
-import com.amdelamar.jhash.Hash;
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.objects.Error;
 import com.rant.objects.User;
 
 /**
@@ -45,88 +37,73 @@ public class LoginAction extends ActionSupport
     private int attempts = 0;
     private long lastAttempt = 0;
 
+    // JSON response
+    private String login;
+    private String error;
+    private String message;
+    private String couchdb;
+
     @Override
     public String execute() {
+
+        try {
+            // check if locked out
+            // check inputs
+            if (!isLockedOut() && validParameters()) {
+                // try login
+                user = Application.getDatabaseService().getUser(username);
+
+                if (user != null) { // && Hash.verify(password, user.getPassword())) {
+                    // password matches!
+                    // Login success
+
+                    login = "ok";
+                    message = "Welcome, " + user.getName() + ".";
+                    couchdb = Application.getDatabaseService().getDatabase().getUrl();
+
+                    sessionAttributes.remove("attempts");
+                    sessionAttributes.remove("lastAttempt");
+                    sessionAttributes = ActionContext.getContext().getSession();
+                    sessionAttributes.put("login", "true");
+                    sessionAttributes.put("context", Utils.getDateIso8601());
+                    sessionAttributes.put("USER", user);
+                    addActionMessage("Welcome, " + user.getName() + ".");
+                    System.out.println("User logged in: " + user.getName() + " ("
+                            + servletRequest.getRemoteAddr() + ")");
+
+                } else {
+                    // no user found
+                    System.out.println("User failed to login. Invalid Username was entered "
+                            + username + " (" + attempts + "/" + maxAttempts + ") ("
+                            + servletRequest.getRemoteAddr() + ")");
+                    throw new Exception(
+                            "Invalid username or password. (" + attempts + "/" + maxAttempts + ")");
+                }
+            }
+        } catch (Exception e) {
+            error = "ok";
+            message = "Error: " + e.getMessage();
+        }
+
+        // return response
+        System.out.println(message);
+        return NONE;
+    }
+
+    private boolean validParameters() throws Exception {
 
         // are they already logged in?
         sessionAttributes = ActionContext.getContext().getSession();
         if (sessionAttributes.get("login") != null) {
-            // logged in already.
-            addActionMessage("You are already logged in.");
-            //return SUCCESS;
+            // throw new Exception("You are already logged in.");
         }
 
-        // now try to see if they can login
-        if (username != null && password != null) {
-            // logging in with password
-            //return passwordLogin();
+        if (username == null || username.isEmpty()) {
+            throw new Exception("Invalid or missing username.");
+        } else if (password == null || password.isEmpty()) {
+            throw new Exception("Invalid or missing password.");
         } else {
-            // they opened the form
-            //return NONE;
-        }
-        
-        Error error = new Error();
-        error.setCode(500);
-        error.setMessage("Login Service not implemented yet. Sorry!");
-        
-        try {
-            // return message to user
-            PrintWriter out = ServletActionContext.getResponse().getWriter();
-            ServletActionContext.getResponse().setContentType("application/json");
-            Gson gson = new Gson();
-            out.write(gson.toJson(error).toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            addActionError("Error: " + e.getClass().getName() + ". " + e.getMessage());
-        }
-        // no action return
-        return NONE;
-    }
-
-    /**
-     * Check if they can login with the password entered.
-     * 
-     * @return SUCCESS if true, INPUT if wrong code, or ERROR if error occurred
-     */
-    private String passwordLogin() {
-
-        // check if locked out
-        if (isLockedOut()) {
-            return Action.ERROR;
-        }
-
-        try {
-            user = Application.getDatabaseService().getUser(username);
-
-            if (user != null && Hash.verify(password, user.getPassword())) {
-                // password matches!
-                // Login success
-
-                sessionAttributes.remove("attempts");
-                sessionAttributes.remove("lastAttempt");
-                sessionAttributes = ActionContext.getContext().getSession();
-                sessionAttributes.put("login", "true");
-                sessionAttributes.put("context", new Date());
-                sessionAttributes.put("USER", user);
-                addActionMessage("Welcome, " + user.getName() + ".");
-                System.out.println("User logged in: " + user.getName() + " ("
-                        + servletRequest.getRemoteAddr() + ")");
-
-                return SUCCESS;
-
-            } else {
-                // no user found
-                addActionError(
-                        "Invalid username or password. (" + attempts + "/" + maxAttempts + ")");
-                System.out.println("User failed to login. Invalid Username was entered " + username
-                        + " (" + attempts + "/" + maxAttempts + ") ("
-                        + servletRequest.getRemoteAddr() + ")");
-                return ERROR;
-            }
-        } catch (Exception e) {
-            addActionError(e.getMessage());
-            e.printStackTrace();
-            return ERROR;
+            return true;
         }
     }
 
@@ -135,8 +112,9 @@ public class LoginAction extends ActionSupport
      * 
      * @return true if locked out
      */
-    private boolean isLockedOut() {
+    private boolean isLockedOut() throws Exception {
 
+        sessionAttributes = ActionContext.getContext().getSession();
         // count login attempts
         // and remember when their last attempt was
         if (sessionAttributes.get("attempts") == null) {
@@ -169,9 +147,8 @@ public class LoginAction extends ActionSupport
                 System.err.println("Unknown user has been locked out for " + lockoutPeriod
                         + " min. (" + servletRequest.getRemoteAddr() + ")("
                         + servletRequest.getRemoteHost() + ") ");
-                addActionError("You have been locked out for the next " + lockoutPeriod
+                throw new Exception("You have been locked out for the next " + lockoutPeriod
                         + " minutes, for too many attempts.");
-                return true;
             }
         }
         return false;
@@ -221,6 +198,38 @@ public class LoginAction extends ActionSupport
 
     public int getAttempts() {
         return attempts;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getCouchdb() {
+        return couchdb;
+    }
+
+    public void setCouchdb(String couchdb) {
+        this.couchdb = couchdb;
     }
 
 }

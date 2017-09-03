@@ -208,7 +208,7 @@
 	</package>
 	
 	<!-- /DASHBOARD/ -->
-	<package name="dashboard" namespace="/dashboard" extends="root">
+	<package name="dashboard" namespace="/dashboard" extends="root,json-default">
 	
 		<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
 		
@@ -217,8 +217,12 @@
 		</action>
 		
 		<action name="login" class="com.rant.action.dashboard.LoginAction">
-			<!-- Success already returns JSON -->
-			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="includeProperties">
+					error,login,message,couchdb
+				</param>
+			</result>
 		</action>
 		
 		<action name="forgot" class="com.rant.action.dashboard.ForgotAction">

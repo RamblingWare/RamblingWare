@@ -150,8 +150,6 @@ public class CouchDBSetup extends DatabaseSetup {
 
             client.createDB("_users");
             client.createDB("_replicator");
-            client.createDB("_global_changes");
-            client.createDB("_metadata");
 
             // TODO create CouchDB permissions
             // - role = author
