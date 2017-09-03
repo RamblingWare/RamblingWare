@@ -82,7 +82,7 @@ public class CouchDB extends DatabaseSource {
             } else {
                 // get author for each post
                 try {
-                    db = client.database("access", false);
+                    db = client.database("authors", false);
                     post.setAuthor(db.find(Author.class, post.getAuthor_id()));
                 } catch (Exception e) {
                     // ignore.
@@ -120,7 +120,7 @@ public class CouchDB extends DatabaseSource {
         Author author = null;
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("access", false);
+            Database db = client.database("authors", false);
 
             author = db.find(Author.class, uri);
 
@@ -138,16 +138,16 @@ public class CouchDB extends DatabaseSource {
         List<Author> authors = new ArrayList<Author>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("access", false);
+            Database db = client.database("authors", false);
 
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("accessdesign", "users")
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("authorsdesign", "authors")
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .includeDocs(true).build().getResponse();
 
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("accessdesign", "users")
+                    pg = db.getViewRequestBuilder("authorsdesign", "authors")
                             .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                             .includeDocs(true).build().getResponse(pg.getNextPageToken());
                 } else {
@@ -307,7 +307,7 @@ public class CouchDB extends DatabaseSource {
             for (Post post : posts) {
                 // get author for each post
                 try {
-                    db = client.database("access", false);
+                    db = client.database("authors", false);
                     post.setAuthor(db.find(Author.class, post.getAuthor_id()));
                 } catch (Exception e) {
                     // ignore.
@@ -369,7 +369,7 @@ public class CouchDB extends DatabaseSource {
             for (Post post : posts) {
                 // get author for each post
                 try {
-                    db = client.database("access", false);
+                    db = client.database("authors", false);
                     post.setAuthor(db.find(Author.class, post.getAuthor_id()));
                 } catch (Exception e) {
                     // ignore.
@@ -430,7 +430,7 @@ public class CouchDB extends DatabaseSource {
             for (Post post : posts) {
                 // get author for each post
                 try {
-                    db = client.database("access", false);
+                    db = client.database("", false);
                     post.setAuthor(db.find(Author.class, post.getAuthor_id()));
                 } catch (Exception e) {
                     // ignore.
@@ -494,7 +494,7 @@ public class CouchDB extends DatabaseSource {
             for (Post post : posts) {
                 // get author for each post
                 try {
-                    db = client.database("access", false);
+                    db = client.database("authors", false);
                     post.setAuthor(db.find(Author.class, post.getAuthor_id()));
                 } catch (Exception e) {
                     // ignore.
