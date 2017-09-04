@@ -547,13 +547,13 @@ public class CouchDB extends DatabaseService {
     }
 
     @Override
-    public User getUser(String name) {
+    public User getUser(String username) {
         User user = null;
         try {
             CloudantClient client = getConnection();
             Database db = client.database("_users", false);
 
-            user = db.find(User.class, "org.couchdb.user:" + name.toLowerCase());
+            user = db.find(User.class, "org.couchdb.user:" + username.toLowerCase());
 
         } catch (NoDocumentException e) {
             user = null;
@@ -562,6 +562,22 @@ public class CouchDB extends DatabaseService {
             e.printStackTrace();
         }
         return user;
+    }
+
+    @Override
+    public boolean loginUser(String username, String password) {
+        try {
+            CloudantClient client = ClientBuilder.url(new URL(database.getUrl())).username(username)
+                    .password(password).build();
+
+            Database db = client.database("_users", false);
+            db.find(User.class, "org.couchdb.user:" + username.toLowerCase());
+
+            return true;
+        } catch (Exception e) {
+            // quietly ignore.
+            return false;
+        }
     }
 
     @Override

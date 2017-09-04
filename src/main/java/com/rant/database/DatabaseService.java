@@ -65,8 +65,10 @@ public abstract class DatabaseService {
 
     public abstract List<Role> getRoles();
     
-    public abstract User getUser(String name);
+    public abstract User getUser(String username);
 
+    public abstract boolean loginUser(String username, String password);
+    
     public abstract boolean incrementPageViews(Post post, boolean sessionView);
 
 }

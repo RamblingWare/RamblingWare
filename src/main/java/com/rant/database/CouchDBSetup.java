@@ -112,8 +112,6 @@ public class CouchDBSetup extends DatabaseSetup {
 
             client.database("_users", false);
             client.database("_replicator", false);
-            // don't check _metadata because its optional
-            // don't check _global_changes because its optional
 
             Database blog = client.database("blog", false);
             blog.getDesignDocumentManager().get("_design/blogdesign");
@@ -175,7 +173,7 @@ public class CouchDBSetup extends DatabaseSetup {
                 throw new Exception(
                         "Failed to create default user 'admin'. Exception occured during install.");
             }
-            // response.disconnect();
+            response.disconnect();
 
             // create default user profile
             Database authors = client.database("authors", true);

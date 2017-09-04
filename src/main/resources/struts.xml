@@ -218,16 +218,22 @@
 		
 		<action name="login" class="com.rant.action.dashboard.LoginAction">
 			<result name="none" type="json">
+				<param name="noCache">true</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="includeProperties">
-					error,login,message,couchdb
+					error,login,message,data.*
 				</param>
 			</result>
 		</action>
 		
 		<action name="forgot" class="com.rant.action.dashboard.ForgotAction">
-			<!-- Success already returns JSON -->
-			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="none" type="json">
+				<param name="noCache">true</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="includeProperties">
+					error,forgot,message,data.*
+				</param>
+			</result>
 		</action>
 		
 	</package>

@@ -1,6 +1,8 @@
 package com.rant.action.dashboard;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +14,6 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
 import com.rant.config.Utils;
-import com.rant.objects.User;
 
 /**
  * Login action class
@@ -26,14 +27,13 @@ public class LoginAction extends ActionSupport
             ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-    private User user;
     private Map<String, Object> sessionAttributes = null;
     private String username;
     private String password;
     private String code;
 
-    private int lockoutPeriod = 30; // minutes
-    private int maxAttempts = 3;
+    private static final int LOCKOUT_MINS = 30; // minutes
+    private static final int MAX_ATTEMPTS = 3;
     private int attempts = 0;
     private long lastAttempt = 0;
 
@@ -41,48 +41,59 @@ public class LoginAction extends ActionSupport
     private String login;
     private String error;
     private String message;
-    private String couchdb;
+    private Map<String, String> data;
 
+    @SuppressWarnings("unchecked")
     @Override
     public String execute() {
 
         try {
+            sessionAttributes = ActionContext.getContext().getSession();
+            // are they already logged in?
+            if (sessionAttributes.get("login") != null) {
+                login = "ok";
+                data = (Map<String, String>) sessionAttributes.get("data");
+                message = "Welcome back, " + data.get("username") + ".";
+                data.put("token", UUID.randomUUID().toString());
+                data.put("time", Utils.getDateIso8601());
+            }
+
             // check if locked out
             // check inputs
-            if (!isLockedOut() && validParameters()) {
-                // try login
-                user = Application.getDatabaseService().getUser(username);
+            if (login == null && !isLockedOut() && validParameters()) {
 
-                if (user != null) { // && Hash.verify(password, user.getPassword())) {
-                    // password matches!
+                // try login
+                if (Application.getDatabaseService().loginUser(username, password)) {
                     // Login success
 
                     login = "ok";
-                    message = "Welcome, " + user.getName() + ".";
-                    couchdb = Application.getDatabaseService().getDatabase().getUrl();
+                    message = "Welcome, " + username + ".";
+                    data = new HashMap<String, String>();
+                    data.put("url", Application.getDatabaseService().getDatabase().getUrl());
+                    data.put("username", username);
+                    data.put("token", UUID.randomUUID().toString());
+                    data.put("time", Utils.getDateIso8601());
 
                     sessionAttributes.remove("attempts");
                     sessionAttributes.remove("lastAttempt");
-                    sessionAttributes = ActionContext.getContext().getSession();
                     sessionAttributes.put("login", "true");
-                    sessionAttributes.put("context", Utils.getDateIso8601());
-                    sessionAttributes.put("USER", user);
-                    addActionMessage("Welcome, " + user.getName() + ".");
-                    System.out.println("User logged in: " + user.getName() + " ("
+                    sessionAttributes.put("data", data);
+                    addActionMessage("Welcome, " + username + ".");
+                    System.out.println("User logged in: " + username + " ("
                             + servletRequest.getRemoteAddr() + ")");
 
                 } else {
                     // no user found
                     System.out.println("User failed to login. Invalid Username was entered "
-                            + username + " (" + attempts + "/" + maxAttempts + ") ("
+                            + username + " (" + attempts + " of " + MAX_ATTEMPTS + ") ("
                             + servletRequest.getRemoteAddr() + ")");
-                    throw new Exception(
-                            "Invalid username or password. (" + attempts + "/" + maxAttempts + ")");
+                    throw new Exception("Invalid username or password. (" + attempts + " of "
+                            + MAX_ATTEMPTS + ")");
                 }
             }
         } catch (Exception e) {
-            error = "ok";
-            message = "Error: " + e.getMessage();
+            error = "error";
+            message = e.getMessage();
         }
 
         // return response
@@ -90,14 +101,14 @@ public class LoginAction extends ActionSupport
         return NONE;
     }
 
+    /**
+     * Check username and password parameters.
+     * 
+     * @return true if ok
+     * @throws Exception
+     *             if invalid
+     */
     private boolean validParameters() throws Exception {
-
-        // are they already logged in?
-        sessionAttributes = ActionContext.getContext().getSession();
-        if (sessionAttributes.get("login") != null) {
-            // throw new Exception("You are already logged in.");
-        }
-
         if (username == null || username.isEmpty()) {
             throw new Exception("Invalid or missing username.");
         } else if (password == null || password.isEmpty()) {
@@ -111,10 +122,10 @@ public class LoginAction extends ActionSupport
      * Check if the user has attempted too many times, and lock them out if they have.
      * 
      * @return true if locked out
+     * @throws Exception
+     *             if locked out
      */
     private boolean isLockedOut() throws Exception {
-
-        sessionAttributes = ActionContext.getContext().getSession();
         // count login attempts
         // and remember when their last attempt was
         if (sessionAttributes.get("attempts") == null) {
@@ -132,22 +143,22 @@ public class LoginAction extends ActionSupport
         sessionAttributes.put("lastAttempt", lastAttempt);
 
         // lockout for 30 min, if they failed 3 times
-        if (attempts >= maxAttempts) {
+        if (attempts >= MAX_ATTEMPTS) {
 
-            if (System.currentTimeMillis() >= (lastAttempt + (lockoutPeriod * 60 * 1000))) {
+            if (System.currentTimeMillis() >= (lastAttempt + (LOCKOUT_MINS * 60 * 1000))) {
                 // its been 30mins or more, so unlock
                 sessionAttributes.remove("attempts");
                 sessionAttributes.remove("lastAttempt");
-                System.err.println("Unknown user has waited " + lockoutPeriod + " min, proceed. ("
+                System.err.println("Unknown user has waited " + LOCKOUT_MINS + " min, proceed. ("
                         + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost()
                         + ")");
                 return false;
             } else {
                 // they have already been locked out
-                System.err.println("Unknown user has been locked out for " + lockoutPeriod
+                System.err.println("Unknown user has been locked out for " + LOCKOUT_MINS
                         + " min. (" + servletRequest.getRemoteAddr() + ")("
                         + servletRequest.getRemoteHost() + ") ");
-                throw new Exception("You have been locked out for the next " + lockoutPeriod
+                throw new Exception("You have been locked out for the next " + LOCKOUT_MINS
                         + " minutes, for too many attempts.");
             }
         }
@@ -224,12 +235,12 @@ public class LoginAction extends ActionSupport
         this.message = message;
     }
 
-    public String getCouchdb() {
-        return couchdb;
+    public Map<String, String> getData() {
+        return data;
     }
 
-    public void setCouchdb(String couchdb) {
-        this.couchdb = couchdb;
+    public void setData(Map<String, String> data) {
+        this.data = data;
     }
 
 }
