@@ -6,15 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
@@ -112,36 +107,6 @@ public class Utils {
         // cookie will last 1 year
         cookie.setMaxAge(60 * 60 * 24 * 365);
         servletResponse.addCookie(cookie);
-    }
-
-    /**
-     * Converts the ResultSet to an ArrayList of HashMap records.
-     * 
-     * @param ResultSet
-     *            SQL results from query
-     * @return ArrayList of HashMaps
-     * @throws SQLException
-     *             if resultset is null or closed
-     */
-    public static ArrayList<HashMap<String, Object>> resultSetToHashMapArrayList(ResultSet rs)
-            throws SQLException {
-        ResultSetMetaData md = rs.getMetaData();
-        int columns = md.getColumnCount();
-        ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-
-        while (rs.next()) {
-            HashMap<String, Object> row = new HashMap<String, Object>(columns);
-            for (int i = 1; i <= columns; ++i) {
-                if (md.getColumnName(i).equals("DocumentScanDate")) {
-                    row.put(md.getColumnName(i), formatReadableDate(rs.getDate(i)));
-                } else {
-                    row.put(md.getColumnName(i), rs.getObject(i));
-                }
-            }
-            list.add(row);
-        }
-
-        return list;
     }
 
     /**

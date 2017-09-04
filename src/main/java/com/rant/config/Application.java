@@ -67,7 +67,7 @@ public class Application implements ServletContextListener {
         System.out.println("Started App. Time to Relax.");
     }
 
-    private Config loadSettingsFromFile(String propertiesFile) {
+    protected Config loadSettingsFromFile(String propertiesFile) {
         Config config = new Config();
         try {
             HashMap<String, String> map = new HashMap<String, String>();
@@ -88,18 +88,18 @@ public class Application implements ServletContextListener {
         return config;
     }
 
-    private Config loadSettingsFromDB(DatabaseService dbs) {
+    protected Config loadSettingsFromDB(DatabaseService dbs) {
         return dbs.getConfig();
     }
 
-    private Database loadDatabase() {
+    protected Database loadDatabase() {
         // check env variable
         String vcap = System.getenv("VCAP_SERVICES");
         Database db = new Database();
         if (vcap == null || vcap.isEmpty()) {
             // if env is not available, then
             // run on local couchdb
-            System.err.println(
+            System.out.println(
                     "Failed to locate VCAP Object. Continuing with Datasource from properties.");
 
             db.setHost(getString("couchdb.host"));
@@ -125,7 +125,7 @@ public class Application implements ServletContextListener {
                 db.setPassword(couchdb.get("password").getAsString());
 
             } catch (Exception e) {
-                System.err.println("Failed to parse VCAP_SERVICES for Datasource properties.");
+                System.out.println("Failed to parse VCAP_SERVICES for Datasource properties.");
                 e.printStackTrace();
             }
         }
@@ -138,12 +138,28 @@ public class Application implements ServletContextListener {
     }
 
     /**
+     * Gets the properties file for this app.
+     * @return String filename
+     */
+    public static String getPropFile() {
+        return PROP_FILE;
+    }
+
+    /**
      * Gets the currently used Config for this app.
      * 
      * @return Config
      */
     public static Config getConfig() {
         return config;
+    }
+
+    /**
+     * Sets the configuration settings for this app.
+     * @param config
+     */
+    public static void setConfig(Config config) {
+        Application.config = config;
     }
 
     /**
@@ -156,12 +172,28 @@ public class Application implements ServletContextListener {
     }
 
     /**
+     * Sets the Database Service for this app.
+     * @param databaseService
+     */
+    public static void setDatabaseService(DatabaseService databaseService) {
+        Application.databaseService = databaseService;
+    }
+
+    /**
      * Gets the currently used Database Setup for this app.
      * 
      * @return DatabaseSetup
      */
     public static DatabaseSetup getDatabaseSetup() {
         return databaseSetup;
+    }
+
+    /**
+     * Sets the Database Setup for this app.
+     * @param databaseSetup
+     */
+    public static void setDatabaseSetup(DatabaseSetup databaseSetup) {
+        Application.databaseSetup = databaseSetup;
     }
 
     /**
