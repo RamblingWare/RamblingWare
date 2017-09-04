@@ -17,11 +17,11 @@ public class Author implements Comparable<Author> {
     private String name;
     private String email;
     private Role role;
-    
+
     private String thumbnail;
     private String description;
     private String content;
-    
+
     private Date createDate;
     private Date modifyDate;
 

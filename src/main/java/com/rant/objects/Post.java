@@ -13,7 +13,7 @@ import com.rant.config.Utils;
  * @created 11/24/2015
  */
 public class Post implements Comparable<Post> {
-    
+
     private String _id;
     private String _rev;
     private String title;
@@ -205,7 +205,13 @@ public class Post implements Comparable<Post> {
 
     @Override
     public int compareTo(Post post) {
-        return this.publishDate.compareTo(post.publishDate);
+        int comp = this.title.compareTo(post.title);
+        if(comp == 0) {
+            comp = this._id.compareTo(post._id);
+        }
+        return comp;
+                
+                
     }
 
 }

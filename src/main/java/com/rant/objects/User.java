@@ -22,11 +22,23 @@ public class User {
     // createDate ISO-8601 format
     // modifyDate ISO-8601 format
     
+    public User() {
+        // empty constructor
+    }
+    
+    public User(String _id) {
+        set_id(_id);
+    }
+    
     public String get_id() {
         return _id;
     }
     public void set_id(String _id) {
-        this._id = _id;
+        if(!_id.startsWith("org.couchdb.user:")) {
+            this._id = "org.couchdb.user:"+_id;
+        } else {
+            this._id = _id;
+        }
     }
     public String get_rev() {
         return _rev;

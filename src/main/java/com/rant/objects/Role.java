@@ -16,7 +16,7 @@ import java.util.Date;
  * @created 7/04/2017
  */
 public class Role {
-    
+
     private String _id;
     private String _rev;
     private String name;

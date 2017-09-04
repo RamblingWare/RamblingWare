@@ -2,6 +2,7 @@ package com.rant.objects;
 
 /**
  * Tag class
+ * 
  * @author Austin Delamar
  * @created 7/13/2017
  */

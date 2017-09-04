@@ -6,6 +6,7 @@ package com.rant.objects;
  * @date 11/9/2015
  */
 public class Email {
+
     private String to;
     private String from;
     private String subject;

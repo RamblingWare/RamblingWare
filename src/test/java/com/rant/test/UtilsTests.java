@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -25,15 +27,38 @@ public class UtilsTests {
 
         String time = Utils.formatTime(System.currentTimeMillis());
         assertNotNull(time);
-        
+
         time = Utils.formatLong(System.currentTimeMillis());
         assertNotNull(time);
+
+        time = Utils.getDate();
+        assertNotNull(time);
     }
-    
+
     @Test
-    public void formatURLs() {        
+    public void timeIso8601() {
+        Date date = new Date(System.currentTimeMillis());
+        String time1 = Utils.formatIso8601Date(date);
+        assertNotNull(time1);
+
+        String time2 = Utils.getDateIso8601();
+        assertNotNull(time2);
+    }
+
+    @Test
+    public void timeRfc1123() {
+        Date date = new Date(System.currentTimeMillis());
+        String time1 = Utils.formatRfc1123Date(date);
+        assertNotNull(time1);
+
+        String time2 = Utils.getDateRfc1123();
+        assertNotNull(time2);
+    }
+
+    @Test
+    public void formatURLs() {
         assertEquals("http://www.example.com", Utils.formatURL("www.example.com"));
-        
+
         assertEquals("TL;DR", Utils.formatURI("/\\TL;DR/"));
         assertEquals("test-one-test", Utils.formatURI("test one test"));
         assertEquals("Question", Utils.formatURI("Question?!"));
@@ -79,31 +104,32 @@ public class UtilsTests {
 
         String td = "June 27 2017";
         java.util.Date date = Utils.convertStringToDate(td);
-        
+
         assertNotNull(date);
         assertNotNull(Utils.getDate());
         assertNotNull(Utils.formatReadableDate(date));
         assertNotNull(Utils.formatReadableDateTime(date));
-        assertNotNull(Utils.formatSQLServerDate(date));        
+        assertNotNull(Utils.formatSQLServerDate(date));
     }
-    
+
     @Test
     public void stringTests() {
-        
+
         String temp = "  t e st  ";
-        assertEquals(Utils.removeAllSpaces(temp),"test");
-        
+        assertEquals(Utils.removeAllSpaces(temp), "test");
+
         temp = "/t@e's?t";
-        assertEquals(Utils.removeBadChars(temp),"test");
-        
+        assertEquals(Utils.removeBadChars(temp), "test");
+
         temp = "te\r\nst";
-        assertEquals(Utils.removeNonAsciiChars(temp),"test");
+        assertEquals(Utils.removeNonAsciiChars(temp), "test");
     }
-    
-    @Test public void fileLoading() {
-        
+
+    @Test
+    public void fileLoading() {
+
         assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
-        
+
         assertNotNull(Utils.downloadUrlFile("http://localhost:5984/"));
     }
 }
