@@ -5,7 +5,7 @@
 [![Codecov](https://img.shields.io/codecov/c/github/RamblingWare/Rant.svg)](https://codecov.io/gh/RamblingWare/Rant)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/Rant/blob/master/LICENSE)
 
-Blog management system on CouchDB. This is a web server for the [Rant](https://github.com/RamblingWare/Rant-Dashboard) dashboard. 
+Blog management system on CouchDB.
 
 > Live Example: coming soon...
 
@@ -24,8 +24,9 @@ Blog management system on CouchDB. This is a web server for the [Rant](https://g
 
 ## Usage
 
-This project is still in development. It is not easily modifiable for "new" blogs, but stay tuned. I plan to make a self-installing version once the main features are complete.
+This project is still in development. It is not easily modifiable for "new" blogs, but stay tuned. I plan to make a self-installing version once the main features are complete. Essentially, this is a web server for the [Rant](https://github.com/RamblingWare/Rant-Dashboard) dashboard. 
 
+<!--
 ### One-Click Deploy 
 
 Load this app onto on a Cloud Platform of your choice:
@@ -43,14 +44,15 @@ Sorry, Some of these might not work at this time.
 
 ### Manually Deploy
 
- 1. Install [CouchDB 2.0](https://couchdb.apache.org/)
+ 1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
  1. Download Rant: `rant-1.0.war`
  1. Deploy on your Server of choice (Tomcat, Liberty, WildFly).
  1. Visit `https://localhost:8443/` (depending on server).
+ -->
  
 ### Manually Build
 
- 1. Install [CouchDB 2.0](https://couchdb.apache.org/)
+ 1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
  1. Clone: `git clone https://github.com/RamblingWare/Rant`
  1. `cd Rant`
  1. Build: `gradle build`
@@ -64,7 +66,6 @@ Sorry, Some of these might not work at this time.
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache CouchDB 2.0](https://couchdb.apache.org/) NoSQL Database
  *  [Apache Tomcat 8.0](https://tomcat.apache.org/) Web Server
- *  Secure Password Hashing with [amdelamar/jhash](https://github.com/amdelamar/jhash)
  *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
 
 ## License
