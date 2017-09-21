@@ -37,18 +37,15 @@ Load this app onto on a Cloud Platform of your choice:
 [![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/RamblingWare/Rant)
 
 Sorry, Some of these might not work at this time.
+ -->
 
 ### Docker Deploy
 
- 1. Coming soon...
-
-### Manually Deploy
-
- 1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
- 1. Download Rant: `rant-1.0.war`
- 1. Deploy on your Server of choice (Tomcat, Liberty, WildFly).
- 1. Visit `https://localhost:8443/` (depending on server).
- -->
+ 1. Pull [CouchDB 2.0](https://hub.docker.com/r/klaemo/couchdb/) `docker pull klaemo/couchdb`
+ 1. Pull [Rant 1.0](https://hub.docker.com/r/rant/rant/) `docker pull rant/rant`
+ 1. Run CouchDB `docker run -d -p 5984:5984 --name rantdb klaemo/couchdb`
+ 1. Run Rant `docker run -p 8080:8080 --name rant rant/rant`
+ 1. Visit `http://localhost:8080/`
  
 ### Manually Build
 
