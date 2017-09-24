@@ -52,7 +52,7 @@ Sorry, Some of these might not work at this time.
  1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
  1. Clone: `git clone https://github.com/RamblingWare/Rant`
  1. `cd Rant`
- 1. Build: `gradle build`
+ 1. Build: `gradlew clean build`
  1. WAR file is located at: `/build/libs/rant-1.0.war`
  1. Deploy on your Server of choice (Tomcat, Liberty, WildFly).
  1. Visit `https://localhost:8443/` (depending on server).
