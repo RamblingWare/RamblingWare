@@ -1,0 +1,30 @@
+# Docker Ignored files and folders
+
+# Eclipse
+.project
+.settings/
+
+# Java
+.classpath
+bin/
+src/
+WebContent/
+
+# Gradle
+gradle/
+gradlew
+gradlew.bat
+build.gradle
+build/
+!build/libs/
+
+# Git
+.git/
+.github/
+.gitattributes
+.gitignore
+
+# Miscellaneous
+.travis.yml
+app.json
+manifest.yml

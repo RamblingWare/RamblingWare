@@ -30,6 +30,8 @@ public class Application implements ServletContextListener {
     private static Config config;
     private static DatabaseService databaseService;
     private static DatabaseSetup databaseSetup;
+    private static int error = 0;
+    private static String message;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
@@ -42,27 +44,33 @@ public class Application implements ServletContextListener {
         System.out.println("Using Database:\r\n" + db.toString());
         databaseService = new CouchDB(db);
 
-        // Test Database
-        databaseSetup = new CouchDBSetup(db);
-        if (!databaseSetup.test()) {
-            // failure
-            System.exit(1);
-        } else if (!databaseSetup.verify()) {
-            System.out.println("Setup detected the Database is not configured properly.");
-            // perform first-time install
-            if (!databaseSetup.install()) {
-                // failed to install
-                System.exit(1);
+        try {
+            // Test Database
+            databaseSetup = new CouchDBSetup(db);
+            if (!databaseSetup.test()) {
+                // failure
+                //System.exit(1);
+            } else if (!databaseSetup.verify()) {
+                System.out.println("Setup detected the Database is not configured properly.");
+                // perform first-time install
+                if (!databaseSetup.install()) {
+                    // failed to install
+                    //System.exit(1);
+                } else {
+                    System.out.println("Setup Database completed.");
+                }
             } else {
-                System.out.println("Setup Database completed.");
+                System.out.println("Database was verified.");
             }
-        } else {
-            System.out.println("Database was verified.");
+        } catch (Exception e) {
+            // error
+            error = 1;
+            message = e.getMessage();
         }
 
         // Load settings from Database
-        Config configdb = loadSettingsFromDB(databaseService);
-        config.getSettings().putAll(configdb.getSettings());
+        //Config configdb = loadSettingsFromDB(databaseService);
+        //config.getSettings().putAll(configdb.getSettings());
 
         System.out.println("Started App. Time to Relax.");
     }
@@ -137,8 +145,25 @@ public class Application implements ServletContextListener {
         System.out.println("Stopped App.");
     }
 
+    public static int getError() {
+        return error;
+    }
+
+    public static void setError(int error) {
+        Application.error = error;
+    }
+
+    public static String getMessage() {
+        return message;
+    }
+
+    public static void setMessage(String message) {
+        Application.message = message;
+    }
+
     /**
      * Gets the properties file for this app.
+     * 
      * @return String filename
      */
     public static String getPropFile() {
@@ -156,6 +181,7 @@ public class Application implements ServletContextListener {
 
     /**
      * Sets the configuration settings for this app.
+     * 
      * @param config
      */
     public static void setConfig(Config config) {
@@ -173,6 +199,7 @@ public class Application implements ServletContextListener {
 
     /**
      * Sets the Database Service for this app.
+     * 
      * @param databaseService
      */
     public static void setDatabaseService(DatabaseService databaseService) {
@@ -190,6 +217,7 @@ public class Application implements ServletContextListener {
 
     /**
      * Sets the Database Setup for this app.
+     * 
      * @param databaseSetup
      */
     public static void setDatabaseSetup(DatabaseSetup databaseSetup) {

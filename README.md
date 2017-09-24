@@ -44,8 +44,8 @@ Sorry, Some of these might not work at this time.
  1. Pull [CouchDB 2.0](https://hub.docker.com/r/klaemo/couchdb/) `docker pull klaemo/couchdb`
  1. Pull [Rant 1.0](https://hub.docker.com/r/rant/rant/) `docker pull rant/rant`
  1. Run CouchDB `docker run -d -p 5984:5984 --name rantdb klaemo/couchdb`
- 1. Run Rant `docker run -p 8080:8080 --name rant rant/rant`
- 1. Visit `http://localhost:8080/`
+ 1. Run Rant `docker run -p 8080:8080 -p 8443:8443 --name rant rant/rant`
+ 1. Visit `https://<container-ip>:8443/`
  
 ### Manually Build
 
