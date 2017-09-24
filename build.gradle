@@ -4,7 +4,7 @@ apply plugin: 'eclipse'
 apply plugin: 'war'
 
 group = 'com.rant'
-version = '1.0'
+version = '1.0.0'
 war.baseName = 'rant'
 project.webAppDirName = 'WebContent'
 

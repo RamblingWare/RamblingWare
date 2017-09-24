@@ -50,7 +50,7 @@ public class CouchDBSetup extends DatabaseSetup {
         try {
             CloudantClient client = getConnection();
 
-            if (!client.serverVersion().startsWith("2.0")) {
+            if (!client.serverVersion().startsWith("2.0.0")) {
                 throw new InvalidClassException("Failed Database Test: Unexpected CouchDB Version ("
                         + client.serverVersion() + ") was expecting (2.0.0).");
             }
