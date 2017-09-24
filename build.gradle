@@ -28,9 +28,9 @@ dependencies {
     compile 'javax.servlet:javax.servlet-api:4.0.+'
 
     // jitpack
-    compile 'com.github.amdelamar:jhash:v1.1.0'
-    compile 'com.github.amdelamar:jotp:v1.1.0'
-    compile 'commons-codec:commons-codec:1.8'
+    // compile 'com.github.amdelamar:jhash:v1.1.0'
+    // compile 'com.github.amdelamar:jotp:v1.1.0'
+    // compile 'commons-codec:commons-codec:1.8'
 
 	testCompile 'junit:junit:4.12'
 }
