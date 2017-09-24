@@ -28,23 +28,21 @@ This project is still in development. It is not easily modifiable for "new" blog
 
 <!--
 ### One-Click Deploy 
-
-Load this app onto on a Cloud Platform of your choice:
-
 [![Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/RamblingWare/Rant)
 [![Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/RamblingWare/Rant)
 [![Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/RamblingWare/Rant)
 [![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/RamblingWare/Rant)
-
-Sorry, Some of these might not work at this time.
  -->
 
 ### Docker Deploy
 
  1. Pull [CouchDB 2.0](https://hub.docker.com/r/klaemo/couchdb/) `docker pull klaemo/couchdb`
  1. Pull [Rant 1.0](https://hub.docker.com/r/rant/rant/) `docker pull rant/rant`
- 1. Run CouchDB `docker run -d -p 5984:5984 --name rantdb klaemo/couchdb`
- 1. Run Rant `docker run -p 8080:8080 -p 8443:8443 --name rant rant/rant`
+ 1. Run CouchDB `docker run -d -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=admin -p 5984:5984 --name database klaemo/couchdb`
+     - Save the <container-ip> for the next step.
+     - Set your default password. Keep this safe and never share it!
+ 1. Run Rant `docker run -e DB_URL=http://<container-ip>:5984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name backend rant/rant`
+     - Enter the same password again.
  1. Visit `https://<container-ip>:8443/`
  
 ### Manually Build
@@ -53,7 +51,7 @@ Sorry, Some of these might not work at this time.
  1. Clone: `git clone https://github.com/RamblingWare/Rant`
  1. `cd Rant`
  1. Build: `gradlew clean build`
- 1. WAR file is located at: `/build/libs/rant-1.0.war`
+ 1. WAR file is located at: `/build/libs/rant-1.0.0.war`
  1. Deploy on your Server of choice (Tomcat, Liberty, WildFly).
  1. Visit `https://localhost:8443/` (depending on server).
 

@@ -18,6 +18,10 @@ RUN rm -rf /usr/local/tomcat/webapps/
 COPY /build/libs/rant*.war /usr/local/tomcat/webapps/ROOT.war
 
 # TODO Accept ENV couchdb url and credentials
+ENV RANT_VERSION 1.0.0
+ENV DB_URL http://localhost:5984/
+ENV DB_USER admin
+ENV DB_PASS admin
 
 EXPOSE 8080
 EXPOSE 8443

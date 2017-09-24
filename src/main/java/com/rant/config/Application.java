@@ -102,21 +102,10 @@ public class Application implements ServletContextListener {
 
     protected Database loadDatabase() {
         // check env variable
+        String dbUrl = System.getenv("DB_URL");
         String vcap = System.getenv("VCAP_SERVICES");
         Database db = new Database();
-        if (vcap == null || vcap.isEmpty()) {
-            // if env is not available, then
-            // run on local couchdb
-            System.out.println(
-                    "Failed to locate VCAP Object. Continuing with Datasource from properties.");
-
-            db.setHost(getString("couchdb.host"));
-            db.setPort(getString("couchdb.port"));
-            db.setName(getString("couchdb.name"));
-            db.setUrl(getString("couchdb.url"));
-            db.setUsername(getString("couchdb.username"));
-            db.setPassword(getString("couchdb.password"));
-        } else {
+        if (vcap != null && !vcap.isEmpty()) {
             // try to read env variables
             // for couchdb / cloudant
             try {
@@ -136,7 +125,36 @@ public class Application implements ServletContextListener {
                 System.out.println("Failed to parse VCAP_SERVICES for Datasource properties.");
                 e.printStackTrace();
             }
+        } else if (dbUrl != null && !dbUrl.isEmpty()) {
+            try {
+            // try read docker env variables
+            db.setUrl(dbUrl);
+            String host = dbUrl.replace("http://", "");
+            host = host.replace("https://", "");
+            db.setPort(host.substring(host.indexOf(":")+1, host.length()));
+            host = host.substring(0, host.indexOf(":"));
+            db.setHost(host);
+            db.setName("rantdb");
+            db.setUsername(System.getenv("DB_USER"));
+            db.setPassword(System.getenv("DB_PASS"));
+            } catch (Exception e) {
+                System.out.println("Failed to parse DB_URL for Datasource properties.");
+                e.printStackTrace();
+            }
+        } else {
+            // if env is not available, then
+            // run on local couchdb
+            System.out.println(
+                    "Failed to locate Datasource Credentials. Continuing with Datasource from properties.");
+
+            db.setHost(getString("couchdb.host"));
+            db.setPort(getString("couchdb.port"));
+            db.setName(getString("couchdb.name"));
+            db.setUrl(getString("couchdb.url"));
+            db.setUsername(getString("couchdb.username"));
+            db.setPassword(getString("couchdb.password"));
         }
+        
         return db;
     }
 
