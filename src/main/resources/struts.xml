@@ -22,8 +22,6 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 
 		<global-results>
-			<result name="login">/WEB-INF/manage/login.jsp</result>
-			<result name="input">/WEB-INF/manage/otp.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</global-results>
 		
@@ -78,6 +76,9 @@
 		</action>
 		<action name="dashboard">
 			<result type="redirect">/dashboard/</result>
+		</action>
+		<action name="api">
+			<result type="redirect">/api/</result>
 		</action>
 		
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
@@ -207,8 +208,8 @@
 		
 	</package>
 	
-	<!-- /DASHBOARD/ -->
-	<package name="dashboard" namespace="/dashboard" extends="root,json-default">
+	<!-- /API/ -->
+	<package name="api" namespace="/api" extends="root,json-default">
 	
 		<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
 		
@@ -216,7 +217,17 @@
 			<result>/dashboard/index.html</result>
 		</action>
 		
-		<action name="login" class="com.rant.action.dashboard.LoginAction">
+		<action name="" class="com.rant.action.api.RootAction">
+			<result name="none" type="json">
+				<param name="noCache">true</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="includeProperties">
+					error,rant,message,data.*
+				</param>
+			</result>
+		</action>
+		
+		<action name="login" class="com.rant.action.api.LoginAction">
 			<result name="none" type="json">
 				<param name="noCache">true</param>
 				<param name="excludeNullProperties">true</param>
@@ -226,7 +237,7 @@
 			</result>
 		</action>
 		
-		<action name="forgot" class="com.rant.action.dashboard.ForgotAction">
+		<action name="forgot" class="com.rant.action.api.ForgotAction">
 			<result name="none" type="json">
 				<param name="noCache">true</param>
 				<param name="excludeNullProperties">true</param>

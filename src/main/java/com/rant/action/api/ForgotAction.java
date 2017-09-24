@@ -1,4 +1,4 @@
-package com.rant.action.dashboard;
+package com.rant.action.api;
 
 import java.util.HashMap;
 import java.util.Map;
