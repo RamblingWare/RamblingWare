@@ -191,7 +191,11 @@ public class ForgotAction extends ActionSupport
     }
 
     public void setCode(String code) {
-        this.code = Utils.removeBadChars(code);
+        if(code != null && code.length() > 6) {
+            this.code =  Utils.removeBadChars(code.substring(0, 6));
+        } else {
+            this.code = Utils.removeBadChars(code);
+        }
     }
 
     public String getType() {

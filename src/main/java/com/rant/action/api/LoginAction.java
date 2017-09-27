@@ -196,7 +196,11 @@ public class LoginAction extends ActionSupport
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password != null && password.length() > 100) {
+            this.password = password.substring(0, 100); 
+        } else {
+            this.password = password;    
+        }
     }
 
     public String getCode() {
@@ -204,7 +208,11 @@ public class LoginAction extends ActionSupport
     }
 
     public void setCode(String code) {
-        this.code = Utils.removeBadChars(code);
+        if(code != null && code.length() > 6) {
+            this.code =  Utils.removeBadChars(code.substring(0, 6));
+        } else {
+            this.code = Utils.removeBadChars(code);
+        }
     }
 
     public int getAttempts() {
