@@ -209,9 +209,7 @@ public class Post implements Comparable<Post> {
         if(comp == 0) {
             comp = this._id.compareTo(post._id);
         }
-        return comp;
-                
-                
+        return comp;       
     }
 
 }

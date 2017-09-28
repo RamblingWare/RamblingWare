@@ -6,7 +6,7 @@ package com.rant.objects;
  * @author Austin Delamar
  * @date 3/12/2017
  */
-public class Database {
+public class Database implements Comparable<Database> {
 
     private String name;
     private String host;
@@ -78,6 +78,21 @@ public class Database {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public int compareTo(Database db) {
+        int comp = this.name.compareTo(db.name);
+        if(comp == 0) {
+            comp = this.host.compareTo(db.host);
+        }
+        if(comp == 0) {
+            comp = this.port.compareTo(db.port);
+        }
+        if(comp == 0) {
+            comp = this.username.compareTo(db.username);
+        }
+        return comp;
     }
 
 }

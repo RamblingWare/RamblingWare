@@ -16,6 +16,9 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:title" content="<s:property value="author.name" /> - <%=Application.getString("name")%>"/>
 <meta property="og:image" content="<s:property value="author.thumbnail" />"/>
+<meta property="og:image:type" content="image/png"/>
+<meta property="og:image:width" content="256"/><!-- guessing -->
+<meta property="og:image:height" content="256"/><!-- guessing -->
 <meta property="og:description" content="<s:property value="author.description" />"/>
 <meta property="og:site_name" content="<%=Application.getString("name")%>"/>
 <meta property="article:author" content="<s:property value="author.name" />"/>

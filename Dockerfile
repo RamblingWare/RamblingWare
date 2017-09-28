@@ -3,7 +3,7 @@ FROM tomcat:9.0.0-jre8-alpine
 LABEL maintainer="Austin Delamar @amdelamar" \
       description="Blog system on CouchDB."
 
-# Tomcat HTTPS for HTTP/2
+# Tomcat HTTPS over HTTP/2
 #RUN apk add --no-cache --virtual openssl \
 # && openssl genrsa -des3 -passout pass:changeit -out ca.key 4096 -noout \
 # && openssl req -new -x509 -days 1826 -key ca.key -out ca.crt -passin pass:changeit \
@@ -24,12 +24,13 @@ ENV RANT_VERSION=1.0.0 \
     DB_USER=admin \
     DB_PASS=admin
 
-EXPOSE 8080
-EXPOSE 8443
+EXPOSE 8080 8443
+#EXPOSE 8443
 
 CMD ["catalina.sh", "run"]
 
 # docker pull rant/rant
 # docker build --no-cache --rm -t rant/rant .
 # docker run -p 8080:8080 -p 8443:8443 --name rant rant/rant
+# docker run -e DB_URL=http://<container-ip>:5984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name backend rant/rant
 # docker push rant/rant
