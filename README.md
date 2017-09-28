@@ -3,6 +3,7 @@
 [![Build](https://img.shields.io/travis/RamblingWare/Rant.svg)](https://travis-ci.org/RamblingWare/Rant)
 [![Code Climate](https://img.shields.io/codeclimate/github/RamblingWare/Rant.svg)](https://codeclimate.com/github/RamblingWare/Rant)
 [![Codecov](https://img.shields.io/codecov/c/github/RamblingWare/Rant.svg)](https://codecov.io/gh/RamblingWare/Rant)
+[![Docker Pulls](https://img.shields.io/docker/pulls/rant/rant.svg)]()
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/RamblingWare/Rant/blob/master/LICENSE)
 
 Blog management system on CouchDB.
@@ -36,31 +37,32 @@ This project is still in development. It is not easily modifiable for "new" blog
 
 ### Docker Deploy
 
- 1. Pull [CouchDB 2.0](https://hub.docker.com/r/klaemo/couchdb/) `docker pull klaemo/couchdb`
- 1. Pull [Rant 1.0](https://hub.docker.com/r/rant/rant/) `docker pull rant/rant`
+ 1. Pull [CouchDB 2.0](https://hub.docker.com/r/klaemo/couchdb/) `docker pull klaemo/couchdb:2.0.0`
+ 1. Pull [Rant 1.0](https://hub.docker.com/r/rant/rant/) `docker pull rant/rant:1.0.0`
  1. Run CouchDB `docker run -d -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=admin -p 5984:5984 --name database klaemo/couchdb`
-     - Save the <container-ip> for the next step.
-     - Set your default password. Keep this safe and never share it!
+     - Choose your default password. Never share it!
+     - Save the `<container-ip>` for the next step.
  1. Run Rant `docker run -e DB_URL=http://<container-ip>:5984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name backend rant/rant`
-     - Enter the same password again.
+     - Enter the `<container-ip>` of your couchdb container.
+     - Paste the same password again.
  1. Visit `https://<container-ip>:8443/`
  
-### Manually Build
+### Manually Deploy
 
  1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
  1. Clone: `git clone https://github.com/RamblingWare/Rant`
  1. `cd Rant`
  1. Build: `gradlew clean build`
- 1. WAR file is located at: `/build/libs/rant-1.0.0.war`
- 1. Deploy on your Server of choice (Tomcat, Liberty, WildFly).
- 1. Visit `https://localhost:8443/` (depending on server).
+ 1. WAR file is ready: `/build/libs/rant-1.0.0.war`
+ 1. Deploy on [Tomcat 9.0](https://tomcat.apache.org/) with config files from /deploy/tomcat/ folder.
+ 1. Visit `https://localhost:8443/` (Double-check server.xml that context root is `/` and not `/rant`.)
 
 ## Technologies Used
 
  *  [Java 1.8](https://www.java.com/) Programming Language
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache CouchDB 2.0](https://couchdb.apache.org/) NoSQL Database
- *  [Apache Tomcat 8.0](https://tomcat.apache.org/) Web Server
+ *  [Apache Tomcat 9.0](https://tomcat.apache.org/) Web Server
  *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
 
 ## License
