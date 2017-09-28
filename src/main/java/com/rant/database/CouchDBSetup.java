@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.cloudant.client.api.ClientBuilder;
@@ -21,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.rant.config.Application;
 import com.rant.config.Utils;
 import com.rant.objects.Author;
+import com.rant.objects.Post;
 import com.rant.objects.Role;
 
 public class CouchDBSetup extends DatabaseSetup {
@@ -181,27 +183,25 @@ public class CouchDBSetup extends DatabaseSetup {
                     .fromFile(Utils.getResourceAsFile("/design/authorsdesign.json"));
             authors.getDesignDocumentManager().put(authorsdesign);
 
-            Author user = new Author("admin");
-            user.setName("Admin");
-            user.setRole(defaultRoles.get(0));
-            user.setDescription("");
-            user.setContent("");
-            user.setEmail("");
-            user.setThumbnail("");
-            authors.save(user);
+            // create default author
+            authors.save(getDefaultAuthor());
 
-            // create dbs
+            // create blog
             Database blog = client.database("blog", true);
             DesignDocument blogdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/blogdesign.json"));
             blog.getDesignDocumentManager().put(blogdesign);
+            
+            // create default post
+            blog.save(getDefaultPost());
 
+            // create views
             Database views = client.database("views", true);
             DesignDocument viewsdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/viewsdesign.json"));
             views.getDesignDocumentManager().put(viewsdesign);
 
-            // default app config
+            // default security config
             Database security = client.database("security", true);
             security.save(Application.getConfig());
 
@@ -213,11 +213,67 @@ public class CouchDBSetup extends DatabaseSetup {
         }
         return false;
     }
+    
+    /**
+     * Create default author to insert in the database.
+     * 
+     * @return Author
+     */
+    protected Author getDefaultAuthor() {
+        Author user = new Author("admin");
+        user.setName("Admin");
+        user.setRole(new Role("admin"));
+        user.setDescription("The website administrator.");
+        user.setContent("");
+        user.setEmail("");
+        user.setThumbnail("/img/placeholder-200.png");
+        return user;
+    }
+    
+    /**
+     * Create default post to insert in the database.
+     * 
+     * @return Post
+     */
+    protected Post getDefaultPost() {
+        Post post = new Post("welcome-to-rant");
+        post.setAuthor_id("admin");
+        
+        post.setTitle("Welcome to Rant!");
+        post.setDescription("Here is a sample post demonstrating this blog system.");
+        post.setContent("<p>Here is a welcome post that will eventually be outlining all the features of Rant.<br><br>But for now its simply a placeholder.<br><br>Enjoy your new blog!</p>");
+        
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add("test");
+        tags.add("sample");
+        post.setTags(tags);
+        post.setCategory("Welcome");
+        
+        post.setBanner("/img/placeholder-640.png");
+        post.setThumbnail("/img/placeholder-640.png");
+        post.setBannerCaption("Time to Rant!");
+        
+        post.setPublished(true);
+        post.setFeatured(true);
+        
+        Date date = new Date(System.currentTimeMillis());
+        post.setPublishDate(date);
+        post.setCreateDate(date);
+        post.setModifyDate(date);
+        
+        return post;
+    }
 
-    private List<Role> getDefaultRoles() {
+    /**
+     * Create default roles to insert in the database.
+     * 
+     * @return List
+     */
+    protected List<Role> getDefaultRoles() {
         ArrayList<Role> roles = new ArrayList<Role>();
 
-        Role adm = new Role("Admin");
+        Role adm = new Role("admin");
+        adm.setName("Admin");
         adm.setPublic(false);
         adm.setPostsCreate(false);
         adm.setPostsEdit(true);
@@ -242,7 +298,8 @@ public class CouchDBSetup extends DatabaseSetup {
         adm.setSettingsEdit(true);
         adm.setSettingsDelete(true);
 
-        Role own = new Role("Owner");
+        Role own = new Role("owner");
+        own.setName("Owner");
         own.setPublic(true);
         own.setPostsCreate(true);
         own.setPostsEdit(true);
@@ -267,7 +324,8 @@ public class CouchDBSetup extends DatabaseSetup {
         own.setSettingsEdit(true);
         own.setSettingsDelete(true);
 
-        Role ath = new Role("Author");
+        Role ath = new Role("author");
+        ath.setName("author");
         ath.setPublic(true);
         ath.setPostsCreate(true);
         ath.setPostsEdit(true);
@@ -292,7 +350,8 @@ public class CouchDBSetup extends DatabaseSetup {
         ath.setSettingsEdit(false);
         ath.setSettingsDelete(false);
 
-        Role edt = new Role("Editor");
+        Role edt = new Role("editor");
+        edt.setName("Editor");
         edt.setPublic(true);
         edt.setPostsCreate(true);
         edt.setPostsEdit(true);
