@@ -30,8 +30,6 @@ public class Application implements ServletContextListener {
     private static Config config;
     private static DatabaseService databaseService;
     private static DatabaseSetup databaseSetup;
-    private static int error = 0;
-    private static String message;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
@@ -49,13 +47,13 @@ public class Application implements ServletContextListener {
             databaseSetup = new CouchDBSetup(db);
             if (!databaseSetup.test()) {
                 // failure
-                //System.exit(1);
+                System.exit(1);
             } else if (!databaseSetup.verify()) {
                 System.out.println("Setup detected the Database is not configured properly.");
                 // perform first-time install
                 if (!databaseSetup.install()) {
                     // failed to install
-                    //System.exit(1);
+                    System.exit(1);
                 } else {
                     System.out.println("Setup Database completed.");
                 }
@@ -64,8 +62,8 @@ public class Application implements ServletContextListener {
             }
         } catch (Exception e) {
             // error
-            error = 1;
-            message = e.getMessage();
+            e.printStackTrace();
+            System.exit(1);
         }
 
         // Load settings from Database
@@ -164,22 +162,6 @@ public class Application implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         System.out.println("Stopped App.");
-    }
-
-    public static int getError() {
-        return error;
-    }
-
-    public static void setError(int error) {
-        Application.error = error;
-    }
-
-    public static String getMessage() {
-        return message;
-    }
-
-    public static void setMessage(String message) {
-        Application.message = message;
     }
 
     /**
