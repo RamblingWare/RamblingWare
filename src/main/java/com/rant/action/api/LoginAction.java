@@ -32,8 +32,8 @@ public class LoginAction extends ActionSupport
     private String password;
     private String code;
 
-    private static final int LOCKOUT_MINS = 30; // minutes
-    private static final int MAX_ATTEMPTS = 3;
+    protected static final int LOCKOUT_MINS = 30; // minutes
+    protected static final int MAX_ATTEMPTS = 3;
     private int attempts = 0;
     private long lastAttempt = 0;
 
@@ -108,7 +108,7 @@ public class LoginAction extends ActionSupport
      * @throws Exception
      *             if invalid
      */
-    private boolean validParameters() throws Exception {
+    protected boolean validParameters() throws Exception {
         if (username == null || username.isEmpty()) {
             throw new Exception("Invalid or missing username.");
         } else if (password == null || password.isEmpty()) {
@@ -125,7 +125,7 @@ public class LoginAction extends ActionSupport
      * @throws Exception
      *             if locked out
      */
-    private boolean isLockedOut() throws Exception {
+    protected boolean isLockedOut() throws Exception {
         // count login attempts
         // and remember when their last attempt was
         if (sessionAttributes.get("attempts") == null) {

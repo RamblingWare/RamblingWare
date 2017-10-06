@@ -65,12 +65,18 @@ public class ApplicationTests {
     }
     
     @Test
+    public void properties() {
+        assertNotNull(Application.getPropFile());
+        assertTrue(Application.getPropFile().endsWith(".properties"));
+    }
+    
+    @Test
     public void init() {
         //app.contextInitialized(null);
     }
     
     @Test
     public void destroy() {
-        //app.contextDestroyed(null);
+        app.contextDestroyed(null);
     }
 }

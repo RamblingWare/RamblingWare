@@ -34,8 +34,8 @@ public class ForgotAction extends ActionSupport
     private boolean reset; // true if they forgot password
     private boolean recover; // true if they forgot two factor
 
-    private static final int LOCKOUT_MINS = 30; // minutes
-    private static final int MAX_ATTEMPTS = 3;
+    protected static final int LOCKOUT_MINS = 30; // minutes
+    protected static final int MAX_ATTEMPTS = 3;
     private int attempts = 0;
     private long lastAttempt = 0;
 
@@ -100,7 +100,7 @@ public class ForgotAction extends ActionSupport
      * @throws Exception
      *             if invalid
      */
-    private boolean validParameters() throws Exception {
+    protected boolean validParameters() throws Exception {
         if (email == null || email.isEmpty()) {
             throw new Exception("Invalid or missing email.");
         } else if (!Utils.isValidEmail(email)) {
@@ -120,7 +120,7 @@ public class ForgotAction extends ActionSupport
      * @throws Exception
      *             if locked out
      */
-    private boolean isLockedOut() throws Exception {
+    protected boolean isLockedOut() throws Exception {
         // count login attempts
         // and remember when their last attempt was
         if (sessionAttributes.get("attempts") == null) {
