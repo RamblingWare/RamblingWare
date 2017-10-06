@@ -17,10 +17,6 @@ import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * A simple utility class that contains common methods used across classes.
  * 
@@ -54,9 +50,10 @@ public class Utils {
     public static String getDate() {
         return formatReadableDate(new Date(System.currentTimeMillis()));
     }
-    
+
     /**
      * Gets the current time in ISO 8601 format. "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+     * 
      * @return String
      */
     public static String getDateIso8601() {
@@ -65,48 +62,11 @@ public class Utils {
 
     /**
      * Gets the current time in RFC 1123 format. "EEE, dd MMM yyyy HH:mm:ss z"
+     * 
      * @return String
      */
     public static String getDateRfc1123() {
         return formatRfc1123Date(new Date(System.currentTimeMillis()));
-    }
-
-    /**
-     * Return a cookie's value by its given name.
-     * 
-     * @param cookieName
-     *            name of cookie
-     * @return Cookie
-     */
-    public static Cookie getCookie(HttpServletRequest servletRequest, String cookieName) {
-        Cookie[] cookies = servletRequest.getCookies();
-        Cookie myCookie = null;
-        if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals(cookieName)) {
-                    myCookie = cookies[i];
-                    break;
-                }
-            }
-        }
-        return myCookie;
-    }
-
-    /**
-     * Sets a cookie's value for the given name.
-     * 
-     * @param cookieName
-     *            name of cookie
-     * @param cookieValue
-     *            value of cookie
-     */
-    public static void setCookie(HttpServletResponse servletResponse, String cookieName,
-            String cookieValue) {
-        Cookie cookie = new Cookie(cookieName, cookieValue);
-
-        // cookie will last 1 year
-        cookie.setMaxAge(60 * 60 * 24 * 365);
-        servletResponse.addCookie(cookie);
     }
 
     /**

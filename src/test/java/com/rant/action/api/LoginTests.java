@@ -21,38 +21,38 @@ import org.junit.runners.JUnit4;
 public class LoginTests {
 
     private LoginAction action;
-    
+
     @Before
     public void beforeEachTest() {
         action = new LoginAction();
         action.setSession(new HashMap<String, Object>());
     }
-    
+
     @Test
     public void parameters() {
-        
+
         action.setUsername("admin");
         action.setPassword("admin");
-        
+
         try {
             assertTrue(action.validParameters());
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        
+
         action.setUsername("admin");
         action.setPassword("");
-        
+
         try {
             action.validParameters();
             fail("Failed to validate an empty password.");
         } catch (Exception e) {
             // good
         }
-        
+
         action.setUsername("");
         action.setPassword("admin");
-        
+
         try {
             action.validParameters();
             fail("Failed to validate an empty username.");
@@ -63,12 +63,12 @@ public class LoginTests {
 
     @Test
     public void lockedOut() throws Exception {
-        
+
         // increment attempts up to limit
-        for(int i=1; i<LoginAction.MAX_ATTEMPTS; i++) {
+        for (int i = 1; i < LoginAction.MAX_ATTEMPTS; i++) {
             assertFalse(action.isLockedOut());
         }
-        
+
         // fail
         try {
             action.isLockedOut();

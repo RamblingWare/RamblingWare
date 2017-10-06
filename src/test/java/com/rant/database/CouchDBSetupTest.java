@@ -53,7 +53,7 @@ public class CouchDBSetupTest {
 
         setup.setDatabase(database);
         assertEquals(database, setup.getDatabase());
-        
+
         setup = new CouchDBSetup(database);
         assertEquals(database, setup.getDatabase());
     }

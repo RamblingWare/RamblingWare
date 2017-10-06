@@ -40,9 +40,9 @@ public class ObjectTests {
         author2.setName("admin");
         assertEquals("admin", author2.getName());
 
-        assertTrue(author.compareTo(author2)==0);
+        assertTrue(author.compareTo(author2) == 0);
     }
-    
+
     @Test
     public void post() {
         Post post = new Post("blogpost");
@@ -55,7 +55,7 @@ public class ObjectTests {
         assertEquals("blogpost", post2.get_Id());
         assertEquals("Blog Post", post2.getTitle());
 
-        assertTrue(post.compareTo(post2)==0);
+        assertTrue(post.compareTo(post2) == 0);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ObjectTests {
         cat2.setName("Meta");
         assertEquals("Meta", cat2.getName());
 
-        assertTrue(cat.compareTo(cat2)==0);
+        assertTrue(cat.compareTo(cat2) == 0);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class ObjectTests {
         tag2.setName("Meta");
         assertEquals("Meta", tag2.getName());
 
-        assertTrue(tag.compareTo(tag2)==0);
+        assertTrue(tag.compareTo(tag2) == 0);
     }
 
     @Test
@@ -94,15 +94,15 @@ public class ObjectTests {
         yr2.setName("2017");
         assertEquals("2017", yr2.getName());
 
-        assertTrue(yr.compareTo(yr2)==0);
+        assertTrue(yr.compareTo(yr2) == 0);
     }
-    
+
     @Test
     public void user() {
         User user = new User("admin");
         assertEquals("org.couchdb.user:admin", user.get_id());
     }
-    
+
     @Test
     public void role() {
         Role role = new Role("author");
@@ -116,7 +116,7 @@ public class ObjectTests {
         db.setName("rantdb");
         assertEquals("rantdb", db.getName());
     }
-    
+
     @Test
     public void email() {
         Email em = new Email();

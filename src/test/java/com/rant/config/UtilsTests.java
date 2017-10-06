@@ -4,14 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import com.rant.config.Utils;
 
 /**
  * Unit tests for Utils
@@ -24,7 +23,6 @@ public class UtilsTests {
 
     @Test
     public void time() {
-
         String time = Utils.formatTime(System.currentTimeMillis());
         assertNotNull(time);
 
@@ -79,10 +77,25 @@ public class UtilsTests {
             String formatted = Utils.formatLong(nm);
             System.out.println(nm + " => " + formatted);
             if (!formatted.equals(expected[i])) {
-                throw new AssertionError("Expected: " + expected[i] + " but found: " + formatted);
+                fail("Expected: " + expected[i] + " but found: " + formatted);
             }
         }
+    }
 
+    @Test
+    public void formatBytes() {
+        double[] numbers = {0d, 5d, 999d, 1024d, 1572864d, 1610612736d, 8342973972.48, 555555d,
+                2000000d};
+        String[] expected = {"0.00 B", "5.00 B", "999.00 B", "1.00 KB", "1.50 MB", "1.50 GB",
+                "7.77 GB", "542.53 KB", "1.91 MB"};
+        for (int i = 0; i < numbers.length; i++) {
+            double nm = numbers[i];
+            String formatted = Utils.formatBytes(nm);
+            System.out.println(nm + " => " + formatted);
+            if (!formatted.equals(expected[i])) {
+                fail("Expected: " + expected[i] + " but found: " + formatted);
+            }
+        }
     }
 
     @Test

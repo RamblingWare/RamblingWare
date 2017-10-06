@@ -14,9 +14,15 @@ import org.mockito.MockitoAnnotations;
 
 import com.rant.objects.Database;
 
+/**
+ * Unit tests for CouchDB
+ * 
+ * @author amdelamar
+ * @since 1.0.0
+ */
 @RunWith(JUnit4.class)
 public class CouchDBTests {
-    
+
     private Database database;
 
     @InjectMocks
@@ -26,7 +32,7 @@ public class CouchDBTests {
     public void setup() {
         MockitoAnnotations.initMocks(this);
     }
-    
+
     @Test
     public void construct() {
 
@@ -43,15 +49,15 @@ public class CouchDBTests {
 
         couchdb.setDatabase(database);
         assertEquals(database, couchdb.getDatabase());
-        
+
         couchdb = new CouchDB(database);
         assertEquals(database, couchdb.getDatabase());
     }
-    
+
     @Test
     public void connection() throws MalformedURLException {
-        
-        //CloudantClient client = couchdb.getConnection();
-        
+
+        // CloudantClient client = couchdb.getConnection();
+
     }
 }

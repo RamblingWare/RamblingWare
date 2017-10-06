@@ -24,13 +24,12 @@ import com.rant.objects.Database;
  */
 @RunWith(JUnit4.class)
 public class ApplicationTests {
-    
-    
+
     private Application app;
-    
+
     @InjectMocks
     private DatabaseService dbs;
-    
+
     @Before
     public void beforeEachTest() {
         app = new Application();
@@ -38,43 +37,43 @@ public class ApplicationTests {
 
     @Test
     public void settingsFromFile() {
-        
+
         Config config = app.loadSettingsFromFile(Application.getPropFile());
         Application.setConfig(config);
         assertNotNull(Application.getConfig());
-        
+
         assertNotNull(Application.getString("name"));
         assertTrue(Application.getInt("limit") > 0);
         assertTrue(Application.getDouble("manageLimit") > 0d);
-        
+
         Application.setString("test", "true");
         assertEquals("true", Application.getString("test"));
     }
-    
+
     @Test
     public void database() {
-        
+
         Database db = app.loadDatabase();
         assertNotNull(db);
-        
+
         Application.setDatabaseSetup(new CouchDBSetup(db));
         assertNotNull(Application.getDatabaseSetup());
-        
+
         Application.setDatabaseService(new CouchDB(db));
         assertNotNull(Application.getDatabaseService());
     }
-    
+
     @Test
     public void properties() {
         assertNotNull(Application.getPropFile());
         assertTrue(Application.getPropFile().endsWith(".properties"));
     }
-    
+
     @Test
     public void init() {
-        //app.contextInitialized(null);
+        // app.contextInitialized(null);
     }
-    
+
     @Test
     public void destroy() {
         app.contextDestroyed(null);
