@@ -69,8 +69,11 @@ public class Application implements ServletContextListener {
         }
 
         // Load settings from Database
-        //Config configdb = loadSettingsFromDB(databaseService);
-        //config.getSettings().putAll(configdb.getSettings());
+        Config configdb = loadSettingsFromDB(databaseService);
+        if(configdb != null) {
+            System.out.println("Found config settings in the database already. Using it instead of "+PROP_FILE);
+            config.getSettings().putAll(configdb.getSettings());
+        }
 
         System.out.println("Started App. Time to Relax.");
     }

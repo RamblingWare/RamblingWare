@@ -38,7 +38,7 @@ public class CouchDBSetup extends DatabaseSetup {
      * @throws MalformedURLException
      *             if invalid url
      */
-    private CloudantClient getConnection() throws MalformedURLException {
+    protected CloudantClient getConnection() throws MalformedURLException {
         return ClientBuilder.url(new URL(database.getUrl())).username(database.getUsername())
                 .password(database.getPassword()).build();
     }
