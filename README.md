@@ -15,7 +15,7 @@ Blog management system on CouchDB.
  *  Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
  *  Organize blog posts by Tags, Categories, Featured, Authors, and Dates
  *  SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
- *  2FA security and pbkdf2 hashed passwords
+ *  2FA security and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
  
 ## Planned Features
 
@@ -47,15 +47,28 @@ This project is still in development. It is not easily modifiable for "new" blog
      - Paste the same password again.
  1. Visit `https://<container-ip>:8443/`
  
+ <!-- 
+  docker pull rant/rant:1.0.0
+  docker build -f deploy/docker/1.0.0/Dockerfile --no-cache --rm -t rant/rant:1.0.0 -t rant/rant .
+  docker run -e DB_URL=http://<container-ip>:5984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name backend rant/rant
+  docker push rant/rant
+  docker push rant/rant:1.0.0
+ -->
+ 
 ### Manually Deploy
 
- 1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
  1. Clone: `git clone https://github.com/RamblingWare/Rant`
+ 1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
+     - If using Cloudant, Paste the db credentials in `src/main/resources/rant.properties` file.
+     - If using CouchDB on locahost, you don't need to edit the credentials, unless you want to.
+     - If using CouchDB on a public server, choose a stronger password in `src/main/resources/rant.properties` file.
  1. `cd Rant`
  1. Build: `gradlew clean build`
  1. WAR file is ready: `/build/libs/rant-1.0.0.war`
- 1. Deploy on [Tomcat 9.0](https://tomcat.apache.org/) with config files from /deploy/tomcat/ folder.
- 1. Visit `https://localhost:8443/` (Double-check server.xml that context root is `/` and not `/rant`.)
+ 1. Install [Tomcat 9.0](https://tomcat.apache.org/)
+     - Copy `deploy/tomcat/server.xml` into `<tomcat-dir>/conf/`.
+     - Copy WAR file into `<tomcat-dir>/webapps/` or for devs you can use Eclipse Servers UI (Window > Show View > Servers).
+ 1. Visit `https://localhost:8443/` (Devs: Double-check server.xml that context root is `/` and not `/rant`).
 
 ## Technologies Used
 
