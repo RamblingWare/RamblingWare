@@ -51,12 +51,12 @@ public class CategoryAction extends ActionSupport
             }
 
             // gather posts
-            posts = Application.getDatabaseService().getPostsByCategory(page, Application.getInt("limit"), category,
+            posts = Application.getDatabaseService().getPostsByCategory(page, Application.getInt("default.limit"), category,
                     false);
 
             // determine pagination
             if (posts != null) {
-                nextPage = posts.size() >= Application.getInt("limit");
+                nextPage = posts.size() >= Application.getInt("default.limit");
                 prevPage = page > 1;
             }
 

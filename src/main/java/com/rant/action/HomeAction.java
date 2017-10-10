@@ -31,7 +31,7 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
         // this shows the most recent blog posts
         try {
             // gather posts
-            posts = Application.getDatabaseService().getPosts(1, Application.getInt("limit"), false);
+            posts = Application.getDatabaseService().getPosts(1, Application.getInt("default.limit"), false);
 
             // set attributes
             servletRequest.setAttribute("posts", posts);

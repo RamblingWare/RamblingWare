@@ -43,8 +43,8 @@ public class ApplicationTests {
         assertNotNull(Application.getConfig());
 
         assertNotNull(Application.getString("name"));
-        assertTrue(Application.getInt("limit") > 0);
-        assertTrue(Application.getDouble("manageLimit") > 0d);
+        assertTrue(Application.getInt("default.limit") > 0);
+        assertTrue(Application.getDouble("default.manageLimit") > 0d);
 
         Application.setString("test", "true");
         assertEquals("true", Application.getString("test"));

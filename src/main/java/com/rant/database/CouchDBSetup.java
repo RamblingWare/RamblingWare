@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.cloudant.client.api.ClientBuilder;
@@ -57,6 +58,18 @@ public class CouchDBSetup extends DatabaseSetup {
                         + client.serverVersion() + ") was expecting (2.0.0).");
             }
 
+            // list nodes
+            Iterator<String> nodes = client.getMembership().getAllNodes();
+            System.out.println("All Nodes:");
+            while (nodes.hasNext()) {
+                System.out.println(nodes.next());
+            }
+            Iterator<String> cnodes = client.getMembership().getClusterNodes();
+            System.out.println("All Cluster Nodes:");
+            while (cnodes.hasNext()) {
+                System.out.println(cnodes.next());
+            }
+
             // create database
             client.createDB("ranttest");
             Database db = client.database("ranttest", false);
@@ -98,7 +111,8 @@ public class CouchDBSetup extends DatabaseSetup {
                     .println("Failed Database Test: Please check the Database URL and try again.");
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Failed Database Test: Exception occured during test.");
+            System.err.println(
+                    "Failed Database Test: Exception occured during test: " + e.getMessage());
         }
         return false;
     }
@@ -163,19 +177,36 @@ public class CouchDBSetup extends DatabaseSetup {
             List<Role> defaultRoles = getDefaultRoles();
             roles.bulk(defaultRoles);
 
-            // create default _user credentials
+            // create default user
+            String user = Application.getString("default.username");
+            String pass = Application.getString("default.password");
+
             HttpConnection request = Http.PUT(
-                    new URL(client.getBaseUri() + "/_users/org.couchdb.user:admin"),
+                    new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user),
                     "application/json");
-            request.setRequestBody(
-                    "{\"_id\":\"org.couchdb.user:admin\",\"name\":\"admin\",\"password\":\"admin\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
+            request.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
+                    + "\",\"password\":\"" + pass
+                    + "\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
             HttpConnection response = client.executeRequest(request);
             if (response.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-                // failed to create admin
-                throw new Exception(
-                        "Failed to create default user 'admin'. Exception occured during install.");
+                // failed to create default user
+                throw new Exception("Failed to create default user '" + user
+                        + "'. Exception occured during install.");
             }
             response.disconnect();
+
+            /*
+             * if (!securityCheck()) { // create default administrator user =
+             * database.getUsername(); pass = database.getPassword();
+             * 
+             * HttpConnection request2 = Http.PUT( new URL(client.getBaseUri() + "/_node/" + node +
+             * "/_config/admins/" + user), "application/json"); request2.setRequestBody(pass);
+             * HttpConnection response2 = client.executeRequest(request2); // TODO HttpClient
+             * execute if (response2.getConnection().getResponseCode() !=
+             * HttpURLConnection.HTTP_CREATED) { // failed to create default user throw new
+             * Exception("Failed to create default admin '" + user +
+             * "'. Exception occured during install."); } response2.disconnect(); }
+             */
 
             // create default user profile
             Database authors = client.database("authors", true);
@@ -191,7 +222,7 @@ public class CouchDBSetup extends DatabaseSetup {
             DesignDocument blogdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/blogdesign.json"));
             blog.getDesignDocumentManager().put(blogdesign);
-            
+
             // create default post
             blog.save(getDefaultPost());
 
@@ -209,58 +240,112 @@ public class CouchDBSetup extends DatabaseSetup {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Failed Database Installation: Exception occured during install.");
+            System.err.println("Failed Database Installation: Exception occured during install: "
+                    + e.getMessage());
         }
         return false;
     }
-    
+
+    /**
+     * Verify the database server is secure or not.
+     * 
+     * @return true if secure
+     */
+    public boolean securityCheck() {
+        boolean secure = true;
+        try {
+            CloudantClient client = getConnection();
+
+            // check https
+            // TODO
+
+            // check if admin party mode is enabled.
+            boolean adminParty = false;
+            String node = "nonode@nohost";
+            Iterator<String> cnodes = client.getMembership().getClusterNodes();
+            if (cnodes.hasNext()) {
+                node = cnodes.next();
+            }
+            HttpConnection request1 = Http
+                    .GET(new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins"));
+            HttpConnection response1 = client.executeRequest(request1);
+            if (response1.getConnection().getResponseCode() != HttpURLConnection.HTTP_OK) {
+                // admin party disabled
+                // System.out.println("Admin Party mode is already disabled. Good.");
+                adminParty = false;
+            } else {
+                // admin party still going, not good
+                // System.out.println("Admin Party mode is still enabled. Please create a CouchDB
+                adminParty = true;
+            }
+            response1.disconnect();
+
+            secure = !adminParty;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Failed Database Security Check: Exception occured during check.");
+            secure = false;
+        }
+        return secure;
+    }
+
     /**
      * Create default author to insert in the database.
      * 
      * @return Author
      */
     protected Author getDefaultAuthor() {
-        Author user = new Author("admin");
-        user.setName("Admin");
-        user.setRole(new Role("admin"));
-        user.setDescription("The website administrator.");
-        user.setContent("");
-        user.setEmail("");
-        user.setThumbnail("/img/placeholder-200.png");
-        return user;
+
+        String user = Application.getString("default.username");
+        String email = Application.getString("email");
+        String name = user.substring(0, 1).toUpperCase() + user.substring(1).toLowerCase();
+
+        Author author = new Author(user);
+        author.setName(name);
+        author.setRole(new Role("admin"));
+        author.setDescription("The website administrator.");
+        author.setContent("");
+        author.setEmail(email);
+        author.setThumbnail("/img/placeholder-200.png");
+        return author;
     }
-    
+
     /**
      * Create default post to insert in the database.
      * 
      * @return Post
      */
     protected Post getDefaultPost() {
+
+        String user = Application.getString("default.username");
+
         Post post = new Post("welcome-to-rant");
-        post.setAuthor_id("admin");
-        
+        post.setAuthor_id(user);
+
         post.setTitle("Welcome to Rant!");
         post.setDescription("Here is a sample post demonstrating this blog system.");
-        post.setContent("<p>Here is a welcome post that will eventually be outlining all the features of Rant.<br><br>But for now its simply a placeholder.<br><br>Enjoy your new blog!</p>");
-        
+        post.setContent(
+                "<p>Here is a welcome post that will eventually be outlining all the features of Rant.<br><br>But for now its simply a placeholder.<br><br>Enjoy your new blog!</p>");
+
         ArrayList<String> tags = new ArrayList<String>();
         tags.add("test");
         tags.add("sample");
         post.setTags(tags);
         post.setCategory("Welcome");
-        
+
         post.setBanner("/img/placeholder-640.png");
         post.setThumbnail("/img/placeholder-640.png");
         post.setBannerCaption("Time to Rant!");
-        
+
         post.setPublished(true);
         post.setFeatured(true);
-        
+
         Date date = new Date(System.currentTimeMillis());
         post.setPublishDate(date);
         post.setCreateDate(date);
         post.setModifyDate(date);
-        
+
         return post;
     }
 

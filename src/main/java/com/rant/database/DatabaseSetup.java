@@ -27,5 +27,7 @@ public abstract class DatabaseSetup {
     public abstract boolean verify();
 
     public abstract boolean install();
+    
+    public abstract boolean securityCheck();
 
 }

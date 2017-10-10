@@ -49,7 +49,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
         try {
 
             // gather posts
-            posts = Application.getDatabaseService().getPosts(1, Application.getInt("limit"), false);
+            posts = Application.getDatabaseService().getPosts(1, Application.getInt("default.limit"), false);
             for (Post post : posts) {
                 response += "<item><title>" + post.getTitle() + "</title>\n" + "<description>"
                         + post.getDescription() + "</description>\n" + "<pubDate>"

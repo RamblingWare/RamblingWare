@@ -35,7 +35,7 @@ public class AuthorsAction extends ActionSupport
 
         // this shows all the authors
         try {
-            authors = Application.getDatabaseService().getAuthors(1, Application.getInt("limit"),
+            authors = Application.getDatabaseService().getAuthors(1, Application.getInt("default.limit"),
                     false);
 
             // sort alphabetically
