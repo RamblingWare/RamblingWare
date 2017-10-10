@@ -58,7 +58,7 @@ public class Application implements ServletContextListener {
                     System.out.println("Setup Database completed.");
                 }
             } else if (!databaseSetup.securityCheck()) {
-                System.out.println("Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
+                System.out.println("Failed security check. Continuing with caution. Please work to secure the db.");
             } else {
                 System.out.println("Database was verified.");
             }

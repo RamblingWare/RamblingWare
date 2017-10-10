@@ -257,7 +257,14 @@ public class CouchDBSetup extends DatabaseSetup {
             CloudantClient client = getConnection();
 
             // check https
-            // TODO
+            boolean ssl = false;
+            if(database.getUrl().startsWith("https")) {
+                ssl = true;
+            } else {
+                // https not enabled, not good
+                ssl = false;
+                System.out.println("Database connection is not using Https. Please create a SSL certificate as soon as possible to secure it.");
+            }
 
             // check if admin party mode is enabled.
             boolean adminParty = false;
@@ -271,16 +278,15 @@ public class CouchDBSetup extends DatabaseSetup {
             HttpConnection response1 = client.executeRequest(request1);
             if (response1.getConnection().getResponseCode() != HttpURLConnection.HTTP_OK) {
                 // admin party disabled
-                // System.out.println("Admin Party mode is already disabled. Good.");
                 adminParty = false;
             } else {
                 // admin party still going, not good
-                // System.out.println("Admin Party mode is still enabled. Please create a CouchDB
                 adminParty = true;
+                System.out.println("Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
             }
             response1.disconnect();
 
-            secure = !adminParty;
+            secure = !adminParty && ssl;
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -13,6 +13,7 @@ import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+import com.rant.config.Application;
 import com.rant.objects.Author;
 import com.rant.objects.Database;
 import com.rant.objects.Post;
@@ -63,13 +64,13 @@ public class CouchDBSetupTest {
 
         Author author = setup.getDefaultAuthor();
         assertNotNull(author);
-        assertTrue(author.getName().equalsIgnoreCase("Admin"));
+        assertTrue(author.getName().equalsIgnoreCase(Application.getString("default.username")));
         assertNotNull(author.get_Id());
         assertNotNull(author.getName());
 
         Post post = setup.getDefaultPost();
         assertNotNull(post);
-        assertTrue(post.getAuthor_id().equalsIgnoreCase("admin"));
+        assertTrue(post.getAuthor_id().equalsIgnoreCase(Application.getString("default.username")));
         assertNotNull(post.get_Id());
         assertNotNull(post.getTitle());
 
