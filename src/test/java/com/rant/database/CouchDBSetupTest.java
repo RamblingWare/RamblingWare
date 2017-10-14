@@ -1,6 +1,7 @@
 package com.rant.database;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -36,13 +37,7 @@ public class CouchDBSetupTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void construct() {
-
-        assertNotNull(setup);
-
+        
         database = new Database();
         database.setHost("127.0.0.1");
         database.setPort("5984");
@@ -50,11 +45,14 @@ public class CouchDBSetupTest {
         database.setUsername("admin");
         database.setPassword("admin");
         database.setUrl("http://127.0.0.1:5984/");
-        assertNotNull(database);
-
         setup.setDatabase(database);
-        assertEquals(database, setup.getDatabase());
+    }
 
+    @Test
+    public void construct() {
+        assertNotNull(setup);
+        assertNotNull(database);
+        assertEquals(database, setup.getDatabase());
         setup = new CouchDBSetup(database);
         assertEquals(database, setup.getDatabase());
     }
@@ -77,6 +75,11 @@ public class CouchDBSetupTest {
         List<Role> roles = setup.getDefaultRoles();
         assertNotNull(roles);
         assertTrue(roles.size() > 1);
+    }
+    
+    @Test
+    public void checks() {
+        assertFalse(setup.isHttpsEnabled());
     }
 
 }

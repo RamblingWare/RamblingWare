@@ -51,18 +51,18 @@ public class Application implements ServletContextListener {
             } 
             // Check Security
             if (!databaseSetup.securityCheck()) {
-                System.out.println("Failed security check. Continuing with caution. Please work to secure the db.");
+                System.out.println("Database is not secure. Please work to secure it soon.");
             } 
             // Verify Install
             if (!databaseSetup.verify()) {
-                System.out.println("Setup detected the Database is not configured properly.");
+                System.out.println("Database is not configured properly. Installing for first-time...");
                 // perform first-time install
                 if (!databaseSetup.install()) {
                     // failed to install
                     System.exit(1);
                 } else {
                     // installed
-                    System.out.println("Setup Database completed.");
+                    System.out.println("Install completed.");
                 }
             }
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class Application implements ServletContextListener {
         // Load settings from Database
         Config configdb = loadSettingsFromDB(databaseService);
         if(configdb != null) {
-            System.out.println("Found config settings in the database already. Using it instead of "+PROP_FILE);
+            System.out.println("Found configs in the database. Using that instead of "+PROP_FILE);
             config.getSettings().putAll(configdb.getSettings());
         }
 

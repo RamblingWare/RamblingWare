@@ -58,18 +58,6 @@ public class CouchDBSetup extends DatabaseSetup {
                         + client.serverVersion() + ") was expecting (2.0.0).");
             }
 
-            // list nodes
-            Iterator<String> nodes = client.getMembership().getAllNodes();
-            System.out.println("All Nodes:");
-            while (nodes.hasNext()) {
-                System.out.println(nodes.next());
-            }
-            Iterator<String> cnodes = client.getMembership().getClusterNodes();
-            System.out.println("All Cluster Nodes:");
-            while (cnodes.hasNext()) {
-                System.out.println(cnodes.next());
-            }
-
             // create database
             client.createDB("ranttest");
             Database db = client.database("ranttest", false);
@@ -147,10 +135,9 @@ public class CouchDBSetup extends DatabaseSetup {
             return true;
 
         } catch (Exception e) {
-            System.err.println("Failed Database Verification: Exception occured during verify: "
-                    + e.getMessage());
+            // failed verification
+            return false;
         }
-        return false;
     }
 
     /**
@@ -195,18 +182,31 @@ public class CouchDBSetup extends DatabaseSetup {
             }
             response.disconnect();
 
-            /*
-             * if (!securityCheck()) { // create default administrator user =
-             * database.getUsername(); pass = database.getPassword();
-             * 
-             * HttpConnection request2 = Http.PUT( new URL(client.getBaseUri() + "/_node/" + node +
-             * "/_config/admins/" + user), "application/json"); request2.setRequestBody(pass);
-             * HttpConnection response2 = client.executeRequest(request2); // TODO HttpClient
-             * execute if (response2.getConnection().getResponseCode() !=
-             * HttpURLConnection.HTTP_CREATED) { // failed to create default user throw new
-             * Exception("Failed to create default admin '" + user +
-             * "'. Exception occured during install."); } response2.disconnect(); }
-             */
+            String node = "nonode@nohost";
+            Iterator<String> cnodes = client.getMembership().getClusterNodes();
+            if (cnodes.hasNext()) {
+                node = cnodes.next();
+            }
+            if (isAdminPartyEnabled()) {
+                // create default administrator
+                user = database.getUsername();
+                pass = database.getPassword();
+
+                HttpConnection request2 = Http.PUT(
+                        new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins/" + user),
+                        "application/json");
+                request2.setRequestBody(pass);
+                HttpConnection response2 = client.executeRequest(request2);
+                if (response2.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+                    // failed to create default user
+                    throw new Exception("Failed to create default admin '" + user
+                            + "'. Exception occured during install.");
+                } else {
+                    // stopped the party
+                    System.out.println("Created default admin: "+user);
+                }
+                response2.disconnect();
+            }
 
             // create default user profile
             Database authors = client.database("authors", true);
@@ -252,23 +252,23 @@ public class CouchDBSetup extends DatabaseSetup {
      * @return true if secure
      */
     public boolean securityCheck() {
-        boolean secure = true;
+        
+        boolean https = isHttpsEnabled();
+        boolean adminParty = isAdminPartyEnabled();
+        
+        return !adminParty && https;
+    }
+
+    /**
+     * Check if Admin Party mode is enabled. This means there are no server administrators.
+     * 
+     * @return true if enabled
+     */
+    protected boolean isAdminPartyEnabled() {
+        boolean adminParty = true;
         try {
-            CloudantClient client = getConnection();
-
-            // check https
-            boolean ssl = false;
-            if (database.getUrl().startsWith("https")) {
-                ssl = true;
-            } else {
-                // https not enabled, not good
-                ssl = false;
-                System.out.println(
-                        "WARNING: Database connection is not using Https. Please create a SSL certificate as soon as possible to secure it.");
-            }
-
             // check if admin party mode is enabled.
-            boolean adminParty = false;
+            CloudantClient client = getConnection();
             String node = "nonode@nohost";
             Iterator<String> cnodes = client.getMembership().getClusterNodes();
             if (cnodes.hasNext()) {
@@ -278,25 +278,38 @@ public class CouchDBSetup extends DatabaseSetup {
                     .GET(new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins"));
             HttpConnection response1 = client.executeRequest(request1);
             String admins = Utils.readInputStream(response1.responseAsInputStream());
-            if (admins.isEmpty()) {
-                // admin party still going, not good
-                adminParty = true;
-                System.out.println(
-                        "WARNING: Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
-            } else {
-                // admin party disabled
-                adminParty = false;
-            }
+
+            // list the admins.
+            // if no admins, then admin party mode is still going.
+            adminParty = admins.isEmpty();
+
             response1.disconnect();
-
-            secure = !adminParty && ssl;
-
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Failed Database Security Check: Exception occured during check.");
-            secure = false;
+            adminParty = false;
         }
-        return secure;
+        if (adminParty) {
+            System.out.println(
+                    "WARNING: Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
+        }
+        return adminParty;
+    }
+
+    /**
+     * Check if Https is enabled. This means the connection is secure.
+     * 
+     * @return true if enabled
+     */
+    protected boolean isHttpsEnabled() {
+        boolean https = true;
+
+        // check https
+        https = database.getUrl().startsWith("https");
+
+        if (!https) {
+            System.out.println(
+                    "WARNING: Database connection is not using Https. Please create a SSL certificate as soon as possible to secure it.");
+        }
+        return https;
     }
 
     /**
