@@ -7,7 +7,7 @@ LABEL maintainer="Austin Delamar @amdelamar" \
 RUN apk add --no-cache --virtual openssl \
  && openssl genrsa -out privkey.pem 4096 -noout \
  && openssl req -new -x509 -days 1826 -key privkey.pem -out cert.pem -subj "/C=US/ST=-/L=-/O=Rant/OU=Rant/CN=IT/emailAddress=webmaster@ramblingware.com" \
- && mv ca.key ca.crt /usr/local/tomcat/conf/
+ && mv privkey.pem cert.pem /usr/local/tomcat/conf/
 
 # Tomcat configs
 COPY /deploy/tomcat/* /usr/local/tomcat/conf/
