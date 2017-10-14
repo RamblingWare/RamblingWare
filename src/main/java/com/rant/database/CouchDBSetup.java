@@ -258,12 +258,13 @@ public class CouchDBSetup extends DatabaseSetup {
 
             // check https
             boolean ssl = false;
-            if(database.getUrl().startsWith("https")) {
+            if (database.getUrl().startsWith("https")) {
                 ssl = true;
             } else {
                 // https not enabled, not good
                 ssl = false;
-                System.out.println("Database connection is not using Https. Please create a SSL certificate as soon as possible to secure it.");
+                System.out.println(
+                        "WARNING: Database connection is not using Https. Please create a SSL certificate as soon as possible to secure it.");
             }
 
             // check if admin party mode is enabled.
@@ -276,13 +277,15 @@ public class CouchDBSetup extends DatabaseSetup {
             HttpConnection request1 = Http
                     .GET(new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins"));
             HttpConnection response1 = client.executeRequest(request1);
-            if (response1.getConnection().getResponseCode() != HttpURLConnection.HTTP_OK) {
-                // admin party disabled
-                adminParty = false;
-            } else {
+            String admins = Utils.readInputStream(response1.responseAsInputStream());
+            if (admins.isEmpty()) {
                 // admin party still going, not good
                 adminParty = true;
-                System.out.println("Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
+                System.out.println(
+                        "WARNING: Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
+            } else {
+                // admin party disabled
+                adminParty = false;
             }
             response1.disconnect();
 

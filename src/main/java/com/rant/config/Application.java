@@ -48,19 +48,22 @@ public class Application implements ServletContextListener {
             if (!databaseSetup.test()) {
                 // failure
                 System.exit(1);
-            } else if (!databaseSetup.verify()) {
+            } 
+            // Check Security
+            if (!databaseSetup.securityCheck()) {
+                System.out.println("Failed security check. Continuing with caution. Please work to secure the db.");
+            } 
+            // Verify Install
+            if (!databaseSetup.verify()) {
                 System.out.println("Setup detected the Database is not configured properly.");
                 // perform first-time install
                 if (!databaseSetup.install()) {
                     // failed to install
                     System.exit(1);
                 } else {
+                    // installed
                     System.out.println("Setup Database completed.");
                 }
-            } else if (!databaseSetup.securityCheck()) {
-                System.out.println("Failed security check. Continuing with caution. Please work to secure the db.");
-            } else {
-                System.out.println("Database was verified.");
             }
         } catch (Exception e) {
             // error
