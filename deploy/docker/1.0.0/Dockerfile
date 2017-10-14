@@ -4,10 +4,10 @@ LABEL maintainer="Austin Delamar @amdelamar" \
       description="Blog system on CouchDB."
 
 # Tomcat HTTPS over HTTP/2
-#RUN apk add --no-cache --virtual openssl \
-# && openssl genrsa -des3 -passout pass:changeit -out ca.key 4096 -noout \
-# && openssl req -new -x509 -days 1826 -key ca.key -out ca.crt -passin pass:changeit \
-#    -subj "/C=US/ST=-/L=-/O=Rant/OU=Rant/CN=IT/emailAddress=webmaster@ramblingware.com"
+RUN apk add --no-cache --virtual openssl \
+ && openssl genrsa -out privkey.pem 4096 -noout \
+ && openssl req -new -x509 -days 1826 -key privkey.pem -out cert.pem -subj "/C=US/ST=-/L=-/O=Rant/OU=Rant/CN=IT/emailAddress=webmaster@ramblingware.com" \
+ && mv ca.key ca.crt /usr/local/tomcat/conf/
 
 # Tomcat configs
 COPY /deploy/tomcat/* /usr/local/tomcat/conf/
@@ -25,3 +25,4 @@ ENV RANT_VERSION=1.0.0 \
     DB_PASS=admin
 
 EXPOSE 8080 8443
+CMD ["catalina.sh", "run"]

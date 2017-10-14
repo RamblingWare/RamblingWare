@@ -35,13 +35,24 @@
     <!-- REDIRECT http to HTTPS -->
     <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
 
-    <!-- HTTPS with .keystore -->
+    <!-- HTTPS with .keystore --><!-- 
     <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
         maxThreads="150" scheme="https" secure="true"
         clientAuth="false" sslProtocol="TLS"
         keystoreFile="conf/.keystore"
         keystorePass="changeit"
-        keyAlias="rant" />
+        keyAlias="rant" /> -->
+
+	<!-- HTTPS with HTTP/2 -->
+	<Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
+		maxThreads="150" SSLEnabled="true">
+		<UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+		<SSLHostConfig honorCipherOrder="false">
+			<Certificate
+				certificateKeyFile="conf/privkey.pem"
+				certificateFile="conf/cert.pem" />
+		</SSLHostConfig>
+	</Connector>
 
     <Engine name="Catalina" defaultHost="localhost">
 

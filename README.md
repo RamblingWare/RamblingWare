@@ -15,7 +15,7 @@ Blog management system on CouchDB.
  *  Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
  *  Organize blog posts by Tags, Categories, Featured, Authors, and Dates
  *  SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
- *  2FA security and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
+ *  HTTP/2, HTTPS, 2FA, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
  
 ## Planned Features
 
