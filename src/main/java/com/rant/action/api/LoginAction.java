@@ -109,10 +109,16 @@ public class LoginAction extends ActionSupport
      *             if invalid
      */
     protected boolean validParameters() throws Exception {
-        if (username == null || username.isEmpty()) {
+        if (code != null && code.isEmpty()) {
+            throw new Exception("Invalid or missing code.");
+        } else if (code != null && code.length() > 6) {
+            throw new Exception("Code cannot be greater than 6 digits.");
+        } else if (username == null || username.isEmpty()) {
             throw new Exception("Invalid or missing username.");
         } else if (password == null || password.isEmpty()) {
             throw new Exception("Invalid or missing password.");
+        } else if (password.length() > 100) {
+            throw new Exception("Password cannot be greater than 100 characters.");
         } else {
             return true;
         }
@@ -196,11 +202,7 @@ public class LoginAction extends ActionSupport
     }
 
     public void setPassword(String password) {
-        if(password != null && password.length() > 100) {
-            this.password = password.substring(0, 100); 
-        } else {
-            this.password = password;    
-        }
+        this.password = password;
     }
 
     public String getCode() {
@@ -208,11 +210,7 @@ public class LoginAction extends ActionSupport
     }
 
     public void setCode(String code) {
-        if(code != null && code.length() > 6) {
-            this.code =  Utils.removeBadChars(code.substring(0, 6));
-        } else {
-            this.code = Utils.removeBadChars(code);
-        }
+        this.code = Utils.removeBadChars(code);
     }
 
     public int getAttempts() {

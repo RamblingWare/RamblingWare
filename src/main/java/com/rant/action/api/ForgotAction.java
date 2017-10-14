@@ -101,7 +101,11 @@ public class ForgotAction extends ActionSupport
      *             if invalid
      */
     protected boolean validParameters() throws Exception {
-        if (email == null || email.isEmpty()) {
+        if (code != null && code.isEmpty()) {
+            throw new Exception("Invalid or missing code.");
+        } else if (code != null && code.length() > 6) {
+            throw new Exception("Code cannot be greater than 6 digits.");
+        } else if (email == null || email.isEmpty()) {
             throw new Exception("Invalid or missing email.");
         } else if (!Utils.isValidEmail(email)) {
             throw new Exception("Invalid email address. Double-check and try again.");
@@ -191,11 +195,7 @@ public class ForgotAction extends ActionSupport
     }
 
     public void setCode(String code) {
-        if(code != null && code.length() > 6) {
-            this.code =  Utils.removeBadChars(code.substring(0, 6));
-        } else {
-            this.code = Utils.removeBadChars(code);
-        }
+        this.code = Utils.removeBadChars(code);
     }
 
     public String getType() {
