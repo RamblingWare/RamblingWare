@@ -37,12 +37,12 @@ This project is still in development. It is not easily modifiable for "new" blog
 
 ### Docker Deploy
 
- 1. Pull [CouchDB 2.0](https://hub.docker.com/r/klaemo/couchdb/) `docker pull klaemo/couchdb:2.0.0`
+ 1. Pull [CouchDB 2.0](https://hub.docker.com/r/rant/couchdb/) `docker pull rant/couchdb:2.1.0`
  1. Pull [Rant 1.0](https://hub.docker.com/r/rant/rant/) `docker pull rant/rant:1.0.0`
- 1. Run CouchDB `docker run -d -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=admin -p 5984:5984 --name database klaemo/couchdb`
+ 1. Run CouchDB `docker run -d -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=admin -p 6984:6984 --name database rant/couchdb:2.1.0`
      - Choose your default password. Never share it!
      - Save the `<container-ip>` for the next step.
- 1. Run Rant `docker run -e DB_URL=http://<container-ip>:5984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name backend rant/rant`
+ 1. Run Rant `docker run -e DB_URL=http://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name rant rant/rant:1.0.0`
      - Enter the `<container-ip>` of your couchdb container.
      - Paste the same password again.
  1. Visit `https://<container-ip>:8443/`
@@ -50,7 +50,7 @@ This project is still in development. It is not easily modifiable for "new" blog
  <!-- 
   docker pull rant/rant:1.0.0
   docker build -f deploy/docker/1.0.0/Dockerfile --no-cache --rm -t rant/rant:1.0.0 -t rant/rant .
-  docker run -e DB_URL=http://<container-ip>:5984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name backend rant/rant
+  docker run -e DB_URL=http://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 --name rant rant/rant
   docker push rant/rant
   docker push rant/rant:1.0.0
  -->
