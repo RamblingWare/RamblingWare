@@ -37,7 +37,7 @@ This project is still in development. It is not easily modifiable for "new" blog
 
 ### Docker Deploy
 
- 1. Pull [CouchDB 2.0](https://hub.docker.com/r/rant/couchdb/) `docker pull rant/couchdb:2.1.0`
+ 1. Pull [CouchDB 2.1.0](https://hub.docker.com/r/rant/couchdb/) `docker pull rant/couchdb:2.1.0`
  1. Pull [Rant 1.0](https://hub.docker.com/r/rant/rant/) `docker pull rant/rant:1.0.0`
  1. Run CouchDB `docker run -d -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=admin -p 6984:6984 --name database rant/couchdb:2.1.0`
      - Choose your default password. Never share it!
@@ -58,7 +58,7 @@ This project is still in development. It is not easily modifiable for "new" blog
 ### Manually Deploy
 
  1. Clone: `git clone https://github.com/RamblingWare/Rant`
- 1. Install [CouchDB 2.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
+ 1. Install [CouchDB 2.1.0](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
      - If using Cloudant, Paste the db credentials in `src/main/resources/rant.properties` file.
      - If using CouchDB on locahost, you don't need to edit the credentials, unless you want to.
      - If using CouchDB on a public server, choose a stronger password in `src/main/resources/rant.properties` file.
@@ -74,7 +74,7 @@ This project is still in development. It is not easily modifiable for "new" blog
 
  *  [Java 1.8](https://www.java.com/) Programming Language
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
- *  [Apache CouchDB 2.0](https://couchdb.apache.org/) NoSQL Database
+ *  [Apache CouchDB 2.1.0](https://couchdb.apache.org/) NoSQL Database
  *  [Apache Tomcat 9.0](https://tomcat.apache.org/) Web Server
  *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
 
