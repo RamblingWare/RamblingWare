@@ -1,5 +1,5 @@
 {
-  "_id": "_design/rolesdesign",
+  "_id": "_design/roles",
   "views": {
     "roles": {
       "map": "function (doc) {\n  if(doc.isPublic != undefined) {\n    emit(doc._id, doc.name);\n  }\n}"

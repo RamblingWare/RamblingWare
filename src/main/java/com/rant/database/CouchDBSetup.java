@@ -117,20 +117,20 @@ public class CouchDBSetup extends DatabaseSetup {
             client.database("_users", false);
             client.database("_replicator", false);
 
-            Database blog = client.database("blog", false);
-            blog.getDesignDocumentManager().get("_design/blogdesign");
+            Database blog = client.database("posts", false);
+            blog.getDesignDocumentManager().get("_design/posts");
 
             Database roles = client.database("roles", false);
-            roles.getDesignDocumentManager().get("_design/rolesdesign");
+            roles.getDesignDocumentManager().get("_design/roles");
 
             Database authors = client.database("authors", false);
-            authors.getDesignDocumentManager().get("_design/authorsdesign");
+            authors.getDesignDocumentManager().get("_design/authors");
 
             Database views = client.database("views", false);
-            views.getDesignDocumentManager().get("_design/viewsdesign");
+            views.getDesignDocumentManager().get("_design/views");
 
-            Database security = client.database("security", false);
-            security.find("APPCONFIG");
+            Database app = client.database("application", false);
+            app.find("APPCONFIG");
 
             return true;
 
@@ -159,7 +159,7 @@ public class CouchDBSetup extends DatabaseSetup {
             // create default roles
             Database roles = client.database("roles", true);
             DesignDocument rolesdesign = DesignDocumentManager
-                    .fromFile(Utils.getResourceAsFile("/design/rolesdesign.json"));
+                    .fromFile(Utils.getResourceAsFile("/design/roles.json"));
             roles.getDesignDocumentManager().put(rolesdesign);
             List<Role> defaultRoles = getDefaultRoles();
             roles.bulk(defaultRoles);
@@ -211,16 +211,16 @@ public class CouchDBSetup extends DatabaseSetup {
             // create default user profile
             Database authors = client.database("authors", true);
             DesignDocument authorsdesign = DesignDocumentManager
-                    .fromFile(Utils.getResourceAsFile("/design/authorsdesign.json"));
+                    .fromFile(Utils.getResourceAsFile("/design/authors.json"));
             authors.getDesignDocumentManager().put(authorsdesign);
 
             // create default author
             authors.save(getDefaultAuthor());
 
             // create blog
-            Database blog = client.database("blog", true);
+            Database blog = client.database("posts", true);
             DesignDocument blogdesign = DesignDocumentManager
-                    .fromFile(Utils.getResourceAsFile("/design/blogdesign.json"));
+                    .fromFile(Utils.getResourceAsFile("/design/posts.json"));
             blog.getDesignDocumentManager().put(blogdesign);
 
             // create default post
@@ -229,12 +229,12 @@ public class CouchDBSetup extends DatabaseSetup {
             // create views
             Database views = client.database("views", true);
             DesignDocument viewsdesign = DesignDocumentManager
-                    .fromFile(Utils.getResourceAsFile("/design/viewsdesign.json"));
+                    .fromFile(Utils.getResourceAsFile("/design/views.json"));
             views.getDesignDocumentManager().put(viewsdesign);
 
-            // default security config
-            Database security = client.database("security", true);
-            security.save(Application.getConfig());
+            // default app config
+            Database app = client.database("application", true);
+            app.save(Application.getConfig());
 
             return true;
 

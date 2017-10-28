@@ -1,5 +1,5 @@
 {
-  "_id": "_design/authorsdesign",
+  "_id": "_design/authors",
   "views": {
     "authors": {
       "map": "function (doc) {\n  if(doc.name != undefined) {\n    emit(doc._id, doc.name);\n  }\n}"

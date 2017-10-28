@@ -44,7 +44,7 @@ public class CouchDB extends DatabaseService {
     public Config getConfig() {
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("security", false);
+            Database db = client.database("application", false);
             return db.find(Config.class, "APPCONFIG");
 
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class CouchDB extends DatabaseService {
     public boolean editConfig(Config config) {
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("security", false);
+            Database db = client.database("application", false);
             db.update(config);
             return true;
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class CouchDB extends DatabaseService {
         Post post = null;
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
 
             post = db.find(Post.class, uri);
 
@@ -140,14 +140,14 @@ public class CouchDB extends DatabaseService {
             CloudantClient client = getConnection();
             Database db = client.database("authors", false);
 
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("authorsdesign", "authors")
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("authors", "authors")
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .includeDocs(true).build().getResponse();
 
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("authorsdesign", "authors")
+                    pg = db.getViewRequestBuilder("authors", "authors")
                             .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                             .includeDocs(true).build().getResponse(pg.getNextPageToken());
                 } else {
@@ -170,9 +170,9 @@ public class CouchDB extends DatabaseService {
         List<Post> posts = new ArrayList<Post>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
 
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("blogdesign", "featured")
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("posts", "featured")
                     .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
                     .getResponse();
 
@@ -190,9 +190,9 @@ public class CouchDB extends DatabaseService {
         List<Year> years = new ArrayList<Year>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
 
-            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("blogdesign", "year-count")
+            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("posts", "year-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
@@ -215,10 +215,10 @@ public class CouchDB extends DatabaseService {
         List<Category> categories = new ArrayList<Category>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
 
             ViewResponse<String, Integer> pg = db
-                    .getViewRequestBuilder("blogdesign", "category-count")
+                    .getViewRequestBuilder("posts", "category-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
@@ -241,9 +241,9 @@ public class CouchDB extends DatabaseService {
         List<Tag> tags = new ArrayList<Tag>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
 
-            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("blogdesign", "tag-count")
+            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("posts", "tag-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
@@ -266,9 +266,9 @@ public class CouchDB extends DatabaseService {
         List<String> uris = new ArrayList<String>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
 
-            uris = db.getViewRequestBuilder("blogdesign", "posts-all")
+            uris = db.getViewRequestBuilder("posts", "posts-all")
                     .newPaginatedRequest(Key.Type.STRING, String.class).build().getResponse()
                     .getKeys();
 
@@ -284,16 +284,16 @@ public class CouchDB extends DatabaseService {
         List<Post> posts = new ArrayList<Post>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
             String view = includeHidden ? "posts-all" : "posts-published";
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("blogdesign", view)
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("posts", view)
                     .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                     .descending(true).includeDocs(true).build().getResponse();
 
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("blogdesign", view)
+                    pg = db.getViewRequestBuilder("posts", view)
                             .newPaginatedRequest(Key.Type.STRING, Object.class).rowsPerPage(limit)
                             .descending(true).includeDocs(true).build()
                             .getResponse(pg.getNextPageToken());
@@ -345,9 +345,9 @@ public class CouchDB extends DatabaseService {
         List<Post> posts = new ArrayList<Post>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
             String view = includeHidden ? "category-all" : "category-published";
-            ViewResponse<String, String> pg = db.getViewRequestBuilder("blogdesign", view)
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("posts", view)
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                     .reduce(false).descending(true).keys(category).includeDocs(true).build()
                     .getResponse();
@@ -355,7 +355,7 @@ public class CouchDB extends DatabaseService {
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("blogdesign", view)
+                    pg = db.getViewRequestBuilder("posts", view)
                             .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                             .reduce(false).descending(true).keys(category).includeDocs(true).build()
                             .getResponse(pg.getNextPageToken());
@@ -406,9 +406,9 @@ public class CouchDB extends DatabaseService {
         List<Post> posts = new ArrayList<Post>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
             String view = includeHidden ? "tag-all" : "tag-published";
-            ViewResponse<String, String> pg = db.getViewRequestBuilder("blogdesign", view)
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("posts", view)
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                     .reduce(false).descending(true).keys(tag).includeDocs(true).build()
                     .getResponse();
@@ -416,7 +416,7 @@ public class CouchDB extends DatabaseService {
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("blogdesign", view)
+                    pg = db.getViewRequestBuilder("posts", view)
                             .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                             .reduce(false).descending(true).keys(tag).includeDocs(true).build()
                             .getResponse(pg.getNextPageToken());
@@ -467,12 +467,12 @@ public class CouchDB extends DatabaseService {
         List<Post> posts = new ArrayList<Post>();
         try {
             CloudantClient client = getConnection();
-            Database db = client.database("blog", false);
+            Database db = client.database("posts", false);
             String view = includeHidden ? "year-all" : "year-published";
             String endKey = year + "-01-01T00:00:00.000Z";
             String startKey = year + "-12-31T23:59:59.999Z";
 
-            ViewResponse<String, String> pg = db.getViewRequestBuilder("blogdesign", view)
+            ViewResponse<String, String> pg = db.getViewRequestBuilder("posts", view)
                     .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                     .reduce(false).descending(true).startKey(startKey).endKey(endKey)
                     .includeDocs(true).build().getResponse();
@@ -480,7 +480,7 @@ public class CouchDB extends DatabaseService {
             for (int i = 1; i < page; i++) {
                 if (pg.getNextPageToken() != null) {
                     // next page
-                    pg = db.getViewRequestBuilder("blogdesign", view)
+                    pg = db.getViewRequestBuilder("posts", view)
                             .newPaginatedRequest(Key.Type.STRING, String.class).rowsPerPage(limit)
                             .reduce(false).descending(true).startKey(startKey).endKey(endKey)
                             .includeDocs(true).build().getResponse(pg.getNextPageToken());
@@ -533,7 +533,7 @@ public class CouchDB extends DatabaseService {
             CloudantClient client = getConnection();
             Database db = client.database("roles", false);
 
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("rolesdesign", "roles")
+            ViewResponse<String, Object> pg = db.getViewRequestBuilder("roles", "roles")
                     .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
                     .getResponse();
 

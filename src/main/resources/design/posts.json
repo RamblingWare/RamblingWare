@@ -1,5 +1,5 @@
 {
-  "_id": "_design/blogdesign",
+  "_id": "_design/posts",
   "views": {
     "featured": {
       "map": "function (doc) {\n  if(doc.published && doc.featured) {\n      emit(doc._id, 1);\n    }\n}"

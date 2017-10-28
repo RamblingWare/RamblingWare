@@ -1,5 +1,5 @@
 {
-  "_id": "_design/viewsdesign",
+  "_id": "_design/views",
   "views": {
     "views": {
       "map": "function (doc) {\n  if(doc.count != undefined) {\n    emit(doc._id, doc.count);\n  }\n}"
