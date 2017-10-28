@@ -107,7 +107,6 @@ public class Application implements ServletContextListener {
                         .getAsJsonObject("credentials");
                 db.setHost(couchdb.get("host").getAsString());
                 db.setPort(couchdb.get("port").getAsString());
-                db.setName(couchdb.get("name").getAsString());
                 db.setUrl(couchdb.get("url").getAsString());
                 db.setUsername(couchdb.get("username").getAsString());
                 db.setPassword(couchdb.get("password").getAsString());
@@ -125,7 +124,6 @@ public class Application implements ServletContextListener {
             db.setPort(host.substring(host.indexOf(":")+1, host.length()));
             host = host.substring(0, host.indexOf(":"));
             db.setHost(host);
-            db.setName("rantdb");
             db.setUsername(System.getenv("DB_USER"));
             db.setPassword(System.getenv("DB_PASS"));
             } catch (Exception e) {
@@ -140,7 +138,6 @@ public class Application implements ServletContextListener {
 
             db.setHost(getString("couchdb.host"));
             db.setPort(getString("couchdb.port"));
-            db.setName(getString("couchdb.name"));
             db.setUrl(getString("couchdb.url"));
             db.setUsername(getString("couchdb.username"));
             db.setPassword(getString("couchdb.password"));

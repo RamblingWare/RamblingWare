@@ -8,7 +8,6 @@ package com.rant.objects;
  */
 public class Database implements Comparable<Database> {
 
-    private String name;
     private String host;
     private String port;
     private String url;
@@ -19,10 +18,6 @@ public class Database implements Comparable<Database> {
         // Auto-generated constructor stub
     }
 
-    public Database(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
@@ -30,14 +25,6 @@ public class Database implements Comparable<Database> {
         string.append("\n  User: " + getUsername());
         string.append("\n  Password: *********\n");
         return string.toString();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getHost() {
@@ -82,7 +69,7 @@ public class Database implements Comparable<Database> {
 
     @Override
     public int compareTo(Database db) {
-        int comp = this.name.compareTo(db.name);
+        int comp = this.url.compareTo(db.url);
         if(comp == 0) {
             comp = this.host.compareTo(db.host);
         }
@@ -91,6 +78,9 @@ public class Database implements Comparable<Database> {
         }
         if(comp == 0) {
             comp = this.username.compareTo(db.username);
+        }
+        if(comp == 0) {
+            comp = this.password.compareTo(db.password);
         }
         return comp;
     }

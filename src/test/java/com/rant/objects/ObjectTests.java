@@ -113,8 +113,16 @@ public class ObjectTests {
     @Test
     public void database() {
         Database db = new Database();
-        db.setName("rantdb");
-        assertEquals("rantdb", db.getName());
+        db.setUrl("http://127.0.0.1:5984");
+        assertEquals("http://127.0.0.1:5984", db.getUrl());
+        db.setHost("127.0.0.1");
+        assertEquals("127.0.0.1", db.getHost());
+        db.setPort("5984");
+        assertEquals("5984", db.getPort());
+        db.setUsername("admin");
+        assertEquals("admin", db.getUsername());
+        db.setPassword("passwd");
+        assertEquals("passwd", db.getPassword());
     }
 
     @Test

@@ -41,7 +41,6 @@ public class CouchDBTests {
         database = new Database();
         database.setHost("127.0.0.1");
         database.setPort("5984");
-        database.setName("rantdb");
         database.setUsername("admin");
         database.setPassword("admin");
         database.setUrl("http://127.0.0.1:5984/");
