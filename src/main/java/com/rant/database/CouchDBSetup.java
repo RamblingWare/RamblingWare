@@ -121,6 +121,7 @@ public class CouchDBSetup extends DatabaseSetup {
 
             Database app = client.database("application", false);
             app.find("APPCONFIG");
+            app.find("APPFIREWALL");
 
             return true;
 
@@ -185,7 +186,8 @@ public class CouchDBSetup extends DatabaseSetup {
 
             // default app config
             Database app = client.database("application", true);
-            app.save(Application.getConfig());
+            app.save(Application.getAppConfig());
+            app.save(Application.getAppFirewall());
 
             return true;
 
@@ -277,8 +279,8 @@ public class CouchDBSetup extends DatabaseSetup {
             response1.disconnect();
 
             // if no admins, then it means admin party mode is still partying.
-            System.out.println("Admins: '"+admins+"'");
-            adminParty = admins.length()<3;
+            System.out.println("Admins: '" + admins + "'");
+            adminParty = admins.length() < 3;
 
         } catch (Exception e) {
             adminParty = false;
@@ -340,7 +342,7 @@ public class CouchDBSetup extends DatabaseSetup {
             HttpConnection request2 = Http.PUT(
                     new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins/" + user),
                     "application/json");
-            request2.setRequestBody("\""+pass+"\"");
+            request2.setRequestBody("\"" + pass + "\"");
             HttpConnection response2 = client.executeRequest(request2);
             if (response2.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default admin

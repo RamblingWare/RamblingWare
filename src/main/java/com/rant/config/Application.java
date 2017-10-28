@@ -15,6 +15,7 @@ import com.rant.database.CouchDBSetup;
 import com.rant.database.DatabaseService;
 import com.rant.database.DatabaseSetup;
 import com.rant.objects.AppConfig;
+import com.rant.objects.AppFirewall;
 import com.rant.objects.Database;
 
 /**
@@ -27,17 +28,19 @@ import com.rant.objects.Database;
 public class Application implements ServletContextListener {
 
     private final static String PROP_FILE = "/rant.properties";
-    private static AppConfig config;
+    private static AppConfig appConfig;
+    private static AppFirewall appFirewall;
     private static DatabaseService databaseService;
     private static DatabaseSetup databaseSetup;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
-        
+
         System.out.println("Starting up Rant...");
 
         // Load settings from File
-        config = loadSettingsFromFile(PROP_FILE);
+        appConfig = loadSettingsFromFile(PROP_FILE);
+        appFirewall = new AppFirewall();
 
         // Setup Database
         try {
@@ -54,10 +57,12 @@ public class Application implements ServletContextListener {
 
         // Load settings from Database
         databaseService = new CouchDB(databaseSetup.getDatabase());
+        appFirewall = loadFirewallFromDB(databaseService);
         AppConfig configdb = loadSettingsFromDB(databaseService);
-        if(configdb != null) {
-            System.out.println("Found configs in the database. Using that instead of "+PROP_FILE);
-            config.getSettings().putAll(configdb.getSettings());
+        if (configdb != null) {
+            System.out.println(
+                    "Found app settings in the database. Using that instead of " + PROP_FILE);
+            appConfig.getSettings().putAll(configdb.getSettings());
         }
 
         // Ready
@@ -86,7 +91,11 @@ public class Application implements ServletContextListener {
     }
 
     protected AppConfig loadSettingsFromDB(DatabaseService dbs) {
-        return dbs.getConfig();
+        return dbs.getAppConfig();
+    }
+
+    protected AppFirewall loadFirewallFromDB(DatabaseService dbs) {
+        return dbs.getAppFirewall();
     }
 
     protected Database loadDatabase() {
@@ -115,15 +124,15 @@ public class Application implements ServletContextListener {
             }
         } else if (dbUrl != null && !dbUrl.isEmpty()) {
             try {
-            // try read docker env variables
-            db.setUrl(dbUrl);
-            String host = dbUrl.replace("http://", "");
-            host = host.replace("https://", "");
-            db.setPort(host.substring(host.indexOf(":")+1, host.length()));
-            host = host.substring(0, host.indexOf(":"));
-            db.setHost(host);
-            db.setUsername(System.getenv("DB_USER"));
-            db.setPassword(System.getenv("DB_PASS"));
+                // try read docker env variables
+                db.setUrl(dbUrl);
+                String host = dbUrl.replace("http://", "");
+                host = host.replace("https://", "");
+                db.setPort(host.substring(host.indexOf(":") + 1, host.length()));
+                host = host.substring(0, host.indexOf(":"));
+                db.setHost(host);
+                db.setUsername(System.getenv("DB_USER"));
+                db.setPassword(System.getenv("DB_PASS"));
             } catch (Exception e) {
                 System.out.println("Failed to parse DB_URL for Datasource properties.");
                 e.printStackTrace();
@@ -140,7 +149,7 @@ public class Application implements ServletContextListener {
             db.setUsername(getString("couchdb.username"));
             db.setPassword(getString("couchdb.password"));
         }
-        
+
         return db;
     }
 
@@ -159,12 +168,12 @@ public class Application implements ServletContextListener {
     }
 
     /**
-     * Gets the currently used Config for this app.
+     * Gets the currently used AppConfig for this app.
      * 
      * @return Config
      */
-    public static AppConfig getConfig() {
-        return config;
+    public static AppConfig getAppConfig() {
+        return appConfig;
     }
 
     /**
@@ -172,8 +181,16 @@ public class Application implements ServletContextListener {
      * 
      * @param config
      */
-    public static void setConfig(AppConfig config) {
-        Application.config = config;
+    public static void setAppConfig(AppConfig appConfig) {
+        Application.appConfig = appConfig;
+    }
+
+    public static AppFirewall getAppFirewall() {
+        return appFirewall;
+    }
+
+    public static void setAppFirewall(AppFirewall appFirewall) {
+        Application.appFirewall = appFirewall;
     }
 
     /**
@@ -220,7 +237,7 @@ public class Application implements ServletContextListener {
      * @return value String
      */
     public static String getString(String key) {
-        return config.getSettings().get(key);
+        return appConfig.getSettings().get(key);
     }
 
     /**
@@ -231,7 +248,7 @@ public class Application implements ServletContextListener {
      * @return value int
      */
     public static int getInt(String key) throws NumberFormatException {
-        return Integer.parseInt(config.getSettings().get(key));
+        return Integer.parseInt(appConfig.getSettings().get(key));
     }
 
     /**
@@ -242,7 +259,7 @@ public class Application implements ServletContextListener {
      * @return value double
      */
     public static double getDouble(String key) throws NumberFormatException {
-        return Double.parseDouble(config.getSettings().get(key));
+        return Double.parseDouble(appConfig.getSettings().get(key));
     }
 
     /**
@@ -254,7 +271,7 @@ public class Application implements ServletContextListener {
      *            the value to set
      */
     public static void setString(String key, String value) {
-        config.getSettings().put(key, value);
+        appConfig.getSettings().put(key, value);
     }
 
 }

@@ -12,9 +12,10 @@ import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewResponse;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
+import com.rant.objects.AppConfig;
+import com.rant.objects.AppFirewall;
 import com.rant.objects.Author;
 import com.rant.objects.Category;
-import com.rant.objects.AppConfig;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
@@ -45,7 +46,7 @@ public class CouchDB extends DatabaseService {
     }
 
     @Override
-    public AppConfig getConfig() {
+    public AppConfig getAppConfig() {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("application", false);
@@ -59,11 +60,39 @@ public class CouchDB extends DatabaseService {
     }
 
     @Override
-    public boolean editConfig(AppConfig config) {
+    public boolean editAppConfig(AppConfig appConfig) {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("application", false);
-            db.update(config);
+            db.update(appConfig);
+            return true;
+        } catch (Exception e) {
+            // this should be thrown up
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    @Override
+    public AppFirewall getAppFirewall() {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("application", false);
+            return db.find(AppFirewall.class, "APPFIREWALL");
+
+        } catch (Exception e) {
+            // this should be thrown up
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean editAppFirewall(AppFirewall appFirewall) {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("application", false);
+            db.update(appFirewall);
             return true;
         } catch (Exception e) {
             // this should be thrown up

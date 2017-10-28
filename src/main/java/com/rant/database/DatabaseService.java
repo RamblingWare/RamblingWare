@@ -2,9 +2,10 @@ package com.rant.database;
 
 import java.util.List;
 
+import com.rant.objects.AppConfig;
+import com.rant.objects.AppFirewall;
 import com.rant.objects.Author;
 import com.rant.objects.Category;
-import com.rant.objects.AppConfig;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
@@ -33,9 +34,13 @@ public abstract class DatabaseService {
         return database;
     }
 
-    public abstract AppConfig getConfig();
+    public abstract AppConfig getAppConfig();
 
-    public abstract boolean editConfig(AppConfig config);
+    public abstract boolean editAppConfig(AppConfig appConfig);
+    
+    public abstract AppFirewall getAppFirewall();
+
+    public abstract boolean editAppFirewall(AppFirewall appFirewall);
 
     public abstract Post getPost(String uri, boolean includeHidden);
 
