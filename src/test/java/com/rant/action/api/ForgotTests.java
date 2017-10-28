@@ -11,8 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.rant.config.Application;
-
 /**
  * Unit tests for ForgotAction
  * 
@@ -21,7 +19,7 @@ import com.rant.config.Application;
  */
 @RunWith(JUnit4.class)
 public class ForgotTests {
-
+    
     private ForgotAction action;
 
     @Before
@@ -66,7 +64,7 @@ public class ForgotTests {
     @Test
     public void lockedOut() throws Exception {
         
-        int maxAttempts = Application.getInt("default.attempts.limit");
+        int maxAttempts = action.maxAttempts;
 
         // increment attempts up to limit
         for (int i = 1; i < maxAttempts; i++) {

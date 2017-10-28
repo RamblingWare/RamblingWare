@@ -11,8 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.rant.config.Application;
-
 /**
  * Unit tests for LoginAction
  * 
@@ -65,8 +63,8 @@ public class LoginTests {
 
     @Test
     public void lockedOut() throws Exception {
-
-        int maxAttempts = Application.getInt("default.attempts.limit");
+        
+        int maxAttempts = action.maxAttempts;
 
         // increment attempts up to limit
         for (int i = 1; i < maxAttempts; i++) {

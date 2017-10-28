@@ -35,6 +35,8 @@ public class ForgotAction extends ActionSupport
     private boolean reset; // true if they forgot password
     private boolean recover; // true if they forgot two factor
 
+    protected int lockout = 30; // minutes
+    protected int maxAttempts = 3;
     private int attempts = 0;
     private long lastAttempt = 0;
 
@@ -48,6 +50,7 @@ public class ForgotAction extends ActionSupport
     public String execute() {
 
         try {
+            defaults();
             sessionAttributes = ActionContext.getContext().getSession();
             // are they already logged in?
             if (sessionAttributes.get("login") != null) {
@@ -90,6 +93,20 @@ public class ForgotAction extends ActionSupport
         // return response
         System.out.println(message);
         return NONE;
+    }
+
+    /**
+     * Get the default parameters for lockout, if available. Otherwise use defaults.
+     */
+    protected void defaults() {
+        try {
+            maxAttempts = Application.getInt("default.attempts.limit");
+            lockout = Application.getInt("default.lockout");
+        } catch (Exception e) {
+            ; // quitely ignore
+            maxAttempts = 3;
+            lockout = 30;
+        }
     }
 
     /**
@@ -139,9 +156,6 @@ public class ForgotAction extends ActionSupport
         }
         sessionAttributes.put("attempts", attempts);
         sessionAttributes.put("lastAttempt", lastAttempt);
-        
-        int maxAttempts = Application.getInt("default.attempts.limit");
-        int lockout =  Application.getInt("default.lockout");
 
         // lockout for 30 min, if they failed 3 times
         if (attempts >= maxAttempts) {
