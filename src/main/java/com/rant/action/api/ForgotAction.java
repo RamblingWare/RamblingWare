@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.rant.config.Application;
 import com.rant.config.Utils;
 
 /**
@@ -34,8 +35,6 @@ public class ForgotAction extends ActionSupport
     private boolean reset; // true if they forgot password
     private boolean recover; // true if they forgot two factor
 
-    protected static final int LOCKOUT_MINS = 30; // minutes
-    protected static final int MAX_ATTEMPTS = 3;
     private int attempts = 0;
     private long lastAttempt = 0;
 
@@ -140,24 +139,27 @@ public class ForgotAction extends ActionSupport
         }
         sessionAttributes.put("attempts", attempts);
         sessionAttributes.put("lastAttempt", lastAttempt);
+        
+        int maxAttempts = Application.getInt("default.attempts.limit");
+        int lockout =  Application.getInt("default.lockout");
 
         // lockout for 30 min, if they failed 3 times
-        if (attempts >= MAX_ATTEMPTS) {
+        if (attempts >= maxAttempts) {
 
-            if (System.currentTimeMillis() >= (lastAttempt + (LOCKOUT_MINS * 60 * 1000))) {
+            if (System.currentTimeMillis() >= (lastAttempt + (lockout * 60 * 1000))) {
                 // its been 30mins or more, so unlock
                 sessionAttributes.remove("attempts");
                 sessionAttributes.remove("lastAttempt");
-                System.err.println("Unknown user has waited " + LOCKOUT_MINS + " min, proceed. ("
+                System.err.println("Unknown user has waited " + lockout + " min, proceed. ("
                         + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost()
                         + ")");
                 return false;
             } else {
                 // they have already been locked out
-                System.err.println("Unknown user has been locked out for " + LOCKOUT_MINS
+                System.err.println("Unknown user has been locked out for " + lockout
                         + " min. (" + servletRequest.getRemoteAddr() + ")("
                         + servletRequest.getRemoteHost() + ") ");
-                throw new Exception("You have been locked out for the next " + LOCKOUT_MINS
+                throw new Exception("You have been locked out for the next " + lockout
                         + " minutes, for too many attempts.");
             }
         }
