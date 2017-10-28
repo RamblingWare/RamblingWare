@@ -1,6 +1,5 @@
 package com.rant.database;
 
-import java.io.InvalidClassException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -45,64 +44,46 @@ public class CouchDBSetup extends DatabaseSetup {
     }
 
     /**
-     * Quick CRUD test on the Database.
+     * Verify the Database is setup properly. Installs the necessary design docs, configs, and
+     * default admin.
      * 
-     * @returns boolean true if successful
+     * @return true if database is ready for app to use it
      */
-    public boolean test() {
-        try {
-            CloudantClient client = getConnection();
+    public boolean setup() {
+        boolean setup = true;
 
-            if (!client.serverVersion().startsWith("2.")) {
-                throw new InvalidClassException("Failed Database Test: Unexpected CouchDB Version ("
-                        + client.serverVersion() + ") was expecting 2.0.0 or 2.1.0");
-            }
+        // only 2.+ version allowed
+        setup = isVersionOk();
 
-            // create database
-            client.createDB("ranttest");
-            Database db = client.database("ranttest", false);
+        // Https should be required.
+        isHttps();
+        // But for now, this won't fail the setup step.
+        // Because it helps localhost, testing, etc
 
-            // create document
-            JsonObject json = new JsonObject();
-            json.addProperty("_id", "TEST");
-            db.save(json);
-
-            // get document
-            json = db.find(JsonObject.class, "TEST");
-
-            // update document
-            json.addProperty("title", "quick test edit");
-            db.update(json);
-
-            // delete document
-            json = db.find(JsonObject.class, "TEST");
-            db.remove(json);
-
-            // delete database
-            client.deleteDB("ranttest");
-
-            return true;
-
-        } catch (InvalidClassException e) {
-            System.err.println(e.getMessage());
-        } catch (NoDocumentException e) {
-            System.err.println(e.getMessage());
-            System.err.println(
-                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
-        } catch (DocumentConflictException e) {
-            System.err.println(e.getMessage());
-            System.err.println(
-                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
-        } catch (MalformedURLException | CouchDbException e) {
-            System.err.println(e.getMessage());
-            System.err
-                    .println("Failed Database Test: Please check the Database URL and try again.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(
-                    "Failed Database Test: Exception occured during test: " + e.getMessage());
+        // admin party should be disabled
+        if (setup && isAdminParty()) {
+            disableAdminParty();
+            // setup = disableAdminParty();
+            // We still continue because it helps localhost, testing, etc
         }
-        return false;
+
+        // check dbuser permissions
+        if (setup) {
+            setup = hasAdminPermissions();
+        }
+
+        // verify install
+        if (setup && !verifyDesign()) {
+            System.out.println("Database is not configured properly. Installing for first-time...");
+            // perform first-time install
+            setup = installDesign();
+            if (setup) {
+                // installed
+                System.out.println("Install completed.");
+            }
+        }
+
+        return setup;
     }
 
     /**
@@ -110,15 +91,18 @@ public class CouchDBSetup extends DatabaseSetup {
      * 
      * @return true if verified
      */
-    public boolean verify() {
+    protected boolean verifyDesign() {
         try {
             CloudantClient client = getConnection();
 
-            client.database("_users", false);
-            client.database("_replicator", false);
+            Database posts = client.database("posts", false);
+            posts.getDesignDocumentManager().get("_design/posts");
 
-            Database blog = client.database("posts", false);
-            blog.getDesignDocumentManager().get("_design/posts");
+            Database tags = client.database("tags", false);
+            tags.getDesignDocumentManager().get("_design/tags");
+
+            Database cats = client.database("categories", false);
+            cats.getDesignDocumentManager().get("_design/categories");
 
             Database roles = client.database("roles", false);
             roles.getDesignDocumentManager().get("_design/roles");
@@ -145,16 +129,9 @@ public class CouchDBSetup extends DatabaseSetup {
      * 
      * @return true if install successful
      */
-    public boolean install() {
+    protected boolean installDesign() {
         try {
             CloudantClient client = getConnection();
-
-            client.createDB("_users");
-            client.createDB("_replicator");
-
-            // TODO create CouchDB permissions
-            // - role = author
-            // - role = admin
 
             // create default roles
             Database roles = client.database("roles", true);
@@ -164,51 +141,7 @@ public class CouchDBSetup extends DatabaseSetup {
             List<Role> defaultRoles = getDefaultRoles();
             roles.bulk(defaultRoles);
 
-            // create default user
-            String user = Application.getString("default.username");
-            String pass = Application.getString("default.password");
-
-            HttpConnection request = Http.PUT(
-                    new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user),
-                    "application/json");
-            request.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
-                    + "\",\"password\":\"" + pass
-                    + "\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
-            HttpConnection response = client.executeRequest(request);
-            if (response.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-                // failed to create default user
-                throw new Exception("Failed to create default user '" + user
-                        + "'. Exception occured during install.");
-            }
-            response.disconnect();
-
-            String node = "nonode@nohost";
-            Iterator<String> cnodes = client.getMembership().getClusterNodes();
-            if (cnodes.hasNext()) {
-                node = cnodes.next();
-            }
-            if (isAdminPartyEnabled()) {
-                // create default administrator
-                user = database.getUsername();
-                pass = database.getPassword();
-
-                HttpConnection request2 = Http.PUT(
-                        new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins/" + user),
-                        "application/json");
-                request2.setRequestBody(pass);
-                HttpConnection response2 = client.executeRequest(request2);
-                if (response2.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-                    // failed to create default user
-                    throw new Exception("Failed to create default admin '" + user
-                            + "'. Exception occured during install.");
-                } else {
-                    // stopped the party
-                    System.out.println("Created default admin: "+user);
-                }
-                response2.disconnect();
-            }
-
-            // create default user profile
+            // create authors
             Database authors = client.database("authors", true);
             DesignDocument authorsdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/authors.json"));
@@ -217,14 +150,26 @@ public class CouchDBSetup extends DatabaseSetup {
             // create default author
             authors.save(getDefaultAuthor());
 
-            // create blog
-            Database blog = client.database("posts", true);
-            DesignDocument blogdesign = DesignDocumentManager
+            // create posts
+            Database posts = client.database("posts", true);
+            DesignDocument postsdesign = DesignDocumentManager
                     .fromFile(Utils.getResourceAsFile("/design/posts.json"));
-            blog.getDesignDocumentManager().put(blogdesign);
+            posts.getDesignDocumentManager().put(postsdesign);
 
             // create default post
-            blog.save(getDefaultPost());
+            posts.save(getDefaultPost());
+
+            // create tags
+            Database tags = client.database("tags", true);
+            DesignDocument tagsdesign = DesignDocumentManager
+                    .fromFile(Utils.getResourceAsFile("/design/tags.json"));
+            tags.getDesignDocumentManager().put(tagsdesign);
+
+            // create categories
+            Database categories = client.database("categories", true);
+            DesignDocument categoriesdesign = DesignDocumentManager
+                    .fromFile(Utils.getResourceAsFile("/design/categories.json"));
+            categories.getDesignDocumentManager().put(categoriesdesign);
 
             // create views
             Database views = client.database("views", true);
@@ -247,16 +192,57 @@ public class CouchDBSetup extends DatabaseSetup {
     }
 
     /**
-     * Verify the database server is secure or not.
+     * Check if the current dbuser can perform all CRUD actions on the Database.
      * 
-     * @return true if secure
+     * @returns boolean true if successful
      */
-    public boolean securityCheck() {
-        
-        boolean https = isHttpsEnabled();
-        boolean adminParty = isAdminPartyEnabled();
-        
-        return !adminParty && https;
+    protected boolean hasAdminPermissions() {
+        try {
+            CloudantClient client = getConnection();
+    
+            // create database
+            client.createDB("ranttest");
+            Database db = client.database("ranttest", false);
+    
+            // create document
+            JsonObject json = new JsonObject();
+            json.addProperty("_id", "TEST");
+            db.save(json);
+    
+            // get document
+            json = db.find(JsonObject.class, "TEST");
+    
+            // update document
+            json.addProperty("title", "quick test edit");
+            db.update(json);
+    
+            // delete document
+            json = db.find(JsonObject.class, "TEST");
+            db.remove(json);
+    
+            // delete database
+            client.deleteDB("ranttest");
+    
+            return true;
+    
+        } catch (NoDocumentException e) {
+            e.printStackTrace();
+            System.err.println(
+                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
+        } catch (DocumentConflictException e) {
+            e.printStackTrace();
+            System.err.println(
+                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
+        } catch (MalformedURLException | CouchDbException e) {
+            e.printStackTrace();
+            System.err
+                    .println("Failed Database Test: Please check the Database URL and try again.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(
+                    "Failed Database Test: Exception occured during test: " + e.getMessage());
+        }
+        return false;
     }
 
     /**
@@ -264,27 +250,31 @@ public class CouchDBSetup extends DatabaseSetup {
      * 
      * @return true if enabled
      */
-    protected boolean isAdminPartyEnabled() {
+    protected boolean isAdminParty() {
         boolean adminParty = true;
         try {
             // check if admin party mode is enabled.
             CloudantClient client = getConnection();
+            
+            // get node name
             String node = "nonode@nohost";
             Iterator<String> cnodes = client.getMembership().getClusterNodes();
             if (cnodes.hasNext()) {
                 node = cnodes.next();
             }
+            
+            // get admins list
             HttpConnection request1 = Http
                     .GET(new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins"));
             HttpConnection response1 = client.executeRequest(request1);
             String admins = Utils.readInputStream(response1.responseAsInputStream());
-
-            // list the admins.
-            // if no admins, then admin party mode is still going.
-            adminParty = admins.isEmpty();
-
             response1.disconnect();
+            
+            // if no admins, then it means admin party mode is still partying.
+            adminParty = admins.isEmpty();
+            
         } catch (Exception e) {
+            e.printStackTrace();
             adminParty = false;
         }
         if (adminParty) {
@@ -295,11 +285,84 @@ public class CouchDBSetup extends DatabaseSetup {
     }
 
     /**
+     * Attempts to disable admin party mode, by creating a regular _user and a system user (also
+     * known as couchdb admin). Uses the default user+pass provided in the properties file.
+     * 
+     * @return true if successful
+     */
+    protected boolean disableAdminParty() {
+        System.out.println("Attempting to disable admin party mode...");
+        try {
+            CloudantClient client = getConnection();
+    
+            client.database("_users", true);
+            client.database("_replicator", true);
+    
+            // TODO create CouchDB permissions
+            // - role = author
+            // - role = admin
+    
+            // create default user
+            String user = Application.getString("default.username");
+            String pass = Application.getString("default.password");
+    
+            HttpConnection request = Http.PUT(
+                    new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user),
+                    "application/json");
+            request.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
+                    + "\",\"password\":\"" + pass
+                    + "\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
+            HttpConnection response = client.executeRequest(request);
+            if (response.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+                // failed to create default user
+                throw new Exception("Failed to create default user '" + user
+                        + "'. Exception occured during install.");
+            }
+            response.disconnect();
+    
+            // get node name
+            String node = "nonode@nohost";
+            Iterator<String> cnodes = client.getMembership().getClusterNodes();
+            if (cnodes.hasNext()) {
+                node = cnodes.next();
+            }
+    
+            // create default administrator
+            user = database.getUsername();
+            pass = database.getPassword();
+    
+            HttpConnection request2 = Http.PUT(
+                    new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins/" + user),
+                    "application/json");
+            request2.setRequestBody(pass);
+            HttpConnection response2 = client.executeRequest(request2);
+            if (response2.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+                // failed to create default admin
+                throw new Exception("Failed to create default admin '" + user
+                        + "'. Exception occured during install.");
+            } else {
+                // stopped the party
+                System.out.println("Created default admin: " + user);
+            }
+            response2.disconnect();
+    
+            // disabled admin party mode
+            return true;
+    
+        } catch (Exception e) {
+            // failed
+            System.out.println(
+                    "WARNING: Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
+            return false;
+        }
+    }
+
+    /**
      * Check if Https is enabled. This means the connection is secure.
      * 
      * @return true if enabled
      */
-    protected boolean isHttpsEnabled() {
+    protected boolean isHttps() {
         boolean https = true;
 
         // check https
@@ -307,9 +370,33 @@ public class CouchDBSetup extends DatabaseSetup {
 
         if (!https) {
             System.out.println(
-                    "WARNING: Database connection is not using Https. Please create a SSL certificate as soon as possible to secure it.");
+                    "WARNING: Database connection is not using Https. Please get a SSL certificate as soon as possible to secure it.");
         }
         return https;
+    }
+
+    /**
+     * Check if CouchDB Version is compatible. (2.+)
+     * 
+     * @return true if compatible
+     */
+    protected boolean isVersionOk() {
+        boolean version = true;
+        String currVersion = "";
+        try {
+            // check CouchDB version
+            CloudantClient client = getConnection();
+            currVersion = client.serverVersion();
+        } catch (Exception e) {
+            version = false;
+        }
+
+        if (!currVersion.startsWith("2.")) {
+            version = false;
+            System.out.println("ERROR: Incompatible CouchDB Version (" + currVersion
+                    + ") was expecting 2.0.0 or 2.1.0");;
+        }
+        return version;
     }
 
     /**

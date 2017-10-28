@@ -25,10 +25,10 @@ public class Database implements Comparable<Database> {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder("Database: " + getName());
-        string.append("\nURL: " + getUrl());
-        string.append("\nUser: " + getUsername());
-        string.append("\nPassword: ******");
+        StringBuilder string = new StringBuilder();
+        string.append("\n  URL: " + getUrl());
+        string.append("\n  User: " + getUsername());
+        string.append("\n  Password: *********\n");
         return string.toString();
     }
 

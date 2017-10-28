@@ -48,7 +48,7 @@ public class CouchDB extends DatabaseService {
             return db.find(Config.class, "APPCONFIG");
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return null;
@@ -62,7 +62,7 @@ public class CouchDB extends DatabaseService {
             db.update(config);
             return true;
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
             return false;
         }
@@ -109,7 +109,7 @@ public class CouchDB extends DatabaseService {
         } catch (NoDocumentException e) {
             post = null;
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return post;
@@ -127,7 +127,7 @@ public class CouchDB extends DatabaseService {
         } catch (NoDocumentException e) {
             author = null;
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return author;
@@ -159,7 +159,7 @@ public class CouchDB extends DatabaseService {
             authors = pg.getDocsAs(Author.class);
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return authors;
@@ -179,7 +179,7 @@ public class CouchDB extends DatabaseService {
             posts = pg.getDocsAs(Post.class);
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -204,7 +204,7 @@ public class CouchDB extends DatabaseService {
             }
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return years;
@@ -230,7 +230,7 @@ public class CouchDB extends DatabaseService {
             }
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return categories;
@@ -255,7 +255,7 @@ public class CouchDB extends DatabaseService {
             }
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return tags;
@@ -273,7 +273,7 @@ public class CouchDB extends DatabaseService {
                     .getKeys();
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return uris;
@@ -333,7 +333,7 @@ public class CouchDB extends DatabaseService {
             }
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -395,7 +395,7 @@ public class CouchDB extends DatabaseService {
             }
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -456,7 +456,7 @@ public class CouchDB extends DatabaseService {
             }
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -520,7 +520,7 @@ public class CouchDB extends DatabaseService {
             }
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return posts;
@@ -540,7 +540,7 @@ public class CouchDB extends DatabaseService {
             roles = pg.getDocsAs(Role.class);
 
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return roles;
@@ -558,7 +558,7 @@ public class CouchDB extends DatabaseService {
         } catch (NoDocumentException e) {
             user = null;
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
         }
         return user;
@@ -601,7 +601,7 @@ public class CouchDB extends DatabaseService {
             // quietly ignore.
             return true;
         } catch (Exception e) {
-            // TODO this should be thrown up
+            // this should be thrown up
             e.printStackTrace();
             return false;
         }

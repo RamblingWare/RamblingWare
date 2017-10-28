@@ -33,6 +33,8 @@ public class Application implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContext) {
+        
+        System.out.println("Starting up Rant...");
 
         // Load settings from File
         config = loadSettingsFromFile(PROP_FILE);
@@ -42,31 +44,13 @@ public class Application implements ServletContextListener {
         System.out.println("Using Database:\r\n" + db.toString());
         databaseService = new CouchDB(db);
 
+        // Setup Database
         try {
-            // Test Database
             databaseSetup = new CouchDBSetup(db);
-            if (!databaseSetup.test()) {
-                // failure
+            if (!databaseSetup.setup()) {
                 System.exit(1);
-            } 
-            // Check Security
-            if (!databaseSetup.securityCheck()) {
-                System.out.println("Database is not secure. Please work to secure it soon.");
-            } 
-            // Verify Install
-            if (!databaseSetup.verify()) {
-                System.out.println("Database is not configured properly. Installing for first-time...");
-                // perform first-time install
-                if (!databaseSetup.install()) {
-                    // failed to install
-                    System.exit(1);
-                } else {
-                    // installed
-                    System.out.println("Install completed.");
-                }
             }
         } catch (Exception e) {
-            // error
             e.printStackTrace();
             System.exit(1);
         }
@@ -78,7 +62,8 @@ public class Application implements ServletContextListener {
             config.getSettings().putAll(configdb.getSettings());
         }
 
-        System.out.println("Started App. Time to Relax.");
+        // Ready
+        System.out.println("Started Rant.");
     }
 
     protected Config loadSettingsFromFile(String propertiesFile) {
@@ -151,7 +136,7 @@ public class Application implements ServletContextListener {
             // if env is not available, then
             // run on local couchdb
             System.out.println(
-                    "Failed to locate Datasource Credentials. Continuing with Datasource from properties.");
+                    "No environment variables provided. Continuing with Datasource from properties file.");
 
             db.setHost(getString("couchdb.host"));
             db.setPort(getString("couchdb.port"));
@@ -166,7 +151,7 @@ public class Application implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
-        System.out.println("Stopped App.");
+        System.out.println("Stopped Rant.");
     }
 
     /**

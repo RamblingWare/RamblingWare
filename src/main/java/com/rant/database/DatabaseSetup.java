@@ -21,13 +21,7 @@ public abstract class DatabaseSetup {
     public com.rant.objects.Database getDatabase() {
         return database;
     }
-
-    public abstract boolean test();
-
-    public abstract boolean verify();
-
-    public abstract boolean install();
     
-    public abstract boolean securityCheck();
+    public abstract boolean setup();
 
 }
