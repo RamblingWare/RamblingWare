@@ -14,6 +14,7 @@ import com.rant.database.CouchDB;
 import com.rant.database.CouchDBSetup;
 import com.rant.database.DatabaseService;
 import com.rant.objects.AppConfig;
+import com.rant.objects.AppFirewall;
 import com.rant.objects.Database;
 
 /**
@@ -39,8 +40,8 @@ public class ApplicationTests {
     public void settingsFromFile() {
 
         AppConfig config = app.loadSettingsFromFile(Application.getPropFile());
-        Application.setConfig(config);
-        assertNotNull(Application.getConfig());
+        Application.setAppConfig(config);
+        assertNotNull(Application.getAppConfig());
 
         assertNotNull(Application.getString("name"));
         assertTrue(Application.getInt("default.limit") > 0);
@@ -48,6 +49,16 @@ public class ApplicationTests {
 
         Application.setString("test", "true");
         assertEquals("true", Application.getString("test"));
+    }
+    
+    @Test
+    public void firewall() {
+
+        AppFirewall fw = new AppFirewall();
+        fw.setEnabled(true);
+        Application.setAppFirewall(fw);
+        assertNotNull(Application.getAppFirewall());
+        assertTrue(Application.getAppFirewall().isEnabled());
     }
 
     @Test
