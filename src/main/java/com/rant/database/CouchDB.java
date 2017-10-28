@@ -14,7 +14,7 @@ import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.rant.objects.Author;
 import com.rant.objects.Category;
-import com.rant.objects.Config;
+import com.rant.objects.AppConfig;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
@@ -36,16 +36,20 @@ public class CouchDB extends DatabaseService {
      *             if invalid url
      */
     protected CloudantClient getConnection() throws MalformedURLException {
-        return ClientBuilder.url(new URL(database.getUrl())).username(database.getUsername())
-                .password(database.getPassword()).build();
+        if (database.isAdminParty()) {
+            return ClientBuilder.url(new URL(database.getUrl())).build();
+        } else {
+            return ClientBuilder.url(new URL(database.getUrl())).username(database.getUsername())
+                    .password(database.getPassword()).build();
+        }
     }
 
     @Override
-    public Config getConfig() {
+    public AppConfig getConfig() {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("application", false);
-            return db.find(Config.class, "APPCONFIG");
+            return db.find(AppConfig.class, "APPCONFIG");
 
         } catch (Exception e) {
             // this should be thrown up
@@ -55,7 +59,7 @@ public class CouchDB extends DatabaseService {
     }
 
     @Override
-    public boolean editConfig(Config config) {
+    public boolean editConfig(AppConfig config) {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("application", false);

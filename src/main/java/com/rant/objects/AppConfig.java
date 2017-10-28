@@ -2,7 +2,7 @@ package com.rant.objects;
 
 import java.util.HashMap;
 
-public class Config {
+public class AppConfig {
 
     private String _id = "APPCONFIG";
     private String _rev;

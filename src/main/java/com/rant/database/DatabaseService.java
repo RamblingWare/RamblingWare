@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.rant.objects.Author;
 import com.rant.objects.Category;
-import com.rant.objects.Config;
+import com.rant.objects.AppConfig;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
@@ -33,9 +33,9 @@ public abstract class DatabaseService {
         return database;
     }
 
-    public abstract Config getConfig();
+    public abstract AppConfig getConfig();
 
-    public abstract boolean editConfig(Config config);
+    public abstract boolean editConfig(AppConfig config);
 
     public abstract Post getPost(String uri, boolean includeHidden);
 

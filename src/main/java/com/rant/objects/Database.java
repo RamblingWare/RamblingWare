@@ -13,6 +13,7 @@ public class Database implements Comparable<Database> {
     private String url;
     private String username;
     private String password;
+    private boolean adminParty = true;
 
     public Database() {
         // Auto-generated constructor stub
@@ -21,9 +22,9 @@ public class Database implements Comparable<Database> {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append("\n  URL: " + getUrl());
+        string.append("  URL: " + getUrl());
         string.append("\n  User: " + getUsername());
-        string.append("\n  Password: *********\n");
+        string.append("\n  Password: *********");
         return string.toString();
     }
 
@@ -65,6 +66,14 @@ public class Database implements Comparable<Database> {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isAdminParty() {
+        return adminParty;
+    }
+
+    public void setAdminParty(boolean adminParty) {
+        this.adminParty = adminParty;
     }
 
     @Override

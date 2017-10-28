@@ -14,7 +14,7 @@ import com.rant.database.CouchDB;
 import com.rant.database.CouchDBSetup;
 import com.rant.database.DatabaseService;
 import com.rant.database.DatabaseSetup;
-import com.rant.objects.Config;
+import com.rant.objects.AppConfig;
 import com.rant.objects.Database;
 
 /**
@@ -27,7 +27,7 @@ import com.rant.objects.Database;
 public class Application implements ServletContextListener {
 
     private final static String PROP_FILE = "/rant.properties";
-    private static Config config;
+    private static AppConfig config;
     private static DatabaseService databaseService;
     private static DatabaseSetup databaseSetup;
 
@@ -39,13 +39,10 @@ public class Application implements ServletContextListener {
         // Load settings from File
         config = loadSettingsFromFile(PROP_FILE);
 
-        // Set Database
-        Database db = loadDatabase();
-        System.out.println("Using Database:\r\n" + db.toString());
-        databaseService = new CouchDB(db);
-
         // Setup Database
         try {
+            Database db = loadDatabase();
+            System.out.println("Using Database:\r\n" + db.toString());
             databaseSetup = new CouchDBSetup(db);
             if (!databaseSetup.setup()) {
                 System.exit(1);
@@ -56,7 +53,8 @@ public class Application implements ServletContextListener {
         }
 
         // Load settings from Database
-        Config configdb = loadSettingsFromDB(databaseService);
+        databaseService = new CouchDB(databaseSetup.getDatabase());
+        AppConfig configdb = loadSettingsFromDB(databaseService);
         if(configdb != null) {
             System.out.println("Found configs in the database. Using that instead of "+PROP_FILE);
             config.getSettings().putAll(configdb.getSettings());
@@ -66,8 +64,8 @@ public class Application implements ServletContextListener {
         System.out.println("Started Rant.");
     }
 
-    protected Config loadSettingsFromFile(String propertiesFile) {
-        Config config = new Config();
+    protected AppConfig loadSettingsFromFile(String propertiesFile) {
+        AppConfig config = new AppConfig();
         try {
             HashMap<String, String> map = new HashMap<String, String>();
             Properties properties = new Properties();
@@ -87,7 +85,7 @@ public class Application implements ServletContextListener {
         return config;
     }
 
-    protected Config loadSettingsFromDB(DatabaseService dbs) {
+    protected AppConfig loadSettingsFromDB(DatabaseService dbs) {
         return dbs.getConfig();
     }
 
@@ -165,7 +163,7 @@ public class Application implements ServletContextListener {
      * 
      * @return Config
      */
-    public static Config getConfig() {
+    public static AppConfig getConfig() {
         return config;
     }
 
@@ -174,7 +172,7 @@ public class Application implements ServletContextListener {
      * 
      * @param config
      */
-    public static void setConfig(Config config) {
+    public static void setConfig(AppConfig config) {
         Application.config = config;
     }
 

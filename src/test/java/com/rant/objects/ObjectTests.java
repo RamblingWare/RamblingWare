@@ -9,7 +9,7 @@ import org.junit.runners.JUnit4;
 
 import com.rant.objects.Author;
 import com.rant.objects.Category;
-import com.rant.objects.Config;
+import com.rant.objects.AppConfig;
 import com.rant.objects.Database;
 import com.rant.objects.Email;
 import com.rant.objects.Post;
@@ -140,7 +140,7 @@ public class ObjectTests {
 
     @Test
     public void config() {
-        Config config = new Config();
+        AppConfig config = new AppConfig();
         assertEquals("APPCONFIG", config.get_id());
     }
 

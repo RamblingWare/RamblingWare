@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import com.rant.database.CouchDB;
 import com.rant.database.CouchDBSetup;
 import com.rant.database.DatabaseService;
-import com.rant.objects.Config;
+import com.rant.objects.AppConfig;
 import com.rant.objects.Database;
 
 /**
@@ -38,7 +38,7 @@ public class ApplicationTests {
     @Test
     public void settingsFromFile() {
 
-        Config config = app.loadSettingsFromFile(Application.getPropFile());
+        AppConfig config = app.loadSettingsFromFile(Application.getPropFile());
         Application.setConfig(config);
         assertNotNull(Application.getConfig());
 
