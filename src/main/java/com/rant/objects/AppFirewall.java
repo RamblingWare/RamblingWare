@@ -10,19 +10,19 @@ public class AppFirewall {
     private List<String> whitelist;
     private List<String> blacklist;
 
-    public String get_id() {
+    public String get_Id() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void set_Id(String _id) {
         this._id = _id;
     }
 
-    public String get_rev() {
+    public String get_Rev() {
         return _rev;
     }
 
-    public void set_rev(String _rev) {
+    public void set_Rev(String _rev) {
         this._rev = _rev;
     }
 

@@ -100,7 +100,7 @@ public class ObjectTests {
     @Test
     public void user() {
         User user = new User("admin");
-        assertEquals("org.couchdb.user:admin", user.get_id());
+        assertEquals("org.couchdb.user:admin", user.get_Id());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ObjectTests {
     @Test
     public void config() {
         AppConfig config = new AppConfig();
-        assertEquals("APPCONFIG", config.get_id());
+        assertEquals("APPCONFIG", config.get_Id());
     }
 
     @Test

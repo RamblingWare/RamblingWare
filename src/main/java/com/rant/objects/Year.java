@@ -31,4 +31,11 @@ public class Year implements Comparable<Year> {
         return this.name.compareTo(tag.name);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("  name: " + getName());
+        string.append("\n  count: " + getCount());
+        return string.toString();
+    }
 }

@@ -45,11 +45,11 @@ public class Post implements Comparable<Post> {
         this._id = id;
     }
 
-    public String get_rev() {
+    public String get_Rev() {
         return _rev;
     }
 
-    public void set_rev(String _rev) {
+    public void set_Rev(String _rev) {
         this._rev = _rev;
     }
 
@@ -206,10 +206,20 @@ public class Post implements Comparable<Post> {
     @Override
     public int compareTo(Post post) {
         int comp = this.title.compareTo(post.title);
-        if(comp == 0) {
+        if (comp == 0) {
             comp = this._id.compareTo(post._id);
         }
-        return comp;       
+        return comp;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("  _id: " + get_Id());
+        string.append("\n  _rev: " + get_Rev());
+        string.append("\n  uri: " + getUri());
+        string.append("\n  title: " + getTitle());
+        string.append("\n  desc: " + getDescription());
+        return string.toString();
+    }
 }

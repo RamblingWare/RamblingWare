@@ -8,7 +8,7 @@ import com.rant.config.Utils;
  * @author Austin Delamar
  * @created 7/04/2017
  */
-public class View {
+public class View implements Comparable<View> {
 
     private String _id;
     private String _rev;
@@ -23,11 +23,11 @@ public class View {
         this._id = _id;
     }
 
-    public String get_rev() {
+    public String get_Rev() {
         return _rev;
     }
 
-    public void set_rev(String _rev) {
+    public void set_Rev(String _rev) {
         this._rev = _rev;
     }
 
@@ -53,6 +53,21 @@ public class View {
 
     public void setSession(long session) {
         this.session = session;
+    }
+
+    @Override
+    public int compareTo(View view) {
+        return this._id.compareTo(view._id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("  _id: " + get_Id());
+        string.append("\n  _rev: " + get_Rev());
+        string.append("\n  count: " + getCount());
+        string.append("\n  session: " + getSession());
+        return string.toString();
     }
 
 }

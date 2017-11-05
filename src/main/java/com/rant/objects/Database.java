@@ -15,19 +15,6 @@ public class Database implements Comparable<Database> {
     private String password;
     private boolean adminParty = true;
 
-    public Database() {
-        // Auto-generated constructor stub
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder string = new StringBuilder();
-        string.append("  URL: " + getUrl());
-        string.append("\n  User: " + getUsername());
-        string.append("\n  Password: *********");
-        return string.toString();
-    }
-
     public String getHost() {
         return host;
     }
@@ -92,6 +79,15 @@ public class Database implements Comparable<Database> {
             comp = this.password.compareTo(db.password);
         }
         return comp;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("  URL: " + getUrl());
+        string.append("\n  User: " + getUsername());
+        string.append("\n  Password: *********");
+        return string.toString();
     }
 
 }

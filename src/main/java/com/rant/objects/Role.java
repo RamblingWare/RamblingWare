@@ -15,7 +15,7 @@ import java.util.Date;
  * @author Austin Delamar
  * @created 7/04/2017
  */
-public class Role {
+public class Role implements Comparable<Role> {
 
     private String _id;
     private String _rev;
@@ -61,11 +61,11 @@ public class Role {
         this._id = id;
     }
 
-    public String get_rev() {
+    public String get_Rev() {
         return _rev;
     }
 
-    public void set_rev(String _rev) {
+    public void set_Rev(String _rev) {
         this._rev = _rev;
     }
 
@@ -283,5 +283,24 @@ public class Role {
 
     public void setSettingsDelete(boolean isSettingsDelete) {
         this.isSettingsDelete = isSettingsDelete;
+    }
+    
+    @Override
+    public int compareTo(Role role) {
+        int comp = this.name.compareTo(role.name);
+        if(comp == 0) {
+            comp = this.description.compareTo(role.description);
+        }
+        return comp;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("  _id: " + get_Id());
+        string.append("\n  _rev: " + get_Rev());
+        string.append("\n  name: " + getName());
+        string.append("\n  desc: " + getDescription());
+        return string.toString();
     }
 }

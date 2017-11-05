@@ -25,10 +25,6 @@ public class Author implements Comparable<Author> {
     private Date createDate;
     private Date modifyDate;
 
-    public Author() {
-        // Auto-generated method stub
-    }
-
     public Author(String id) {
         this._id = id;
     }
@@ -41,11 +37,11 @@ public class Author implements Comparable<Author> {
         this._id = id;
     }
 
-    public String get_rev() {
+    public String get_Rev() {
         return _rev;
     }
 
-    public void set_rev(String _rev) {
+    public void set_Rev(String _rev) {
         this._rev = _rev;
     }
 
@@ -132,5 +128,16 @@ public class Author implements Comparable<Author> {
     @Override
     public int compareTo(Author author) {
         return this.name.compareTo(author.name);
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("  _id: " + get_Id());
+        string.append("\n  _rev: " + get_Rev());
+        string.append("\n  name: " + getName());
+        string.append("\n  email: " + getEmail());
+        string.append("\n  desc: " + getDescription());
+        return string.toString();
     }
 }
