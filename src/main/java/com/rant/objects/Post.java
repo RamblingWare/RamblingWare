@@ -205,9 +205,9 @@ public class Post implements Comparable<Post> {
 
     @Override
     public int compareTo(Post post) {
-        int comp = this.title.compareTo(post.title);
+        int comp = this._id.compareTo(post._id);
         if (comp == 0) {
-            comp = this._id.compareTo(post._id);
+            comp = this.title.compareTo(post.title);
         }
         return comp;
     }

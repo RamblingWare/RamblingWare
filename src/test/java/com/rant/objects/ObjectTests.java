@@ -30,17 +30,21 @@ public class ObjectTests {
 
     @Test
     public void author() {
-        Author author = new Author();
-        author.set_Id("admin1");
+        Author author = new Author("admin");
         author.setName("admin");
         assertEquals("admin", author.getName());
 
-        Author author2 = new Author();
-        author2.set_Id("admin2");
+        Author author2 = new Author("admin");
         author2.setName("admin");
         assertEquals("admin", author2.getName());
-
+        
         assertTrue(author.compareTo(author2) == 0);
+        
+        Author author3 = new Author("author");
+        author3.setName("author");
+        assertEquals("author", author3.getName());
+
+        assertTrue(author.compareTo(author3) != 0);
     }
 
     @Test
@@ -56,6 +60,13 @@ public class ObjectTests {
         assertEquals("Blog Post", post2.getTitle());
 
         assertTrue(post.compareTo(post2) == 0);
+        
+        Post post3 = new Post("fakepost");
+        post3.setTitle("Fake Post");
+        assertEquals("fakepost", post3.get_Id());
+        assertEquals("Fake Post", post3.getTitle());
+
+        assertTrue(post.compareTo(post3) != 0);
     }
 
     @Test

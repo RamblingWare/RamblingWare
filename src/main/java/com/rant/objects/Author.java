@@ -127,7 +127,11 @@ public class Author implements Comparable<Author> {
 
     @Override
     public int compareTo(Author author) {
-        return this.name.compareTo(author.name);
+        int comp = this._id.compareTo(author._id);
+        if (comp == 0) {
+            comp = this.name.compareTo(author.name);
+        }
+        return comp;
     }
     
     @Override
