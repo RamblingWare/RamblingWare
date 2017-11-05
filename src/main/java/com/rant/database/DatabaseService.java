@@ -10,6 +10,7 @@ import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
 import com.rant.objects.User;
+import com.rant.objects.View;
 import com.rant.objects.Year;
 
 /**
@@ -37,7 +38,7 @@ public abstract class DatabaseService {
     public abstract AppConfig getAppConfig();
 
     public abstract boolean editAppConfig(AppConfig appConfig);
-    
+
     public abstract AppFirewall getAppFirewall();
 
     public abstract boolean editAppFirewall(AppFirewall appFirewall);
@@ -69,11 +70,11 @@ public abstract class DatabaseService {
     public abstract List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden);
 
     public abstract List<Role> getRoles();
-    
+
     public abstract User getUser(String username);
 
     public abstract boolean loginUser(String username, String password);
-    
-    public abstract boolean incrementPageViews(Post post, boolean sessionView);
+
+    public abstract boolean editView(View view);
 
 }

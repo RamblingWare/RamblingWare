@@ -6,10 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.InputStream;
 import java.util.Date;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -146,23 +144,5 @@ public class UtilsTests {
         assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
 
         assertNotNull(Utils.downloadUrlFile("http://localhost:5984/"));
-    }
-    
-    @Test
-    public void inputStream() {
-        String data = "some test data for my input stream";
-        try {
-            InputStream istream = 
-                    IOUtils.toInputStream(data, "UTF-8");
-            
-            String temp = Utils.readInputStream(istream);
-            assertNotNull(temp);
-            assertEquals(data, temp);
-            
-        } catch (Exception e) {
-            
-            e.printStackTrace();
-        }
-        
     }
 }

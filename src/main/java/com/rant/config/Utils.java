@@ -401,33 +401,4 @@ public class Utils {
             return null;
         }
     }
-
-    /**
-     * Read an InputStream into a String
-     * 
-     * @param InputStream
-     * @return String
-     */
-    public static String readInputStream(InputStream is) {
-        java.io.BufferedReader br = null;
-        StringBuilder sb = new StringBuilder();
-        String line;
-        try {
-            br = new java.io.BufferedReader(new java.io.InputStreamReader(is));
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return sb.toString();
-    }
 }

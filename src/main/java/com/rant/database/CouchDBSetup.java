@@ -260,9 +260,12 @@ public class CouchDBSetup extends DatabaseSetup {
      */
     protected boolean isAdminParty() {
         boolean adminParty = true;
+        HttpConnection request1 = null;
+        HttpConnection response1 = null;
+        CloudantClient client = null;
         try {
             // check if admin party mode is enabled.
-            CloudantClient client = getConnection();
+            client = getConnection();
 
             // get node name
             String node = "nonode@nohost";
@@ -272,11 +275,10 @@ public class CouchDBSetup extends DatabaseSetup {
             }
 
             // get admins list
-            HttpConnection request1 = Http
+            request1 = Http
                     .GET(new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins"));
-            HttpConnection response1 = client.executeRequest(request1);
-            String admins = Utils.readInputStream(response1.responseAsInputStream());
-            response1.disconnect();
+            response1 = client.executeRequest(request1);
+            String admins = response1.responseAsString();
 
             // if no admins, then it means admin party mode is still partying.
             System.out.println("Admins: '" + admins + "'");
@@ -284,6 +286,17 @@ public class CouchDBSetup extends DatabaseSetup {
 
         } catch (Exception e) {
             adminParty = false;
+        } finally {
+            // close streams
+            if (response1 != null) {
+                response1.disconnect();
+            }
+            if (request1 != null) {
+                request1.disconnect();
+            }
+            if (client != null) {
+                client.shutdown();
+            }
         }
         if (adminParty) {
             System.out.println(
@@ -300,8 +313,11 @@ public class CouchDBSetup extends DatabaseSetup {
      */
     protected boolean disableAdminParty() {
         System.out.println("Attempting to disable admin party mode...");
+        HttpConnection request1 = null;
+        HttpConnection response1 = null;
+        CloudantClient client = null;
         try {
-            CloudantClient client = getConnection();
+            client = getConnection();
 
             client.database("_users", true);
             client.database("_replicator", true);
@@ -314,19 +330,19 @@ public class CouchDBSetup extends DatabaseSetup {
             String user = Application.getString("default.username");
             String pass = Application.getString("default.password");
 
-            HttpConnection request = Http.PUT(
-                    new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user),
+            request1 = Http.PUT(new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user),
                     "application/json");
-            request.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
+            request1.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
                     + "\",\"password\":\"" + pass
                     + "\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
-            HttpConnection response = client.executeRequest(request);
-            if (response.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+            response1 = client.executeRequest(request1);
+            if (response1.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default user
                 throw new Exception("Failed to create default user '" + user
                         + "'. Exception occured during install.");
             }
-            response.disconnect();
+            request1.disconnect();
+            response1.disconnect();
 
             // get node name
             String node = "nonode@nohost";
@@ -339,12 +355,12 @@ public class CouchDBSetup extends DatabaseSetup {
             user = database.getUsername();
             pass = database.getPassword();
 
-            HttpConnection request2 = Http.PUT(
+            request1 = Http.PUT(
                     new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins/" + user),
                     "application/json");
-            request2.setRequestBody("\"" + pass + "\"");
-            HttpConnection response2 = client.executeRequest(request2);
-            if (response2.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+            request1.setRequestBody("\"" + pass + "\"");
+            response1 = client.executeRequest(request1);
+            if (response1.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default admin
                 throw new Exception("Failed to create default admin '" + user
                         + "'. Exception occured during install.");
@@ -352,7 +368,8 @@ public class CouchDBSetup extends DatabaseSetup {
                 // stopped the party
                 System.out.println("Created default admin: " + user);
             }
-            response2.disconnect();
+            request1.disconnect();
+            response1.disconnect();
 
             // disabled admin party mode
             System.out.println("Disabled Admin Party mode.");
@@ -364,6 +381,17 @@ public class CouchDBSetup extends DatabaseSetup {
             System.out.println(
                     "WARNING: Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
             return false;
+        } finally {
+            // close streams
+            if (response1 != null) {
+                response1.disconnect();
+            }
+            if (request1 != null) {
+                request1.disconnect();
+            }
+            if (client != null) {
+                client.shutdown();
+            }
         }
     }
 

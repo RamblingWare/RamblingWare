@@ -72,7 +72,7 @@ public class CouchDB extends DatabaseService {
             return false;
         }
     }
-    
+
     @Override
     public AppFirewall getAppFirewall() {
         try {
@@ -134,9 +134,11 @@ public class CouchDB extends DatabaseService {
                 } catch (NoDocumentException e) {
                     // no view count yet
                     // so start at 0
-                    view.set_Id(uri);
+                    view.setCount(0l);
+                    view.setSession(0l);
                 }
             }
+            view.set_Id(uri);
             post.setView(view);
 
         } catch (NoDocumentException e) {
@@ -250,8 +252,7 @@ public class CouchDB extends DatabaseService {
             CloudantClient client = getConnection();
             Database db = client.database("posts", false);
 
-            ViewResponse<String, Integer> pg = db
-                    .getViewRequestBuilder("posts", "category-count")
+            ViewResponse<String, Integer> pg = db.getViewRequestBuilder("posts", "category-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
@@ -349,20 +350,20 @@ public class CouchDB extends DatabaseService {
                     post.setAuthor(author);
                 }
 
-                if (includeHidden) {
-                    // get views for each post
-                    View views = new View();
-                    try {
-                        // get view count
-                        db = client.database("views", false);
-                        views = db.find(View.class, post.get_Id());
-                    } catch (NoDocumentException e) {
-                        // no view count yet
-                        // so start at 0
-                        views.set_Id(post.get_Id());
-                    }
-                    post.setView(views);
+                // get views for each post
+                View views = new View();
+                try {
+                    // get view count
+                    db = client.database("views", false);
+                    views = db.find(View.class, post.get_Id());
+                } catch (NoDocumentException e) {
+                    // no view count yet
+                    // so start at 0
+                    views.setCount(0l);
+                    views.setSession(0l);
                 }
+                views.set_Id(post.get_Id());
+                post.setView(views);
             }
 
         } catch (Exception e) {
@@ -411,20 +412,20 @@ public class CouchDB extends DatabaseService {
                     post.setAuthor(author);
                 }
 
-                if (includeHidden) {
-                    // get views for each post
-                    View views = new View();
-                    try {
-                        // get view count
-                        db = client.database("views", false);
-                        views = db.find(View.class, post.get_Id());
-                    } catch (NoDocumentException e) {
-                        // no view count yet
-                        // so start at 0
-                        views.set_Id(post.get_Id());
-                    }
-                    post.setView(views);
+                // get views for each post
+                View views = new View();
+                try {
+                    // get view count
+                    db = client.database("views", false);
+                    views = db.find(View.class, post.get_Id());
+                } catch (NoDocumentException e) {
+                    // no view count yet
+                    // so start at 0
+                    views.setCount(0l);
+                    views.setSession(0l);
                 }
+                views.set_Id(post.get_Id());
+                post.setView(views);
             }
 
         } catch (Exception e) {
@@ -472,20 +473,20 @@ public class CouchDB extends DatabaseService {
                     post.setAuthor(author);
                 }
 
-                if (includeHidden) {
-                    // get views for each post
-                    View views = new View();
-                    try {
-                        // get view count
-                        db = client.database("views", false);
-                        views = db.find(View.class, post.get_Id());
-                    } catch (NoDocumentException e) {
-                        // no view count yet
-                        // so start at 0
-                        views.set_Id(post.get_Id());
-                    }
-                    post.setView(views);
+                // get views for each post
+                View views = new View();
+                try {
+                    // get view count
+                    db = client.database("views", false);
+                    views = db.find(View.class, post.get_Id());
+                } catch (NoDocumentException e) {
+                    // no view count yet
+                    // so start at 0
+                    views.setCount(0l);
+                    views.setSession(0l);
                 }
+                views.set_Id(post.get_Id());
+                post.setView(views);
             }
 
         } catch (Exception e) {
@@ -536,20 +537,20 @@ public class CouchDB extends DatabaseService {
                     post.setAuthor(author);
                 }
 
-                if (includeHidden) {
-                    // get views for each post
-                    View views = new View();
-                    try {
-                        // get view count
-                        db = client.database("views", false);
-                        views = db.find(View.class, post.get_Id());
-                    } catch (NoDocumentException e) {
-                        // no view count yet
-                        // so start at 0
-                        views.set_Id(post.get_Id());
-                    }
-                    post.setView(views);
+                // get views for each post
+                View views = new View();
+                try {
+                    // get view count
+                    db = client.database("views", false);
+                    views = db.find(View.class, post.get_Id());
+                } catch (NoDocumentException e) {
+                    // no view count yet
+                    // so start at 0
+                    views.setCount(0l);
+                    views.setSession(0l);
                 }
+                views.set_Id(post.get_Id());
+                post.setView(views);
             }
 
         } catch (Exception e) {
@@ -614,20 +615,15 @@ public class CouchDB extends DatabaseService {
     }
 
     @Override
-    public boolean incrementPageViews(Post post, boolean sessionView) {
+    public boolean editView(View view) {
         try {
             CloudantClient client = getConnection();
             Database db = client.database("views", false);
 
-            post.getView().setCount(post.getView().getCount() + 1);
-            if (sessionView) {
-                post.getView().setSession(post.getView().getSession() + 1);
-            }
-
-            if (db.contains(post.getView().get_Id())) {
-                db.update(post.getView());
+            if (db.contains(view.get_Id())) {
+                db.update(view);
             } else {
-                db.save(post.getView());
+                db.save(view);
             }
             return true;
         } catch (IllegalArgumentException | DocumentConflictException e) {

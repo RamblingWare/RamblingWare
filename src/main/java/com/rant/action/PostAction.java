@@ -54,7 +54,7 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                     // set attributes
                     servletRequest.setAttribute("post", post);
 
-                    // check against previously viewed pages
+                    // check against previously viewed posts
                     boolean newViewFromSession = false;
                     if (servletRequest.getSession(false) != null) {
                         HttpSession session = servletRequest.getSession();
@@ -71,7 +71,11 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                     }
 
                     // update page views
-                    Application.getDatabaseService().incrementPageViews(post, newViewFromSession);
+                    post.getView().setCount(post.getView().getCount() + 1);
+                    if (newViewFromSession) {
+                        post.getView().setSession(post.getView().getSession() + 1);
+                    }
+                    Application.getDatabaseService().editView(post.getView());
 
                     return Action.SUCCESS;
                 } else {
