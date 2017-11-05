@@ -126,19 +126,17 @@ public class CouchDB extends DatabaseService {
             }
 
             View view = new View();
-            if (includeHidden) {
-                try {
-                    // get view count
-                    db = client.database("views", false);
-                    view = db.find(View.class, uri);
-                } catch (NoDocumentException e) {
-                    // no view count yet
-                    // so start at 0
-                    view.setCount(0l);
-                    view.setSession(0l);
-                }
+            try {
+                // get view count
+                db = client.database("views", false);
+                view = db.find(View.class, post.get_Id());
+            } catch (NoDocumentException e) {
+                // no view count yet
+                // so start at 0
+                view.set_Id(post.get_Id());
+                view.setCount(0l);
+                view.setSession(0l);
             }
-            view.set_Id(uri);
             post.setView(view);
 
         } catch (NoDocumentException e) {
@@ -359,10 +357,10 @@ public class CouchDB extends DatabaseService {
                 } catch (NoDocumentException e) {
                     // no view count yet
                     // so start at 0
+                    views.set_Id(post.get_Id());
                     views.setCount(0l);
                     views.setSession(0l);
                 }
-                views.set_Id(post.get_Id());
                 post.setView(views);
             }
 
@@ -620,7 +618,7 @@ public class CouchDB extends DatabaseService {
             CloudantClient client = getConnection();
             Database db = client.database("views", false);
 
-            if (db.contains(view.get_Id())) {
+            if (view.get_Rev() != null) {
                 db.update(view);
             } else {
                 db.save(view);
