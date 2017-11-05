@@ -19,13 +19,13 @@ import com.rant.objects.Category;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
-import com.rant.objects.User;
+import com.rant.objects.DatabaseUser;
 import com.rant.objects.View;
 import com.rant.objects.Year;
 
-public class CouchDB extends DatabaseService {
+public class CouchDb extends DatabaseService {
 
-    public CouchDB(com.rant.objects.Database database) {
+    public CouchDb(com.rant.objects.Database database) {
         super(database);
     }
 
@@ -579,13 +579,13 @@ public class CouchDB extends DatabaseService {
     }
 
     @Override
-    public User getUser(String username) {
-        User user = null;
+    public DatabaseUser getDatabaseUser(String username) {
+        DatabaseUser user = null;
         try {
             CloudantClient client = getConnection();
             Database db = client.database("_users", false);
 
-            user = db.find(User.class, "org.couchdb.user:" + username.toLowerCase());
+            user = db.find(DatabaseUser.class, "org.couchdb.user:" + username.toLowerCase());
 
         } catch (NoDocumentException e) {
             user = null;
@@ -603,7 +603,7 @@ public class CouchDB extends DatabaseService {
                     .password(password).build();
 
             Database db = client.database("_users", false);
-            db.find(User.class, "org.couchdb.user:" + username.toLowerCase());
+            db.find(DatabaseUser.class, "org.couchdb.user:" + username.toLowerCase());
 
             return true;
         } catch (Exception e) {

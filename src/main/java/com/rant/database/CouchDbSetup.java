@@ -25,9 +25,9 @@ import com.rant.objects.Author;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 
-public class CouchDBSetup extends DatabaseSetup {
+public class CouchDbSetup extends DatabaseSetup {
 
-    public CouchDBSetup(com.rant.objects.Database database) {
+    public CouchDbSetup(com.rant.objects.Database database) {
         super(database);
     }
 

@@ -10,8 +10,8 @@ import javax.servlet.ServletContextListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.rant.database.CouchDB;
-import com.rant.database.CouchDBSetup;
+import com.rant.database.CouchDb;
+import com.rant.database.CouchDbSetup;
 import com.rant.database.DatabaseService;
 import com.rant.database.DatabaseSetup;
 import com.rant.objects.AppConfig;
@@ -46,7 +46,7 @@ public class Application implements ServletContextListener {
         try {
             Database db = loadDatabase();
             System.out.println("Using Database:\r\n" + db.toString());
-            databaseSetup = new CouchDBSetup(db);
+            databaseSetup = new CouchDbSetup(db);
             if (!databaseSetup.setup()) {
                 System.exit(1);
             }
@@ -56,7 +56,7 @@ public class Application implements ServletContextListener {
         }
 
         // Load settings from Database
-        databaseService = new CouchDB(databaseSetup.getDatabase());
+        databaseService = new CouchDb(databaseSetup.getDatabase());
         appFirewall = loadFirewallFromDB(databaseService);
         AppConfig configdb = loadSettingsFromDB(databaseService);
         if (configdb != null) {

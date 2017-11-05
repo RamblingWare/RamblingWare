@@ -15,7 +15,7 @@ import com.rant.objects.Email;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
-import com.rant.objects.User;
+import com.rant.objects.DatabaseUser;
 import com.rant.objects.View;
 import com.rant.objects.Year;
 
@@ -37,9 +37,9 @@ public class ObjectTests {
         Author author2 = new Author("admin");
         author2.setName("admin");
         assertEquals("admin", author2.getName());
-        
+
         assertTrue(author.compareTo(author2) == 0);
-        
+
         Author author3 = new Author("author");
         author3.setName("author");
         assertEquals("author", author3.getName());
@@ -60,7 +60,7 @@ public class ObjectTests {
         assertEquals("Blog Post", post2.getTitle());
 
         assertTrue(post.compareTo(post2) == 0);
-        
+
         Post post3 = new Post("fakepost");
         post3.setTitle("Fake Post");
         assertEquals("fakepost", post3.get_Id());
@@ -109,16 +109,17 @@ public class ObjectTests {
     }
 
     @Test
-    public void user() {
-        User user = new User("admin");
-        assertEquals("org.couchdb.user:admin", user.get_Id());
-    }
-
-    @Test
     public void role() {
         Role role = new Role("author");
         role.set_Id("author");
         assertEquals("author", role.get_Id());
+    }
+
+    @Test
+    public void view() {
+        View view = new View();
+        view.set_Id("blogpost");
+        assertEquals("blogpost", view.get_Id());
     }
 
     @Test
@@ -134,6 +135,12 @@ public class ObjectTests {
         assertEquals("admin", db.getUsername());
         db.setPassword("passwd");
         assertEquals("passwd", db.getPassword());
+    }
+
+    @Test
+    public void databaseUser() {
+        DatabaseUser user = new DatabaseUser("admin");
+        assertEquals("org.couchdb.user:admin", user.get_Id());
     }
 
     @Test
@@ -156,10 +163,9 @@ public class ObjectTests {
     }
 
     @Test
-    public void view() {
-        View view = new View();
-        view.set_Id("blogpost");
-        assertEquals("blogpost", view.get_Id());
+    public void firewall() {
+        AppFirewall fw = new AppFirewall();
+        assertEquals("APPFIREWALL", fw.get_Id());
     }
 
 }

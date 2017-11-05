@@ -26,12 +26,12 @@ import com.rant.objects.Role;
  * @since 1.0.0
  */
 @RunWith(JUnit4.class)
-public class CouchDBSetupTest {
+public class CouchDbSetupTests {
 
     private Database database;
 
     @InjectMocks
-    private CouchDBSetup setup;
+    private CouchDbSetup setup;
 
     @Before
     public void setup() {
@@ -51,7 +51,7 @@ public class CouchDBSetupTest {
         assertNotNull(setup);
         assertNotNull(database);
         assertEquals(database, setup.getDatabase());
-        setup = new CouchDBSetup(database);
+        setup = new CouchDbSetup(database);
         assertEquals(database, setup.getDatabase());
     }
 

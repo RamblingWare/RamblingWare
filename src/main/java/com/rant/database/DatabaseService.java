@@ -9,7 +9,7 @@ import com.rant.objects.Category;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
-import com.rant.objects.User;
+import com.rant.objects.DatabaseUser;
 import com.rant.objects.View;
 import com.rant.objects.Year;
 
@@ -71,7 +71,7 @@ public abstract class DatabaseService {
 
     public abstract List<Role> getRoles();
 
-    public abstract User getUser(String username);
+    public abstract DatabaseUser getDatabaseUser(String username);
 
     public abstract boolean loginUser(String username, String password);
 

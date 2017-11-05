@@ -21,12 +21,12 @@ import com.rant.objects.Database;
  * @since 1.0.0
  */
 @RunWith(JUnit4.class)
-public class CouchDBTests {
+public class CouchDbTests {
 
     private Database database;
 
     @InjectMocks
-    private CouchDB couchdb;
+    private CouchDb couchdb;
 
     @Before
     public void setup() {
@@ -49,7 +49,7 @@ public class CouchDBTests {
         couchdb.setDatabase(database);
         assertEquals(database, couchdb.getDatabase());
 
-        couchdb = new CouchDB(database);
+        couchdb = new CouchDb(database);
         assertEquals(database, couchdb.getDatabase());
     }
 

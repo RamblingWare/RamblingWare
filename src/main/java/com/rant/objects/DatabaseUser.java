@@ -6,7 +6,7 @@ package com.rant.objects;
  * @author Austin Delamar
  * @created 09/03/2017
  */
-public class User implements Comparable<User> {
+public class DatabaseUser implements Comparable<DatabaseUser> {
 
     // CouchDB variables
     private String _id; // org.couchdb.user:admin
@@ -21,11 +21,11 @@ public class User implements Comparable<User> {
     // createDate ISO-8601 format
     // modifyDate ISO-8601 format
 
-    public User() {
+    public DatabaseUser() {
         // empty constructor
     }
 
-    public User(String _id) {
+    public DatabaseUser(String _id) {
         set_Id(_id);
     }
 
@@ -82,7 +82,7 @@ public class User implements Comparable<User> {
     }
 
     @Override
-    public int compareTo(User user) {
+    public int compareTo(DatabaseUser user) {
         return this.name.compareTo(user.name);
     }
 

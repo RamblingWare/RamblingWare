@@ -10,8 +10,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 
-import com.rant.database.CouchDB;
-import com.rant.database.CouchDBSetup;
+import com.rant.database.CouchDb;
+import com.rant.database.CouchDbSetup;
 import com.rant.database.DatabaseService;
 import com.rant.objects.AppConfig;
 import com.rant.objects.AppFirewall;
@@ -67,10 +67,10 @@ public class ApplicationTests {
         Database db = app.loadDatabase();
         assertNotNull(db);
 
-        Application.setDatabaseSetup(new CouchDBSetup(db));
+        Application.setDatabaseSetup(new CouchDbSetup(db));
         assertNotNull(Application.getDatabaseSetup());
 
-        Application.setDatabaseService(new CouchDB(db));
+        Application.setDatabaseService(new CouchDb(db));
         assertNotNull(Application.getDatabaseService());
     }
 
