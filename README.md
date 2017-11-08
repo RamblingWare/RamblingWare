@@ -15,12 +15,11 @@ Blog management system on CouchDB.
  *  Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
  *  Organize blog posts by Tags, Categories, Featured, Authors, and Dates
  *  SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
- *  HTTP/2, HTTPS, 2FA, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
+ *  HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
  
 ## Planned Features
 
- * Containerize with Docker
- * Offline-first Vuejs + PouchDB dashboard
+ * Offline-first dashboard for authors to manage blog
  * Freemarker Theme Templates
 
 ## Usage
@@ -63,8 +62,7 @@ This project is still in development. It is not easily modifiable for "new" blog
      - If using CouchDB on locahost, you don't need to edit the credentials, unless you want to.
      - If using CouchDB on a public server, choose a stronger password in `src/main/resources/rant.properties` file.
  1. `cd Rant`
- 1. Build: `gradlew clean build`
- 1. WAR file is ready: `/build/libs/rant-1.0.0.war`
+ 1. Build: `./gradlew clean build`. WAR file at: `/build/libs/rant-1.0.0.war`
  1. Install [Tomcat 9.0](https://tomcat.apache.org/)
      - Copy `deploy/tomcat/server.xml` into `<tomcat-dir>/conf/`.
      - Copy WAR file into `<tomcat-dir>/webapps/` or for devs you can use Eclipse Servers UI (Window > Show View > Servers).
@@ -76,7 +74,6 @@ This project is still in development. It is not easily modifiable for "new" blog
  *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache CouchDB 2.1.0](https://couchdb.apache.org/) NoSQL Database
  *  [Apache Tomcat 9.0](https://tomcat.apache.org/) Web Server
- *  Two Factor Authentication with [amdelamar/jotp](https://github.com/amdelamar/jotp) and [Google QR Code generator](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/Company:user@test.com?secret=6ZT3L2TKZ3WYBDS7FEY65TOQZRSRUY7M&issuer=Company&algorithm=SHA1&digits=6&period=30)
 
 ## License
 
