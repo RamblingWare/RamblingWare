@@ -25,10 +25,14 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
 
     private static final long serialVersionUID = 1L;
 
-    // post parameters
     private Post post;
     private String uri;
 
+    /**
+     * Returns blog post details.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /blog/file-name-goes-here

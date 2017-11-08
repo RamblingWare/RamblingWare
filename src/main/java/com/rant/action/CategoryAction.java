@@ -32,11 +32,14 @@ public class CategoryAction extends ActionSupport
     private boolean nextPage;
     private boolean prevPage;
 
+    /**
+     * Returns list of posts for category.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /category
-
-        // this shows the most recent blog posts by category
         try {
             // jump to page if provided
             String pageTemp = servletRequest.getRequestURI();
@@ -51,8 +54,8 @@ public class CategoryAction extends ActionSupport
             }
 
             // gather posts
-            posts = Application.getDatabaseService().getPostsByCategory(page, Application.getInt("default.limit"), category,
-                    false);
+            posts = Application.getDatabaseService().getPostsByCategory(page,
+                    Application.getInt("default.limit"), category, false);
 
             // determine pagination
             if (posts != null) {

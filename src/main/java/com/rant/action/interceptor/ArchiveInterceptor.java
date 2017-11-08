@@ -27,10 +27,8 @@ public class ArchiveInterceptor implements Interceptor {
         Map<String, Object> sessionAttributes = actionInvocation.getInvocationContext()
                 .getSession();
 
-        List<Post> archiveFeatured = (List<Post>) sessionAttributes
-                .get("archiveFeatured");
-        List<Year> archiveYears = (List<Year>) sessionAttributes
-                .get("archiveYears");
+        List<Post> archiveFeatured = (List<Post>) sessionAttributes.get("archiveFeatured");
+        List<Year> archiveYears = (List<Year>) sessionAttributes.get("archiveYears");
         List<Tag> archiveTags = (List<Tag>) sessionAttributes.get("archiveTags");
         List<Category> archiveCategories = (List<Category>) sessionAttributes
                 .get("archiveCategories");

@@ -25,10 +25,14 @@ public class AuthorAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    // post parameters
     private Author author;
     private String uriName;
 
+    /**
+     * Returns author details.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /author/person-name-goes-here

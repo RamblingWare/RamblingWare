@@ -25,11 +25,14 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
 
     private List<Tag> tags = null;
 
+    /**
+     * Returns list of tags.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /tag
-
-        // this shows the all the tags available
         try {
             // gather tags
             tags = Application.getDatabaseService().getTags();

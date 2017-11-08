@@ -28,6 +28,11 @@ public class CategoriesAction extends ActionSupport
 
     private List<Category> categories = null;
 
+    /**
+     * Returns list of categories.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /category

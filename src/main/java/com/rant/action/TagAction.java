@@ -29,11 +29,14 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
     private boolean nextPage;
     private boolean prevPage;
 
+    /**
+     * Returns list of posts by tag.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /tag
-
-        // this shows the most recent blog posts by tag
         try {
             // jump to page if provided
             String pageTemp = servletRequest.getRequestURI();
@@ -48,7 +51,8 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             }
 
             // gather posts
-            posts = Application.getDatabaseService().getPostsByTag(page, Application.getInt("default.limit"), tag, false);
+            posts = Application.getDatabaseService().getPostsByTag(page,
+                    Application.getInt("default.limit"), tag, false);
 
             // determine pagination
             if (posts != null) {

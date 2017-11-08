@@ -29,11 +29,14 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
     private boolean nextPage;
     private boolean prevPage;
 
+    /**
+     * Returns list of posts for year.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /year
-
-        // this shows the most recent blog posts by year
         try {
             // jump to page if provided
             String pageTemp = servletRequest.getRequestURI();
@@ -51,7 +54,8 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             int yr = Integer.parseInt(year);
 
             // gather posts
-            posts = Application.getDatabaseService().getPostsByYear(page, Application.getInt("default.limit"), yr, false);
+            posts = Application.getDatabaseService().getPostsByYear(page,
+                    Application.getInt("default.limit"), yr, false);
 
             // determine pagination
             if (posts != null) {

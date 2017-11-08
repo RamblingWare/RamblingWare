@@ -27,11 +27,14 @@ public class YearsAction extends ActionSupport
 
     private List<Year> years = null;
 
+    /**
+     * Returns list of all years.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /year
-
-        // this shows all the years of blog posts
         try {
             // gather posts
             years = Application.getDatabaseService().getYears();

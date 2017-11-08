@@ -7,7 +7,7 @@ package com.rant.database;
  * @date 9/03/2017
  */
 public abstract class DatabaseSetup {
-    
+
     protected com.rant.objects.Database database;
 
     public DatabaseSetup(com.rant.objects.Database database) {
@@ -21,7 +21,7 @@ public abstract class DatabaseSetup {
     public com.rant.objects.Database getDatabase() {
         return database;
     }
-    
+
     public abstract boolean setup();
 
 }

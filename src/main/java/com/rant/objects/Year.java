@@ -2,6 +2,7 @@ package com.rant.objects;
 
 /**
  * Year class
+ * 
  * @author Austin Delamar
  * @created 7/13/2017
  */

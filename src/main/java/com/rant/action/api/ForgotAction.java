@@ -46,7 +46,11 @@ public class ForgotAction extends ActionSupport
     private String message;
     private Map<String, String> data;
 
-    @Override
+    /**
+     * Forgot user/password action. Resets a password via email.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         try {
@@ -170,9 +174,9 @@ public class ForgotAction extends ActionSupport
                 return false;
             } else {
                 // they have already been locked out
-                System.err.println("Unknown user has been locked out for " + lockout
-                        + " min. (" + servletRequest.getRemoteAddr() + ")("
-                        + servletRequest.getRemoteHost() + ") ");
+                System.err.println("Unknown user has been locked out for " + lockout + " min. ("
+                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost()
+                        + ") ");
                 throw new Exception("You have been locked out for the next " + lockout
                         + " minutes, for too many attempts.");
             }

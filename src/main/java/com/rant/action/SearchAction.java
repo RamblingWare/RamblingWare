@@ -26,26 +26,29 @@ public class SearchAction extends ActionSupport
 
     private static final long serialVersionUID = 1L;
 
-    // search parameter
     private String q;
 
+    /**
+     * Forwards to search provider.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
-        
-        if(q != null && !q.isEmpty()) {
+        if (q != null && !q.isEmpty()) {
             // POST external search
             try {
                 // redirect to DuckDuckGo with the search text provided
-                ServletActionContext.getResponse().sendRedirect(Application.getString("searchProvider")
-                        + "site%3A" + Application.getString("domain") + ' ' + q);
+                ServletActionContext.getResponse()
+                        .sendRedirect(Application.getString("searchProvider") + "site%3A"
+                                + Application.getString("domain") + ' ' + q);
                 return SUCCESS;
             } catch (IOException e) {
                 e.printStackTrace();
                 addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
                 return ERROR;
             }
-        } 
-        else {
+        } else {
             // GET search page
             return INPUT;
         }

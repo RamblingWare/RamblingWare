@@ -133,7 +133,7 @@ public class Author implements Comparable<Author> {
         }
         return comp;
     }
-    
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

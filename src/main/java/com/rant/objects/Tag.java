@@ -12,7 +12,7 @@ public class Tag implements Comparable<Tag> {
     private String _rev;
     private String name;
     private int count;
-    
+
     public String get_Id() {
         return _id;
     }
@@ -49,7 +49,7 @@ public class Tag implements Comparable<Tag> {
     public int compareTo(Tag tag) {
         return this.name.compareTo(tag.name);
     }
-    
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

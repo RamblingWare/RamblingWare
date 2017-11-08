@@ -25,9 +25,13 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
 
     private static final long serialVersionUID = 1L;
 
-    // search results
     private List<Post> posts = null;
 
+    /**
+     * Returns RSS information.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /rss
@@ -49,7 +53,8 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
         try {
 
             // gather posts
-            posts = Application.getDatabaseService().getPosts(1, Application.getInt("default.limit"), false);
+            posts = Application.getDatabaseService().getPosts(1,
+                    Application.getInt("default.limit"), false);
             for (Post post : posts) {
                 response += "<item><title>" + post.getTitle() + "</title>\n" + "<description>"
                         + post.getDescription() + "</description>\n" + "<pubDate>"

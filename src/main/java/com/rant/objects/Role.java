@@ -284,11 +284,11 @@ public class Role implements Comparable<Role> {
     public void setSettingsDelete(boolean isSettingsDelete) {
         this.isSettingsDelete = isSettingsDelete;
     }
-    
+
     @Override
     public int compareTo(Role role) {
         int comp = this.name.compareTo(role.name);
-        if(comp == 0) {
+        if (comp == 0) {
             comp = this.description.compareTo(role.description);
         }
         return comp;

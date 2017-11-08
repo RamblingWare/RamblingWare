@@ -66,16 +66,16 @@ public class Database implements Comparable<Database> {
     @Override
     public int compareTo(Database db) {
         int comp = this.url.compareTo(db.url);
-        if(comp == 0) {
+        if (comp == 0) {
             comp = this.host.compareTo(db.host);
         }
-        if(comp == 0) {
+        if (comp == 0) {
             comp = this.port.compareTo(db.port);
         }
-        if(comp == 0) {
+        if (comp == 0) {
             comp = this.username.compareTo(db.username);
         }
-        if(comp == 0) {
+        if (comp == 0) {
             comp = this.password.compareTo(db.password);
         }
         return comp;

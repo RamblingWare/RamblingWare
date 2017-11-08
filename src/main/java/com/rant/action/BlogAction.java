@@ -29,6 +29,11 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
     private boolean nextPage;
     private boolean prevPage;
 
+    /**
+     * Returns list of blog posts.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         // /blog
@@ -45,9 +50,9 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             }
 
             // gather posts
-            posts = Application.getDatabaseService().getPosts(page, Application.getInt("default.limit"),
-                    false);
-            
+            posts = Application.getDatabaseService().getPosts(page,
+                    Application.getInt("default.limit"), false);
+
             // already sorted newest first
 
             // determine pagination
