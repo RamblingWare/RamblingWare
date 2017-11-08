@@ -29,7 +29,7 @@
 					<br/><br/>
 					Any opinions expressed here are solely my own, and do not express the views or opinions of any current or previous employer.
 					<br/><br/>
-					I hope you enjoy reading, and leave a comment if you like! Thanks! ~ <a href="/author/austin-delamar">Austin</a>			
+					I hope you enjoy reading, and share a post if you like! Thanks! ~ <a href="/author/austin-delamar">Austin</a>			
 				</p>
 				<br />
 				
@@ -37,7 +37,6 @@
 				<p> Yep! I have written the code from scratch myself. It has been a work in progress for some time. But all the code is available on the <a target="_blank" href="<%=Application.getString("sourceCode")%>">GitHub repo</a>.
 				I've used blog services before, but decided to program it myself. And I know Its not perfect but I have been having fun with it! I typically work on it at least once a month.<br />
 				</p>
-				<blockquote>“I reinvent the wheel because mine is rounder.”<br />&nbsp;&nbsp;&nbsp;&nbsp;- Anonymous</blockquote>
 				<br />
 				
 				

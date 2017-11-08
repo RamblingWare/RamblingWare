@@ -2,7 +2,7 @@
 	Owner: Austin Delamar
 	Contact: amdelamar [at] protonmail.com
 	Twitter: @amdelamar
-	Location: Michigan, USA
+	Location: Lansing, MI, USA
 
 	Developer: Austin Delamar
 	Contact: amdelamar [at] protonmail.com
@@ -16,7 +16,7 @@
 	/* additional contributors go here... */
 
 /* SITE */
-	Last update: 2017/08/29
+	Last update: 2017/11/07
 	Language: English
 	Doctype: HTML5
-	IDE: Eclipse, Notepad++, CloudFoundry, Git, GIMP
+	IDE: Eclipse, Atom, CloudFoundry, Git, GIMP

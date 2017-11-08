@@ -1,9 +1,0 @@
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:if test="#session != null && #session.USER != null">
-	<ul class="w3-card w3-round">
-		<li><a href="/manage/menu" class="w3-padding w3-opacity w3-hover-opaque uppercase" title="Management">Manage</a></li>
-		<li><a href="/manage/posts" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Posts">Posts</a></li>
-		<li><a href="/manage/users" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Authors">Authors</a></li>
-	</ul>
-	<br/>
-</s:if>

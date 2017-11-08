@@ -1,10 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ page import="com.rant.config.Application" %>
 <div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small w3-medium no-print">
-
-	<%@include file="/WEB-INF/fragment/tabs/manage-tabs.jspf"%>
-	<%@include file="/WEB-INF/fragment/tabs/settings-tabs.jspf"%>
-
 	<ul class="w3-card w3-round">
 		<li><a href="/blog/" class="w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>
 		<li><a href="/about" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
@@ -23,10 +19,7 @@
 	</ul>
 </div>
 <div id="menu" class="w3-col m12 w3-hide-large w3-hide-small no-print">
-	<ul class="w3-container w3-left w3-card w3-round">
-		<%@include file="/WEB-INF/fragment/tabs/manage-menu.jspf"%>
-		<%@include file="/WEB-INF/fragment/tabs/settings-menu.jspf"%>
-	
+	<ul class="w3-container w3-left w3-card w3-round">	
 		<li class="w3-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding w3-border-right"><a href="/blog/" title="Blog">Blog</a></li>
 		<li class="w3-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/about" title="About">About</a></li>
 	</ul>
