@@ -222,17 +222,7 @@
 				<param name="noCache">true</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="includeProperties">
-					error,rant,message,data.*
-				</param>
-			</result>
-		</action>
-		
-		<action name="login" class="com.rant.action.api.LoginAction">
-			<result name="none" type="json">
-				<param name="noCache">true</param>
-				<param name="excludeNullProperties">true</param>
-				<param name="includeProperties">
-					error,login,message,data.*
+					rant,version,error,message,data.*
 				</param>
 			</result>
 		</action>
@@ -242,7 +232,7 @@
 				<param name="noCache">true</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="includeProperties">
-					error,forgot,message,data.*
+					forgot,error,message,data.*
 				</param>
 			</result>
 		</action>

@@ -11,7 +11,6 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.rant.config.Application;
-import com.rant.config.Utils;
 
 /**
  * Root action class
@@ -25,19 +24,24 @@ public class RootAction extends ActionSupport implements ServletResponseAware, S
 
     // JSON response
     private String rant;
+    private String version;
     private String error;
     private String message;
     private Map<String, String> data;
 
-    @Override
+    /**
+     * Returns application information.
+     * 
+     * @return Action String
+     */
     public String execute() {
 
         try {
-            rant = "ok";
-            message = "Welcome";
+            rant = "Welcome";
+            version = Application.getString("version");
             data = new HashMap<String, String>();
-            data.put("version", Application.getString("version"));
-            data.put("time", Utils.getDateIso8601());
+            data.put("url", Application.getDatabaseService().getDatabase().getUrl());
+            data.put("name", Application.getString("name"));
 
         } catch (Exception e) {
             error = "error";
@@ -68,6 +72,14 @@ public class RootAction extends ActionSupport implements ServletResponseAware, S
 
     public void setRant(String rant) {
         this.rant = rant;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public String getError() {
