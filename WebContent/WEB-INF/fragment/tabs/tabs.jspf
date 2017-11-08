@@ -19,7 +19,7 @@
 		<li><a class="w3-opacity w3-hover-opaque w3-hover-text-blue w3-padding-4" target="_blank" title="Twitter" href="<%=Application.getString("twitter")%>" style="text-align: left;"><span class="icon-twitter w3-large w3-margin-right"></span>Twitter</a></li>
 		<li><a class="w3-opacity w3-hover-opaque w3-hover-text-black w3-padding-4" target="_blank" title="GitHub" href="<%=Application.getString("github")%>" style="text-align: left;"><span class="icon-github w3-large w3-margin-right"></span>GitHub</a></li>
 		<li><a class="w3-opacity w3-hover-opaque w3-hover-text-teal w3-padding-4" target="_blank" title="Subscribe" href="<%=Application.getString("subscribe")%>" style="text-align: left;"><span class="icon-mail w3-large w3-margin-right"></span>Subscribe</a></li>
-		<li><a class="w3-opacity w3-hover-opaque w3-hover-text-orange w3-padding-4" target="_blank" title="RSS Feed" href="<%=Application.getString("rss")%>" style="text-align: left;"><span class="icon-rss w3-large w3-margin-right"></span>RSS Feed</a></li>
+		<li><a class="w3-opacity w3-hover-opaque w3-hover-text-orange w3-padding-4" target="_blank" title="RSS Feed" href="/rss" style="text-align: left;"><span class="icon-rss w3-large w3-margin-right"></span>RSS Feed</a></li>
 	</ul>
 </div>
 <div id="menu" class="w3-col m12 w3-hide-large w3-hide-small no-print">
@@ -31,7 +31,7 @@
 		<li class="w3-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-padding"><a href="/about" title="About">About</a></li>
 	</ul>
 	<ul class="w3-container w3-right">	
-		<li><a class="w3-right w3-opacity w3-hover-opaque w3-hover-text-orange w3-padding-4" target="_blank" title="RSS Feed" href="<%=Application.getString("rss")%>" style="text-align: left;"><span class="icon-rss w3-large w3-margin-right"></span></a></li>
+		<li><a class="w3-right w3-opacity w3-hover-opaque w3-hover-text-orange w3-padding-4" target="_blank" title="RSS Feed" href="/rss" style="text-align: left;"><span class="icon-rss w3-large w3-margin-right"></span></a></li>
 	 	<li><a class="w3-right w3-opacity w3-hover-opaque w3-hover-text-teal w3-padding-4" target="_blank" title="Subscribe" href="<%=Application.getString("subscribe")%>" style="text-align: left;"><span class="icon-mail w3-large w3-margin-right"></span></a></li>
 		<li><a class="w3-right w3-opacity w3-hover-opaque w3-hover-text-black w3-padding-4" target="_blank" title="GitHub" href="<%=Application.getString("github")%>" style="text-align: left;"><span class="icon-github w3-large w3-margin-right"></span></a></li>
 		<li><a class="w3-right w3-opacity w3-hover-opaque w3-hover-text-blue w3-padding-4" target="_blank" title="Twitter" href="<%=Application.getString("twitter")%>" style="text-align: left;"><span class="icon-twitter w3-large w3-margin-right"></span></a></li>

@@ -17,4 +17,4 @@
 <link rel="stylesheet" href="/vendor/highlight/styles/dark.css"/>
 <link rel="stylesheet" href="/vendor/pikaday/css/pikaday.css"/>
 <link rel="stylesheet" href="/vendor/pikaday/css/triangle.css"/>
-<link rel="alternate" href="<%=Application.getString("rss")%>" type="application/rss+xml" title="RSS">
+<link rel="alternate" href="/rss" type="application/rss+xml" title="RSS">

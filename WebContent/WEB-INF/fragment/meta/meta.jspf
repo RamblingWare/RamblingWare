@@ -42,4 +42,4 @@
 <link rel="author" href="humans.txt"/>
 <link rel="shortcut icon" href="/favicon.ico"/>
 <link rel="stylesheet" href="/css/rant.css?v=1.01"/>
-<link rel="alternate" href="<%=Application.getString("rss")%>" type="application/rss+xml" title="RSS">
+<link rel="alternate" href="/rss" type="application/rss+xml" title="RSS">
