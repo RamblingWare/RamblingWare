@@ -348,8 +348,8 @@ public class ObjectTests {
         assertEquals("subject", em.getSubject());
         assertEquals("message", em.getMessage());
         assertNotNull(em.toString());
-        
-        Email em2 = new Email("to","from","subject","message");
+
+        Email em2 = new Email("to", "from", "subject", "message");
         assertEquals("to", em2.getTo());
         assertEquals("from", em2.getFrom());
         assertEquals("subject", em2.getSubject());

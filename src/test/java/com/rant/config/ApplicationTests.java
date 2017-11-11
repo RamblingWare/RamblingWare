@@ -52,7 +52,7 @@ public class ApplicationTests {
         Application.setString("test", "true");
         assertEquals("true", Application.getString("test"));
     }
-    
+
     @Test
     public void firewall() {
         AppFirewall fw = new AppFirewall();

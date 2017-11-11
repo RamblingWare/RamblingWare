@@ -156,11 +156,11 @@ public class UtilsTests {
         }
 
         try {
-            assertNotNull(Utils.downloadUrlFile("http://localhost:5984/"));
+            assertNotNull(Utils.downloadUrlFile("http://www.google.com/"));
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        
+
         try {
             Utils.getResourceAsFile(null);
             fail("Failed to catch null file.");

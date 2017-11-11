@@ -118,7 +118,8 @@ public class Application implements ServletContextListener {
                 db.setPassword(couchdb.get("password").getAsString());
 
             } catch (Exception e) {
-                System.out.println("Failed to parse VCAP_SERVICES for Datasource properties.");
+                System.out
+                        .println("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
                 e.printStackTrace();
             }
         } else if (dbUrl != null && !dbUrl.isEmpty()) {
@@ -133,14 +134,14 @@ public class Application implements ServletContextListener {
                 db.setUsername(System.getenv("DB_USER"));
                 db.setPassword(System.getenv("DB_PASS"));
             } catch (Exception e) {
-                System.out.println("Failed to parse DB_URL for Datasource properties.");
+                System.out.println("ERROR: Failed to parse DB_URL for Datasource properties.");
                 e.printStackTrace();
             }
         } else {
             // if env is not available, then
             // run on local couchdb
             System.out.println(
-                    "No environment variables provided. Continuing with Datasource from properties file.");
+                    "WARNING: No DB environment variables provided. Continuing with DB from properties file.");
 
             db.setHost(getString("couchdb.host"));
             db.setPort(getString("couchdb.port"));
