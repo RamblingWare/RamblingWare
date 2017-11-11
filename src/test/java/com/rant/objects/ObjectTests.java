@@ -1,6 +1,7 @@
 package com.rant.objects;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -24,8 +25,16 @@ public class ObjectTests {
     @Test
     public void author() {
         Author author = new Author("admin");
+        author.set_Id("admin");
+        assertEquals("admin", author.get_Id());
+        assertEquals("admin", author.getUsername());
+        author.set_Rev("1");
+        assertEquals("1", author.get_Rev());
         author.setName("admin");
         assertEquals("admin", author.getName());
+        author.setRole(new Role("admin"));
+        assertEquals("admin", author.getRole().get_Id());
+        assertNotNull(author.toString());
 
         Author author2 = new Author("admin");
         author2.setName("admin");
@@ -43,9 +52,13 @@ public class ObjectTests {
     @Test
     public void post() {
         Post post = new Post("blogpost");
-        post.setTitle("Blog Post");
+        post.set_Id("blogpost");
         assertEquals("blogpost", post.get_Id());
+        post.set_Rev("1");
+        assertEquals("1", post.get_Rev());
+        post.setTitle("Blog Post");
         assertEquals("Blog Post", post.getTitle());
+        assertNotNull(post.toString());
 
         Post post2 = new Post("blogpost");
         post2.setTitle("Blog Post");
@@ -65,8 +78,13 @@ public class ObjectTests {
     @Test
     public void category() {
         Category cat = new Category();
+        cat.set_Id("12345");
+        assertEquals("12345", cat.get_Id());
+        cat.set_Rev("1");
+        assertEquals("1", cat.get_Rev());
         cat.setName("Meta");
         assertEquals("Meta", cat.getName());
+        assertNotNull(cat.toString());
 
         Category cat2 = new Category();
         cat2.setName("Meta");
@@ -84,8 +102,15 @@ public class ObjectTests {
     @Test
     public void tag() {
         Tag tag = new Tag();
+        tag.set_Id("12345");
+        assertEquals("12345", tag.get_Id());
+        tag.set_Rev("1");
+        assertEquals("1", tag.get_Rev());
         tag.setName("Meta");
         assertEquals("Meta", tag.getName());
+        tag.setCount(10);
+        assertEquals(10, tag.getCount());
+        assertNotNull(tag.toString());
 
         Tag tag2 = new Tag();
         tag2.setName("Meta");
@@ -105,6 +130,9 @@ public class ObjectTests {
         Year yr = new Year();
         yr.setName("2017");
         assertEquals("2017", yr.getName());
+        yr.setCount(10);
+        assertEquals(10, yr.getCount());
+        assertNotNull(yr.toString());
 
         Year yr2 = new Year();
         yr2.setName("2017");
@@ -124,6 +152,7 @@ public class ObjectTests {
         Role role = new Role("author");
         role.setName("Author");
         assertEquals("Author", role.getName());
+        assertNotNull(role.toString());
 
         Role role2 = new Role("author");
         role2.setName("Author");
@@ -143,6 +172,7 @@ public class ObjectTests {
         View view = new View();
         view.set_Id("blogpost");
         assertEquals("blogpost", view.get_Id());
+        assertNotNull(view.toString());
 
         View view2 = new View();
         view2.set_Id("blogpost");
@@ -170,6 +200,9 @@ public class ObjectTests {
         assertEquals("admin", db.getUsername());
         db.setPassword("passwd");
         assertEquals("passwd", db.getPassword());
+        db.setAdminParty(false);
+        assertFalse(db.isAdminParty());
+        assertNotNull(db.toString());
 
         Database db2 = new Database();
         db2.setUrl("http://127.0.0.1:5984");
@@ -193,6 +226,7 @@ public class ObjectTests {
         DatabaseUser user = new DatabaseUser("admin");
         user.setName("admin");
         assertEquals("org.couchdb.user:admin", user.get_Id());
+        assertNotNull(user.toString());
 
         DatabaseUser user2 = new DatabaseUser("org.couchdb.user:admin");
         user2.setName("admin");
@@ -214,14 +248,23 @@ public class ObjectTests {
         assertEquals("from", em.getFrom());
         assertEquals("subject", em.getSubject());
         assertEquals("message", em.getMessage());
+        assertNotNull(em.toString());
+        
+        Email em2 = new Email("to","from","subject","message");
+        assertEquals("to", em2.getTo());
+        assertEquals("from", em2.getFrom());
+        assertEquals("subject", em2.getSubject());
+        assertEquals("message", em2.getMessage());
     }
 
     @Test
     public void config() {
         AppConfig config = new AppConfig();
+        config.set_Id("APPCONFIG");
         config.set_Rev("1");
         assertEquals("APPCONFIG", config.get_Id());
         assertEquals("1", config.get_Rev());
+        assertNotNull(config.toString());
 
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("key", "value");
@@ -233,11 +276,13 @@ public class ObjectTests {
     @Test
     public void firewall() {
         AppFirewall fw = new AppFirewall();
+        fw.set_Id("APPFIREWALL");
         fw.set_Rev("1");
         fw.setEnabled(true);
         assertEquals("APPFIREWALL", fw.get_Id());
         assertEquals("1", fw.get_Rev());
         assertTrue(fw.isEnabled());
+        assertNotNull(fw.toString());
 
         List<String> wlist = new ArrayList<String>();
         wlist.add("0.0.0.0");
