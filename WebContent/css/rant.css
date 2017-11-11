@@ -1,4 +1,4 @@
-/* Rant Style - Heavily Modified W3.CSS 2.8 */
+/* Rant Style Sheet - A Modified W3.CSS */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 html{overflow-x:hidden;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}
@@ -11,7 +11,7 @@ dfn{font-style:italic}mark{background:#ff0;color:#000}
 small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
 sub{bottom:-0.25em}sup{top:-0.5em}figure{margin:1em 40px}
 img{margin:0px;border-style:none}svg:not(:root){overflow:hidden}
-code,kbd,pre,samp{font-family:monospace,monospace;font-size:11pt;white-space:pre-wrap;border-radius:5px;}
+code,kbd,pre,samp{font-family:"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;font-size:11pt;white-space:pre-wrap;border-radius:5px;}
 hr{box-sizing:content-box;height:0;overflow:visible}
 button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:bold}
 button,input{overflow:visible}button,select{text-transform:none}
@@ -26,7 +26,7 @@ legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}t
 [type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}
 ::-webkit-input-placeholder{color:inherit;opacity:0.54}
 ::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
-html,body{font-family: "Open Sans","Helvetica Neue",sans-serif;font-size: 14pt;line-height: 1.7;min-width: 302px;margin:0}
+html,body{font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";font-size: 14pt;line-height: 1.7;min-width: 302px;margin:0}
 h1{font-size:36px;border-bottom: 2px solid #505050;font-weight:700;}h2{font-size:30px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}
 h1,h2,h3,h4,h5,h6{font-weight:400;margin:10px 0}
 hr{border:0;border-top:1px solid #eee;margin:20px 0}
@@ -223,31 +223,14 @@ ul.w3-ul{list-style-type:none;padding:0;margin:0}ul.w3-ul li{padding:6px 2px 6px
 	top: -10px;
 	right: 10px;
 }
-[data-close]:hover:after {
-	opacity: 1;
-	cursor: pointer;
-}
-.quote {
-	font-style: italic !important;
-}
-.bold {
-	font-weight: 700 !important;
-}
-.uppercase {
-	text-transform: uppercase;
-}
-.lowercase {
-	text-transform: lowercase;
-}
-.underline, .underline:hover {
-	text-decoration: underline;
-}
-.nounderline, .nounderline:hover {
-	text-decoration: none;
-}
-.nowrap {
-	white-space: nowrap;
-}
+[data-close]:hover:after {opacity: 1;cursor: pointer;}
+.quote {font-style: italic !important;}
+.bold {font-weight: 700 !important;}
+.uppercase {text-transform: uppercase;}
+.lowercase {text-transform: lowercase;}
+.underline, .underline:hover {text-decoration: underline;}
+.nounderline, .nounderline:hover {text-decoration: none;}
+.nowrap {white-space: nowrap;}
 .tag {
 	display: inline-block;
 	text-decoration: none !important;
@@ -261,20 +244,10 @@ ul.w3-ul{list-style-type:none;padding:0;margin:0}ul.w3-ul li{padding:6px 2px 6px
     padding: 0px 5px 0px 0px;
     color: unset;
 }
-.w3-hover-opaque:hover {
-	opacity: 1.0;
-}
-.bottomright {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-}
-.w3-padding-square {
-	padding: 8px !important;
-}
-nav {
-	display: none;
-}
+.w3-hover-opaque:hover {opacity: 1.0;}
+.bottomright {position: absolute;bottom: 0px;right: 0px;}
+.w3-padding-square {padding: 8px !important;}
+nav {display: none;}
 header {
 	min-height: 50px;
 	padding-top: 5px;
@@ -290,10 +263,7 @@ header {
 	max-height: 50px !important;
 	text-decoration: none;
 }
-img.thumbnail {
-	max-height: 200px;
-	margin-bottom: -10px;
-}
+img.thumbnail {max-height: 200px;margin-bottom: -10px;}
 article {
 	padding-top: 0px;
 	padding-left: 0px;
@@ -301,20 +271,10 @@ article {
 	padding-bottom: 40px;
 	margin: 0px;
 }
-footer {
-	padding: 0px;
-	margin: 0px;
-	text-align: center !important;
-}
-footer, footer h3, footer a, footer a:visited, footer p, footer span {
-	color: #838080 !important;
-}
-footer a {
-	text-decoration: none;
-}
-footer a:hover {
-	color: #fff !important;
-}
+footer {padding: 0px;margin: 0px;text-align: center !important;}
+footer, footer h3, footer a, footer a:visited, footer p, footer span {color: #838080 !important;}
+footer a {text-decoration: none;}
+footer a:hover {color: #fff !important;}
 footer li {
 	display: inline;
 	padding-top: 3px;
@@ -330,15 +290,8 @@ footer ul {
     margin-top: 0px;
     margin-bottom: 0px;
 }
-footer h2 {
-	font-size: 16pt;
-}
-#search {
-    margin-top: 8px;
-}
-#admin-menu {
-	margin-top: 8px;
-}
+footer h2 {font-size: 16pt;}
+#search {margin-top: 8px;}
 #recent ul {
     text-indent: 0px;
     padding-left: 12px;
@@ -381,20 +334,10 @@ footer h2 {
 	text-align: center;
 	background: transparent;
 }
-#page-content {
-	word-wrap: break-word;
-}
-#page-content a, #page-content a:visited {
-    color: #4f4fdd;
-}
-#page-content a:hover {
-    color: #4f4fbb;
-}
-.page-large {
-	max-width: 1600px;
-	margin-left: auto;
-	margin-right: auto;
-}
+#page-content {word-wrap: break-word;}
+#page-content a, #page-content a:visited {color: #4f4fdd;}
+#page-content a:hover {color: #4f4fbb;}
+.page-large {max-width: 1600px;margin-left: auto;margin-right: auto;}
 .page {
 	max-width: 1200px;
 	margin-left: auto;
