@@ -32,6 +32,14 @@ public class ObjectTests {
         assertEquals("1", author.get_Rev());
         author.setName("admin");
         assertEquals("admin", author.getName());
+        author.setEmail("email@example.com");
+        assertEquals("email@example.com", author.getEmail());
+        author.setDescription("Hello World");
+        assertEquals("Hello World", author.getDescription());
+        author.setContent("Author biography goes here");
+        assertEquals("Author biography goes here", author.getContent());
+        author.setThumbnail("image");
+        assertEquals("image", author.getThumbnail());
         author.setRole(new Role("admin"));
         assertEquals("admin", author.getRole().get_Id());
         assertNotNull(author.toString());
@@ -58,6 +66,20 @@ public class ObjectTests {
         assertEquals("1", post.get_Rev());
         post.setTitle("Blog Post");
         assertEquals("Blog Post", post.getTitle());
+        post.setDescription("Hello World");
+        assertEquals("Hello World", post.getDescription());
+        post.setContent("Content goes here");
+        assertEquals("Content goes here", post.getContent());
+        post.setThumbnail("image");
+        assertEquals("image", post.getThumbnail());
+        post.setBanner("image");
+        assertEquals("image", post.getBanner());
+        post.setFeatured(true);
+        assertTrue(post.isFeatured());
+        post.setPublished(true);
+        assertTrue(post.isPublished());
+        post.setCategory("Meta");
+        assertEquals("Meta", post.getCategory());
         assertNotNull(post.toString());
 
         Post post2 = new Post("blogpost");
@@ -223,9 +245,17 @@ public class ObjectTests {
 
     @Test
     public void databaseUser() {
-        DatabaseUser user = new DatabaseUser("admin");
+        DatabaseUser user = new DatabaseUser();
+        user.set_Rev("1");
+        assertEquals("1", user.get_Rev());
         user.setName("admin");
         assertEquals("org.couchdb.user:admin", user.get_Id());
+        user.setPassword("passwd");
+        assertEquals("passwd", user.getPassword());
+        user.setRoles(new String[]{"admin"});
+        assertEquals("admin", user.getRoles()[0]);
+        user.setType("user");
+        assertEquals("user", user.getType());
         assertNotNull(user.toString());
 
         DatabaseUser user2 = new DatabaseUser("org.couchdb.user:admin");
