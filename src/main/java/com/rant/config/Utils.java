@@ -316,13 +316,30 @@ public class Utils {
     }
 
     /**
+     * Checks if the email address given is a valid form of an Internet address.
+     * <ul>
+     * <li>Must have one @ symbol</li>
+     * <li>Must have domain name like domain.com</li>
+     * <li>Must not have illegal characters</li>
+     * </ul>
+     * 
+     * @param email
+     *            string
+     * @return boolean
+     */
+    public static boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    /**
      * Downloads the urlString to the filename at the current directory.
      * 
      * @param urlString
      *            URL string
      * @return String
+     * @throws IOException if error
      */
-    public static String downloadUrlFile(String urlString) {
+    public static String downloadUrlFile(String urlString) throws IOException {
         BufferedInputStream in = null;
         String dataString = "";
         try {
@@ -334,8 +351,8 @@ public class Utils {
                 dataString += (new String(data, 0, bytesRead));
             }
 
-        } catch (Exception e) {
-            System.err.println("ERROR when trying to download file. " + e.getMessage());
+        } catch (IOException e) {
+            throw e;
         } finally {
             if (in != null) {
                 try {
@@ -349,35 +366,14 @@ public class Utils {
     }
 
     /**
-     * Checks if the email address given is a valid form of an Internet address.
-     * <ul>
-     * <li>Must have one @ symbol</li>
-     * <li>Must have domain name like domain.com</li>
-     * <li>Must not have illegal characters</li>
-     * </ul>
-     * 
-     * @param email
-     *            string
-     * @return boolean
-     */
-    public static boolean isValidEmail(String email) {
-        boolean result = true;
-        try {
-            result = EMAIL_PATTERN.matcher(email).matches();
-        } catch (Exception ex) {
-            result = false;
-        }
-        return result;
-    }
-
-    /**
      * Loads a file from the resources folder.
      * 
      * @param resourcePath
      *            name of file
      * @return File
+     * @throws IOException if error
      */
-    public static File getResourceAsFile(String resourcePath) {
+    public static File getResourceAsFile(String resourcePath) throws IOException {
         try {
             InputStream in = Utils.class.getResourceAsStream(resourcePath);
             if (in == null) {
@@ -397,8 +393,7 @@ public class Utils {
             }
             return tempFile;
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw e;
         }
     }
 }

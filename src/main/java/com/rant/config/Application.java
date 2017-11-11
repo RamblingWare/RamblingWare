@@ -1,6 +1,5 @@
 package com.rant.config;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -81,11 +80,11 @@ public class Application implements ServletContextListener {
                 String value = properties.getProperty(key);
                 map.put(key, value);
             }
-
             config.setSettings(map);
 
-        } catch (IOException e) {
-            System.err.println(e);
+        } catch (Exception e) {
+            System.out.println("WARNING: Properties file not found.");
+            return null;
         }
         return config;
     }

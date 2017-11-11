@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.junit.Test;
@@ -23,10 +24,12 @@ public class UtilsTests {
 
     @Test
     public void time() {
-        String time = Utils.formatTime(System.currentTimeMillis());
-        assertNotNull(time);
+        assertEquals("1 hrs 0 mins 0 secs", Utils.formatTime(3600000l));
+        assertEquals("1 mins 0 secs", Utils.formatTime(60000l));
+        assertEquals("1 secs", Utils.formatTime(1000l));
+        assertEquals("10 ms", Utils.formatTime(10l));
 
-        time = Utils.formatLong(System.currentTimeMillis());
+        String time = Utils.formatLong(System.currentTimeMillis());
         assertNotNull(time);
 
         time = Utils.getDate();
@@ -41,6 +44,7 @@ public class UtilsTests {
 
         String time2 = Utils.getDateIso8601();
         assertNotNull(time2);
+        assertEquals("Null", Utils.formatIso8601Date(null));
     }
 
     @Test
@@ -51,11 +55,13 @@ public class UtilsTests {
 
         String time2 = Utils.getDateRfc1123();
         assertNotNull(time2);
+        assertEquals("Null", Utils.formatRfc1123Date(null));
     }
 
     @Test
     public void formatURLs() {
         assertEquals("http://www.example.com", Utils.formatURL("www.example.com"));
+        assertEquals("http://www.example.com", Utils.formatURL("http://www.example.com"));
 
         assertEquals("TL;DR", Utils.formatURI("/\\TL;DR/"));
         assertEquals("test-one-test", Utils.formatURI("test one test"));
@@ -99,7 +105,7 @@ public class UtilsTests {
     }
 
     @Test
-    public void emailFormat() {
+    public void f() {
         assertTrue(Utils.isValidEmail("jdoe1@example.com"));
         assertTrue(Utils.isValidEmail("jdoe1@example.com"));
         assertTrue(Utils.isValidEmail("jdoe1@example.example.com"));
@@ -113,7 +119,7 @@ public class UtilsTests {
     }
 
     @Test
-    public void dateTests() {
+    public void dates() {
 
         String td = "June 27 2017";
         java.util.Date date = Utils.convertStringToDate(td);
@@ -123,10 +129,13 @@ public class UtilsTests {
         assertNotNull(Utils.formatReadableDate(date));
         assertNotNull(Utils.formatReadableDateTime(date));
         assertNotNull(Utils.formatSQLServerDate(date));
+        assertEquals("Null", Utils.formatReadableDate(null));
+        assertEquals("Null", Utils.formatReadableDateTime(null));
+        assertEquals("Null", Utils.formatSQLServerDate(null));
     }
 
     @Test
-    public void stringTests() {
+    public void strings() {
 
         String temp = "  t e st  ";
         assertEquals(Utils.removeAllSpaces(temp), "test");
@@ -139,10 +148,31 @@ public class UtilsTests {
     }
 
     @Test
-    public void fileLoading() {
+    public void files() {
+        try {
+            assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
 
-        assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
+        try {
+            assertNotNull(Utils.downloadUrlFile("http://localhost:5984/"));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        
+        try {
+            Utils.getResourceAsFile(null);
+            fail("Failed to catch null file.");
+        } catch (Exception e) {
+            // good
+        }
 
-        assertNotNull(Utils.downloadUrlFile("http://localhost:5984/"));
+        try {
+            Utils.downloadUrlFile(null);
+            fail("Failed to catch null file.");
+        } catch (Exception e) {
+            // good
+        }
     }
 }

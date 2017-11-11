@@ -112,6 +112,8 @@ public class ObjectTests {
         assertEquals("1", cat.get_Rev());
         cat.setName("Meta");
         assertEquals("Meta", cat.getName());
+        cat.setCount(10);
+        assertEquals(10, cat.getCount());
         assertNotNull(cat.toString());
 
         Category cat2 = new Category();

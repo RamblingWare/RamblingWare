@@ -2,6 +2,7 @@ package com.rant.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -38,8 +39,9 @@ public class ApplicationTests {
 
     @Test
     public void settingsFromFile() {
-
-        AppConfig config = app.loadSettingsFromFile(Application.getPropFile());
+        AppConfig config = Application.loadSettingsFromFile(null);
+        assertNull(config);
+        config = Application.loadSettingsFromFile(Application.getPropFile());
         Application.setAppConfig(config);
         assertNotNull(Application.getAppConfig());
 
@@ -53,7 +55,6 @@ public class ApplicationTests {
     
     @Test
     public void firewall() {
-
         AppFirewall fw = new AppFirewall();
         fw.setEnabled(true);
         Application.setAppFirewall(fw);
@@ -63,8 +64,7 @@ public class ApplicationTests {
 
     @Test
     public void database() {
-
-        Database db = app.loadDatabase();
+        Database db = Application.loadDatabase();
         assertNotNull(db);
 
         Application.setDatabaseSetup(new CouchDbSetup(db));
