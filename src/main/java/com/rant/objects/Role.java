@@ -287,11 +287,7 @@ public class Role implements Comparable<Role> {
 
     @Override
     public int compareTo(Role role) {
-        int comp = this.name.compareTo(role.name);
-        if (comp == 0) {
-            comp = this.description.compareTo(role.description);
-        }
-        return comp;
+        return this.name.compareTo(role.name);
     }
 
     @Override

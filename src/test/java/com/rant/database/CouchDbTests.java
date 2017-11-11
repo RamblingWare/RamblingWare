@@ -23,6 +23,7 @@ import com.rant.objects.Database;
 @RunWith(JUnit4.class)
 public class CouchDbTests {
 
+    @InjectMocks
     private Database database;
 
     @InjectMocks
@@ -37,14 +38,12 @@ public class CouchDbTests {
     public void construct() {
 
         assertNotNull(couchdb);
-
-        database = new Database();
+        assertNotNull(database);
         database.setHost("127.0.0.1");
         database.setPort("5984");
         database.setUsername("admin");
         database.setPassword("admin");
         database.setUrl("http://127.0.0.1:5984/");
-        assertNotNull(database);
 
         couchdb.setDatabase(database);
         assertEquals(database, couchdb.getDatabase());

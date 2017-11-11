@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Unit tests for ForgotAction
@@ -20,17 +22,16 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class ForgotTests {
     
+    @InjectMocks
     private ForgotAction action;
 
     @Before
     public void beforeEachTest() {
-        action = new ForgotAction();
-        action.setSession(new HashMap<String, Object>());
+        MockitoAnnotations.initMocks(this);  
     }
 
     @Test
     public void parameters() {
-
         action.setEmail("bob@protonmail.com");
         action.setReset(true);
 
@@ -63,7 +64,7 @@ public class ForgotTests {
 
     @Test
     public void lockedOut() throws Exception {
-        
+        action.setSession(new HashMap<String, Object>());
         int maxAttempts = action.maxAttempts;
 
         // increment attempts up to limit

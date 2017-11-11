@@ -443,9 +443,8 @@ public class CouchDbSetup extends DatabaseSetup {
      * @return Author
      */
     protected Author getDefaultAuthor() {
-
         String user = Application.getString("default.username");
-        String email = Application.getString("email");
+        String email = Application.getString("default.email");
         String name = user.substring(0, 1).toUpperCase() + user.substring(1).toLowerCase();
 
         Author author = new Author(user);

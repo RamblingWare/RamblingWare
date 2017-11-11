@@ -69,7 +69,7 @@ public class Application implements ServletContextListener {
         System.out.println("Started Rant.");
     }
 
-    protected AppConfig loadSettingsFromFile(String propertiesFile) {
+    public static AppConfig loadSettingsFromFile(String propertiesFile) {
         AppConfig config = new AppConfig();
         try {
             HashMap<String, String> map = new HashMap<String, String>();
@@ -90,15 +90,15 @@ public class Application implements ServletContextListener {
         return config;
     }
 
-    protected AppConfig loadSettingsFromDB(DatabaseService dbs) {
+    public static AppConfig loadSettingsFromDB(DatabaseService dbs) {
         return dbs.getAppConfig();
     }
 
-    protected AppFirewall loadFirewallFromDB(DatabaseService dbs) {
+    public static AppFirewall loadFirewallFromDB(DatabaseService dbs) {
         return dbs.getAppFirewall();
     }
 
-    protected Database loadDatabase() {
+    public static Database loadDatabase() {
         // check env variable
         String dbUrl = System.getenv("DB_URL");
         String vcap = System.getenv("VCAP_SERVICES");
