@@ -5,10 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -80,8 +76,8 @@ public class ObjectTests {
         assertTrue(post.isPublished());
         post.setCategory("Meta");
         assertEquals("Meta", post.getCategory());
-        post.setAuthor_id("author_1");
-        assertEquals("author_1", post.getAuthor_id());
+        post.setAuthorId("author_1");
+        assertEquals("author_1", post.getAuthorId());
         post.setAuthor(new Author("author_1"));
         assertEquals("author_1", post.getAuthor().get_Id());
         post.setView(new View());
@@ -106,10 +102,6 @@ public class ObjectTests {
     @Test
     public void category() {
         Category cat = new Category();
-        cat.set_Id("12345");
-        assertEquals("12345", cat.get_Id());
-        cat.set_Rev("1");
-        assertEquals("1", cat.get_Rev());
         cat.setName("Meta");
         assertEquals("Meta", cat.getName());
         cat.setCount(10);
@@ -132,10 +124,6 @@ public class ObjectTests {
     @Test
     public void tag() {
         Tag tag = new Tag();
-        tag.set_Id("12345");
-        assertEquals("12345", tag.get_Id());
-        tag.set_Rev("1");
-        assertEquals("1", tag.get_Rev());
         tag.setName("Meta");
         assertEquals("Meta", tag.getName());
         tag.setCount(10);
@@ -354,44 +342,6 @@ public class ObjectTests {
         assertEquals("from", em2.getFrom());
         assertEquals("subject", em2.getSubject());
         assertEquals("message", em2.getMessage());
-    }
-
-    @Test
-    public void config() {
-        AppConfig config = new AppConfig();
-        config.set_Id("APPCONFIG");
-        config.set_Rev("1");
-        assertEquals("APPCONFIG", config.get_Id());
-        assertEquals("1", config.get_Rev());
-        assertNotNull(config.toString());
-
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("key", "value");
-        config.setSettings(map);
-        assertNotNull(config.getSettings());
-        assertEquals("value", config.getSettings().get("key"));
-    }
-
-    @Test
-    public void firewall() {
-        AppFirewall fw = new AppFirewall();
-        fw.set_Id("APPFIREWALL");
-        fw.set_Rev("1");
-        fw.setEnabled(true);
-        assertEquals("APPFIREWALL", fw.get_Id());
-        assertEquals("1", fw.get_Rev());
-        assertTrue(fw.isEnabled());
-        assertNotNull(fw.toString());
-
-        List<String> wlist = new ArrayList<String>();
-        wlist.add("0.0.0.0");
-        fw.setWhitelist(wlist);
-        assertTrue(fw.getWhitelist().contains("0.0.0.0"));
-
-        List<String> blist = new ArrayList<String>();
-        blist.add("8.8.8.8");
-        fw.setBlacklist(blist);
-        assertTrue(fw.getBlacklist().contains("8.8.8.8"));
     }
 
 }

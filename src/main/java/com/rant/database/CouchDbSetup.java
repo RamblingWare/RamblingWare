@@ -444,7 +444,7 @@ public class CouchDbSetup extends DatabaseSetup {
      */
     protected Post getDefaultPost() {
         Post post = new Post("welcome-to-rant");
-        post.setAuthor_id(Application.getString("default.username"));
+        post.setAuthorId(Application.getString("default.username"));
 
         post.setTitle("Welcome to Rant!");
         post.setDescription("Here is a sample post demonstrating this blog system.");

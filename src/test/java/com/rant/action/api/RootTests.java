@@ -27,7 +27,7 @@ public class RootTests {
     private RootAction action;
 
     @Before
-    public void setup() {
+    public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
         AppConfig config = Application.loadSettingsFromFile(Application.getPropFile());
         Application.setAppConfig(config);

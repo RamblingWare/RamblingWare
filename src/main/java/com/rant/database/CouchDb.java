@@ -116,11 +116,11 @@ public class CouchDb extends DatabaseService {
                 // get author for each post
                 try {
                     db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
                 } catch (Exception e) {
                     // ignore.
-                    Author author = new Author(post.getAuthor_id());
-                    author.setName(post.getAuthor_id());
+                    Author author = new Author(post.getAuthorId());
+                    author.setName(post.getAuthorId());
                     post.setAuthor(author);
                 }
             }
@@ -340,11 +340,11 @@ public class CouchDb extends DatabaseService {
                 // get author for each post
                 try {
                     db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
                 } catch (Exception e) {
                     // ignore.
-                    Author author = new Author(post.getAuthor_id());
-                    author.setName(post.getAuthor_id());
+                    Author author = new Author(post.getAuthorId());
+                    author.setName(post.getAuthorId());
                     post.setAuthor(author);
                 }
 
@@ -402,11 +402,11 @@ public class CouchDb extends DatabaseService {
                 // get author for each post
                 try {
                     db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
                 } catch (Exception e) {
                     // ignore.
-                    Author author = new Author(post.getAuthor_id());
-                    author.setName(post.getAuthor_id());
+                    Author author = new Author(post.getAuthorId());
+                    author.setName(post.getAuthorId());
                     post.setAuthor(author);
                 }
 
@@ -463,11 +463,11 @@ public class CouchDb extends DatabaseService {
                 // get author for each post
                 try {
                     db = client.database("", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
                 } catch (Exception e) {
                     // ignore.
-                    Author author = new Author(post.getAuthor_id());
-                    author.setName(post.getAuthor_id());
+                    Author author = new Author(post.getAuthorId());
+                    author.setName(post.getAuthorId());
                     post.setAuthor(author);
                 }
 
@@ -527,11 +527,11 @@ public class CouchDb extends DatabaseService {
                 // get author for each post
                 try {
                     db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthor_id()));
+                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
                 } catch (Exception e) {
                     // ignore.
-                    Author author = new Author(post.getAuthor_id());
-                    author.setName(post.getAuthor_id());
+                    Author author = new Author(post.getAuthorId());
+                    author.setName(post.getAuthorId());
                     post.setAuthor(author);
                 }
 

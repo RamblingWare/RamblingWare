@@ -17,21 +17,21 @@ public class Post implements Comparable<Post> {
     private String _id;
     private String _rev;
     private String title;
+    private String authorId;
+    private Author author;
+    private String category;
+    private List<String> tags;
+    private View view;
     private boolean featured;
     private boolean published;
-    private String category;
+    private Date createDate;
+    private Date modifyDate;
+    private Date publishDate;
     private String thumbnail;
     private String banner;
     private String bannerCaption;
     private String description;
     private String content;
-    private Date createDate;
-    private Date modifyDate;
-    private Date publishDate;
-    private String author_id;
-    private Author author;
-    private List<String> tags;
-    private View view;
 
     public Post(String id) {
         this._id = id;
@@ -171,12 +171,12 @@ public class Post implements Comparable<Post> {
         this.publishDate = publishDate;
     }
 
-    public String getAuthor_id() {
-        return author_id;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor_id(String author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public Author getAuthor() {

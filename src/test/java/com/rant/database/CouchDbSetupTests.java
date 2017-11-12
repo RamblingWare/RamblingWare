@@ -36,7 +36,7 @@ public class CouchDbSetupTests {
     private CouchDbSetup setup;
 
     @Before
-    public void setup() {
+    public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
 
         assertNotNull(setup);
@@ -70,7 +70,7 @@ public class CouchDbSetupTests {
 
         Post post = setup.getDefaultPost();
         assertNotNull(post);
-        assertTrue(post.getAuthor_id().equalsIgnoreCase(Application.getString("default.username")));
+        assertTrue(post.getAuthorId().equalsIgnoreCase(Application.getString("default.username")));
         assertNotNull(post.get_Id());
         assertNotNull(post.getTitle());
 
