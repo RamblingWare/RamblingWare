@@ -1,6 +1,7 @@
 package com.rant.action.api;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -21,7 +22,7 @@ import com.rant.database.CouchDb;
  * @since 1.0.0
  */
 @RunWith(JUnit4.class)
-public class RootTests {
+public class RootActionTests {
 
     @InjectMocks
     private RootAction action;
@@ -41,5 +42,22 @@ public class RootTests {
         assertEquals(Application.getString("version"), action.getVersion());
         assertTrue(action.getData().containsKey("url"));
         assertTrue(action.getData().containsKey("name"));
+    }
+
+    @Test
+    public void variables() {
+        action.setRant("Welcome");
+        assertEquals("Welcome", action.getRant());
+        action.setVersion("1.0.0");
+        assertEquals("1.0.0", action.getVersion());
+        action.setMessage("message");
+        assertEquals("message", action.getMessage());
+        action.setError("error");
+        assertEquals("error", action.getError());
+        action.setData(null);
+        assertNull(action.getData());
+
+        action.setServletRequest(null);
+        action.setServletResponse(null);
     }
 }

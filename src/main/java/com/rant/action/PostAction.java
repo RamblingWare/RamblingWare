@@ -119,12 +119,4 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
     public void setPost(Post post) {
         this.post = post;
     }
-
-    public String getUriName() {
-        return uri;
-    }
-
-    public void setUriName(String uriName) {
-        this.uri = uriName;
-    }
 }

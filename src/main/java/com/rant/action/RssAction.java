@@ -78,15 +78,15 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
                 ServletActionContext.getResponse().setContentType("text/xml");
                 out.write(response);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("ERROR: Failed to build RSS feed. "+e.getMessage());
                 addActionError("Error: " + e.getClass().getName() + ". " + e.getMessage());
             }
             // no action return
             return NONE;
 
         } catch (Exception e) {
+            System.out.println("ERROR: Failed to build RSS feed. "+e.getMessage());
             addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
-            e.printStackTrace();
             return ERROR;
         }
     }
