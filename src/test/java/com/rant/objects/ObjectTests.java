@@ -38,6 +38,8 @@ public class ObjectTests {
         assertEquals("image", author.getThumbnail());
         author.setRole(new Role("admin"));
         assertEquals("admin", author.getRole().get_Id());
+        author.setRoleId("admin");
+        assertEquals("admin", author.getRoleId());
         assertNotNull(author.toString());
 
         Author author2 = new Author("admin");

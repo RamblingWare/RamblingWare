@@ -1,7 +1,5 @@
 package com.rant.objects;
 
-import java.util.Date;
-
 import com.rant.config.Utils;
 
 /**
@@ -17,13 +15,12 @@ public class Author implements Comparable<Author> {
     private String name;
     private String email;
     private Role role;
-
+    private String roleId;
     private String thumbnail;
     private String description;
     private String content;
-
-    private Date createDate;
-    private Date modifyDate;
+    private String createDate;
+    private String modifyDate;
 
     public Author(String id) {
         this._id = id;
@@ -77,6 +74,14 @@ public class Author implements Comparable<Author> {
         this.role = role;
     }
 
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -101,28 +106,28 @@ public class Author implements Comparable<Author> {
         this.thumbnail = thumbnail;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
     public String getCreateDateReadable() {
-        return Utils.formatReadableDate(createDate);
+        return Utils.formatReadableDate(Utils.convertStringToDate(createDate));
     }
 
-    public Date getModifyDate() {
+    public String getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Date modifyDate) {
+    public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
     }
 
     public String getModifyDateReadable() {
-        return Utils.formatReadableDate(modifyDate);
+        return Utils.formatReadableDate(Utils.convertStringToDate(modifyDate));
     }
 
     @Override

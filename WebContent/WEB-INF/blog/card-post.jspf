@@ -25,7 +25,7 @@
 		<s:property value="author.name" /></a>
 		
 		<span class="icon-time w3-medium w3-text-theme w3-padding-square" title="Publish Date"></span>
-		<a href="/year/<s:property value="publishYear" />" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="publishDateReadable" /></a>
+		<a href="/year/<s:property value="publishYear" />" title="Published <s:property value="publishDateTimeReadable" />" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="publishDateReadable" /></a>
 	</p>
 	<p class="w3-small w3-text-theme">
 		<span class="icon-folder w3-medium w3-text-theme w3-padding-square" title="Category"></span>

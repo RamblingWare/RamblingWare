@@ -1,6 +1,6 @@
 package com.rant.objects;
 
-import java.util.Date;
+import com.rant.config.Utils;
 
 /**
  * This class represents an Author's Role.<br>
@@ -21,9 +21,8 @@ public class Role implements Comparable<Role> {
     private String _rev;
     private String name;
     private String description;
-
-    private Date createDate;
-    private Date modifyDate;
+    private String createDate;
+    private String modifyDate;
 
     private boolean isPublic;
     private boolean isPostsCreate;
@@ -85,20 +84,28 @@ public class Role implements Comparable<Role> {
         this.description = description;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getModifyDate() {
+    public String getCreateDateReadable() {
+        return Utils.formatReadableDate(Utils.convertStringToDate(createDate));
+    }
+
+    public String getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Date modifyDate) {
+    public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public String getModifyDateReadable() {
+        return Utils.formatReadableDate(Utils.convertStringToDate(modifyDate));
     }
 
     public boolean isPublic() {

@@ -28,7 +28,7 @@ public class Utils {
     private static final DecimalFormat BYTEFORM = new DecimalFormat("0.00");
     private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
     private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
-            "MMM dd, yyyy (hh:mm:ss a)");
+            "MMM dd, yyyy (h:mm a z)");
     private static final DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
     private static final DateFormat ISO8601FORM = new SimpleDateFormat(
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -43,7 +43,7 @@ public class Utils {
     }
 
     /**
-     * Gets the current time in a readable format. "MMM dd, yyyy (hh:mm:ss a)"
+     * Gets the current time in a readable format. "MMM dd, yyyy (h:mm a z)"
      * 
      * @return String
      */
@@ -125,10 +125,10 @@ public class Utils {
     }
 
     /**
-     * Get a readable format of the given date. "MMM dd, yyyy (hh:mm:ss a)"
+     * Get a readable format of the given date. "MMM dd, yyyy (hh:mm a z)"
      * 
      * @param date
-     *            "MMM dd, yyyy (hh:mm:ss a)"
+     *            "MMM dd, yyyy (hh:mm a z)"
      * @return String
      */
     public static String formatReadableDateTime(Date date) {
@@ -189,18 +189,20 @@ public class Utils {
      * @return Date
      */
     public static Date convertStringToDate(String anyFormat) {
-        String[] formats = {"MM/dd/yy", "MMMM d yy", "MMM dd yyyy", "MMM dd yy", "MMMM d, yy",
-                "MM-dd-yy", "MM-dd-yyyy", "MM/dd/yyyy", "dd/MM/yy", "dd-MM-yyyy", "dd/MM/yyyy",
-                "dd-MM-yy", "yyyy-MM-dd", "EEE, dd MMM yy HH:mm:ss z", "EEE, dd MMM yy HH:mm:ss",
-                "dd MMM yy HH:mm:ss", "ss:mm:HH dd MM:", "yyyyMMdd hh:mm:ss a", "yyyyMMdd hh:mm:ss",
-                "yyyy-MM-dd hh:mm:ss a"};
+        String[] formats = {"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyyMMdd hh:mm:ss a",
+                "yyyyMMdd hh:mm:ss", "yyyy-MM-dd hh:mm:ss a", "MM/dd/yy", "MMMM d yy",
+                "MMM dd yyyy", "MMM dd yy", "MMMM d, yy", "MM/dd/yyyy", "dd/MM/yy", "dd/MM/yyyy",
+                "yyyy-MM-dd", "EEE, dd MMM yy HH:mm:ss z", "EEE, dd MMM yy HH:mm:ss",
+                "dd MMM yy HH:mm:ss", "ss:mm:HH dd MM:"};
         Date date = null;
 
         for (int i = 0; i < formats.length; i++) {
             try {
                 date = new SimpleDateFormat(formats[i], Locale.ENGLISH).parse(anyFormat);
-                // System.out.println("Format found: \""+formats[i]+"\" for date input
-                // \""+anyFormat+"\"");
+                /*
+                 * System.out.println("Format found: \"" + formats[i] + "\" for date input \"" +
+                 * anyFormat + "\"");
+                 */
                 break; // successful
             } catch (Exception e) {
                 continue; // try another
@@ -337,7 +339,8 @@ public class Utils {
      * @param urlString
      *            URL string
      * @return String
-     * @throws IOException if error
+     * @throws IOException
+     *             if error
      */
     public static String downloadUrlFile(String urlString) throws IOException {
         BufferedInputStream in = null;
@@ -371,7 +374,8 @@ public class Utils {
      * @param resourcePath
      *            name of file
      * @return File
-     * @throws IOException if error
+     * @throws IOException
+     *             if error
      */
     public static File getResourceAsFile(String resourcePath) throws IOException {
         try {

@@ -80,7 +80,7 @@
 					</div>
 					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<span class="icon-time w3-large w3-text-theme w3-padding-square"></span><a href="/year/<s:property value="post.publishYear" />" title="Date Published" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="post.publishDateReadable" /></a>
+							<span class="icon-time w3-large w3-text-theme w3-padding-square"></span><a href="/year/<s:property value="post.publishYear" />" title="Published <s:property value="post.publishDateTimeReadable" />" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;"><s:property value="post.publishDateReadable" /></a>
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l3">

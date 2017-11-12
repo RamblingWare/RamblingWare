@@ -1,7 +1,6 @@
 package com.rant.objects;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import com.rant.config.Utils;
@@ -24,9 +23,9 @@ public class Post implements Comparable<Post> {
     private View view;
     private boolean featured;
     private boolean published;
-    private Date createDate;
-    private Date modifyDate;
-    private Date publishDate;
+    private String createDate;
+    private String modifyDate;
+    private String publishDate;
     private String thumbnail;
     private String banner;
     private String bannerCaption;
@@ -129,45 +128,57 @@ public class Post implements Comparable<Post> {
         this.content = content;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
     public String getCreateDateReadable() {
-        return Utils.formatReadableDate(createDate);
+        return Utils.formatReadableDate(Utils.convertStringToDate(createDate));
     }
 
-    public void setCreateDate(Date createDate) {
+    public String getCreateDateTimeReadable() {
+        return Utils.formatReadableDateTime(Utils.convertStringToDate(createDate));
+    }
+
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getModifyDate() {
+    public String getModifyDate() {
         return modifyDate;
     }
 
     public String getModifyDateReadable() {
-        return Utils.formatReadableDate(modifyDate);
+        return Utils.formatReadableDate(Utils.convertStringToDate(modifyDate));
     }
 
-    public void setModifyDate(Date modifyDate) {
+    public String getModifyDateTimeReadable() {
+        return Utils.formatReadableDateTime(Utils.convertStringToDate(modifyDate));
+    }
+
+    public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
     }
 
-    public Date getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
     public String getPublishDateReadable() {
-        return Utils.formatReadableDate(publishDate);
+        return Utils.formatReadableDate(Utils.convertStringToDate(publishDate));
+    }
+
+    public String getPublishDateTimeReadable() {
+        return Utils.formatReadableDateTime(Utils.convertStringToDate(publishDate));
     }
 
     public int getPublishYear() {
         Calendar cal = Calendar.getInstance();
-        cal.setTime(publishDate);
+        cal.setTime(Utils.convertStringToDate(publishDate));
         return cal.get(Calendar.YEAR);
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
 
