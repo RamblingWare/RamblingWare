@@ -96,6 +96,10 @@ public class Role implements Comparable<Role> {
         return Utils.formatReadableDate(Utils.convertStringToDate(createDate));
     }
 
+    public String getCreateDateTimeReadable() {
+        return Utils.formatReadableDateTime(Utils.convertStringToDate(createDate));
+    }
+
     public String getModifyDate() {
         return modifyDate;
     }
@@ -106,6 +110,10 @@ public class Role implements Comparable<Role> {
 
     public String getModifyDateReadable() {
         return Utils.formatReadableDate(Utils.convertStringToDate(modifyDate));
+    }
+
+    public String getModifyDateTimeReadable() {
+        return Utils.formatReadableDateTime(Utils.convertStringToDate(modifyDate));
     }
 
     public boolean isPublic() {
