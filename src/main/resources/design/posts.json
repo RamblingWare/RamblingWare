@@ -16,10 +16,18 @@
     "category-published": {
       "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.category, 1);\n  }\n }"
     },
+    "category-count": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.category, 1);\n  }\n}"
+    },
     "tag-all": {
       "map": "function (doc) {\n  for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }"
     },
     "tag-published": {
+      "map": "function (doc) {\n  if(doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
+    },
+    "tag-count": {
+      "reduce": "_sum",
       "map": "function (doc) {\n  if(doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
     },
     "year-all": {
@@ -27,14 +35,6 @@
     },
     "year-published": {
       "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.publishDate, 1);\n  }\n}"
-    },
-    "category-count": {
-      "reduce": "_sum",
-      "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.category, 1);\n  }\n}"
-    },
-    "tag-count": {
-      "reduce": "_sum",
-      "map": "function (doc) {\n  if(doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
     },
     "year-count": {
       "reduce": "_sum",

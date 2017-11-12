@@ -3,6 +3,7 @@ package com.rant.config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -62,6 +63,7 @@ public class UtilsTests {
     public void formatURLs() {
         assertEquals("http://www.example.com", Utils.formatURL("www.example.com"));
         assertEquals("http://www.example.com", Utils.formatURL("http://www.example.com"));
+        assertEquals("https://www.example.com", Utils.formatURL("https://www.example.com"));
 
         assertEquals("TL;DR", Utils.formatURI("/\\TL;DR/"));
         assertEquals("test-one-test", Utils.formatURI("test one test"));
@@ -105,7 +107,7 @@ public class UtilsTests {
     }
 
     @Test
-    public void f() {
+    public void formatEmails() {
         assertTrue(Utils.isValidEmail("jdoe1@example.com"));
         assertTrue(Utils.isValidEmail("jdoe1@example.com"));
         assertTrue(Utils.isValidEmail("jdoe1@example.example.com"));
@@ -120,9 +122,7 @@ public class UtilsTests {
 
     @Test
     public void dates() {
-
-        String td = "June 27 2017";
-        java.util.Date date = Utils.convertStringToDate(td);
+        java.util.Date date = Utils.convertStringToDate("June 22, 1988");
 
         assertNotNull(date);
         assertNotNull(Utils.getDate());
@@ -132,11 +132,12 @@ public class UtilsTests {
         assertEquals("Null", Utils.formatReadableDate(null));
         assertEquals("Null", Utils.formatReadableDateTime(null));
         assertEquals("Null", Utils.formatSQLServerDate(null));
+
+        assertNull(Utils.convertStringToDate(null));
     }
 
     @Test
     public void strings() {
-
         String temp = "  t e st  ";
         assertEquals(Utils.removeAllSpaces(temp), "test");
 

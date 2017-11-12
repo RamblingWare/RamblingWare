@@ -104,12 +104,6 @@ public class CouchDbSetup extends DatabaseSetup {
             Database posts = client.database("posts", false);
             posts.getDesignDocumentManager().get("_design/posts");
 
-            Database tags = client.database("tags", false);
-            tags.getDesignDocumentManager().get("_design/tags");
-
-            Database cats = client.database("categories", false);
-            cats.getDesignDocumentManager().get("_design/categories");
-
             Database roles = client.database("roles", false);
             roles.getDesignDocumentManager().get("_design/roles");
 
@@ -165,18 +159,6 @@ public class CouchDbSetup extends DatabaseSetup {
 
             // create default post
             posts.save(getDefaultPost());
-
-            // create tags
-            Database tags = client.database("tags", true);
-            DesignDocument tagsdesign = DesignDocumentManager
-                    .fromFile(Utils.getResourceAsFile("/design/tags.json"));
-            tags.getDesignDocumentManager().put(tagsdesign);
-
-            // create categories
-            Database categories = client.database("categories", true);
-            DesignDocument categoriesdesign = DesignDocumentManager
-                    .fromFile(Utils.getResourceAsFile("/design/categories.json"));
-            categories.getDesignDocumentManager().put(categoriesdesign);
 
             // create views
             Database views = client.database("views", true);
@@ -278,7 +260,7 @@ public class CouchDbSetup extends DatabaseSetup {
             request1 = Http
                     .GET(new URL(client.getBaseUri() + "/_node/" + node + "/_config/admins"));
             response1 = client.executeRequest(request1);
-            String admins = response1.responseAsString();
+            String admins = Utils.removeBadChars(response1.responseAsString());
 
             // if no admins, then it means admin party mode is still partying.
             System.out.println("Admins: '" + admins + "'");
@@ -362,7 +344,7 @@ public class CouchDbSetup extends DatabaseSetup {
             response1 = client.executeRequest(request1);
             if (response1.getConnection().getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default admin
-                throw new Exception("Failed to create default admin '" + user
+                throw new Exception("ERROR: Failed to create default admin '" + user
                         + "'. Exception occured during install.");
             } else {
                 // stopped the party
@@ -444,15 +426,13 @@ public class CouchDbSetup extends DatabaseSetup {
      */
     protected Author getDefaultAuthor() {
         String user = Application.getString("default.username");
-        String email = Application.getString("default.email");
         String name = user.substring(0, 1).toUpperCase() + user.substring(1).toLowerCase();
-
         Author author = new Author(user);
         author.setName(name);
         author.setRole(new Role("admin"));
         author.setDescription("The website administrator.");
         author.setContent("");
-        author.setEmail(email);
+        author.setEmail(Application.getString("default.email"));
         author.setThumbnail("/img/placeholder-200.png");
         return author;
     }
@@ -463,30 +443,23 @@ public class CouchDbSetup extends DatabaseSetup {
      * @return Post
      */
     protected Post getDefaultPost() {
-
-        String user = Application.getString("default.username");
-
         Post post = new Post("welcome-to-rant");
-        post.setAuthor_id(user);
+        post.setAuthor_id(Application.getString("default.username"));
 
         post.setTitle("Welcome to Rant!");
         post.setDescription("Here is a sample post demonstrating this blog system.");
         post.setContent(
                 "<p>Here is a welcome post that will eventually be outlining all the features of Rant.<br><br>But for now its simply a placeholder.<br><br>Enjoy your new blog!</p>");
-
         ArrayList<String> tags = new ArrayList<String>();
         tags.add("test");
         tags.add("sample");
         post.setTags(tags);
         post.setCategory("Welcome");
-
         post.setBanner("/img/placeholder-640.png");
         post.setThumbnail("/img/placeholder-640.png");
         post.setBannerCaption("Time to Rant!");
-
         post.setPublished(true);
         post.setFeatured(true);
-
         Date date = new Date(System.currentTimeMillis());
         post.setPublishDate(date);
         post.setCreateDate(date);
