@@ -2,14 +2,13 @@ package com.rant.database;
 
 import java.util.List;
 
-import com.rant.objects.AppConfig;
-import com.rant.objects.AppFirewall;
+import com.rant.config.AppConfig;
+import com.rant.config.AppFirewall;
 import com.rant.objects.Author;
 import com.rant.objects.Category;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
-import com.rant.objects.DatabaseUser;
 import com.rant.objects.View;
 import com.rant.objects.Year;
 
@@ -21,17 +20,17 @@ import com.rant.objects.Year;
  */
 public abstract class DatabaseService {
 
-    protected com.rant.objects.Database database;
+    protected com.rant.database.Database database;
 
-    public DatabaseService(com.rant.objects.Database database) {
+    public DatabaseService(com.rant.database.Database database) {
         this.database = database;
     }
 
-    public void setDatabase(com.rant.objects.Database database) {
+    public void setDatabase(com.rant.database.Database database) {
         this.database = database;
     }
 
-    public com.rant.objects.Database getDatabase() {
+    public com.rant.database.Database getDatabase() {
         return database;
     }
 

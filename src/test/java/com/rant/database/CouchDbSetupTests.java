@@ -13,10 +13,9 @@ import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+import com.rant.config.AppConfig;
 import com.rant.config.Application;
-import com.rant.objects.AppConfig;
 import com.rant.objects.Author;
-import com.rant.objects.Database;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 

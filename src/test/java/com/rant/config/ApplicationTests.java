@@ -18,9 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.rant.database.CouchDb;
 import com.rant.database.CouchDbSetup;
-import com.rant.objects.AppConfig;
-import com.rant.objects.AppFirewall;
-import com.rant.objects.Database;
+import com.rant.database.Database;
 
 /**
  * Unit tests for Application

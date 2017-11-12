@@ -8,17 +8,17 @@ package com.rant.database;
  */
 public abstract class DatabaseSetup {
 
-    protected com.rant.objects.Database database;
+    protected com.rant.database.Database database;
 
-    public DatabaseSetup(com.rant.objects.Database database) {
+    public DatabaseSetup(com.rant.database.Database database) {
         this.database = database;
     }
 
-    public void setDatabase(com.rant.objects.Database database) {
+    public void setDatabase(com.rant.database.Database database) {
         this.database = database;
     }
 
-    public com.rant.objects.Database getDatabase() {
+    public com.rant.database.Database getDatabase() {
         return database;
     }
 

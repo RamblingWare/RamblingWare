@@ -12,20 +12,19 @@ import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewResponse;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.rant.objects.AppConfig;
-import com.rant.objects.AppFirewall;
+import com.rant.config.AppConfig;
+import com.rant.config.AppFirewall;
 import com.rant.objects.Author;
 import com.rant.objects.Category;
 import com.rant.objects.Post;
 import com.rant.objects.Role;
 import com.rant.objects.Tag;
-import com.rant.objects.DatabaseUser;
 import com.rant.objects.View;
 import com.rant.objects.Year;
 
 public class CouchDb extends DatabaseService {
 
-    public CouchDb(com.rant.objects.Database database) {
+    public CouchDb(com.rant.database.Database database) {
         super(database);
     }
 

@@ -10,8 +10,6 @@ import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-import com.rant.objects.Database;
-
 /**
  * Unit tests for CouchDB
  * 

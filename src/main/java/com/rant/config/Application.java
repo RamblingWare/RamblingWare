@@ -11,11 +11,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.rant.database.CouchDb;
 import com.rant.database.CouchDbSetup;
+import com.rant.database.Database;
 import com.rant.database.DatabaseService;
 import com.rant.database.DatabaseSetup;
-import com.rant.objects.AppConfig;
-import com.rant.objects.AppFirewall;
-import com.rant.objects.Database;
 
 /**
  * Application class loads the settings from application.properties file and and establishes the

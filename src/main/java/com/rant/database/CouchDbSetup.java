@@ -26,7 +26,7 @@ import com.rant.objects.Role;
 
 public class CouchDbSetup extends DatabaseSetup {
 
-    public CouchDbSetup(com.rant.objects.Database database) {
+    public CouchDbSetup(com.rant.database.Database database) {
         super(database);
     }
 

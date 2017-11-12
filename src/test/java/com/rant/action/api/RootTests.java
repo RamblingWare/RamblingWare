@@ -10,9 +10,9 @@ import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+import com.rant.config.AppConfig;
 import com.rant.config.Application;
 import com.rant.database.CouchDb;
-import com.rant.objects.AppConfig;
 
 /**
  * Unit tests for RootAction

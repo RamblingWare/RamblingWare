@@ -1,4 +1,4 @@
-package com.rant.objects;
+package com.rant.database;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import com.rant.database.Database;
 
 /**
  * Unit tests for Database Object

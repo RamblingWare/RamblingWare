@@ -1,4 +1,4 @@
-package com.rant.objects;
+package com.rant.database;
 
 /**
  * This class represents a CouchDB User

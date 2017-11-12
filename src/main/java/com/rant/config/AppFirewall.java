@@ -1,4 +1,4 @@
-package com.rant.objects;
+package com.rant.config;
 
 import java.util.List;
 
