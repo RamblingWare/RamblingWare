@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +51,8 @@ public class PostTests {
         assertEquals("image", post.getThumbnail());
         post.setBanner("image");
         assertEquals("image", post.getBanner());
+        post.setBannerCaption("caption");
+        assertEquals("caption", post.getBannerCaption());
         post.setFeatured(true);
         assertTrue(post.isFeatured());
         post.setPublished(true);
@@ -59,6 +64,10 @@ public class PostTests {
         post.setAuthor(new Author("author_1"));
         assertEquals("author_1", post.getAuthor().get_Id());
         post.setView(new View());
+        List<String> list = new ArrayList<String>();
+        list.add("Meta");
+        post.setTags(list);
+        assertEquals("Meta", post.getTags().get(0));
         assertNotNull(post.getView());
 
         post.setCreateDate(dateTime);
@@ -69,6 +78,11 @@ public class PostTests {
         assertEquals(dateTime, post.getModifyDate());
         assertEquals(readableDate, post.getModifyDateReadable());
         assertEquals(readableDateTime, post.getModifyDateTimeReadable());
+        post.setPublishDate(dateTime);
+        assertEquals(dateTime, post.getPublishDate());
+        assertEquals(readableDate, post.getPublishDateReadable());
+        assertEquals(readableDateTime, post.getPublishDateTimeReadable());
+        assertTrue(post.getPublishYear() > 0);
         assertNotNull(post.toString());
 
         Post post2 = new Post("blogpost");

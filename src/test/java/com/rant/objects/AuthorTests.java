@@ -37,6 +37,7 @@ public class AuthorTests {
         author.set_Id("admin");
         assertEquals("admin", author.get_Id());
         assertEquals("admin", author.getUsername());
+        assertEquals("admin", author.getUri());
         author.set_Rev("1");
         assertEquals("1", author.get_Rev());
         author.setName("admin");
