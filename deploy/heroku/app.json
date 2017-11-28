@@ -1,10 +1,10 @@
 {
-  "name": "Rant",
-  "description": "Blog management system in Java.",
-  "website": "https://github.com/RamblingWare/Rant",
-  "repository": "https://github.com/RamblingWare/Rant",
+  "name": "Oddox",
+  "description": "Offline-first, Open-Source, Blogging Platform.",
+  "website": "https://github.com/oddoxorg/oddox",
+  "repository": "https://github.com/oddoxorg/oddox",
   "keywords": ["java", "couchdb", "blog"],
-  "logo": "https://www.ramblingware.com/img/icon-512-round.png",
+  "logo": "https://oddox.org/img/icon-512-round.png",
   "success_url": "/",
   "image": "heroku/java",
   "addons": [

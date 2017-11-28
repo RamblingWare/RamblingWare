@@ -3,9 +3,9 @@ apply plugin: 'jacoco'
 apply plugin: 'eclipse'
 apply plugin: 'war'
 
-group = 'com.rant'
+group = 'org.oddox'
 version = '1.0.0'
-war.baseName = 'rant'
+war.baseName = 'oddox'
 project.webAppDirName = 'WebContent'
 
 sourceCompatibility = 1.8
@@ -14,7 +14,6 @@ compileJava.options.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -27,11 +26,6 @@ dependencies {
     compile 'com.cloudant:cloudant-client:2.9.+'
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.4.+'
     compile 'javax.servlet:javax.servlet-api:4.0.+'
-
-    // jitpack
-    // compile 'com.github.amdelamar:jhash:v1.1.0'
-    // compile 'com.github.amdelamar:jotp:v1.1.0'
-    // compile 'commons-codec:commons-codec:1.8'
 
     testCompile 'junit:junit:4.12'
     //testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0")
