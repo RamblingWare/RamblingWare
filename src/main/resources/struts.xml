@@ -8,8 +8,8 @@
 	<package name="root" namespace="/" extends="struts-default">
 	
 		<interceptors>
-			<interceptor name="archive" class="com.rant.action.interceptor.ArchiveInterceptor"></interceptor>
-			<interceptor name="header" class="com.rant.action.interceptor.HeaderInterceptor"></interceptor>
+			<interceptor name="archive" class="org.oddox.action.interceptor.ArchiveInterceptor"></interceptor>
+			<interceptor name="header" class="org.oddox.action.interceptor.HeaderInterceptor"></interceptor>
 			
 			<!-- Archive Interceptor -->
 			<interceptor-stack name="archiveStack">
@@ -30,7 +30,7 @@
 		</global-exception-mappings>
 		
 		<!-- ACTIONS -->
-		<action name="" class="com.rant.action.HomeAction">
+		<action name="" class="org.oddox.action.HomeAction">
 			<result name="success">/WEB-INF/index.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -48,11 +48,11 @@
 		</action>
 		
 		<!-- RSS and Search -->
-		<action name="rss" class="com.rant.action.RssAction">
+		<action name="rss" class="org.oddox.action.RssAction">
 			<!-- Success already returns XML -->
 			<result name="error">/WEB-INF/error/error.jsp</result>
 		</action>
-		<action name="search" class="com.rant.action.SearchAction">
+		<action name="search" class="org.oddox.action.SearchAction">
 			<!-- Success already redirects to external website -->
 			<result name="input">/WEB-INF/other/search.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
@@ -93,24 +93,24 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 				
-		<action name="" class="com.rant.action.BlogAction">
+		<action name="" class="org.oddox.action.BlogAction">
 			<result name="success">/WEB-INF/blog/blog.jsp</result>
 			<result name="error">/WEB-INF/blog/blog.jsp</result>
 		</action>
 		
-		<action name="page/*" class="com.rant.action.BlogAction">
+		<action name="page/*" class="org.oddox.action.BlogAction">
 			<result name="success">/WEB-INF/blog/blog.jsp</result>
 			<result name="error">/WEB-INF/blog/blog.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="post/*" class="com.rant.action.PostAction">
+		<action name="post/*" class="org.oddox.action.PostAction">
 			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rant.action.PostAction">
+		<action name="*" class="org.oddox.action.PostAction">
 			<result name="success">/WEB-INF/blog/post.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -123,18 +123,18 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rant.action.TagsAction">
+		<action name="" class="org.oddox.action.TagsAction">
 			<result name="success">/WEB-INF/tag/tags.jsp</result>
 			<result name="error">/WEB-INF/tag/tags.jsp</result>
 		</action>
 		
-		<action name="*/page/*" class="com.rant.action.TagAction">
+		<action name="*/page/*" class="org.oddox.action.TagAction">
 			<result name="success">/WEB-INF/tag/tag.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rant.action.TagAction">
+		<action name="*" class="org.oddox.action.TagAction">
 			<result name="success">/WEB-INF/tag/tag.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -147,18 +147,18 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rant.action.YearsAction">
+		<action name="" class="org.oddox.action.YearsAction">
 			<result name="success">/WEB-INF/year/years.jsp</result>
 			<result name="error">/WEB-INF/year/years.jsp</result>
 		</action>
 		
-		<action name="*/page/*" class="com.rant.action.YearAction">
+		<action name="*/page/*" class="org.oddox.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rant.action.YearAction">
+		<action name="*" class="org.oddox.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -171,18 +171,18 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rant.action.CategoriesAction">
+		<action name="" class="org.oddox.action.CategoriesAction">
 			<result name="success">/WEB-INF/category/categories.jsp</result>
 			<result name="error">/WEB-INF/category/categories.jsp</result>
 		</action>
 		
-		<action name="*/page/*" class="com.rant.action.CategoryAction">
+		<action name="*/page/*" class="org.oddox.action.CategoryAction">
 			<result name="success">/WEB-INF/category/category.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rant.action.CategoryAction">
+		<action name="*" class="org.oddox.action.CategoryAction">
 			<result name="success">/WEB-INF/category/category.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -195,12 +195,12 @@
 
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
-		<action name="" class="com.rant.action.AuthorsAction">
+		<action name="" class="org.oddox.action.AuthorsAction">
 			<result name="success">/WEB-INF/author/authors.jsp</result>
 			<result name="error">/WEB-INF/author/authors.jsp</result>
 		</action>
 		
-		<action name="*" class="com.rant.action.AuthorAction">
+		<action name="*" class="org.oddox.action.AuthorAction">
 			<result name="success">/WEB-INF/author/author.jsp</result>
 			<result name="error">/WEB-INF/error/error.jsp</result>
 			<result name="none">/WEB-INF/error/404.jsp</result>
@@ -217,17 +217,17 @@
 			<result>/dashboard/index.html</result>
 		</action>
 		
-		<action name="" class="com.rant.action.api.RootAction">
+		<action name="" class="org.oddox.action.api.RootAction">
 			<result name="none" type="json">
 				<param name="noCache">true</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="includeProperties">
-					rant,version,error,message,data.*
+					oddox,version,error,message,data.*
 				</param>
 			</result>
 		</action>
 		
-		<action name="forgot" class="com.rant.action.api.ForgotAction">
+		<action name="forgot" class="org.oddox.action.api.ForgotAction">
 			<result name="none" type="json">
 				<param name="noCache">true</param>
 				<param name="excludeNullProperties">true</param>

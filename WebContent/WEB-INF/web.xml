@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="Rant" version="3.0"
+<web-app id="Oddox" version="3.0"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	<display-name>Rant</display-name>
+	<display-name>Oddox</display-name>
 
 	<!-- Startup the Application class on boot -->
 	<listener>
-		<listener-class>com.rant.config.Application</listener-class>
+		<listener-class>org.oddox.config.Application</listener-class>
 	</listener>
 
 	<session-config>
@@ -34,7 +34,7 @@
 	<!-- (1st) Filter for static content that should be cached. -->
 	<filter>
 		<filter-name>StaticContentFilter</filter-name>
-		<filter-class>com.rant.action.filter.StaticContentFilter</filter-class>
+		<filter-class>org.oddox.action.filter.StaticContentFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>StaticContentFilter</filter-name>
@@ -50,7 +50,7 @@
 	<!-- (2nd) Filter for all regular content. -->
 	<filter>
 		<filter-name>AllContentFilter</filter-name>
-		<filter-class>com.rant.action.filter.AllContentFilter</filter-class>
+		<filter-class>org.oddox.action.filter.AllContentFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>AllContentFilter</filter-name>

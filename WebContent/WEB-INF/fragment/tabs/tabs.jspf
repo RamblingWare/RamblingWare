@@ -1,5 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page import="com.rant.config.Application" %>
+<%@ page import="org.oddox.config.Application" %>
 <div id="tabs" class="w3-col m2 l2 w3-hide-medium w3-hide-small w3-medium no-print">
 	<ul class="w3-card w3-round">
 		<li><a href="/blog/" class="w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="Blog">Blog</a></li>

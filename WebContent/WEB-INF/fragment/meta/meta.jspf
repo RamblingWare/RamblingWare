@@ -1,8 +1,8 @@
-<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="com.rant.config.Application" %><%@ page import="com.rant.config.Utils" %>
+<%@ taglib prefix="s" uri="/struts-tags"%><%@ page import="org.oddox.config.Application" %><%@ page import="org.oddox.config.Utils" %>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="generator" content="Rant">
+<meta name="generator" content="Oddox">
 <meta name="application-name" content="<%=Application.getString("name")%>"/>
 <meta name="author" content="<%=Application.getString("author")%>"/>
 <meta name="keywords" content="<%=Application.getString("keywords")%>"/>
@@ -41,5 +41,6 @@
 
 <link rel="author" href="humans.txt"/>
 <link rel="shortcut icon" href="/favicon.ico"/>
-<link rel="stylesheet" href="/css/rant.css?v=1.02"/>
+<link rel="stylesheet" href="/css/ramblingware.css"/>
+<link rel="stylesheet" href="/vendor/icomoon/icomoon.css"/>
 <link rel="alternate" href="/rss" type="application/rss+xml" title="RSS">

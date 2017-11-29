@@ -41,7 +41,7 @@
         clientAuth="false" sslProtocol="TLS"
         keystoreFile="conf/.keystore"
         keystorePass="changeit"
-        keyAlias="rant" /> -->
+        keyAlias="oddox" /> -->
 
 	<!-- HTTPS with HTTP/2 -->
 	<Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"

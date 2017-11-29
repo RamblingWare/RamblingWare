@@ -1,6 +1,6 @@
 ## Your Environment
 <!--- Include as many relevant details about the environment -->
- * Rant version:
+ * Oddox version:
  * Browser name and version:
  * OS/Device version:
 

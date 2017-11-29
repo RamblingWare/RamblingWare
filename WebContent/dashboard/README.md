@@ -1,9 +1,9 @@
-# Rant
+# Oddox Dashboard
 
-This is a placeholder for the [Rant](https://github.com/RamblingWare/Rant-Dashboard) dashboard. 
+This is a placeholder for the [Dashboard](https://github.com/oddoxorg/dashboard). 
 
 ## Usage
 
-If you're deploying for development, follow the Rant dashboard deploy README.
+If you're deploying for development, follow the Oddox dashboard deploy README.
 
-Otherwise this /dashboard/ folder is just a placeholder for the /dist/ contents that are produced by Rant-Dashboard.
+Otherwise this /dashboard/ folder is just a placeholder for the /dist/ contents that are produced by dashboard.
