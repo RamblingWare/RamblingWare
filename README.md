@@ -70,9 +70,10 @@ This project is still in development. It is not easily modifiable for "new" blog
 ## Technologies Used
 
  *  [Java 1.8](https://www.java.com/) Programming Language
- *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache CouchDB 2.1.0](https://couchdb.apache.org/) NoSQL Database
  *  [Apache Tomcat 9.0](https://tomcat.apache.org/) Web Server
+ *  [Apache Struts 2.5](https://struts.apache.org/) Framework
+ *  [Apache FreeMarker 2.3](https://freemarker.apache.org/) Templates
 
 ## License
 
