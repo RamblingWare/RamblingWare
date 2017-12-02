@@ -10,9 +10,11 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
+import java.util.Properties;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
@@ -399,5 +401,29 @@ public class Utils {
         } catch (IOException e) {
             throw e;
         }
+    }
+
+    /**
+     * Reads a properties file and stores the keys+values in a HashMap.
+     * 
+     * @param propertiesFile
+     * @return
+     * @throws NullPointerException
+     *             - if propertiesFile is null.
+     * @throws IOException
+     *             - if an error occurred when reading from the input stream.
+     * @throws IllegalArgumentException
+     *             - if the input stream contains a malformed Unicode escape sequence.
+     */
+    public static HashMap<String, String> loadMapFromFile(String propertiesFile)
+            throws NullPointerException, IOException, IllegalArgumentException {
+        HashMap<String, String> map = new HashMap<String, String>();
+        Properties properties = new Properties();
+        properties.load(Application.class.getResourceAsStream(propertiesFile));
+        for (String key : properties.stringPropertyNames()) {
+            String value = properties.getProperty(key);
+            map.put(key, value);
+        }
+        return map;
     }
 }

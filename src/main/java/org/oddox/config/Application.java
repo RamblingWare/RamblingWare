@@ -1,7 +1,6 @@
 package org.oddox.config;
 
 import java.util.HashMap;
-import java.util.Properties;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -17,15 +16,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 /**
- * Application class loads the settings from application.properties file and and establishes the
- * DatabaseSource used for this app.
+ * Application class loads settings from the properties files and and establishes the
+ * DatabaseSource used for this app. Also, acts as the main starting point for the app.
  * 
  * @author Austin Delamar
  * @date 4/8/2017
  */
 public class Application implements ServletContextListener {
 
-    private final static String PROP_FILE = "/app.properties";
+    public final static String APP_PROP_FILE = "/app.properties";
+    public final static String DB_PROP_FILE = "/db.properties";
+    
     private static AppConfig appConfig;
     private static AppFirewall appFirewall;
     private static DatabaseService databaseService;
@@ -37,7 +38,7 @@ public class Application implements ServletContextListener {
         System.out.println("Starting up Oddox...");
 
         // Load settings from File
-        appConfig = loadSettingsFromFile(PROP_FILE);
+        appConfig = loadSettingsFromFile(APP_PROP_FILE);
         appFirewall = new AppFirewall();
 
         // Setup Database
@@ -59,7 +60,7 @@ public class Application implements ServletContextListener {
         AppConfig configdb = loadSettingsFromDB(databaseService);
         if (configdb != null) {
             System.out.println(
-                    "Found app settings in the database. Using that instead of " + PROP_FILE);
+                    "Found app settings in the database. Using that instead of " + APP_PROP_FILE);
             appConfig.getSettings().putAll(configdb.getSettings());
         }
 
@@ -70,19 +71,11 @@ public class Application implements ServletContextListener {
     public static AppConfig loadSettingsFromFile(String propertiesFile) {
         AppConfig config = new AppConfig();
         try {
-            HashMap<String, String> map = new HashMap<String, String>();
-            Properties properties = new Properties();
-            properties.load(Application.class.getResourceAsStream(propertiesFile));
-
-            // put into map
-            for (String key : properties.stringPropertyNames()) {
-                String value = properties.getProperty(key);
-                map.put(key, value);
-            }
+            HashMap<String, String> map = Utils.loadMapFromFile(propertiesFile);
             config.setSettings(map);
 
         } catch (Exception e) {
-            System.out.println("WARNING: Properties file not found.");
+            System.out.println("WARNING: Properties file not found or failed to load properly.");
             return null;
         }
         return config;
@@ -138,15 +131,22 @@ public class Application implements ServletContextListener {
             }
         } else {
             // if env is not available, then
-            // run on local couchdb
+            // run on local couchdb in db.properties
             System.out.println(
-                    "WARNING: No DB environment variables provided. Continuing with DB from properties file.");
+                    "WARNING: No DB environment variables provided. Continuing with DB from "+DB_PROP_FILE+" file.");
 
-            db.setHost(getString("couchdb.host"));
-            db.setPort(getString("couchdb.port"));
-            db.setUrl(getString("couchdb.url"));
-            db.setUsername(getString("couchdb.username"));
-            db.setPassword(getString("couchdb.password"));
+            try {
+                HashMap<String,String> map = Utils.loadMapFromFile(DB_PROP_FILE);
+                db.setHost(map.get("couchdb.host"));
+                db.setPort(map.get("couchdb.port"));
+                db.setUrl(map.get("couchdb.url"));
+                db.setUsername(map.get("couchdb.username"));
+                db.setPassword(map.get("couchdb.password"));
+            } catch (Exception e) {
+                System.out.println("ERROR: Failed to parse "+DB_PROP_FILE+" file.");
+                e.printStackTrace();
+                System.exit(2);    
+            }            
         }
 
         return db;
@@ -155,15 +155,6 @@ public class Application implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         System.out.println("Stopped Oddox.");
-    }
-
-    /**
-     * Gets the properties file for this app.
-     * 
-     * @return String filename
-     */
-    public static String getPropFile() {
-        return PROP_FILE;
     }
 
     /**

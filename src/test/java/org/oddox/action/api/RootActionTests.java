@@ -30,7 +30,7 @@ public class RootActionTests {
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-        AppConfig config = Application.loadSettingsFromFile(Application.getPropFile());
+        AppConfig config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
         Application.setAppConfig(config);
         Application.setDatabaseService(new CouchDb(Application.loadDatabase()));
     }

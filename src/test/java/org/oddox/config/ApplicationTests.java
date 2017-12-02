@@ -46,7 +46,7 @@ public class ApplicationTests {
     public void settings() {
         AppConfig config = Application.loadSettingsFromFile(null);
         assertNull(config);
-        config = Application.loadSettingsFromFile(Application.getPropFile());
+        config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
         Application.setAppConfig(config);
         assertNotNull(Application.getAppConfig());
 
@@ -113,7 +113,7 @@ public class ApplicationTests {
 
     @Test
     public void properties() {
-        assertNotNull(Application.getPropFile());
-        assertTrue(Application.getPropFile().endsWith(".properties"));
+        assertNotNull(Application.APP_PROP_FILE);
+        assertTrue(Application.APP_PROP_FILE.endsWith(".properties"));
     }
 }

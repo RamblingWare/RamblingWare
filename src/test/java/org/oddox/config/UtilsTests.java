@@ -9,6 +9,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -150,7 +151,7 @@ public class UtilsTests {
     }
 
     @Test
-    public void files() {
+    public void designFiles() {
         try {
             assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
         } catch (IOException e) {
@@ -177,4 +178,38 @@ public class UtilsTests {
             // good
         }
     }
+    
+    @Test
+    public void propertiesFiles() {
+        try {
+            HashMap<String,String> map = Utils.loadMapFromFile("/app-test.properties");
+            assertNotNull(map);
+            assertEquals("Oddox", map.get("name"));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        
+        try {
+            HashMap<String,String> map = Utils.loadMapFromFile("/db-test.properties");
+            assertEquals("127.0.0.1", map.get("couchdb.host"));
+            assertNotNull(map);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        
+        try {
+            HashMap<String,String> map = Utils.loadMapFromFile("/bad-file-name.properties");
+            assertNull(map);
+        } catch (Exception e) {
+            // good
+        }
+        
+        try {
+            HashMap<String,String> map = Utils.loadMapFromFile(null);
+            assertNull(map);
+        } catch (Exception e) {
+            // good
+        }
+    }
+    
 }

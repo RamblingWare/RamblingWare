@@ -48,7 +48,7 @@ public class CouchDbSetupTests {
         database.setUrl("http://127.0.0.1:5984/");
         setup.setDatabase(database);
         
-        AppConfig config = Application.loadSettingsFromFile(Application.getPropFile());
+        AppConfig config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
         Application.setAppConfig(config);
         assertNotNull(Application.getAppConfig());
     }
