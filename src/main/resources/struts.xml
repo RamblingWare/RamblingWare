@@ -22,7 +22,7 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 
 		<global-results>
-			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</global-results>
 		
 		<global-exception-mappings>
@@ -31,31 +31,31 @@
 		
 		<!-- ACTIONS -->
 		<action name="" class="org.oddox.action.HomeAction">
-			<result name="success">/WEB-INF/index.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/index.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 		<!-- Static pages -->
 		<action name="about">
-			<result>/WEB-INF/other/about.jsp</result>
+			<result type="freemarker">/WEB-INF/templates/about.ftl</result>
 		</action>
 		<action name="terms">
-			<result>/WEB-INF/other/terms.jsp</result>
+			<result type="freemarker">/WEB-INF/templates/terms.ftl</result>
 		</action>
 		<action name="privacy">
-			<result>/WEB-INF/other/privacy.jsp</result>
+			<result type="freemarker">/WEB-INF/templates/privacy.ftl</result>
 		</action>
 		
 		<!-- RSS and Search -->
 		<action name="rss" class="org.oddox.action.RssAction">
 			<!-- Success already returns XML -->
-			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		<action name="search" class="org.oddox.action.SearchAction">
 			<!-- Success already redirects to external website -->
-			<result name="input">/WEB-INF/other/search.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
+			<result name="input" type="freemarker">/WEB-INF/templates/search.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<!-- FORWARD ACTIONS -->
@@ -84,7 +84,7 @@
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
 		<action name="*">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result>/WEB-INF/error/404.jsp</result>
+			<result type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 	</package>
 	
@@ -101,19 +101,19 @@
 		<action name="page/*" class="org.oddox.action.BlogAction">
 			<result name="success">/WEB-INF/blog/blog.jsp</result>
 			<result name="error">/WEB-INF/blog/blog.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="post/*" class="org.oddox.action.PostAction">
 			<result name="success">/WEB-INF/blog/post.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.PostAction">
 			<result name="success">/WEB-INF/blog/post.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 	</package>
@@ -130,14 +130,14 @@
 		
 		<action name="*/page/*" class="org.oddox.action.TagAction">
 			<result name="success">/WEB-INF/tag/tag.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.TagAction">
 			<result name="success">/WEB-INF/tag/tag.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 	</package>
@@ -154,14 +154,14 @@
 		
 		<action name="*/page/*" class="org.oddox.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.YearAction">
 			<result name="success">/WEB-INF/year/year.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 	</package>
@@ -178,14 +178,14 @@
 		
 		<action name="*/page/*" class="org.oddox.action.CategoryAction">
 			<result name="success">/WEB-INF/category/category.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.CategoryAction">
 			<result name="success">/WEB-INF/category/category.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 	</package>
@@ -202,8 +202,8 @@
 		
 		<action name="*" class="org.oddox.action.AuthorAction">
 			<result name="success">/WEB-INF/author/author.jsp</result>
-			<result name="error">/WEB-INF/error/error.jsp</result>
-			<result name="none">/WEB-INF/error/404.jsp</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 	</package>
