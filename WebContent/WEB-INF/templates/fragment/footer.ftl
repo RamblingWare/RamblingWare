@@ -28,7 +28,7 @@
 		<span>
 		<a href="/terms" title="Terms of Use">Terms</a> |
 		<a href="/privacy" title="Privacy Policy">Privacy</a> |
-		<a target="_Blank" href="https://oddox.org" title="Built on Oddox">Built on Oddox</a>
+		<a target="_Blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a>
 		</span>
 	</div>
 	<div class="w3-right">

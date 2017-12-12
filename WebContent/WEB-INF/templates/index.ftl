@@ -3,7 +3,7 @@
 <head>
 <#include "/WEB-INF/templates/fragment/meta/meta.ftl">
 
-<title>${(name)!"Oddox"}</title>
+<title>${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -18,24 +18,21 @@
 								
 				<h1>Latest Posts</h1>
 				
-				<s:if test="posts != null">
-				<s:if test="posts.isEmpty()">
-					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
-					<span class="icon-cross w3-large w3-margin-right"></span>
-						Something went wrong because no posts were found. Please try again later?</p>
-				</s:if>
-				<s:else>	
-					<s:iterator value="posts" status="r">
+				<#if posts??>	
+					<#list posts as post>
 						<#include "/WEB-INF/templates/blog/card-post.ftl">
-					</s:iterator>
+					</#list>
 					
 					<div class="w3-container w3-padding-left w3-padding-right w3-center">
 						<p class="w3-large"><a href="/blog/">See more...</a></p>
 					</div>
-				</s:else>
-				</s:if>				
+				<#else>
+					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
+					<span class="icon-cross w3-large w3-margin-right"></span>
+						Something went wrong because no posts were found. Please try again later?</p>
+				</#if>
 				<p class="w3-hide-large">
-					<%=Application.getString("description")%>
+					${(description)!''}
 					<br/><br/>
 					Follow or Subscribe for the latest updates!
 				</p>

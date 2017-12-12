@@ -68,7 +68,7 @@ This project is still in development. It is not easily modifiable for "new" blog
      - Copy WAR file into `<tomcat-dir>/webapps/` or for devs you can use Eclipse Servers UI (Window > Show View > Servers).
  1. Visit `https://localhost:8443/` (Devs: Double-check server.xml that context root is `/` and not `/oddox`).
 
-## Technologies Used
+## Tech Stack
 
  *  [Java 1.8](https://www.java.com/) Programming Language
  *  [Apache CouchDB 2.1.0](https://couchdb.apache.org/) NoSQL Database

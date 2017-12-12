@@ -4,7 +4,7 @@
 		<li><a href="/about" class="w3-border-top w3-padding w3-theme-l3 w3-hover-light-grey w3-hover-shadow" title="About">About</a></li>
 	</ul>
 	<p class="w3-text-theme w3-small">
-		${(description)!"description"}
+		${(description)!''}
 		<br/><br/>
 		Subscribe for the latest updates!
 	</p>

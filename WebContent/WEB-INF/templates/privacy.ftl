@@ -3,7 +3,7 @@
 <head>
 <#include "/WEB-INF/templates/fragment/meta/meta.ftl">
 
-<title>Privacy Policy - ${(name)!"Oddox"}</title>
+<title>Privacy Policy - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -56,7 +56,7 @@
 					<br />
 					<span class="bold">Effective Date.</span> June 18th, 2017<br />
 					<br />
-					<span class="bold">Contact.</span> ${(name)!"Oddox"} <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>
+					<span class="bold">Contact.</span> ${(name)!'Oddox'} <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>
 				</p>
 				
 				<br />

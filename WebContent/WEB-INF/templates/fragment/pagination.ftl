@@ -1,6 +1,6 @@
 <div class="w3-container w3-row w3-margin-top">
 <div class="w3-col s4 m4 l4">
-<%
+<!-- <%
 	String uri = (String) request.getAttribute("URI");
 	
 	// Valid URIs might have different contexts.
@@ -31,18 +31,18 @@
 		uri = uri.replace("//", "/");	
 	}
 	request.setAttribute("uri", uri);
- %>
-<s:if test="prevPage == true">
-	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-left" href="${uri}/${page - 1}"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
-</s:if>&nbsp;
+ %> -->
+<#if prevPage>
+	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-left" href="${(req.uri)!''}/${(page)!'' - 1}"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
+</#if>&nbsp;
 </div>
 <div class="w3-col s4 m4 l4 w3-center">
-	<span class="w3-small w3-text-grey">Page <s:property value="page" /></span>
+	<span class="w3-small w3-text-grey">Page ${(page)!'?'}</span>
 	<br/>
 </div>
 <div class="w3-col s4 m4 l4">
-<s:if test="nextPage == true">
-	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-right" href="${uri}/${page + 1}"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
-</s:if>&nbsp;
+<#if nextPage>
+	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-right" href="${(req.uri)!''}/${(page)!'' + 1}"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
+</#if>&nbsp;
 </div>
 </div>

@@ -3,7 +3,7 @@
 <head>
 <#include "/WEB-INF/templates/fragment/meta/meta.ftl">
 
-<title>Terms of Use - ${(name)!"Oddox"}</title>
+<title>Terms of Use - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -21,7 +21,7 @@
 				<p>
 					<span class="bold">Defined Terms.</span> As used herein: (1) the
 					terms "you," "your" or "user" refer to any visitor to this website,
-					(2) the terms "we," "our," or "us" refer to ${(name)!"Oddox"}, (3) the
+					(2) the terms "we," "our," or "us" refer to ${(name)!'Oddox'}, (3) the
 					terms "this website" or "this site" refer to this website,
 					including the mobile version of this website, and any other pages
 					that are part of this website, (4) the term "Social Media" refers
@@ -77,7 +77,7 @@
 					<br />
 					<span class="bold">Effective Date.</span> June 18th, 2017<br />
 					<br />
-					<span class="bold">Contact.</span> ${(name)!"Oddox"} <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>					
+					<span class="bold">Contact.</span> ${(name)!'Oddox'} <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>					
 				</p>
 
 				<br />

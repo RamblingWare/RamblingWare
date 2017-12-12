@@ -94,24 +94,24 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 				
 		<action name="" class="org.oddox.action.BlogAction">
-			<result name="success">/WEB-INF/blog/blog.jsp</result>
-			<result name="error">/WEB-INF/blog/blog.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
 		</action>
 		
 		<action name="page/*" class="org.oddox.action.BlogAction">
-			<result name="success">/WEB-INF/blog/blog.jsp</result>
-			<result name="error">/WEB-INF/blog/blog.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="post/*" class="org.oddox.action.PostAction">
-			<result name="success">/WEB-INF/blog/post.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/blog/post.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.PostAction">
-			<result name="success">/WEB-INF/blog/post.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/blog/post.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
@@ -124,18 +124,18 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
 		<action name="" class="org.oddox.action.TagsAction">
-			<result name="success">/WEB-INF/tag/tags.jsp</result>
-			<result name="error">/WEB-INF/tag/tags.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/tag/tags.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/tag/tags.ftl</result>
 		</action>
 		
 		<action name="*/page/*" class="org.oddox.action.TagAction">
-			<result name="success">/WEB-INF/tag/tag.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/tag/tag.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.TagAction">
-			<result name="success">/WEB-INF/tag/tag.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/tag/tag.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
@@ -148,18 +148,18 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
 		<action name="" class="org.oddox.action.YearsAction">
-			<result name="success">/WEB-INF/year/years.jsp</result>
-			<result name="error">/WEB-INF/year/years.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/year/years.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/year/years.ftl</result>
 		</action>
 		
 		<action name="*/page/*" class="org.oddox.action.YearAction">
-			<result name="success">/WEB-INF/year/year.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/year/year.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.YearAction">
-			<result name="success">/WEB-INF/year/year.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/year/year.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
@@ -172,18 +172,18 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
 		<action name="" class="org.oddox.action.CategoriesAction">
-			<result name="success">/WEB-INF/category/categories.jsp</result>
-			<result name="error">/WEB-INF/category/categories.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/category/categories.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/category/categories.ftl</result>
 		</action>
 		
 		<action name="*/page/*" class="org.oddox.action.CategoryAction">
-			<result name="success">/WEB-INF/category/category.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/category/category.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.CategoryAction">
-			<result name="success">/WEB-INF/category/category.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/category/category.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
@@ -196,12 +196,12 @@
 		<default-interceptor-ref name="archiveStack"></default-interceptor-ref>
 		
 		<action name="" class="org.oddox.action.AuthorsAction">
-			<result name="success">/WEB-INF/author/authors.jsp</result>
-			<result name="error">/WEB-INF/author/authors.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/author/authors.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/author/authors.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.AuthorAction">
-			<result name="success">/WEB-INF/author/author.jsp</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/author/author.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 		</action>
@@ -244,7 +244,7 @@
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
 		<action name="**">
 			<interceptor-ref name="archiveStack"></interceptor-ref>
-			<result>/WEB-INF/error/404.jsp</result>
+			<result type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 	</package>
 	

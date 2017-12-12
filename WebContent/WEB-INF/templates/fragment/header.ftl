@@ -13,7 +13,7 @@
 			<button class="w3-btn icon-menu w3-padding-square w3-theme-dark w3-text-theme w3-xxlarge" onclick="openSidebar()"></button>		
 		</div>
 		<div class="w3-col s10 m7 l7 w3-container w3-padding-0">
-			<a href="/"><img id="logo" src="/img/logo.png" alt="${(name)!"Oddox"}" /></a>
+			<a href="/"><img id="logo" src="/img/logo.png" alt="${(name)!'Oddox'}" /></a>
 		</div>
 		<div id="search" class="w3-col s2 m3 l3 w3-padding-square w3-right w3-small w3-hide-small no-print">
 			<div class="w3-padding-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-card w3-round-large">
@@ -25,25 +25,25 @@
 		</div>
 	</div>
 </header>
-<s:if test="hasActionErrors()">
-	<s:iterator value="actionErrors">
+<#if actionErrors??>
+	<#list actionErrors as actionError>
 	<div style="float:left; position:absolute; left:50%; top:1%;">
 	<div class="w3-animate-top w3-padding w3-margin w3-border w3-card-4 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" style="left:-50%; min-width:280px;" data-close="">
 		<span class="w3-medium w3-text-black w3-margin-right">
-			<span class="icon-cross w3-large w3-margin-right w3-text-red"></span><s:property/>
+			<span class="icon-cross w3-large w3-margin-right w3-text-red"></span>${(actionError)!''}
 		</span>
 	</div>
 	</div>
-	</s:iterator>
-</s:if>
-<s:if test="hasActionMessages()">
-	<s:iterator value="actionMessages">
+	</#list>
+</#if>
+<#if actionMessages??>
+	<#list actionMessages as actionMessage>
 	<div style="float:left; position:absolute; left:50%; top:1%;">
 	<div class="w3-animate-top w3-padding w3-margin w3-border w3-card-4 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" style="left:-50%; min-width:280px;" data-close="">
 		<span class="w3-medium w3-text-black w3-margin-right">
-			<span class="icon-checkmark w3-large w3-margin-right w3-text-green"></span><s:property/>
+			<span class="icon-checkmark w3-large w3-margin-right w3-text-green"></span>${(actionMessage)!''}
 		</span>
 	</div>
 	</div>
-	</s:iterator>
-</s:if>
+	</#list>
+</#if>

@@ -3,7 +3,7 @@
 <head>
 <#include "/WEB-INF/templates/fragment/meta/meta.ftl">
 
-<title>About - ${(name)!"Oddox"}</title>
+<title>About - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -20,7 +20,7 @@
 				About</h1>
 				
 				<p>
-					${(name)!"Oddox"} is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
+					${(name)!'Oddox'} is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.
 					<br/><br/>
 					I cover topics around web development, web security, and programming. Really, anything that I can rant about.
 					<br/><br/>
@@ -52,7 +52,7 @@
 				
 				
 				<h2>Contact</h2>
-				<p>You can reach ${(name)!"Oddox"} via the social links on the bottom of every page, or send us an email at <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>.
+				<p>You can reach ${(name)!'Oddox'} via the social links on the bottom of every page, or send us an email at <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>.
 				
 				<br />
 				

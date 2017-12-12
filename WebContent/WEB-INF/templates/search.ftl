@@ -3,7 +3,7 @@
 <head>
 <#include "/WEB-INF/templates/fragment/meta/meta.ftl">
 
-<title>Search - ${(name)!"Oddox"}</title>
+<title>Search - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
