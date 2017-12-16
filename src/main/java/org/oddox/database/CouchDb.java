@@ -38,10 +38,10 @@ public class CouchDb extends DatabaseService {
      */
     protected CloudantClient getConnection() throws MalformedURLException {
         if (database.isAdminParty()) {
-            return ClientBuilder.url(new URL(database.getUrl())).build();
+            return ClientBuilder.url(new URL(database.getUrl())).disableSSLAuthentication().build();
         } else {
             return ClientBuilder.url(new URL(database.getUrl())).username(database.getUsername())
-                    .password(database.getPassword()).build();
+                    .password(database.getPassword()).disableSSLAuthentication().build();
         }
     }
 

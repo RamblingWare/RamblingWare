@@ -125,7 +125,7 @@
 								<h3>Copy this link:
 								<a title="Close" onclick="closePopup('share-popup')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
-								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="/blog/${(post.uri)!''}" type="text)!''}<br />
+								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="/blog/${(post.uri)!''}" type="text" /><br />
 							</div>
 						</div>
 					</div>

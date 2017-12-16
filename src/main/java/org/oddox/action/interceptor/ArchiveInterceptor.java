@@ -46,6 +46,12 @@ public class ArchiveInterceptor implements Interceptor {
             sessionAttributes.put("archiveYears", archiveYears);
             sessionAttributes.put("archiveTags", archiveTags);
             sessionAttributes.put("archiveCategories", archiveCategories);
+            
+            // set to context
+            actionInvocation.getInvocationContext().getContextMap().put("archiveFeatured", archiveFeatured);
+            actionInvocation.getInvocationContext().getContextMap().put("archiveYears", archiveYears);
+            actionInvocation.getInvocationContext().getContextMap().put("archiveTags", archiveTags);
+            actionInvocation.getInvocationContext().getContextMap().put("archiveCategories", archiveCategories);
         }
 
         return actionInvocation.invoke();
@@ -58,6 +64,6 @@ public class ArchiveInterceptor implements Interceptor {
 
     @Override
     public void init() {
-        // Auto-generated method stub
-    }
+		// Auto-generated method stub
+	}
 }

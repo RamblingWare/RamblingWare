@@ -1,48 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" session="false"
-	errorPage="/WEB-INF/error/error.jsp"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@include file="/WEB-INF/fragment/meta/meta.jspf"%>
+<#include "/WEB-INF/templates/fragment/meta/meta.ftl">
 
-<title>Category <s:property value="category" /> - <%=Application.getString("name")%></title>
+<title>Category ${(category)!''} - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
-	<%@include file="/WEB-INF/fragment/header.jspf"%>
+	<#include "/WEB-INF/templates/fragment/header.ftl">
 
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 			
-			<%@include file="/WEB-INF/fragment/tabs/tabs.jspf"%>
+			<#include "/WEB-INF/templates/fragment/tabs.ftl">
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<h1 style="vertical-align: middle;"><span class="icon-folder w3-text-theme"></span>&nbsp;Category: <s:property value="category" /></h1>
+				<h1 style="vertical-align: middle;"><span class="icon-time w3-text-theme"></span>&nbsp;Category: ${(category)!''}</h1>
 				
-				<s:if test="posts != null">
-				<s:if test="posts.isEmpty()">
+				<#if posts??>
+					<#if posts.size() == 1>	
+						<p>1 blog post with category ${(category)!''}.<br /></p>
+					<#else>
+						<p>${(posts.size())!''} blog posts with category ${(category)!''}.<br /></p>
+					</#if>
+					
+					<#list posts as post>
+						<#include "/WEB-INF/templates/blog/card-post.ftl">
+					</#list>
+					
+					<#include "/WEB-INF/templates/fragment/pagination.ftl">
+				
+				<#else>
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>
 						No posts were found with that category.</p>
-				</s:if>
-				<s:else>
-					<s:if test="posts.size() == 1">	
-						<p>1 blog post with category <s:property value="category" />.<br /></p>
-					</s:if>
-					<s:else>
-						<p><s:property value="posts.size()" /> blog posts with category <s:property value="category" />.<br /></p>
-					</s:else>
-					
-					<s:iterator value="posts" status="r">
-						<%@include file="/WEB-INF/blog/card-post.jspf" %>
-					</s:iterator>
-					
-					<%@include file="/WEB-INF/fragment/pagination.jspf" %>
-				
-				</s:else>
-				</s:if>
+				</#if>
 				
 				<div class="w3-container w3-padding-left w3-padding-right w3-center">
 					<hr />
@@ -50,11 +43,10 @@
 				</div>
 			</div>
 			
-			<%@include file="/WEB-INF/fragment/archive.jspf" %>
-			
+			<#include "/WEB-INF/templates/fragment/archive.ftl">
 		</div>
 	</article>
 
-	<%@include file="/WEB-INF/fragment/footer.jspf"%>
+	<#include "/WEB-INF/templates/fragment/footer.ftl">
 </body>
 </html>

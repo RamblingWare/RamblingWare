@@ -33,7 +33,7 @@
 	request.setAttribute("uri", uri);
  %> -->
 <#if prevPage>
-	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-left" href="${(req.uri)!''}/${(page)!'' - 1}"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
+	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-left" href="${(req.uri)!''}/${(page)!''}"><span class="icon-arrow-left w3-large w3-margin-right"></span> Prev Page</a>
 </#if>&nbsp;
 </div>
 <div class="w3-col s4 m4 l4 w3-center">
@@ -42,7 +42,7 @@
 </div>
 <div class="w3-col s4 m4 l4">
 <#if nextPage>
-	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-right" href="${(req.uri)!''}/${(page)!'' + 1}"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
+	<a class="w3-btn w3-round w3-small w3-theme w3-hover-light-grey w3-hover-shadow w3-right" href="${(req.uri)!''}/${(page)!''}"><span class="icon-arrow-right w3-large w3-margin-right"></span>Next Page</a>
 </#if>&nbsp;
 </div>
 </div>

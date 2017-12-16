@@ -1,40 +1,40 @@
 <div id="archive" class="w3-col m4 l2 no-print">
 	<div class="w3-container w3-hide-small">
-		<s:if test="#session.archiveFeatured != null && !#session.archiveFeatured.isEmpty()">
+		<#if archiveFeatured??>
 			<h3 class="w3-margin-top">Featured</h3>
-			<s:iterator value="#session.archiveFeatured" status="f">
-				<%@include file="/WEB-INF/blog/block-post.jspf" %>
-			</s:iterator>
-		</s:if>
+			<#list archiveFeatured as post>
+				<#include "/WEB-INF/templates/blog/block-post.ftl">
+			</#list>
+		</#if>
 	</div>
 	<div class="w3-container">
-		<s:if test="#session.archiveYears != null && !#session.archiveYears.isEmpty()">
+		<#if archiveYears??>
 			<h3 class="w3-margin-top"><a href="/year/">Archive</a></h3>
 			<ul class="w3-medium w3-margin-0">
-			<s:iterator value="#session.archiveYears" status="y">
-				<li class="w3-opacity w3-hover-opaque"><a title="<s:property value="name" />" href="/year/<s:property value="name" />"><s:property value="name" /> (<s:property value="count" />)</a></li>
-			</s:iterator>
+			<#list archiveYears as year>
+				<li class="w3-opacity w3-hover-opaque"><a title="${(year.name)!''}" href="/year/${(year.name)!''}">${(year.name)!''} (${(year.count)!''})</a></li>
+			</#list>
 			</ul>
-		</s:if>
+		</#if>
 	</div>
 	<div class="w3-container">
-		<s:if test="#session.archiveCategories != null && !#session.archiveCategories.isEmpty()">
+		<#if archiveCategories??>
 			<h3 class="w3-margin-top"><a href="/category/">Categories</a></h3>
 			<p class="w3-small w3-margin-0">
-			<s:iterator value="#session.archiveCategories" status="c">
-				<a class="tag w3-round w3-theme-light w3-card w3-hover-light-grey w3-hover-shadow" style="white-space:nowrap" title="<s:property value="name" /> (<s:property value="count" />)" href="/category/<s:property value="name" />"><s:property value="name" /></a>
-			</s:iterator>
+			<#list archiveCategories as category>
+				<a class="tag w3-round w3-theme-light w3-card w3-hover-light-grey w3-hover-shadow" style="white-space:nowrap" title="${(category.name)!''} (${(category.count)!''})" href="/category/${(category.name)!''}">${(category.name)!''}</a>
+			</#list>
 			</p>
-		</s:if>
+		</#if>
 	</div>
 	<div class="w3-container">
-		<s:if test="#session.archiveTags != null && !#session.archiveTags.isEmpty()">
+		<#if archiveTags??>
 			<h3 class="w3-margin-top"><a href="/tag/">Tags</a></h3>
 			<p class="w3-small w3-margin-0">
-			<s:iterator value="#session.archiveTags" status="t">
-				<a class="tag w3-round w3-theme-l3 w3-card w3-hover-light-grey w3-hover-shadow" title="<s:property value="name" /> (<s:property value="count" />)" href="/tag/<s:property value="name" />"><s:property value="name" /></a>
-			</s:iterator>
+			<#list archiveTags as tag>
+				<a class="tag w3-round w3-theme-l3 w3-card w3-hover-light-grey w3-hover-shadow" title="${(tag.name)!''} (${(tag.count)!''})" href="/tag/${(tag.name)!''}">${(tag.name)!''}</a>
+			</#list>
 			</p>
-		</s:if>
+		</#if>
 	</div>
 </div>
