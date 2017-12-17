@@ -2,7 +2,6 @@ package org.oddox.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.YearAction;
 import org.oddox.objects.Post;
 
 /**
@@ -25,35 +23,35 @@ import org.oddox.objects.Post;
 @RunWith(JUnit4.class)
 public class YearActionTests {
 
-    @InjectMocks
-    private YearAction action;
+	@InjectMocks
+	private YearAction action;
 
-    @Before
-    public void beforeEachTest() {
-        MockitoAnnotations.initMocks(this);
-    }
+	@Before
+	public void beforeEachTest() {
+		MockitoAnnotations.initMocks(this);
+	}
 
-    @Test
-    public void variables() {
-        action.setPosts(null);
-        assertNull(action.getPosts());
-        
-        action.setYear("Meta");
-        assertEquals("Meta", action.getYear());
-        action.setPage(2);
-        assertEquals(2, action.getPage());
-        action.setNextPage(true);
-        assertTrue(action.isNextPage());
-        action.setPrevPage(true);
-        assertTrue(action.isPrevPage());
+	@Test
+	public void variables() {
+		action.setPosts(null);
+		assertNull(action.getPosts());
 
-        Post post = new Post("newpost");
-        List<Post> list = new ArrayList<Post>();
-        list.add(post);
-        action.setPosts(list);
-        assertEquals("newpost", action.getPosts().get(0).get_Id());
+		action.setYear("Meta");
+		assertEquals("Meta", action.getYear());
+		action.setPage(2);
+		assertEquals(2, action.getPage());
+		action.setNextPage(3);
+		assertEquals(3, action.getNextPage());
+		action.setPrevPage(1);
+		assertEquals(1, action.getPrevPage());
 
-        action.setServletRequest(null);
-        action.setServletResponse(null);
-    }
+		Post post = new Post("newpost");
+		List<Post> list = new ArrayList<Post>();
+		list.add(post);
+		action.setPosts(list);
+		assertEquals("newpost", action.getPosts().get(0).get_Id());
+
+		action.setServletRequest(null);
+		action.setServletResponse(null);
+	}
 }

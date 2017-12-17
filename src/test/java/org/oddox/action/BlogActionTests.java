@@ -2,7 +2,6 @@ package org.oddox.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.BlogAction;
 import org.oddox.objects.Post;
 
 /**
@@ -40,10 +38,10 @@ public class BlogActionTests {
         
         action.setPage(2);
         assertEquals(2, action.getPage());
-        action.setNextPage(true);
-        assertTrue(action.isNextPage());
-        action.setPrevPage(true);
-        assertTrue(action.isPrevPage());
+        action.setNextPage(3);
+        assertEquals(3,action.getNextPage());
+        action.setPrevPage(1);
+        assertEquals(1,action.getPrevPage());
 
         Post post = new Post("newpost");
         List<Post> list = new ArrayList<Post>();

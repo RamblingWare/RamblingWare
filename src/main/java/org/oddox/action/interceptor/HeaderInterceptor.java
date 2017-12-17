@@ -28,7 +28,35 @@ public class HeaderInterceptor implements Interceptor {
         // Remember the original URI request, because if we forward, chain, redirect at all
         // then this value is lost. Its beneficial to keep for pagination and such.
         HttpServletRequest request = (HttpServletRequest) ac.get(StrutsStatics.HTTP_REQUEST);
-        request.setAttribute("URI", request.getRequestURI());
+        String pageUri = request.getRequestURI();
+        
+    	// Valid URIs might have different contexts...
+    	// /blog/page/1
+    	// /year/2017/page/1
+    	// /category/test/page/1
+    	// /tag/java/page/1
+    	// /author/page/1
+        
+        if(pageUri.endsWith("/WEB-INF")) {
+        	pageUri = pageUri.replace("/WEB-INF","");
+    	}
+    	if(pageUri.endsWith(".jsp")) {
+    		pageUri = pageUri.replace(".jsp","");
+    	}
+    	
+    	if(pageUri.contains("/page/")) {
+    		String context = pageUri.substring(0,pageUri.indexOf("/page/"));
+    		pageUri = context + "/page";
+    	} else {
+    		pageUri = pageUri + "/page";
+    	}
+    	
+    	// remove any duplicate slashes
+    	while(pageUri.contains("//")) {
+    		pageUri = pageUri.replace("//", "/");	
+    	}
+        
+        request.setAttribute("pageUri", pageUri);
 
         return actionInvocation.invoke();
     }

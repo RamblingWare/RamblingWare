@@ -26,8 +26,8 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
     private List<Post> posts = null;
     private String tag;
     private int page;
-    private boolean nextPage;
-    private boolean prevPage;
+    private int nextPage;
+    private int prevPage;
 
     /**
      * Returns list of posts by tag.
@@ -56,8 +56,16 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
 
             // determine pagination
             if (posts != null) {
-                nextPage = posts.size() >= Application.getInt("default.limit");
-                prevPage = page > 1;
+            	if (posts.size() >= Application.getInt("default.limit")) {
+					nextPage = page + 1;
+				} else {
+					nextPage = page;
+				}
+				if (page > 1) {
+					prevPage = page - 1;
+				} else {
+					prevPage = page;
+				}
             }
 
             // set attributes
@@ -115,19 +123,19 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
         this.page = page;
     }
 
-    public boolean isNextPage() {
-        return nextPage;
-    }
+	public int getNextPage() {
+		return nextPage;
+	}
 
-    public void setNextPage(boolean nextPage) {
-        this.nextPage = nextPage;
-    }
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
+	}
 
-    public boolean isPrevPage() {
-        return prevPage;
-    }
+	public int getPrevPage() {
+		return prevPage;
+	}
 
-    public void setPrevPage(boolean prevPage) {
-        this.prevPage = prevPage;
-    }
+	public void setPrevPage(int prevPage) {
+		this.prevPage = prevPage;
+	}
 }
