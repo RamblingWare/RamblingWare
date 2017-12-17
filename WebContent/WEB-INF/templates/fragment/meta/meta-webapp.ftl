@@ -1,7 +1,7 @@
 <!-- Apple iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-<meta name="apple-mobile-web-app-title" content="${(name)!"Oddox"}"/>
+<meta name="apple-mobile-web-app-title" content="${(name)!'Oddox'}"/>
 <link rel="apple-touch-icon" href="/img/icon-256.png"/>
 <link rel="apple-touch-icon" sizes="128x128" href="/img/icon-128.png"/>
 <link rel="apple-touch-icon" sizes="144x144" href="/img/icon-144.png"/>

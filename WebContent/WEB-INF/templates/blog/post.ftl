@@ -4,7 +4,7 @@
 <#include "/WEB-INF/templates/fragment/meta/meta-post.ftl">
 <meta name="author" content="${(post.author.name)!''}">
 <meta name="description" content="${(post.description)!''}"/>
-<meta name="keywords" content="<#iterator value="post.tags"><#property />,</#iterator><%=Application.getString("keywords")%>">
+<meta name="keywords" content="<#list post.tags as tag>${(tag)!''},</#list>${(keywords)!''}">
 
 <!-- Facebook Open Graph -->
 <meta property="fb:app_id" content="${(facebookAppId)!''}">
@@ -55,11 +55,11 @@
 				</#if>
 				
 				<h1>${(post.title)!''}</h1>
-				<% String content = (String) request.getAttribute("post.content");
-					if(content == null || content.isEmpty()) {
-						out.print("This post seems to be empty or failed to load correctly. Please try again later?");
-					} else {
-					out.print(content); } %>				
+				<#if post.content??>
+					${(post.content)!'Error'}
+				<#else>
+					<p>This post seems to be empty or failed to load correctly. Please try again later?</p>
+				</#if>
 				<hr />
 				<div class="w3-container w3-padding w3-margin-0 w3-center">
 
