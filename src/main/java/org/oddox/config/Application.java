@@ -65,7 +65,7 @@ public class Application implements ServletContextListener {
         }
 
         // Ready
-        System.out.println("Started Oddox.");
+        System.out.println("Oddox is ready.");
     }
 
     public static AppConfig loadSettingsFromFile(String propertiesFile) {

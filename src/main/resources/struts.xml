@@ -84,7 +84,7 @@
 		<!-- UNKNOWN ACTIONS ARE 404 ERRORS -->
 		<action name="*">
 			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 	</package>
 	
@@ -100,20 +100,20 @@
 		
 		<action name="page/*" class="org.oddox.action.BlogAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
-			<result name="error" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/blog/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 		<action name="post/*" class="org.oddox.action.PostAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/blog/post.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.PostAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/blog/post.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 	</package>
@@ -131,13 +131,13 @@
 		<action name="*/page/*" class="org.oddox.action.TagAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/tag/tag.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.TagAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/tag/tag.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 	</package>
@@ -155,13 +155,13 @@
 		<action name="*/page/*" class="org.oddox.action.YearAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/year/year.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.YearAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/year/year.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 	</package>
@@ -179,13 +179,13 @@
 		<action name="*/page/*" class="org.oddox.action.CategoryAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/category/category.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 		<action name="*" class="org.oddox.action.CategoryAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/category/category.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 	</package>
@@ -203,7 +203,7 @@
 		<action name="*" class="org.oddox.action.AuthorAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/author/author.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
-			<result name="none" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
 	</package>

@@ -230,8 +230,8 @@ public class CouchDbSetup extends DatabaseSetup {
 	}
 
 	/**
-	 * Check if Admin Party mode is enabled. This means there are no server
-	 * administrators.
+	 * Check if Admin Party mode is enabled. If true, it means there are no server
+	 * administrators, which leaves the database vulnerable.
 	 * 
 	 * @return true if enabled
 	 */
@@ -239,10 +239,9 @@ public class CouchDbSetup extends DatabaseSetup {
 		boolean adminParty = true;
 		HttpConnection request1 = null;
 		HttpConnection response1 = null;
-		CloudantClient client = null;
 		try {
 			// check if admin party mode is enabled.
-			client = getConnection();
+			CloudantClient client = getConnection();
 
 			// get node name
 			String node = "nonode@nohost";
@@ -270,9 +269,6 @@ public class CouchDbSetup extends DatabaseSetup {
 			if (request1 != null) {
 				request1.disconnect();
 			}
-			if (client != null) {
-				client.shutdown();
-			}
 		}
 		if (adminParty) {
 			System.out.println(
@@ -292,9 +288,8 @@ public class CouchDbSetup extends DatabaseSetup {
 		System.out.println("Attempting to disable admin party mode...");
 		HttpConnection request1 = null;
 		HttpConnection response1 = null;
-		CloudantClient client = null;
 		try {
-			client = getConnection();
+			CloudantClient client = getConnection();
 
 			client.database("_users", true);
 			client.database("_replicator", true);
@@ -315,8 +310,6 @@ public class CouchDbSetup extends DatabaseSetup {
 				// failed to create default user
 				throw new Exception("Failed to create default user '" + user + "'. Exception occured during install.");
 			}
-			request1.disconnect();
-			response1.disconnect();
 
 			// get node name
 			String node = "nonode@nohost";
@@ -341,8 +334,6 @@ public class CouchDbSetup extends DatabaseSetup {
 				// stopped the party
 				System.out.println("Created default admin: " + user);
 			}
-			request1.disconnect();
-			response1.disconnect();
 
 			// disabled admin party mode
 			System.out.println("Disabled Admin Party mode.");
@@ -361,9 +352,6 @@ public class CouchDbSetup extends DatabaseSetup {
 			}
 			if (request1 != null) {
 				request1.disconnect();
-			}
-			if (client != null) {
-				client.shutdown();
 			}
 		}
 	}
@@ -404,9 +392,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
 		if (!currVersion.startsWith("2.")) {
 			version = false;
-			System.out
-					.println("ERROR: Incompatible CouchDB Version (" + currVersion + "). Required version 2.x.x");
-			;
+			System.out.println("ERROR: Incompatible CouchDB Version (" + currVersion + "). Required version 2.x.x");
 		}
 		return version;
 	}
@@ -424,7 +410,7 @@ public class CouchDbSetup extends DatabaseSetup {
 		author.setRoleId("admin");
 		author.setDescription("The website administrator.");
 		author.setContent(
-				"<p>This is a quick bio about the author.<br><br>But for now its simply a placeholder.<br><br>Enjoy your new blog!</p>");
+				"<p>This is a quick bio about the author. But for now its simply a placeholder. Enjoy your new blog!</p>");
 		author.setEmail(Application.getString("default.email"));
 		author.setThumbnail("/img/placeholder-200.png");
 		String now = Utils.getDateIso8601();
@@ -445,7 +431,7 @@ public class CouchDbSetup extends DatabaseSetup {
 		post.setTitle("Welcome to Oddox!");
 		post.setDescription("Here is a sample post demonstrating this blog platform.");
 		post.setContent(
-				"<p>Here is a welcome post that will eventually be outlining all the features of Oddox.<br><br>But for now its simply a placeholder.<br><br>Enjoy your new blog!</p>");
+				"<p>Here is a welcome post that will eventually be outlining all the features of Oddox. But for now its simply a placeholder. Enjoy your new blog!</p>");
 		ArrayList<String> tags = new ArrayList<String>();
 		tags.add("test");
 		tags.add("sample");
