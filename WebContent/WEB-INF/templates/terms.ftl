@@ -77,7 +77,7 @@
 					<br />
 					<span class="bold">Effective Date.</span> June 18th, 2017<br />
 					<br />
-					<span class="bold">Contact.</span> ${(name)!'Oddox'} <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>					
+					<span class="bold">Contact.</span> ${(name)!'Oddox'} <a href="mailto:${(email)!''}">${(email)!''}</a>					
 				</p>
 
 				<br />

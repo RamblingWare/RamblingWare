@@ -7,7 +7,7 @@
 <meta name="robots" content="none"/>
 <meta http-equiv="cache-control" content="no-store"/>
 <meta http-equiv="expires" content="0"/>
-<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="pragma" content="no-cache"/>
 
 <#include "/WEB-INF/templates/fragment/meta/meta-webapp.ftl">
 

@@ -1,7 +1,7 @@
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="generator" content="Oddox">
+<meta name="generator" content="Oddox"/>
 <meta name="application-name" content="${(name)!'Oddox'}"/>
 <meta name="author" content="${(author)!'Oddox'}"/>
 <meta name="keywords" content="${(keywords)!'oddox'}"/>
@@ -13,8 +13,8 @@
 <#include "/WEB-INF/templates/fragment/meta/meta-webapp.ftl">
 
 <!-- Facebook Open Graph -->
-<meta property="fb:app_id" content="${(facebookAppId)!''}">
-<meta property="og:url" content="${(url)!''}">
+<meta property="fb:app_id" content="${(facebookAppId)!''}"/>
+<meta property="og:url" content="${(url)!''}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:title" content="${(name)!'Oddox'}"/>
@@ -27,12 +27,12 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:site" content="${(twitterHandle)!''}">
-<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}">
+<meta name="twitter:site" content="${(twitterHandle)!''}"/>
+<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}"/>
 <meta name="twitter:title" content="${(name)!'Oddox'}"/>
 <meta name="twitter:description" content="${(description)!'description'}"/>
 <meta name="twitter:image" content="/img/icon-512-round.png"/>
-<meta name="twitter:domain" content="${(domain)!''}">
+<meta name="twitter:domain" content="${(domain)!''}"/>
 
 <!-- Google+ Schema.org -->
 <meta itemprop="name" content="${(name)!'Oddox'}"/>

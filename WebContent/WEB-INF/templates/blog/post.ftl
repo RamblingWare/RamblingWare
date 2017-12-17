@@ -2,37 +2,37 @@
 <html>
 <head>
 <#include "/WEB-INF/templates/fragment/meta/meta-post.ftl">
-<meta name="author" content="${(post.author.name)!''}">
+<meta name="author" content="${(post.author.name)!''}"/>
 <meta name="description" content="${(post.description)!''}"/>
-<meta name="keywords" content="<#list post.tags as tag>${(tag)!''},</#list>${(keywords)!''}">
+<meta name="keywords" content="<#list post.tags as tag>${(tag)!''},</#list>${(keywords)!''}"/>
 
 <!-- Facebook Open Graph -->
-<meta property="fb:app_id" content="${(facebookAppId)!''}">
-<meta property="og:url" content="${(url)!''}/blog/${(post.uri)!''}">
-<meta property="og:type" content="article">
-<meta property="og:locale" content="en_US">
-<meta property="og:title" content="${(post.title)!''}">
-<meta property="og:image" content="${(post.thumbnail)!''}">
+<meta property="fb:app_id" content="${(facebookAppId)!''}"/>
+<meta property="og:url" content="${(url)!''}/blog/${(post.uri)!''}"/>
+<meta property="og:type" content="article"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:title" content="${(post.title)!''}"/>
+<meta property="og:image" content="${(post.thumbnail)!''}"/>
 <meta property="og:image:type" content="image/png"/>
 <meta property="og:image:width" content="640"/><!-- guessing -->
 <meta property="og:image:height" content="427"/><!-- guessing -->
-<meta property="og:description" content="${(post.description)!''}">
-<meta property="og:site_name" content="${(name)!'Oddox'})!''}
-<meta property="article:author" content="${(post.author.name)!''}">
+<meta property="og:description" content="${(post.description)!''}"/>
+<meta property="og:site_name" content="${(name)!'Oddox'})!''}"/>
+<meta property="article:author" content="${(post.author.name)!''}"/>
 
 <!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="${(twitterHandle)!''}">
-<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}">
-<meta name="twitter:title" content="${(post.title)!''}">
-<meta name="twitter:description" content="${(post.description)!''}">
-<meta name="twitter:image" content="${(post.thumbnail)!''}">
-<meta name="twitter:domain" content="${(domain)!''}">
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="${(twitterHandle)!''}"/>
+<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}"/>
+<meta name="twitter:title" content="${(post.title)!''}"/>
+<meta name="twitter:description" content="${(post.description)!''}"/>
+<meta name="twitter:image" content="${(post.thumbnail)!''}"/>
+<meta name="twitter:domain" content="${(domain)!''}"/>
 
 <!-- Google+ Schema.org -->
-<meta itemprop="name" content="${(post.title)!''}">
-<meta itemprop="description" content="${(post.description)!''}">
-<meta itemprop="image" content="${(post.thumbnail)!''}"> 
+<meta itemprop="name" content="${(post.title)!''}"/>
+<meta itemprop="description" content="${(post.description)!''}"/>
+<meta itemprop="image" content="${(post.thumbnail)!''}"/> 
 
 <title>${(post.title)!''} - ${(name)!'Oddox'}</title>
 </head>

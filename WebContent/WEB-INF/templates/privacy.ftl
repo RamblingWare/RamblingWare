@@ -43,7 +43,7 @@
 					read each of their privacy policies as well. <br />
 				</p>
 				<ul>
-					<li>Bluemix <a target="_Blank" href="http://www.ibm.com/privacy">Privacy Policy</a></li>
+					<li>IBM Cloud <a target="_Blank" href="http://www.ibm.com/privacy">Privacy Policy</a></li>
 					<li>Cloudflare <a target="_Blank" href="https://www.cloudflare.com/security-policy/">Privacy &amp; Security Policy</a></li>
 					<li>BackBlaze <a target="_Blank" href="https://www.backblaze.com/company/privacy.html">Privacy Policy</a></li>
 				</ul>
@@ -56,7 +56,7 @@
 					<br />
 					<span class="bold">Effective Date.</span> June 18th, 2017<br />
 					<br />
-					<span class="bold">Contact.</span> ${(name)!'Oddox'} <a href="mailto:info@ramblingware.com">info@ramblingware.com</a>
+					<span class="bold">Contact.</span> ${(name)!'Oddox'} <a href="mailto:${(email)!''}">${(email)!''}</a>
 				</p>
 				
 				<br />

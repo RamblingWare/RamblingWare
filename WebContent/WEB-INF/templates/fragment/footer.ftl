@@ -11,15 +11,15 @@
 		<a href="/author/" class="w3-hover-text-black" title="Authors">Authors</a>
 	</p>
 	<p>
-		<a class="nounderline" target="_blank" title="Facebook" href="https://www.facebook.com/RamblingWare/"><span class="icon-facebook w3-xlarge w3-hover-text-indigo"></span></a>&nbsp;&nbsp;
-		<a class="nounderline" target="_blank" title="Twitter" href="https://twitter.com/RamblingWare/"><span class="icon-twitter w3-xlarge w3-hover-text-blue"></span></a>&nbsp;&nbsp;
-		<a class="nounderline" target="_blank" title="GitHub" href="https://github.com/RamblingWare/"><span class="icon-github w3-xlarge w3-hover-text-black"></span></a>&nbsp;&nbsp;
-		<a class="nounderline" target="_blank" title="Email" href="mailto:info@ramblingware.com"><span class="icon-mail w3-xlarge w3-hover-text-teal"></span></a>&nbsp;&nbsp;
+		<a class="nounderline" target="_blank" title="Facebook" href="${(facebook)!''}"><span class="icon-facebook w3-xlarge w3-hover-text-indigo"></span></a>&nbsp;&nbsp;
+		<a class="nounderline" target="_blank" title="Twitter" href="${(twitter)!''}"><span class="icon-twitter w3-xlarge w3-hover-text-blue"></span></a>&nbsp;&nbsp;
+		<a class="nounderline" target="_blank" title="GitHub" href="${(github)!''}"><span class="icon-github w3-xlarge w3-hover-text-black"></span></a>&nbsp;&nbsp;
+		<a class="nounderline" target="_blank" title="Email" href="mailto:${(email)!''}"><span class="icon-mail w3-xlarge w3-hover-text-teal"></span></a>&nbsp;&nbsp;
 		<a class="nounderline" target="_blank" title="RSS Feed" href="/rss"><span class="icon-rss w3-xlarge w3-hover-text-orange"></span></a>
 	</p>
 	<p class="w3-small w3-margin-0">
-		&#169; RamblingWare 2014-2017<br/>
-		Last Updated: 11/07/2017
+		${(copyright)!''}<br/>
+		Last Updated: ${(lastUpdated)!''}
 	</p>  
 </div>
 <div class="w3-container w3-padding-16 w3-theme-dark no-print">
