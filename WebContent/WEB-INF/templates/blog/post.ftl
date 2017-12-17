@@ -47,7 +47,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<#if test="post.banner != null && !post.banner.trim().isEmpty()">
+				<#if post.banner??>
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
 					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for ${(post.title)!''}" title="${(post.bannerCaption)!''}" src="${(post.banner)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
 					<p class="w3-tiny w3-text-grey w3-margin-0" style="text-align: right;">${(post.bannerCaption)!''}</p>
@@ -65,19 +65,18 @@
 
 					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<#if test="post.author.thumbnail != null && !post.author.thumbnail.trim().isEmpty()">
+							<#if post.author.thumbnail??>
 								<img class="w3-round" alt="Profile" title="Author" style="vertical-align: middle;" src="${(post.author.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
-							</#if>
 							<#else>
 								<span class="icon-author w3-large w3-text-theme w3-padding-square"></span>
-							</#else>
+							</#if>
 							<a href="/author/${(post.author.uri)!''}" title="Author" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">
 							${(post.author.name)!''}</a>
 						</p>
 					</div>
 					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<span class="icon-time w3-large w3-text-theme w3-padding-square"></span><a href="/year/${(post.publishYear)!''}" title="Published ${(post.publishDateTimeReadable)!''}" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">${(post.publishDateReadable)!''}</a>
+							<span class="icon-time w3-large w3-text-theme w3-padding-square"></span><a href="/year/${(post.publishYear)?string('0')!''}" title="Published ${(post.publishDateTimeReadable)!''}" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">${(post.publishDateReadable)!''}</a>
 						</p>
 					</div>
 					<div class="w3-col s12 m4 l3">
@@ -86,11 +85,11 @@
 						</p>
 					</div>
 					<div class="w3-col s12 m8 l3">
-						<#if test="post.tags != null && !post.tags.isEmpty()">
+						<#if post.tags??>
 							<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<span class="icon-tag w3-large w3-text-theme w3-padding-square"></span><span class="w3-text-grey" style="vertical-align: middle;"><#iterator value="post.tags">
-							<a class="w3-text-theme" title="<#property />" href="/tag/<#property />"><#property /></a>&nbsp;
-							</#iterator></span></p>
+							<span class="icon-tag w3-large w3-text-theme w3-padding-square"></span><span class="w3-text-grey" style="vertical-align: middle;"><#list post.tags as tag>
+							<a class="w3-text-theme" title="${(tag)!''}" href="/tag/${(tag)!''}">${(tag)!''}</a>&nbsp;
+							</#list></span></p>
 						</#if>
 					</div>
 				</div>
@@ -99,22 +98,22 @@
 					<div class="w3-padding-16 w3-center">
 						<p class="w3-small w3-text-grey w3-margin-0" style="vertical-align: middle;">Share this post.</p>	
 						<a title="Share on Facebook" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-indigo w3-theme-l4 icon-facebook"
-						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2F<%=Application.getString("domain")%>%2Fblog%2F${(post.uri)!''}"></a>				
+						target="_Blank" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2F${(domain)!''}%2Fblog%2F${(post.uri)!''}"></a>				
 						
 						<a title="Share on Twitter"  class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue w3-theme-l4 icon-twitter"
-						target="_Blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2F<%=Application.getString("domain")%>%2Fblog%2F${(post.uri)!''}"></a>
+						target="_Blank" href="https://twitter.com/intent/tweet?url=https%3A%2F%2F${(domain)!''}%2Fblog%2F${(post.uri)!''}"></a>
 						
 						<a title="Share on LinkedIn" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-blue-grey w3-theme-l4 icon-linkedin"
-						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2F<%=Application.getString("domain")%>%2Fblog%2F${(post.uri)!''}'"></a>
+						 target="_Blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2F${(domain)!''}%2Fblog%2F${(post.uri)!''}"></a>
 						
 						<a title="Share on Google+" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-red w3-theme-l4 icon-google"
-						 target="_Blank" href="https://plus.google.com/share?url=https%3A%2F%2F<%=Application.getString("domain")%>%2Fblog%2F${(post.uri)!''}'"></a>
+						 target="_Blank" href="https://plus.google.com/share?url=https%3A%2F%2F${(domain)!''}%2Fblog%2F${(post.uri)!''}"></a>
 						
 						<a title="Share on Reddit" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-black w3-theme-l4 icon-reddit"
-						 target="_Blank" href="https://www.reddit.com/submit?url=https%3A%2F%2F<%=Application.getString("domain")%>%2Fblog%2F${(post.uri)!''}'"></a>
+						 target="_Blank" href="https://www.reddit.com/submit?url=https%3A%2F%2F${(domain)!''}%2Fblog%2F${(post.uri)!''}"></a>
 						
 						<a title="Email to a friend" class="w3-btn w3-round-large w3-large w3-padding-square w3-hover-shadow w3-hover-teal w3-theme-l4 icon-mail"
-						 target="_Blank" href="mailto:?subject=Check%20out%20this%20Blog%20post&body=https%3A%2F%2F<%=Application.getString("domain")%>%2Fblog%2F${(post.uri)!''}"></a>
+						 target="_Blank" href="mailto:?subject=Check%20out%20this%20Blog%20post&body=https%3A%2F%2F${(domain)!''}%2Fblog%2F${(post.uri)!''}"></a>
 						
 						<a title="Copy the permalink" href="javascript:void(0)" onclick="openPopup('share-popup')" class="w3-btn w3-round-large w3-large w3-padding-square  w3-hover-shadow w3-hover-green w3-theme-l4 icon-share"></a>
 						
@@ -125,7 +124,7 @@
 								<h3>Copy this link:
 								<a title="Close" onclick="closePopup('share-popup')" class="icon-cross nounderline w3-text-black w3-opacity w3-hover-opaque w3-right" href="javascript:void(0);">&nbsp;</a>
 								</h3>
-								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="/blog/${(post.uri)!''}" type="text" /><br />
+								<input id="plink" name="plink" class="w3-input w3-round-large w3-border" onClick="this.setSelectionRange(0, this.value.length)" value="https://${(domain)!''}/blog/${(post.uri)!''}" type="text" /><br />
 							</div>
 						</div>
 					</div>
