@@ -8,7 +8,7 @@
 
 <!-- Facebook Open Graph -->
 <meta property="fb:app_id" content="${(facebookAppId)!''}">
-<meta property="og:url" content="/blog/${(post.uri)!''}">
+<meta property="og:url" content="${(url)!''}/blog/${(post.uri)!''}">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="${(post.title)!''}">

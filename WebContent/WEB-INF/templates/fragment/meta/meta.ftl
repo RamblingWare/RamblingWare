@@ -8,12 +8,13 @@
 <meta name="description" content="${(description)!'description'}"/>
 <meta name="robots" content="all"/>
 <meta http-equiv="cache-control" content="public"/>
-<meta http-equiv="expires" content=""/><!-- rfc1123 date -->
+<meta http-equiv="expires" content="${(date)!''}"/>
+
 <#include "/WEB-INF/templates/fragment/meta/meta-webapp.ftl">
 
 <!-- Facebook Open Graph -->
-<meta property="fb:app_id" content="968522543222407"/>
-<meta property="og:url" content="https://www.ramblingware.com"/>
+<meta property="fb:app_id" content="${(facebookAppId)!''}">
+<meta property="og:url" content="${(url)!''}">
 <meta property="og:type" content="article"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:title" content="${(name)!'Oddox'}"/>
@@ -26,12 +27,12 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:site" content="@amdelamar"/>
-<meta name="twitter:creator" content="@amdelamar"/>
+<meta name="twitter:site" content="${(twitterHandle)!''}">
+<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}">
 <meta name="twitter:title" content="${(name)!'Oddox'}"/>
 <meta name="twitter:description" content="${(description)!'description'}"/>
 <meta name="twitter:image" content="/img/icon-512-round.png"/>
-<meta name="twitter:domain" content="www.ramblingware.com"/>
+<meta name="twitter:domain" content="${(domain)!''}">
 
 <!-- Google+ Schema.org -->
 <meta itemprop="name" content="${(name)!'Oddox'}"/>

@@ -5,7 +5,7 @@
 <meta name="application-name" content="${(name)!'Oddox'}"/>
 <meta name="robots" content="all"/>
 <meta http-equiv="cache-control" content="public"/>
-<meta http-equiv="expires" content=""/><!-- rfc1123 date -->
+<meta http-equiv="expires" content="${(date)!''}"/>
 <#include "/WEB-INF/templates/fragment/meta/meta-webapp.ftl">
 
 <link rel="author" href="humans.txt"/>

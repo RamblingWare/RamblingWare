@@ -7,8 +7,8 @@
 <meta name="keywords" content="${(keywords)!'Oddox'}"/>
 
 <!-- Facebook Open Graph -->
-<meta property="fb:app_id" content="968522543222407"/>
-<meta property="og:url" content="https://www.ramblingware.com/author/${(author.uri)!''}"/>
+<meta property="fb:app_id" content="${(facebookAppId)!''}">
+<meta property="og:url" content="${(url)!''}/author/${(author.uri)!''}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:title" content="${(author.name)!''} - ${(name)!'Oddox'}"/>
@@ -22,12 +22,12 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:site" content="@amdelamar"/>
-<meta name="twitter:creator" content="@amdelamar"/>
+<meta name="twitter:site" content="${(twitterHandle)!''}">
+<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}">
 <meta name="twitter:title" content="${(author.name)!''} - ${(name)!'Oddox'}"/>
 <meta name="twitter:description" content="${(author.description)!''}"/>
 <meta name="twitter:image" content="${(author.thumbnail)!''}"/>
-<meta name="twitter:domain" content="www.ramblingware.com"/>
+<meta name="twitter:domain" content="${(domain)!''}">
 
 <!-- Google+ Schema.org -->
 <meta itemprop="name" content="${(author.name)!''} - ${(name)!'Oddox'}"/>
