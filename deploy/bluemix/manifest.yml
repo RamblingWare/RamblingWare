@@ -1,5 +1,5 @@
 applications:
-- path: ./build/libs/oddox-1.0.0.war
+- path: ../../build/libs/oddox-1.0.0.war
   memory: 512M
   buildpack: java_buildpack
   env:
