@@ -5,9 +5,5 @@ applications:
   env:
     JBP_CONFIG_TOMCAT: '{ tomcat: { version: 9.0.+ } }'
     JBP_CONFIG_OPEN_JDK_JRE: '{jre: { version: 1.8.0_+ }}'
-  declared-services:
-    cloudantNoSQLDB:
-      label: Cloudant
-      plan: Lite
   services:
-  - Cloudant
+  - CouchDB
