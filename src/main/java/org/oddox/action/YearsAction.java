@@ -1,5 +1,6 @@
 package org.oddox.action;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,11 @@ public class YearsAction extends ActionSupport
             years = Application.getDatabaseService().getYears();
 
             // already sorted chronologically
-
+            // so reverse so newest on top
+            if (years != null) {
+                Collections.reverse(years);
+            }
+            
             // set attributes
             servletRequest.setAttribute("years", years);
 

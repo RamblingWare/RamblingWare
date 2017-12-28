@@ -1,5 +1,6 @@
 package org.oddox.action.interceptor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,11 @@ public class ArchiveInterceptor implements Interceptor {
 			archiveYears = Application.getDatabaseService().getYears();
 			archiveTags = Application.getDatabaseService().getTags();
 			archiveCategories = Application.getDatabaseService().getCategories();
+			
+			// sort lists
+            Collections.reverse(archiveYears);
+            Collections.sort(archiveTags);
+            Collections.sort(archiveCategories);
 
 			// set attributes
 			sessionAttributes.put("archiveFeatured", archiveFeatured);
