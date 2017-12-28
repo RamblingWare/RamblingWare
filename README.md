@@ -2,7 +2,6 @@
 
 [![Build](https://img.shields.io/travis/oddoxorg/oddox.svg)](https://travis-ci.org/oddoxorg/oddox)
 [![Codacy grade](https://img.shields.io/codacy/grade/ae13ca0369824fda9b4d32d43398495c.svg)](https://www.codacy.com/app/amdelamar/oddox)
-[![Code Climate](https://img.shields.io/codeclimate/maintainability/oddoxorg/oddox.svg)](https://codeclimate.com/github/oddoxorg/oddox)
 [![Codecov](https://img.shields.io/codecov/c/github/oddoxorg/oddox.svg)](https://codecov.io/gh/oddoxorg/oddox)
 [![Docker Pulls](https://img.shields.io/docker/pulls/oddoxorg/oddox.svg)](https://hub.docker.com/r/oddoxorg/oddox/)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/oddoxorg/oddox/blob/master/LICENSE)
