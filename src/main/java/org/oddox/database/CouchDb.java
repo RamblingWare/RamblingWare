@@ -208,8 +208,17 @@ public class CouchDb extends DatabaseService {
             ViewResponse<String, Object> pg = db.getViewRequestBuilder("posts", "featured")
                     .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
                     .getResponse();
-
-            posts = pg.getDocsAs(Post.class);
+            
+            boolean hasNextPage = true;
+            while (hasNextPage) {
+                posts.addAll(pg.getDocsAs(Post.class));
+                
+                if(pg.hasNextPage()) {
+                    pg = pg.nextPage();
+                } else {
+                    hasNextPage = false;
+                }
+            }            
 
         } catch (Exception e) {
             // this should be thrown up
@@ -229,12 +238,21 @@ public class CouchDb extends DatabaseService {
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
 
-            for (int i = 0; i < pg.getTotalRowCount(); i++) {
-                Year yr = new Year();
-                yr.setName(pg.getKeys().get(i));
-                yr.setCount(pg.getValues().get(i));
-                years.add(yr);
-            }
+            boolean hasNextPage = true;
+            while (hasNextPage) {
+                for (int i = 0; i < pg.getTotalRowCount(); i++) {
+                    Year yr = new Year();
+                    yr.setName(pg.getKeys().get(i));
+                    yr.setCount(pg.getValues().get(i));
+                    years.add(yr);
+                }
+                
+                if(pg.hasNextPage()) {
+                    pg = pg.nextPage();
+                } else {
+                    hasNextPage = false;
+                }
+            }            
 
         } catch (Exception e) {
             // this should be thrown up
@@ -253,12 +271,21 @@ public class CouchDb extends DatabaseService {
             ViewResponse<String, Integer> pg = db.getViewRequestBuilder("posts", "category-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
-
-            for (int i = 0; i < pg.getTotalRowCount(); i++) {
-                Category cat = new Category();
-                cat.setName(pg.getKeys().get(i));
-                cat.setCount(pg.getValues().get(i));
-                categories.add(cat);
+            
+            boolean hasNextPage = true;
+            while (hasNextPage) {
+                for (int i = 0; i < pg.getRows().size(); i++) {
+                    Category cat = new Category();
+                    cat.setName(pg.getKeys().get(i));
+                    cat.setCount(pg.getValues().get(i));
+                    categories.add(cat);
+                }
+                
+                if(pg.hasNextPage()) {
+                    pg = pg.nextPage();
+                } else {
+                    hasNextPage = false;
+                }
             }
 
         } catch (Exception e) {
@@ -278,12 +305,21 @@ public class CouchDb extends DatabaseService {
             ViewResponse<String, Integer> pg = db.getViewRequestBuilder("posts", "tag-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class).group(true).build()
                     .getResponse();
+            
+            boolean hasNextPage = true;
+            while (hasNextPage) {
+                for (int i = 0; i < pg.getRows().size(); i++) {
+                    Tag tag = new Tag();
+                    tag.setName(pg.getKeys().get(i));
+                    tag.setCount(pg.getValues().get(i));
+                    tags.add(tag);
+                }
 
-            for (int i = 0; i < pg.getTotalRowCount(); i++) {
-                Tag tag = new Tag();
-                tag.setName(pg.getKeys().get(i));
-                tag.setCount(pg.getValues().get(i));
-                tags.add(tag);
+                if(pg.hasNextPage()) {
+                    pg = pg.nextPage();
+                } else {
+                    hasNextPage = false;
+                }
             }
 
         } catch (Exception e) {
@@ -568,8 +604,17 @@ public class CouchDb extends DatabaseService {
             ViewResponse<String, Object> pg = db.getViewRequestBuilder("roles", "roles")
                     .newRequest(Key.Type.STRING, Object.class).includeDocs(true).build()
                     .getResponse();
+            
+            boolean hasNextPage = true;
+            while (hasNextPage) {
+                roles.addAll(pg.getDocsAs(Role.class));
 
-            roles = pg.getDocsAs(Role.class);
+                if(pg.hasNextPage()) {
+                    pg = pg.nextPage();
+                } else {
+                    hasNextPage = false;
+                }
+            }
 
         } catch (Exception e) {
             // this should be thrown up
