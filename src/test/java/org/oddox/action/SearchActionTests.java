@@ -26,7 +26,7 @@ public class SearchActionTests {
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
     }
-    
+
     @Test
     public void execute() {
         try {

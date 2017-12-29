@@ -37,11 +37,14 @@ public class RootActionTests {
 
     @Test
     public void execute() {
-        assertEquals("none", action.execute().toLowerCase());
+        assertEquals("none", action.execute()
+                .toLowerCase());
         assertEquals("Welcome", action.getOddox());
         assertEquals(Application.getString("version"), action.getVersion());
-        assertTrue(action.getData().containsKey("url"));
-        assertTrue(action.getData().containsKey("name"));
+        assertTrue(action.getData()
+                .containsKey("url"));
+        assertTrue(action.getData()
+                .containsKey("name"));
     }
 
     @Test

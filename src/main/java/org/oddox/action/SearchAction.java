@@ -19,10 +19,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 5/9/2016
  */
-public class SearchAction extends ActionSupport
-        implements
-            ServletResponseAware,
-            ServletRequestAware {
+public class SearchAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,7 +42,8 @@ public class SearchAction extends ActionSupport
                 return SUCCESS;
             } catch (IOException e) {
                 e.printStackTrace();
-                addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+                addActionError("Error: " + e.getClass()
+                        .getName() + ". Please try again later.");
                 return ERROR;
             }
         } else {

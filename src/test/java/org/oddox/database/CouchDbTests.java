@@ -36,7 +36,7 @@ public class CouchDbTests {
     public void construct() {
         assertNotNull(couchdb);
         assertNotNull(database);
-        
+
         database.setHost("127.0.0.1");
         database.setPort("5984");
         database.setUsername("admin");

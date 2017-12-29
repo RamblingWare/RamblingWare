@@ -21,8 +21,8 @@ import org.oddox.config.Application;
 public class AllContentFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-            FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         // HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -39,8 +39,8 @@ public class AllContentFilter implements Filter {
         response.addHeader("Referrer-Policy", "origin-when-cross-origin");
 
         // Set CSP to ensure content and sources are explicit.
-        response.addHeader("Content-Security-Policy", "default-src 'self' "
-                + Application.getString("cdn") + " 'unsafe-inline' 'unsafe-eval'");
+        response.addHeader("Content-Security-Policy",
+                "default-src 'self' " + Application.getString("cdn") + " 'unsafe-inline' 'unsafe-eval'");
         // "Content-Security-Policy-Report-Only" can also be used.
 
         // "default-src 'none'; img-src 'self' cdn.ramblingware.com chart.googleapis.com; style-src

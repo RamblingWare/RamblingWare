@@ -26,7 +26,7 @@ public class Application implements ServletContextListener {
 
     public final static String APP_PROP_FILE = "/app.properties";
     public final static String DB_PROP_FILE = "/db.properties";
-    
+
     private static AppConfig appConfig;
     private static AppFirewall appFirewall;
     private static DatabaseService databaseService;
@@ -59,9 +59,9 @@ public class Application implements ServletContextListener {
         appFirewall = loadFirewallFromDB(databaseService);
         AppConfig configdb = loadSettingsFromDB(databaseService);
         if (configdb != null) {
-            System.out.println(
-                    "Found app settings in the database. Using that instead of " + APP_PROP_FILE);
-            appConfig.getSettings().putAll(configdb.getSettings());
+            System.out.println("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
+            appConfig.getSettings()
+                    .putAll(configdb.getSettings());
         }
 
         // Ready
@@ -101,17 +101,22 @@ public class Application implements ServletContextListener {
                 Gson gson = new Gson();
                 JsonObject obj = gson.fromJson(vcap, JsonObject.class);
                 JsonArray cloudant = obj.getAsJsonArray("cloudantNoSQLDB");
-                JsonObject couchdb = cloudant.get(0).getAsJsonObject()
+                JsonObject couchdb = cloudant.get(0)
+                        .getAsJsonObject()
                         .getAsJsonObject("credentials");
-                db.setHost(couchdb.get("host").getAsString());
-                db.setPort(couchdb.get("port").getAsString());
-                db.setUrl(couchdb.get("url").getAsString());
-                db.setUsername(couchdb.get("username").getAsString());
-                db.setPassword(couchdb.get("password").getAsString());
+                db.setHost(couchdb.get("host")
+                        .getAsString());
+                db.setPort(couchdb.get("port")
+                        .getAsString());
+                db.setUrl(couchdb.get("url")
+                        .getAsString());
+                db.setUsername(couchdb.get("username")
+                        .getAsString());
+                db.setPassword(couchdb.get("password")
+                        .getAsString());
 
             } catch (Exception e) {
-                System.out
-                        .println("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
+                System.out.println("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
                 e.printStackTrace();
             }
         } else if (dbUrl != null && !dbUrl.isEmpty()) {
@@ -132,21 +137,21 @@ public class Application implements ServletContextListener {
         } else {
             // if env is not available, then
             // run on local couchdb in db.properties
-            System.out.println(
-                    "WARNING: No DB environment variables provided. Continuing with DB from "+DB_PROP_FILE+" file.");
+            System.out.println("WARNING: No DB environment variables provided. Continuing with DB from " + DB_PROP_FILE
+                    + " file.");
 
             try {
-                HashMap<String,String> map = Utils.loadMapFromFile(DB_PROP_FILE);
+                HashMap<String, String> map = Utils.loadMapFromFile(DB_PROP_FILE);
                 db.setHost(map.get("couchdb.host"));
                 db.setPort(map.get("couchdb.port"));
                 db.setUrl(map.get("couchdb.url"));
                 db.setUsername(map.get("couchdb.username"));
                 db.setPassword(map.get("couchdb.password"));
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse "+DB_PROP_FILE+" file.");
+                System.out.println("ERROR: Failed to parse " + DB_PROP_FILE + " file.");
                 e.printStackTrace();
-                System.exit(2);    
-            }            
+                System.exit(2);
+            }
         }
 
         return db;
@@ -227,7 +232,8 @@ public class Application implements ServletContextListener {
      * @return value String
      */
     public static String getString(String key) {
-        return appConfig.getSettings().get(key);
+        return appConfig.getSettings()
+                .get(key);
     }
 
     /**
@@ -238,7 +244,8 @@ public class Application implements ServletContextListener {
      * @return value int
      */
     public static int getInt(String key) throws NumberFormatException {
-        return Integer.parseInt(appConfig.getSettings().get(key));
+        return Integer.parseInt(appConfig.getSettings()
+                .get(key));
     }
 
     /**
@@ -249,7 +256,8 @@ public class Application implements ServletContextListener {
      * @return value double
      */
     public static double getDouble(String key) throws NumberFormatException {
-        return Double.parseDouble(appConfig.getSettings().get(key));
+        return Double.parseDouble(appConfig.getSettings()
+                .get(key));
     }
 
     /**
@@ -261,7 +269,8 @@ public class Application implements ServletContextListener {
      *            the value to set
      */
     public static void setString(String key, String value) {
-        appConfig.getSettings().put(key, value);
+        appConfig.getSettings()
+                .put(key, value);
     }
 
 }

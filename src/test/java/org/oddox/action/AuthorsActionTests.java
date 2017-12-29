@@ -41,7 +41,9 @@ public class AuthorsActionTests {
         List<Author> list = new ArrayList<Author>();
         list.add(author);
         action.setAuthors(list);
-        assertEquals("admin", action.getAuthors().get(0).get_Id());
+        assertEquals("admin", action.getAuthors()
+                .get(0)
+                .get_Id());
 
         action.setServletRequest(null);
         action.setServletResponse(null);

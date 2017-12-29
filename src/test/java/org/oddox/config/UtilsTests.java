@@ -77,11 +77,10 @@ public class UtilsTests {
     @Test
     public void formatLong() {
 
-        long[] numbers = {0, 5, 999, 1_000, -5_821, 10_500, -101_800, 2_000_000, -7_800_000,
-                92_150_000, 123_200_000, 9_999_999, 999_999_999_999_999_999L,
-                1_230_000_000_000_000L, Long.MIN_VALUE, Long.MAX_VALUE};
-        String[] expected = {"0", "5", "999", "1k", "-5.8k", "10k", "-101k", "2M", "-7.8M", "92M",
-                "123M", "9.9M", "999P", "1.2P", "-9.2E", "9.2E"};
+        long[] numbers = { 0, 5, 999, 1_000, -5_821, 10_500, -101_800, 2_000_000, -7_800_000, 92_150_000, 123_200_000,
+                9_999_999, 999_999_999_999_999_999L, 1_230_000_000_000_000L, Long.MIN_VALUE, Long.MAX_VALUE };
+        String[] expected = { "0", "5", "999", "1k", "-5.8k", "10k", "-101k", "2M", "-7.8M", "92M", "123M", "9.9M",
+                "999P", "1.2P", "-9.2E", "9.2E" };
         for (int i = 0; i < numbers.length; i++) {
             long nm = numbers[i];
             String formatted = Utils.formatLong(nm);
@@ -94,10 +93,9 @@ public class UtilsTests {
 
     @Test
     public void formatBytes() {
-        double[] numbers = {0d, 5d, 999d, 1024d, 1572864d, 1610612736d, 8342973972.48, 555555d,
-                2000000d};
-        String[] expected = {"0.00 B", "5.00 B", "999.00 B", "1.00 KB", "1.50 MB", "1.50 GB",
-                "7.77 GB", "542.53 KB", "1.91 MB"};
+        double[] numbers = { 0d, 5d, 999d, 1024d, 1572864d, 1610612736d, 8342973972.48, 555555d, 2000000d };
+        String[] expected = { "0.00 B", "5.00 B", "999.00 B", "1.00 KB", "1.50 MB", "1.50 GB", "7.77 GB", "542.53 KB",
+                "1.91 MB" };
         for (int i = 0; i < numbers.length; i++) {
             double nm = numbers[i];
             String formatted = Utils.formatBytes(nm);
@@ -178,38 +176,38 @@ public class UtilsTests {
             // good
         }
     }
-    
+
     @Test
     public void propertiesFiles() {
         try {
-            HashMap<String,String> map = Utils.loadMapFromFile("/app-test.properties");
+            HashMap<String, String> map = Utils.loadMapFromFile("/app-test.properties");
             assertNotNull(map);
             assertEquals("Oddox", map.get("name"));
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        
+
         try {
-            HashMap<String,String> map = Utils.loadMapFromFile("/db-test.properties");
+            HashMap<String, String> map = Utils.loadMapFromFile("/db-test.properties");
             assertEquals("127.0.0.1", map.get("couchdb.host"));
             assertNotNull(map);
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        
+
         try {
-            HashMap<String,String> map = Utils.loadMapFromFile("/bad-file-name.properties");
+            HashMap<String, String> map = Utils.loadMapFromFile("/bad-file-name.properties");
             assertNull(map);
         } catch (Exception e) {
             // good
         }
-        
+
         try {
-            HashMap<String,String> map = Utils.loadMapFromFile(null);
+            HashMap<String, String> map = Utils.loadMapFromFile(null);
             assertNull(map);
         } catch (Exception e) {
             // good
         }
     }
-    
+
 }

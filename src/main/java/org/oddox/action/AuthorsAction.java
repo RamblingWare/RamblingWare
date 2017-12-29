@@ -20,10 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 4/23/2017
  */
-public class AuthorsAction extends ActionSupport
-        implements
-            ServletResponseAware,
-            ServletRequestAware {
+public class AuthorsAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,15 +35,16 @@ public class AuthorsAction extends ActionSupport
 
         // /author/
         try {
-            authors = Application.getDatabaseService().getAuthors(1,
-                    Application.getInt("default.limit"), false);
+            authors = Application.getDatabaseService()
+                    .getAuthors(1, Application.getInt("default.limit"), false);
 
             // sort alphabetically
             if (authors != null) {
                 Collections.sort(authors, new java.util.Comparator<Author>() {
                     @Override
                     public int compare(Author a1, Author a2) {
-                        return a1.getName().compareToIgnoreCase(a2.getName());
+                        return a1.getName()
+                                .compareToIgnoreCase(a2.getName());
                     }
                 });
             }
@@ -57,7 +55,8 @@ public class AuthorsAction extends ActionSupport
             return Action.SUCCESS;
 
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }

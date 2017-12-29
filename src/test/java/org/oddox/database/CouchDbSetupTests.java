@@ -47,7 +47,7 @@ public class CouchDbSetupTests {
         database.setPassword("admin");
         database.setUrl("http://127.0.0.1:5984/");
         setup.setDatabase(database);
-        
+
         AppConfig config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
         Application.setAppConfig(config);
         assertNotNull(Application.getAppConfig());
@@ -64,13 +64,15 @@ public class CouchDbSetupTests {
     public void defaults() {
         Author author = setup.getDefaultAuthor();
         assertNotNull(author);
-        assertTrue(author.getName().equalsIgnoreCase(Application.getString("default.username")));
+        assertTrue(author.getName()
+                .equalsIgnoreCase(Application.getString("default.username")));
         assertNotNull(author.get_Id());
         assertNotNull(author.getName());
 
         Post post = setup.getDefaultPost();
         assertNotNull(post);
-        assertTrue(post.getAuthorId().equalsIgnoreCase(Application.getString("default.username")));
+        assertTrue(post.getAuthorId()
+                .equalsIgnoreCase(Application.getString("default.username")));
         assertNotNull(post.get_Id());
         assertNotNull(post.getTitle());
 

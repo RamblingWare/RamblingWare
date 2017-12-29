@@ -42,7 +42,9 @@ public class TagsActionTests {
         List<Tag> list = new ArrayList<Tag>();
         list.add(cat);
         action.setTags(list);
-        assertEquals("Meta", action.getTags().get(0).getName());
+        assertEquals("Meta", action.getTags()
+                .get(0)
+                .getName());
 
         action.setServletRequest(null);
         action.setServletResponse(null);

@@ -29,15 +29,12 @@ public class Utils {
 
     private static final DecimalFormat BYTEFORM = new DecimalFormat("0.00");
     private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
-    private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat(
-            "MMM dd, yyyy (h:mm a z)");
+    private static final DateFormat READABLEDATETIMEFORM = new SimpleDateFormat("MMM dd, yyyy (h:mm a z)");
     private static final DateFormat SQLSERVERDATEFORM = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
-    private static final DateFormat ISO8601FORM = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    private static final DateFormat RFC1123FORM = new SimpleDateFormat(
-            "EEE, dd MMM yyyy HH:mm:ss z");
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    private static final DateFormat ISO8601FORM = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static final DateFormat RFC1123FORM = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+    private static final Pattern EMAIL_PATTERN = Pattern
+            .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
     static {
         ISO8601FORM.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -100,11 +97,10 @@ public class Utils {
      */
     public static String formatTime(long timeInMilliseconds) {
         if (timeInMilliseconds >= 3600000) {
-            return (timeInMilliseconds / 3600000) + " hrs " + (timeInMilliseconds / 60000 % 60)
-                    + " mins " + (timeInMilliseconds / 1000 % 60) + " secs";
+            return (timeInMilliseconds / 3600000) + " hrs " + (timeInMilliseconds / 60000 % 60) + " mins "
+                    + (timeInMilliseconds / 1000 % 60) + " secs";
         } else if (timeInMilliseconds >= 60000) {
-            return (timeInMilliseconds / 60000 % 60) + " mins " + (timeInMilliseconds / 1000 % 60)
-                    + " secs";
+            return (timeInMilliseconds / 60000 % 60) + " mins " + (timeInMilliseconds / 1000 % 60) + " secs";
         } else if (timeInMilliseconds >= 1000) {
             return (timeInMilliseconds / 1000 % 60) + " secs";
         } else {
@@ -191,11 +187,10 @@ public class Utils {
      * @return Date
      */
     public static Date convertStringToDate(String anyFormat) {
-        String[] formats = {"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyyMMdd hh:mm:ss a",
-                "yyyyMMdd hh:mm:ss", "yyyy-MM-dd hh:mm:ss a", "MM/dd/yy", "MMMM d yy",
-                "MMM dd yyyy", "MMM dd yy", "MMMM d, yy", "MM/dd/yyyy", "dd/MM/yy", "dd/MM/yyyy",
-                "yyyy-MM-dd", "EEE, dd MMM yy HH:mm:ss z", "EEE, dd MMM yy HH:mm:ss",
-                "dd MMM yy HH:mm:ss", "ss:mm:HH dd MM:"};
+        String[] formats = { "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyyMMdd hh:mm:ss a", "yyyyMMdd hh:mm:ss",
+                "yyyy-MM-dd hh:mm:ss a", "MM/dd/yy", "MMMM d yy", "MMM dd yyyy", "MMM dd yy", "MMMM d, yy",
+                "MM/dd/yyyy", "dd/MM/yy", "dd/MM/yyyy", "yyyy-MM-dd", "EEE, dd MMM yy HH:mm:ss z",
+                "EEE, dd MMM yy HH:mm:ss", "dd MMM yy HH:mm:ss", "ss:mm:HH dd MM:" };
         Date date = null;
 
         for (int i = 0; i < formats.length; i++) {
@@ -233,7 +228,8 @@ public class Utils {
      * @return String
      */
     public static String removeBadChars(String text) {
-        text = text.replaceAll("[\\^/?<>\\:*`'~!\\\\.,;@#$%()\\[\\]+{}\"]", "").trim();
+        text = text.replaceAll("[\\^/?<>\\:*`'~!\\\\.,;@#$%()\\[\\]+{}\"]", "")
+                .trim();
         return text.replaceAll("\\s+", " ");
     }
 
@@ -274,7 +270,8 @@ public class Utils {
      * @return String
      */
     public static String formatURI(String uri) {
-        uri = uri.replaceAll("[\\^/?<>\\.#*`'~!\\\\\\[\\]+{}\"]", "").trim();
+        uri = uri.replaceAll("[\\^/?<>\\.#*`'~!\\\\\\[\\]+{}\"]", "")
+                .trim();
         uri = uri.replaceAll("[=\\s+\"]", "-");
         uri = uri.replace(" ", "-");
         uri = uri.replace("&", "n");
@@ -332,7 +329,8 @@ public class Utils {
      * @return boolean
      */
     public static boolean isValidEmail(String email) {
-        return EMAIL_PATTERN.matcher(email).matches();
+        return EMAIL_PATTERN.matcher(email)
+                .matches();
     }
 
     /**

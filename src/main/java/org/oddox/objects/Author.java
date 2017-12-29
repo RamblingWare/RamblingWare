@@ -117,7 +117,7 @@ public class Author implements Comparable<Author> {
     public String getCreateDateReadable() {
         return Utils.formatReadableDate(Utils.convertStringToDate(createDate));
     }
-    
+
     public String getCreateDateTimeReadable() {
         return Utils.formatReadableDateTime(Utils.convertStringToDate(createDate));
     }
@@ -133,7 +133,7 @@ public class Author implements Comparable<Author> {
     public String getModifyDateReadable() {
         return Utils.formatReadableDate(Utils.convertStringToDate(modifyDate));
     }
-    
+
     public String getModifyDateTimeReadable() {
         return Utils.formatReadableDateTime(Utils.convertStringToDate(modifyDate));
     }

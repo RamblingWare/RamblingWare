@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 public class StaticContentFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-            FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -31,11 +31,12 @@ public class StaticContentFilter implements Filter {
         try {
             ifModifiedSince = request.getDateHeader("If-Modified-Since");
         } catch (Exception e) {
-            System.err.println("Invalid If-Modified-Since header value: '"
-                    + request.getHeader("If-Modified-Since") + "', ignoring");
+            System.err.println("Invalid If-Modified-Since header value: '" + request.getHeader("If-Modified-Since")
+                    + "', ignoring");
         }
 
-        if (request.getRequestURI().endsWith(".ico")) {
+        if (request.getRequestURI()
+                .endsWith(".ico")) {
             response.setContentType("image/x-icon");
             response.setHeader("Content-Type", "image/x-icon");
         }

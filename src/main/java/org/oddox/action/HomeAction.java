@@ -34,8 +34,8 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
         // /home
         try {
             // gather posts
-            posts = Application.getDatabaseService().getPosts(1,
-                    Application.getInt("default.limit"), false);
+            posts = Application.getDatabaseService()
+                    .getPosts(1, Application.getInt("default.limit"), false);
 
             // set attributes
             servletRequest.setAttribute("posts", posts);
@@ -43,7 +43,8 @@ public class HomeAction extends ActionSupport implements ServletResponseAware, S
             return SUCCESS;
 
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }

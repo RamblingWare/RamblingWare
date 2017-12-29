@@ -35,7 +35,8 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
         // /tag
         try {
             // gather tags
-            tags = Application.getDatabaseService().getTags();
+            tags = Application.getDatabaseService()
+                    .getTags();
 
             // sort alphabetically
             if (tags != null) {
@@ -48,7 +49,8 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
             return SUCCESS;
 
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }

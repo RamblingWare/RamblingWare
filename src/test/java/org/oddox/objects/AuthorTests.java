@@ -52,7 +52,8 @@ public class AuthorTests {
         author.setThumbnail("image");
         assertEquals("image", author.getThumbnail());
         author.setRole(new Role("admin"));
-        assertEquals("admin", author.getRole().get_Id());
+        assertEquals("admin", author.getRole()
+                .get_Id());
         author.setRoleId("admin");
         assertEquals("admin", author.getRoleId());
 

@@ -39,7 +39,8 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
 
         // this allows blog posts to be shown without parameter arguments (i.e.
         // ?uri_name=foobar&test=123 )
-        String uriTemp = servletRequest.getRequestURI().toLowerCase();
+        String uriTemp = servletRequest.getRequestURI()
+                .toLowerCase();
         if (uri == null && uriTemp.startsWith("/blog/post/")) {
             // /blog/post/post-name-goes-here
             uri = Utils.removeBadChars(uriTemp.substring(11, uriTemp.length()));
@@ -51,7 +52,8 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
         if (uri != null && uri.length() > 0) {
             // search in db for post by title
             try {
-                post = Application.getDatabaseService().getPost(uri, false);
+                post = Application.getDatabaseService()
+                        .getPost(uri, false);
 
                 // was post found?
                 if (post != null) {
@@ -63,8 +65,7 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                     if (servletRequest.getSession(false) != null) {
                         HttpSession session = servletRequest.getSession();
                         @SuppressWarnings("unchecked")
-                        HashSet<String> viewedPages = (HashSet<String>) session
-                                .getAttribute("viewedPages");
+                        HashSet<String> viewedPages = (HashSet<String>) session.getAttribute("viewedPages");
 
                         if (viewedPages == null) {
                             viewedPages = new HashSet<String>();
@@ -75,11 +76,16 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                     }
 
                     // update page views
-                    post.getView().setCount(post.getView().getCount() + 1);
+                    post.getView()
+                            .setCount(post.getView()
+                                    .getCount() + 1);
                     if (newViewFromSession) {
-                        post.getView().setSession(post.getView().getSession() + 1);
+                        post.getView()
+                                .setSession(post.getView()
+                                        .getSession() + 1);
                     }
-                    Application.getDatabaseService().editView(post.getView());
+                    Application.getDatabaseService()
+                            .editView(post.getView());
 
                     return Action.SUCCESS;
                 } else {
@@ -88,7 +94,8 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                 }
 
             } catch (Exception e) {
-                addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+                addActionError("Error: " + e.getClass()
+                        .getName() + ". Please try again later.");
                 e.printStackTrace();
                 return ERROR;
             }

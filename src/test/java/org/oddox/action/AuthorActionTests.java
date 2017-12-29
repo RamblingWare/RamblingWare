@@ -36,7 +36,8 @@ public class AuthorActionTests {
 
         Author author = new Author("admin");
         action.setAuthor(author);
-        assertEquals("admin", action.getAuthor().get_Id());
+        assertEquals("admin", action.getAuthor()
+                .get_Id());
 
         action.setServletRequest(null);
         action.setServletResponse(null);

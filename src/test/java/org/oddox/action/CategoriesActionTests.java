@@ -42,7 +42,9 @@ public class CategoriesActionTests {
         List<Category> list = new ArrayList<Category>();
         list.add(cat);
         action.setCategories(list);
-        assertEquals("Meta", action.getCategories().get(0).getName());
+        assertEquals("Meta", action.getCategories()
+                .get(0)
+                .getName());
 
         action.setServletRequest(null);
         action.setServletResponse(null);

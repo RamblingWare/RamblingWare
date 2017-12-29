@@ -64,12 +64,14 @@ public class PostTests {
         post.setAuthorId("author_1");
         assertEquals("author_1", post.getAuthorId());
         post.setAuthor(new Author("author_1"));
-        assertEquals("author_1", post.getAuthor().get_Id());
+        assertEquals("author_1", post.getAuthor()
+                .get_Id());
         post.setView(new View());
         List<String> list = new ArrayList<String>();
         list.add("Meta");
         post.setTags(list);
-        assertEquals("Meta", post.getTags().get(0));
+        assertEquals("Meta", post.getTags()
+                .get(0));
         assertNotNull(post.getView());
 
         post.setCreateDate(dateTime);

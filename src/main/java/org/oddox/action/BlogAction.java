@@ -41,7 +41,8 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
         // this shows the most recent blog posts
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI().toLowerCase();
+            String pageTemp = servletRequest.getRequestURI()
+                    .toLowerCase();
             if (pageTemp.startsWith("/blog/page/")) {
                 pageTemp = Utils.removeBadChars(pageTemp.substring(11, pageTemp.length()));
                 page = Integer.parseInt(pageTemp);
@@ -50,23 +51,23 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             }
 
             // gather posts
-            posts = Application.getDatabaseService().getPosts(page,
-                    Application.getInt("default.limit"), false);
+            posts = Application.getDatabaseService()
+                    .getPosts(page, Application.getInt("default.limit"), false);
 
             // already sorted newest first
 
             // determine pagination
             if (posts != null) {
-            	if(posts.size() >= Application.getInt("default.limit")) {
-            		nextPage = page + 1;
-            	} else {
-            		nextPage = page;
-            	}
-            	if(page > 1) {
-            		prevPage = page - 1;	
-            	} else {
-            		prevPage = page;
-            	}
+                if (posts.size() >= Application.getInt("default.limit")) {
+                    nextPage = page + 1;
+                } else {
+                    nextPage = page;
+                }
+                if (page > 1) {
+                    prevPage = page - 1;
+                } else {
+                    prevPage = page;
+                }
             }
 
             // set attributes
@@ -81,7 +82,8 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             System.err.println("Page not found. Please try again.");
             return Action.NONE;
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }
@@ -118,19 +120,19 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
         this.page = page;
     }
 
-	public int getNextPage() {
-		return nextPage;
-	}
+    public int getNextPage() {
+        return nextPage;
+    }
 
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
-	}
+    public void setNextPage(int nextPage) {
+        this.nextPage = nextPage;
+    }
 
-	public int getPrevPage() {
-		return prevPage;
-	}
+    public int getPrevPage() {
+        return prevPage;
+    }
 
-	public void setPrevPage(int prevPage) {
-		this.prevPage = prevPage;
-	}
+    public void setPrevPage(int prevPage) {
+        this.prevPage = prevPage;
+    }
 }

@@ -20,10 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 12/19/2016
  */
-public class ForgotAction extends ActionSupport
-        implements
-            ServletResponseAware,
-            ServletRequestAware {
+public class ForgotAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
     private Map<String, Object> sessionAttributes = null;
@@ -55,7 +52,8 @@ public class ForgotAction extends ActionSupport
 
         try {
             defaults();
-            sessionAttributes = ActionContext.getContext().getSession();
+            sessionAttributes = ActionContext.getContext()
+                    .getSession();
             // are they already logged in?
             if (sessionAttributes.get("login") != null) {
                 throw new Exception("You are already logged in. Did you forget?");
@@ -130,8 +128,7 @@ public class ForgotAction extends ActionSupport
         } else if (!Utils.isValidEmail(email)) {
             throw new Exception("Invalid email address. Double-check and try again.");
         } else if (!remind && !reset && !recover) {
-            throw new Exception(
-                    "Missing expected boolean option. Please add remind, reset, or recover.");
+            throw new Exception("Missing expected boolean option. Please add remind, reset, or recover.");
         } else {
             return true;
         }
@@ -169,16 +166,14 @@ public class ForgotAction extends ActionSupport
                 sessionAttributes.remove("attempts");
                 sessionAttributes.remove("lastAttempt");
                 System.err.println("Unknown user has waited " + lockout + " min, proceed. ("
-                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost()
-                        + ")");
+                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ")");
                 return false;
             } else {
                 // they have already been locked out
                 System.err.println("Unknown user has been locked out for " + lockout + " min. ("
-                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost()
-                        + ") ");
-                throw new Exception("You have been locked out for the next " + lockout
-                        + " minutes, for too many attempts.");
+                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ") ");
+                throw new Exception(
+                        "You have been locked out for the next " + lockout + " minutes, for too many attempts.");
             }
         }
         return false;
@@ -223,8 +218,7 @@ public class ForgotAction extends ActionSupport
     }
 
     public void setType(String type) {
-        if (type == null)
-            type = "username";
+        if (type == null) type = "username";
         this.type = Utils.removeBadChars(type);
     }
 

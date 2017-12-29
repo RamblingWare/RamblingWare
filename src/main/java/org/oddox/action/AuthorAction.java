@@ -18,10 +18,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 10/23/2016
  */
-public class AuthorAction extends ActionSupport
-        implements
-            ServletResponseAware,
-            ServletRequestAware {
+public class AuthorAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,7 +41,8 @@ public class AuthorAction extends ActionSupport
         if (uriName != null && uriName.length() > 0) {
             // search in db for author
             try {
-                author = Application.getDatabaseService().getAuthor(uriName, false);
+                author = Application.getDatabaseService()
+                        .getAuthor(uriName, false);
 
                 if (author != null) {
                     // set attributes
@@ -57,7 +55,8 @@ public class AuthorAction extends ActionSupport
                 }
 
             } catch (Exception e) {
-                addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+                addActionError("Error: " + e.getClass()
+                        .getName() + ". Please try again later.");
                 e.printStackTrace();
                 return ERROR;
             }

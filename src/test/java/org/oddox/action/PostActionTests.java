@@ -36,7 +36,8 @@ public class PostActionTests {
 
         Post post = new Post("newpost");
         action.setPost(post);
-        assertEquals("newpost", action.getPost().get_Id());
+        assertEquals("newpost", action.getPost()
+                .get_Id());
 
         action.setServletRequest(null);
         action.setServletResponse(null);

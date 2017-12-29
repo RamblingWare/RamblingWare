@@ -42,7 +42,9 @@ public class YearsActionTests {
         List<Year> list = new ArrayList<Year>();
         list.add(cat);
         action.setYears(list);
-        assertEquals("Meta", action.getYears().get(0).getName());
+        assertEquals("Meta", action.getYears()
+                .get(0)
+                .getName());
 
         action.setServletRequest(null);
         action.setServletResponse(null);

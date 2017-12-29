@@ -41,7 +41,9 @@ public class HomeActionTests {
         List<Post> list = new ArrayList<Post>();
         list.add(post);
         action.setPosts(list);
-        assertEquals("newpost", action.getPosts().get(0).get_Id());
+        assertEquals("newpost", action.getPosts()
+                .get(0)
+                .get_Id());
 
         action.setServletRequest(null);
         action.setServletResponse(null);

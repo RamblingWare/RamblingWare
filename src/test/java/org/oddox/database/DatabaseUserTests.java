@@ -28,7 +28,7 @@ public class DatabaseUserTests {
         assertEquals("org.couchdb.user:admin", user.get_Id());
         user.setPassword("passwd");
         assertEquals("passwd", user.getPassword());
-        user.setRoles(new String[]{"admin"});
+        user.setRoles(new String[] { "admin" });
         assertEquals("admin", user.getRoles()[0]);
         user.setType("user");
         assertEquals("user", user.getType());

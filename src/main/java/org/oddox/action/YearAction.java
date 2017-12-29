@@ -42,8 +42,7 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/year/") && pageTemp.contains("/page/")) {
                 year = Utils.removeBadChars(pageTemp.substring(6, pageTemp.indexOf("/page")));
-                pageTemp = Utils.removeBadChars(
-                        pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
+                pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
                 page = Integer.parseInt(pageTemp);
 
             } else if (pageTemp.startsWith("/year/")) {
@@ -54,21 +53,21 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             int yr = Integer.parseInt(year);
 
             // gather posts
-            posts = Application.getDatabaseService().getPostsByYear(page,
-                    Application.getInt("default.limit"), yr, false);
+            posts = Application.getDatabaseService()
+                    .getPostsByYear(page, Application.getInt("default.limit"), yr, false);
 
             // determine pagination
             if (posts != null) {
-            	if (posts.size() >= Application.getInt("default.limit")) {
-					nextPage = page + 1;
-				} else {
-					nextPage = page;
-				}
-				if (page > 1) {
-					prevPage = page - 1;
-				} else {
-					prevPage = page;
-				}
+                if (posts.size() >= Application.getInt("default.limit")) {
+                    nextPage = page + 1;
+                } else {
+                    nextPage = page;
+                }
+                if (page > 1) {
+                    prevPage = page - 1;
+                } else {
+                    prevPage = page;
+                }
             }
 
             // set attributes
@@ -82,7 +81,8 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
         } catch (NumberFormatException nfe) {
             return NONE;
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }
@@ -126,19 +126,19 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
         this.page = page;
     }
 
-	public int getNextPage() {
-		return nextPage;
-	}
+    public int getNextPage() {
+        return nextPage;
+    }
 
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
-	}
+    public void setNextPage(int nextPage) {
+        this.nextPage = nextPage;
+    }
 
-	public int getPrevPage() {
-		return prevPage;
-	}
+    public int getPrevPage() {
+        return prevPage;
+    }
 
-	public void setPrevPage(int prevPage) {
-		this.prevPage = prevPage;
-	}
+    public void setPrevPage(int prevPage) {
+        this.prevPage = prevPage;
+    }
 }

@@ -42,8 +42,7 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             String pageTemp = servletRequest.getRequestURI();
             if (pageTemp.startsWith("/tag/") && pageTemp.contains("/page/")) {
                 tag = Utils.removeBadChars(pageTemp.substring(5, pageTemp.indexOf("/page")));
-                pageTemp = Utils.removeBadChars(
-                        pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
+                pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
                 page = Integer.parseInt(pageTemp);
             } else if (pageTemp.startsWith("/tag/")) {
                 tag = Utils.removeBadChars(pageTemp.substring(5, pageTemp.length()));
@@ -51,21 +50,21 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             }
 
             // gather posts
-            posts = Application.getDatabaseService().getPostsByTag(page,
-                    Application.getInt("default.limit"), tag, false);
+            posts = Application.getDatabaseService()
+                    .getPostsByTag(page, Application.getInt("default.limit"), tag, false);
 
             // determine pagination
             if (posts != null) {
-            	if (posts.size() >= Application.getInt("default.limit")) {
-					nextPage = page + 1;
-				} else {
-					nextPage = page;
-				}
-				if (page > 1) {
-					prevPage = page - 1;
-				} else {
-					prevPage = page;
-				}
+                if (posts.size() >= Application.getInt("default.limit")) {
+                    nextPage = page + 1;
+                } else {
+                    nextPage = page;
+                }
+                if (page > 1) {
+                    prevPage = page - 1;
+                } else {
+                    prevPage = page;
+                }
             }
 
             // set attributes
@@ -79,7 +78,8 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
         } catch (NumberFormatException nfe) {
             return NONE;
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }
@@ -123,19 +123,19 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
         this.page = page;
     }
 
-	public int getNextPage() {
-		return nextPage;
-	}
+    public int getNextPage() {
+        return nextPage;
+    }
 
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
-	}
+    public void setNextPage(int nextPage) {
+        this.nextPage = nextPage;
+    }
 
-	public int getPrevPage() {
-		return prevPage;
-	}
+    public int getPrevPage() {
+        return prevPage;
+    }
 
-	public void setPrevPage(int prevPage) {
-		this.prevPage = prevPage;
-	}
+    public void setPrevPage(int prevPage) {
+        this.prevPage = prevPage;
+    }
 }

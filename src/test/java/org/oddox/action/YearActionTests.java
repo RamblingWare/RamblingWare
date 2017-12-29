@@ -23,35 +23,37 @@ import org.oddox.objects.Post;
 @RunWith(JUnit4.class)
 public class YearActionTests {
 
-	@InjectMocks
-	private YearAction action;
+    @InjectMocks
+    private YearAction action;
 
-	@Before
-	public void beforeEachTest() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @Before
+    public void beforeEachTest() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-	@Test
-	public void variables() {
-		action.setPosts(null);
-		assertNull(action.getPosts());
+    @Test
+    public void variables() {
+        action.setPosts(null);
+        assertNull(action.getPosts());
 
-		action.setYear("Meta");
-		assertEquals("Meta", action.getYear());
-		action.setPage(2);
-		assertEquals(2, action.getPage());
-		action.setNextPage(3);
-		assertEquals(3, action.getNextPage());
-		action.setPrevPage(1);
-		assertEquals(1, action.getPrevPage());
+        action.setYear("Meta");
+        assertEquals("Meta", action.getYear());
+        action.setPage(2);
+        assertEquals(2, action.getPage());
+        action.setNextPage(3);
+        assertEquals(3, action.getNextPage());
+        action.setPrevPage(1);
+        assertEquals(1, action.getPrevPage());
 
-		Post post = new Post("newpost");
-		List<Post> list = new ArrayList<Post>();
-		list.add(post);
-		action.setPosts(list);
-		assertEquals("newpost", action.getPosts().get(0).get_Id());
+        Post post = new Post("newpost");
+        List<Post> list = new ArrayList<Post>();
+        list.add(post);
+        action.setPosts(list);
+        assertEquals("newpost", action.getPosts()
+                .get(0)
+                .get_Id());
 
-		action.setServletRequest(null);
-		action.setServletResponse(null);
-	}
+        action.setServletRequest(null);
+        action.setServletResponse(null);
+    }
 }

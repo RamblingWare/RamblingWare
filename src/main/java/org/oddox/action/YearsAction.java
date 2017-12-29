@@ -19,10 +19,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 4/20/2017
  */
-public class YearsAction extends ActionSupport
-        implements
-            ServletResponseAware,
-            ServletRequestAware {
+public class YearsAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,21 +35,23 @@ public class YearsAction extends ActionSupport
         // /year
         try {
             // gather posts
-            years = Application.getDatabaseService().getYears();
+            years = Application.getDatabaseService()
+                    .getYears();
 
             // already sorted chronologically
             // so reverse so newest on top
             if (years != null) {
                 Collections.reverse(years);
             }
-            
+
             // set attributes
             servletRequest.setAttribute("years", years);
 
             return SUCCESS;
 
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }

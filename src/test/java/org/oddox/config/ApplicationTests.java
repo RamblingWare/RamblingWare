@@ -71,7 +71,8 @@ public class ApplicationTests {
         map.put("key", "value");
         config.setSettings(map);
         assertNotNull(config.getSettings());
-        assertEquals("value", config.getSettings().get("key"));
+        assertEquals("value", config.getSettings()
+                .get("key"));
     }
 
     @Test
@@ -88,12 +89,14 @@ public class ApplicationTests {
         List<String> wlist = new ArrayList<String>();
         wlist.add("0.0.0.0");
         fw.setWhitelist(wlist);
-        assertTrue(fw.getWhitelist().contains("0.0.0.0"));
+        assertTrue(fw.getWhitelist()
+                .contains("0.0.0.0"));
 
         List<String> blist = new ArrayList<String>();
         blist.add("8.8.8.8");
         fw.setBlacklist(blist);
-        assertTrue(fw.getBlacklist().contains("8.8.8.8"));
+        assertTrue(fw.getBlacklist()
+                .contains("8.8.8.8"));
 
         Application.setAppFirewall(fw);
         assertNotNull(Application.getAppFirewall());

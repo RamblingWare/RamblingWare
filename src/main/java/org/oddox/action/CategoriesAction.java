@@ -19,10 +19,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 4/30/2017
  */
-public class CategoriesAction extends ActionSupport
-        implements
-            ServletResponseAware,
-            ServletRequestAware {
+public class CategoriesAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +37,8 @@ public class CategoriesAction extends ActionSupport
         // this shows all the categories of blog posts
         try {
             // gather posts
-            categories = Application.getDatabaseService().getCategories();
+            categories = Application.getDatabaseService()
+                    .getCategories();
 
             // sort alphabetically
             if (categories != null) {
@@ -53,7 +51,8 @@ public class CategoriesAction extends ActionSupport
             return SUCCESS;
 
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass().getName() + ". Please try again later.");
+            addActionError("Error: " + e.getClass()
+                    .getName() + ". Please try again later.");
             e.printStackTrace();
             return ERROR;
         }
