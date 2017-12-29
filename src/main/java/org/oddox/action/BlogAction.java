@@ -11,7 +11,6 @@ import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -29,6 +28,8 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
     private int page;
     private int nextPage;
     private int prevPage;
+    private int totalPages;
+    private int totalPosts;
 
     /**
      * Returns list of blog posts.
@@ -37,7 +38,7 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
      */
     public String execute() {
 
-        // /blog
+        // /blog/ or /"home"
 
         // this shows the most recent blog posts
         try {
@@ -47,6 +48,9 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             if (pageTemp.startsWith("/blog/page/")) {
                 pageTemp = Utils.removeBadChars(pageTemp.substring(11, pageTemp.length()));
                 page = Integer.parseInt(pageTemp);
+            } else if (pageTemp.startsWith("/page/")) {
+                pageTemp = Utils.removeBadChars(pageTemp.substring(6, pageTemp.length()));
+                page = Integer.parseInt(pageTemp);
             } else {
                 page = 1;
             }
@@ -55,10 +59,9 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
             posts = Application.getDatabaseService()
                     .getPosts(page, Application.getInt("default.limit"), false);
 
-            // already sorted newest first
+            if (posts != null && !posts.isEmpty()) {
 
-            // determine pagination
-            if (posts != null) {
+                // determine pagination
                 if (posts.size() >= Application.getInt("default.limit")) {
                     nextPage = page + 1;
                 } else {
@@ -69,19 +72,20 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
                 } else {
                     prevPage = page;
                 }
-            }
 
-            // set attributes
-            servletRequest.setAttribute("posts", posts);
-            servletRequest.setAttribute("page", page);
-            servletRequest.setAttribute("nextPage", nextPage);
-            servletRequest.setAttribute("prevPage", prevPage);
+                // get totals
+                totalPosts = ((int) servletRequest.getSession()
+                        .getAttribute("archiveTotal"));
+                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
+            } else {
+                posts = null;
+                throw new NullPointerException("No posts found");
+            }
 
             return SUCCESS;
 
-        } catch (NumberFormatException e) {
-            System.err.println("Page not found. Please try again.");
-            return Action.NONE;
+        } catch (NullPointerException | NumberFormatException nfe) {
+            return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()
                     .getName() + ". Please try again later.");
@@ -131,5 +135,21 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
 
     public void setPrevPage(int prevPage) {
         this.prevPage = prevPage;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public int getTotalPosts() {
+        return totalPosts;
+    }
+
+    public void setTotalPosts(int totalPosts) {
+        this.totalPosts = totalPosts;
     }
 }

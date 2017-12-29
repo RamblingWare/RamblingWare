@@ -22,7 +22,7 @@
 					<#if posts.size() == 1>	
 						<p>1 blog post with category ${(category)!''}.<br /></p>
 					<#else>
-						<p>${(posts.size())!''} blog posts with category ${(category)!''}.<br /></p>
+						<p>${(totalPosts)!''} blog posts with category ${(category)!''}.<br /></p>
 					</#if>
 					
 					<#list posts as post>

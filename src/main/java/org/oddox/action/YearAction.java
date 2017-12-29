@@ -10,6 +10,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
+import org.oddox.objects.Year;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -29,6 +30,8 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
     private int page;
     private int nextPage;
     private int prevPage;
+    private int totalPages;
+    private int totalPosts;
 
     /**
      * Returns list of posts for year.
@@ -57,8 +60,9 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             posts = Application.getDatabaseService()
                     .getPostsByYear(page, Application.getInt("default.limit"), yr, false);
 
-            // determine pagination
-            if (posts != null) {
+            if (posts != null && !posts.isEmpty()) {
+
+                // determine pagination
                 if (posts.size() >= Application.getInt("default.limit")) {
                     nextPage = page + 1;
                 } else {
@@ -69,17 +73,28 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
                 } else {
                     prevPage = page;
                 }
-            }
 
-            // set attributes
-            servletRequest.setAttribute("posts", posts);
-            servletRequest.setAttribute("page", page);
-            servletRequest.setAttribute("nextPage", nextPage);
-            servletRequest.setAttribute("prevPage", prevPage);
+                // get totals
+                totalPosts = page;
+                @SuppressWarnings("unchecked")
+                List<Year> archiveYears = (List<Year>) servletRequest.getSession()
+                        .getAttribute("archiveYears");
+                for (Year yrs : archiveYears) {
+                    if (year.equals(yrs.getName())) {
+                        totalPosts = yrs.getCount();
+                        break;
+                    }
+                }
+                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
+            } else {
+                posts = null;
+                throw new NullPointerException("No posts found");
+            }
 
             return SUCCESS;
 
-        } catch (NumberFormatException nfe) {
+        } catch (NullPointerException | NumberFormatException nfe) {
+            System.err.println("Year '" + year + "' not found. Please try again.");
             return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()
@@ -137,5 +152,21 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
 
     public void setPrevPage(int prevPage) {
         this.prevPage = prevPage;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public int getTotalPosts() {
+        return totalPosts;
+    }
+
+    public void setTotalPosts(int totalPosts) {
+        this.totalPosts = totalPosts;
     }
 }

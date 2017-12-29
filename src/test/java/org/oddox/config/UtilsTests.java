@@ -11,10 +11,12 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.oddox.config.Utils;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Unit tests for Utils
@@ -24,6 +26,14 @@ import org.oddox.config.Utils;
  */
 @RunWith(JUnit4.class)
 public class UtilsTests {
+
+    @InjectMocks
+    private Utils utils;
+
+    @Before
+    public void beforeEachTest() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void time() {
@@ -175,7 +185,7 @@ public class UtilsTests {
         } catch (Exception e) {
             // good
         }
-        
+
         try {
             Utils.getResourceAsFile("");
             fail("Failed to catch empty file.");
@@ -222,7 +232,7 @@ public class UtilsTests {
         } catch (Exception e) {
             // good
         }
-        
+
         try {
             HashMap<String, String> map = Utils.loadMapFromFile("");
             assertNull(map);

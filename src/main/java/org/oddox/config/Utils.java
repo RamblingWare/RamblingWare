@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * @author Austin Delamar
  * @date 4/8/2017
  */
-public abstract class Utils {
+public class Utils {
 
     private static final DecimalFormat BYTEFORM = new DecimalFormat("0.00");
     private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
@@ -359,9 +359,7 @@ public abstract class Utils {
             }
 
         } finally {
-            if (in != null) {
-                in.close();
-            }
+            in.close();
         }
         return dataString;
     }
@@ -384,14 +382,17 @@ public abstract class Utils {
         InputStream in = Utils.class.getResourceAsStream(resourcePath);
         File tempFile = File.createTempFile(String.valueOf(in.hashCode()), ".tmp");
         tempFile.deleteOnExit();
-
-        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+        FileOutputStream out = null;
+        try {
             // copy stream
+            out = new FileOutputStream(tempFile);
             byte[] buffer = new byte[1024];
             int bytesRead;
             while ((bytesRead = in.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
+        } finally {
+            out.close();
         }
         return tempFile;
     }

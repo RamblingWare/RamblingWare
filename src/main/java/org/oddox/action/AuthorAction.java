@@ -9,7 +9,6 @@ import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Author;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -49,10 +48,10 @@ public class AuthorAction extends ActionSupport implements ServletResponseAware,
                     // set attributes
                     servletRequest.setAttribute("author", author);
 
-                    return Action.SUCCESS;
+                    return SUCCESS;
                 } else {
                     System.err.println("Author '" + uriName + "' not found. Please try again.");
-                    return Action.NONE;
+                    return NONE;
                 }
 
             } catch (Exception e) {
@@ -63,7 +62,7 @@ public class AuthorAction extends ActionSupport implements ServletResponseAware,
             }
         } else {
             System.err.println("Author '" + uriName + "' not found. Please try again.");
-            return Action.NONE;
+            return NONE;
         }
     }
 

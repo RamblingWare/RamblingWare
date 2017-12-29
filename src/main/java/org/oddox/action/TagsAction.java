@@ -40,8 +40,11 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
                     .getTags();
 
             // sort alphabetically
-            if (tags != null) {
+            if (tags != null && !tags.isEmpty()) {
                 Collections.sort(tags);
+            } else {
+                tags = null;
+                throw new NullPointerException("No tags found");
             }
 
             // set attributes
@@ -49,6 +52,8 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
 
             return SUCCESS;
 
+        } catch (NullPointerException nfe) {
+            return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()
                     .getName() + ". Please try again later.");

@@ -45,6 +45,12 @@ public class ArchiveInterceptor implements Interceptor {
                     .getTags();
             archiveCategories = Application.getDatabaseService()
                     .getCategories();
+            
+            // count total posts
+            int archiveTotal = 0;
+            for(Year year : archiveYears) {
+                archiveTotal += year.getCount();
+            }
 
             // sort lists
             Collections.reverse(archiveYears);
@@ -52,6 +58,7 @@ public class ArchiveInterceptor implements Interceptor {
             Collections.sort(archiveCategories);
 
             // set attributes
+            sessionAttributes.put("archiveTotal", archiveTotal);
             sessionAttributes.put("archiveFeatured", archiveFeatured);
             sessionAttributes.put("archiveYears", archiveYears);
             sessionAttributes.put("archiveTags", archiveTags);
@@ -60,6 +67,7 @@ public class ArchiveInterceptor implements Interceptor {
             // set to context
             Map<String, Object> map = actionInvocation.getInvocationContext()
                     .getContextMap();
+            map.put("archiveTotal", archiveTotal);
             map.put("archiveFeatured", archiveFeatured);
             map.put("archiveYears", archiveYears);
             map.put("archiveTags", archiveTags);

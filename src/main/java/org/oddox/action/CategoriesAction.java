@@ -42,8 +42,11 @@ public class CategoriesAction extends ActionSupport implements ServletResponseAw
                     .getCategories();
 
             // sort alphabetically
-            if (categories != null) {
+            if (categories != null && !categories.isEmpty()) {
                 Collections.sort(categories);
+            } else {
+                categories = null;
+                throw new NullPointerException("No categories found");
             }
 
             // set attributes
@@ -51,6 +54,8 @@ public class CategoriesAction extends ActionSupport implements ServletResponseAw
 
             return SUCCESS;
 
+        } catch (NullPointerException nfe) {
+            return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()
                     .getName() + ". Please try again later.");

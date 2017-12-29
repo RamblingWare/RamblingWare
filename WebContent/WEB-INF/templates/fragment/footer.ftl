@@ -1,7 +1,7 @@
 <footer>
 <div class="w3-container w3-padding-16 w3-theme-l4 w3-border-top w3-border-bottom no-print">
 	<p class="w3-large w3-margin-0">
-		<a href="/blog/" class="w3-hover-text-black" title="Home">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/" class="w3-hover-text-black" title="Home">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="/about" class="w3-hover-text-black" title="About">About</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="/search" class="w3-hover-text-black" title="Search">Search</a>
 		<br/>

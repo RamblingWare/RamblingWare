@@ -29,11 +29,6 @@
 					<span class="icon-cross w3-large w3-margin-right"></span>
 						Something went wrong because no posts were found. Please try again later?</p>
 				</#if>
-				<p class="w3-hide-large">
-					${(description)!''}
-					<br/><br/>
-					Follow or Subscribe for the latest updates!
-				</p>
 			</div>
 			
 			<#include "/WEB-INF/templates/fragment/archive.ftl">

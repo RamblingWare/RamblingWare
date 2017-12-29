@@ -42,6 +42,8 @@ public class BlogActionTests {
         assertEquals(3, action.getNextPage());
         action.setPrevPage(1);
         assertEquals(1, action.getPrevPage());
+        action.setTotalPages(3);
+        assertEquals(3, action.getTotalPages());
 
         Post post = new Post("newpost");
         List<Post> list = new ArrayList<Post>();

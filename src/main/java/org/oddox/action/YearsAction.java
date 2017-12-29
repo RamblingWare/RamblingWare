@@ -41,8 +41,11 @@ public class YearsAction extends ActionSupport implements ServletResponseAware, 
 
             // already sorted chronologically
             // so reverse so newest on top
-            if (years != null) {
+            if (years != null && !years.isEmpty()) {
                 Collections.reverse(years);
+            } else {
+                years = null;
+                throw new NullPointerException("No years found");
             }
 
             // set attributes
@@ -50,6 +53,8 @@ public class YearsAction extends ActionSupport implements ServletResponseAware, 
 
             return SUCCESS;
 
+        } catch (NullPointerException nfe) {
+            return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()
                     .getName() + ". Please try again later.");

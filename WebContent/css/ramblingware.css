@@ -99,6 +99,8 @@ ul.w3-ul{list-style-type:none;padding:0;margin:0}ul.w3-ul li{padding:6px 2px 6px
 .w3-left-align{text-align:left!important}.w3-right-align{text-align:right!important}
 .w3-justify{text-align:justify!important}.w3-center{text-align:center!important}
 .w3-round{border-radius:4px!important}.w3-round-large{border-radius:8px!important}
+.w3-round-left{border-top-left-radius:4px!important;border-bottom-left-radius:4px!important;}
+.w3-round-right{border-top-right-radius:4px!important;border-bottom-right-radius:4px!important;}
 .w3-border-0{border:0!important}.w3-border{border:1px solid #ccc!important}
 .w3-border-top{border-top:1px solid #ccc!important}.w3-border-bottom{border-bottom:1px solid #ccc!important}
 .w3-border-left{border-left:1px solid #ccc!important}.w3-border-right{border-right:1px solid #ccc!important}

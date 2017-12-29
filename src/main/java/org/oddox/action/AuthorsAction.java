@@ -11,7 +11,6 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.objects.Author;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -40,7 +39,7 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
                     .getAuthors(1, Application.getInt("default.limit"), false);
 
             // sort alphabetically
-            if (authors != null) {
+            if (authors != null && !authors.isEmpty()) {
                 Collections.sort(authors, new java.util.Comparator<Author>() {
                     @Override
                     public int compare(Author a1, Author a2) {
@@ -48,13 +47,18 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
                                 .compareToIgnoreCase(a2.getName());
                     }
                 });
+            } else {
+                authors = null;
+                throw new NullPointerException("No authors found");
             }
 
             // set attributes
             servletRequest.setAttribute("authors", authors);
 
-            return Action.SUCCESS;
+            return SUCCESS;
 
+        } catch (NullPointerException nfe) {
+            return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()
                     .getName() + ". Please try again later.");

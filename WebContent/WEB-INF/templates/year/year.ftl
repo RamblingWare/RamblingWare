@@ -22,7 +22,7 @@
 					<#if posts.size() == 1>	
 						<p>1 blog post published in ${(year)!''}.<br /></p>
 					<#else>
-						<p>${(posts.size())!''} blog posts published in ${(year)!''}.<br /></p>
+						<p>${(totalPosts)!''} blog posts published in ${(year)!''}.<br /></p>
 					</#if>
 					
 					<#list posts as post>

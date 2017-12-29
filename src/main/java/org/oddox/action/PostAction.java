@@ -12,7 +12,6 @@ import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -88,10 +87,10 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                     Application.getDatabaseService()
                             .editView(post.getView());
 
-                    return Action.SUCCESS;
+                    return SUCCESS;
                 } else {
                     System.err.println("Post '" + uri + "' not found. Please try again.");
-                    return Action.NONE;
+                    return NONE;
                 }
 
             } catch (Exception e) {
@@ -102,7 +101,7 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
             }
         } else {
             System.err.println("Post '" + uri + "' not found. Please try again.");
-            return Action.NONE;
+            return NONE;
         }
     }
 

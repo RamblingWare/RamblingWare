@@ -22,7 +22,7 @@
 					<#if posts.size() == 1>	
 						<p>1 blog post tagged with ${(tag)!''}.<br /></p>
 					<#else>
-						<p>${(posts.size())!''} blog posts tagged with ${(tag)!''}.<br /></p>
+						<p>${(totalPosts)!''} blog posts tagged with ${(tag)!''}.<br /></p>
 					</#if>
 					
 					<#list posts as post>
