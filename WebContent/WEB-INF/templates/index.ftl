@@ -16,16 +16,14 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 								
-				<h1>Latest Posts</h1>
+				<h1>Blog Posts</h1>
 				
 				<#if posts??>	
 					<#list posts as post>
 						<#include "/WEB-INF/templates/blog/card-post.ftl">
 					</#list>
 					
-					<div class="w3-container w3-padding-left w3-padding-right w3-center">
-						<p class="w3-large"><a href="/blog/">See more...</a></p>
-					</div>
+					<#include "/WEB-INF/templates/fragment/pagination.ftl">
 				<#else>
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
 					<span class="icon-cross w3-large w3-margin-right"></span>

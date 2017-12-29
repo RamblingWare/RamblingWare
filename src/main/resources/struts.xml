@@ -29,7 +29,12 @@
 		</global-exception-mappings>
 		
 		<!-- ACTIONS -->
-		<action name="" class="org.oddox.action.HomeAction">
+		<action name="" class="org.oddox.action.BlogAction">
+			<result name="success" type="freemarker">/WEB-INF/templates/index.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
+			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
+		</action>
+		<action name="page/*" class="org.oddox.action.BlogAction">
 			<result name="success" type="freemarker">/WEB-INF/templates/index.ftl</result>
 			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
@@ -93,13 +98,13 @@
 		<default-interceptor-ref name="interceptorStack"></default-interceptor-ref>
 				
 		<action name="" class="org.oddox.action.BlogAction">
-			<result name="success" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
-			<result name="error" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/index.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/index.ftl</result>
 		</action>
 		
 		<action name="page/*" class="org.oddox.action.BlogAction">
-			<result name="success" type="freemarker">/WEB-INF/templates/blog/blog.ftl</result>
-			<result name="error" type="freemarker">/WEB-INF/templates/blog/error.ftl</result>
+			<result name="success" type="freemarker">/WEB-INF/templates/index.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error/error.ftl</result>
 			<result name="none" type="freemarker">/WEB-INF/templates/error/404.ftl</result>
 		</action>
 		
