@@ -22,7 +22,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class YearsAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-
+    protected HttpServletResponse servletResponse;
+    protected HttpServletRequest servletRequest;
     private List<Year> years = null;
 
     /**
@@ -57,14 +58,10 @@ public class YearsAction extends ActionSupport implements ServletResponseAware, 
         }
     }
 
-    protected HttpServletResponse servletResponse;
-
     @Override
     public void setServletResponse(HttpServletResponse servletResponse) {
         this.servletResponse = servletResponse;
     }
-
-    protected HttpServletRequest servletRequest;
 
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {

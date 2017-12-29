@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * @author Austin Delamar
  * @date 4/8/2017
  */
-public class Utils {
+public abstract class Utils {
 
     private static final DecimalFormat BYTEFORM = new DecimalFormat("0.00");
     private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
@@ -323,7 +323,6 @@ public class Utils {
      * <li>Must have domain name like domain.com</li>
      * <li>Must not have illegal characters</li>
      * </ul>
-     * 
      * @param email
      *            string
      * @return boolean
@@ -339,10 +338,15 @@ public class Utils {
      * @param urlString
      *            URL string
      * @return String
+     * @throws NullPointerException
+     *             if urlString is null or empty
      * @throws IOException
-     *             if error
+     *             if error during stream input
      */
     public static String downloadUrlFile(String urlString) throws IOException {
+        if (urlString == null || urlString.isEmpty()) {
+            throw new NullPointerException();
+        }
         BufferedInputStream in = null;
         String dataString = "";
         try {
@@ -354,15 +358,9 @@ public class Utils {
                 dataString += (new String(data, 0, bytesRead));
             }
 
-        } catch (IOException e) {
-            throw e;
         } finally {
             if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e1) {
-                    System.err.println("Error: " + e1.getMessage());
-                }
+                in.close();
             }
         }
         return dataString;
@@ -374,31 +372,28 @@ public class Utils {
      * @param resourcePath
      *            name of file
      * @return File
+     * @throws NullPointerException
+     *             if resourcePath is null or empty
      * @throws IOException
-     *             if error
+     *             if error during stream input
      */
     public static File getResourceAsFile(String resourcePath) throws IOException {
-        try {
-            InputStream in = Utils.class.getResourceAsStream(resourcePath);
-            if (in == null) {
-                return null;
-            }
-
-            File tempFile = File.createTempFile(String.valueOf(in.hashCode()), ".tmp");
-            tempFile.deleteOnExit();
-
-            try (FileOutputStream out = new FileOutputStream(tempFile)) {
-                // copy stream
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, bytesRead);
-                }
-            }
-            return tempFile;
-        } catch (IOException e) {
-            throw e;
+        if (resourcePath == null || resourcePath.isEmpty()) {
+            throw new NullPointerException();
         }
+        InputStream in = Utils.class.getResourceAsStream(resourcePath);
+        File tempFile = File.createTempFile(String.valueOf(in.hashCode()), ".tmp");
+        tempFile.deleteOnExit();
+
+        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+            // copy stream
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+        }
+        return tempFile;
     }
 
     /**
@@ -407,14 +402,17 @@ public class Utils {
      * @param propertiesFile
      * @return
      * @throws NullPointerException
-     *             - if propertiesFile is null.
+     *             if propertiesFile is null or empty
      * @throws IOException
-     *             - if an error occurred when reading from the input stream.
+     *             if an error occurred when reading from the input stream.
      * @throws IllegalArgumentException
-     *             - if the input stream contains a malformed Unicode escape sequence.
+     *             if the input stream contains a malformed Unicode escape sequence.
      */
     public static HashMap<String, String> loadMapFromFile(String propertiesFile)
             throws NullPointerException, IOException, IllegalArgumentException {
+        if (propertiesFile == null || propertiesFile.isEmpty()) {
+            throw new NullPointerException();
+        }
         HashMap<String, String> map = new HashMap<String, String>();
         Properties properties = new Properties();
         properties.load(Application.class.getResourceAsStream(propertiesFile));

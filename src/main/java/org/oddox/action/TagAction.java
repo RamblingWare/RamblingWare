@@ -22,7 +22,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class TagAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
-
+    protected HttpServletResponse servletResponse;
+    protected HttpServletRequest servletRequest;
     private List<Post> posts = null;
     private String tag;
     private int page;
@@ -85,14 +86,10 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
         }
     }
 
-    protected HttpServletResponse servletResponse;
-
     @Override
     public void setServletResponse(HttpServletResponse servletResponse) {
         this.servletResponse = servletResponse;
     }
-
-    protected HttpServletRequest servletRequest;
 
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {

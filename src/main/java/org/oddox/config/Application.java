@@ -56,8 +56,8 @@ public class Application implements ServletContextListener {
 
         // Load settings from Database
         databaseService = new CouchDb(databaseSetup.getDatabase());
-        appFirewall = loadFirewallFromDB(databaseService);
-        AppConfig configdb = loadSettingsFromDB(databaseService);
+        appFirewall = databaseService.getAppFirewall();
+        AppConfig configdb = databaseService.getAppConfig();
         if (configdb != null) {
             System.out.println("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
             appConfig.getSettings()
@@ -79,14 +79,6 @@ public class Application implements ServletContextListener {
             return null;
         }
         return config;
-    }
-
-    public static AppConfig loadSettingsFromDB(DatabaseService dbs) {
-        return dbs.getAppConfig();
-    }
-
-    public static AppFirewall loadFirewallFromDB(DatabaseService dbs) {
-        return dbs.getAppFirewall();
     }
 
     public static Database loadDatabase() {
@@ -155,11 +147,6 @@ public class Application implements ServletContextListener {
         }
 
         return db;
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent arg0) {
-        System.out.println("Stopped Oddox.");
     }
 
     /**

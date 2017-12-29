@@ -21,6 +21,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class RootAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 
     private static final long serialVersionUID = 1L;
+    protected HttpServletResponse servletResponse;
+    protected HttpServletRequest servletRequest;
 
     // JSON response
     private String oddox;
@@ -54,14 +56,10 @@ public class RootAction extends ActionSupport implements ServletResponseAware, S
         return NONE;
     }
 
-    protected HttpServletResponse servletResponse;
-
     @Override
     public void setServletResponse(HttpServletResponse servletResponse) {
         this.servletResponse = servletResponse;
     }
-
-    protected HttpServletRequest servletRequest;
 
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {

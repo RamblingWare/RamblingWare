@@ -112,6 +112,12 @@ public class ApplicationTests {
 
         Application.setDatabaseService(new CouchDb(db));
         assertNotNull(Application.getDatabaseService());
+        
+        // CloudFoundry env variables
+        // TODO
+        
+        // Docker env variables
+        // TODO
     }
 
     @Test

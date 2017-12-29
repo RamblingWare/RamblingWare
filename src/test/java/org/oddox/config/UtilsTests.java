@@ -175,6 +175,20 @@ public class UtilsTests {
         } catch (Exception e) {
             // good
         }
+        
+        try {
+            Utils.getResourceAsFile("");
+            fail("Failed to catch empty file.");
+        } catch (Exception e) {
+            // good
+        }
+
+        try {
+            Utils.downloadUrlFile("");
+            fail("Failed to catch empty file.");
+        } catch (Exception e) {
+            // good
+        }
     }
 
     @Test
@@ -204,6 +218,13 @@ public class UtilsTests {
 
         try {
             HashMap<String, String> map = Utils.loadMapFromFile(null);
+            assertNull(map);
+        } catch (Exception e) {
+            // good
+        }
+        
+        try {
+            HashMap<String, String> map = Utils.loadMapFromFile("");
             assertNull(map);
         } catch (Exception e) {
             // good

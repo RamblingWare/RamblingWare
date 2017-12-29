@@ -1,4 +1,4 @@
-package org.oddox.action.filter;
+package org.oddox.action.interceptor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,16 +8,16 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 /**
- * Unit tests for StaticContentFilter
+ * Unit tests for AppInterceptor
  * 
  * @author amdelamar
  * @since 1.0.0
  */
 @RunWith(JUnit4.class)
-public class StaticContentFilterTests {
+public class AppInterceptorTests {
 
     @InjectMocks
-    private StaticContentFilter filter;
+    private AppInterceptor interceptor;
 
     @Before
     public void beforeEachTest() {
@@ -26,7 +26,7 @@ public class StaticContentFilterTests {
 
     @Test
     public void variables() {
-        filter.init(null);
-        filter.destroy();
+        interceptor.init();
+        interceptor.destroy();
     }
 }
