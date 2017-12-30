@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +17,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.config.AppConfig;
-import org.oddox.config.AppFirewall;
-import org.oddox.config.Application;
 import org.oddox.database.CouchDb;
 import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
@@ -43,13 +42,26 @@ public class ApplicationTests {
     }
 
     @Test
-    public void settings() {
-        AppConfig config = Application.loadSettingsFromFile(null);
-        assertNull(config);
-        config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
-        Application.setAppConfig(config);
-        assertNotNull(Application.getAppConfig());
+    public void constructor() {
+        assertTrue(app != null);
+    }
 
+    @Test
+    public void settings() {
+        AppConfig config = null;
+        try {
+            config = Application.loadSettingsFromFile(null);
+            fail("null settings not caught");
+        } catch (IOException e) {
+            assertNull(config);
+        }
+        try {
+            config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
+            Application.setAppConfig(config);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        assertNotNull(Application.getAppConfig());
         assertNotNull(Application.getString("name"));
         assertTrue(Application.getInt("default.limit") > 0);
         assertTrue(Application.getDouble("default.manageLimit") > 0d);
@@ -103,26 +115,109 @@ public class ApplicationTests {
     }
 
     @Test
-    public void database() {
-        Database db = Application.loadDatabase();
-        assertNotNull(db);
-
-        Application.setDatabaseSetup(new CouchDbSetup(db));
+    public void databaseSetup() {
+        Application.setDatabaseSetup(new CouchDbSetup(new Database()));
         assertNotNull(Application.getDatabaseSetup());
 
-        Application.setDatabaseService(new CouchDb(db));
+        Application.setDatabaseService(new CouchDb(new Database()));
         assertNotNull(Application.getDatabaseService());
-        
+
+    }
+
+    @Test
+    public void databaseLoad() {
+        Database db = null;
+
+        // Properties file
+        try {
+            db = Application.loadDatabase(null, Application.DB_PROP_FILE);
+            assertNotNull(db);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+
         // CloudFoundry env variables
-        // TODO
-        
+        @SuppressWarnings("unused")
+        HashMap<String, String> cfenv = new HashMap<String, String>();
+        // @formatter:off
+        cfenv.put("VCAP_SERVICES", "{\r\n" + 
+                "    \"cloudantNoSQLDB\": [\r\n" + 
+                "        {\r\n" + 
+                "            \"credentials\": {\r\n" + 
+                "                \"username\": \"myaccount\",\r\n" + 
+                "                \"password\": \"mypassword\",\r\n" + 
+                "                \"host\": \"myaccount.cloudant.com\",\r\n" + 
+                "                \"port\": 443,\r\n" + 
+                "                \"url\": \"https://myaccount:mypassword@myaccount.cloudant.com\"\r\n" + 
+                "            },\r\n" + 
+                "            \"syslog_drain_url\": null,\r\n" + 
+                "            \"volume_mounts\": [],\r\n" + 
+                "            \"label\": \"cloudantNoSQLDB\",\r\n" + 
+                "            \"provider\": null,\r\n" + 
+                "            \"plan\": \"Lite\",\r\n" + 
+                "            \"name\": \"Cloudant\",\r\n" + 
+                "            \"tags\": [\r\n" + 
+                "                \"data_management\",\r\n" + 
+                "                \"ibm_created\",\r\n" + 
+                "                \"lite\",\r\n" + 
+                "                \"ibm_dedicated_public\"\r\n" + 
+                "            ]\r\n" + 
+                "        }\r\n" + 
+                "    ]\r\n" + 
+                "}");
+        // @formatter:on
+        try {
+            db = Application.loadDatabase(cfenv, null);
+            assertNotNull(db);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+
         // Docker env variables
-        // TODO
+        HashMap<String, String> dockerenv = new HashMap<String, String>();
+        dockerenv.put("DB_URL", "http://127.0.0.1:5984/");
+        dockerenv.put("DB_USER", "admin");
+        dockerenv.put("DB_PASS", "password");
+        try {
+            db = Application.loadDatabase(dockerenv, null);
+            assertNotNull(db);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+
+        // invalid properties file
+        try {
+            db = Application.loadDatabase(null, "app.properties");
+            fail("failed to catch null properties file");
+        } catch (IOException e) {
+            // ok good
+        }
+
+        // invalid VCAP_SERVICES
+        cfenv.put("VCAP_SERVICES", "");
+        try {
+            db = Application.loadDatabase(cfenv, null);
+            fail("failed to catch invalid VCAP_SERVICES env");
+        } catch (IOException e) {
+            // ok good
+        }
+
+        // invalid DB_URL
+        dockerenv.put("DB_URL","");
+        try {
+            db = Application.loadDatabase(dockerenv, null);
+            fail("failed to catch invalid DB_URL env");
+        } catch (IOException e) {
+            // ok good
+        }
     }
 
     @Test
     public void properties() {
         assertNotNull(Application.APP_PROP_FILE);
         assertTrue(Application.APP_PROP_FILE.endsWith(".properties"));
+        
+        assertNotNull(Application.DB_PROP_FILE);
+        assertTrue(Application.DB_PROP_FILE.endsWith(".properties"));
     }
 }

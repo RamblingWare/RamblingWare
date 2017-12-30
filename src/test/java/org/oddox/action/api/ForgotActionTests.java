@@ -34,6 +34,11 @@ public class ForgotActionTests {
     }
 
     @Test
+    public void constructor() {
+        assertTrue(action != null);
+    }
+
+    @Test
     public void defaults() {
         action.defaults();
     }

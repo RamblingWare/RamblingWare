@@ -11,6 +11,7 @@ import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
 
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -79,12 +80,12 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
                 totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
             } else {
                 posts = null;
-                throw new NullPointerException("No posts found");
+                throw new NoDocumentException("No posts found");
             }
 
             return SUCCESS;
 
-        } catch (NullPointerException | NumberFormatException nfe) {
+        } catch (NoDocumentException | NumberFormatException nfe) {
             return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()

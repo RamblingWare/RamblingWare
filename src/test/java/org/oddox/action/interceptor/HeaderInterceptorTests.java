@@ -1,5 +1,7 @@
 package org.oddox.action.interceptor;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,11 @@ public class HeaderInterceptorTests {
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void constructor() {
+        assertTrue(interceptor != null);
     }
 
     @Test

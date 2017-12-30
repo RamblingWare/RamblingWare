@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,11 +30,16 @@ public class RootActionTests {
     private RootAction action;
 
     @Before
-    public void beforeEachTest() {
+    public void beforeEachTest() throws IOException {
         MockitoAnnotations.initMocks(this);
         AppConfig config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
         Application.setAppConfig(config);
-        Application.setDatabaseService(new CouchDb(Application.loadDatabase()));
+        Application.setDatabaseService(new CouchDb(Application.loadDatabase(System.getenv(), Application.DB_PROP_FILE)));
+    }
+
+    @Test
+    public void constructor() {
+        assertTrue(action != null);
     }
 
     @Test

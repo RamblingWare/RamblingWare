@@ -12,6 +12,7 @@ import org.oddox.config.Utils;
 import org.oddox.objects.Post;
 import org.oddox.objects.Year;
 
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -88,12 +89,12 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
                 totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
             } else {
                 posts = null;
-                throw new NullPointerException("No posts found");
+                throw new NoDocumentException("No posts found");
             }
 
             return SUCCESS;
 
-        } catch (NullPointerException | NumberFormatException nfe) {
+        } catch (NoDocumentException | NumberFormatException nfe) {
             System.err.println("Year '" + year + "' not found. Please try again.");
             return NONE;
         } catch (Exception e) {

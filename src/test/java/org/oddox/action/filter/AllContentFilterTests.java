@@ -1,5 +1,7 @@
 package org.oddox.action.filter;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,11 @@ public class AllContentFilterTests {
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void constructor() {
+        assertTrue(filter != null);
     }
 
     @Test

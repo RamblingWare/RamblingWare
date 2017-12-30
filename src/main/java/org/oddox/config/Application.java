@@ -1,6 +1,8 @@
 package org.oddox.config;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -38,20 +40,27 @@ public class Application implements ServletContextListener {
         System.out.println("Starting up Oddox...");
 
         // Load settings from File
-        appConfig = loadSettingsFromFile(APP_PROP_FILE);
+        try {
+            appConfig = loadSettingsFromFile(APP_PROP_FILE);
+        } catch (Exception e) {
+            System.out.println("WARNING: Properties file not found or failed to load properly.");
+            e.printStackTrace();
+        }
+
         appFirewall = new AppFirewall();
 
         // Setup Database
         try {
-            Database db = loadDatabase();
-            
+            Database db = loadDatabase(System.getenv(), DB_PROP_FILE);
+
             // cleanup url
-            if(db.getUrl().contains("@")) {
-                String curl = db.getUrl();            
+            if (db.getUrl()
+                    .contains("@")) {
+                String curl = db.getUrl();
                 curl = Utils.removeUserPassFromURL(curl);
                 db.setUrl(curl);
             }
-            
+
             System.out.println("Using Database:\r\n" + db.toString());
             databaseSetup = new CouchDbSetup(db);
             if (!databaseSetup.setup()) {
@@ -76,84 +85,136 @@ public class Application implements ServletContextListener {
         System.out.println("Oddox is ready.");
     }
 
-    public static AppConfig loadSettingsFromFile(String propertiesFile) {
-        AppConfig config = new AppConfig();
+    /**
+     * Loads the Application configuration from the properties file.
+     * @param propFile APP_PROP_FILE
+     * @return AppConfig
+     * @throws IOException if propFile is invalid or not found
+     */
+    public static AppConfig loadSettingsFromFile(String propFile) throws IOException {
+        AppConfig config = null;
         try {
-            HashMap<String, String> map = Utils.loadMapFromFile(propertiesFile);
+            HashMap<String, String> map = Utils.loadMapFromFile(propFile);
+            config = new AppConfig();
             config.setSettings(map);
-
         } catch (Exception e) {
-            System.out.println("WARNING: Properties file not found or failed to load properly.");
-            return null;
+            throw new IOException(e);
         }
         return config;
     }
 
-    public static Database loadDatabase() {
-        // check env variable
-        String dbUrl = System.getenv("DB_URL");
-        String vcap = System.getenv("VCAP_SERVICES");
-        Database db = new Database();
-        if (vcap != null && !vcap.isEmpty()) {
-            // try to read env variables
-            // for couchdb / cloudant
+    /**
+     * Loads the Database URL, Host, Port, User, and Password, from either the System environment variables or the properties file.
+     * @param env System.getenv()
+     * @param propFile DB_PROP_FILE
+     * @return Database
+     * @throws IOException if failed to load either parameters
+     */
+    public static Database loadDatabase(Map<String, String> env, String propFile) throws IOException {
+        Database db = null;
+
+        // check VCAP env variable
+        if (env != null && env.containsKey("VCAP_SERVICES")) {
             try {
-                Gson gson = new Gson();
-                JsonObject obj = gson.fromJson(vcap, JsonObject.class);
-                JsonArray cloudant = obj.getAsJsonArray("cloudantNoSQLDB");
-                JsonObject couchdb = cloudant.get(0)
-                        .getAsJsonObject()
-                        .getAsJsonObject("credentials");
-                db.setHost(couchdb.get("host")
-                        .getAsString());
-                db.setPort(couchdb.get("port")
-                        .getAsString());
-                db.setUrl(couchdb.get("url")
-                        .getAsString());
-                db.setUsername(couchdb.get("username")
-                        .getAsString());
-                db.setPassword(couchdb.get("password")
-                        .getAsString());
+                // try to read cloudfoundry env variables
+                db = loadDatabaseFromCloudFoundryEnv(env);
 
             } catch (Exception e) {
                 System.out.println("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
-                e.printStackTrace();
-            }
-        } else if (dbUrl != null && !dbUrl.isEmpty()) {
-            try {
-                // try read docker env variables
-                db.setUrl(dbUrl);
-                String host = dbUrl.replace("http://", "");
-                host = host.replace("https://", "");
-                db.setPort(host.substring(host.indexOf(":") + 1, host.length()));
-                host = host.substring(0, host.indexOf(":"));
-                db.setHost(host);
-                db.setUsername(System.getenv("DB_USER"));
-                db.setPassword(System.getenv("DB_PASS"));
-            } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse DB_URL for Datasource properties.");
-                e.printStackTrace();
-            }
-        } else {
-            // if env is not available, then
-            // run on local couchdb in db.properties
-            System.out.println("WARNING: No DB environment variables provided. Continuing with DB from " + DB_PROP_FILE
-                    + " file.");
-
-            try {
-                HashMap<String, String> map = Utils.loadMapFromFile(DB_PROP_FILE);
-                db.setHost(map.get("couchdb.host"));
-                db.setPort(map.get("couchdb.port"));
-                db.setUrl(map.get("couchdb.url"));
-                db.setUsername(map.get("couchdb.username"));
-                db.setPassword(map.get("couchdb.password"));
-            } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse " + DB_PROP_FILE + " file.");
-                e.printStackTrace();
-                System.exit(2);
+                throw new IOException(e);
             }
         }
 
+        // check DB_URL env variable
+        else if (env != null && env.containsKey("DB_URL")) {
+            try {
+                // try read docker env variables
+                db = loadDatabaseFromDockerEnv(env);
+
+            } catch (Exception e) {
+                System.out.println("ERROR: Failed to parse DB_URL for Datasource properties.");
+                throw new IOException(e);
+            }
+        }
+
+        // otherwise fallback to db.properties
+        else {
+            try {
+                System.out.println("WARNING: No DB environment variables provided. Continuing with DB from " + propFile
+                        + " file.");
+
+                // try to read from db.properties file
+                db = loadDatabaseFromProperties(propFile);
+
+            } catch (Exception e) {
+                System.out.println("ERROR: Failed to parse " + propFile + " file.");
+                throw new IOException(e);
+            }
+        }
+
+        return db;
+    }
+
+    private static Database loadDatabaseFromCloudFoundryEnv(Map<String, String> env) throws IOException {
+        Database db = new Database();
+        try {
+            // try to read cloud foundry env variables
+            String vcap = env.get("VCAP_SERVICES");
+            Gson gson = new Gson();
+            JsonObject obj = gson.fromJson(vcap, JsonObject.class);
+            JsonArray cloudant = obj.getAsJsonArray("cloudantNoSQLDB");
+            JsonObject couchdb = cloudant.get(0)
+                    .getAsJsonObject()
+                    .getAsJsonObject("credentials");
+            db.setHost(couchdb.get("host")
+                    .getAsString());
+            db.setPort(couchdb.get("port")
+                    .getAsString());
+            db.setUrl(couchdb.get("url")
+                    .getAsString());
+            db.setUsername(couchdb.get("username")
+                    .getAsString());
+            db.setPassword(couchdb.get("password")
+                    .getAsString());
+
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+        return db;
+    }
+
+    private static Database loadDatabaseFromDockerEnv(Map<String, String> env) throws IOException {
+        Database db = new Database();
+        try {
+            // try read docker env variables
+            String dbUrl = env.get("DB_URL");
+            db.setUrl(dbUrl);
+            String host = dbUrl.replace("http://", "");
+            host = host.replace("https://", "");
+            db.setPort(host.substring(host.indexOf(":") + 1, host.length()));
+            host = host.substring(0, host.indexOf(":"));
+            db.setHost(host);
+            db.setUsername(env.get("DB_USER"));
+            db.setPassword(env.get("DB_PASS"));
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
+        return db;
+    }
+
+    private static Database loadDatabaseFromProperties(String propFile) throws IOException {
+        Database db = new Database();
+        try {
+            // try to read properties file
+            HashMap<String, String> map = Utils.loadMapFromFile(propFile);
+            db.setHost(map.get("couchdb.host"));
+            db.setPort(map.get("couchdb.port"));
+            db.setUrl(map.get("couchdb.url"));
+            db.setUsername(map.get("couchdb.username"));
+            db.setPassword(map.get("couchdb.password"));
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
         return db;
     }
 

@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.objects.Author;
 
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -49,7 +50,7 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
                 });
             } else {
                 authors = null;
-                throw new NullPointerException("No authors found");
+                throw new NoDocumentException("No authors found");
             }
 
             // set attributes
@@ -57,7 +58,7 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
 
             return SUCCESS;
 
-        } catch (NullPointerException nfe) {
+        } catch (NoDocumentException nfe) {
             return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()

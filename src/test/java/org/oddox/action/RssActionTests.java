@@ -1,5 +1,8 @@
 package org.oddox.action;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,17 +29,16 @@ public class RssActionTests {
     }
 
     @Test
-    public void execute() {
-        try {
-            //assertEquals("none", action.execute().toLowerCase());
-        } catch (Exception e) {
-            // ignore for now
-        }
+    public void constructor() {
+        assertTrue(action != null);
     }
 
     @Test
     public void variables() {
         action.setServletRequest(null);
         action.setServletResponse(null);
+        if(action.servletRequest != null) {
+            fail("servletRequest is not expected value");
+        }
     }
 }

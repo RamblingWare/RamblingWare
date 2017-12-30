@@ -35,6 +35,16 @@ public class Utils {
     private static final DateFormat RFC1123FORM = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
     private static final Pattern EMAIL_PATTERN = Pattern
             .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();    
+
+    static {
+        suffixes.put(1_000L, "k");
+        suffixes.put(1_000_000L, "M");
+        suffixes.put(1_000_000_000L, "B");
+        suffixes.put(1_000_000_000_000L, "T");
+        suffixes.put(1_000_000_000_000_000L, "P");
+        suffixes.put(1_000_000_000_000_000_000L, "E");
+    }
 
     static {
         ISO8601FORM.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -228,9 +238,9 @@ public class Utils {
      * @return String
      */
     public static String removeBadChars(String text) {
-        text = text.replaceAll("[\\^/?<>\\:*`'~!\\\\.,;@#$%()\\[\\]+{}\"]", "")
+        String txt = text.replaceAll("[\\^/?<>\\:*`'~!\\\\.,;@#$%()\\[\\]+{}\"]", "")
                 .trim();
-        return text.replaceAll("\\s+", " ");
+        return txt.replaceAll("\\s+", " ");
     }
 
     /**
@@ -291,24 +301,13 @@ public class Utils {
      * @return String
      */
     public static String formatURI(String uri) {
-        uri = uri.replaceAll("[\\^/?<>\\.#*`'~!\\\\\\[\\]+{}\"]", "")
+        String curi = uri.replaceAll("[\\^/?<>\\.#*`'~!\\\\\\[\\]+{}\"]", "")
                 .trim();
-        uri = uri.replaceAll("[=\\s+\"]", "-");
-        uri = uri.replace(" ", "-");
-        uri = uri.replace("&", "n");
-        uri = uri.replace("=", "n");
-        return uri;
-    }
-
-    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
-
-    static {
-        suffixes.put(1_000L, "k");
-        suffixes.put(1_000_000L, "M");
-        suffixes.put(1_000_000_000L, "B");
-        suffixes.put(1_000_000_000_000L, "T");
-        suffixes.put(1_000_000_000_000_000L, "P");
-        suffixes.put(1_000_000_000_000_000_000L, "E");
+        curi = curi.replaceAll("[=\\s+\"]", "-");
+        curi = curi.replace(" ", "-");
+        curi = curi.replace("&", "n");
+        curi = curi.replace("=", "n");
+        return curi;
     }
 
     /**

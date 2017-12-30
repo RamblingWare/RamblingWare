@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.objects.Year;
 
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -45,7 +46,7 @@ public class YearsAction extends ActionSupport implements ServletResponseAware, 
                 Collections.reverse(years);
             } else {
                 years = null;
-                throw new NullPointerException("No years found");
+                throw new NoDocumentException("No years found");
             }
 
             // set attributes
@@ -53,7 +54,7 @@ public class YearsAction extends ActionSupport implements ServletResponseAware, 
 
             return SUCCESS;
 
-        } catch (NullPointerException nfe) {
+        } catch (NoDocumentException nfe) {
             return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()

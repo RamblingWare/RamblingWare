@@ -12,6 +12,7 @@ import org.oddox.config.Utils;
 import org.oddox.objects.Category;
 import org.oddox.objects.Post;
 
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -85,12 +86,12 @@ public class CategoryAction extends ActionSupport implements ServletResponseAwar
                 totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
             } else {
                 posts = null;
-                throw new NullPointerException("No posts found");
+                throw new NoDocumentException("No posts found");
             }
 
             return SUCCESS;
 
-        } catch (NullPointerException | NumberFormatException nfe) {
+        } catch (NoDocumentException | NumberFormatException nfe) {
             System.err.println("Category '" + category + "' not found. Please try again.");
             return NONE;
         } catch (Exception e) {

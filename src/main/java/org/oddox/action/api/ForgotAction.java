@@ -56,11 +56,6 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
             defaults();
             sessionAttributes = ActionContext.getContext()
                     .getSession();
-            // are they already logged in?
-            if (sessionAttributes.get("login") != null) {
-                throw new Exception("You are already logged in. Did you forget?");
-            }
-
             // check if locked out
             // check inputs
             if (!isLockedOut() && validParameters()) {
@@ -107,7 +102,7 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
             maxAttempts = Application.getInt("default.attempts.limit");
             lockout = Application.getInt("default.lockout");
         } catch (Exception e) {
-            ; // quitely ignore
+            // quitely ignore
             maxAttempts = 3;
             lockout = 30;
         }
@@ -122,15 +117,15 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
      */
     protected boolean validParameters() throws Exception {
         if (code != null && code.isEmpty()) {
-            throw new Exception("Invalid or missing code.");
+            throw new IllegalArgumentException("Invalid or missing code.");
         } else if (code != null && code.length() > 6) {
-            throw new Exception("Code cannot be greater than 6 digits.");
+            throw new IllegalArgumentException("Code cannot be greater than 6 digits.");
         } else if (email == null || email.isEmpty()) {
-            throw new Exception("Invalid or missing email.");
+            throw new IllegalArgumentException("Invalid or missing email.");
         } else if (!Utils.isValidEmail(email)) {
-            throw new Exception("Invalid email address. Double-check and try again.");
+            throw new IllegalArgumentException("Invalid email address. Double-check and try again.");
         } else if (!remind && !reset && !recover) {
-            throw new Exception("Missing expected boolean option. Please add remind, reset, or recover.");
+            throw new IllegalArgumentException("Missing expected boolean option. Please add remind, reset, or recover.");
         } else {
             return true;
         }
@@ -140,10 +135,10 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
      * Check if the user has attempted too many times, and lock them out if they have.
      * 
      * @return true if locked out
-     * @throws Exception
+     * @throws IllegalArgumentException
      *             if locked out
      */
-    protected boolean isLockedOut() throws Exception {
+    protected boolean isLockedOut() throws IllegalArgumentException {
         // count login attempts
         // and remember when their last attempt was
         if (sessionAttributes.get("attempts") == null) {
@@ -174,7 +169,7 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
                 // they have already been locked out
                 System.err.println("Unknown user has been locked out for " + lockout + " min. ("
                         + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ") ");
-                throw new Exception(
+                throw new IllegalArgumentException(
                         "You have been locked out for the next " + lockout + " minutes, for too many attempts.");
             }
         }
@@ -216,8 +211,11 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
     }
 
     public void setType(String type) {
-        if (type == null) type = "username";
-        this.type = Utils.removeBadChars(type);
+        String type2 = type;
+        if (type2 == null) {
+            type2 = "username";
+        }
+        this.type = Utils.removeBadChars(type2);
     }
 
     public int getAttempts() {

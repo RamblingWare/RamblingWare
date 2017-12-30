@@ -3,7 +3,9 @@ package org.oddox.database;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
@@ -48,8 +50,14 @@ public class CouchDbSetupTests {
         database.setUrl("http://127.0.0.1:5984/");
         setup.setDatabase(database);
 
-        AppConfig config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
-        Application.setAppConfig(config);
+        AppConfig config;
+        try {
+            config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
+            Application.setAppConfig(config);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        
         assertNotNull(Application.getAppConfig());
     }
 

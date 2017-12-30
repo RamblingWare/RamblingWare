@@ -1,6 +1,8 @@
 package org.oddox.action;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,13 +30,8 @@ public class SearchActionTests {
     }
 
     @Test
-    public void execute() {
-        try {
-            //action.setQ("java");
-            //assertEquals("none", action.execute().toLowerCase());
-        } catch (Exception e) {
-            // ignore for now
-        }
+    public void constructor() {
+        assertTrue(action != null);
     }
 
     @Test
@@ -45,5 +42,8 @@ public class SearchActionTests {
 
         action.setServletRequest(null);
         action.setServletResponse(null);
+        if(action.servletRequest != null) {
+            fail("servletRequest is not expected value");
+        }
     }
 }

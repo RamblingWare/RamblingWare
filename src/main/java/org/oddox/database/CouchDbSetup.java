@@ -1,5 +1,6 @@
 package org.oddox.database;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -323,7 +324,7 @@ public class CouchDbSetup extends DatabaseSetup {
             if (response1.getConnection()
                     .getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default user
-                throw new Exception("Failed to create default user '" + user + "'. Exception occured during install.");
+                throw new IOException("Failed to create default user '" + user + "'. Exception occured during install.");
             }
 
             // get node name
@@ -345,7 +346,7 @@ public class CouchDbSetup extends DatabaseSetup {
             if (response1.getConnection()
                     .getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default admin
-                throw new Exception(
+                throw new IOException(
                         "ERROR: Failed to create default admin '" + user + "'. Exception occured during install.");
             } else {
                 // stopped the party

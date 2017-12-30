@@ -34,6 +34,11 @@ public class UtilsTests {
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
     }
+    
+    @Test
+    public void constructor() {
+        assertTrue(utils != null);
+    }
 
     @Test
     public void time() {
@@ -137,7 +142,7 @@ public class UtilsTests {
 
     @Test
     public void dates() {
-        java.util.Date date = Utils.convertStringToDate("June 22, 1988");
+        Date date = Utils.convertStringToDate("June 22, 1988");
 
         assertNotNull(date);
         assertNotNull(Utils.getDate());

@@ -11,6 +11,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.objects.Tag;
 
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -44,7 +45,7 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
                 Collections.sort(tags);
             } else {
                 tags = null;
-                throw new NullPointerException("No tags found");
+                throw new NoDocumentException("No tags found");
             }
 
             // set attributes
@@ -52,7 +53,7 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
 
             return SUCCESS;
 
-        } catch (NullPointerException nfe) {
+        } catch (NoDocumentException nfe) {
             return NONE;
         } catch (Exception e) {
             addActionError("Error: " + e.getClass()
