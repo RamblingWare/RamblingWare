@@ -16,5 +16,5 @@ function openPopup(name) {
 	document.getElementById(name).style.display="block";
 }
 function closePopup(name) {
-	document.getElementById(name).style.display=""none";
+	document.getElementById(name).style.display="none";
 }

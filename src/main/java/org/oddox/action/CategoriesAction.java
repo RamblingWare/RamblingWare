@@ -1,6 +1,5 @@
 package org.oddox.action;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.oddox.config.Application;
 import org.oddox.objects.Category;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
@@ -35,24 +33,18 @@ public class CategoriesAction extends ActionSupport implements ServletResponseAw
     public String execute() {
 
         // /category
-
-        // this shows all the categories of blog posts
         try {
-            // gather posts
-            categories = Application.getDatabaseService()
-                    .getCategories();
+            // gather categories
+            @SuppressWarnings("unchecked")
+            List<Category> archiveCategories = (List<Category>) servletRequest.getSession()
+                    .getAttribute("archiveCategories");
+            categories = archiveCategories;
 
             // sort alphabetically
-            if (categories != null && !categories.isEmpty()) {
-                Collections.sort(categories);
-            } else {
+            if (categories == null || categories.isEmpty()) {
                 categories = null;
                 throw new NoDocumentException("No categories found");
             }
-
-            // set attributes
-            servletRequest.setAttribute("categories", categories);
-
             return SUCCESS;
 
         } catch (NoDocumentException nfe) {
@@ -65,14 +57,6 @@ public class CategoriesAction extends ActionSupport implements ServletResponseAw
         }
     }
 
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
     @Override
     public void setServletResponse(HttpServletResponse servletResponse) {
         this.servletResponse = servletResponse;
@@ -81,5 +65,13 @@ public class CategoriesAction extends ActionSupport implements ServletResponseAw
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

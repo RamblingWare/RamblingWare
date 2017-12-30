@@ -137,7 +137,6 @@ public class ApplicationTests {
         }
 
         // CloudFoundry env variables
-        @SuppressWarnings("unused")
         HashMap<String, String> cfenv = new HashMap<String, String>();
         // @formatter:off
         cfenv.put("VCAP_SERVICES", "{\r\n" + 

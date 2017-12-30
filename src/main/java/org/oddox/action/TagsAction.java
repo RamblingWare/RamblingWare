@@ -1,6 +1,5 @@
 package org.oddox.action;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.oddox.config.Application;
 import org.oddox.objects.Tag;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
@@ -37,20 +35,16 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
         // /tag
         try {
             // gather tags
-            tags = Application.getDatabaseService()
-                    .getTags();
+            @SuppressWarnings("unchecked")
+            List<Tag> archiveTags = (List<Tag>) servletRequest.getSession()
+                    .getAttribute("archiveTags");
+            tags = archiveTags;
 
             // sort alphabetically
-            if (tags != null && !tags.isEmpty()) {
-                Collections.sort(tags);
-            } else {
+            if (tags == null || tags.isEmpty()) {
                 tags = null;
                 throw new NoDocumentException("No tags found");
             }
-
-            // set attributes
-            servletRequest.setAttribute("tags", tags);
-
             return SUCCESS;
 
         } catch (NoDocumentException nfe) {

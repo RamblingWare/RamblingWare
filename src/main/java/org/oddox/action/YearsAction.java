@@ -1,6 +1,5 @@
 package org.oddox.action;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.oddox.config.Application;
 import org.oddox.objects.Year;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
@@ -36,22 +34,16 @@ public class YearsAction extends ActionSupport implements ServletResponseAware, 
 
         // /year
         try {
-            // gather posts
-            years = Application.getDatabaseService()
-                    .getYears();
+            // gather years
+            @SuppressWarnings("unchecked")
+            List<Year> archiveYears = (List<Year>) servletRequest.getSession()
+                    .getAttribute("archiveYears");
+            years = archiveYears;
 
-            // already sorted chronologically
-            // so reverse so newest on top
-            if (years != null && !years.isEmpty()) {
-                Collections.reverse(years);
-            } else {
+            if (years == null || years.isEmpty()) {
                 years = null;
                 throw new NoDocumentException("No years found");
             }
-
-            // set attributes
-            servletRequest.setAttribute("years", years);
-
             return SUCCESS;
 
         } catch (NoDocumentException nfe) {
