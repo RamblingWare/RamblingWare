@@ -44,6 +44,14 @@ public class Application implements ServletContextListener {
         // Setup Database
         try {
             Database db = loadDatabase();
+            
+            // cleanup url
+            if(db.getUrl().contains("@")) {
+                String curl = db.getUrl();            
+                curl = Utils.removeUserPassFromURL(curl);
+                db.setUrl(curl);
+            }
+            
             System.out.println("Using Database:\r\n" + db.toString());
             databaseSetup = new CouchDbSetup(db);
             if (!databaseSetup.setup()) {

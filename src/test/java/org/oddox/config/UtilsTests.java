@@ -82,6 +82,11 @@ public class UtilsTests {
         assertEquals("Question", Utils.formatURI("Question?!"));
         assertEquals("a-bnc-d", Utils.formatURI("a=b&c=d"));
         assertEquals("array,array", Utils.formatURI("[array,array]"));
+        
+        String temp = "https://admin:p4ssw0rd@127.0.0.1:6984/";
+        temp = Utils.removeUserPassFromURL(temp);
+        assertEquals("https://127.0.0.1:6984/", temp);
+        assertEquals("https://127.0.0.1:6984/", Utils.removeUserPassFromURL(temp));
     }
 
     @Test
@@ -94,7 +99,7 @@ public class UtilsTests {
         for (int i = 0; i < numbers.length; i++) {
             long nm = numbers[i];
             String formatted = Utils.formatLong(nm);
-            System.out.println(nm + " => " + formatted);
+            //System.out.println(nm + " => " + formatted);
             if (!formatted.equals(expected[i])) {
                 fail("Expected: " + expected[i] + " but found: " + formatted);
             }
@@ -109,7 +114,7 @@ public class UtilsTests {
         for (int i = 0; i < numbers.length; i++) {
             double nm = numbers[i];
             String formatted = Utils.formatBytes(nm);
-            System.out.println(nm + " => " + formatted);
+            //System.out.println(nm + " => " + formatted);
             if (!formatted.equals(expected[i])) {
                 fail("Expected: " + expected[i] + " but found: " + formatted);
             }
@@ -149,13 +154,13 @@ public class UtilsTests {
     @Test
     public void strings() {
         String temp = "  t e st  ";
-        assertEquals(Utils.removeAllSpaces(temp), "test");
+        assertEquals("test", Utils.removeAllSpaces(temp));
 
         temp = "/t@e's?t";
-        assertEquals(Utils.removeBadChars(temp), "test");
+        assertEquals("test", Utils.removeBadChars(temp));
 
         temp = "te\r\nst";
-        assertEquals(Utils.removeNonAsciiChars(temp), "test");
+        assertEquals("test", Utils.removeNonAsciiChars(temp));
     }
 
     @Test

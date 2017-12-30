@@ -405,6 +405,7 @@ public class CouchDbSetup extends DatabaseSetup {
             CloudantClient client = getConnection();
             currVersion = client.serverVersion();
         } catch (Exception e) {
+            e.printStackTrace();
             version = false;
         }
 

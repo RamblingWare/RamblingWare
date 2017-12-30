@@ -248,6 +248,27 @@ public class Utils {
     }
 
     /**
+     * Removes the "user:password@" from a URL string. 
+     * Example: "https://admin:p4ssw0rd@127.0.0.1:6984/" to "https://127.0.0.1:6984/".
+     * @param url string
+     * @return cleaned url string
+     */
+    public static String removeUserPassFromURL(String url) {
+        String curl = url;
+
+        // remove //user:password@
+        if (url.contains("@")) {
+            curl = curl.substring(url.indexOf("@") + 1);
+            if (url.startsWith("https")) {
+                curl = "https://" + curl;
+            } else {
+                curl = "http://" + curl;
+            }
+        }
+        return curl;
+    }
+
+    /**
      * Make sure the URL starts with 'http://' or 'https://'
      * 
      * @param url

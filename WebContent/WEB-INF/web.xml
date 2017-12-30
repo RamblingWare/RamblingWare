@@ -20,7 +20,7 @@
 		</cookie-config>
 	</session-config>
 
-	<!-- Forward HTTP requests to HTTPS -->
+	<!-- Forward HTTP requests to HTTPS --><!-- 
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>All</web-resource-name>
@@ -29,7 +29,7 @@
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
-	</security-constraint>
+	</security-constraint> -->
 
 	<!-- (1st) Filter for static content that should be cached. -->
 	<filter>
