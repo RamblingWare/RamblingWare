@@ -201,8 +201,7 @@ public class CouchDbSetup extends DatabaseSetup {
             CloudantClient client = getConnection();
 
             // create database
-            client.createDB("crudtest");
-            Database db = client.database("crudtest", false);
+            Database db = client.database("crudtest", true);
 
             // create document
             JsonObject json = new JsonObject();
@@ -324,7 +323,8 @@ public class CouchDbSetup extends DatabaseSetup {
             if (response1.getConnection()
                     .getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default user
-                throw new IOException("Failed to create default user '" + user + "'. Exception occured during install.");
+                throw new IOException(
+                        "Failed to create default user '" + user + "'. Exception occured during install.");
             }
 
             // get node name
