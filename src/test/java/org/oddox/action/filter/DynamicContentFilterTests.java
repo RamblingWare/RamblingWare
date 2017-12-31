@@ -8,19 +8,19 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.filter.AllContentFilter;
+import org.oddox.action.filter.DynamicContentFilter;
 
 /**
- * Unit tests for AllContentFilter
+ * Unit tests for DynamicContentFilter
  * 
  * @author amdelamar
  * @since 1.0.0
  */
 @RunWith(JUnit4.class)
-public class AllContentFilterTests {
+public class DynamicContentFilterTests {
 
     @InjectMocks
-    private AllContentFilter filter;
+    private DynamicContentFilter filter;
 
     @Before
     public void beforeEachTest() {

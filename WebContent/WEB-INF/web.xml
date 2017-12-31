@@ -12,7 +12,7 @@
 	<session-config>
 		<!-- 30 minutes per session. Setting it longer takes more memory. -->
 		<session-timeout>30</session-timeout>
-		<!-- ID cookie per session. -->
+		<!-- JSESSIONID cookie per session. -->
 		<cookie-config>
 			<name>_id</name>
 			<http-only>true</http-only>
@@ -20,7 +20,7 @@
 		</cookie-config>
 	</session-config>
 
-	<!-- Forward HTTP requests to HTTPS --><!-- 
+	<!-- Forward HTTP requests to HTTPS --><!-- Taken care of by HSTS header...
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>All</web-resource-name>
@@ -42,19 +42,36 @@
 		<url-pattern>/vendor/*</url-pattern>
 		<url-pattern>/img/*</url-pattern>
 		<url-pattern>/css/*</url-pattern>
-		<url-pattern>/fonts/*</url-pattern>
 		<url-pattern>/js/*</url-pattern>
 		<url-pattern>/favicon.ico</url-pattern>
+		<url-pattern>/humans.txt</url-pattern>
+		<url-pattern>/robots.txt</url-pattern>
+		<url-pattern>/manifest.json</url-pattern>
 	</filter-mapping>
 
-	<!-- (2nd) Filter for all regular content. -->
+	<!-- (2nd) Filter for dynamic content. -->
 	<filter>
-		<filter-name>AllContentFilter</filter-name>
-		<filter-class>org.oddox.action.filter.AllContentFilter</filter-class>
+		<filter-name>DynamicContentFilter</filter-name>
+		<filter-class>org.oddox.action.filter.DynamicContentFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>AllContentFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<filter-name>DynamicContentFilter</filter-name>
+		<url-pattern></url-pattern>
+		<url-pattern>/</url-pattern>
+		<url-pattern>/about</url-pattern>
+		<url-pattern>/search</url-pattern>
+		<url-pattern>/terms</url-pattern>
+		<url-pattern>/privacy</url-pattern>
+		<url-pattern>/blog</url-pattern>
+		<url-pattern>/blog/*</url-pattern>
+		<url-pattern>/author</url-pattern>
+		<url-pattern>/author/*</url-pattern>
+		<url-pattern>/tag</url-pattern>
+		<url-pattern>/tag/*</url-pattern>
+		<url-pattern>/category</url-pattern>
+		<url-pattern>/category/*</url-pattern>
+		<url-pattern>/year</url-pattern>
+		<url-pattern>/year/*</url-pattern>
 	</filter-mapping>
 
 	<!-- (3rd) Filter for Struts actions -->

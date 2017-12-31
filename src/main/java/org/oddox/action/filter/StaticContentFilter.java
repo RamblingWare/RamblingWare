@@ -27,8 +27,10 @@ public class StaticContentFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
+        // Return a 304 "Not Modified" if the file hasn't been updated.
         long ifModifiedSince = 0;
         try {
+            // only do this if browser asks "If-Modified-Since"
             ifModifiedSince = request.getDateHeader("If-Modified-Since");
         } catch (Exception e) {
             System.err.println("Invalid If-Modified-Since header value: '" + request.getHeader("If-Modified-Since")
@@ -37,6 +39,7 @@ public class StaticContentFilter implements Filter {
 
         if (request.getRequestURI()
                 .endsWith(".ico")) {
+            // favicon content-type
             response.setContentType("image/x-icon");
             response.setHeader("Content-Type", "image/x-icon");
         }
@@ -44,26 +47,28 @@ public class StaticContentFilter implements Filter {
         long now = System.currentTimeMillis();
         long lastModifiedMillis = now;
 
+        // Replace information that might reveal too much to help potential attackers to exploit the
+        // server. Alternatively, you could put bogus info here, like .NET or other irrelevant tech.
+        //response.setHeader("X-Powered-By", "");
+        //response.setHeader("Server", "");
+
         // 1 month seems to be the minimum recommended period for static resources acc to
         // https://developers.google.com/speed/docs/best-practices/caching#LeverageBrowserCaching
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(now);
-        c.add(Calendar.MONTH, 1);
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(now);
+        cal.add(Calendar.MONTH, 1);
 
         if (ifModifiedSince > 0 && ifModifiedSince <= lastModifiedMillis) {
-            // not modified, content is not sent - only basic
-            // headers and status SC_NOT_MODIFIED
-            response.setDateHeader("Expires", c.getTimeInMillis());
-            response.setHeader("X-Powered-By", "");
-            response.setHeader("Server", "");
+            // 304 "Not Modified" content is not sent
+            response.setDateHeader("Expires", cal.getTimeInMillis());
             response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
             return;
         }
 
         // set heading information for caching static content
         response.setDateHeader("Date", now);
-        response.setDateHeader("Expires", c.getTimeInMillis());
-        response.setDateHeader("Retry-After", c.getTimeInMillis());
+        response.setDateHeader("Expires", cal.getTimeInMillis());
+        response.setDateHeader("Retry-After", cal.getTimeInMillis());
         response.setHeader("Cache-Control", "max-age=2628000, public");
         response.setDateHeader("Last-Modified", lastModifiedMillis);
 

@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.oddox.config.Application;
 
 /**
- * AllContentFilter class modifies HTTP Headers before sending out a response from a file or action.
+ * DynamicContentFilter class modifies HTTP Headers before sending out a response from a template or action.
  * 
  * @author Austin Delamar
  * @date 7/03/2017
  */
-public class AllContentFilter implements Filter {
+public class DynamicContentFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -30,20 +30,22 @@ public class AllContentFilter implements Filter {
         // Set UTF-8 encoding
         response.setCharacterEncoding("UTF-8");
 
+        // HSTS
         // Tell a browser that you always want a user to connect using HTTPS instead of HTTP for 1
         // year
         response.addHeader("Strict-Transport-Security", "max-age=15552000; includeSubDomains");
 
         // The browser will send the full URL to requests to the same origin but only the origin
-        // when requests are cross-origin.
-        response.addHeader("Referrer-Policy", "origin-when-cross-origin");
+        // when requests are cross-origin and null on scheme downgrade.
+        response.addHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+        // @see https://scotthelme.co.uk/a-new-security-header-referrer-policy/
 
         // Set CSP to ensure content and sources are explicit.
         response.addHeader("Content-Security-Policy",
                 "default-src 'self' " + Application.getString("cdn") + " 'unsafe-inline' 'unsafe-eval'");
         // "Content-Security-Policy-Report-Only" can also be used.
-
-        // "default-src 'none'; img-src 'self' cdn.ramblingware.com chart.googleapis.com; style-src
+        // Examples:
+        // "default-src 'none'; img-src 'self' cdn.oddox.org chart.googleapis.com; style-src
         // 'self'
         // 'unsafe-inline'; script-src 'self' 'nonce-123456789'; form-action 'self'; font-src
         // 'self'
@@ -77,8 +79,8 @@ public class AllContentFilter implements Filter {
 
         // Replace information that might reveal too much to help potential attackers to exploit the
         // server. Alternatively, you could put bogus info here, like .NET or other irrelevant tech.
-        response.setHeader("X-Powered-By", "");
-        response.setHeader("Server", "");
+        //response.setHeader("X-Powered-By", "");
+        //response.setHeader("Server", "");
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
