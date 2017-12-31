@@ -35,10 +35,7 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
      */
     public String execute() {
 
-        // /blog/file-name-goes-here
-
-        // this allows blog posts to be shown without parameter arguments (i.e.
-        // ?uri_name=foobar&test=123 )
+        // /blog/post-name
         String uriTemp = servletRequest.getRequestURI()
                 .toLowerCase();
         if (uri == null && uriTemp.startsWith("/blog/post/")) {
@@ -50,15 +47,16 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
         }
 
         if (uri != null && uri.length() > 0) {
-            // search in db for post by title
+            // lower-case no matter what
+            uri = uri.toLowerCase();
+
+            // search in db for post by uri
             try {
                 post = Application.getDatabaseService()
                         .getPost(uri, false);
 
                 // was post found?
                 if (post != null) {
-                    // set attributes
-                    servletRequest.setAttribute("post", post);
 
                     // check against previously viewed posts
                     boolean newViewFromSession = false;

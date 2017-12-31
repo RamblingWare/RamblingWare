@@ -55,6 +55,8 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
                 page = 1;
             }
 
+            // lower-case no matter what
+            year = year.toLowerCase();
             int yr = Integer.parseInt(year);
 
             // gather posts

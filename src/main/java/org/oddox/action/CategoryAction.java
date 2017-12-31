@@ -54,6 +54,9 @@ public class CategoryAction extends ActionSupport implements ServletResponseAwar
                 page = 1;
             }
 
+            // lower-case no matter what
+            category = category.toLowerCase();
+
             // gather posts
             posts = Application.getDatabaseService()
                     .getPostsByCategory(page, Application.getInt("default.limit"), category, false);

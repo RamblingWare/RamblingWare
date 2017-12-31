@@ -23,7 +23,7 @@ public class AuthorAction extends ActionSupport implements ServletResponseAware,
     protected HttpServletResponse servletResponse;
     protected HttpServletRequest servletRequest;
     private Author author;
-    private String uriName;
+    private String uri;
 
     /**
      * Returns author details.
@@ -32,25 +32,26 @@ public class AuthorAction extends ActionSupport implements ServletResponseAware,
      */
     public String execute() {
 
-        // /author/person-name-goes-here
-        String uri = servletRequest.getRequestURI();
-        if (uriName == null && uri.startsWith("/author/")) {
-            uriName = Utils.removeBadChars(uri.substring(8, uri.length()));
+        // /author/person-name
+        String uriTemp = servletRequest.getRequestURI();
+        if (uri == null && uriTemp.startsWith("/author/")) {
+            uri = Utils.removeBadChars(uriTemp.substring(8, uriTemp.length()));
         }
 
-        if (uriName != null && uriName.length() > 0) {
+        if (uri != null && uri.length() > 0) {
+            // lower-case no matter what
+            uri = uri.toLowerCase();
+
             // search in db for author
             try {
                 author = Application.getDatabaseService()
-                        .getAuthor(uriName, false);
+                        .getAuthor(uri, false);
 
                 if (author != null) {
-                    // set attributes
-                    servletRequest.setAttribute("author", author);
 
                     return SUCCESS;
                 } else {
-                    System.err.println("Author '" + uriName + "' not found. Please try again.");
+                    System.err.println("Author '" + uri + "' not found. Please try again.");
                     return NONE;
                 }
 
@@ -61,7 +62,7 @@ public class AuthorAction extends ActionSupport implements ServletResponseAware,
                 return ERROR;
             }
         } else {
-            System.err.println("Author '" + uriName + "' not found. Please try again.");
+            System.err.println("Author '" + uri + "' not found. Please try again.");
             return NONE;
         }
     }
