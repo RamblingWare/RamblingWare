@@ -1,6 +1,5 @@
 package org.oddox.action;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,28 +33,16 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
      */
     public String execute() {
 
-        // /author/
+        // /author
         try {
+            // gather authors
             authors = Application.getDatabaseService()
                     .getAuthors(1, Application.getInt("default.limit"), false);
 
-            // sort alphabetically
-            if (authors != null && !authors.isEmpty()) {
-                Collections.sort(authors, new java.util.Comparator<Author>() {
-                    @Override
-                    public int compare(Author a1, Author a2) {
-                        return a1.getName()
-                                .compareToIgnoreCase(a2.getName());
-                    }
-                });
-            } else {
+            if (authors == null || authors.isEmpty()) {
                 authors = null;
                 throw new NoDocumentException("No authors found");
             }
-
-            // set attributes
-            servletRequest.setAttribute("authors", authors);
-
             return SUCCESS;
 
         } catch (NoDocumentException nfe) {

@@ -80,7 +80,7 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
                 // get totals
                 totalPosts = page;
                 @SuppressWarnings("unchecked")
-                List<Year> archiveYears = (List<Year>) servletRequest.getSession()
+                List<Year> archiveYears = (List<Year>) servletRequest
                         .getAttribute("archiveYears");
                 for (Year yrs : archiveYears) {
                     if (year.equals(yrs.getName())) {

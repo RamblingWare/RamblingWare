@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.objects.Tag;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
@@ -35,12 +36,8 @@ public class TagsAction extends ActionSupport implements ServletResponseAware, S
         // /tag
         try {
             // gather tags
-            @SuppressWarnings("unchecked")
-            List<Tag> archiveTags = (List<Tag>) servletRequest.getSession()
-                    .getAttribute("archiveTags");
-            tags = archiveTags;
+            tags = ArchiveInterceptor.getArchiveTags();
 
-            // sort alphabetically
             if (tags == null || tags.isEmpty()) {
                 tags = null;
                 throw new NoDocumentException("No tags found");

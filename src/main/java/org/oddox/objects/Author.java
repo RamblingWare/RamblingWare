@@ -142,7 +142,7 @@ public class Author implements Comparable<Author> {
     public int compareTo(Author author) {
         int comp = this._id.compareTo(author._id);
         if (comp == 0) {
-            comp = this.name.compareTo(author.name);
+            comp = this.name.compareToIgnoreCase(author.name);
         }
         return comp;
     }

@@ -78,7 +78,7 @@ public class CategoryAction extends ActionSupport implements ServletResponseAwar
                 // get totals
                 totalPosts = page;
                 @SuppressWarnings("unchecked")
-                List<Category> archiveCategories = (List<Category>) servletRequest.getSession()
+                List<Category> archiveCategories = (List<Category>) servletRequest
                         .getAttribute("archiveCategories");
                 for (Category cat : archiveCategories) {
                     if (category.equals(cat.getName())) {

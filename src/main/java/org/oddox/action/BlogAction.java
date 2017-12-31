@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
@@ -75,8 +76,7 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
                 }
 
                 // get totals
-                totalPosts = ((int) servletRequest.getSession()
-                        .getAttribute("archiveTotal"));
+                totalPosts = ArchiveInterceptor.getArchiveTotal();
                 totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
             } else {
                 posts = null;

@@ -78,7 +78,7 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
                 // get totals
                 totalPosts = page;
                 @SuppressWarnings("unchecked")
-                List<Tag> archiveTags = (List<Tag>) servletRequest.getSession()
+                List<Tag> archiveTags = (List<Tag>) servletRequest
                         .getAttribute("archiveTags");
                 for (Tag tags : archiveTags) {
                     if (tag.equals(tags.getName())) {

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.objects.Category;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
@@ -35,12 +36,8 @@ public class CategoriesAction extends ActionSupport implements ServletResponseAw
         // /category
         try {
             // gather categories
-            @SuppressWarnings("unchecked")
-            List<Category> archiveCategories = (List<Category>) servletRequest.getSession()
-                    .getAttribute("archiveCategories");
-            categories = archiveCategories;
+            categories = ArchiveInterceptor.getArchiveCategories();
 
-            // sort alphabetically
             if (categories == null || categories.isEmpty()) {
                 categories = null;
                 throw new NoDocumentException("No categories found");
