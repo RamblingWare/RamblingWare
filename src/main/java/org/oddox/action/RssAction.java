@@ -26,7 +26,8 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
     private static final long serialVersionUID = 1L;
     protected HttpServletResponse servletResponse;
     protected HttpServletRequest servletRequest;
-    private List<Post> posts = null;
+    private static long cacheTime = 0l;
+    private static List<Post> posts = null;
 
     /**
      * Returns RSS information.
@@ -36,9 +37,8 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
     public String execute() {
 
         // /rss
-        System.out.println("RSS Feed Requested.");
 
-        // this page shows the RSS feed
+        // this page shows the XML RSS feed
         String response = "<?xml version=\"1.0\"?>" + "<rss version=\"2.0\">\n" + "<channel>\n"
                 + "<title>RamblingWare Blog</title>\n"
                 + "<description>This is my blog about computers, programming, tech, and things that bother me. I hope it bothers you too.</description>\n"
@@ -50,10 +50,18 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
                 + "<hour>17</hour><hour>18</hour><hour>19</hour><hour>20</hour><hour>21</hour><hour>22</hour><hour>23</hour></skipHours>\n"
                 + "<copyright>RamblingWare 2017.</copyright>\n";
         try {
+            // Has it been 24 hours since fresh RSS check?
+            long diff = Math.abs(System.currentTimeMillis() - cacheTime);
+            if (diff >= 86400000) {
+                // cache expired.
+                // get fresh RSS data
+                posts = Application.getDatabaseService()
+                        .getPosts(1, Application.getInt("default.limit"), false);
 
-            // gather posts
-            posts = Application.getDatabaseService()
-                    .getPosts(1, Application.getInt("default.limit"), false);
+                // set new cacheTime
+                cacheTime = System.currentTimeMillis();
+            }
+
             for (Post post : posts) {
                 response += "<item><title>" + post.getTitle() + "</title>\n" + "<description>" + post.getDescription()
                         + "</description>\n" + "<pubDate>" + post.getPublishDateReadable() + "</pubDate>\n"
@@ -83,7 +91,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
                         .getName() + ". " + e.getMessage());
             }
             // no action return
-            return NONE;
+            return null;
 
         } catch (Exception e) {
             System.out.println("ERROR: Failed to build RSS feed. " + e.getMessage());
@@ -101,5 +109,13 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
     @Override
     public void setServletRequest(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
+    }
+
+    public static long getCacheTime() {
+        return cacheTime;
+    }
+
+    public static void setCacheTime(long cacheTime) {
+        RssAction.cacheTime = cacheTime;
     }
 }
