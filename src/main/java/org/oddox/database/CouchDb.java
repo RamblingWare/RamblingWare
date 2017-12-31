@@ -3,6 +3,7 @@ package org.oddox.database;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.oddox.config.AppConfig;
@@ -249,6 +250,7 @@ public class CouchDb extends DatabaseService {
 
             ViewResponse<String, Integer> pg = db.getViewRequestBuilder("posts", "year-count")
                     .newPaginatedRequest(Key.Type.STRING, Integer.class)
+                    .descending(true)
                     .group(true)
                     .build()
                     .getResponse();
@@ -389,16 +391,26 @@ public class CouchDb extends DatabaseService {
             }
             posts = pg.getDocsAs(Post.class);
 
+            // cache map of authors
+            HashMap<String, Author> authorCacheMap = new HashMap<String, Author>();
+
             for (Post post : posts) {
                 // get author for each post
-                try {
-                    db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
-                } catch (Exception e) {
-                    // ignore.
-                    Author author = new Author(post.getAuthorId());
-                    author.setName(post.getAuthorId());
-                    post.setAuthor(author);
+
+                // check cache first
+                if (authorCacheMap.containsKey(post.getAuthorId())) {
+                    post.setAuthor(authorCacheMap.get(post.getAuthorId()));
+                } else {
+                    try {
+                        db = client.database("authors", false);
+                        post.setAuthor(db.find(Author.class, post.getAuthorId()));
+                        authorCacheMap.put(post.getAuthorId(), post.getAuthor());
+                    } catch (Exception e) {
+                        // ignore.
+                        Author author = new Author(post.getAuthorId());
+                        author.setName(post.getAuthorId());
+                        post.setAuthor(author);
+                    }
                 }
 
                 // get views for each post
@@ -460,16 +472,26 @@ public class CouchDb extends DatabaseService {
             }
             posts = pg.getDocsAs(Post.class);
 
+            // cache map of authors
+            HashMap<String, Author> authorCacheMap = new HashMap<String, Author>();
+
             for (Post post : posts) {
                 // get author for each post
-                try {
-                    db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
-                } catch (Exception e) {
-                    // ignore.
-                    Author author = new Author(post.getAuthorId());
-                    author.setName(post.getAuthorId());
-                    post.setAuthor(author);
+
+                // check cache first
+                if (authorCacheMap.containsKey(post.getAuthorId())) {
+                    post.setAuthor(authorCacheMap.get(post.getAuthorId()));
+                } else {
+                    try {
+                        db = client.database("authors", false);
+                        post.setAuthor(db.find(Author.class, post.getAuthorId()));
+                        authorCacheMap.put(post.getAuthorId(), post.getAuthor());
+                    } catch (Exception e) {
+                        // ignore.
+                        Author author = new Author(post.getAuthorId());
+                        author.setName(post.getAuthorId());
+                        post.setAuthor(author);
+                    }
                 }
 
                 // get views for each post
@@ -531,16 +553,26 @@ public class CouchDb extends DatabaseService {
             }
             posts = pg.getDocsAs(Post.class);
 
+            // cache map of authors
+            HashMap<String, Author> authorCacheMap = new HashMap<String, Author>();
+
             for (Post post : posts) {
                 // get author for each post
-                try {
-                    db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
-                } catch (Exception e) {
-                    // ignore.
-                    Author author = new Author(post.getAuthorId());
-                    author.setName(post.getAuthorId());
-                    post.setAuthor(author);
+
+                // check cache first
+                if (authorCacheMap.containsKey(post.getAuthorId())) {
+                    post.setAuthor(authorCacheMap.get(post.getAuthorId()));
+                } else {
+                    try {
+                        db = client.database("authors", false);
+                        post.setAuthor(db.find(Author.class, post.getAuthorId()));
+                        authorCacheMap.put(post.getAuthorId(), post.getAuthor());
+                    } catch (Exception e) {
+                        // ignore.
+                        Author author = new Author(post.getAuthorId());
+                        author.setName(post.getAuthorId());
+                        post.setAuthor(author);
+                    }
                 }
 
                 // get views for each post
@@ -607,16 +639,26 @@ public class CouchDb extends DatabaseService {
             }
             posts = pg.getDocsAs(Post.class);
 
+            // cache map of authors
+            HashMap<String, Author> authorCacheMap = new HashMap<String, Author>();
+
             for (Post post : posts) {
                 // get author for each post
-                try {
-                    db = client.database("authors", false);
-                    post.setAuthor(db.find(Author.class, post.getAuthorId()));
-                } catch (Exception e) {
-                    // ignore.
-                    Author author = new Author(post.getAuthorId());
-                    author.setName(post.getAuthorId());
-                    post.setAuthor(author);
+
+                // check cache first
+                if (authorCacheMap.containsKey(post.getAuthorId())) {
+                    post.setAuthor(authorCacheMap.get(post.getAuthorId()));
+                } else {
+                    try {
+                        db = client.database("authors", false);
+                        post.setAuthor(db.find(Author.class, post.getAuthorId()));
+                        authorCacheMap.put(post.getAuthorId(), post.getAuthor());
+                    } catch (Exception e) {
+                        // ignore.
+                        Author author = new Author(post.getAuthorId());
+                        author.setName(post.getAuthorId());
+                        post.setAuthor(author);
+                    }
                 }
 
                 // get views for each post
