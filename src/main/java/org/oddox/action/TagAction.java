@@ -54,9 +54,6 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
                 page = 1;
             }
 
-            // lower-case no matter what
-            tag = tag.toLowerCase();
-
             // gather posts
             posts = Application.getDatabaseService()
                     .getPostsByTag(page, Application.getInt("default.limit"), tag, false);
