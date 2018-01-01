@@ -41,15 +41,16 @@ This project is still in development. It is not easily modifiable for "new" blog
  1. Run CouchDB `docker run -d -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=admin -p 6984:6984 oddoxorg/couchdb:2.1.1`
      - Choose your default password. Never share it!
      - Save the `<container-ip>` for the next step.
- 1. Run Oddox `docker run -e DB_URL=http://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443  oddoxorg/oddox:1.0.0`
+ 1. Run Oddox `docker run -e DB_URL=https://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443  oddoxorg/oddox:1.0.0`
      - Enter the `<container-ip>` of your couchdb container.
      - Paste the same password again.
  1. Visit `https://<container-ip>:8443/`
 
  <!--
+  docker pull oddoxorg/couchdb:2.1.1
   docker pull oddoxorg/oddox:1.0.0
   docker build -f deploy/docker/1.0.0/Dockerfile --no-cache --rm -t oddoxorg/oddox:1.0.0 -t oddoxorg/oddox .
-  docker run -e DB_URL=http://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 oddoxorg/oddox
+  docker run -e DB_URL=https://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 oddoxorg/oddox
   docker push oddoxorg/oddox
   docker push oddoxorg/oddox:1.0.0
  -->
@@ -58,10 +59,10 @@ This project is still in development. It is not easily modifiable for "new" blog
 
  1. Clone: `git clone https://github.com/oddoxorg/oddox`
  1. Install [CouchDB 2.1.1](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
-     - For Production, Paste the db credentials in `src/main/resources/app.properties` file.
+     - For Production, Paste the couchdb credentials in `src/main/resources/db.properties` file.
      - If using on locahost, you don't need to edit the credentials, unless you want to.
  1. `cd oddox`
- 1. Build: `./gradlew clean build`. WAR file at: `/build/libs/oddox-1.0.0.war`
+ 1. Build: `./gradlew clean build`. WAR file created: `/build/libs/oddox-1.0.0.war`
  1. Install [Tomcat 9.0](https://tomcat.apache.org/)
      - Copy `deploy/tomcat/server.xml` into `<tomcat-dir>/conf/`.
      - Copy WAR file into `<tomcat-dir>/webapps/` or for devs you can use Eclipse Servers UI (Window > Show View > Servers).

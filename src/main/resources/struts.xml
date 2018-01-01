@@ -42,11 +42,11 @@
 		<action name="about">
 			<result type="freemarker">/WEB-INF/templates/about.ftl</result>
 		</action>
-		<action name="terms">
-			<result type="freemarker">/WEB-INF/templates/terms.ftl</result>
+		<action name="terms-of-use">
+			<result type="freemarker">/WEB-INF/templates/terms-of-use.ftl</result>
 		</action>
-		<action name="privacy">
-			<result type="freemarker">/WEB-INF/templates/privacy.ftl</result>
+		<action name="privacy-policy">
+			<result type="freemarker">/WEB-INF/templates/privacy-policy.ftl</result>
 		</action>
 		
 		<!-- RSS and Search -->

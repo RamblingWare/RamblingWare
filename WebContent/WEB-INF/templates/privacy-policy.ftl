@@ -63,7 +63,7 @@
 				<hr />
 				
 				<p>
-					Please be sure to read our <a href="/terms">Terms of use</a> as well.
+					Please be sure to read our <a href="/terms-of-use">Terms of use</a> as well.
 				</p>
 
 			</div>

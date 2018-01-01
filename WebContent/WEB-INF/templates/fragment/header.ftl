@@ -1,11 +1,20 @@
 <nav id="sidebar" class="w3-sidebar w3-bar-block w3-black w3-card-4 w3-animate-left">
   	<button onclick="closeSidebar()" class="w3-bar-item uppercase w3-black w3-text-theme w3-large" data-close="">Menu</button>
-  	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Home" href="/"><span class="icon-home w3-large w3-margin-right"></span>Home</a>
-	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Years" href="/year/"><span class="icon-time w3-large w3-margin-right"></span>Archive</a>
-	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Categories" href="/category/"><span class="icon-folder w3-large w3-margin-right"></span>Categories</a>
-	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Tags" href="/tag/"><span class="icon-tag w3-large w3-margin-right"></span>Tags</a>
-	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="Authors" href="/author/"><span class="icon-author w3-large w3-margin-right"></span>Authors</a>
-	<a class="w3-bar-item w3-text-theme w3-hover-text-light-grey w3-btn" title="About" href="/about">About</a>
+  	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Home" href="/"><span class="icon-home w3-large w3-margin-right"></span>Home</a>
+	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Years" href="/year/"><span class="icon-time w3-large w3-margin-right"></span>Archive</a>
+	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Categories" href="/category/"><span class="icon-folder w3-large w3-margin-right"></span>Categories</a>
+	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Tags" href="/tag/"><span class="icon-tag w3-large w3-margin-right"></span>Tags</a>
+	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Authors" href="/author/"><span class="icon-author w3-large w3-margin-right"></span>Authors</a>
+	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="About" href="/about">About</a>
+	<p class="w3-container w3-center w3-small w3-text-theme">
+		${(copyright)!''}<br/>
+		Last Updated: ${(lastUpdated)!''}
+		<br/><br/>
+		<a href="/terms-of-use" title="Terms of Use">Terms</a> | 
+		<a href="/privacy-policy" title="Privacy Policy">Privacy</a><br/>
+		<a target="_Blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a><br/> 
+		<a target="_Blank" href="https://www.ibm.com/cloud" title="IBM Cloud">Hosted on IBM Cloud</a>
+	</p>
 </nav>
 <header>
 	<div class="page w3-container w3-theme-dark">

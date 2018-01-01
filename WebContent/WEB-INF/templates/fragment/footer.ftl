@@ -26,8 +26,8 @@
 	<div class="page w3-small">
 	<div class="w3-left">
 		<span>
-		<a href="/terms" title="Terms of Use">Terms</a> |
-		<a href="/privacy" title="Privacy Policy">Privacy</a> |
+		<a href="/terms-of-use" title="Terms of Use">Terms</a> |
+		<a href="/privacy-policy" title="Privacy Policy">Privacy</a> |
 		<a target="_Blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a>
 		</span>
 	</div>

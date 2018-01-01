@@ -84,7 +84,7 @@
 				<hr />
 				
 				<p>
-					Please be sure to read our <a href="/privacy">Privacy Policy</a> as well.
+					Please be sure to read our <a href="/privacy-policy">Privacy Policy</a> as well.
 				</p>
 
 			</div>
