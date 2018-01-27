@@ -1,5 +1,5 @@
 {
-  "_id": "_design/posts",
+  "_id": "_design/posts", 
   "views": {
     "featured": {
       "map": "function (doc) {\n  if(doc.published && doc.featured) {\n      emit(doc._id, 1);\n    }\n}"
@@ -8,37 +8,40 @@
       "map": "function (doc) {\n  emit(doc.publishDate, ''+doc.published);\n  }"
     },
     "posts-published": {
-      "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.publishDate, ''+doc.published);\n  }\n}"
+      "map": "function (doc) {\n  if(doc.published && !doc.deleted) {\n    emit(doc.publishDate, ''+doc.published);\n  }\n}"
+    },
+    "posts-deleted": {
+      "map": "function (doc) {\n  if(doc.deleted) {\n    emit(doc.modifyDate, ''+doc.deleted);\n  }\n}"
     },
     "category-all": {
       "map": "function (doc) {\n  emit(doc.category, 1);\n  }"
     },
     "category-published": {
-      "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.category, 1);\n  }\n }"
+      "map": "function (doc) {\n  if(doc.published && !doc.deleted) {\n    emit(doc.category, 1);\n  }\n }"
     },
     "category-count": {
-      "reduce": "_sum",
-      "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.category, 1);\n  }\n}"
+      "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.category, 1);\n  }\n}",
+      "reduce": "_sum"
     },
     "tag-all": {
       "map": "function (doc) {\n  for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }"
     },
     "tag-published": {
-      "map": "function (doc) {\n  if(doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
+      "map": "function (doc) {\n  if(doc.published && !doc.deleted) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
     },
     "tag-count": {
-      "reduce": "_sum",
-      "map": "function (doc) {\n  if(doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}"
+      "map": "function (doc) {\n  if(doc.published) {\n    for(var i=0; i<doc.tags.length; i++) {\n      emit(doc.tags[i], 1);\n    }\n  }\n}",
+      "reduce": "_sum"
     },
     "year-all": {
       "map": "function (doc) {\n  emit(doc.publishDate, 1);\n  }"
     },
     "year-published": {
-      "map": "function (doc) {\n  if(doc.published) {\n    emit(doc.publishDate, 1);\n  }\n}"
+      "map": "function (doc) {\n  if(doc.published && !doc.deleted) {\n    emit(doc.publishDate, 1);\n  }\n}"
     },
     "year-count": {
-      "reduce": "_sum",
-      "map": "function (doc) {\n  if(doc.published) {\n    var year = doc.publishDate.substr(0,4);\n    emit(year, 1);\n  }\n}"
+      "map": "function (doc) {\n  if(doc.published) {\n    var year = doc.publishDate.substr(0,4);\n    emit(year, 1);\n  }\n}",
+      "reduce": "_sum"
     }
   },
   "language": "javascript"

@@ -23,6 +23,7 @@ public class Post implements Comparable<Post> {
     private View view;
     private boolean featured;
     private boolean published;
+    private boolean deleted;
     private String createDate;
     private String modifyDate;
     private String publishDate;
@@ -78,6 +79,14 @@ public class Post implements Comparable<Post> {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public String getCategory() {

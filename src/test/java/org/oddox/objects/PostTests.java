@@ -59,6 +59,8 @@ public class PostTests {
         assertTrue(post.isFeatured());
         post.setPublished(true);
         assertTrue(post.isPublished());
+        post.setDeleted(true);
+        assertTrue(post.isDeleted());
         post.setCategory("Meta");
         assertEquals("Meta", post.getCategory());
         post.setAuthorId("author_1");
