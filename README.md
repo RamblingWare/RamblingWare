@@ -1,4 +1,4 @@
-# Oddox
+[![Oddox](https://oddox.org/assets/logo.png)]()
 
 [![Build](https://img.shields.io/travis/oddoxorg/oddox.svg)](https://travis-ci.org/oddoxorg/oddox)
 [![Codacy grade](https://img.shields.io/codacy/grade/ae13ca0369824fda9b4d32d43398495c.svg)](https://www.codacy.com/app/amdelamar/oddox)
@@ -65,25 +65,30 @@ This project is still in development. It is not easily modifiable for "new" blog
   docker push oddoxorg/oddox
   docker push oddoxorg/oddox:1.0.0
  -->
+ 
+### Cloud Foundry Deploy
+
+> Coming later...
 
 ### Manually Deploy
 
- 1. Clone repo 
+ 1. Install [CouchDB 2.1.1](https://couchdb.apache.org/) or signup for a CouchDB service, like [Cloudant](https://cloudant.com/).
+     - Save the credentials for later.
+     - Recommended to use https if possible.
+ 1. Clone repo:
     ```
     git clone https://github.com/oddoxorg/oddox
+    cd oddox
     ```
- 1. Install [CouchDB 2.1.1](https://couchdb.apache.org/) or signup for [Cloudant](https://cloudant.com/)
-     - For Production, Paste the CouchDB credentials in `src/main/resources/db.properties` file.
-     - If using on locahost, you don't need to edit the credentials, unless you want to.
- 1. `cd oddox`
- 1. Build app
+ 1. For Production, paste the CouchDB credentials in `src/main/resources/db.properties` file. Otherwise for test/dev, you don't need to edit the credentials, unless you want to. Oddox will auto create a default "admin" with password "admin", and disable admin party for you.
+ 1. Build app:
     ```
     ./gradlew clean build
     ```
-    WAR file should be created here `/build/libs/oddox-1.0.0.war` if there were no errors.
+    WAR file should be created here: `/build/libs/oddox-1.0.0.war` (if no errors).
  1. Install [Tomcat 9.0](https://tomcat.apache.org/)
      - Copy `deploy/tomcat/server.xml` into `<tomcat-dir>/conf/`.
-     - Copy WAR file into `<tomcat-dir>/webapps/` or for devs you can use Eclipse Servers UI (Window > Show View > Servers).
+     - Copy WAR file into `<tomcat-dir>/webapps/`
  1. Visit `https://localhost:8443/` (Devs: Double-check server.xml that context root is `/` and not `/oddox`).
 
 ## Tech Stack
