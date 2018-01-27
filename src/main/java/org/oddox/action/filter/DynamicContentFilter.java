@@ -42,12 +42,12 @@ public class DynamicContentFilter implements Filter {
 
         // Set CSP to ensure content and sources are explicit.
         response.addHeader("Content-Security-Policy",
-                "default-src 'self' " + Application.getString("cdn") + " 'unsafe-inline' 'unsafe-eval'");
+                "default-src 'self' " + Application.getString("cdn") + " 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; form-action 'none';");
         // "Content-Security-Policy-Report-Only" can also be used.
         // Examples:
         // "default-src 'none'; img-src 'self' cdn.oddox.org chart.googleapis.com; style-src
         // 'self'
-        // 'unsafe-inline'; script-src 'self' 'nonce-123456789'; form-action 'self'; font-src
+        // 'unsafe-inline'; script-src 'self' 'nonce-123456789'; form-action 'none'; font-src
         // 'self'
 
         // Enforce TLS on all assets like JS and CSS and prevent mixed secure content warnings.
