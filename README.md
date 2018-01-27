@@ -1,4 +1,4 @@
-[![Oddox](https://oddox.org/assets/logo.png)]()
+# <img src="https://oddox.org/assets/logo.png" width="280px" alt="Oddox" />
 
 [![Build](https://img.shields.io/travis/oddoxorg/oddox.svg)](https://travis-ci.org/oddoxorg/oddox)
 [![Codacy grade](https://img.shields.io/codacy/grade/ae13ca0369824fda9b4d32d43398495c.svg)](https://www.codacy.com/app/amdelamar/oddox)
@@ -6,21 +6,21 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/oddoxorg/oddox.svg)](https://hub.docker.com/r/oddoxorg/oddox/)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/oddoxorg/oddox/blob/master/LICENSE)
 
-Offline-first, Open-Source, Blogging platform.
+Oddox is an offline-first blog that syncs! Write, save, and publish your posts then sync later when you're connected.
 
 > Live Example: coming soon...
 
 ## Features
 
- *  Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
- *  Organize blog posts by Tags, Categories, Featured, Authors, and Dates
- *  SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
- *  HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
+ * Offline-first [dashboard](https://github.com/oddoxorg/dashboard/) for authors to manage blog
+ * Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
+ * Organize blog posts by Tags, Categories, Featured, Authors, and Dates
+ * SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
+ * HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
 
 ## Planned Features
 
- * Offline-first dashboard for authors to manage blog
- * Freemarker Theme Templates
+ * Extendable Themes and Templates
 
 ## Usage
 
