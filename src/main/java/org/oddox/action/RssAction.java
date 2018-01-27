@@ -56,7 +56,7 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
                 // cache expired.
                 // get fresh RSS data
                 posts = Application.getDatabaseService()
-                        .getPosts(1, Application.getInt("default.limit"), false);
+                        .getPosts(1, Application.getInt("rssFeedLimit"), false);
 
                 // set new cacheTime
                 cacheTime = System.currentTimeMillis();

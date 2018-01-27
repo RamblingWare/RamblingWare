@@ -61,12 +61,12 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
 
             // gather posts
             posts = Application.getDatabaseService()
-                    .getPostsByYear(page, Application.getInt("default.limit"), yr, false);
+                    .getPostsByYear(page, Application.getInt("resultsPerPage"), yr, false);
 
             if (posts != null && !posts.isEmpty()) {
 
                 // determine pagination
-                if (posts.size() >= Application.getInt("default.limit")) {
+                if (posts.size() >= Application.getInt("resultsPerPage")) {
                     nextPage = page + 1;
                 } else {
                     nextPage = page;
@@ -88,7 +88,7 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
                         break;
                     }
                 }
-                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
+                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
             } else {
                 posts = null;
                 throw new NoDocumentException("No posts found");

@@ -56,12 +56,12 @@ public class CategoryAction extends ActionSupport implements ServletResponseAwar
 
             // gather posts
             posts = Application.getDatabaseService()
-                    .getPostsByCategory(page, Application.getInt("default.limit"), category, false);
+                    .getPostsByCategory(page, Application.getInt("resultsPerPage"), category, false);
 
             if (posts != null && !posts.isEmpty()) {
 
                 // determine pagination
-                if (posts.size() >= Application.getInt("default.limit")) {
+                if (posts.size() >= Application.getInt("resultsPerPage")) {
                     nextPage = page + 1;
                 } else {
                     nextPage = page;
@@ -83,7 +83,7 @@ public class CategoryAction extends ActionSupport implements ServletResponseAwar
                         break;
                     }
                 }
-                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
+                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
             } else {
                 posts = null;
                 throw new NoDocumentException("No posts found");

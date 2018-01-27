@@ -59,12 +59,12 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
 
             // gather posts
             posts = Application.getDatabaseService()
-                    .getPosts(page, Application.getInt("default.limit"), false);
+                    .getPosts(page, Application.getInt("resultsPerPage"), false);
 
             if (posts != null && !posts.isEmpty()) {
 
                 // determine pagination
-                if (posts.size() >= Application.getInt("default.limit")) {
+                if (posts.size() >= Application.getInt("resultsPerPage")) {
                     nextPage = page + 1;
                 } else {
                     nextPage = page;
@@ -77,7 +77,7 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
 
                 // get totals
                 totalPosts = ArchiveInterceptor.getArchiveTotal();
-                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("default.limit")));
+                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
             } else {
                 posts = null;
                 throw new NoDocumentException("No posts found");

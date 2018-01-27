@@ -37,7 +37,7 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
         try {
             // gather authors
             authors = Application.getDatabaseService()
-                    .getAuthors(1, Application.getInt("default.limit"), false);
+                    .getAuthors(1, Application.getInt("resultsPerPage"), false);
 
             if (authors == null || authors.isEmpty()) {
                 authors = null;

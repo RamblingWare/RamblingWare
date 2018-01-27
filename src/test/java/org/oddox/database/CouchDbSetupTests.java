@@ -57,7 +57,7 @@ public class CouchDbSetupTests {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-        
+
         assertNotNull(Application.getAppConfig());
     }
 
@@ -73,14 +73,14 @@ public class CouchDbSetupTests {
         Author author = setup.getDefaultAuthor();
         assertNotNull(author);
         assertTrue(author.getName()
-                .equalsIgnoreCase(Application.getString("default.username")));
+                .equalsIgnoreCase("admin"));
         assertNotNull(author.get_Id());
         assertNotNull(author.getName());
 
         Post post = setup.getDefaultPost();
         assertNotNull(post);
         assertTrue(post.getAuthorId()
-                .equalsIgnoreCase(Application.getString("default.username")));
+                .equalsIgnoreCase("admin"));
         assertNotNull(post.get_Id());
         assertNotNull(post.getTitle());
 

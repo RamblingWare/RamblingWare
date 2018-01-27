@@ -313,8 +313,8 @@ public class CouchDbSetup extends DatabaseSetup {
             // - role = admin
 
             // create default user
-            String user = Application.getString("default.username");
-            String pass = Application.getString("default.password");
+            String user = "admin";
+            String pass = "admin";
 
             request1 = Http.PUT(new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user), "application/json");
             request1.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
@@ -423,7 +423,7 @@ public class CouchDbSetup extends DatabaseSetup {
      * @return Author
      */
     protected Author getDefaultAuthor() {
-        String user = Application.getString("default.username");
+        String user = "admin";
         String name = user.substring(0, 1)
                 .toUpperCase()
                 + user.substring(1)
@@ -434,7 +434,6 @@ public class CouchDbSetup extends DatabaseSetup {
         author.setDescription("The website administrator.");
         author.setContent(
                 "<p>This is a quick bio about the author. But for now its simply a placeholder. Enjoy your new blog!</p>");
-        author.setEmail(Application.getString("default.email"));
         author.setThumbnail("/img/placeholder-200.png");
         String now = Utils.getDateIso8601();
         author.setCreateDate(now);
@@ -449,7 +448,7 @@ public class CouchDbSetup extends DatabaseSetup {
      */
     protected Post getDefaultPost() {
         Post post = new Post("welcome-to-oddox");
-        post.setAuthorId(Application.getString("default.username"));
+        post.setAuthorId("admin");
 
         post.setTitle("Welcome to Oddox!");
         post.setDescription("Here is a sample post demonstrating this blog platform.");

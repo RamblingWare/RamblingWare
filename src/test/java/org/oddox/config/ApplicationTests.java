@@ -63,8 +63,8 @@ public class ApplicationTests {
         }
         assertNotNull(Application.getAppConfig());
         assertNotNull(Application.getString("name"));
-        assertTrue(Application.getInt("default.limit") > 0);
-        assertTrue(Application.getDouble("default.manageLimit") > 0d);
+        assertTrue(Application.getInt("resultsPerPage") > 0);
+        assertTrue(Application.getDouble("rssFeedLimit") > 0d);
 
         Application.setString("test", "true");
         assertEquals("true", Application.getString("test"));

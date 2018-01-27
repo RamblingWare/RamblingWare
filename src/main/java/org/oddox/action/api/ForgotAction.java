@@ -99,8 +99,8 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
      */
     protected void defaults() {
         try {
-            maxAttempts = Application.getInt("default.attempts.limit");
-            lockout = Application.getInt("default.lockout");
+            maxAttempts = Application.getInt("apiMaxAttempts");
+            lockout = Application.getInt("apiLockoutInMin");
         } catch (Exception e) {
             // quitely ignore
             maxAttempts = 3;
