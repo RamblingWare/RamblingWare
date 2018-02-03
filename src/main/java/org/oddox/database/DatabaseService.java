@@ -7,7 +7,6 @@ import org.oddox.config.AppFirewall;
 import org.oddox.objects.Author;
 import org.oddox.objects.Category;
 import org.oddox.objects.Post;
-import org.oddox.objects.Role;
 import org.oddox.objects.Tag;
 import org.oddox.objects.View;
 import org.oddox.objects.Year;
@@ -63,8 +62,6 @@ public abstract class DatabaseService {
     public abstract List<Post> getPostsByTag(int page, int limit, String tag, boolean includeHidden);
 
     public abstract List<Post> getPostsByYear(int page, int limit, int year, boolean includeHidden);
-
-    public abstract List<Role> getRoles();
 
     public abstract boolean editView(View view);
 

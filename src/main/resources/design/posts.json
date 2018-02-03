@@ -2,7 +2,7 @@
   "_id": "_design/posts",
   "views": {
     "featured": {
-      "map": "function (doc) {\n  if(doc.published && doc.featured) {\n      emit(doc._id, 1);\n    }\n}"
+      "map": "function (doc) {\n  if(doc.published && doc.featured && !doc.deleted) {\n      emit(doc._id, 1);\n    }\n}"
     },
     "posts-all": {
       "map": "function (doc) {\n  emit(doc.publishDate, ''+doc.published);\n  }"

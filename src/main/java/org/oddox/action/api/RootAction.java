@@ -42,9 +42,6 @@ public class RootAction extends ActionSupport implements ServletResponseAware, S
             oddox = "Welcome";
             version = Application.getString("version");
             data = new HashMap<String, String>();
-            data.put("url", Application.getDatabaseService()
-                    .getDatabase()
-                    .getUrl());
             data.put("name", Application.getString("name"));
 
         } catch (Exception e) {

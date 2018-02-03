@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,11 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
-import org.oddox.database.CouchDbSetup;
-import org.oddox.database.Database;
 import org.oddox.objects.Author;
 import org.oddox.objects.Post;
-import org.oddox.objects.Role;
 
 /**
  * Unit tests for CouchDBSetup
@@ -83,10 +79,6 @@ public class CouchDbSetupTests {
                 .equalsIgnoreCase("admin"));
         assertNotNull(post.get_Id());
         assertNotNull(post.getTitle());
-
-        List<Role> roles = setup.getDefaultRoles();
-        assertNotNull(roles);
-        assertTrue(roles.size() > 1);
     }
 
     @Test

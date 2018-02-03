@@ -6,13 +6,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Author;
 import org.oddox.objects.Post;
-import org.oddox.objects.Role;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
@@ -111,10 +109,6 @@ public class CouchDbSetup extends DatabaseSetup {
             posts.getDesignDocumentManager()
                     .get("_design/posts");
 
-            Database roles = client.database("roles", false);
-            roles.getDesignDocumentManager()
-                    .get("_design/roles");
-
             Database authors = client.database("authors", false);
             authors.getDesignDocumentManager()
                     .get("_design/authors");
@@ -143,14 +137,6 @@ public class CouchDbSetup extends DatabaseSetup {
     protected boolean installDesign() {
         try {
             CloudantClient client = getConnection();
-
-            // create default roles
-            Database roles = client.database("roles", true);
-            DesignDocument rolesdesign = DesignDocumentManager.fromFile(Utils.getResourceAsFile("/design/roles.json"));
-            roles.getDesignDocumentManager()
-                    .put(rolesdesign);
-            List<Role> defaultRoles = getDefaultRoles();
-            roles.bulk(defaultRoles);
 
             // create authors
             Database authors = client.database("authors", true);
@@ -308,9 +294,11 @@ public class CouchDbSetup extends DatabaseSetup {
             client.database("_users", true);
             client.database("_replicator", true);
 
-            // TODO create CouchDB permissions
-            // - role = author
-            // - role = admin
+            // TODO set CouchDB permissions per db
+            // - posts = author,admin
+            // - author = author,admin
+            // - application = admin
+            // - views = admin
 
             // create default user
             String user = "admin";
@@ -432,9 +420,8 @@ public class CouchDbSetup extends DatabaseSetup {
         author.setName(name);
         author.setRoleId("admin");
         author.setDescription("The website administrator.");
-        author.setContent(
-                "<p>This is a quick bio about the author. But for now its simply a placeholder. Enjoy your new blog!</p>");
-        author.setThumbnail("/img/placeholder-200.png");
+        author.setContent("<p>This user hasn't written a bio yet.</p>");
+        author.setThumbnail("");
         String now = Utils.getDateIso8601();
         author.setCreateDate(now);
         author.setModifyDate(now);
@@ -458,10 +445,10 @@ public class CouchDbSetup extends DatabaseSetup {
         tags.add("test");
         tags.add("sample");
         post.setTags(tags);
-        post.setCategory("Welcome");
-        post.setBanner("/img/placeholder-640.png");
-        post.setThumbnail("/img/placeholder-640.png");
-        post.setBannerCaption("Time to Relax!");
+        post.setCategory("welcome");
+        post.setBanner("");
+        post.setThumbnail("");
+        post.setBannerCaption("");
         post.setPublished(true);
         post.setFeatured(true);
         String now = Utils.getDateIso8601();
@@ -469,134 +456,5 @@ public class CouchDbSetup extends DatabaseSetup {
         post.setCreateDate(now);
         post.setModifyDate(now);
         return post;
-    }
-
-    /**
-     * Create default roles to insert in the database.
-     * 
-     * @return List
-     */
-    protected List<Role> getDefaultRoles() {
-        ArrayList<Role> roles = new ArrayList<Role>();
-
-        String now = Utils.getDateIso8601();
-
-        Role admin = new Role("admin");
-        admin.setName("Admin");
-        admin.setPublic(false);
-        admin.setPostsCreate(false);
-        admin.setPostsEdit(true);
-        admin.setPostsEditOthers(true);
-        admin.setPostsSeeHidden(true);
-        admin.setPostsDelete(true);
-        admin.setUsersCreate(true);
-        admin.setUsersEdit(true);
-        admin.setUsersEditOthers(true);
-        admin.setUsersDelete(true);
-        admin.setRolesCreate(true);
-        admin.setRolesEdit(true);
-        admin.setRolesDelete(true);
-        admin.setPagesCreate(true);
-        admin.setPagesEdit(true);
-        admin.setPagesDelete(true);
-        admin.setCommentsCreate(false);
-        admin.setCommentsEdit(false);
-        admin.setCommentsEditOthers(false);
-        admin.setCommentsDelete(false);
-        admin.setSettingsCreate(true);
-        admin.setSettingsEdit(true);
-        admin.setSettingsDelete(true);
-        admin.setCreateDate(now);
-        admin.setModifyDate(now);
-
-        Role owner = new Role("owner");
-        owner.setName("Owner");
-        owner.setPublic(true);
-        owner.setPostsCreate(true);
-        owner.setPostsEdit(true);
-        owner.setPostsEditOthers(true);
-        owner.setPostsSeeHidden(false);
-        owner.setPostsDelete(true);
-        owner.setUsersCreate(true);
-        owner.setUsersEdit(false);
-        owner.setUsersEditOthers(false);
-        owner.setUsersDelete(true);
-        owner.setRolesCreate(true);
-        owner.setRolesEdit(true);
-        owner.setRolesDelete(true);
-        owner.setPagesCreate(true);
-        owner.setPagesEdit(true);
-        owner.setPagesDelete(true);
-        owner.setCommentsCreate(true);
-        owner.setCommentsEdit(true);
-        owner.setCommentsEditOthers(false);
-        owner.setCommentsDelete(true);
-        owner.setSettingsCreate(true);
-        owner.setSettingsEdit(true);
-        owner.setSettingsDelete(true);
-        owner.setCreateDate(now);
-        owner.setModifyDate(now);
-
-        Role author = new Role("author");
-        author.setName("author");
-        author.setPublic(true);
-        author.setPostsCreate(true);
-        author.setPostsEdit(true);
-        author.setPostsEditOthers(false);
-        author.setPostsSeeHidden(false);
-        author.setPostsDelete(true);
-        author.setUsersCreate(false);
-        author.setUsersEdit(true);
-        author.setUsersEditOthers(false);
-        author.setUsersDelete(false);
-        author.setRolesCreate(false);
-        author.setRolesEdit(false);
-        author.setRolesDelete(false);
-        author.setPagesCreate(false);
-        author.setPagesEdit(false);
-        author.setPagesDelete(false);
-        author.setCommentsCreate(true);
-        author.setCommentsEdit(true);
-        author.setCommentsEditOthers(true);
-        author.setCommentsDelete(true);
-        author.setSettingsCreate(false);
-        author.setSettingsEdit(false);
-        author.setSettingsDelete(false);
-        author.setCreateDate(now);
-        author.setModifyDate(now);
-
-        Role editor = new Role("editor");
-        editor.setName("Editor");
-        editor.setPublic(true);
-        editor.setPostsCreate(true);
-        editor.setPostsEdit(true);
-        editor.setPostsEditOthers(true);
-        editor.setPostsSeeHidden(true);
-        editor.setPostsDelete(true);
-        editor.setUsersCreate(false);
-        editor.setUsersEdit(true);
-        editor.setUsersEditOthers(true);
-        editor.setUsersDelete(false);
-        editor.setRolesCreate(false);
-        editor.setRolesEdit(false);
-        editor.setRolesDelete(false);
-        editor.setPagesCreate(true);
-        editor.setPagesEdit(true);
-        editor.setPagesDelete(true);
-        editor.setCommentsCreate(true);
-        editor.setCommentsEdit(true);
-        editor.setCommentsEditOthers(true);
-        editor.setCommentsDelete(true);
-        editor.setSettingsCreate(false);
-        editor.setSettingsEdit(false);
-        editor.setSettingsDelete(false);
-        editor.setCreateDate(now);
-        editor.setModifyDate(now);
-
-        roles.add(admin);
-        roles.add(owner);
-        roles.add(editor);
-        roles.add(author);
-        return roles;
     }
 }

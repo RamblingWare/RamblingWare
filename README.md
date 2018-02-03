@@ -1,4 +1,4 @@
-# <img src="https://oddox.org/assets/logo.png" width="280px" alt="Oddox" />
+# <img src="https://oddox.org/assets/logo-dark.png" width="150px" alt="Oddox" />
 
 [![Build](https://img.shields.io/travis/oddoxorg/oddox.svg)](https://travis-ci.org/oddoxorg/oddox)
 [![Codacy grade](https://img.shields.io/codacy/grade/ae13ca0369824fda9b4d32d43398495c.svg)](https://www.codacy.com/app/amdelamar/oddox)
@@ -13,7 +13,7 @@ Oddox is an offline-first blog that syncs! Write, save, and publish your posts t
 ## Features
 
  * Offline-first [dashboard](https://github.com/oddoxorg/dashboard/) for authors to manage blog
- * Multi-Author blog system with editable roles (Author, Editor, Owner, Admin)
+ * Multi-Author blog system with roles (Author, Admin) and Editors
  * Organize blog posts by Tags, Categories, Featured, Authors, and Dates
  * SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
  * HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords

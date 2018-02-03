@@ -11,7 +11,6 @@ import org.oddox.config.AppFirewall;
 import org.oddox.objects.Author;
 import org.oddox.objects.Category;
 import org.oddox.objects.Post;
-import org.oddox.objects.Role;
 import org.oddox.objects.Tag;
 import org.oddox.objects.View;
 import org.oddox.objects.Year;
@@ -682,37 +681,6 @@ public class CouchDb extends DatabaseService {
             e.printStackTrace();
         }
         return posts;
-    }
-
-    @Override
-    public List<Role> getRoles() {
-        List<Role> roles = new ArrayList<Role>();
-        try {
-            CloudantClient client = getConnection();
-            Database db = client.database("roles", false);
-
-            ViewResponse<String, Object> pg = db.getViewRequestBuilder("roles", "roles")
-                    .newRequest(Key.Type.STRING, Object.class)
-                    .includeDocs(true)
-                    .build()
-                    .getResponse();
-
-            boolean hasNextPage = true;
-            while (hasNextPage) {
-                roles.addAll(pg.getDocsAs(Role.class));
-
-                if (pg.hasNextPage()) {
-                    pg = pg.nextPage();
-                } else {
-                    hasNextPage = false;
-                }
-            }
-
-        } catch (Exception e) {
-            // this should be thrown up
-            e.printStackTrace();
-        }
-        return roles;
     }
 
     @Override

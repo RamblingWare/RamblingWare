@@ -49,8 +49,6 @@ public class RootActionTests {
         assertEquals("Welcome", action.getOddox());
         assertEquals(Application.getString("version"), action.getVersion());
         assertTrue(action.getData()
-                .containsKey("url"));
-        assertTrue(action.getData()
                 .containsKey("name"));
     }
 

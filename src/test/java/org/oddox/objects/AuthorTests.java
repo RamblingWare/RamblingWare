@@ -9,8 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.oddox.config.Utils;
-import org.oddox.objects.Author;
-import org.oddox.objects.Role;
 
 /**
  * Unit tests for Author Object
@@ -51,9 +49,8 @@ public class AuthorTests {
         assertEquals("Author biography goes here", author.getContent());
         author.setThumbnail("image");
         assertEquals("image", author.getThumbnail());
-        author.setRole(new Role("admin"));
-        assertEquals("admin", author.getRole()
-                .get_Id());
+        author.setRole("admin");
+        assertEquals("admin", author.getRole());
         author.setRoleId("admin");
         assertEquals("admin", author.getRoleId());
 
