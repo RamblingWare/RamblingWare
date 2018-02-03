@@ -34,7 +34,7 @@
 <meta itemprop="description" content="${(author.description)!''}"/>
 <meta itemprop="image" content="${(author.thumbnail)!''}"/>
 
-<title>${(author.name)!''} - ${(name)!'Oddox'}</title>
+<title>${(author.name)!'Unknown'} - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -51,9 +51,11 @@
 				${(author.name)!'Unknown'}</h1>
 				
 				<div class="w3-container w3-padding">
-					<img src="${(author.thumbnail)!''}" class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height:200px" alt="Profile" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>
-					<#if author.content??>
-						${(author.content)!"Error"}
+					<#if author.thumbnail?has_content>
+						<img src="${(author.thumbnail)!''}" class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height:200px" alt="Profile" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>
+					</#if>
+					<#if author.content?has_content>
+						${(author.content)!'Error'}
 					<#else>
 						<p>This author hasn't provided a bio yet.</p>
 					</#if>

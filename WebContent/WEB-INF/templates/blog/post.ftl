@@ -47,7 +47,7 @@
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
-				<#if post.banner??>
+				<#if post.banner?has_content>
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
 					<img class="w3-img w3-round w3-card-4" style="width: 100%;" alt="Photo for ${(post.title)!''}" title="${(post.bannerCaption)!''}" src="${(post.banner)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
 					<p class="w3-tiny w3-text-grey w3-margin-0" style="text-align: right;">${(post.bannerCaption)!''}</p>
@@ -55,7 +55,7 @@
 				</#if>
 				
 				<h1>${(post.title)!''}</h1>
-				<#if post.content??>
+				<#if post.content?has_content>
 					${(post.content)!'Error'}
 				<#else>
 					<p>This post seems to be empty or failed to load correctly. Please try again later?</p>
@@ -65,7 +65,7 @@
 
 					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">
-							<#if post.author.thumbnail??>
+							<#if post.author.thumbnail?has_content>
 								<img class="w3-round" alt="Profile" title="Author" style="vertical-align: middle;" src="${(post.author.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
 							<#else>
 								<span class="icon-author w3-large w3-text-theme w3-padding-square"></span>

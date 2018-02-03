@@ -1,12 +1,14 @@
-<div class="w3-col s12 m10 l7 w3-round-large w3-hover-shadow w3-card w3-padding-0 w3-margin-bottom">
-	<div class="w3-col s3 m3 l3 w3-padding-16">
+<div class="w3-container w3-col s12 m10 l7 w3-round-large w3-hover-shadow w3-card w3-padding-0 w3-margin-bottom">
+<#if author.thumbnail?has_content>
+	<div class="w3-container w3-col s3 m3 l3 w3-padding-16">
 		<a href="/author/${(author.uri)!''}">
-		<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile" src="${(author.thumbnail)!''}" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'" />
+			<img class="w3-round w3-margin-left" style="width: 75%;" alt="Profile" src="${(author.thumbnail)!''}" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'" />		
 		</a>
 	</div>
-	<div class="w3-col s9 m9 l9 w3-padding-16">
+</#if>
+	<div class="w3-container w3-col s9 m9 l9 w3-padding-16">
 		<div class="w3-small w3-text-grey w3-margin-0 w3-padding-right">
-		<h3 class="w3-padding-0 w3-margin-0"><a href="/author/${(author.uri)!''}">${(author.name)!''}</a></h3>
+		<h3 class="w3-padding-0 w3-margin-0"><a href="/author/${(author.uri)!''}">${(author.name)!'Unknown'}</a></h3>
 		<p class="w3-small w3-margin-0">${(author.description)!"This author hasn't provided a bio yet."}</p> 
 		
 		<p class="w3-small w3-text-theme w3-padding-top">
