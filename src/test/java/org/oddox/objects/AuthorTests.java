@@ -51,8 +51,6 @@ public class AuthorTests {
         assertEquals("image", author.getThumbnail());
         author.setRole("admin");
         assertEquals("admin", author.getRole());
-        author.setRoleId("admin");
-        assertEquals("admin", author.getRoleId());
 
         author.setCreateDate(dateTime);
         assertEquals(dateTime, author.getCreateDate());

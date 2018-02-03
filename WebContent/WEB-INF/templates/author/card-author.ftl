@@ -12,7 +12,7 @@
 		<p class="w3-small w3-margin-0">${(author.description)!"This author hasn't provided a bio yet."}</p> 
 		
 		<p class="w3-small w3-text-theme w3-padding-top">
-			<span class="w3-tag w3-round w3-pale-blue" title="This person is an ${(author.roleId)!''}" style="vertical-align: middle; white-space:nowrap;"><span class="icon-quill"></span>&nbsp;${(author.roleId)!''}</span>
+			<span class="w3-tag w3-round w3-pale-blue" title="This person is an ${(author.role)!'Author'}" style="vertical-align: middle; white-space:nowrap;"><span class="icon-quill"></span>&nbsp;${(author.role)!'Author'}</span>
 			<span class="icon-time w3-medium w3-text-theme w3-padding-square" title="Date Joined"></span>
 			<span title="Date Joined" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">${(author.createDateReadable)!''}</span>
 		</p>

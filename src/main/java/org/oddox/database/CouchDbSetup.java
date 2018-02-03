@@ -418,7 +418,7 @@ public class CouchDbSetup extends DatabaseSetup {
                         .toLowerCase();
         Author author = new Author(user);
         author.setName(name);
-        author.setRoleId("admin");
+        author.setRole("admin");
         author.setDescription("The website administrator.");
         author.setContent("<p>This user hasn't written a bio yet.</p>");
         author.setThumbnail("");

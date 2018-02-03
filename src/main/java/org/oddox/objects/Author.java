@@ -15,7 +15,6 @@ public class Author implements Comparable<Author> {
     private String name;
     private String email;
     private String role;
-    private String roleId;
     private String thumbnail;
     private String description;
     private String content;
@@ -72,14 +71,6 @@ public class Author implements Comparable<Author> {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
     }
 
     public String getDescription() {
