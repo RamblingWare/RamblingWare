@@ -135,6 +135,8 @@ public class CouchDbSetup extends DatabaseSetup {
      * @return true if install successful
      */
     protected boolean installDesign() {
+        HttpConnection request = null;
+        HttpConnection response = null;
         try {
             CloudantClient client = getConnection();
 
@@ -147,6 +149,32 @@ public class CouchDbSetup extends DatabaseSetup {
 
             // create default author
             authors.save(getDefaultAuthor());
+            
+            // set permissions
+            request = Http.PUT(new URL(client.getBaseUri() + "/authors/_security"), "application/json");
+            request.setRequestBody(
+                    "{\r\n" + 
+                    "    \"admins\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    },\r\n" +
+                    "    \"members\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    }\r\n" +
+                    "}");
+            response = client.executeRequest(request);
+            if (response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                // failed to set permissions
+                throw new IOException(
+                        "Failed to set default db permissions for 'authors'.");
+            }
 
             // create posts
             Database posts = client.database("posts", true);
@@ -156,23 +184,109 @@ public class CouchDbSetup extends DatabaseSetup {
 
             // create default post
             posts.save(getDefaultPost());
+            
+            // set permissions
+            request = Http.PUT(new URL(client.getBaseUri() + "/posts/_security"), "application/json");
+            request.setRequestBody(
+                    "{\r\n" + 
+                    "    \"admins\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    },\r\n" +
+                    "    \"members\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    }\r\n" +
+                    "}");
+            response = client.executeRequest(request);
+            if (response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                // failed to set permissions
+                throw new IOException(
+                        "Failed to set default db permissions for 'posts'.");
+            }
 
             // create views
             Database views = client.database("views", true);
             DesignDocument viewsdesign = DesignDocumentManager.fromFile(Utils.getResourceAsFile("/design/views.json"));
             views.getDesignDocumentManager()
                     .put(viewsdesign);
+            
+            // set permissions
+            request = Http.PUT(new URL(client.getBaseUri() + "/views/_security"), "application/json");
+            request.setRequestBody(
+                    "{\r\n" + 
+                    "    \"admins\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    },\r\n" +
+                    "    \"members\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    }\r\n" +
+                    "}");
+            response = client.executeRequest(request);
+            if (response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                // failed to set permissions
+                throw new IOException(
+                        "Failed to set default db permissions for 'views'.");
+            }
 
             // default app config
             Database app = client.database("application", true);
             app.save(Application.getAppConfig());
             app.save(Application.getAppFirewall());
+            
+            // set permissions
+            request = Http.PUT(new URL(client.getBaseUri() + "/application/_security"), "application/json");
+            request.setRequestBody(
+                    "{\r\n" + 
+                    "    \"admins\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    },\r\n" +
+                    "    \"members\": {\r\n" + 
+                    "        \"roles\": [\r\n" + 
+                    "            \"_admin\",\r\n" +
+                    "            \"author\"\r\n" + 
+                    "        ]\r\n" + 
+                    "    }\r\n" +
+                    "}");
+            response = client.executeRequest(request);
+            if (response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
+                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                // failed to set permissions
+                throw new IOException(
+                        "Failed to set default db permissions for 'application'.");
+            }
 
             return true;
 
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Failed Database Installation: Exception occured during install: " + e.getMessage());
+        } finally {
+            // close streams
+            if (response != null) {
+                response.disconnect();
+            }
+            if (request != null) {
+                request.disconnect();
+            }
         }
         return false;
     }
@@ -279,7 +393,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
     /**
      * Attempts to disable admin party mode, by creating a regular _user and a
-     * system user (also known as couchdb admin). Uses the default user+pass
+     * system user (also known as couchdb server admin). Uses the default user+pass
      * provided in the properties file.
      * 
      * @return true if successful
@@ -306,7 +420,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
             request1 = Http.PUT(new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user), "application/json");
             request1.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
-                    + "\",\"password\":\"" + pass + "\",\"roles\":[\"admin\",\"author\"],\"type\":\"user\"}");
+                    + "\",\"password\":\"" + pass + "\",\"roles\":[\"_admin\",\"author\"],\"type\":\"user\"}");
             response1 = client.executeRequest(request1);
             if (response1.getConnection()
                     .getResponseCode() != HttpURLConnection.HTTP_CREATED) {
