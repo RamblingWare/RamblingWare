@@ -156,13 +156,13 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
@@ -191,13 +191,13 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
@@ -223,13 +223,13 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
@@ -254,13 +254,13 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"_admin\",\r\n" +
+                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
@@ -420,7 +420,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
             request1 = Http.PUT(new URL(client.getBaseUri() + "/_users/org.couchdb.user:" + user), "application/json");
             request1.setRequestBody("{\"_id\":\"org.couchdb.user:" + user + "\",\"name\":\"" + user
-                    + "\",\"password\":\"" + pass + "\",\"roles\":[\"_admin\",\"author\"],\"type\":\"user\"}");
+                    + "\",\"password\":\"" + pass + "\",\"roles\":[\"admin\"],\"type\":\"user\"}");
             response1 = client.executeRequest(request1);
             if (response1.getConnection()
                     .getResponseCode() != HttpURLConnection.HTTP_CREATED) {
