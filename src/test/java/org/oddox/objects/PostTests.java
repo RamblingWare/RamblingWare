@@ -63,17 +63,32 @@ public class PostTests {
         assertTrue(post.isDeleted());
         post.setCategory("Meta");
         assertEquals("Meta", post.getCategory());
+        List<String> tags = new ArrayList<String>();
+        tags.add("Meta");
+        post.setTags(tags);
+        assertEquals("Meta", post.getTags()
+                .get(0));
+
         post.setAuthorId("author_1");
         assertEquals("author_1", post.getAuthorId());
+
+        List<String> coauthors = new ArrayList<String>();
+        coauthors.add("coauthor_1");
+        post.setCoauthorIds(coauthors);
+        assertEquals("coauthor_1", post.getCoauthorIds()
+                .get(0));
+
+        List<String> editors = new ArrayList<String>();
+        editors.add("editor_1");
+        post.setEditorIds(editors);
+        assertEquals("editor_1", post.getEditorIds()
+                .get(0));
+
         post.setAuthor(new Author("author_1"));
         assertEquals("author_1", post.getAuthor()
                 .get_Id());
+        
         post.setView(new View());
-        List<String> list = new ArrayList<String>();
-        list.add("Meta");
-        post.setTags(list);
-        assertEquals("Meta", post.getTags()
-                .get(0));
         assertNotNull(post.getView());
 
         post.setCreateDate(dateTime);

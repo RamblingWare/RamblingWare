@@ -17,10 +17,10 @@ public class Post implements Comparable<Post> {
     private String _rev;
     private String title;
     private String authorId;
-    private Author author;
+    private List<String> coauthorIds;
+    private List<String> editorIds;
     private String category;
     private List<String> tags;
-    private View view;
     private boolean featured;
     private boolean published;
     private boolean deleted;
@@ -32,6 +32,9 @@ public class Post implements Comparable<Post> {
     private String bannerCaption;
     private String description;
     private String content;
+
+    private Author author;
+    private View view;
 
     public Post(String id) {
         this._id = id;
@@ -95,6 +98,14 @@ public class Post implements Comparable<Post> {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public String getThumbnail() {
@@ -199,20 +210,28 @@ public class Post implements Comparable<Post> {
         this.authorId = authorId;
     }
 
+    public List<String> getCoauthorIds() {
+        return coauthorIds;
+    }
+
+    public void setCoauthorIds(List<String> coauthorIds) {
+        this.coauthorIds = coauthorIds;
+    }
+
+    public List<String> getEditorIds() {
+        return editorIds;
+    }
+
+    public void setEditorIds(List<String> editorIds) {
+        this.editorIds = editorIds;
+    }
+
     public Author getAuthor() {
         return author;
     }
 
     public void setAuthor(Author author) {
         this.author = author;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
     }
 
     public View getView() {
