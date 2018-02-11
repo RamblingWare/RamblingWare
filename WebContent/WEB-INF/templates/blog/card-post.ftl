@@ -1,7 +1,4 @@
 <div class="w3-container w3-round-large w3-border w3-card w3-hover-shadow w3-padding-0 w3-margin-bottom">
-<#if post.featured>
-	<span class="icon-star w3-xlarge w3-text-theme w3-hover-text-yellow w3-right w3-padding-square" title="This is a featured post."></span>
-</#if>				
 <div class="w3-container w3-round-large w3-col s12 m3 l4 w3-padding-0 w3-center w3-theme-l4" style="overflow: hidden;">
 	<a href="/blog/${(post.uri)!''}">
 	<#if post.thumbnail?has_content>
@@ -10,6 +7,9 @@
 	</a>
 </div>
 <div class="w3-container w3-round w3-col s12 m9 l8 w3-padding-16">
+<#if post.featured>
+	<span class="icon-star w3-xlarge w3-text-theme w3-hover-text-yellow w3-right w3-padding-square" title="This is a featured post."></span>
+</#if>
 	<h3 class="w3-padding-0 w3-margin-0"><a href="/blog/${(post.uri)!''}">${(post.title)!''}</a></h3>
 	<p class="w3-small w3-margin-0">${(post.description)!"This post doesn't have a description yet."}</p>
 

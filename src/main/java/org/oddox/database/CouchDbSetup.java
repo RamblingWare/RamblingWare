@@ -408,12 +408,6 @@ public class CouchDbSetup extends DatabaseSetup {
             client.database("_users", true);
             client.database("_replicator", true);
 
-            // TODO set CouchDB permissions per db
-            // - posts = author,admin
-            // - author = author,admin
-            // - application = admin
-            // - views = admin
-
             // create default user
             String user = "admin";
             String pass = "admin";

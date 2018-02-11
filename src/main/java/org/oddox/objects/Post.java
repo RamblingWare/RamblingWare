@@ -34,6 +34,8 @@ public class Post implements Comparable<Post> {
     private String content;
 
     private Author author;
+    private List<Author> coauthors;
+    private List<Author> editors;
     private View view;
 
     public Post(String id) {
@@ -232,6 +234,22 @@ public class Post implements Comparable<Post> {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public List<Author> getCoauthors() {
+        return coauthors;
+    }
+
+    public void setCoauthors(List<Author> coauthors) {
+        this.coauthors = coauthors;
+    }
+
+    public List<Author> getEditors() {
+        return editors;
+    }
+
+    public void setEditors(List<Author> editors) {
+        this.editors = editors;
     }
 
     public View getView() {

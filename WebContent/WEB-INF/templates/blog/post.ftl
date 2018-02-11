@@ -68,11 +68,37 @@
 							<#if post.author.thumbnail?has_content>
 								<img class="w3-round" alt="Profile" title="Author" style="vertical-align: middle;" src="${(post.author.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
 							<#else>
-								<span class="icon-author w3-large w3-text-theme w3-padding-square"></span>
+								<span class="icon-author w3-large w3-text-theme w3-padding-square" title="Author"></span>
 							</#if>
 							<a href="/author/${(post.author.uri)!''}" title="Author" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">
 							${(post.author.name)!''}</a>
 						</p>
+						<#if post.coauthors??>
+							<p class="w3-medium w3-padding-0" style="vertical-align: middle;">
+							<#list post.coauthors as coauthor>
+								<#if coauthor.thumbnail?has_content>
+									<img class="w3-round" alt="Profile" title="Co-Author" style="vertical-align: middle;" src="${(coauthor.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
+								<#else>
+									<span class="icon-author w3-large w3-text-theme w3-padding-square" title="Co-Author"></span>
+								</#if>
+								<a href="/author/${(coauthor.uri)!''}" title="Co-Author" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">
+								${(coauthor.name)!''}</a>&nbsp;
+							</#list>
+							</p>
+						</#if>
+						<#if post.editors??>
+							<p class="w3-medium w3-padding-0" style="vertical-align: middle;">
+							<#list post.editors as editor>
+								<#if editor.thumbnail?has_content>
+									<img class="w3-round" alt="Profile" title="Editor" style="vertical-align: middle;" src="${(editor.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
+								<#else>
+									<span class="icon-author w3-large w3-text-theme w3-padding-square" title="Editor"></span>
+								</#if>
+								<a href="/author/${(editor.uri)!''}" title="Editor" class="w3-text-theme" style="vertical-align: middle; white-space:nowrap;">
+								${(editor.name)!''}</a>&nbsp;
+							</#list>
+							</p>
+						</#if>
 					</div>
 					<div class="w3-col s12 m6 l3">
 						<p class="w3-large w3-padding-0" style="vertical-align: middle;">

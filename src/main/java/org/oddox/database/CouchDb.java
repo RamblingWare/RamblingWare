@@ -115,10 +115,11 @@ public class CouchDb extends DatabaseService {
 
             post = db.find(Post.class, uri);
 
-            if (!includeHidden && !post.isPublished()) {
+            if (!includeHidden && (!post.isPublished() || post.isDeleted())) {
+                // post is not visible yet
                 post = null;
             } else {
-                // get author for each post
+                // get author for this post
                 try {
                     db = client.database("authors", false);
                     post.setAuthor(db.find(Author.class, post.getAuthorId()));
@@ -127,6 +128,38 @@ public class CouchDb extends DatabaseService {
                     Author author = new Author(post.getAuthorId());
                     author.setName(post.getAuthorId());
                     post.setAuthor(author);
+                }
+
+                if (post.getCoauthorIds() != null && !post.getCoauthorIds()
+                        .isEmpty()) {
+                    // get each coauthor
+                    ArrayList<Author> coauthors = new ArrayList<Author>();
+                    db = client.database("authors", false);
+                    for (String coa : post.getCoauthorIds()) {
+                        try {
+                            Author coauthor = db.find(Author.class, coa);
+                            coauthors.add(coauthor);
+                        } catch (Exception e) {
+                            // ignore and skip.
+                        }
+                    }
+                    post.setCoauthors(coauthors);
+                }
+
+                if (post.getEditorIds() != null && !post.getEditorIds()
+                        .isEmpty()) {
+                    // get each editor
+                    ArrayList<Author> editors = new ArrayList<Author>();
+                    db = client.database("authors", false);
+                    for (String edt : post.getEditorIds()) {
+                        try {
+                            Author editor = db.find(Author.class, edt);
+                            editors.add(editor);
+                        } catch (Exception e) {
+                            // ignore and skip.
+                        }
+                    }
+                    post.setEditors(editors);
                 }
             }
 
