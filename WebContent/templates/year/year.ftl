@@ -1,18 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/WEB-INF/templates/fragment/meta/meta.ftl">
+<#include "/templates/fragment/meta/meta.ftl">
 
 <title>Year ${(year)!''} - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
-	<#include "/WEB-INF/templates/fragment/header.ftl">
+	<#include "/templates/fragment/header.ftl">
 
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 			
-			<#include "/WEB-INF/templates/fragment/tabs.ftl">
+			<#include "/templates/fragment/tabs.ftl">
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
@@ -26,10 +26,10 @@
 					</#if>
 					
 					<#list posts as post>
-						<#include "/WEB-INF/templates/blog/card-post.ftl">
+						<#include "/templates/blog/card-post.ftl">
 					</#list>
 					
-					<#include "/WEB-INF/templates/fragment/pagination.ftl">
+					<#include "/templates/fragment/pagination.ftl">
 				
 				<#else>
 					<p class="w3-padding w3-border w3-card-2 w3-round w3-pale-red w3-text-red w3-border-red">
@@ -43,10 +43,10 @@
 				</div>
 			</div>
 			
-			<#include "/WEB-INF/templates/fragment/archive.ftl">
+			<#include "/templates/fragment/archive.ftl">
 		</div>
 	</article>
 
-	<#include "/WEB-INF/templates/fragment/footer.ftl">
+	<#include "/templates/fragment/footer.ftl">
 </body>
 </html>

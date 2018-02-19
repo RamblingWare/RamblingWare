@@ -6,7 +6,7 @@
 <meta name="robots" content="all"/>
 <meta http-equiv="cache-control" content="public"/>
 <meta http-equiv="expires" content="${(date)!''}"/>
-<#include "/WEB-INF/templates/fragment/meta/meta-webapp.ftl">
+<#include "/templates/fragment/meta/meta-webapp.ftl">
 
 <link rel="author" href="humans.txt"/>
 <link rel="shortcut icon" href="/favicon.ico"/>

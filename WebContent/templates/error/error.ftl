@@ -1,18 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/WEB-INF/templates/fragment/meta/meta-nocache.ftl">
+<#include "/templates/fragment/meta/meta-nocache.ftl">
 
 <title>Error!</title>
 </head>
 <body class="w3-theme-dark">
 
-	<#include "/WEB-INF/templates/fragment/header.ftl">
+	<#include "/templates/fragment/header.ftl">
 	
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 		
-			<#include "/WEB-INF/templates/fragment/tabs.ftl">
+			<#include "/templates/fragment/tabs.ftl">
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
@@ -42,6 +42,6 @@
 		</div>
 	</article>
 
-	<#include "/WEB-INF/templates/fragment/footer.ftl">
+	<#include "/templates/fragment/footer.ftl">
 </body>
 </html>

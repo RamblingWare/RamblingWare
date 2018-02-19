@@ -10,7 +10,7 @@
 <meta http-equiv="cache-control" content="public"/>
 <meta http-equiv="expires" content="${(date)!''}"/>
 
-<#include "/WEB-INF/templates/fragment/meta/meta-webapp.ftl">
+<#include "/templates/fragment/meta/meta-webapp.ftl">
 
 <!-- Facebook Open Graph -->
 <meta property="fb:app_id" content="${(facebookAppId)!''}"/>

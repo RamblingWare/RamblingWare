@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/WEB-INF/templates/fragment/meta/meta-post.ftl">
+<#include "/templates/fragment/meta/meta-post.ftl">
 <meta name="author" content="${(post.author.name)!''}"/>
 <meta name="description" content="${(post.description)!''}"/>
 <meta name="keywords" content="<#list post.tags as tag>${(tag)!''},</#list>${(keywords)!''}"/>
@@ -38,12 +38,12 @@
 </head>
 <body class="w3-theme-dark">
 
-	<#include "/WEB-INF/templates/fragment/header.ftl">
+	<#include "/templates/fragment/header.ftl">
 
 	<article class="w3-theme-light">
 		<div class="page w3-row">
 			
-			<#include "/WEB-INF/templates/fragment/tabs.ftl">
+			<#include "/templates/fragment/tabs.ftl">
 			
 			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
 				
@@ -158,7 +158,7 @@
 				<hr />
 			</div>
 			
-			<#include "/WEB-INF/templates/fragment/archive.ftl">
+			<#include "/templates/fragment/archive.ftl">
 		</div>
 		
 		<div class="page w3-row no-print">
@@ -172,7 +172,7 @@
 		
 	</article>
 
-	<#include "/WEB-INF/templates/fragment/footer.ftl">
+	<#include "/templates/fragment/footer.ftl">
 	<script type="text/javascript" src="/vendor/highlight/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 </body>

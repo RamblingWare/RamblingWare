@@ -3,7 +3,7 @@
 		<#if archiveFeatured??>
 			<h3 class="w3-margin-top">Featured</h3>
 			<#list archiveFeatured as post>
-				<#include "/WEB-INF/templates/blog/block-post.ftl">
+				<#include "/templates/blog/block-post.ftl">
 			</#list>
 		</#if>
 	</div>

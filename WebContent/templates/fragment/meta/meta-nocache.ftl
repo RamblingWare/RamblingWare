@@ -9,7 +9,7 @@
 <meta http-equiv="expires" content="0"/>
 <meta http-equiv="pragma" content="no-cache"/>
 
-<#include "/WEB-INF/templates/fragment/meta/meta-webapp.ftl">
+<#include "/templates/fragment/meta/meta-webapp.ftl">
 
 <link rel="author" href="humans.txt"/>
 <link rel="shortcut icon" href="/favicon.ico"/>
