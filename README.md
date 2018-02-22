@@ -6,15 +6,15 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/oddoxorg/oddox.svg)](https://hub.docker.com/r/oddoxorg/oddox/)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/oddoxorg/oddox/blob/master/LICENSE)
 
-Oddox is an offline-first blog that syncs! Write, save, and publish your posts then sync later when you're connected.
+Oddox is a blog with an offline-first editor. Write, save, and publish your posts without an internet connection, then sync later when you're connected.
 
 > Live Example: coming soon...
 
 ## Features
 
- * Offline-first [dashboard](https://github.com/oddoxorg/dashboard/) for authors to manage blog
- * Multi-Author blog system with roles (Author, Admin) and Editors
+ * Multi-Author blog system with roles. Author, Admin, Co-Authors, and Editors
  * Organize blog posts by Tags, Categories, Featured, Authors, and Dates
+ * Offline-first [dashboard](https://github.com/oddoxorg/dashboard/) for authors to manage their blog
  * SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
  * HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
 
@@ -24,7 +24,7 @@ Oddox is an offline-first blog that syncs! Write, save, and publish your posts t
 
 ## Usage
 
-This project is still in development. It is not easily modifiable for "new" blogs, but stay tuned. A self-installing version will be made available once the main features are complete.
+This project is still in development but stay tuned. The first version will be made available once the main features are complete.
 
 <!--
 ### One-Click Deploy
