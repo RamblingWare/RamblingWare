@@ -33,6 +33,8 @@ This project is still in development but stay tuned. The first version will be m
 [![Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/oddoxorg/oddox)
 [![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/oddoxorg/oddox)
  -->
+ 
+## Deployment
 
 ### Docker Deploy
 
