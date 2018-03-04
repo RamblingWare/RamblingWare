@@ -156,13 +156,11 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
-                    "            \"author\"\r\n" + 
+                    "            \"admin\"\r\n" + 
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
@@ -191,13 +189,11 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
-                    "            \"author\"\r\n" + 
+                    "            \"admin\"\r\n" + 
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
@@ -223,13 +219,11 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
-                    "            \"author\"\r\n" + 
+                    "            \"admin\"\r\n" +
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
@@ -254,13 +248,11 @@ public class CouchDbSetup extends DatabaseSetup {
                     "{\r\n" + 
                     "    \"admins\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
-                    "            \"author\"\r\n" + 
+                    "            \"admin\"\r\n" + 
                     "        ]\r\n" + 
                     "    },\r\n" +
                     "    \"members\": {\r\n" + 
                     "        \"roles\": [\r\n" + 
-                    "            \"admin\",\r\n" +
                     "            \"author\"\r\n" + 
                     "        ]\r\n" + 
                     "    }\r\n" +
