@@ -1,58 +1,54 @@
-<nav id="sidebar" class="w3-sidebar w3-bar-block w3-black w3-card-4 w3-animate-left">
-  	<button onclick="closeSidebar()" class="w3-bar-item uppercase w3-black w3-text-theme w3-large" data-close="">Menu</button>
-  	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Home" href="/"><span class="icon-home w3-large w3-margin-right"></span>Home</a>
-	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Years" href="/year/"><span class="icon-time w3-large w3-margin-right"></span>Archive</a>
-	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Categories" href="/category/"><span class="icon-folder w3-large w3-margin-right"></span>Categories</a>
-	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Tags" href="/tag/"><span class="icon-tag w3-large w3-margin-right"></span>Tags</a>
-	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="Authors" href="/author/"><span class="icon-author w3-large w3-margin-right"></span>Authors</a>
-	<a class="w3-bar-item w3-hover-text-light-grey w3-btn" title="About" href="/about">About</a>
-	<p class="w3-container w3-center w3-small w3-text-theme">
-		${(copyright)!''}<br/>
-		Last Updated: ${(lastUpdated)!''}
-		<br/><br/>
-		<a href="/terms-of-use" title="Terms of Use">Terms</a> | 
-		<a href="/privacy-policy" title="Privacy Policy">Privacy</a><br/>
-		<a target="_Blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a><br/> 
-		<a target="_Blank" href="https://www.ibm.com/cloud" title="IBM Cloud">Hosted on IBM Cloud</a>
-	</p>
+<nav id="sidebarMenu" class="sidebar shadow-right">
+    <div class="nav-item-close">
+        <a class="right" title="Close Menu" href="javascript:closeSidebar()" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2.757 14.657L8 9.414l5.243 5.243 1.414-1.414L9.414 8l5.243-5.243-1.414-1.414L8 6.586 2.757 1.343 1.343 2.757 6.586 8l-5.243 5.243z" fill-rule="evenodd"></path></svg>
+        </a>
+    </div>
+    <div class="nav-list text-center" onclick="closeSidebar()">
+        <a class="nav-item" href="/">Blog</a>
+        <a class="nav-item" href="/about">About</a>
+        <br/>
+        <a class="nav-item" href="/author/">Authors</a>
+		<a class="nav-item" href="/search">Search</a>
+		<br/>
+		<a class="nav-item" href="/year/">Years</a>
+		<a class="nav-item" href="/category/">Categories</a>
+		<a class="nav-item" href="/tag/">Tags</a>
+		<hr/>
+		<a class="nav-item text-tertiary" target="_blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a>
+    </div>
 </nav>
-<header>
-	<div class="page w3-container w3-theme-dark">
-		<div class="w3-col s2 w3-padding-4 w3-hide-medium w3-hide-large no-print w3-dropdown-hover">
-			<button class="w3-btn icon-menu w3-padding-square w3-theme-dark w3-text-theme w3-xxlarge" onclick="openSidebar()"></button>		
-		</div>
-		<div class="w3-col s10 m7 l7 w3-container w3-padding-0">
-			<a href="/"><img id="logo" src="/img/logo.png" alt="${(name)!'Oddox'}" /></a>
-		</div>
-		<div id="search" class="w3-col s2 m3 l3 w3-padding-square w3-right w3-small w3-hide-small no-print">
-			<div class="w3-padding-left w3-theme-l3 w3-hover-light-grey w3-hover-shadow w3-card w3-round-large">
-				<form action="/search" method="post" class="w3-medium">
-				<label for="searchHead" class="icon-search w3-large w3-text-theme"></label>
-				<input id="searchHead" name="q" class="w3-input w3-hover-light-grey w3-theme-l3 w3-border-0 w3-padding-4" style="display:inline;width:75%;border:none!important;box-shadow:none;" maxlength="50" size="20" placeholder="Search..." type="text">
-				</form>
-			</div>
-		</div>
-	</div>
-</header>
+<nav class="navbar border-bottom">
+    <div class="navbar-body container">
+        <div class="nav-item-logo">
+            <a href="/"><span class="text-medium text-bold text-uppercase text-wide">${(name)!'Oddox'}</span></a>
+        </div>
+        <div class="nav-small-menu">
+            <a class="nav-item" title="Open Menu" href="javascript:openSidebar()">
+                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 7h16v2H0V7zm0-6h16v2H0V1zm0 12h16v2H0v-2z" fill-rule="evenodd"></path></svg>
+            </a>
+        </div>
+        <div class="nav-group nav-large-menu text-bold">
+            <a class="nav-item" href="/">Blog</a>
+            <a class="nav-item" href="/about">About</a>
+            <form action="/search" method="post" class="nav-item">
+				<i class="icon-search padding"></i>
+				<input id="searchHead" name="q" maxlength="50" placeholder="Search..." style="max-height:28px;" type="text">
+			</form>
+        </div>
+    </div>
+</nav>
 <#if actionErrors??>
 	<#list actionErrors as actionError>
-	<div style="float:left; position:absolute; left:50%; top:1%;">
-	<div class="w3-animate-top w3-padding w3-margin w3-border w3-card-4 w3-round w3-pale-red w3-text-red w3-border-red" onclick="this.style.display='none'" style="left:-50%; min-width:280px;" data-close="">
-		<span class="w3-medium w3-text-black w3-margin-right">
-			<span class="icon-cross w3-large w3-margin-right w3-text-red"></span>${(actionError)!''}
-		</span>
-	</div>
+	<div class="border border-danger text-bold text-danger" style="float:left; position:absolute; left:50%; top:1%;">
+	${(actionError)!''}
 	</div>
 	</#list>
 </#if>
 <#if actionMessages??>
 	<#list actionMessages as actionMessage>
-	<div style="float:left; position:absolute; left:50%; top:1%;">
-	<div class="w3-animate-top w3-padding w3-margin w3-border w3-card-4 w3-round w3-pale-green w3-text-green w3-border-green" onclick="this.style.display='none'" style="left:-50%; min-width:280px;" data-close="">
-		<span class="w3-medium w3-text-black w3-margin-right">
-			<span class="icon-checkmark w3-large w3-margin-right w3-text-green"></span>${(actionMessage)!''}
-		</span>
-	</div>
+	<div class="border border-success text-bold text-success" style="float:left; position:absolute; left:50%; top:1%;">
+	${(actionMessage)!''}
 	</div>
 	</#list>
 </#if>

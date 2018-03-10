@@ -7,10 +7,8 @@
 <meta name="keywords" content="${(keywords)!'Oddox'}"/>
 
 <!-- Facebook Open Graph -->
-<meta property="fb:app_id" content="${(facebookAppId)!''}">
 <meta property="og:url" content="${(url)!''}/author/${(author.uri)!''}"/>
 <meta property="og:type" content="article"/>
-<meta property="og:locale" content="en_US"/>
 <meta property="og:title" content="${(author.name)!''} - ${(name)!'Oddox'}"/>
 <meta property="og:image" content="${(author.thumbnail)!''}"/>
 <meta property="og:image:type" content="image/png"/>
@@ -36,23 +34,20 @@
 
 <title>${(author.name)!'Unknown'} - ${(name)!'Oddox'}</title>
 </head>
-<body class="w3-theme-dark">
+<body>
 
 	<#include "/templates/fragment/header.ftl">
 
-	<article class="w3-theme-light">
-		<div class="page w3-row">
-			
-			<#include "/templates/fragment/tabs.ftl">
-			
-			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
-							
-				<h1><span class="w3-small w3-text-grey w3-right">${(author.createDateReadable)!'Unknown Date'}</span>
+	<article class="container padding-top-large margin-top-large">
+		<div class="row">
+			<div id="page-content" class="nine columns">
+
+				<h1><span class="text-tertiary right">${(author.createDateReadable)!'Unknown Date'}</span>
 				${(author.name)!'Unknown'}</h1>
-				
+
 				<div class="w3-container w3-padding">
 					<#if author.thumbnail?has_content>
-						<img src="${(author.thumbnail)!''}" class="w3-round w3-card-4 w3-margin-right w3-margin-bottom w3-left" style="max-height:200px" alt="Profile" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>
+						<img src="${(author.thumbnail)!''}" class="round border margin-right margin-bottom left" style="max-height:200px" alt="Profile" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>
 					</#if>
 					<#if author.content?has_content>
 						${(author.content)!'Error'}
@@ -60,13 +55,12 @@
 						<p>This author hasn't provided a bio yet.</p>
 					</#if>
 				</div>
-				
-				<div class="w3-container w3-padding-left w3-padding-right w3-center">
-					<hr />
-					<p class="w3-large"><a href="/author/">See more authors...</a></p>
+
+				<div class="text-center">
+					<p><a href="/author/">See more authors...</a></p>
 				</div>
 			</div>
-			
+
 			<#include "/templates/fragment/archive.ftl">
 		</div>
 	</article>
