@@ -16,8 +16,6 @@
 		<a target="_blank" title="RSS Feed" href="/rss"><i class="icon-rss"></i></a>
 	</p>
 	<p class="text-tertiary margin-none">
-		${(copyright)!''}<br/>
-		Last Updated: ${(lastUpdated)!''}<br/>
     <a class="text-tertiary" target="_blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a>
 	</p>
 </footer>

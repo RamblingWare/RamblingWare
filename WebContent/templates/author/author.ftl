@@ -11,9 +11,6 @@
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="${(author.name)!''} - ${(name)!'Oddox'}"/>
 <meta property="og:image" content="${(author.thumbnail)!''}"/>
-<meta property="og:image:type" content="image/png"/>
-<meta property="og:image:width" content="256"/><!-- guessing -->
-<meta property="og:image:height" content="256"/><!-- guessing -->
 <meta property="og:description" content="${(author.description)!''}"/>
 <meta property="og:site_name" content="${(name)!'Oddox'}"/>
 <meta property="article:author" content="${(author.name)!''}"/>
@@ -21,11 +18,11 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:site" content="${(twitterHandle)!''}">
-<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}">
 <meta name="twitter:title" content="${(author.name)!''} - ${(name)!'Oddox'}"/>
 <meta name="twitter:description" content="${(author.description)!''}"/>
 <meta name="twitter:image" content="${(author.thumbnail)!''}"/>
 <meta name="twitter:domain" content="${(domain)!''}">
+<meta name="twitter:dnt" content="on">
 
 <!-- Google+ Schema.org -->
 <meta itemprop="name" content="${(author.name)!''} - ${(name)!'Oddox'}"/>

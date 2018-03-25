@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="generator" content="Oddox"/>
 <meta name="application-name" content="${(name)!'Oddox'}"/>
-<meta name="author" content="${(author)!'Oddox'}"/>
+<meta name="author" content="${(name)!'Oddox'}"/>
 <meta name="keywords" content="${(keywords)!'oddox'}"/>
 <meta name="description" content="${(description)!'description'}"/>
 <meta name="robots" content="all"/>
@@ -15,20 +15,17 @@
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="${(name)!'Oddox'}"/>
 <meta property="og:image" content="/images/icon-light-512.png"/>
-<meta property="og:image:type" content="image/png"/>
-<meta property="og:image:width" content="512"/>
-<meta property="og:image:height" content="512"/>
 <meta property="og:description" content="${(description)!'description'}"/>
 <meta property="og:site_name" content="${(name)!'Oddox'}" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:site" content="${(twitterHandle)!''}"/>
-<meta name="twitter:creator" content="${(twitterAuthorHandle)!''}"/>
 <meta name="twitter:title" content="${(name)!'Oddox'}"/>
 <meta name="twitter:description" content="${(description)!'description'}"/>
 <meta name="twitter:image" content="/images/icon-light-512.png"/>
 <meta name="twitter:domain" content="${(domain)!''}"/>
+<meta name="twitter:dnt" content="on">
 
 <!-- Google+ Schema.org -->
 <meta itemprop="name" content="${(name)!'Oddox'}"/>

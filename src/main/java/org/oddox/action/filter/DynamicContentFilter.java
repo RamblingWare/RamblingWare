@@ -10,8 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-import org.oddox.config.Application;
-
 /**
  * DynamicContentFilter class modifies HTTP Headers before sending out a response from a template or action.
  * 
@@ -42,7 +40,7 @@ public class DynamicContentFilter implements Filter {
 
         // Set CSP to ensure content and sources are explicit.
         response.addHeader("Content-Security-Policy",
-                "default-src 'self' " + Application.getString("cdn") + " 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; form-action 'none';");
+                "default-src 'self' cdn.ramblingware.com 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; form-action 'none';");
         // "Content-Security-Policy-Report-Only" can also be used.
         // Examples:
         // "default-src 'none'; img-src 'self' cdn.oddox.org chart.googleapis.com; style-src
