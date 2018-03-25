@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.oddox.config.AppHeaders;
 import org.oddox.config.Application;
-import org.oddox.config.Header;
+import org.oddox.objects.Header;
 
 /**
  * DynamicContentFilter class modifies HTTP Headers before sending out a response from a template or action.

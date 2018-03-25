@@ -2,6 +2,8 @@ package org.oddox.config;
 
 import java.util.List;
 
+import org.oddox.objects.Header;
+
 public class AppHeaders {
 
     private String _id = "APPHEADERS";

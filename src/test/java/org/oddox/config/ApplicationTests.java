@@ -20,6 +20,7 @@ import org.mockito.MockitoAnnotations;
 import org.oddox.database.CouchDb;
 import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
+import org.oddox.objects.Header;
 
 /**
  * Unit tests for Application
@@ -112,6 +113,26 @@ public class ApplicationTests {
 
         Application.setAppFirewall(fw);
         assertNotNull(Application.getAppFirewall());
+    }
+    
+    @Test
+    public void headers() {
+        AppHeaders hd = new AppHeaders();
+        hd.set_Id("APPHEADERS");
+        hd.set_Rev("1");
+        assertEquals("APPHEADERS", hd.get_Id());
+        assertEquals("1", hd.get_Rev());
+        assertNotNull(hd.toString());
+        
+        List<Header> hlist = new ArrayList<Header>();
+        hlist.add(new Header("Server", "Oddox"));
+        hd.setHeaders(hlist);
+        assertEquals(1, hd.getHeaders().size());
+        assertEquals("Server", hd.getHeaders().get(0).getKey());
+        assertEquals("Oddox", hd.getHeaders().get(0).getValue());
+        
+        Application.setAppHeaders(hd);
+        assertNotNull(Application.getAppHeaders());
     }
 
     @Test

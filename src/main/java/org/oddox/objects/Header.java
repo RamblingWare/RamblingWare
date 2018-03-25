@@ -1,4 +1,4 @@
-package org.oddox.config;
+package org.oddox.objects;
 
 public class Header {
 

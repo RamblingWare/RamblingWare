@@ -14,6 +14,7 @@ import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
 import org.oddox.database.DatabaseService;
 import org.oddox.database.DatabaseSetup;
+import org.oddox.objects.Header;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
