@@ -35,12 +35,9 @@
 
 	<#include "/templates/fragment/header.ftl">
 
-	<article class="w3-theme-light">
-		<div class="page w3-row">
-
-			<#include "/templates/fragment/tabs.ftl">
-
-			<div id="page-content" class="w3-col m8 l8 w3-container w3-padding">
+	<article class="container padding-top-large margin-top-large">
+		<div class="row">
+			<div id="page-content" class="nine columns">
 
 				<#if post.banner?has_content>
 				<div class="w3-padding-0 w3-animate-opacity w3-margin-0">
@@ -156,13 +153,12 @@
 			<#include "/templates/fragment/archive.ftl">
 		</div>
 
-		<div class="page w3-row no-print">
-			<div id="comments-left" class="w3-col m2 w3-hide-medium w3-hide-small w3-padding"></div>
-			<div id="comments" class="w3-col m10 l8 w3-container w3-padding">
+		<div class="row no-print">
+			<div id="comments" class="ten columns padding">
 			<h3>Comments</h3>
 			<blockquote class="w3-small">Disqus comments were removed. I plan to add a privacy-focused commenting system that doesn't track users across websites.<br><br>Email me if you have any suggestions!</blockquote>
 			</div>
-			<div id="comments-right" class="w3-col m2 w3-hide-small w3-padding"></div>
+			<div id="comments-right" class="two columns padding"></div>
 		</div>
 
 	</article>

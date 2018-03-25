@@ -76,7 +76,7 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
                 }
 
                 // get totals
-                totalPosts = ArchiveInterceptor.getArchiveTotal();
+                totalPosts = ArchiveInterceptor.archiveTotal;
                 totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
             } else {
                 posts = null;

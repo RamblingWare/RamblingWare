@@ -241,6 +241,7 @@ public class CouchDbSetup extends DatabaseSetup {
             Database app = client.database("application", true);
             app.save(Application.getAppConfig());
             app.save(Application.getAppFirewall());
+            app.save(Application.getAppHeaders());
             
             // set permissions
             request = Http.PUT(new URL(client.getBaseUri() + "/application/_security"), "application/json");

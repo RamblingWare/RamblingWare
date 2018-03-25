@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.oddox.config.AppConfig;
 import org.oddox.config.AppFirewall;
+import org.oddox.config.AppHeaders;
 import org.oddox.objects.Author;
 import org.oddox.objects.Category;
 import org.oddox.objects.Post;
@@ -98,6 +99,34 @@ public class CouchDb extends DatabaseService {
             CloudantClient client = getConnection();
             Database db = client.database("application", false);
             db.update(appFirewall);
+            return true;
+        } catch (Exception e) {
+            // this should be thrown up
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    @Override
+    public AppHeaders getAppHeaders() {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("application", false);
+            return db.find(AppHeaders.class, "APPHEADERS");
+
+        } catch (Exception e) {
+            // this should be thrown up
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean editAppHeaders(AppHeaders appHeaders) {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("application", false);
+            db.update(appHeaders);
             return true;
         } catch (Exception e) {
             // this should be thrown up

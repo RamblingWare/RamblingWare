@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.oddox.config.AppConfig;
 import org.oddox.config.AppFirewall;
+import org.oddox.config.AppHeaders;
 import org.oddox.objects.Author;
 import org.oddox.objects.Category;
 import org.oddox.objects.Post;
@@ -40,6 +41,10 @@ public abstract class DatabaseService {
     public abstract AppFirewall getAppFirewall();
 
     public abstract boolean editAppFirewall(AppFirewall appFirewall);
+    
+    public abstract AppHeaders getAppHeaders();
+
+    public abstract boolean editAppHeaders(AppHeaders appHeaders);
 
     public abstract Post getPost(String uri, boolean includeHidden);
 

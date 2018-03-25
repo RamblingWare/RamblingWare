@@ -10,6 +10,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+import org.oddox.config.AppHeaders;
+import org.oddox.config.Application;
+import org.oddox.config.Header;
+
 /**
  * DynamicContentFilter class modifies HTTP Headers before sending out a response from a template or action.
  * 
@@ -17,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  * @date 7/03/2017
  */
 public class DynamicContentFilter implements Filter {
+
+    public static final long EXPIRETIME = 86400000l;
+    public static long cacheTime = 0l;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -28,57 +35,32 @@ public class DynamicContentFilter implements Filter {
         // Set UTF-8 encoding
         response.setCharacterEncoding("UTF-8");
 
-        // HSTS
-        // Tell a browser that you always want a user to connect using HTTPS instead of HTTP for 1
-        // year
-        response.addHeader("Strict-Transport-Security", "max-age=15552000; includeSubDomains");
+        // Has it been 24 hours since fresh archive check?
+        long diff = Math.abs(System.currentTimeMillis() - cacheTime);
+        if (diff >= EXPIRETIME) {
+            // cache expired.
+            // get fresh app headers
 
-        // The browser will send the full URL to requests to the same origin but only the origin
-        // when requests are cross-origin and null on scheme downgrade.
-        response.addHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-        // @see https://scotthelme.co.uk/a-new-security-header-referrer-policy/
+            // get the http headers from db
+            AppHeaders appHeaders = Application.getDatabaseService()
+                    .getAppHeaders();
+            Application.setAppHeaders(appHeaders);
 
-        // Set CSP to ensure content and sources are explicit.
-        response.addHeader("Content-Security-Policy",
-                "default-src 'self' cdn.ramblingware.com 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; form-action 'none';");
-        // "Content-Security-Policy-Report-Only" can also be used.
-        // Examples:
-        // "default-src 'none'; img-src 'self' cdn.oddox.org chart.googleapis.com; style-src
-        // 'self'
-        // 'unsafe-inline'; script-src 'self' 'nonce-123456789'; form-action 'none'; font-src
-        // 'self'
+            // set new cacheTime
+            cacheTime = System.currentTimeMillis();
+        }
+        // else,
+        // just use cache http headers,
+        // which at this point is already set.
 
-        // Enforce TLS on all assets like JS and CSS and prevent mixed secure content warnings.
-        // 'unsafe-inline' is used for inline CSS
-        // 'unsafe-eval' is used for inline JS and CKEditor
-        // In a perfect scenario, we would remove these two attributes and fix any inline CSS/JS and
-        // unsafe javascript code like CKEditor. But unfortunately these are critical to the
-        // function of this blog.
-        // @see https://scotthelme.co.uk/content-security-policy-an-introduction/
-
-        // Public-Key-Pins
-        // Public-Key-Pins-Report-Only
-        // @see https://scotthelme.co.uk/hpkp-http-public-key-pinning/
-
-        // The HPKP header specifies fingerprints for the SSL certificate to trust, and if a SSL
-        // cert issued does not match the fingerprint, then the user's browser will fail to connect.
-        // Currently, this requires a bit of work and access to the certificate files which I do not
-        // have over CloudFlare. Other configurations might be possible.
-
-        // Allow or deny <iframe> from your site or other sites
-        response.addHeader("X-Frame-Options", "SAMEORIGIN");
-
-        // Enable reflective XSS protection by blocking attacks rather than sanitizing scripts.
-        response.addHeader("X-Xss-Protection", "1; mode=block");
-
-        // Prevents browsers from trying to mime-sniff the content-type of a response away from the
-        // one being declared by the server.
-        response.addHeader("X-Content-Type-Options", "nosniff");
-
-        // Replace information that might reveal too much to help potential attackers to exploit the
-        // server. Alternatively, you could put bogus info here, like .NET or other irrelevant tech.
-        //response.setHeader("X-Powered-By", "");
-        //response.setHeader("Server", "");
+        // apply all headers to our response
+        if (Application.getAppHeaders() != null && Application.getAppHeaders()
+                .getHeaders() != null) {
+            for (Header header : Application.getAppHeaders()
+                    .getHeaders()) {
+                response.addHeader(header.getKey(), header.getValue());
+            }
+        }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

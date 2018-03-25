@@ -45,12 +45,6 @@ public class ArchiveInterceptorTests {
     public void variables() {
         interceptor.init();
         interceptor.destroy();
-
-        ArchiveInterceptor.setCacheTime(1080l);
-        assertEquals(1080l, ArchiveInterceptor.getCacheTime());
-
-        ArchiveInterceptor.setArchiveTotal(100);
-        assertEquals(100, ArchiveInterceptor.getArchiveTotal());
     }
 
     @Test

@@ -21,9 +21,11 @@ import com.opensymphony.xwork2.interceptor.Interceptor;
 public class ArchiveInterceptor implements Interceptor {
 
     private static final long serialVersionUID = 1L;
-
-    private static long cacheTime = 0l;
-    private static int archiveTotal = 0;
+    
+    public static final long EXPIRETIME = 86400000l;
+    public static long cacheTime = 0l;
+    public static int archiveTotal = 0;
+    
     private static List<Post> archiveFeatured = null;
     private static List<Year> archiveYears = null;
     private static List<Tag> archiveTags = null;
@@ -34,7 +36,7 @@ public class ArchiveInterceptor implements Interceptor {
 
         // Has it been 24 hours since fresh archive check?
         long diff = Math.abs(System.currentTimeMillis() - cacheTime);
-        if (diff >= 86400000) {
+        if (diff >= EXPIRETIME) {
             // cache expired.
             // get fresh archive metadata
 
@@ -59,7 +61,7 @@ public class ArchiveInterceptor implements Interceptor {
         }
         // else,
         // just use cache archive metadata,
-        // which at this point is all ready.
+        // which at this point is already set.
 
         // set to context
         Map<String, Object> map = actionInvocation.getInvocationContext()
@@ -81,22 +83,6 @@ public class ArchiveInterceptor implements Interceptor {
     @Override
     public void init() {
         // Auto-generated method stub
-    }
-
-    public static long getCacheTime() {
-        return cacheTime;
-    }
-
-    public static void setCacheTime(long cacheTime) {
-        ArchiveInterceptor.cacheTime = cacheTime;
-    }
-
-    public static int getArchiveTotal() {
-        return archiveTotal;
-    }
-
-    public static void setArchiveTotal(int archiveTotal) {
-        ArchiveInterceptor.archiveTotal = archiveTotal;
     }
 
     public static List<Post> getArchiveFeatured() {
