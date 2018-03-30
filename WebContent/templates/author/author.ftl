@@ -39,8 +39,8 @@
 		<div class="row">
 			<div id="page-content" class="nine columns">
 
-				<h1><span class="text-tertiary right">${(author.createDateReadable)!'Unknown Date'}</span>
-				${(author.name)!'Unknown'}</h1>
+				<h1>${(author.name)!'Unknown'}</h1>
+				<span class="text-tertiary right">${(author.createDateReadable)!'Unknown Date'}</span>
 
 				<div class="w3-container w3-padding">
 					<#if author.thumbnail?has_content>

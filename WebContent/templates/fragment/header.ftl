@@ -21,7 +21,7 @@
 <nav class="navbar border-bottom">
     <div class="navbar-body container">
         <div class="nav-item-logo">
-            <a href="/"><span class="text-medium text-bold text-uppercase text-wide">${(name)!'Oddox'}</span></a>
+            <a href="/"><span class="text-medium text-uppercase text-wide">${(name)!'Oddox'}</span></a>
         </div>
         <div class="nav-small-menu">
             <a class="nav-item" title="Open Menu" href="javascript:openSidebar()">

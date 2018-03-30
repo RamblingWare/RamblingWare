@@ -13,7 +13,7 @@
 		<div class="row">
 			<div id="page-content" class="nine columns">
 
-				<h1 style="vertical-align: middle;"><span class="icon-time"></span>&nbsp;Authors</h1>
+				<h1 style="vertical-align: middle;"><span class="icon-users"></span>&nbsp;Authors</h1>
 
 				<#if authors??>
 					<#if authors.size() == 1>

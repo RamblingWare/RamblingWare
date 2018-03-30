@@ -13,7 +13,7 @@
 		<div class="row">
 			<div id="page-content" class="nine columns">
 				
-				<h1 style="vertical-align: middle;"><span class="icon-time"></span>&nbsp;Category: ${(category)!''}</h1>
+				<h1 style="vertical-align: middle;"><span class="icon-folder"></span>&nbsp;Category: ${(category)!''}</h1>
 
 				<#if posts??>
 					<#if posts.size() == 1>
