@@ -2,7 +2,6 @@ plugins {
   id 'java'
   id 'jacoco'
   id 'war'
-  id 'eclipse'
 }
 
 group = 'org.oddox'
@@ -39,10 +38,6 @@ dependencies {
     testCompile 'org.mockito:mockito-core:2.10.+'
 }
 
-eclipse.project {
-    natures 'org.springsource.ide.eclipse.gradle.core.nature'
-}
-
 javadoc {
     source = sourceSets.main.allJava
     classpath = configurations.compile
@@ -51,6 +46,6 @@ javadoc {
 jacocoTestReport {
     reports {
         xml.enabled true
-        html.enabled false
+        html.enabled true
     }
 }
