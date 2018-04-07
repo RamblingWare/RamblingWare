@@ -5,10 +5,10 @@
 </#if>
 <#if post.thumbnail?has_content>
 	<a href="/blog/${(post.uri)!''}">
-	<img class="left" style="max-width:250px;" src="${(post.thumbnail)!''}" alt="Thumbnail ${(post.title)!''}" title="${(post.bannerCaption)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
+	<img class="round left margin-right margin-bottom" style="max-width:250px;" src="${(post.thumbnail)!''}" alt="Thumbnail ${(post.title)!''}" title="${(post.bannerCaption)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
 	</a>
 </#if>
-	<h3 class="padding-none margin-none"><a href="/blog/${(post.uri)!''}">${(post.title)!''}</a></h3>
+	<h3 class="text-bold padding-none margin-none"><a href="/blog/${(post.uri)!''}">${(post.title)!''}</a></h3>
 	<p>${(post.description)!"This post doesn't have a description yet."}</p>
 
 	<p class="text-secondary margin-none">
