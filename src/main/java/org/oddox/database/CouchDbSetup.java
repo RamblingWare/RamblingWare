@@ -6,10 +6,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import org.oddox.config.AppFirewall;
+import org.oddox.config.AppHeaders;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Author;
+import org.oddox.objects.Header;
 import org.oddox.objects.Post;
 
 import com.cloudant.client.api.ClientBuilder;
@@ -149,7 +153,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
             // create default author
             authors.save(getDefaultAuthor());
-            
+
             // set permissions
             request = Http.PUT(new URL(client.getBaseUri() + "/authors/_security"), "application/json");
             request.setRequestBody(
@@ -167,11 +171,11 @@ public class CouchDbSetup extends DatabaseSetup {
                     "}");
             response = client.executeRequest(request);
             if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
+                    && response.getConnection()
+                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
                 // failed to set permissions
-                throw new IOException(
-                        "Failed to set default db permissions for 'authors'.");
+                throw new IOException("Failed to set default db permissions for 'authors'.");
             }
 
             // create posts
@@ -182,7 +186,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
             // create default post
             posts.save(getDefaultPost());
-            
+
             // set permissions
             request = Http.PUT(new URL(client.getBaseUri() + "/posts/_security"), "application/json");
             request.setRequestBody(
@@ -200,11 +204,11 @@ public class CouchDbSetup extends DatabaseSetup {
                     "}");
             response = client.executeRequest(request);
             if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
+                    && response.getConnection()
+                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
                 // failed to set permissions
-                throw new IOException(
-                        "Failed to set default db permissions for 'posts'.");
+                throw new IOException("Failed to set default db permissions for 'posts'.");
             }
 
             // create views
@@ -212,7 +216,7 @@ public class CouchDbSetup extends DatabaseSetup {
             DesignDocument viewsdesign = DesignDocumentManager.fromFile(Utils.getResourceAsFile("/design/views.json"));
             views.getDesignDocumentManager()
                     .put(viewsdesign);
-            
+
             // set permissions
             request = Http.PUT(new URL(client.getBaseUri() + "/views/_security"), "application/json");
             request.setRequestBody(
@@ -230,19 +234,19 @@ public class CouchDbSetup extends DatabaseSetup {
                     "}");
             response = client.executeRequest(request);
             if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
+                    && response.getConnection()
+                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
                 // failed to set permissions
-                throw new IOException(
-                        "Failed to set default db permissions for 'views'.");
+                throw new IOException("Failed to set default db permissions for 'views'.");
             }
 
             // default app config
             Database app = client.database("application", true);
             app.save(Application.getAppConfig());
-            app.save(Application.getAppFirewall());
-            app.save(Application.getAppHeaders());
-            
+            app.save(getDefaultAppFirewall());
+            app.save(getDefaultAppHeaders());
+
             // set permissions
             request = Http.PUT(new URL(client.getBaseUri() + "/application/_security"), "application/json");
             request.setRequestBody(
@@ -260,11 +264,11 @@ public class CouchDbSetup extends DatabaseSetup {
                     "}");
             response = client.executeRequest(request);
             if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED && response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
+                    && response.getConnection()
+                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
                 // failed to set permissions
-                throw new IOException(
-                        "Failed to set default db permissions for 'application'.");
+                throw new IOException("Failed to set default db permissions for 'application'.");
             }
 
             return true;
@@ -557,5 +561,47 @@ public class CouchDbSetup extends DatabaseSetup {
         post.setCreateDate(now);
         post.setModifyDate(now);
         return post;
+    }
+    
+    /**
+     * Creates and returns a default application firewall list, that's empty.
+     * @return AppFirewall
+     */
+    protected AppFirewall getDefaultAppFirewall() {
+        return new AppFirewall();
+    }
+
+    /**
+     * Creates and returns a default list of HTTP headers like HSTS and X-Powered-by.
+     * @return AppHeaders
+     */
+    protected AppHeaders getDefaultAppHeaders() {
+        AppHeaders hd = new AppHeaders();
+        List<Header> headers = new ArrayList<Header>();
+
+        // HSTS: Tell a browser that you always want a user to connect using HTTPS instead of HTTP for 1 year
+        headers.add(new Header("Strict-Transport-Security", "max-age=15552000; includeSubDomains"));
+
+        // The browser will always set the referrer header to the origin from which the request was made. 
+        // This will strip any path information from the referrer information. But will not allow the 
+        // secure origin to be sent on a HTTP request, only HTTPS.
+        headers.add(new Header("Referrer-Policy", "strict-origin"));
+        // @see https://scotthelme.co.uk/a-new-security-header-referrer-policy/
+
+        // Allow or deny <iframe> from your site or other sites
+        headers.add(new Header("X-Frame-Options", "SAMEORIGIN"));
+
+        // Enable reflective XSS protection by blocking attacks rather than sanitizing scripts.
+        headers.add(new Header("X-Xss-Protection", "1; mode=block"));
+
+        // Prevents browsers from trying to mime-sniff the content-type of a response away from the
+        // one being declared by the server.
+        headers.add(new Header("X-Content-Type-Options", "nosniff"));
+
+        // Set software identifier
+        headers.add(new Header("X-Powered-By", "oddox.org"));
+        
+        hd.setHeaders(headers);
+        return hd;
     }
 }

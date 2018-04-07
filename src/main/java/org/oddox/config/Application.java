@@ -1,9 +1,7 @@
 package org.oddox.config;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContextEvent;
@@ -14,7 +12,6 @@ import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
 import org.oddox.database.DatabaseService;
 import org.oddox.database.DatabaseSetup;
-import org.oddox.objects.Header;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -54,13 +51,6 @@ public class Application implements ServletContextListener {
                 + "  ___   __| | __| | ___  __  __\r\n" + " / _ \\ / _` |/ _` |/ _ \\ \\ \\/ /\r\n"
                 + "| (_) | (_) | (_) | (_) | >  < \r\n" + " \\___/ \\____|\\____|\\___/ /_/\\_\\.org (v"
                 + getString("version") + ")\r\n" + "-----------------------------------------------");
-
-        // default firewall
-        appFirewall = new AppFirewall();
-
-        // default http headers
-        appHeaders = new AppHeaders();
-        appHeaders.setHeaders(getDefaultHttpHeaders());
 
         // Setup Database
         try {
@@ -230,37 +220,6 @@ public class Application implements ServletContextListener {
             throw new IOException(e);
         }
         return db;
-    }
-
-    /**
-     * Creates and returns a default list of HTTP headers like HSTS and X-Powered-by.
-     * @return List<Header>
-     */
-    private static List<Header> getDefaultHttpHeaders() {
-        List<Header> headers = new ArrayList<Header>();
-
-        // HSTS: Tell a browser that you always want a user to connect using HTTPS instead of HTTP for 1 year
-        headers.add(new Header("Strict-Transport-Security", "max-age=15552000; includeSubDomains"));
-
-        // The browser will always set the referrer header to the origin from which the request was made. 
-        // This will strip any path information from the referrer information. But will not allow the 
-        // secure origin to be sent on a HTTP request, only HTTPS.
-        headers.add(new Header("Referrer-Policy", "strict-origin"));
-        // @see https://scotthelme.co.uk/a-new-security-header-referrer-policy/
-
-        // Allow or deny <iframe> from your site or other sites
-        headers.add(new Header("X-Frame-Options", "SAMEORIGIN"));
-
-        // Enable reflective XSS protection by blocking attacks rather than sanitizing scripts.
-        headers.add(new Header("X-Xss-Protection", "1; mode=block"));
-
-        // Prevents browsers from trying to mime-sniff the content-type of a response away from the
-        // one being declared by the server.
-        headers.add(new Header("X-Content-Type-Options", "nosniff"));
-
-        // Set software identifier
-        headers.add(new Header("X-Powered-By", "oddox.org (v" + getString("version")+")"));
-        return headers;
     }
 
     public static AppConfig getAppConfig() {
