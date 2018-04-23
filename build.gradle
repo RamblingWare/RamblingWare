@@ -7,13 +7,14 @@ plugins {
 group = 'org.oddox'
 version = '1.0.0'
 war.baseName = 'oddox'
+description = 'open source blog with an offline-first writer'
 project.webAppDirName = 'WebContent'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
