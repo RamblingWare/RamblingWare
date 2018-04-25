@@ -4,6 +4,6 @@
  * Browser name and version:
  * OS/Device version:
 
-## What is the Problem?
+## Describe the Problem
 
-<!-- Describe the problem or screenshot -->
+<!-- or paste screenshot -->
