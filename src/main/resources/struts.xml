@@ -74,9 +74,6 @@
 		<action name="author">
 			<result type="redirect">/author/</result>
 		</action>
-		<action name="dashboard">
-			<result type="redirect">/dashboard/</result>
-		</action>
 		<action name="api">
 			<result type="redirect">/api/</result>
 		</action>
@@ -192,10 +189,6 @@
 	<package name="api" namespace="/api" extends="root,json-default">
 	
 		<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
-		
-		<action name="">
-			<result>/dashboard/index.html</result>
-		</action>
 		
 		<action name="" class="org.oddox.action.api.RootAction">
 			<result name="none" type="json">
