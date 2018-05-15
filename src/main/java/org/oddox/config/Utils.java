@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * @author Austin Delamar
  * @date 4/8/2017
  */
-public class Utils {
+public final class Utils {
 
     private static final DecimalFormat BYTEFORM = new DecimalFormat("0.00");
     private static final DateFormat READABLEDATEFORM = new SimpleDateFormat("MMM dd, yyyy");
@@ -44,11 +44,12 @@ public class Utils {
         suffixes.put(1_000_000_000_000L, "T");
         suffixes.put(1_000_000_000_000_000L, "P");
         suffixes.put(1_000_000_000_000_000_000L, "E");
-    }
-
-    static {
         ISO8601FORM.setTimeZone(TimeZone.getTimeZone("UTC"));
         RFC1123FORM.setTimeZone(TimeZone.getTimeZone("GMT"));
+    }
+    
+    private Utils() {
+        // prevent instantiation
     }
 
     /**
