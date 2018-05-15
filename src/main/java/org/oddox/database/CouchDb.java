@@ -19,6 +19,7 @@ import org.oddox.objects.Year;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.model.DbInfo;
 import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewResponse;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
@@ -49,6 +50,33 @@ public class CouchDb extends DatabaseService {
                     .disableSSLAuthentication()
                     .build();
         }
+    }
+    
+    @Override
+    public DbInfo getInfo() {
+        try {
+            CloudantClient client = getConnection();
+            Database db = client.database("application", false);
+            return db.info();
+
+        } catch (Exception e) {
+            // this should be thrown up
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    @Override
+    public String getVersion() {
+        try {
+            CloudantClient client = getConnection();
+            return client.serverVersion();
+
+        } catch (Exception e) {
+            // this should be thrown up
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

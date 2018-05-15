@@ -12,6 +12,8 @@ import org.oddox.objects.Tag;
 import org.oddox.objects.View;
 import org.oddox.objects.Year;
 
+import com.cloudant.client.api.model.DbInfo;
+
 /**
  * A blueprint to communicate to a Database Service.
  * 
@@ -33,6 +35,10 @@ public abstract class DatabaseService {
     public org.oddox.database.Database getDatabase() {
         return database;
     }
+    
+    public abstract DbInfo getInfo();
+    
+    public abstract String getVersion();
 
     public abstract AppConfig getAppConfig();
 

@@ -207,6 +207,16 @@
 			</result>
 		</action>
 		
+		<action name="health" class="org.oddox.action.api.HealthAction">
+			<result name="none" type="json">
+				<param name="noCache">true</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="includeProperties">
+					status.*,error,message
+				</param>
+			</result>
+		</action>
+		
 		<action name="forgot" class="org.oddox.action.api.ForgotAction">
 			<result name="none" type="json">
 				<param name="noCache">true</param>
