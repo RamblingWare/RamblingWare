@@ -3,6 +3,7 @@ package org.oddox.action.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
@@ -30,11 +31,17 @@ public class RootActionTests {
     private RootAction action;
 
     @Before
-    public void beforeEachTest() throws IOException {
+    public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-        AppConfig config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
-        Application.setAppConfig(config);
-        Application.setDatabaseService(new CouchDb(Application.loadDatabase(System.getenv(), Application.DB_PROP_FILE)));
+        AppConfig config;
+        try {
+            config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
+            Application.setAppConfig(config);
+            Application.setDatabaseService(
+                    new CouchDb(Application.loadDatabase(System.getenv(), Application.DB_PROP_FILE)));
+        } catch (IOException e) {
+            fail("Unexpected IOException: " + e.getMessage());
+        }
     }
 
     @Test

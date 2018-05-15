@@ -88,10 +88,8 @@ public class UtilsTests {
         assertEquals("a-bnc-d", Utils.formatURI("a=b&c=d"));
         assertEquals("array,array", Utils.formatURI("[array,array]"));
         
-        String temp = "https://admin:p4ssw0rd@127.0.0.1:6984/";
-        temp = Utils.removeUserPassFromURL(temp);
-        assertEquals("https://127.0.0.1:6984/", temp);
-        assertEquals("https://127.0.0.1:6984/", Utils.removeUserPassFromURL(temp));
+        assertEquals("https://127.0.0.1:6984/", Utils.removeUserPassFromURL("https://admin:p4ssw0rd@127.0.0.1:6984/"));
+        assertEquals("http://localhost:5984/", Utils.removeUserPassFromURL("http://admin:admin@localhost:5984/"));
     }
 
     @Test

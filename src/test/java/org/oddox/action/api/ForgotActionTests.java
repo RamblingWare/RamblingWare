@@ -94,7 +94,7 @@ public class ForgotActionTests {
     }
 
     @Test
-    public void lockedOut() throws Exception {
+    public void lockedOut() {
         action.setSession(new HashMap<String, Object>());
         int maxAttempts = action.maxAttempts;
 

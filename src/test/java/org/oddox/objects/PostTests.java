@@ -87,7 +87,19 @@ public class PostTests {
         post.setAuthor(new Author("author_1"));
         assertEquals("author_1", post.getAuthor()
                 .get_Id());
+
+        List<Author> coauthors2 = new ArrayList<Author>();
+        coauthors2.add(new Author("coauthor_2"));
+        post.setCoauthors(coauthors2);
+        assertEquals("coauthor_2", post.getCoauthors()
+                .get(0).get_Id());
         
+        List<Author> editors2 = new ArrayList<Author>();
+        editors2.add(new Author("editor_2"));
+        post.setEditors(editors2);
+        assertEquals("editor_2", post.getEditors()
+                .get(0).get_Id());
+
         post.setView(new View());
         assertNotNull(post.getView());
 
