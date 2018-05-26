@@ -8,16 +8,10 @@ cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
-  - "$HOME/.sonar/cache/"
-addons:
-  sonarcloud:
-    organization: oddoxorg
-    token:
-      secure: P7KqsSdmqEJsMsVhOrxn1gVQpbJk5uroBJ92LOZd69UQ32lpGV3xW9yJUIUXemSQ0J5kcutF/OH9ZRfnMPpmu/h1QZHsKvcrWwYa31K6AAWP4P4PBqKtUFnd1bo5W76/4oF8UwTy/IDyGiEhgW7hxXjk2rY0zXNV0BsUOctnMBlGtAI+fK8CCpl+c2PfUoCMiBiEX0fswyiwg2TmccFa06Abi1tNdf5NO5oJePlE+oJuyLnv+bl4oFVeuNXQRboNPtLMAcknVtky4LFmq5prcPBWud+Vo3bmQXPK6/SM8fq0jfwG/GGz85C8MZTmgobXu4RW3ALauU3qYnihoJkOIEQ08fQQrg+NgRTZSfmdvhLFWXuA34sNwrrR2ZIbxZ8sKIYTxrUxa1JIfdsBL0RTeLsoWYT3fAKe0DtY1wtT/f95qmCVGRBDoSclLpFBNgbe2DEDKvKKRmaVtBE2O6PAvURoR1lbbMweZGfA/n1yB8BmWGaOBd1fPuthv2DHuTvunGGeoVm/bwRXPIy/86yHuJq7FmzLoJbQZ5J5ktz/oQ0+BLGSWCcNT3cqz5G7cEi+w3aJAhWAcWB55DFSfa2DUhQld6eb1TGxFba+Yp9L71ZxtIHZmxEWtiVuYD8jEC0wlMCXNmSR/65NSJ8CHAn2LHBMIA+e5HongzL/WD7ghSw=
 before_install:
 - chmod +x gradlew
 install: echo "skipping install step"
 script:
-- "./gradlew check jacocoTestReport" # sonarqube
+- "./gradlew check jacocoTestReport"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
