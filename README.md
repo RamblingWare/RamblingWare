@@ -1,14 +1,10 @@
-# <img src="https://oddox.org/assets/logo-dark.png" width="150px" alt="Oddox" />
+# Oddox Server
 
 [![Build](https://img.shields.io/travis/oddoxorg/oddox.svg)](https://travis-ci.org/oddoxorg/oddox)
 [![Codacy grade](https://img.shields.io/codacy/grade/ae13ca0369824fda9b4d32d43398495c.svg)](https://www.codacy.com/app/amdelamar/oddox)
 [![Codecov](https://img.shields.io/codecov/c/github/oddoxorg/oddox.svg)](https://codecov.io/gh/oddoxorg/oddox)
-[![Docker Pulls](https://img.shields.io/docker/pulls/oddoxorg/oddox.svg)](https://hub.docker.com/r/oddoxorg/oddox/)
-[![License](https://img.shields.io/:license-apache-blue.svg)](https://github.com/oddoxorg/oddox/blob/master/LICENSE)
 
 Oddox is a blog with an offline-first editor. Write, save, and publish your posts without an internet connection, then sync later when you're connected.
-
-> Live Example: coming soon...
 
 ## Features
 
@@ -17,10 +13,6 @@ Oddox is a blog with an offline-first editor. Write, save, and publish your post
  * Offline-first [dashboard](https://github.com/oddoxorg/dashboard/) for authors to manage their blog
  * SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
  * HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
-
-## Planned Features
-
- * Extendable Themes and Templates
 
 ## Usage
 
@@ -33,18 +25,18 @@ This project is still in development but stay tuned. The first version will be m
 [![Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/oddoxorg/oddox)
 [![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/oddoxorg/oddox)
  -->
- 
+
 ## Deployment
 
 ### Docker Deploy
 
- 1. Pull [CouchDB 2.1.1](https://hub.docker.com/r/oddoxorg/couchdb/) 
+ 1. Pull [CouchDB 2.1.1](https://hub.docker.com/r/oddoxorg/couchdb/)
     ```
     docker pull oddoxorg/couchdb:2.1.1
     ```
- 1. Pull [Oddox 1.0](https://hub.docker.com/r/oddoxorg/oddox/) 
+ 1. Pull [Oddox 1.0](https://hub.docker.com/r/oddoxorg/oddox/)
     ```
-    docker pull oddoxorg/oddox:1.0.0 
+    docker pull oddoxorg/oddox:1.0.0
     ```
  1. Run CouchDB container
     ```
@@ -52,7 +44,7 @@ This project is still in development but stay tuned. The first version will be m
     ```
      - Set your password for `<STRONG-PW>`. Write it down. Never share it!
      - Get the `<CONTAINER-IP>` for the next step.
- 1. Run Oddox container 
+ 1. Run Oddox container
     ```
     docker run -e DB_URL=https://<CONTAINER-IP>:6984/ -e DB_USER=oddox -e DB_PASS=<STRONG-PW> -p 8080:8080 -p 8443:8443  oddoxorg/oddox:1.0.0
     ```
@@ -67,10 +59,10 @@ This project is still in development but stay tuned. The first version will be m
   docker push oddoxorg/oddox
   docker push oddoxorg/oddox:1.0.0
  -->
- 
+
 ### Cloud Foundry Deploy
 
-> Coming later...
+> Coming later... possibly
 
 ### Manually Deploy
 
