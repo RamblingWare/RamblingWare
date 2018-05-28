@@ -4,14 +4,12 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import org.oddox.action.BlogAction;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.database.CouchDb;
 import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
-import org.oddox.handler.ApiHandler;
 import org.oddox.handler.RedirectHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +23,6 @@ import io.vertx.reactivex.core.Future;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.core.http.HttpServer;
 import io.vertx.reactivex.ext.web.Router;
-import io.vertx.reactivex.ext.web.handler.StaticHandler;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -187,26 +184,8 @@ public class MainVerticle extends AbstractVerticle {
                 .setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
                         .setPath(System.getProperty("user.dir") + KEYSTORE)));
 
-        // Map Routes
-        Router mainRouter = Router.router(vertx);
-
-        // Webroot resources
-        mainRouter.route("/*")
-                .handler(StaticHandler.create()
-                        .setFilesReadOnly(false)
-                        .setCachingEnabled(false));
-        // Readonly + nocache, so any changes in webroot are visible on browser refresh
-        // for production, these wouldn't be needed.
-
-        // Templating        
-        mainRouter.route("/").handler(new BlogAction());
-
-        // Add Subrouter api
-        Router apiRouter = Router.router(vertx);
-        apiRouter.get()
-                .path("/")
-                .handler(new ApiHandler());
-        mainRouter.mountSubRouter("/api", apiRouter);
+        // Map Web Routes
+        Router mainRouter = WebRoutes.newRouter(vertx);
 
         // Set Router
         httpsServer.requestHandler(mainRouter::accept);
