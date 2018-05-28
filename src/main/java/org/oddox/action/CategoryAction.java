@@ -2,6 +2,7 @@ package org.oddox.action;
 
 import java.util.List;
 
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Category;
@@ -13,6 +14,8 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * Category action class
@@ -23,6 +26,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class CategoryAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(CategoryAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Post> posts = null;
     private String category;
     private int page;
@@ -38,6 +42,7 @@ public class CategoryAction implements Handler<RoutingContext> {
     public void handle(RoutingContext context) {
 
         // /category
+        String templateFile = "category/category.ftl";
         try {
             // jump to page if provided
             String pageTemp = context.normalisedPath();
@@ -71,8 +76,7 @@ public class CategoryAction implements Handler<RoutingContext> {
                 // get totals
                 totalPosts = page;
                 @SuppressWarnings("unchecked")
-                List<Category> archiveCategories = (List<Category>) servletRequest
-                        .getAttribute("archiveCategories");
+                List<Category> archiveCategories = (List<Category>) context.get("archiveCategories");
                 for (Category cat : archiveCategories) {
                     if (category.equals(cat.getName())) {
                         totalPosts = cat.getCount();
@@ -85,17 +89,24 @@ public class CategoryAction implements Handler<RoutingContext> {
                 throw new NoDocumentException("No posts found");
             }
 
-            return SUCCESS;
-
         } catch (NoDocumentException | NumberFormatException nfe) {
-            System.err.println("Category '" + category + "' not found. Please try again.");
-            return NONE;
+            logger.error("Category '" + category + "' not found. Please try again.");
+            templateFile = "category/category.ftl";
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            e.printStackTrace();
-            return ERROR;
+            logger.error("Error: " + e.getClass()
+                    .getName() + ". Please try again later.", e);
+            templateFile = "/error/error.ftl";
         }
+
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public List<Post> getPosts() {

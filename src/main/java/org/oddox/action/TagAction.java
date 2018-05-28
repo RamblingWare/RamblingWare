@@ -2,6 +2,7 @@ package org.oddox.action;
 
 import java.util.List;
 
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
@@ -13,6 +14,8 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * Tag action class
@@ -23,6 +26,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class TagAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(TagAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Post> posts = null;
     private String tag;
     private int page;
@@ -38,6 +42,7 @@ public class TagAction implements Handler<RoutingContext> {
     public void handle(RoutingContext context) {
 
         // /tag
+        String templateFile = "tag/tag.ftl";
         try {
             // jump to page if provided
             String pageTemp = context.normalisedPath();
@@ -71,8 +76,7 @@ public class TagAction implements Handler<RoutingContext> {
                 // get totals
                 totalPosts = page;
                 @SuppressWarnings("unchecked")
-                List<Tag> archiveTags = (List<Tag>) servletRequest
-                        .getAttribute("archiveTags");
+                List<Tag> archiveTags = (List<Tag>) context.get("archiveTags");
                 for (Tag tags : archiveTags) {
                     if (tag.equals(tags.getName())) {
                         totalPosts = tags.getCount();
@@ -85,17 +89,24 @@ public class TagAction implements Handler<RoutingContext> {
                 throw new NoDocumentException("No posts found");
             }
 
-            return SUCCESS;
-
         } catch (NoDocumentException | NumberFormatException nfe) {
-            System.err.println("Tag '" + tag + "' not found. Please try again.");
-            return NONE;
+            logger.error("Tag '" + tag + "' not found. Please try again.");
+            templateFile = "tag/tag.ftl";
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            e.printStackTrace();
-            return ERROR;
+            logger.error("Error: " + e.getClass()
+                    .getName() + ". Please try again later.", e);
+            templateFile = "/error/error.ftl";
         }
+
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public List<Post> getPosts() {

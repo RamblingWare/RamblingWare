@@ -1,8 +1,6 @@
 package org.oddox.action;
 
-import java.io.IOException;
-
-import org.apache.struts2.ServletActionContext;
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.slf4j.Logger;
@@ -10,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * External Search action class
@@ -20,6 +20,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class SearchAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(SearchAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private String q;
 
     /**
@@ -28,24 +29,37 @@ public class SearchAction implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext context) {
 
+        String templateFile = "search.ftl";
         if (q != null && !q.isEmpty()) {
             // POST external search
             try {
                 // redirect to DuckDuckGo with the search text provided
-                ServletActionContext.getResponse()
-                        .sendRedirect(Application.getString("searchProvider") + "site%3A"
+                context.response()
+                        .setStatusCode(302);
+                context.response()
+                        .putHeader("Location", Application.getString("searchProvider") + "site%3A"
                                 + Application.getString("domain") + ' ' + q);
-                return SUCCESS;
-            } catch (IOException e) {
-                e.printStackTrace();
-                addActionError("Error: " + e.getClass()
-                        .getName() + ". Please try again later.");
-                return ERROR;
+                context.response()
+                        .end();
+                return;
+
+            } catch (Exception e) {
+                logger.error("Error: " + e.getClass()
+                        .getName() + ". Please try again later.", e);
+                templateFile = "/error/error.ftl";
             }
-        } else {
-            // GET search page
-            return INPUT;
         }
+        // else GET search page
+
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public String getQ() {

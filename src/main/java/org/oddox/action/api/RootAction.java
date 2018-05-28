@@ -1,14 +1,14 @@
 package org.oddox.action.api;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.oddox.action.BlogAction;
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.vertx.core.Handler;
+import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
@@ -34,19 +34,22 @@ public class RootAction implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext context) {
 
+        JsonObject json = new JsonObject();
         try {
-            oddox = "Welcome";
-            version = Application.getString("version");
-            data = new HashMap<String, String>();
-            data.put("name", Application.getString("name"));
+            json.put("oddox", "Welcome");
+            json.put("version", MainVerticle.VERSION);
+            json.put("name", Application.getString("name"));
 
         } catch (Exception e) {
-            error = "error";
-            message = e.getMessage();
+            logger.warn("Root: "+json.encode());
+            json.put("error", true);
+            json.put("message", e.getMessage());
         }
 
         // return response
-        return NONE;
+        context.response()
+        .putHeader("Content-Type", "application/json; charset=utf-8")
+        .end(json.encode());
     }
 
     public String getOddox() {

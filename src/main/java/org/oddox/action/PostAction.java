@@ -1,9 +1,6 @@
 package org.oddox.action;
 
-import java.util.HashSet;
-
-import javax.servlet.http.HttpSession;
-
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
@@ -12,6 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * View Post action class
@@ -22,6 +21,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class PostAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(PostAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private Post post;
     private String uri;
 
@@ -32,6 +32,7 @@ public class PostAction implements Handler<RoutingContext> {
     public void handle(RoutingContext context) {
 
         // /blog/post-name
+        String templateFile = "blog/post.ftl";
         String uriTemp = context.normalisedPath()
                 .toLowerCase();
         if (uri == null && uriTemp.startsWith("/blog/post/")) {
@@ -55,48 +56,54 @@ public class PostAction implements Handler<RoutingContext> {
                 if (post != null) {
 
                     // check against previously viewed posts
+                    /*
                     boolean newViewFromSession = false;
                     if (servletRequest.getSession(false) != null) {
-                        HttpSession session = servletRequest.getSession();
-                        @SuppressWarnings("unchecked")
+                        Session session = (Session) context.session();
                         HashSet<String> viewedPages = (HashSet<String>) session.getAttribute("viewedPages");
-
+                    
                         if (viewedPages == null) {
                             viewedPages = new HashSet<String>();
                         }
-
+                    
                         newViewFromSession = viewedPages.add(post.getUri());
                         session.setAttribute("viewedPages", viewedPages);
-                    }
+                    } */
 
                     // update page views
                     post.getView()
                             .setCount(post.getView()
                                     .getCount() + 1);
-                    if (newViewFromSession) {
-                        post.getView()
-                                .setSession(post.getView()
-                                        .getSession() + 1);
-                    }
+                    post.getView()
+                            .setSession(post.getView()
+                                    .getSession() + 1);
+
                     Application.getDatabaseService()
                             .editView(post.getView());
-
-                    return SUCCESS;
                 } else {
-                    System.err.println("Post '" + uri + "' not found. Please try again.");
-                    return NONE;
+                    logger.error("Post '" + uri + "' not found. Please try again.");
+                    templateFile = "blog/post.ftl";
                 }
 
             } catch (Exception e) {
-                addActionError("Error: " + e.getClass()
-                        .getName() + ". Please try again later.");
-                e.printStackTrace();
-                return ERROR;
+                logger.error("Error: " + e.getClass()
+                        .getName() + ". Please try again later.", e);
+                templateFile = "/error/error.ftl";
             }
         } else {
-            System.err.println("Post '" + uri + "' not found. Please try again.");
-            return NONE;
+            logger.error("Post '" + uri + "' not found. Please try again.");
+            templateFile = "blog/post.ftl";
         }
+
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public Post getPost() {

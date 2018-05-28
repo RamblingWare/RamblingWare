@@ -26,8 +26,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 public class BlogAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(BlogAction.class);
-    private final TemplateEngine engine = FreeMarkerTemplateEngine.create();
-    
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Post> posts = null;
     private int page;
     private int nextPage;
@@ -81,8 +80,6 @@ public class BlogAction implements Handler<RoutingContext> {
                 posts = null;
                 throw new NoDocumentException("No posts found");
             }
-            
-            throw new Exception("Failure test");
 
         } catch (NoDocumentException | NumberFormatException nfe) {
             templateFile = "index.ftl";
@@ -93,7 +90,7 @@ public class BlogAction implements Handler<RoutingContext> {
         }
 
         // Render template response
-        engine.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
             if (res.succeeded()) {
                 context.response()
                         .end(res.result());

@@ -2,6 +2,7 @@ package org.oddox.action;
 
 import java.util.List;
 
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.objects.Author;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * Authors action class
@@ -21,6 +24,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class AuthorsAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(AuthorsAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Author> authors = null;
 
     /**
@@ -32,6 +36,7 @@ public class AuthorsAction implements Handler<RoutingContext> {
     public void handle(RoutingContext context) {
 
         // /author
+        String templateFile = "author/authors.ftl";
         try {
             // gather authors
             authors = Application.getDatabaseService()
@@ -41,16 +46,24 @@ public class AuthorsAction implements Handler<RoutingContext> {
                 authors = null;
                 throw new NoDocumentException("No authors found");
             }
-            return SUCCESS;
 
         } catch (NoDocumentException nfe) {
-            return NONE;
+            templateFile = "author/authors.ftl";
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            e.printStackTrace();
-            return ERROR;
+            logger.error("Error: " + e.getClass()
+                    .getName() + ". Please try again later.", e);
+            templateFile = "/error/error.ftl";
         }
+
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public List<Author> getAuthors() {

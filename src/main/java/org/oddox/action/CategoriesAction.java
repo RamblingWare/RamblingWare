@@ -2,6 +2,7 @@ package org.oddox.action;
 
 import java.util.List;
 
+import org.oddox.MainVerticle;
 import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.objects.Category;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * Categories action class
@@ -21,6 +24,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class CategoriesAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(CategoriesAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Category> categories = null;
 
     /**
@@ -30,6 +34,7 @@ public class CategoriesAction implements Handler<RoutingContext> {
     public void handle(RoutingContext context) {
 
         // /category
+        String templateFile = "category/categories.ftl";
         try {
             // gather categories
             categories = ArchiveInterceptor.getArchiveCategories();
@@ -38,16 +43,24 @@ public class CategoriesAction implements Handler<RoutingContext> {
                 categories = null;
                 throw new NoDocumentException("No categories found");
             }
-            return SUCCESS;
 
         } catch (NoDocumentException nfe) {
-            return NONE;
+            templateFile = "category/categories.ftl";
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            e.printStackTrace();
-            return ERROR;
+            logger.error("Error: " + e.getClass()
+                    .getName() + ". Please try again later.", e);
+            templateFile = "/error/error.ftl";
         }
+
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public List<Category> getCategories() {

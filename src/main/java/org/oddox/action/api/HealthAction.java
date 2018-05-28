@@ -1,14 +1,13 @@
 package org.oddox.action.api;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.oddox.action.BlogAction;
 import org.oddox.config.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.vertx.core.Handler;
+import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
@@ -31,17 +30,23 @@ public class HealthAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
+
+        JsonObject json = new JsonObject();
         try {
-            status = new HashMap<String, String>();
-            status.put("app", Application.getString("name")!=null?"ok":"bad");
-            status.put("db", Application.getDatabaseService().getInfo()!=null?"ok":"bad");
+            json.put("app", Application.getString("name") != null ? "ok" : "bad");
+            json.put("db", Application.getDatabaseService()
+                    .getInfo() != null ? "ok" : "bad");
+
         } catch (Exception e) {
-            error = "error";
-            message = e.getMessage();
+            logger.warn("Health: "+json.encode());
+            json.put("error", true);
+            json.put("message", e.getMessage());
         }
 
         // return response
-        return NONE;
+        context.response()
+                .putHeader("Content-Type", "application/json; charset=utf-8")
+                .end(json.encode());
     }
 
     public String getError() {

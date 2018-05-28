@@ -2,6 +2,7 @@ package org.oddox.action;
 
 import java.util.List;
 
+import org.oddox.MainVerticle;
 import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.objects.Year;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * Years action class
@@ -21,6 +24,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class YearsAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(YearsAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Year> years = null;
 
     /**
@@ -30,6 +34,7 @@ public class YearsAction implements Handler<RoutingContext> {
     public void handle(RoutingContext context) {
 
         // /year
+        String templateFile = "year/years.ftl";
         try {
             // gather years
             years = ArchiveInterceptor.getArchiveYears();
@@ -38,16 +43,24 @@ public class YearsAction implements Handler<RoutingContext> {
                 years = null;
                 throw new NoDocumentException("No years found");
             }
-            return SUCCESS;
 
         } catch (NoDocumentException nfe) {
-            return NONE;
+            templateFile = "year/years.ftl";
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            e.printStackTrace();
-            return ERROR;
+            logger.error("Error: " + e.getClass()
+                    .getName() + ". Please try again later.", e);
+            templateFile = "/error/error.ftl";
         }
+
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public List<Year> getYears() {

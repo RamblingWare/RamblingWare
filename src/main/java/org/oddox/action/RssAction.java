@@ -1,9 +1,7 @@
 package org.oddox.action;
 
-import java.io.PrintWriter;
 import java.util.List;
 
-import org.apache.struts2.ServletActionContext;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
@@ -22,6 +20,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class RssAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(RssAction.class);
+    
     private static long cacheTime = 0l;
     private static List<Post> posts = null;
 
@@ -70,26 +69,13 @@ public class RssAction implements Handler<RoutingContext> {
             response += "<lastBuildDate>" + Utils.getDate() + "</lastBuildDate>\n";
             response += "</channel>\n</rss>";
 
-            try {
-                // return message to user
-                PrintWriter out = ServletActionContext.getResponse()
-                        .getWriter();
-                ServletActionContext.getResponse()
-                        .setContentType("text/xml");
-                out.write(response);
-            } catch (Exception e) {
-                System.out.println("ERROR: Failed to build RSS feed. " + e.getMessage());
-                addActionError("Error: " + e.getClass()
-                        .getName() + ". " + e.getMessage());
-            }
-            // no action return
-            return null;
-
+            context.response()
+                    .putHeader("Content-Type", "text/xml");
+            context.response()
+                    .end(response);
         } catch (Exception e) {
-            System.out.println("ERROR: Failed to build RSS feed. " + e.getMessage());
-            addActionError("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            return ERROR;
+            logger.error("Error: " + e.getClass()
+                    .getName() + ". Please try again later.", e);
         }
     }
 

@@ -1,17 +1,14 @@
 package org.oddox.action.api;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.oddox.action.BlogAction;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionContext;
-
 import io.vertx.core.Handler;
+import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
@@ -23,6 +20,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 public class ForgotAction implements Handler<RoutingContext> {
 
     private static Logger logger = LoggerFactory.getLogger(ForgotAction.class);
+
     private Map<String, Object> sessionAttributes = null;
     private String email; // need email to send reminders or resets
     private String code;
@@ -49,13 +47,12 @@ public class ForgotAction implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext context) {
 
+        JsonObject json = new JsonObject();
         try {
             defaults();
-            sessionAttributes = ActionContext.getContext()
-                    .getSession();
             // check if locked out
             // check inputs
-            if (!isLockedOut() && validParameters()) {
+            if (!isLockedOut(context) && validParameters()) {
 
                 // if email is good, and remind, then send reminder email.
                 // TODO
@@ -72,23 +69,31 @@ public class ForgotAction implements Handler<RoutingContext> {
                 } else if (recover) {
                     message = "You have been sent a recovery token. Please check your inbox to login.";
                 }
-                forgot = "ok";
-                data = new HashMap<String, String>();
+                json.put("forgot", "ok");
+                json.put("message", message);
+
+                JsonObject data = new JsonObject();
                 data.put("email", email);
                 data.put("time", Utils.getDateIso8601());
+                json.put("data", data);
 
-                sessionAttributes.remove("attempts");
-                sessionAttributes.remove("lastAttempt");
+                context.session()
+                        .remove("attempts");
+                context.session()
+                        .remove("lastAttempt");
             }
 
         } catch (Exception e) {
-            error = "error";
-            message = e.getMessage();
+            logger.warn("Forgot: "+json.encode());
+            json.put("error", true);
+            json.put("message", e.getMessage());
         }
 
         // return response
-        System.out.println(message);
-        return NONE;
+        logger.info(message);
+        context.response()
+                .putHeader("Content-Type", "application/json; charset=utf-8")
+                .end(json.encode());
     }
 
     /**
@@ -122,7 +127,8 @@ public class ForgotAction implements Handler<RoutingContext> {
         } else if (!Utils.isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid email address. Double-check and try again.");
         } else if (!remind && !reset && !recover) {
-            throw new IllegalArgumentException("Missing expected boolean option. Please add remind, reset, or recover.");
+            throw new IllegalArgumentException(
+                    "Missing expected boolean option. Please add remind, reset, or recover.");
         } else {
             return true;
         }
@@ -135,7 +141,7 @@ public class ForgotAction implements Handler<RoutingContext> {
      * @throws IllegalArgumentException
      *             if locked out
      */
-    protected boolean isLockedOut() throws IllegalArgumentException {
+    protected boolean isLockedOut(RoutingContext context) throws IllegalArgumentException {
         // count login attempts
         // and remember when their last attempt was
         if (sessionAttributes.get("attempts") == null) {
@@ -159,13 +165,13 @@ public class ForgotAction implements Handler<RoutingContext> {
                 // its been 30mins or more, so unlock
                 sessionAttributes.remove("attempts");
                 sessionAttributes.remove("lastAttempt");
-                System.err.println("Unknown user has waited " + lockout + " min, proceed. ("
-                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ")");
+                logger.error("Unknown user has waited " + lockout + " min, proceed. (" + context.request()
+                        .remoteAddress() + ")");
                 return false;
             } else {
                 // they have already been locked out
-                System.err.println("Unknown user has been locked out for " + lockout + " min. ("
-                        + servletRequest.getRemoteAddr() + ")(" + servletRequest.getRemoteHost() + ") ");
+                logger.error("Unknown user has been locked out for " + lockout + " min. (" + context.request()
+                        .remoteAddress() + ") ");
                 throw new IllegalArgumentException(
                         "You have been locked out for the next " + lockout + " minutes, for too many attempts.");
             }
