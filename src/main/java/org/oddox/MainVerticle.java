@@ -1,7 +1,6 @@
 package org.oddox;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,10 +33,10 @@ public class MainVerticle extends AbstractVerticle {
     public final static String VERSION = "1.0.0";
     public final static int HTTP_PORT = 8080;
     public final static int HTTPS_PORT = 8443;
-    public final static String KEYSTORE = "/deploy/keystore.jks";
-    public final static String KEYSTORE_PASSWORD = "changeit";
     public final static String APP_PROP_FILE = "/app.properties";
     public final static String DB_PROP_FILE = "/db.properties";
+    public final static String KEYSTORE = "/deploy/keystore.jks";
+    public final static String KEYSTORE_PASSWORD = "changeit";
 
     // Internal vars
     private static int httpPort = HTTP_PORT;
@@ -48,10 +47,10 @@ public class MainVerticle extends AbstractVerticle {
 
     public static void main(String[] args) {
         // Vertx core
-        Vertx vertx = Vertx.vertx();
+        final Vertx vertx = Vertx.vertx();
 
         // Deploy Verticle        
-        Single<String> deployment = vertx.rxDeployVerticle(MainVerticle.class.getName());
+        final Single<String> deployment = vertx.rxDeployVerticle(MainVerticle.class.getName());
 
         // Observe deploy
         deployment.subscribe(s -> {
@@ -70,7 +69,7 @@ public class MainVerticle extends AbstractVerticle {
                 + ")\r\n" + "-----------------------------------------------");
 
         // Check all prerequisites
-        List<Future> futureList = Arrays.asList(readEnvVariables(), checkKeystore(), checkWebroot(), startHttpServer(),
+        final List<Future> futureList = Arrays.asList(readEnvVariables(), checkKeystore(), checkWebroot(), startHttpServer(),
                 startHttpsServer(), loadSettings(), loadDatabase());
         CompositeFuture.all(futureList)
                 .setHandler(ar -> {
@@ -86,12 +85,18 @@ public class MainVerticle extends AbstractVerticle {
                 });
     }
 
+    @Override
+    public void stop(io.vertx.core.Future<Void> stopFuture) throws Exception {
+        logger.info("Stopped listening on ports: " + httpPort + ", " + httpsPort);
+        stopFuture.complete();
+    }
+
     /**
      * Check if Env variables exist
      * @return Future
      */
     private Future readEnvVariables() {
-        Future future = Future.future();
+        final Future future = Future.future();
 
         try {
             // HTTP_PORT env check
@@ -117,7 +122,7 @@ public class MainVerticle extends AbstractVerticle {
      * @return Future
      */
     private Future checkKeystore() {
-        Future future = Future.future();
+        final Future future = Future.future();
 
         // SSL Keystore check
         File keystore = new File(System.getProperty("user.dir") + KEYSTORE);
@@ -135,7 +140,7 @@ public class MainVerticle extends AbstractVerticle {
      * @return Future
      */
     private Future checkWebroot() {
-        Future future = Future.future();
+        final Future future = Future.future();
 
         File webroot = new File(System.getProperty("user.dir") + "/webroot");
         if (!webroot.exists() || !webroot.isDirectory()) {
@@ -149,7 +154,7 @@ public class MainVerticle extends AbstractVerticle {
     }
 
     private Future startHttpServer() {
-        Future future = Future.future();
+        final Future future = Future.future();
 
         // Create HTTP server
         httpServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true));
@@ -171,7 +176,7 @@ public class MainVerticle extends AbstractVerticle {
     }
 
     private Future startHttpsServer() {
-        Future future = Future.future();
+        final Future future = Future.future();
 
         // Create HTTPS server
         httpsServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true)
@@ -219,7 +224,7 @@ public class MainVerticle extends AbstractVerticle {
     }
     
     private Future loadSettings() {
-        Future future = Future.future();
+        final Future future = Future.future();
         try {
             // Load settings from File
             Application.setAppConfig(Application.loadSettingsFromFile(APP_PROP_FILE));
@@ -232,10 +237,10 @@ public class MainVerticle extends AbstractVerticle {
     }
     
     private Future loadDatabase() {
-        Future future = Future.future();
+        final Future future = Future.future();
         try {
             // Setup Database
-            Database db = Application.loadDatabase(System.getenv(), DB_PROP_FILE);
+            final Database db = Application.loadDatabase(System.getenv(), DB_PROP_FILE);
 
             // cleanup url
             if (db.getUrl()
@@ -257,12 +262,13 @@ public class MainVerticle extends AbstractVerticle {
             Application.setAppFirewall(Application.getDatabaseService().getAppFirewall());
             Application.setAppHeaders(Application.getDatabaseService().getAppHeaders());
             
-            AppConfig configdb = Application.getDatabaseService().getAppConfig();
+            final AppConfig configdb = Application.getDatabaseService().getAppConfig();
             if (configdb != null) {
-                System.out.println("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
-                AppConfig appConfig = Application.getAppConfig();
+                logger.info("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
+                final AppConfig appConfig = Application.getAppConfig();
                 appConfig.getSettings()
                         .putAll(configdb.getSettings());
+                Application.setAppConfig(appConfig);
             }
             future.complete();
         } catch (Exception e) {
@@ -270,11 +276,5 @@ public class MainVerticle extends AbstractVerticle {
             future.fail(e.getMessage());
         }
         return future;
-    }
-
-    @Override
-    public void stop(io.vertx.core.Future<Void> stopFuture) throws Exception {
-        logger.info("Stopped listening on ports: " + httpPort + ", " + httpsPort);
-        stopFuture.complete();
     }
 }

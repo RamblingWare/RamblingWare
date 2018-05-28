@@ -7,6 +7,8 @@ import java.util.Map;
 import org.oddox.database.Database;
 import org.oddox.database.DatabaseService;
 import org.oddox.database.DatabaseSetup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -21,6 +23,7 @@ import com.google.gson.JsonObject;
  */
 public final class Application {
 
+    private static Logger logger = LoggerFactory.getLogger(Application.class);
     private static AppConfig appConfig;
     private static AppFirewall appFirewall;
     private static AppHeaders appHeaders;
@@ -62,7 +65,7 @@ public final class Application {
                 db = loadDatabaseFromCloudFoundryEnv(env);
 
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
+                logger.error("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
                 throw new IOException(e);
             }
         }
@@ -74,7 +77,7 @@ public final class Application {
                 db = loadDatabaseFromDockerEnv(env);
 
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse DB_URL for Datasource properties.");
+                logger.error("ERROR: Failed to parse DB_URL for Datasource properties.");
                 throw new IOException(e);
             }
         }
@@ -82,14 +85,14 @@ public final class Application {
         // otherwise fallback to db.properties
         else {
             try {
-                System.out.println("WARNING: No DB environment variables provided. Continuing with DB from " + propFile
+                logger.warn("WARNING: No DB environment variables provided. Continuing with DB from " + propFile
                         + " file.");
 
                 // try to read from db.properties file
                 db = loadDatabaseFromProperties(propFile);
 
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse " + propFile + " file.");
+                logger.error("ERROR: Failed to parse " + propFile + " file.");
                 throw new IOException(e);
             }
         }
