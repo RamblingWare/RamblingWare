@@ -1,7 +1,16 @@
 package org.oddox;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
+import org.oddox.config.AppConfig;
+import org.oddox.config.Application;
+import org.oddox.config.Utils;
+import org.oddox.database.CouchDb;
+import org.oddox.database.CouchDbSetup;
+import org.oddox.database.Database;
 import org.oddox.handler.ApiHandler;
 import org.oddox.handler.RedirectHandler;
 import org.oddox.handler.TemplateHandler;
@@ -9,10 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.reactivex.Single;
-import io.vertx.core.Future;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.net.JksOptions;
 import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.core.CompositeFuture;
+import io.vertx.reactivex.core.Future;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.core.http.HttpServer;
 import io.vertx.reactivex.ext.web.Router;
@@ -20,12 +30,18 @@ import io.vertx.reactivex.ext.web.handler.StaticHandler;
 
 public class MainVerticle extends AbstractVerticle {
 
-    public static int HTTPPORT = 8080;
-    public static int HTTPSPORT = 8443;
-    public static final String VERSION = "3.5.0";
-    public static final String KEYSTORE = "/deploy/keystore.jks";
-    public static final String KEYSTORE_PASSWORD = "changeit";
+    // Global vals
+    public final static String VERSION = "1.0.0";
+    public final static int HTTP_PORT = 8080;
+    public final static int HTTPS_PORT = 8443;
+    public final static String KEYSTORE = "/deploy/keystore.jks";
+    public final static String KEYSTORE_PASSWORD = "changeit";
+    public final static String APP_PROP_FILE = "/app.properties";
+    public final static String DB_PROP_FILE = "/db.properties";
 
+    // Internal vars
+    private static int httpPort = HTTP_PORT;
+    private static int httpsPort = HTTPS_PORT;
     private static HttpServer httpServer;
     private static HttpServer httpsServer;
     private static Logger logger = LoggerFactory.getLogger(MainVerticle.class);
@@ -46,21 +62,120 @@ public class MainVerticle extends AbstractVerticle {
     }
 
     @Override
-    public void start(Future<Void> startFuture) throws Exception {
+    public void start(io.vertx.core.Future<Void> startFuture) throws Exception {
 
-        // Check if necessary env/files are present
-        Future<Void> validate = isValid();
-        if (validate.failed()) {
-            startFuture.fail(validate.cause());
-            vertx.close();
+        logger.info("Starting\r\n" + "           _     _           \r\n" + "          | |   | |          \r\n"
+                + "  ___   __| | __| | ___  __  __\r\n" + " / _ \\ / _` |/ _` |/ _ \\ \\ \\/ /\r\n"
+                + "| (_) | (_) | (_) | (_) | >  < \r\n" + " \\___/ \\____|\\____|\\___/ /_/\\_\\.org (v" + VERSION
+                + ")\r\n" + "-----------------------------------------------");
+
+        // Check all prerequisites
+        List<Future> futureList = Arrays.asList(readEnvVariables(), checkKeystore(), checkWebroot(), startHttpServer(),
+                startHttpsServer(), loadSettings(), loadDatabase());
+        CompositeFuture.all(futureList)
+                .setHandler(ar -> {
+                    if (ar.succeeded()) {
+                        // All futures succeeded
+                        logger.info("Oddox is ready to serve traffic.");
+                        startFuture.complete();
+                    } else {
+                        // At least one future failed
+                        startFuture.fail(ar.cause());
+                        vertx.close();
+                    }
+                });
+    }
+
+    /**
+     * Check if Env variables exist
+     * @return Future
+     */
+    private Future readEnvVariables() {
+        Future future = Future.future();
+
+        try {
+            // HTTP_PORT env check
+            httpPort = Integer.parseInt(System.getenv("HTTP_PORT"));
+        } catch (Exception e) {
+            logger.warn("Env HTTP_PORT not found or not valid. Defautling to: " + HTTP_PORT);
+            httpPort = HTTP_PORT;
         }
+
+        try {
+            // HTTPS_PORT env check
+            httpsPort = Integer.parseInt(System.getenv("HTTPS_PORT"));
+        } catch (Exception e) {
+            logger.warn("Env HTTPS_PORT not found or not valid. Defautling to: " + HTTPS_PORT);
+            httpsPort = HTTPS_PORT;
+        }
+        future.complete();
+        return future;
+    }
+
+    /**
+     * Check if keystore exists
+     * @return Future
+     */
+    private Future checkKeystore() {
+        Future future = Future.future();
+
+        // SSL Keystore check
+        File keystore = new File(System.getProperty("user.dir") + KEYSTORE);
+        if (!keystore.exists() || !keystore.canRead()) {
+            logger.error("Keystore file not found or can't read. Expected it here: " + keystore.getAbsolutePath());
+            future.fail("Keystore file not found or invalid.");
+        } else {
+            future.complete();
+        }
+        return future;
+    }
+
+    /**
+     * Check if Webroot exists
+     * @return Future
+     */
+    private Future checkWebroot() {
+        Future future = Future.future();
+
+        File webroot = new File(System.getProperty("user.dir") + "/webroot");
+        if (!webroot.exists() || !webroot.isDirectory()) {
+            logger.error("Webroot is not found or can't read. Expected it here: (user.dir) "
+                    + System.getProperty("user.dir"));
+            future.fail("Webroot is not found or invalid");
+        } else {
+            future.complete();
+        }
+        return future;
+    }
+
+    private Future startHttpServer() {
+        Future future = Future.future();
 
         // Create HTTP server
         httpServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true));
 
+        // Redirect HTTP requests to HTTPS
+        httpServer.requestHandler(new RedirectHandler());
+
+        // Start listening
+        httpServer.listen(httpPort, asyncResult -> {
+            if (asyncResult.succeeded()) {
+                logger.info("Listening on port: " + httpPort);
+                future.complete();
+            } else {
+                logger.error("Failed to bind on port " + httpPort + ". Is it being used?");
+                future.fail(asyncResult.cause());
+            }
+        });
+        return future;
+    }
+
+    private Future startHttpsServer() {
+        Future future = Future.future();
+
         // Create HTTPS server
         httpsServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true)
-                .setUseAlpn(true) // HTTP/2 only supported on JDK 9
+                .setUseAlpn(true) // HTTP/2 only supported on JDK 9+
                 .setSsl(true)
                 .setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
                         .setPath(System.getProperty("user.dir") + KEYSTORE)));
@@ -72,13 +187,13 @@ public class MainVerticle extends AbstractVerticle {
         mainRouter.route("/*")
                 .handler(StaticHandler.create()
                         .setFilesReadOnly(false)
-                        .setCachingEnabled(!true));
+                        .setCachingEnabled(false));
         // Readonly + nocache, so any changes in webroot are visible on browser refresh
         // for production, these wouldn't be needed.
 
         // Templating
         mainRouter.get()
-                .path("/template")
+                .path("/templates/*")
                 .handler(new TemplateHandler());
 
         // Add Subrouter api
@@ -91,73 +206,75 @@ public class MainVerticle extends AbstractVerticle {
         // Set Router
         httpsServer.requestHandler(mainRouter::accept);
 
-        // Redirect HTTP requests to HTTPS
-        httpServer.requestHandler(new RedirectHandler());
-
-        // Start listening
-        httpServer.listen(HTTPPORT, asyncResult -> {
+        httpsServer.listen(httpsPort, asyncResult -> {
             if (asyncResult.succeeded()) {
-                logger.info("Listening on port: " + HTTPPORT);
+                logger.info("Listening on port: " + httpsPort);
+                future.complete();
             } else {
-                logger.error("Failed to bind on port " + HTTPPORT + ". Is it being used?");
-                startFuture.fail(asyncResult.cause());
+                logger.error("Failed to bind on port " + httpsPort + ". Is it being used?");
+                future.fail(asyncResult.cause());
             }
         });
-        httpsServer.listen(HTTPSPORT, asyncResult -> {
-            if (asyncResult.succeeded()) {
-                logger.info("Listening on port: " + HTTPSPORT);
-                startFuture.complete();
-            } else {
-                logger.error("Failed to bind on port " + HTTPSPORT + ". Is it being used?");
-                startFuture.fail(asyncResult.cause());
-            }
-        });
+        return future;
     }
-
-    /**
-     * Check if this application has access to the necessary files
-     * and resources it needs. Like keystore and webroot.
-     * @return Future (use Future.failed() to check if false)
-     */
-    private Future<Void> isValid() {
-        Future<Void> future = Future.future();
-
-        boolean flag = true;
-
-        // PORT env check
+    
+    private Future loadSettings() {
+        Future future = Future.future();
         try {
-            HTTPPORT = Integer.parseInt(System.getenv("PORT"));
-        } catch (Exception e) {
-            logger.warn("Environment variable PORT not found or not valid. Defautling to: " + HTTPPORT);
-        }
-
-        String dir = System.getProperty("user.dir");
-
-        // SSL Keystore check
-        File keystore = new File(dir + KEYSTORE);
-        if (!keystore.exists() || !keystore.canRead()) {
-            logger.error("Keystore file not found or can't read. Expected it here: " + keystore.getAbsolutePath());
-            flag = false;
-        }
-
-        File webroot = new File(dir + "/webroot");
-        if (!webroot.exists() || !webroot.isDirectory()) {
-            logger.error("/webroot/ not found or can't read. Expected it here: " + dir);
-            flag = false;
-        }
-
-        if (flag) {
+            // Load settings from File
+            Application.setAppConfig(Application.loadSettingsFromFile(APP_PROP_FILE));
             future.complete();
-        } else {
-            future.fail("App invalid config.");
+        } catch (Exception e) {
+            logger.error("FATAL: Properties file not found or failed to load properly.");
+            future.fail(e.getMessage());
         }
+        return future;
+    }
+    
+    private Future loadDatabase() {
+        Future future = Future.future();
+        try {
+            // Setup Database
+            Database db = Application.loadDatabase(System.getenv(), DB_PROP_FILE);
 
+            // cleanup url
+            if (db.getUrl()
+                    .contains("@")) {
+                String curl = db.getUrl();
+                curl = Utils.removeUserPassFromURL(curl);
+                db.setUrl(curl);
+            }
+
+            logger.info("Using Database:\r\n" + db.toString());
+            Application.setDatabaseSetup(new CouchDbSetup(db));
+            
+            if (!Application.getDatabaseSetup().setup()) {
+                future.fail("Database invalid");
+            }
+
+            // Load settings from Database
+            Application.setDatabaseService(new CouchDb(db));
+            Application.setAppFirewall(Application.getDatabaseService().getAppFirewall());
+            Application.setAppHeaders(Application.getDatabaseService().getAppHeaders());
+            
+            AppConfig configdb = Application.getDatabaseService().getAppConfig();
+            if (configdb != null) {
+                System.out.println("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
+                AppConfig appConfig = Application.getAppConfig();
+                appConfig.getSettings()
+                        .putAll(configdb.getSettings());
+            }
+            future.complete();
+        } catch (Exception e) {
+            logger.error("FATAL: Database not found or failed to load properly.");
+            future.fail(e.getMessage());
+        }
         return future;
     }
 
     @Override
-    public void stop(Future<Void> stopFuture) throws Exception {
-        logger.info("Stopped listening on ports: " + HTTPPORT + "/" + HTTPSPORT);
+    public void stop(io.vertx.core.Future<Void> stopFuture) throws Exception {
+        logger.info("Stopped listening on ports: " + httpPort + ", " + httpsPort);
         stopFuture.complete();
     }
 }

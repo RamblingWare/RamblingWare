@@ -4,11 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.oddox.database.CouchDb;
-import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
 import org.oddox.database.DatabaseService;
 import org.oddox.database.DatabaseSetup;
@@ -24,70 +19,13 @@ import com.google.gson.JsonObject;
  * @author Austin Delamar
  * @date 4/8/2017
  */
-public class Application implements ServletContextListener {
-
-    public final static String APP_PROP_FILE = "/app.properties";
-    public final static String DB_PROP_FILE = "/db.properties";
+public final class Application {
 
     private static AppConfig appConfig;
     private static AppFirewall appFirewall;
     private static AppHeaders appHeaders;
     private static DatabaseService databaseService;
     private static DatabaseSetup databaseSetup;
-
-    @Override
-    public void contextInitialized(ServletContextEvent servletContext) {
-
-        // Load settings from File
-        try {
-            appConfig = loadSettingsFromFile(APP_PROP_FILE);
-        } catch (Exception e) {
-            System.err.println("FATAL: Properties file not found or failed to load properly.");
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        System.out.println("Starting   _     _           \r\n" + "          | |   | |          \r\n"
-                + "  ___   __| | __| | ___  __  __\r\n" + " / _ \\ / _` |/ _` |/ _ \\ \\ \\/ /\r\n"
-                + "| (_) | (_) | (_) | (_) | >  < \r\n" + " \\___/ \\____|\\____|\\___/ /_/\\_\\.org (v"
-                + getString("version") + ")\r\n" + "-----------------------------------------------");
-
-        // Setup Database
-        try {
-            Database db = loadDatabase(System.getenv(), DB_PROP_FILE);
-
-            // cleanup url
-            if (db.getUrl()
-                    .contains("@")) {
-                String curl = db.getUrl();
-                curl = Utils.removeUserPassFromURL(curl);
-                db.setUrl(curl);
-            }
-
-            System.out.println("Using Database:\r\n" + db.toString());
-            databaseSetup = new CouchDbSetup(db);
-            if (!databaseSetup.setup()) {
-                System.exit(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        // Load settings from Database
-        databaseService = new CouchDb(databaseSetup.getDatabase());
-        appFirewall = databaseService.getAppFirewall();
-        appHeaders = databaseService.getAppHeaders();
-        AppConfig configdb = databaseService.getAppConfig();
-        if (configdb != null) {
-            System.out.println("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
-            appConfig.getSettings()
-                    .putAll(configdb.getSettings());
-        }
-
-        // Ready
-        System.out.println("Oddox is ready.");
-    }
 
     /**
      * Loads the Application configuration from the properties file.
