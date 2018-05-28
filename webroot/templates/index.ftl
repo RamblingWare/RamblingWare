@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/templates/fragment/meta/meta.ftl">
+<#include "fragment/meta/meta.ftl">
 
 <title>${(name)!'Oddox'}</title>
 </head>
 <body>
 
-	<#include "/templates/fragment/header.ftl">
+	<#include "fragment/header.ftl">
 
 	<article class="container padding-top-large margin-top-large">
 		<div class="row">
@@ -17,10 +17,10 @@
 				
 				<#if posts??>
 					<#list posts as post>
-						<#include "/templates/blog/card-post.ftl">
+						<#include "blog/card-post.ftl">
 					</#list>
 	
-					<#include "/templates/fragment/pagination.ftl">
+					<#include "fragment/pagination.ftl">
 				<#else>
 					<p class="padding border round border-danger text-danger text-bold">
 					<span class="icon-cross text-medium margin-right"></span>
@@ -29,10 +29,10 @@
 				</#if>
 			</div>
 	
-			<#include "/templates/fragment/archive.ftl">
+			<#include "fragment/archive.ftl">
 		</div>
 	</article>
 
-	<#include "/templates/fragment/footer.ftl">
+	<#include "fragment/footer.ftl">
 </body>
 </html>
