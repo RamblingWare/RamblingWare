@@ -1,16 +1,16 @@
 plugins {
   id 'java'
   id 'jacoco'
-  id 'war'
+  id 'application'
+  id 'com.github.johnrengelman.shadow' version '2.0.4'
 }
 
 group = 'org.oddox'
 version = '1.0.0'
-war.baseName = 'oddox'
 description = 'open source blog with an offline-first writer'
-project.webAppDirName = 'WebContent'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+mainClassName = 'hello.MainVerticle'
+sourceCompatibility = 1.9
+targetCompatibility = 1.9
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
@@ -19,24 +19,25 @@ repositories {
 
 dependencies {
   // framework
-  compile 'javax.servlet:javax.servlet-api:4.0.+'
-  compile 'org.apache.struts:struts2-apps:2.5.+'
-  compile 'org.apache.struts:struts2-json-plugin:2.3.+'  
+  compile 'io.vertx:vertx-core:3.5.+'
+  compile 'io.vertx:vertx-rx-java2:3.5.+'
+  compile 'io.vertx:vertx-web:3.5.+'
+  compile 'io.vertx:vertx-web-templ-freemarker:3.5.+'
+  compile 'org.freemarker:freemarker:2.3.+'
   
   // database
   compile 'com.cloudant:cloudant-client:2.+'
   compile 'com.google.code.gson:gson:2.8.+'
   compile 'com.squareup.okhttp3:okhttp-urlconnection:3.8.+'
   
-  // templates
-  compile 'org.freemarker:freemarker:2.3.+'
-  
   // logging
-  compile 'org.apache.logging.log4j:log4j-core-its:2.+'
+  compile 'org.slf4j:slf4j-api:1.7.+'
+  compile 'org.slf4j:slf4j-simple:1.7.+'
   
   // testing
   testCompile 'junit:junit:4.12'
-  testCompile 'org.mockito:mockito-core:2.10.+'
+  //testCompile 'org.mockito:mockito-core:2.10.+'
+  //testCompile 'io.vertx:vertx-unit:3.5.+'
 }
 
 javadoc {
