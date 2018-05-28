@@ -8,7 +8,7 @@ plugins {
 group = 'org.oddox'
 version = '1.0.0'
 description = 'open source blog with an offline-first writer'
-mainClassName = 'hello.MainVerticle'
+mainClassName = 'org.oddox.MainVerticle'
 sourceCompatibility = 1.9
 targetCompatibility = 1.9
 compileJava.options.encoding = 'UTF-8'
