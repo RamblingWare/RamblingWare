@@ -2,6 +2,7 @@ package org.oddox.action;
 
 import java.util.List;
 
+import org.oddox.MainVerticle;
 import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
@@ -80,18 +81,19 @@ public class BlogAction implements Handler<RoutingContext> {
                 posts = null;
                 throw new NoDocumentException("No posts found");
             }
+            
+            throw new Exception("Failure test");
 
         } catch (NoDocumentException | NumberFormatException nfe) {
             templateFile = "index.ftl";
         } catch (Exception e) {
             logger.error("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            e.printStackTrace();
-            templateFile = "error/error.ftl";
+                    .getName() + ". Please try again later.", e);
+            templateFile = "/error/error.ftl";
         }
 
-        final String dir = System.getProperty("user.dir");
-        engine.render(context, dir + "/webroot/templates/", templateFile, res -> {
+        // Render template response
+        engine.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
             if (res.succeeded()) {
                 context.response()
                         .end(res.result());

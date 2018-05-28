@@ -37,6 +37,7 @@ public class MainVerticle extends AbstractVerticle {
     public final static String DB_PROP_FILE = "/db.properties";
     public final static String KEYSTORE = "/deploy/keystore.jks";
     public final static String KEYSTORE_PASSWORD = "changeit";
+    public final static String TEMPLATES_DIR = System.getProperty("user.dir") + "/webroot/templates/";
 
     // Internal vars
     private static int httpPort = HTTP_PORT;
@@ -113,6 +114,7 @@ public class MainVerticle extends AbstractVerticle {
             logger.warn("Env HTTPS_PORT not found or not valid. Defautling to: " + HTTPS_PORT);
             httpsPort = HTTPS_PORT;
         }
+        
         future.complete();
         return future;
     }
@@ -196,10 +198,8 @@ public class MainVerticle extends AbstractVerticle {
         // Readonly + nocache, so any changes in webroot are visible on browser refresh
         // for production, these wouldn't be needed.
 
-        // Templating
-        mainRouter.get()
-                .path("/*")
-                .handler(new BlogAction());
+        // Templating        
+        mainRouter.route("/").handler(new BlogAction());
 
         // Add Subrouter api
         Router apiRouter = Router.router(vertx);

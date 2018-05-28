@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/templates/fragment/meta/meta.ftl">
+<#include "../fragment/meta/meta.ftl">
 
 <title>404 File Not Found</title>
 </head>
 <body>
 
-	<#include "/templates/fragment/header.ftl">
+	<#include "../fragment/header.ftl">
 
 	<article class="container padding-top-large margin-top-large">
 		<div class="row">
@@ -34,10 +34,10 @@
 
 			</div>
 
-			<#include "/templates/fragment/archive.ftl">
+			<#include "../fragment/archive.ftl">
 		</div>
 	</article>
 
-	<#include "/templates/fragment/footer.ftl">
+	<#include "../fragment/footer.ftl">
 </body>
 </html>
