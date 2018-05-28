@@ -3,7 +3,6 @@ package org.oddox.action;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.PostAction;
 import org.oddox.objects.Post;
 
 /**
@@ -45,11 +43,5 @@ public class PostActionTests {
         action.setPost(post);
         assertEquals("newpost", action.getPost()
                 .get_Id());
-
-        action.setServletRequest(null);
-        action.setServletResponse(null);
-        if(action.servletRequest != null) {
-            fail("servletRequest is not expected value");
-        }
     }
 }

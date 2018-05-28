@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.oddox.MainVerticle;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
 import org.oddox.database.CouchDb;
@@ -34,10 +35,10 @@ public class HealthActionTests {
         MockitoAnnotations.initMocks(this);
         AppConfig config;
         try {
-            config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
+            config = Application.loadSettingsFromFile(MainVerticle.APP_PROP_FILE);
             Application.setAppConfig(config);
             Application.setDatabaseService(
-                    new CouchDb(Application.loadDatabase(System.getenv(), Application.DB_PROP_FILE)));
+                    new CouchDb(Application.loadDatabase(System.getenv(), MainVerticle.DB_PROP_FILE)));
         } catch (IOException e) {
             fail("Unexpected IOException: " + e.getMessage());
         }
@@ -49,14 +50,6 @@ public class HealthActionTests {
     }
 
     @Test
-    public void execute() {
-        assertEquals("none", action.execute()
-                .toLowerCase());
-        assertTrue(action.getStatus()
-                .containsKey("app"));
-    }
-
-    @Test
     public void variables() {
         action.setMessage("message");
         assertEquals("message", action.getMessage());
@@ -64,8 +57,5 @@ public class HealthActionTests {
         assertEquals("error", action.getError());
         action.setStatus(null);
         assertNull(action.getStatus());
-
-        action.setServletRequest(null);
-        action.setServletResponse(null);
     }
 }

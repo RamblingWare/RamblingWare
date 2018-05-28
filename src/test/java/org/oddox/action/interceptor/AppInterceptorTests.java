@@ -25,15 +25,9 @@ public class AppInterceptorTests {
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
     }
-    
+
     @Test
     public void constructor() {
         assertTrue(interceptor != null);
-    }
-
-    @Test
-    public void variables() {
-        interceptor.init();
-        interceptor.destroy();
     }
 }

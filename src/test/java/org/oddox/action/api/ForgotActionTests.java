@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.api.ForgotAction;
 
 /**
  * Unit tests for ForgotAction
@@ -100,13 +99,13 @@ public class ForgotActionTests {
 
         // increment attempts up to limit
         for (int i = 1; i < maxAttempts; i++) {
-            assertFalse(action.isLockedOut());
+            assertFalse(action.isLockedOut(null));
         }
 
         assertEquals(maxAttempts, action.getAttempts() + 1);
 
         try {
-            action.isLockedOut();
+            action.isLockedOut(null);
             fail("Failed to not lock out after " + maxAttempts + " failed attempts.");
         } catch (Exception e) {
             // good
@@ -139,7 +138,5 @@ public class ForgotActionTests {
         assertNull(action.getData());
 
         action.setSession(null);
-        action.setServletRequest(null);
-        action.setServletResponse(null);
     }
 }

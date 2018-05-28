@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.filter.DynamicContentFilter;
 
 /**
  * Unit tests for DynamicContentFilter
@@ -30,11 +29,5 @@ public class DynamicContentFilterTests {
     @Test
     public void constructor() {
         assertTrue(filter != null);
-    }
-
-    @Test
-    public void variables() {
-        filter.init(null);
-        filter.destroy();
     }
 }

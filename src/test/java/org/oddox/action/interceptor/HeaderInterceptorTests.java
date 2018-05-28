@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.interceptor.HeaderInterceptor;
 
 /**
  * Unit tests for HeaderInterceptor
@@ -30,11 +29,5 @@ public class HeaderInterceptorTests {
     @Test
     public void constructor() {
         assertTrue(interceptor != null);
-    }
-
-    @Test
-    public void variables() {
-        interceptor.init();
-        interceptor.destroy();
     }
 }

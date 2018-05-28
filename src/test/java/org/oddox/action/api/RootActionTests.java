@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.api.RootAction;
+import org.oddox.MainVerticle;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
 import org.oddox.database.CouchDb;
@@ -35,10 +35,10 @@ public class RootActionTests {
         MockitoAnnotations.initMocks(this);
         AppConfig config;
         try {
-            config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
+            config = Application.loadSettingsFromFile(MainVerticle.APP_PROP_FILE);
             Application.setAppConfig(config);
             Application.setDatabaseService(
-                    new CouchDb(Application.loadDatabase(System.getenv(), Application.DB_PROP_FILE)));
+                    new CouchDb(Application.loadDatabase(System.getenv(), MainVerticle.DB_PROP_FILE)));
         } catch (IOException e) {
             fail("Unexpected IOException: " + e.getMessage());
         }
@@ -47,16 +47,6 @@ public class RootActionTests {
     @Test
     public void constructor() {
         assertTrue(action != null);
-    }
-
-    @Test
-    public void execute() {
-        assertEquals("none", action.execute()
-                .toLowerCase());
-        assertEquals("Welcome", action.getOddox());
-        assertEquals(Application.getString("version"), action.getVersion());
-        assertTrue(action.getData()
-                .containsKey("name"));
     }
 
     @Test
@@ -71,8 +61,5 @@ public class RootActionTests {
         assertEquals("error", action.getError());
         action.setData(null);
         assertNull(action.getData());
-
-        action.setServletRequest(null);
-        action.setServletResponse(null);
     }
 }
