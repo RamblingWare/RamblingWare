@@ -15,7 +15,9 @@ public class TemplateHandler implements Handler<RoutingContext> {
         // set variable
         context.put("greeting", "Hello from FreeMarkerTemplateEngine!");
         
-        engine.render(context, "templates/", "index.ftl", res -> {
+        final String dir = System.getProperty("user.dir");
+        
+        engine.render(context, dir + "/webroot/templates/", "index.ftl", res -> {
             if (res.succeeded()) {
                 context.response()
                         .end(res.result());
