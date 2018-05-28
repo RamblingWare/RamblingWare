@@ -17,6 +17,9 @@ import org.oddox.action.api.HealthAction;
 import org.oddox.action.api.RootAction;
 import org.oddox.action.filter.DynamicContentFilter;
 import org.oddox.action.filter.StaticContentFilter;
+import org.oddox.action.interceptor.AppInterceptor;
+import org.oddox.action.interceptor.ArchiveInterceptor;
+import org.oddox.action.interceptor.HeaderInterceptor;
 
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
@@ -49,13 +52,21 @@ public final class WebRoutes {
                         .setCachingEnabled(true)
                         .setCacheEntryTimeout(31536000l));
 
-        // Filters
+        // Filters for HTTP headers
         main.route("/**.*")
                 .handler(new StaticContentFilter());
         main.route("/*")
                 .handler(new DynamicContentFilter());
 
-        // Templates
+        // Interceptors for setting Context attributes
+        main.route("/*")
+                .handler(new AppInterceptor());
+        main.route("/*")
+                .handler(new ArchiveInterceptor());
+        main.route("/*")
+                .handler(new HeaderInterceptor());
+
+        // Template Actions
 
         // Main Pages
         main.route("/")
@@ -95,18 +106,16 @@ public final class WebRoutes {
         main.route("/year")
                 .handler(new YearsAction());
 
-        // Add API Subrouter
-        Router api = Router.router(vertx);
-        api.route()
-                .path("/")
+        // APIs
+        main.route()
+                .path("/api")
                 .handler(new RootAction());
-        api.route()
-                .path("/forgot")
+        main.route()
+                .path("/api/forgot")
                 .handler(new ForgotAction());
-        api.route()
-                .path("/health")
+        main.route()
+                .path("/api/health")
                 .handler(new HealthAction());
-        main.mountSubRouter("/api", api);
 
         return main;
     }

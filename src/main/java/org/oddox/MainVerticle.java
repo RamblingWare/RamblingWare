@@ -58,6 +58,7 @@ public class MainVerticle extends AbstractVerticle {
         });
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public void start(io.vertx.core.Future<Void> startFuture) throws Exception {
 
@@ -93,6 +94,7 @@ public class MainVerticle extends AbstractVerticle {
      * Check if Env variables exist
      * @return Future
      */
+    @SuppressWarnings("rawtypes")
     private Future readEnvVariables() {
         final Future future = Future.future();
 
@@ -120,6 +122,7 @@ public class MainVerticle extends AbstractVerticle {
      * Check if keystore exists
      * @return Future
      */
+    @SuppressWarnings("rawtypes")
     private Future checkKeystore() {
         final Future future = Future.future();
 
@@ -138,6 +141,7 @@ public class MainVerticle extends AbstractVerticle {
      * Check if Webroot exists
      * @return Future
      */
+    @SuppressWarnings("rawtypes")
     private Future checkWebroot() {
         final Future future = Future.future();
 
@@ -152,6 +156,7 @@ public class MainVerticle extends AbstractVerticle {
         return future;
     }
 
+    @SuppressWarnings("rawtypes")
     private Future startHttpServer() {
         final Future future = Future.future();
 
@@ -174,6 +179,7 @@ public class MainVerticle extends AbstractVerticle {
         return future;
     }
 
+    @SuppressWarnings("rawtypes")
     private Future startHttpsServer() {
         final Future future = Future.future();
 
@@ -202,6 +208,7 @@ public class MainVerticle extends AbstractVerticle {
         return future;
     }
     
+    @SuppressWarnings("rawtypes")
     private Future loadSettings() {
         final Future future = Future.future();
         try {
@@ -215,6 +222,7 @@ public class MainVerticle extends AbstractVerticle {
         return future;
     }
     
+    @SuppressWarnings("rawtypes")
     private Future loadDatabase() {
         final Future future = Future.future();
         try {

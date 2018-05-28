@@ -1,12 +1,7 @@
 package org.oddox.action.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.StrutsStatics;
-
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.Interceptor;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * HeaderInterceptor class appends the HTTP Headers before receving a request. Remember the original
@@ -16,19 +11,14 @@ import com.opensymphony.xwork2.interceptor.Interceptor;
  * @author Austin Delamar
  * @date 6/11/2017
  */
-public class HeaderInterceptor implements Interceptor {
-
-    private static final long serialVersionUID = 1L;
+public class HeaderInterceptor implements Handler<RoutingContext> {
 
     @Override
-    public String intercept(ActionInvocation actionInvocation) throws Exception {
-
-        final ActionContext ac = actionInvocation.getInvocationContext();
+    public void handle(RoutingContext context) {
 
         // Remember the original URI request, because if we forward, chain, redirect at all
         // then this value is lost. Its beneficial to keep for pagination and such.
-        HttpServletRequest request = (HttpServletRequest) ac.get(StrutsStatics.HTTP_REQUEST);
-        String pageUri = request.getRequestURI();
+        String pageUri = context.request().absoluteURI();
 
         // Valid URIs might have different contexts...
         // /blog/page/1
@@ -37,16 +27,8 @@ public class HeaderInterceptor implements Interceptor {
         // /tag/java/page/1
         // /author/page/1
 
-        if (pageUri.endsWith("/WEB-INF")) {
-            pageUri = pageUri.replace("/WEB-INF", "");
-        }
-        if (pageUri.endsWith(".jsp")) {
-            pageUri = pageUri.replace(".jsp", "");
-        }
-
         if (pageUri.contains("/page/")) {
-            String context = pageUri.substring(0, pageUri.indexOf("/page/"));
-            pageUri = context + "/page";
+            pageUri = pageUri.substring(0, pageUri.indexOf("/page/")) + "/page";
         } else {
             pageUri = pageUri + "/page";
         }
@@ -55,20 +37,9 @@ public class HeaderInterceptor implements Interceptor {
         while (pageUri.contains("//")) {
             pageUri = pageUri.replace("//", "/");
         }
-
-        request.setAttribute("pageUri", pageUri);
-
-        return actionInvocation.invoke();
-    }
-
-    @Override
-    public void destroy() {
-        // Auto-generated method stub
-    }
-
-    @Override
-    public void init() {
-        // Auto-generated method stub
+        
+        context.put("pageUri", pageUri);
+        context.next();
     }
 
 }
