@@ -13,10 +13,15 @@ Oddox is a blog with an offline-first editor. Write, save, and publish your post
  * Offline-first [dashboard](https://github.com/oddoxorg/dashboard/) for authors to manage their blog
  * SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
  * HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
+ * Fast, asynchronous, caches content by default
 
 ## Usage
 
 This project is still in development but stay tuned. The first version will be made available once the main features are complete.
+
+## Deployment
+
+> Under construction...
 
 <!--
 ### One-Click Deploy
@@ -24,9 +29,6 @@ This project is still in development but stay tuned. The first version will be m
 [![Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/oddoxorg/oddox)
 [![Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/oddoxorg/oddox)
 [![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/oddoxorg/oddox)
- -->
-
-## Deployment
 
 ### Docker Deploy
 
@@ -51,18 +53,14 @@ This project is still in development but stay tuned. The first version will be m
      - Enter the `<CONTAINER-IP>` and `<STRONG-PW>` from your CouchDB container.
  1. Visit `https://<container-ip>:8443/`
 
- <!--
   docker pull oddoxorg/couchdb:2.1.1
   docker pull oddoxorg/oddox:1.0.0
   docker build -f deploy/docker/1.0.0/Dockerfile --no-cache --rm -t oddoxorg/oddox:1.0.0 -t oddoxorg/oddox .
   docker run -e DB_URL=https://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 oddoxorg/oddox
   docker push oddoxorg/oddox
   docker push oddoxorg/oddox:1.0.0
- -->
 
 ### Cloud Foundry Deploy
-
-> Coming later... possibly
 
 ### Manually Deploy
 
@@ -85,14 +83,13 @@ This project is still in development but stay tuned. The first version will be m
      - Copy WAR file into `<tomcat-dir>/webapps/`
  1. Visit `https://localhost:8443/` (Devs: Double-check server.xml that context root is `/` and not `/oddox`).
 
+-->
+
 ## Tech Stack
 
- *  [Java 1.8](https://www.java.com/) Programming Language
+ *  [Java 1.9](https://www.java.com/) Language
+ *  [Eclipse Vert.x 3.5](https://vertx.io/) Framework
  *  [Apache CouchDB 2.1.1](https://couchdb.apache.org/) NoSQL Database
- *  [Apache Tomcat 9.0](https://tomcat.apache.org/) Web Server
- *  [Apache Struts 2.5](https://struts.apache.org/) Framework
  *  [Apache FreeMarker 2.3](https://freemarker.apache.org/) Templates
 
-## License
-
-[Apache 2.0](https://github.com/oddoxorg/oddox/blob/master/LICENSE)
+[Apache 2.0](https://github.com/oddoxorg/oddox/blob/master/LICENSE) License
