@@ -3,7 +3,7 @@
 		<#if archiveFeatured??>
 			<h4 class="margin-top text-secondary">Featured</h4>
 			<#list archiveFeatured as post>
-				<#include "/templates/blog/block-post.ftl">
+				<#include "../blog/block-post.ftl">
 			</#list>
 		</#if>
 	</div>

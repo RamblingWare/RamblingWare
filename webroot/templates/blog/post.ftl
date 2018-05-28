@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/templates/fragment/meta/meta-post.ftl">
+<#include "../fragment/meta/meta-post.ftl">
 <meta name="author" content="${(post.author.name)!''}"/>
 <meta name="description" content="${(post.description)!''}"/>
 <meta name="keywords" content="<#list post.tags as tag>${(tag)!''},</#list>${(keywords)!''}"/>
@@ -33,7 +33,7 @@
 </head>
 <body>
 
-	<#include "/templates/fragment/header.ftl">
+	<#include "../fragment/header.ftl">
 
 	<article class="container padding-top-large margin-top-large">
 		<div class="row">
@@ -138,7 +138,7 @@
 				<hr />
 			</div>
 
-			<#include "/templates/fragment/archive.ftl">
+			<#include "../fragment/archive.ftl">
 		</div>
 
 		<div id="comments" class="row no-print">
@@ -148,7 +148,7 @@
 
 	</article>
 
-	<#include "/templates/fragment/footer.ftl">
+	<#include "../fragment/footer.ftl">
 	<script type="text/javascript" src="/vendor/highlight/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 </body>

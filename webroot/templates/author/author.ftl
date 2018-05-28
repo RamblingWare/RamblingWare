@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/templates/fragment/meta/meta-post.ftl">
+<#include "../fragment/meta/meta-post.ftl">
 <meta name="author" content="${(author.name)!''}"/>
 <meta name="description" content="${(author.description)!''}"/>
 <meta name="keywords" content="${(keywords)!'Oddox'}"/>
@@ -33,7 +33,7 @@
 </head>
 <body>
 
-	<#include "/templates/fragment/header.ftl">
+	<#include "../fragment/header.ftl">
 
 	<article class="container padding-top-large margin-top-large">
 		<div class="row">
@@ -58,11 +58,11 @@
 				</div>
 			</div>
 
-			<#include "/templates/fragment/archive.ftl">
+			<#include "../fragment/archive.ftl">
 		</div>
 	</article>
 
-	<#include "/templates/fragment/footer.ftl">
+	<#include "../fragment/footer.ftl">
 	<script type="text/javascript" src="/vendor/highlight/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 </body>

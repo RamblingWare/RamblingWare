@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/templates/fragment/meta/meta.ftl">
+<#include "../fragment/meta/meta.ftl">
 
 <title>Authors - ${(name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
-	<#include "/templates/fragment/header.ftl">
+	<#include "../fragment/header.ftl">
 
 	<article class="container padding-top-large margin-top-large">
 		<div class="row">
@@ -23,7 +23,7 @@
 					</#if>
 					<div class="row" style="min-height:0px">
 					<#list authors as author>
-						<#include "/templates/author/card-author.ftl">
+						<#include "../author/card-author.ftl">
 					</#list>
 					</div>
 				<#else>
@@ -33,10 +33,10 @@
 				</#if>
 			</div>
 
-			<#include "/templates/fragment/archive.ftl">
+			<#include "../fragment/archive.ftl">
 		</div>
 	</article>
 
-	<#include "/templates/fragment/footer.ftl">
+	<#include "../fragment/footer.ftl">
 </body>
 </html>
