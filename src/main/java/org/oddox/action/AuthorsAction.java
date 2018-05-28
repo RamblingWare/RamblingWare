@@ -2,16 +2,15 @@ package org.oddox.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.objects.Author;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Authors action class
@@ -19,11 +18,9 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 4/23/2017
  */
-public class AuthorsAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class AuthorsAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(AuthorsAction.class);
     private List<Author> authors = null;
 
     /**
@@ -31,7 +28,8 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
      * 
      * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /author
         try {
@@ -53,16 +51,6 @@ public class AuthorsAction extends ActionSupport implements ServletResponseAware
             e.printStackTrace();
             return ERROR;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public List<Author> getAuthors() {

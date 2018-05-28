@@ -3,14 +3,13 @@ package org.oddox.action.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.action.BlogAction;
 import org.oddox.config.Application;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Health action class
@@ -18,11 +17,9 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 5/14/2018
  */
-public class HealthAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class HealthAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(HealthAction.class);
 
     // JSON response
     private String error;
@@ -31,10 +28,9 @@ public class HealthAction extends ActionSupport implements ServletResponseAware,
 
     /**
      * Returns app status information.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
         try {
             status = new HashMap<String, String>();
             status.put("app", Application.getString("name")!=null?"ok":"bad");
@@ -46,16 +42,6 @@ public class HealthAction extends ActionSupport implements ServletResponseAware,
 
         // return response
         return NONE;
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public String getError() {

@@ -1,15 +1,13 @@
 package org.oddox.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Author;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Author action class
@@ -17,23 +15,20 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 10/23/2016
  */
-public class AuthorAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class AuthorAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(AuthorAction.class);
     private Author author;
     private String uri;
 
     /**
      * Returns author details.
-     * 
-     * @return Action String
      */
-    public String execute() {
-
+    @Override
+    public void handle(RoutingContext context) {
+        
         // /author/person-name
-        String uriTemp = servletRequest.getRequestURI();
+        String uriTemp = context.normalisedPath();
         if (uri == null && uriTemp.startsWith("/author/")) {
             uri = Utils.removeBadChars(uriTemp.substring(8, uriTemp.length()));
         }
@@ -65,16 +60,6 @@ public class AuthorAction extends ActionSupport implements ServletResponseAware,
             System.err.println("Author '" + uri + "' not found. Please try again.");
             return NONE;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public void setAuthor(Author author) {

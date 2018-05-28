@@ -2,16 +2,15 @@ package org.oddox.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.objects.Category;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Categories action class
@@ -19,19 +18,16 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 4/30/2017
  */
-public class CategoriesAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class CategoriesAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(CategoriesAction.class);
     private List<Category> categories = null;
 
     /**
      * Returns list of categories.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /category
         try {
@@ -52,16 +48,6 @@ public class CategoriesAction extends ActionSupport implements ServletResponseAw
             e.printStackTrace();
             return ERROR;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public List<Category> getCategories() {

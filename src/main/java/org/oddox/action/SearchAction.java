@@ -2,16 +2,14 @@ package org.oddox.action;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * External Search action class
@@ -19,19 +17,16 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 5/9/2016
  */
-public class SearchAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class SearchAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(SearchAction.class);
     private String q;
 
     /**
      * Forwards to search provider.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         if (q != null && !q.isEmpty()) {
             // POST external search
@@ -51,16 +46,6 @@ public class SearchAction extends ActionSupport implements ServletResponseAware,
             // GET search page
             return INPUT;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public String getQ() {

@@ -2,18 +2,17 @@ package org.oddox.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
 import org.oddox.objects.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Tag action class
@@ -21,11 +20,9 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 3/19/2017
  */
-public class TagAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class TagAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(TagAction.class);
     private List<Post> posts = null;
     private String tag;
     private int page;
@@ -35,16 +32,15 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
     private int totalPosts;
 
     /**
-     * Returns list of posts by tag.
-     * 
-     * @return Action String
+     * Returns list of posts by tag
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /tag
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI();
+            String pageTemp = context.normalisedPath();
             if (pageTemp.startsWith("/tag/") && pageTemp.contains("/page/")) {
                 tag = Utils.removeBadChars(pageTemp.substring(5, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
@@ -100,16 +96,6 @@ public class TagAction extends ActionSupport implements ServletResponseAware, Se
             e.printStackTrace();
             return ERROR;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public List<Post> getPosts() {

@@ -2,18 +2,17 @@ package org.oddox.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
 import org.oddox.objects.Year;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Year action class
@@ -21,11 +20,9 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 3/19/2017
  */
-public class YearAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class YearAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(YearAction.class);
     private List<Post> posts = null;
     private String year;
     private int page;
@@ -36,15 +33,14 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
 
     /**
      * Returns list of posts for year.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /year
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI();
+            String pageTemp = context.normalisedPath();
             if (pageTemp.startsWith("/year/") && pageTemp.contains("/page/")) {
                 year = Utils.removeBadChars(pageTemp.substring(6, pageTemp.indexOf("/page")));
                 pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
@@ -105,16 +101,6 @@ public class YearAction extends ActionSupport implements ServletResponseAware, S
             e.printStackTrace();
             return ERROR;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public List<Post> getPosts() {

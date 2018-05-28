@@ -11,8 +11,6 @@ public class ApiHandler implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext context) {
         
-        context.request().path();
-        
         JsonObject json = new JsonObject();
         json.put("vertx", "Welcome");
         json.put("version", MainVerticle.VERSION);

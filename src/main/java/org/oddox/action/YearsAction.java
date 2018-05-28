@@ -2,16 +2,15 @@ package org.oddox.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.objects.Year;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Years action class
@@ -19,19 +18,16 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 4/20/2017
  */
-public class YearsAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class YearsAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(YearsAction.class);
     private List<Year> years = null;
 
     /**
      * Returns list of all years.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /year
         try {
@@ -52,16 +48,6 @@ public class YearsAction extends ActionSupport implements ServletResponseAware, 
             e.printStackTrace();
             return ERROR;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public List<Year> getYears() {

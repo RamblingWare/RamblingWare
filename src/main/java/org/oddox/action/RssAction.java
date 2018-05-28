@@ -3,17 +3,15 @@ package org.oddox.action;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * View RSS action class
@@ -21,20 +19,17 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 12/9/2015
  */
-public class RssAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class RssAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(RssAction.class);
     private static long cacheTime = 0l;
     private static List<Post> posts = null;
 
     /**
      * Returns RSS information.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /rss
 
@@ -96,16 +91,6 @@ public class RssAction extends ActionSupport implements ServletResponseAware, Se
                     .getName() + ". Please try again later.");
             return ERROR;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public static long getCacheTime() {

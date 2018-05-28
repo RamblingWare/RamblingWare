@@ -3,16 +3,16 @@ package org.oddox.action.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.action.BlogAction;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Forgot action class
@@ -20,11 +20,9 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 12/19/2016
  */
-public class ForgotAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class ForgotAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(ForgotAction.class);
     private Map<String, Object> sessionAttributes = null;
     private String email; // need email to send reminders or resets
     private String code;
@@ -47,10 +45,9 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
 
     /**
      * Forgot user/password action. Resets a password via email.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         try {
             defaults();
@@ -178,16 +175,6 @@ public class ForgotAction extends ActionSupport implements ServletResponseAware,
 
     public void setSession(Map<String, Object> sessionAttributes) {
         this.sessionAttributes = sessionAttributes;
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public String getEmail() {

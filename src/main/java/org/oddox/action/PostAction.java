@@ -2,17 +2,16 @@ package org.oddox.action;
 
 import java.util.HashSet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * View Post action class
@@ -20,23 +19,20 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class PostAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class PostAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(PostAction.class);
     private Post post;
     private String uri;
 
     /**
      * Returns blog post details.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /blog/post-name
-        String uriTemp = servletRequest.getRequestURI()
+        String uriTemp = context.normalisedPath()
                 .toLowerCase();
         if (uri == null && uriTemp.startsWith("/blog/post/")) {
             // /blog/post/post-name-goes-here
@@ -101,16 +97,6 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
             System.err.println("Post '" + uri + "' not found. Please try again.");
             return NONE;
         }
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
     }
 
     public Post getPost() {

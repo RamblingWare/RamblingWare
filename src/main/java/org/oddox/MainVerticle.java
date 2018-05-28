@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import org.oddox.action.BlogAction;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
@@ -12,7 +13,6 @@ import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
 import org.oddox.handler.ApiHandler;
 import org.oddox.handler.RedirectHandler;
-import org.oddox.handler.TemplateHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -198,8 +198,8 @@ public class MainVerticle extends AbstractVerticle {
 
         // Templating
         mainRouter.get()
-                .path("/templates/*")
-                .handler(new TemplateHandler());
+                .path("/*")
+                .handler(new BlogAction());
 
         // Add Subrouter api
         Router apiRouter = Router.router(vertx);

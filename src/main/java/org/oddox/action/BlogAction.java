@@ -2,18 +2,19 @@ package org.oddox.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * Blog list action class
@@ -21,11 +22,11 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Austin Delamar
  * @date 11/9/2015
  */
-public class BlogAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class BlogAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(BlogAction.class);
+    private final TemplateEngine engine = FreeMarkerTemplateEngine.create();
+    
     private List<Post> posts = null;
     private int page;
     private int nextPage;
@@ -35,18 +36,15 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
 
     /**
      * Returns list of blog posts.
-     * 
-     * @return Action String
      */
-    public String execute() {
-
-        // /blog/ or /"home"
-
+    @Override
+    public void handle(RoutingContext context) {
+        
         // this shows the most recent blog posts
+        String templateFile = "index.ftl";
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI()
-                    .toLowerCase();
+            String pageTemp = context.normalisedPath().toLowerCase();
             if (pageTemp.startsWith("/blog/page/")) {
                 pageTemp = Utils.removeBadChars(pageTemp.substring(11, pageTemp.length()));
                 page = Integer.parseInt(pageTemp);
@@ -83,27 +81,24 @@ public class BlogAction extends ActionSupport implements ServletResponseAware, S
                 throw new NoDocumentException("No posts found");
             }
 
-            return SUCCESS;
-
         } catch (NoDocumentException | NumberFormatException nfe) {
-            return NONE;
+            templateFile = "index.ftl";
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass()
+            logger.error("Error: " + e.getClass()
                     .getName() + ". Please try again later.");
             e.printStackTrace();
-            return ERROR;
+            templateFile = "error/error.ftl";
         }
 
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
+        final String dir = System.getProperty("user.dir");
+        engine.render(context, dir + "/webroot/templates/", templateFile, res -> {
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public List<Post> getPosts() {
