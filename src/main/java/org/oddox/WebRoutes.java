@@ -16,6 +16,7 @@ import org.oddox.action.api.ForgotAction;
 import org.oddox.action.api.HealthAction;
 import org.oddox.action.api.RootAction;
 import org.oddox.action.filter.DynamicContentFilter;
+import org.oddox.action.filter.StaticContentFilter;
 
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
@@ -41,10 +42,16 @@ public final class WebRoutes {
         // for production, these wouldn't be needed.
         main.route("/*")
                 .handler(StaticHandler.create()
-                        .setFilesReadOnly(false)
-                        .setCachingEnabled(true));
+                        .setAllowRootFileSystemAccess(false)
+                        .setAlwaysAsyncFS(true)
+                        .setFilesReadOnly(true)
+                        .setMaxAgeSeconds(31536000l)
+                        .setCachingEnabled(true)
+                        .setCacheEntryTimeout(31536000l));
 
         // Filters
+        main.route("/**.*")
+                .handler(new StaticContentFilter());
         main.route("/*")
                 .handler(new DynamicContentFilter());
 
