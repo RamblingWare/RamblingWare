@@ -1,18 +1,14 @@
 package org.oddox.action.filter;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-
+import org.oddox.action.AuthorAction;
 import org.oddox.config.AppHeaders;
 import org.oddox.config.Application;
 import org.oddox.objects.Header;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * DynamicContentFilter class modifies HTTP Headers before sending out a response from a template or action.
@@ -20,26 +16,21 @@ import org.oddox.objects.Header;
  * @author Austin Delamar
  * @date 7/03/2017
  */
-public class DynamicContentFilter implements Filter {
+public class DynamicContentFilter implements Handler<RoutingContext> {
 
+    private static Logger logger = LoggerFactory.getLogger(DynamicContentFilter.class);
     public static final long EXPIRETIME = 86400000l;
     public static long cacheTime = 0l;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
-
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        // HttpServletRequest request = (HttpServletRequest) servletRequest;
-
-        // Set UTF-8 encoding
-        response.setCharacterEncoding("UTF-8");
+    public void handle(RoutingContext context) {
 
         // Has it been 24 hours since fresh archive check?
         long diff = Math.abs(System.currentTimeMillis() - cacheTime);
         if (diff >= EXPIRETIME) {
             // cache expired.
             // get fresh app headers
+            logger.trace("New cache for AppHeaders");
 
             // get the http headers from db
             AppHeaders appHeaders = Application.getDatabaseService()
@@ -58,21 +49,12 @@ public class DynamicContentFilter implements Filter {
                 .getHeaders() != null) {
             for (Header header : Application.getAppHeaders()
                     .getHeaders()) {
-                response.addHeader(header.getKey(), header.getValue());
+                context.response()
+                        .putHeader(header.getKey(), header.getValue());
             }
         }
 
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void init(FilterConfig fc) {
-        // Auto-generated method stub
-    }
-
-    @Override
-    public void destroy() {
-        // Auto-generated method stub
+        context.next();
     }
 
 }

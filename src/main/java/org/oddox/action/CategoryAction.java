@@ -100,6 +100,7 @@ public class CategoryAction implements Handler<RoutingContext> {
 
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            context.response().putHeader("content-type", "text/html;charset=UTF-8");
             if (res.succeeded()) {
                 context.response()
                         .end(res.result());

@@ -70,7 +70,7 @@ public class RssAction implements Handler<RoutingContext> {
             response += "</channel>\n</rss>";
 
             context.response()
-                    .putHeader("Content-Type", "text/xml");
+                    .putHeader("content-type", "text/xml; charset=UTF-8");
             context.response()
                     .end(response);
         } catch (Exception e) {

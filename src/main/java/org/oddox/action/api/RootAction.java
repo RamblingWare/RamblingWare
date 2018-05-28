@@ -48,7 +48,7 @@ public class RootAction implements Handler<RoutingContext> {
 
         // return response
         context.response()
-        .putHeader("Content-Type", "application/json; charset=utf-8")
+        .putHeader("content-type", "application/json; charset=UTF-8")
         .end(json.encode());
     }
 

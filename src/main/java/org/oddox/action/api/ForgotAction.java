@@ -92,7 +92,7 @@ public class ForgotAction implements Handler<RoutingContext> {
         // return response
         logger.info(message);
         context.response()
-                .putHeader("Content-Type", "application/json; charset=utf-8")
+                .putHeader("content-type", "application/json; charset=UTF-8")
                 .end(json.encode());
     }
 

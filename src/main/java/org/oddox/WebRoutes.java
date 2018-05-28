@@ -15,6 +15,7 @@ import org.oddox.action.YearsAction;
 import org.oddox.action.api.ForgotAction;
 import org.oddox.action.api.HealthAction;
 import org.oddox.action.api.RootAction;
+import org.oddox.action.filter.DynamicContentFilter;
 
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
@@ -41,7 +42,11 @@ public final class WebRoutes {
         main.route("/*")
                 .handler(StaticHandler.create()
                         .setFilesReadOnly(false)
-                        .setCachingEnabled(false));
+                        .setCachingEnabled(true));
+
+        // Filters
+        main.route("/*")
+                .handler(new DynamicContentFilter());
 
         // Templates
 
@@ -58,7 +63,7 @@ public final class WebRoutes {
                 .handler(new BlogAction());
         main.route("/blog/*")
                 .handler(new PostAction());
-        
+
         // Author
         main.route("/author")
                 .handler(new AuthorsAction());
@@ -67,21 +72,21 @@ public final class WebRoutes {
 
         // Category
         main.route("/category/*")
-                .handler(new CategoriesAction());
-        main.route("/category")
                 .handler(new CategoryAction());
-        
+        main.route("/category")
+                .handler(new CategoriesAction());
+
         // Tag
         main.route("/tag/*")
                 .handler(new TagAction());
         main.route("/tag")
                 .handler(new TagsAction());
-        
+
         // Year
-        main.route("/year")
-                .handler(new YearsAction());
         main.route("/year/*")
                 .handler(new YearAction());
+        main.route("/year")
+                .handler(new YearsAction());
 
         // Add API Subrouter
         Router api = Router.router(vertx);
