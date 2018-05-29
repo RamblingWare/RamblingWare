@@ -1,6 +1,5 @@
 package org.oddox.action.filter;
 
-import org.oddox.action.AuthorAction;
 import org.oddox.config.AppHeaders;
 import org.oddox.config.Application;
 import org.oddox.objects.Header;
