@@ -60,7 +60,7 @@ public class ArchiveInterceptor implements Handler<RoutingContext> {
         // just use cache archive metadata,
         // which at this point is already set.
 
-        // set to context
+        // Bind Context
         context.put("archiveTotal", archiveTotal);
         context.put("archiveFeatured", archiveFeatured);
         context.put("archiveYears", archiveYears);

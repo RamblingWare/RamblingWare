@@ -38,7 +38,9 @@ public class HeaderInterceptor implements Handler<RoutingContext> {
             pageUri = pageUri.replace("//", "/");
         }
         
+        // Bind Context
         context.put("pageUri", pageUri);
+        
         context.next();
     }
 
