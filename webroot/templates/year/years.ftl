@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Years - ${(name)!'Oddox'}</title>
+<title>Years - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -15,15 +15,15 @@
 
 				<h1 style="vertical-align: middle;"><span class="icon-time"></span>&nbsp;Years</h1>
 
-				<#if years??>
-					<#if years.size() == 1>
+				<#if context.years??>
+					<#if context.years.size() == 1>
 						<p>1 year of blog posts.<br /></p>
 					<#else>
-						<p>${(years.size())!''} years of blog posts.<br /></p>
+						<p>${(context.years.size())!''} years of blog posts.<br /></p>
 					</#if>
 					<ul>
-					<#list years as year>
-						<li><a title="${(year.name)!'?'}" href="/year/${(year.name)!''}" class="text-bold">${(year.name)!'?'}</a>
+					<#list context.years as year>
+						<li><a title="${(context.year.name)!'?'}" href="/year/${(year.name)!''}" class="text-bold">${(year.name)!'?'}</a>
 						&nbsp;(${(year.count)!'?'} posts)
 						</li>
 					</#list>

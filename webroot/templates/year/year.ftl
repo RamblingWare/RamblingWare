@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Year ${(year)!''} - ${(name)!'Oddox'}</title>
+<title>Year ${(year)!''} - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -13,16 +13,16 @@
 		<div class="row">
 			<div id="page-content" class="nine columns">
 
-				<h1 style="vertical-align: middle;"><span class="icon-time"></span>&nbsp;Year: ${(year)!''}</h1>
+				<h1 style="vertical-align: middle;"><span class="icon-time"></span>&nbsp;Year: ${(context.year)!''}</h1>
 
-				<#if posts??>
-					<#if posts.size() == 1>
-						<p>1 blog post published in ${(year)!''}.<br /></p>
+				<#if context.posts??>
+					<#if context.posts.size() == 1>
+						<p>1 blog post published in ${(context.year)!''}.<br /></p>
 					<#else>
-						<p>${(totalPosts)!''} blog posts published in ${(year)!''}.<br /></p>
+						<p>${(context.totalPosts)!''} blog posts published in ${(context.year)!''}.<br /></p>
 					</#if>
 
-					<#list posts as post>
+					<#list context.posts as post>
 						<#include "../blog/card-post.ftl">
 					</#list>
 

@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Tag ${(tag)!''} - ${(name)!'Oddox'}</title>
+<title>Tag ${(tag)!''} - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -13,16 +13,16 @@
 		<div class="row">
 			<div id="page-content" class="nine columns">
 
-				<h1 style="vertical-align: middle;"><span class="icon-tag"></span>&nbsp;Tag: ${(tag)!''}</h1>
+				<h1 style="vertical-align: middle;"><span class="icon-tag"></span>&nbsp;Tag: ${(context.tag)!''}</h1>
 
-				<#if posts??>
-					<#if posts.size() == 1>
-						<p>1 blog post tagged with ${(tag)!''}.<br /></p>
+				<#if context.posts??>
+					<#if context.posts.size() == 1>
+						<p>1 blog post tagged with ${(context.tag)!''}.<br /></p>
 					<#else>
-						<p>${(totalPosts)!''} blog posts tagged with ${(tag)!''}.<br /></p>
+						<p>${(context.totalPosts)!''} blog posts tagged with ${(context.tag)!''}.<br /></p>
 					</#if>
 
-					<#list posts as post>
+					<#list context.posts as post>
 						<#include "../blog/card-post.ftl">
 					</#list>
 

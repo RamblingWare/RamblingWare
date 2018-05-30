@@ -9,10 +9,10 @@
 		<a href="/tag/" class="text-secondary" title="Tags">Tags</a>
 	</p>
 	<p class="text-medium text-secondary">
-		<a target="_blank" title="Facebook" href="${(facebook)!''}"><i class="icon-facebook"></i></a>&nbsp;&nbsp;
-		<a target="_blank" title="Twitter" href="${(twitter)!''}"><i class="icon-twitter"></i></a>&nbsp;&nbsp;
-		<a target="_blank" title="GitHub" href="${(github)!''}"><i class="icon-github"></i></a>&nbsp;&nbsp;
-		<a target="_blank" title="Email" href="mailto:${(email)!''}"><i class="icon-mail"></i></a>&nbsp;&nbsp;
+		<a target="_blank" title="Facebook" href="${(context.facebook)!''}"><i class="icon-facebook"></i></a>&nbsp;&nbsp;
+		<a target="_blank" title="Twitter" href="${(context.twitter)!''}"><i class="icon-twitter"></i></a>&nbsp;&nbsp;
+		<a target="_blank" title="GitHub" href="${(context.github)!''}"><i class="icon-github"></i></a>&nbsp;&nbsp;
+		<a target="_blank" title="Email" href="mailto:${(context.email)!''}"><i class="icon-mail"></i></a>&nbsp;&nbsp;
 		<a target="_blank" title="RSS Feed" href="/rss"><i class="icon-rss"></i></a>
 	</p>
 	<p class="text-tertiary margin-none">

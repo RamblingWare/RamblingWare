@@ -21,7 +21,7 @@
 <nav class="navbar border-bottom">
     <div class="navbar-body container">
         <div class="nav-item-logo">
-            <a href="/"><span class="text-medium text-uppercase text-wide">${(name)!'Oddox'}</span></a>
+            <a href="/"><span class="text-medium text-uppercase text-wide">${(context.name)!'Oddox'}</span></a>
         </div>
         <div class="nav-small-menu">
             <a class="nav-item" title="Open Menu" href="javascript:openSidebar()">
@@ -38,17 +38,3 @@
         </div>
     </div>
 </nav>
-<#if actionErrors??>
-	<#list actionErrors as actionError>
-	<div class="border border-danger text-bold text-danger" style="float:left; position:absolute; left:50%; top:1%;">
-	${(actionError)!''}
-	</div>
-	</#list>
-</#if>
-<#if actionMessages??>
-	<#list actionMessages as actionMessage>
-	<div class="border border-success text-bold text-success" style="float:left; position:absolute; left:50%; top:1%;">
-	${(actionMessage)!''}
-	</div>
-	</#list>
-</#if>

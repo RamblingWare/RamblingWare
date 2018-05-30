@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Category ${(category)!''} - ${(name)!'Oddox'}</title>
+<title>Category ${(category)!''} - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -13,16 +13,16 @@
 		<div class="row">
 			<div id="page-content" class="nine columns">
 				
-				<h1 style="vertical-align: middle;"><span class="icon-folder"></span>&nbsp;Category: ${(category)!''}</h1>
+				<h1 style="vertical-align: middle;"><span class="icon-folder"></span>&nbsp;Category: ${(context.category)!''}</h1>
 
-				<#if posts??>
-					<#if posts.size() == 1>
-						<p>1 blog post with category ${(category)!''}.<br /></p>
+				<#if context.posts??>
+					<#if context.posts.size() == 1>
+						<p>1 blog post with category ${(context.category)!''}.<br /></p>
 					<#else>
-						<p>${(totalPosts)!''} blog posts with category ${(category)!''}.<br /></p>
+						<p>${(context.totalPosts)!''} blog posts with category ${(context.category)!''}.<br /></p>
 					</#if>
 
-					<#list posts as post>
+					<#list context.posts as post>
 						<#include "../blog/card-post.ftl">
 					</#list>
 

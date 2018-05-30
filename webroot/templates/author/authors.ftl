@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Authors - ${(name)!'Oddox'}</title>
+<title>Authors - ${(context.name)!'Oddox'}</title>
 </head>
 <body class="w3-theme-dark">
 
@@ -15,14 +15,14 @@
 
 				<h1 style="vertical-align: middle;"><span class="icon-users"></span>&nbsp;Authors</h1>
 
-				<#if authors??>
-					<#if authors.size() == 1>
+				<#if context.authors??>
+					<#if context.authors.size() == 1>
 						<p>Only 1 author writes this blog!<br /></p>
 					<#else>
-						<p>${(authors.size())!''} authors write for this blog.<br /></p>
+						<p>${(context.authors.size())!''} authors write for this blog.<br /></p>
 					</#if>
 					<div class="row" style="min-height:0px">
-					<#list authors as author>
+					<#list context.authors as author>
 						<#include "../author/card-author.ftl">
 					</#list>
 					</div>

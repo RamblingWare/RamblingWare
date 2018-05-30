@@ -3,7 +3,7 @@
 <head>
 <#include "fragment/meta/meta.ftl">
 
-<title>${(name)!'Oddox'}</title>
+<title>${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -15,8 +15,8 @@
 			
 				<h1>Blog Posts</h1>
 				
-				<#if posts??>
-					<#list posts as post>
+				<#if context.posts??>
+					<#list context.posts as post>
 						<#include "blog/card-post.ftl">
 					</#list>
 	

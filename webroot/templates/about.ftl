@@ -3,7 +3,7 @@
 <head>
 <#include "fragment/meta/meta.ftl">
 
-<title>About ${(name)!'Oddox'}</title>
+<title>About ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
 		<div class="row">
 			<div id="page-content" class="nine columns">
 			
-				<h1>About ${(name)!'Oddox'}</h1>
+				<h1>About ${(context.name)!'Oddox'}</h1>
 				
 				<p>
 					This is the about page. Its not filled out yet.

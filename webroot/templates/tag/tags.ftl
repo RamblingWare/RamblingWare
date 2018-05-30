@@ -3,7 +3,7 @@
 <head>
 <#include "/templates/fragment/meta/meta.ftl">
 
-<title>Tags - ${(name)!'Oddox'}</title>
+<title>Tags - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -15,14 +15,14 @@
 
 				<h1 style="vertical-align: middle;"><span class="icon-tag"></span>&nbsp;Tags</h1>
 
-				<#if tags??>
-					<#if tags.size() == 1>
+				<#if context.tags??>
+					<#if context.tags.size() == 1>
 						<p>1 tag found.<br /></p>
 					<#else>
-						<p>${(tags.size())!''} tags found. (Sorted alphabetically).<br /></p>
+						<p>${(context.tags.size())!''} tags found. (Sorted alphabetically).<br /></p>
 					</#if>
 					<ol>
-					<#list tags as tag>
+					<#list context.tags as tag>
 						<li><a title="${(tag.name)!'?'}" href="/tag/${(tag.name)!''}" class="text-bold">${(tag.name)!'?'}</a>
 						&nbsp;(${(tag.count)!'?'} posts)
 						</li>

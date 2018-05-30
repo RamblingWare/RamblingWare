@@ -3,7 +3,7 @@
 <head>
 <#include "fragment/meta/meta.ftl">
 
-<title>Search - ${(name)!'Oddox'}</title>
+<title>Search - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 

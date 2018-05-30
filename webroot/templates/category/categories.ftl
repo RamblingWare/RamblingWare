@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Categories - ${(name)!'Oddox'}</title>
+<title>Categories - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
@@ -15,14 +15,14 @@
 
 				<h1 style="vertical-align: middle;"><span class="icon-folder"></span>&nbsp;Categories</h1>
 
-				<#if categories??>
-					<#if categories.size() == 1>
+				<#if context.categories??>
+					<#if context.categories.size() == 1>
 						<p>1 category found.<br /></p>
 					<#else>
-						<p>${(categories.size())!''} categories found. (Sorted alphabetically).<br /></p>
+						<p>${(context.categories.size())!''} categories found. (Sorted alphabetically).<br /></p>
 					</#if>
 					<ol>
-					<#list categories as category>
+					<#list context.categories as category>
 						<li><a title="${(category.name)!'?'}" href="/category/${(category.name)!''}" class="text-bold">${(category.name)!'?'}</a>
 						&nbsp;(${(category.count)!'?'} posts)
 						</li>
