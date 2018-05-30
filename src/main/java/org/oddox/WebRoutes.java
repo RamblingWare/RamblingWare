@@ -89,10 +89,10 @@ public final class WebRoutes {
                 .handler(new PostAction());
 
         // Author
-        main.route("/author")
-                .handler(new AuthorsAction());
         main.route("/author/*")
                 .handler(new AuthorAction());
+        main.route("/author")
+                .handler(new AuthorsAction());
 
         // Category
         main.route("/category/*")

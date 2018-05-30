@@ -94,6 +94,9 @@ public class PostAction implements Handler<RoutingContext> {
             logger.error("Post '" + uri + "' not found. Please try again.");
             templateFile = "blog/post.ftl";
         }
+        
+        // Bind Context
+        context.put("post", post);
 
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {

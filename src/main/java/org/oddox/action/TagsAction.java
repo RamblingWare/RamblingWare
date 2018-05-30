@@ -52,6 +52,9 @@ public class TagsAction implements Handler<RoutingContext> {
             templateFile = "/error/error.ftl";
         }
 
+        // Bind Context
+        context.put("tags", tags);
+
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
             context.response().putHeader("content-type", "text/html;charset=UTF-8");

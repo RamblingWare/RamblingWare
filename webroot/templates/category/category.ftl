@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Category ${(category)!''} - ${(context.name)!'Oddox'}</title>
+<title>Category ${(context.category)!''} - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 

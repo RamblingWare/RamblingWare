@@ -98,6 +98,15 @@ public class TagAction implements Handler<RoutingContext> {
             templateFile = "/error/error.ftl";
         }
 
+        // Bind Context
+        context.put("tag", tag);
+        context.put("posts", posts);
+        context.put("page", page);
+        context.put("nextPage", nextPage);
+        context.put("prevPage", prevPage);
+        context.put("totalPages", totalPages);
+        context.put("totalPosts", totalPosts);
+
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
             context.response().putHeader("content-type", "text/html;charset=UTF-8");

@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Tag ${(tag)!''} - ${(context.name)!'Oddox'}</title>
+<title>Tag ${(context.tag)!''} - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 

@@ -51,6 +51,9 @@ public class CategoriesAction implements Handler<RoutingContext> {
                     .getName() + ". Please try again later.", e);
             templateFile = "/error/error.ftl";
         }
+        
+        // Bind Context
+        context.put("categories", categories);
 
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {

@@ -3,7 +3,7 @@
 <head>
 <#include "../fragment/meta/meta.ftl">
 
-<title>Year ${(year)!''} - ${(context.name)!'Oddox'}</title>
+<title>Year ${(context.year)!''} - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 

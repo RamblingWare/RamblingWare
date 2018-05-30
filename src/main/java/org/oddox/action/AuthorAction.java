@@ -62,6 +62,9 @@ public class AuthorAction implements Handler<RoutingContext> {
             templateFile = "author/author.ftl";
         }
 
+        // Bind Context
+        context.put("author", author);
+        
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
             context.response().putHeader("content-type", "text/html;charset=UTF-8");
