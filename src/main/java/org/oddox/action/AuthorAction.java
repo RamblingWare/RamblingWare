@@ -23,7 +23,6 @@ public class AuthorAction implements Handler<RoutingContext> {
     private static Logger logger = LoggerFactory.getLogger(AuthorAction.class);
     private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private Author author;
-    private String uri;
 
     /**
      * Returns author details.
@@ -33,14 +32,12 @@ public class AuthorAction implements Handler<RoutingContext> {
 
         // /author/person-name
         String templateFile = "author/author.ftl";
-        String uriTemp = context.normalisedPath();
-        if (uri == null && uriTemp.startsWith("/author/")) {
-            uri = Utils.removeBadChars(uriTemp.substring(8, uriTemp.length()));
-        }
+        String uri = context.request().getParam("author");
 
-        if (uri != null && uri.length() > 0) {
+        if (uri != null && !uri.isEmpty()) {
             // lower-case no matter what
             uri = uri.toLowerCase();
+            uri = Utils.removeBadChars(uri);
 
             // search in db for author
             try {

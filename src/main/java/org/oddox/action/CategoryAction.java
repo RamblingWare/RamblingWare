@@ -43,50 +43,57 @@ public class CategoryAction implements Handler<RoutingContext> {
 
         // /category
         String templateFile = "category/category.ftl";
+        category = context.request()
+                .getParam("category");
         try {
             // jump to page if provided
-            String pageTemp = context.normalisedPath();
-            if (pageTemp.startsWith("/category/") && pageTemp.contains("/page/")) {
-                category = Utils.removeBadChars(pageTemp.substring(10, pageTemp.indexOf("/page")));
-                pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
-                page = Integer.parseInt(pageTemp);
-            } else if (pageTemp.startsWith("/category/")) {
-                category = Utils.removeBadChars(pageTemp.substring(10, pageTemp.length()));
-                page = 1;
-            }
+            page = Integer.parseInt(context.request()
+                    .getParam("page"));
+        } catch (Exception e) {
+            page = 1;
+        }
 
-            // gather posts
-            posts = Application.getDatabaseService()
-                    .getPostsByCategory(page, Application.getInt("resultsPerPage"), category, false);
+        try {
+            if (category != null && !category.isEmpty()) {
+                // dont lowercase
+                category = Utils.removeBadChars(category);
 
-            if (posts != null && !posts.isEmpty()) {
+                // gather posts
+                posts = Application.getDatabaseService()
+                        .getPostsByCategory(page, Application.getInt("resultsPerPage"), category, false);
 
-                // determine pagination
-                if (posts.size() >= Application.getInt("resultsPerPage")) {
-                    nextPage = page + 1;
-                } else {
-                    nextPage = page;
-                }
-                if (page > 1) {
-                    prevPage = page - 1;
-                } else {
-                    prevPage = page;
-                }
+                if (posts != null && !posts.isEmpty()) {
 
-                // get totals
-                totalPosts = page;
-                @SuppressWarnings("unchecked")
-                List<Category> archiveCategories = (List<Category>) context.get("archiveCategories");
-                for (Category cat : archiveCategories) {
-                    if (category.equals(cat.getName())) {
-                        totalPosts = cat.getCount();
-                        break;
+                    // determine pagination
+                    if (posts.size() >= Application.getInt("resultsPerPage")) {
+                        nextPage = page + 1;
+                    } else {
+                        nextPage = page;
                     }
+                    if (page > 1) {
+                        prevPage = page - 1;
+                    } else {
+                        prevPage = page;
+                    }
+
+                    // get totals
+                    totalPosts = page;
+                    @SuppressWarnings("unchecked")
+                    List<Category> archiveCategories = (List<Category>) context.get("archiveCategories");
+                    for (Category cat : archiveCategories) {
+                        if (category.equals(cat.getName())) {
+                            totalPosts = cat.getCount();
+                            break;
+                        }
+                    }
+                    totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
+                } else {
+                    posts = null;
+                    throw new NoDocumentException("No posts found");
                 }
-                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
             } else {
-                posts = null;
-                throw new NoDocumentException("No posts found");
+                logger.error("Category '" + category + "' not found. Please try again.");
+                templateFile = "category/category.ftl";
             }
 
         } catch (NoDocumentException | NumberFormatException nfe) {
@@ -109,7 +116,8 @@ public class CategoryAction implements Handler<RoutingContext> {
 
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
-            context.response().putHeader("content-type", "text/html;charset=UTF-8");
+            context.response()
+                    .putHeader("content-type", "text/html;charset=UTF-8");
             if (res.succeeded()) {
                 context.response()
                         .end(res.result());

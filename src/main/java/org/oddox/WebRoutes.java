@@ -85,29 +85,37 @@ public final class WebRoutes {
         // Blog
         main.route("/blog")
                 .handler(new BlogAction());
-        main.route("/blog/*")
+        main.route("/blog/page/:page")
+                .handler(new BlogAction());
+        main.route("/blog/:post")
                 .handler(new PostAction());
 
         // Author
-        main.route("/author/*")
+        main.route("/author/:author")
                 .handler(new AuthorAction());
         main.route("/author")
                 .handler(new AuthorsAction());
 
         // Category
-        main.route("/category/*")
+        main.route("/category/:category")
+                .handler(new CategoryAction());
+        main.route("/category/:category/page/:page")
                 .handler(new CategoryAction());
         main.route("/category")
                 .handler(new CategoriesAction());
 
         // Tag
-        main.route("/tag/*")
+        main.route("/tag/:tag")
+                .handler(new TagAction());
+        main.route("/tag/:tag/page/:page")
                 .handler(new TagAction());
         main.route("/tag")
                 .handler(new TagsAction());
 
         // Year
-        main.route("/year/*")
+        main.route("/year/:year")
+                .handler(new YearAction());
+        main.route("/year/:year/page/:page")
                 .handler(new YearAction());
         main.route("/year")
                 .handler(new YearsAction());

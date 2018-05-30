@@ -23,7 +23,6 @@ public class PostAction implements Handler<RoutingContext> {
     private static Logger logger = LoggerFactory.getLogger(PostAction.class);
     private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private Post post;
-    private String uri;
 
     /**
      * Returns blog post details.
@@ -33,19 +32,12 @@ public class PostAction implements Handler<RoutingContext> {
 
         // /blog/post-name
         String templateFile = "blog/post.ftl";
-        String uriTemp = context.normalisedPath()
-                .toLowerCase();
-        if (uri == null && uriTemp.startsWith("/blog/post/")) {
-            // /blog/post/post-name-goes-here
-            uri = Utils.removeBadChars(uriTemp.substring(11, uriTemp.length()));
-        } else if (uri == null && uriTemp.startsWith("/blog/")) {
-            // /blog/post-name-goes-here
-            uri = Utils.removeBadChars(uriTemp.substring(6, uriTemp.length()));
-        }
+        String uri = context.request().getParam("post");
 
-        if (uri != null && uri.length() > 0) {
+        if (uri != null && !uri.isEmpty()) {
             // lower-case no matter what
             uri = uri.toLowerCase();
+            uri = Utils.removeBadChars(uri);
 
             // search in db for post by uri
             try {

@@ -60,10 +60,7 @@ public class StaticContentFilter implements Handler<RoutingContext> {
 
         if (ifModifiedSince > 0 && ifModifiedSince <= lastModifiedMillis) {
             // 304 "Not Modified" content is not sent
-            response.putHeader("Expires", Utils.formatRfc1123Date(new Date(cal.getTimeInMillis())));
             response.setStatusCode(304);
-            //context.response().end();
-            //return;
         }
 
         // set heading information for caching static content

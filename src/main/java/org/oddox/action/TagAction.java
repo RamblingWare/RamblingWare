@@ -43,50 +43,58 @@ public class TagAction implements Handler<RoutingContext> {
 
         // /tag
         String templateFile = "tag/tag.ftl";
+        tag = context.request()
+                .getParam("tag");
         try {
             // jump to page if provided
-            String pageTemp = context.normalisedPath();
-            if (pageTemp.startsWith("/tag/") && pageTemp.contains("/page/")) {
-                tag = Utils.removeBadChars(pageTemp.substring(5, pageTemp.indexOf("/page")));
-                pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
-                page = Integer.parseInt(pageTemp);
-            } else if (pageTemp.startsWith("/tag/")) {
-                tag = Utils.removeBadChars(pageTemp.substring(5, pageTemp.length()));
-                page = 1;
-            }
+            page = Integer.parseInt(context.request()
+                    .getParam("page"));
+        } catch (Exception e) {
+            page = 1;
+        }
 
-            // gather posts
-            posts = Application.getDatabaseService()
-                    .getPostsByTag(page, Application.getInt("resultsPerPage"), tag, false);
+        try {
+            if (tag != null && !tag.isEmpty()) {
+                // dont lowercase
+                tag = Utils.removeBadChars(tag);
 
-            if (posts != null && !posts.isEmpty()) {
+                // gather posts
+                posts = Application.getDatabaseService()
+                        .getPostsByTag(page, Application.getInt("resultsPerPage"), tag, false);
 
-                // determine pagination
-                if (posts.size() >= Application.getInt("resultsPerPage")) {
-                    nextPage = page + 1;
-                } else {
-                    nextPage = page;
-                }
-                if (page > 1) {
-                    prevPage = page - 1;
-                } else {
-                    prevPage = page;
-                }
+                if (posts != null && !posts.isEmpty()) {
 
-                // get totals
-                totalPosts = page;
-                @SuppressWarnings("unchecked")
-                List<Tag> archiveTags = (List<Tag>) context.get("archiveTags");
-                for (Tag tags : archiveTags) {
-                    if (tag.equals(tags.getName())) {
-                        totalPosts = tags.getCount();
-                        break;
+                    // determine pagination
+                    if (posts.size() >= Application.getInt("resultsPerPage")) {
+                        nextPage = page + 1;
+                    } else {
+                        nextPage = page;
                     }
+                    if (page > 1) {
+                        prevPage = page - 1;
+                    } else {
+                        prevPage = page;
+                    }
+
+                    // get totals
+                    totalPosts = page;
+                    @SuppressWarnings("unchecked")
+                    List<Tag> archiveTags = (List<Tag>) context.get("archiveTags");
+                    for (Tag tags : archiveTags) {
+                        if (tag.equals(tags.getName())) {
+                            totalPosts = tags.getCount();
+                            break;
+                        }
+                    }
+                    totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
+                } else {
+                    posts = null;
+                    throw new NoDocumentException("No posts found");
                 }
-                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
+
             } else {
-                posts = null;
-                throw new NoDocumentException("No posts found");
+                logger.error("Tag '" + tag + "' not found. Please try again.");
+                templateFile = "tag/tag.ftl";
             }
 
         } catch (NoDocumentException | NumberFormatException nfe) {
@@ -109,7 +117,8 @@ public class TagAction implements Handler<RoutingContext> {
 
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
-            context.response().putHeader("content-type", "text/html;charset=UTF-8");
+            context.response()
+                    .putHeader("content-type", "text/html;charset=UTF-8");
             if (res.succeeded()) {
                 context.response()
                         .end(res.result());

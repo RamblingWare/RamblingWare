@@ -5,7 +5,6 @@ import java.util.List;
 import org.oddox.MainVerticle;
 import org.oddox.action.interceptor.ArchiveInterceptor;
 import org.oddox.config.Application;
-import org.oddox.config.Utils;
 import org.oddox.objects.Post;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,17 +43,13 @@ public class BlogAction implements Handler<RoutingContext> {
         String templateFile = "index.ftl";
         try {
             // jump to page if provided
-            String pageTemp = context.normalisedPath().toLowerCase();
-            if (pageTemp.startsWith("/blog/page/")) {
-                pageTemp = Utils.removeBadChars(pageTemp.substring(11, pageTemp.length()));
-                page = Integer.parseInt(pageTemp);
-            } else if (pageTemp.startsWith("/page/")) {
-                pageTemp = Utils.removeBadChars(pageTemp.substring(6, pageTemp.length()));
-                page = Integer.parseInt(pageTemp);
-            } else {
-                page = 1;
-            }
-
+            page = Integer.parseInt(context.request()
+                    .getParam("page"));
+        } catch (Exception e) {
+            page = 1;
+        }
+        
+        try {
             // gather posts
             posts = Application.getDatabaseService()
                     .getPosts(page, Application.getInt("resultsPerPage"), false);

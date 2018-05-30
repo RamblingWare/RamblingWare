@@ -43,55 +43,59 @@ public class YearAction implements Handler<RoutingContext> {
 
         // /year
         String templateFile = "year/year.ftl";
+        year = context.request()
+                .getParam("year");
         try {
             // jump to page if provided
-            String pageTemp = context.normalisedPath();
-            if (pageTemp.startsWith("/year/") && pageTemp.contains("/page/")) {
-                year = Utils.removeBadChars(pageTemp.substring(6, pageTemp.indexOf("/page")));
-                pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
-                page = Integer.parseInt(pageTemp);
+            page = Integer.parseInt(context.request()
+                    .getParam("page"));
+        } catch (Exception e) {
+            page = 1;
+        }
 
-            } else if (pageTemp.startsWith("/year/")) {
-                year = Utils.removeBadChars(pageTemp.substring(6, pageTemp.length()));
-                page = 1;
-            }
+        try {
+            if (year != null && !year.isEmpty()) {
+                // lower-case no matter what
+                year = year.toLowerCase();
+                int yr = Integer.parseInt(year);
 
-            // lower-case no matter what
-            year = year.toLowerCase();
-            int yr = Integer.parseInt(year);
+                // gather posts
+                posts = Application.getDatabaseService()
+                        .getPostsByYear(page, Application.getInt("resultsPerPage"), yr, false);
 
-            // gather posts
-            posts = Application.getDatabaseService()
-                    .getPostsByYear(page, Application.getInt("resultsPerPage"), yr, false);
+                if (posts != null && !posts.isEmpty()) {
 
-            if (posts != null && !posts.isEmpty()) {
-
-                // determine pagination
-                if (posts.size() >= Application.getInt("resultsPerPage")) {
-                    nextPage = page + 1;
-                } else {
-                    nextPage = page;
-                }
-                if (page > 1) {
-                    prevPage = page - 1;
-                } else {
-                    prevPage = page;
-                }
-
-                // get totals
-                totalPosts = page;
-                @SuppressWarnings("unchecked")
-                List<Year> archiveYears = (List<Year>) context.get("archiveYears");
-                for (Year yrs : archiveYears) {
-                    if (year.equals(yrs.getName())) {
-                        totalPosts = yrs.getCount();
-                        break;
+                    // determine pagination
+                    if (posts.size() >= Application.getInt("resultsPerPage")) {
+                        nextPage = page + 1;
+                    } else {
+                        nextPage = page;
                     }
+                    if (page > 1) {
+                        prevPage = page - 1;
+                    } else {
+                        prevPage = page;
+                    }
+
+                    // get totals
+                    totalPosts = page;
+                    @SuppressWarnings("unchecked")
+                    List<Year> archiveYears = (List<Year>) context.get("archiveYears");
+                    for (Year yrs : archiveYears) {
+                        if (year.equals(yrs.getName())) {
+                            totalPosts = yrs.getCount();
+                            break;
+                        }
+                    }
+                    totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
+                } else {
+                    posts = null;
+                    throw new NoDocumentException("No posts found");
                 }
-                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
+
             } else {
-                posts = null;
-                throw new NoDocumentException("No posts found");
+                logger.error("Year '" + year + "' not found. Please try again.");
+                templateFile = "year/year.ftl";
             }
 
         } catch (NoDocumentException | NumberFormatException nfe) {
@@ -114,7 +118,8 @@ public class YearAction implements Handler<RoutingContext> {
 
         // Render template response
         ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
-            context.response().putHeader("content-type", "text/html;charset=UTF-8");
+            context.response()
+                    .putHeader("content-type", "text/html;charset=UTF-8");
             if (res.succeeded()) {
                 context.response()
                         .end(res.result());
