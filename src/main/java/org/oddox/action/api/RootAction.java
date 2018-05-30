@@ -14,7 +14,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 /**
  * Root action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 9/24/2017
  */
 public class RootAction implements Handler<RoutingContext> {

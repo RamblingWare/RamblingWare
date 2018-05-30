@@ -3,7 +3,7 @@ package org.oddox.database;
 /**
  * A blueprint to communicate to a Database Setup.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 9/03/2017
  */
 public abstract class DatabaseSetup {

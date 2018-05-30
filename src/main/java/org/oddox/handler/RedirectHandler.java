@@ -7,7 +7,9 @@ import io.vertx.reactivex.core.http.HttpServerRequest;
 
 /**
  * Redirects HTTP calls to HTTPS with a 302 (Found) code and "Location" Header.
+ * 
  * @author amdelamar
+ * @date 05/28/2018
  */
 public class RedirectHandler implements Handler<HttpServerRequest> {
 

@@ -17,7 +17,7 @@ import com.cloudant.client.api.model.DbInfo;
 /**
  * A blueprint to communicate to a Database Service.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 3/8/2017
  */
 public abstract class DatabaseService {

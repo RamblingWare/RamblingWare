@@ -25,6 +25,12 @@ import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.handler.StaticHandler;
 
+/**
+ * WebRoutes creates the http route paths for actions.
+ * 
+ * @author amdelamar
+ * @date 05/28/2018
+ */
 public final class WebRoutes {
 
     private WebRoutes() {

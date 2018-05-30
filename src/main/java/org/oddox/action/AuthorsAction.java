@@ -18,7 +18,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 /**
  * Authors action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/23/2017
  */
 public class AuthorsAction implements Handler<RoutingContext> {

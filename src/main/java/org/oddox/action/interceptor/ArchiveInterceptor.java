@@ -14,7 +14,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 /**
  * Archive Interceptor class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 11/30/2015
  */
 public class ArchiveInterceptor implements Handler<RoutingContext> {

@@ -8,8 +8,8 @@ import org.oddox.config.Utils;
 /**
  * This class represents a Post
  * 
- * @author Austin Delamar
- * @created 11/24/2015
+ * @author amdelamar
+ * @date 11/24/2015
  */
 public class Post implements Comparable<Post> {
 

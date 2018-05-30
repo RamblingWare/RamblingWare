@@ -8,7 +8,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  * URI request, because if we forward, chain, redirect at all then this value is lost. Its
  * beneficial to keep for pagination and such.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 6/11/2017
  */
 public class HeaderInterceptor implements Handler<RoutingContext> {

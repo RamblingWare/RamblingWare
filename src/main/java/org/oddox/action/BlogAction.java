@@ -20,7 +20,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 /**
  * Blog list action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 11/9/2015
  */
 public class BlogAction implements Handler<RoutingContext> {

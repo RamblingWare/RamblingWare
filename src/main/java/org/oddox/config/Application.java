@@ -18,7 +18,7 @@ import com.google.gson.JsonObject;
  * Application class loads settings from the properties files and and establishes the
  * DatabaseSource used for this app. Also, acts as the main starting point for the app.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/8/2017
  */
 public final class Application {
@@ -29,6 +29,10 @@ public final class Application {
     private static AppHeaders appHeaders;
     private static DatabaseService databaseService;
     private static DatabaseSetup databaseSetup;
+    
+    private Application() {
+        // prevent instantiation
+    }
 
     /**
      * Loads the Application configuration from the properties file.

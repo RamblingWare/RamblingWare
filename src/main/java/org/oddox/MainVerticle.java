@@ -3,6 +3,7 @@ package org.oddox;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
@@ -23,7 +24,14 @@ import io.vertx.reactivex.core.Future;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.core.http.HttpServer;
 import io.vertx.reactivex.ext.web.Router;
+import okhttp3.OkHttpClient;
 
+/**
+ * MainVerticle for Vertx
+ * 
+ * @author amdelamar
+ * @date 05/28/2018
+ */
 public class MainVerticle extends AbstractVerticle {
 
     // Global vals
@@ -75,6 +83,10 @@ public class MainVerticle extends AbstractVerticle {
                     if (ar.succeeded()) {
                         // All futures succeeded
                         logger.info("Oddox is ready to serve traffic.");
+                        
+                        // Set OkHttpClient logging level
+                        java.util.logging.Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
+                        
                         startFuture.complete();
                     } else {
                         // At least one future failed

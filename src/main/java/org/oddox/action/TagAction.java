@@ -20,7 +20,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 /**
  * Tag action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 3/19/2017
  */
 public class TagAction implements Handler<RoutingContext> {

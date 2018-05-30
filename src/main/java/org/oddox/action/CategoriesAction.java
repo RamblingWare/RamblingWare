@@ -18,7 +18,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 /**
  * Categories action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/30/2017
  */
 public class CategoriesAction implements Handler<RoutingContext> {

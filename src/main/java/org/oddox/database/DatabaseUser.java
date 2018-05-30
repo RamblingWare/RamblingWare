@@ -3,8 +3,8 @@ package org.oddox.database;
 /**
  * This class represents a CouchDB User
  * 
- * @author Austin Delamar
- * @created 09/03/2017
+ * @author amdelamar
+ * @date 09/03/2017
  */
 public class DatabaseUser implements Comparable<DatabaseUser> {
 

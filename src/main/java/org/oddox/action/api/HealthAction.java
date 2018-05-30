@@ -13,7 +13,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 /**
  * Health action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 5/14/2018
  */
 public class HealthAction implements Handler<RoutingContext> {

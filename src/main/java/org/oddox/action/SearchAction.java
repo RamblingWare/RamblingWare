@@ -14,7 +14,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 /**
  * External Search action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 5/9/2016
  */
 public class SearchAction implements Handler<RoutingContext> {

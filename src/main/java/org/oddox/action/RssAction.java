@@ -14,7 +14,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 /**
  * View RSS action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 12/9/2015
  */
 public class RssAction implements Handler<RoutingContext> {

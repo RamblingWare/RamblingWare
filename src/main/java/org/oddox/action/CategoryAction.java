@@ -20,7 +20,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 /**
  * Category action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/30/2017
  */
 public class CategoryAction implements Handler<RoutingContext> {

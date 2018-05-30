@@ -14,7 +14,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 /**
  * Forgot action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 12/19/2016
  */
 public class ForgotAction implements Handler<RoutingContext> {

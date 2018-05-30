@@ -12,7 +12,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 /**
  * DynamicContentFilter class modifies HTTP Headers before sending out a response from a template or action.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 7/03/2017
  */
 public class DynamicContentFilter implements Handler<RoutingContext> {

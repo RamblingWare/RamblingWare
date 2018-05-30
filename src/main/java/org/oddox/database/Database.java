@@ -3,7 +3,7 @@ package org.oddox.database;
 /**
  * Simple Database Bean object
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 3/12/2017
  */
 public class Database implements Comparable<Database> {

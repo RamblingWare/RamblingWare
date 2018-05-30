@@ -9,7 +9,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 /**
  * Application Interceptor class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 12/17/2017
  */
 public class AppInterceptor implements Handler<RoutingContext> {

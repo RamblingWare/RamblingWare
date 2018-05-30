@@ -18,7 +18,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 /**
  * Tags action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/20/2017
  */
 public class TagsAction implements Handler<RoutingContext> {
