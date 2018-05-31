@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 /**
  * A simple utility class that contains common methods used across classes.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/8/2017
  */
 public final class Utils {

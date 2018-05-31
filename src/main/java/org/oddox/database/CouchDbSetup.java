@@ -28,6 +28,11 @@ import com.cloudant.http.Http;
 import com.cloudant.http.HttpConnection;
 import com.google.gson.JsonObject;
 
+/**
+ * CouchDB Setup class
+ * 
+ * @author amdelamar
+ */
 public class CouchDbSetup extends DatabaseSetup {
 
     public CouchDbSetup(org.oddox.database.Database database) {

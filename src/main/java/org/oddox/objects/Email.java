@@ -3,7 +3,7 @@ package org.oddox.objects;
 /**
  * Email message class is used for queuing emails for the daemon service to send.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 11/9/2015
  */
 public class Email {

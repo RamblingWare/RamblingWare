@@ -3,8 +3,8 @@ package org.oddox.objects;
 /**
  * Year class
  * 
- * @author Austin Delamar
- * @created 7/13/2017
+ * @author amdelamar
+ * @date 7/13/2017
  */
 public class Year implements Comparable<Year> {
 

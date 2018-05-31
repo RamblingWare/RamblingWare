@@ -1,5 +1,10 @@
 package org.oddox.objects;
 
+/**
+ * App Header class
+ * 
+ * @author amdelamar
+ */
 public class Header {
 
     private String key;

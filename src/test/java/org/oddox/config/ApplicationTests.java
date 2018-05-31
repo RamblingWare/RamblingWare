@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.oddox.MainVerticle;
 import org.oddox.database.CouchDb;
 import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
@@ -57,7 +58,7 @@ public class ApplicationTests {
             assertNull(config);
         }
         try {
-            config = Application.loadSettingsFromFile(Application.APP_PROP_FILE);
+            config = Application.loadSettingsFromFile(MainVerticle.APP_PROP_FILE);
             Application.setAppConfig(config);
         } catch (IOException e) {
             fail(e.getMessage());
@@ -114,7 +115,7 @@ public class ApplicationTests {
         Application.setAppFirewall(fw);
         assertNotNull(Application.getAppFirewall());
     }
-    
+
     @Test
     public void headers() {
         AppHeaders hd = new AppHeaders();
@@ -123,14 +124,19 @@ public class ApplicationTests {
         assertEquals("APPHEADERS", hd.get_Id());
         assertEquals("1", hd.get_Rev());
         assertNotNull(hd.toString());
-        
+
         List<Header> hlist = new ArrayList<Header>();
         hlist.add(new Header("Server", "Oddox"));
         hd.setHeaders(hlist);
-        assertEquals(1, hd.getHeaders().size());
-        assertEquals("Server", hd.getHeaders().get(0).getKey());
-        assertEquals("Oddox", hd.getHeaders().get(0).getValue());
-        
+        assertEquals(1, hd.getHeaders()
+                .size());
+        assertEquals("Server", hd.getHeaders()
+                .get(0)
+                .getKey());
+        assertEquals("Oddox", hd.getHeaders()
+                .get(0)
+                .getValue());
+
         Application.setAppHeaders(hd);
         assertNotNull(Application.getAppHeaders());
     }
@@ -151,7 +157,7 @@ public class ApplicationTests {
 
         // Properties file
         try {
-            db = Application.loadDatabase(null, Application.DB_PROP_FILE);
+            db = Application.loadDatabase(null, MainVerticle.DB_PROP_FILE);
             assertNotNull(db);
         } catch (IOException e) {
             fail(e.getMessage());
@@ -223,21 +229,12 @@ public class ApplicationTests {
         }
 
         // invalid DB_URL
-        dockerenv.put("DB_URL","");
+        dockerenv.put("DB_URL", "");
         try {
             db = Application.loadDatabase(dockerenv, null);
             fail("failed to catch invalid DB_URL env");
         } catch (IOException e) {
             // ok good
         }
-    }
-
-    @Test
-    public void properties() {
-        assertNotNull(Application.APP_PROP_FILE);
-        assertTrue(Application.APP_PROP_FILE.endsWith(".properties"));
-        
-        assertNotNull(Application.DB_PROP_FILE);
-        assertTrue(Application.DB_PROP_FILE.endsWith(".properties"));
     }
 }

@@ -3,7 +3,6 @@ package org.oddox.action;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.AuthorsAction;
 import org.oddox.objects.Author;
 
 /**
@@ -51,11 +49,5 @@ public class AuthorsActionTests {
         assertEquals("admin", action.getAuthors()
                 .get(0)
                 .get_Id());
-
-        action.setServletRequest(null);
-        action.setServletResponse(null);
-        if(action.servletRequest != null) {
-            fail("servletRequest is not expected value");
-        }
     }
 }

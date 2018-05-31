@@ -41,12 +41,6 @@ public class ArchiveInterceptorTests {
     }
 
     @Test
-    public void variables() {
-        interceptor.init();
-        interceptor.destroy();
-    }
-
-    @Test
     public void featured() {
         Post featured = new Post("test");
         List<Post> featuredList = new ArrayList<Post>();

@@ -1,28 +1,25 @@
 package org.oddox.action.api;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.core.json.JsonObject;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Root action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 9/24/2017
  */
-public class RootAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class RootAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(RootAction.class);
 
     // JSON response
     private String oddox;
@@ -33,34 +30,26 @@ public class RootAction extends ActionSupport implements ServletResponseAware, S
 
     /**
      * Returns application information.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
+        JsonObject json = new JsonObject();
         try {
-            oddox = "Welcome";
-            version = Application.getString("version");
-            data = new HashMap<String, String>();
-            data.put("name", Application.getString("name"));
+            json.put("oddox", "Welcome");
+            json.put("version", MainVerticle.VERSION);
+            json.put("name", Application.getString("name"));
 
         } catch (Exception e) {
-            error = "error";
-            message = e.getMessage();
+            logger.warn("Root: "+json.encode());
+            json.put("error", true);
+            json.put("message", e.getMessage());
         }
 
         // return response
-        return NONE;
-    }
-
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
+        context.response()
+        .putHeader("content-type", "application/json; charset=UTF-8")
+        .end(json.encode());
     }
 
     public String getOddox() {

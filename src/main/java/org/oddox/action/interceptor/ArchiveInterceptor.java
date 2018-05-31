@@ -1,7 +1,6 @@
 package org.oddox.action.interceptor;
 
 import java.util.List;
-import java.util.Map;
 
 import org.oddox.config.Application;
 import org.oddox.objects.Category;
@@ -9,30 +8,28 @@ import org.oddox.objects.Post;
 import org.oddox.objects.Tag;
 import org.oddox.objects.Year;
 
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.Interceptor;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Archive Interceptor class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 11/30/2015
  */
-public class ArchiveInterceptor implements Interceptor {
+public class ArchiveInterceptor implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    
     public static final long EXPIRETIME = 86400000l;
     public static long cacheTime = 0l;
     public static int archiveTotal = 0;
-    
+
     private static List<Post> archiveFeatured = null;
     private static List<Year> archiveYears = null;
     private static List<Tag> archiveTags = null;
     private static List<Category> archiveCategories = null;
 
     @Override
-    public String intercept(ActionInvocation actionInvocation) throws Exception {
+    public void handle(RoutingContext context) {
 
         // Has it been 24 hours since fresh archive check?
         long diff = Math.abs(System.currentTimeMillis() - cacheTime);
@@ -63,26 +60,14 @@ public class ArchiveInterceptor implements Interceptor {
         // just use cache archive metadata,
         // which at this point is already set.
 
-        // set to context
-        Map<String, Object> map = actionInvocation.getInvocationContext()
-                .getContextMap();
-        map.put("archiveTotal", archiveTotal);
-        map.put("archiveFeatured", archiveFeatured);
-        map.put("archiveYears", archiveYears);
-        map.put("archiveTags", archiveTags);
-        map.put("archiveCategories", archiveCategories);
+        // Bind Context
+        context.put("archiveTotal", archiveTotal);
+        context.put("archiveFeatured", archiveFeatured);
+        context.put("archiveYears", archiveYears);
+        context.put("archiveTags", archiveTags);
+        context.put("archiveCategories", archiveCategories);
 
-        return actionInvocation.invoke();
-    }
-
-    @Override
-    public void destroy() {
-        // Auto-generated method stub
-    }
-
-    @Override
-    public void init() {
-        // Auto-generated method stub
+        context.next();
     }
 
     public static List<Post> getArchiveFeatured() {

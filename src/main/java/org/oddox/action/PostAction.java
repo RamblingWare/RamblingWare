@@ -1,54 +1,43 @@
 package org.oddox.action;
 
-import java.util.HashSet;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * View Post action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 11/9/2015
  */
-public class PostAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class PostAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(PostAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private Post post;
-    private String uri;
 
     /**
      * Returns blog post details.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /blog/post-name
-        String uriTemp = servletRequest.getRequestURI()
-                .toLowerCase();
-        if (uri == null && uriTemp.startsWith("/blog/post/")) {
-            // /blog/post/post-name-goes-here
-            uri = Utils.removeBadChars(uriTemp.substring(11, uriTemp.length()));
-        } else if (uri == null && uriTemp.startsWith("/blog/")) {
-            // /blog/post-name-goes-here
-            uri = Utils.removeBadChars(uriTemp.substring(6, uriTemp.length()));
-        }
+        String templateFile = "blog/post.ftl";
+        String uri = context.request().getParam("post");
 
-        if (uri != null && uri.length() > 0) {
+        if (uri != null && !uri.isEmpty()) {
             // lower-case no matter what
             uri = uri.toLowerCase();
+            uri = Utils.removeBadChars(uri);
 
             // search in db for post by uri
             try {
@@ -59,58 +48,58 @@ public class PostAction extends ActionSupport implements ServletResponseAware, S
                 if (post != null) {
 
                     // check against previously viewed posts
+                    /*
                     boolean newViewFromSession = false;
                     if (servletRequest.getSession(false) != null) {
-                        HttpSession session = servletRequest.getSession();
-                        @SuppressWarnings("unchecked")
+                        Session session = (Session) context.session();
                         HashSet<String> viewedPages = (HashSet<String>) session.getAttribute("viewedPages");
-
+                    
                         if (viewedPages == null) {
                             viewedPages = new HashSet<String>();
                         }
-
+                    
                         newViewFromSession = viewedPages.add(post.getUri());
                         session.setAttribute("viewedPages", viewedPages);
-                    }
+                    } */
 
                     // update page views
                     post.getView()
                             .setCount(post.getView()
                                     .getCount() + 1);
-                    if (newViewFromSession) {
-                        post.getView()
-                                .setSession(post.getView()
-                                        .getSession() + 1);
-                    }
+                    post.getView()
+                            .setSession(post.getView()
+                                    .getSession() + 1);
+
                     Application.getDatabaseService()
                             .editView(post.getView());
-
-                    return SUCCESS;
                 } else {
-                    System.err.println("Post '" + uri + "' not found. Please try again.");
-                    return NONE;
+                    logger.error("Post '" + uri + "' not found. Please try again.");
+                    templateFile = "blog/post.ftl";
                 }
 
             } catch (Exception e) {
-                addActionError("Error: " + e.getClass()
-                        .getName() + ". Please try again later.");
-                e.printStackTrace();
-                return ERROR;
+                logger.error("Error: " + e.getClass()
+                        .getName() + ". Please try again later.", e);
+                templateFile = "/error/error.ftl";
             }
         } else {
-            System.err.println("Post '" + uri + "' not found. Please try again.");
-            return NONE;
+            logger.error("Post '" + uri + "' not found. Please try again.");
+            templateFile = "blog/post.ftl";
         }
-    }
+        
+        // Bind Context
+        context.put("post", post);
 
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            context.response().putHeader("content-type", "text/html;charset=UTF-8");
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public Post getPost() {

@@ -3,7 +3,6 @@ package org.oddox.action;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.YearsAction;
 import org.oddox.objects.Year;
 
 /**
@@ -52,11 +50,5 @@ public class YearsActionTests {
         assertEquals("Meta", action.getYears()
                 .get(0)
                 .getName());
-
-        action.setServletRequest(null);
-        action.setServletResponse(null);
-        if(action.servletRequest != null) {
-            fail("servletRequest is not expected value");
-        }
     }
 }

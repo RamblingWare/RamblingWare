@@ -4,14 +4,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.oddox.database.CouchDb;
-import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
 import org.oddox.database.DatabaseService;
 import org.oddox.database.DatabaseSetup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -21,72 +18,20 @@ import com.google.gson.JsonObject;
  * Application class loads settings from the properties files and and establishes the
  * DatabaseSource used for this app. Also, acts as the main starting point for the app.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/8/2017
  */
-public class Application implements ServletContextListener {
+public final class Application {
 
-    public final static String APP_PROP_FILE = "/app.properties";
-    public final static String DB_PROP_FILE = "/db.properties";
-
+    private static Logger logger = LoggerFactory.getLogger(Application.class);
     private static AppConfig appConfig;
     private static AppFirewall appFirewall;
     private static AppHeaders appHeaders;
     private static DatabaseService databaseService;
     private static DatabaseSetup databaseSetup;
-
-    @Override
-    public void contextInitialized(ServletContextEvent servletContext) {
-
-        // Load settings from File
-        try {
-            appConfig = loadSettingsFromFile(APP_PROP_FILE);
-        } catch (Exception e) {
-            System.err.println("FATAL: Properties file not found or failed to load properly.");
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        System.out.println("Starting   _     _           \r\n" + "          | |   | |          \r\n"
-                + "  ___   __| | __| | ___  __  __\r\n" + " / _ \\ / _` |/ _` |/ _ \\ \\ \\/ /\r\n"
-                + "| (_) | (_) | (_) | (_) | >  < \r\n" + " \\___/ \\____|\\____|\\___/ /_/\\_\\.org (v"
-                + getString("version") + ")\r\n" + "-----------------------------------------------");
-
-        // Setup Database
-        try {
-            Database db = loadDatabase(System.getenv(), DB_PROP_FILE);
-
-            // cleanup url
-            if (db.getUrl()
-                    .contains("@")) {
-                String curl = db.getUrl();
-                curl = Utils.removeUserPassFromURL(curl);
-                db.setUrl(curl);
-            }
-
-            System.out.println("Using Database:\r\n" + db.toString());
-            databaseSetup = new CouchDbSetup(db);
-            if (!databaseSetup.setup()) {
-                System.exit(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        // Load settings from Database
-        databaseService = new CouchDb(databaseSetup.getDatabase());
-        appFirewall = databaseService.getAppFirewall();
-        appHeaders = databaseService.getAppHeaders();
-        AppConfig configdb = databaseService.getAppConfig();
-        if (configdb != null) {
-            System.out.println("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
-            appConfig.getSettings()
-                    .putAll(configdb.getSettings());
-        }
-
-        // Ready
-        System.out.println("Oddox is ready.");
+    
+    private Application() {
+        // prevent instantiation
     }
 
     /**
@@ -124,7 +69,7 @@ public class Application implements ServletContextListener {
                 db = loadDatabaseFromCloudFoundryEnv(env);
 
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
+                logger.error("ERROR: Failed to parse VCAP_SERVICES for Datasource properties.");
                 throw new IOException(e);
             }
         }
@@ -136,7 +81,7 @@ public class Application implements ServletContextListener {
                 db = loadDatabaseFromDockerEnv(env);
 
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse DB_URL for Datasource properties.");
+                logger.error("ERROR: Failed to parse DB_URL for Datasource properties.");
                 throw new IOException(e);
             }
         }
@@ -144,14 +89,14 @@ public class Application implements ServletContextListener {
         // otherwise fallback to db.properties
         else {
             try {
-                System.out.println("WARNING: No DB environment variables provided. Continuing with DB from " + propFile
+                logger.warn("WARNING: No DB environment variables provided. Continuing with DB from " + propFile
                         + " file.");
 
                 // try to read from db.properties file
                 db = loadDatabaseFromProperties(propFile);
 
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to parse " + propFile + " file.");
+                logger.error("ERROR: Failed to parse " + propFile + " file.");
                 throw new IOException(e);
             }
         }

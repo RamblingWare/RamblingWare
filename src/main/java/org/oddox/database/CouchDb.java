@@ -25,6 +25,11 @@ import com.cloudant.client.api.views.ViewResponse;
 import com.cloudant.client.org.lightcouch.DocumentConflictException;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
 
+/**
+ * CouchDB Service class
+ * 
+ * @author amdelamar
+ */
 public class CouchDb extends DatabaseService {
 
     public CouchDb(org.oddox.database.Database database) {

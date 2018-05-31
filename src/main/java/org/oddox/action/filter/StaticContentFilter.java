@@ -1,47 +1,47 @@
 package org.oddox.action.filter;
 
-import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.oddox.config.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.core.http.HttpServerRequest;
+import io.vertx.reactivex.core.http.HttpServerResponse;
+import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * StaticContentFilter class modifies HTTP Headers before sending out a response from a static file.
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 7/03/2017
  */
-public class StaticContentFilter implements Filter {
+public class StaticContentFilter implements Handler<RoutingContext> {
+    
+    private static Logger logger = LoggerFactory.getLogger(StaticContentFilter.class);
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
+    public void handle(RoutingContext context) {
 
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServerRequest request = context.request();
+        HttpServerResponse response = context.response();
 
         // Return a 304 "Not Modified" if the file hasn't been updated.
         long ifModifiedSince = 0;
         try {
             // only do this if browser asks "If-Modified-Since"
-            ifModifiedSince = request.getDateHeader("If-Modified-Since");
+            ifModifiedSince = Long.parseLong(request.getHeader("If-Modified-Since"));
         } catch (Exception e) {
-            System.err.println("Invalid If-Modified-Since header value: '" + request.getHeader("If-Modified-Since")
+            logger.warn("Invalid If-Modified-Since header value: '" + request.getHeader("If-Modified-Since")
                     + "', ignoring");
         }
 
-        if (request.getRequestURI()
+        if (request.uri()
                 .endsWith(".ico")) {
             // favicon content-type
-            response.setContentType("image/x-icon");
-            response.setHeader("Content-Type", "image/x-icon");
+            response.putHeader("Content-Type", "image/x-icon");
         }
 
         long now = System.currentTimeMillis();
@@ -60,29 +60,17 @@ public class StaticContentFilter implements Filter {
 
         if (ifModifiedSince > 0 && ifModifiedSince <= lastModifiedMillis) {
             // 304 "Not Modified" content is not sent
-            response.setDateHeader("Expires", cal.getTimeInMillis());
-            response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
-            return;
+            response.setStatusCode(304);
         }
 
         // set heading information for caching static content
-        response.setDateHeader("Date", now);
-        response.setDateHeader("Expires", cal.getTimeInMillis());
-        response.setDateHeader("Retry-After", cal.getTimeInMillis());
-        response.setHeader("Cache-Control", "max-age=2628000, public");
-        response.setDateHeader("Last-Modified", lastModifiedMillis);
+        response.putHeader("Date", Utils.formatRfc1123Date(new Date(now)));
+        response.putHeader("Expires", Utils.formatRfc1123Date(new Date(cal.getTimeInMillis())));
+        response.putHeader("Retry-After", Utils.formatRfc1123Date(new Date(cal.getTimeInMillis())));
+        response.putHeader("Cache-Control", "max-age=2628000, public");
+        response.putHeader("Last-Modified", Utils.formatRfc1123Date(new Date(lastModifiedMillis)));
 
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void init(FilterConfig fc) {
-        // Auto-generated method stub
-    }
-
-    @Override
-    public void destroy() {
-        // Auto-generated method stub
+        context.next();
     }
 
 }

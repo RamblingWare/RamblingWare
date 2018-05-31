@@ -2,30 +2,31 @@ package org.oddox.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.objects.Category;
 import org.oddox.objects.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.org.lightcouch.NoDocumentException;
-import com.opensymphony.xwork2.ActionSupport;
+
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * Category action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 4/30/2017
  */
-public class CategoryAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class CategoryAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(CategoryAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Post> posts = null;
     private String category;
     private int page;
@@ -36,80 +37,94 @@ public class CategoryAction extends ActionSupport implements ServletResponseAwar
 
     /**
      * Returns list of posts for category.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
         // /category
+        String templateFile = "category/category.ftl";
+        category = context.request()
+                .getParam("category");
         try {
             // jump to page if provided
-            String pageTemp = servletRequest.getRequestURI();
-            if (pageTemp.startsWith("/category/") && pageTemp.contains("/page/")) {
-                category = Utils.removeBadChars(pageTemp.substring(10, pageTemp.indexOf("/page")));
-                pageTemp = Utils.removeBadChars(pageTemp.substring(pageTemp.indexOf("/page/") + 6, pageTemp.length()));
-                page = Integer.parseInt(pageTemp);
-            } else if (pageTemp.startsWith("/category/")) {
-                category = Utils.removeBadChars(pageTemp.substring(10, pageTemp.length()));
-                page = 1;
-            }
+            page = Integer.parseInt(context.request()
+                    .getParam("page"));
+        } catch (Exception e) {
+            page = 1;
+        }
 
-            // gather posts
-            posts = Application.getDatabaseService()
-                    .getPostsByCategory(page, Application.getInt("resultsPerPage"), category, false);
+        try {
+            if (category != null && !category.isEmpty()) {
+                // dont lowercase
+                category = Utils.removeBadChars(category);
 
-            if (posts != null && !posts.isEmpty()) {
+                // gather posts
+                posts = Application.getDatabaseService()
+                        .getPostsByCategory(page, Application.getInt("resultsPerPage"), category, false);
 
-                // determine pagination
-                if (posts.size() >= Application.getInt("resultsPerPage")) {
-                    nextPage = page + 1;
-                } else {
-                    nextPage = page;
-                }
-                if (page > 1) {
-                    prevPage = page - 1;
-                } else {
-                    prevPage = page;
-                }
+                if (posts != null && !posts.isEmpty()) {
 
-                // get totals
-                totalPosts = page;
-                @SuppressWarnings("unchecked")
-                List<Category> archiveCategories = (List<Category>) servletRequest
-                        .getAttribute("archiveCategories");
-                for (Category cat : archiveCategories) {
-                    if (category.equals(cat.getName())) {
-                        totalPosts = cat.getCount();
-                        break;
+                    // determine pagination
+                    if (posts.size() >= Application.getInt("resultsPerPage")) {
+                        nextPage = page + 1;
+                    } else {
+                        nextPage = page;
                     }
-                }
-                totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
-            } else {
-                posts = null;
-                throw new NoDocumentException("No posts found");
-            }
+                    if (page > 1) {
+                        prevPage = page - 1;
+                    } else {
+                        prevPage = page;
+                    }
 
-            return SUCCESS;
+                    // get totals
+                    totalPosts = page;
+                    @SuppressWarnings("unchecked")
+                    List<Category> archiveCategories = (List<Category>) context.get("archiveCategories");
+                    for (Category cat : archiveCategories) {
+                        if (category.equals(cat.getName())) {
+                            totalPosts = cat.getCount();
+                            break;
+                        }
+                    }
+                    totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
+                } else {
+                    posts = null;
+                    throw new NoDocumentException("No posts found");
+                }
+            } else {
+                logger.error("Category '" + category + "' not found. Please try again.");
+                templateFile = "category/category.ftl";
+            }
 
         } catch (NoDocumentException | NumberFormatException nfe) {
-            System.err.println("Category '" + category + "' not found. Please try again.");
-            return NONE;
+            logger.error("Category '" + category + "' not found. Please try again.");
+            templateFile = "category/category.ftl";
         } catch (Exception e) {
-            addActionError("Error: " + e.getClass()
-                    .getName() + ". Please try again later.");
-            e.printStackTrace();
-            return ERROR;
+            logger.error("Error: " + e.getClass()
+                    .getName() + ". Please try again later.", e);
+            templateFile = "/error/error.ftl";
         }
-    }
 
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
+        // Bind Context
+        context.put("category", category);
+        context.put("posts", posts);
+        context.put("page", page);
+        context.put("nextPage", nextPage);
+        context.put("prevPage", prevPage);
+        context.put("totalPages", totalPages);
+        context.put("totalPosts", totalPosts);
 
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            context.response()
+                    .putHeader("content-type", "text/html;charset=UTF-8");
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public List<Post> getPosts() {

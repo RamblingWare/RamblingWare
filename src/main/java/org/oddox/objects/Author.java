@@ -5,8 +5,8 @@ import org.oddox.config.Utils;
 /**
  * This class represents an Author
  * 
- * @author Austin Delamar
- * @created 11/24/2015
+ * @author amdelamar
+ * @date 11/24/2015
  */
 public class Author implements Comparable<Author> {
 

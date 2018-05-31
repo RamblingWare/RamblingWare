@@ -30,10 +30,4 @@ public class StaticContentFilterTests {
     public void constructor() {
         assertTrue(filter != null);
     }
-
-    @Test
-    public void variables() {
-        filter.init(null);
-        filter.destroy();
-    }
 }

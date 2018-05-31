@@ -5,8 +5,8 @@ import org.oddox.config.Utils;
 /**
  * This class represents an Post's View statistics.
  * 
- * @author Austin Delamar
- * @created 7/04/2017
+ * @author amdelamar
+ * @date 7/04/2017
  */
 public class View implements Comparable<View> {
 

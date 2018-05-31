@@ -1,66 +1,66 @@
 package org.oddox.action;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import org.oddox.MainVerticle;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionSupport;
+import io.vertx.core.Handler;
+import io.vertx.reactivex.ext.web.RoutingContext;
+import io.vertx.reactivex.ext.web.templ.FreeMarkerTemplateEngine;
+import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * External Search action class
  * 
- * @author Austin Delamar
+ * @author amdelamar
  * @date 5/9/2016
  */
-public class SearchAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+public class SearchAction implements Handler<RoutingContext> {
 
-    private static final long serialVersionUID = 1L;
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
+    private static Logger logger = LoggerFactory.getLogger(SearchAction.class);
+    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private String q;
 
     /**
      * Forwards to search provider.
-     * 
-     * @return Action String
      */
-    public String execute() {
+    @Override
+    public void handle(RoutingContext context) {
 
+        String templateFile = "search.ftl";
         if (q != null && !q.isEmpty()) {
             // POST external search
             try {
                 // redirect to DuckDuckGo with the search text provided
-                ServletActionContext.getResponse()
-                        .sendRedirect(Application.getString("searchProvider") + "site%3A"
+                context.response()
+                        .setStatusCode(302);
+                context.response()
+                        .putHeader("Location", Application.getString("searchProvider") + "site%3A"
                                 + Application.getString("domain") + ' ' + q);
-                return SUCCESS;
-            } catch (IOException e) {
-                e.printStackTrace();
-                addActionError("Error: " + e.getClass()
-                        .getName() + ". Please try again later.");
-                return ERROR;
+                context.response()
+                        .end();
+                return;
+
+            } catch (Exception e) {
+                logger.error("Error: " + e.getClass()
+                        .getName() + ". Please try again later.", e);
+                templateFile = "/error/error.ftl";
             }
-        } else {
-            // GET search page
-            return INPUT;
         }
-    }
+        // else GET search page
 
-    @Override
-    public void setServletResponse(HttpServletResponse servletResponse) {
-        this.servletResponse = servletResponse;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest servletRequest) {
-        this.servletRequest = servletRequest;
+        // Render template response
+        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+            context.response().putHeader("content-type", "text/html;charset=UTF-8");
+            if (res.succeeded()) {
+                context.response()
+                        .end(res.result());
+            } else {
+                context.fail(res.cause());
+            }
+        });
     }
 
     public String getQ() {
