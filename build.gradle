@@ -7,6 +7,8 @@ plugins {
 
 group = 'org.oddox'
 version = '1.0.0'
+jar.baseName = 'oddox'
+jar.enabled = false
 description = 'open source blog with an offline-first writer'
 mainClassName = 'org.oddox.MainVerticle'
 sourceCompatibility = 1.9
@@ -52,4 +54,8 @@ jacocoTestReport {
     xml.enabled true
     html.enabled true
   }
+}
+
+shadowJar {
+  classifier = null
 }
