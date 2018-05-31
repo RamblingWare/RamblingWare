@@ -33,6 +33,6 @@
 <meta itemprop="image" content="/images/icon-light-512.png"/>
 
 <link rel="shortcut icon" href="/favicon.ico"/>
-<link rel="stylesheet" href="/vendor/osseous/2.0.0/osseous.min.css"/>
+<link rel="stylesheet" href="/vendor/osseous/2.5.0/osseous.min.css"/>
 <link rel="stylesheet" href="/vendor/icomoon/icomoon.css"/>
 <link rel="alternate" href="/rss" type="application/rss+xml" title="RSS"/>

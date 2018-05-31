@@ -19,4 +19,4 @@
     <a class="text-tertiary" target="_blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a>
 	</p>
 </footer>
-<script type="text/javascript" src="/vendor/osseous/2.0.0/osseous.min.js"></script>
+<script type="text/javascript" src="/vendor/osseous/2.5.0/osseous.min.js"></script>

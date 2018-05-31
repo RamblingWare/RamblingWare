@@ -41,12 +41,11 @@
 
 				<#if context.post.banner?has_content>
 				<div class=" animate-opacity ">
-					<img class="round" style="width: 100%;" alt="Photo for ${(context.post.title)!''}" title="${(context.post.bannerCaption)!''}" src="${(context.post.banner)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
-					<p class="text-tertiary " style="text-align: right;">${(context.post.bannerCaption)!''}</p>
+					<img class="shade round" style="width: 100%;" alt="Photo for ${(context.post.title)!''}" title="${(context.post.bannerCaption)!''}" src="${(context.post.banner)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
 				</div>
 				</#if>
 
-				<h1>${(context.post.title)!''}</h1>
+				<h1 class="margin-top">${(context.post.title)!''}</h1>
 				<#if context.post.content?has_content>
 					${(context.post.content)!'Error'}
 				<#else>
@@ -62,7 +61,7 @@
 							<#else>
 								<span class="icon-author padding" title="Author"></span>
 							</#if>
-							<a href="/author/${(context.post.author.uri)!''}" title="Author" class="" style="vertical-align: middle; white-space:nowrap;">
+							<a href="/author/${(context.post.author.uri)!''}" title="Author" class="text-secondary" style="vertical-align: middle; white-space:nowrap;">
 							${(context.post.author.name)!''}</a>
 						</p>
 						<#if context.post.coauthors??>
@@ -94,7 +93,7 @@
 					</div>
 					<div class="three columns">
 						<p class="">
-							<span class="icon-time padding"></span><a href="/year/${(context.post.publishYear)?string('0')!''}" title="Published ${(context.post.publishDateTimeReadable)!''}" class="" style="vertical-align: middle; white-space:nowrap;">${(context.post.publishDateReadable)!''}</a>
+							<span class="icon-time padding"></span><a href="/year/${(context.post.publishYear)?string('0')!''}" title="Published ${(context.post.publishDateTimeReadable)!''}" class="text-secondary" style="vertical-align: middle; white-space:nowrap;">${(context.post.publishDateReadable)!''}</a>
 						</p>
 					</div>
 					<div class="three columns">
@@ -135,15 +134,9 @@
 						</p>
 					</div>
 				</div>
-				<hr />
 			</div>
 
 			<#include "../fragment/archive.ftl">
-		</div>
-
-		<div id="comments" class="row no-print">
-			<h3>Comments</h3>
-			<blockquote class="text-small">Disqus comments were removed. I plan to add a privacy-focused commenting system that doesn't track users across websites.<br><br>Email me if you have any suggestions!</blockquote>
 		</div>
 
 	</article>

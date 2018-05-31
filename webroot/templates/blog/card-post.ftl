@@ -1,7 +1,7 @@
-<div class="row round border padding-none margin-bottom">
-<div class="round padding">
+<div class="row round shade padding-none margin-bottom">
+<div class="round padding-right padding-bottom">
 <#if post.featured>
-	<span class="icon-star xlarge hover-text-yellow right padding" title="This is a featured post."></span>
+	<span class="icon-star xlarge hover-text-yellow float-right padding" title="This is a featured post."></span>
 </#if>
 <#if post.thumbnail?has_content>
 	<a href="/blog/${(post.uri)!''}">
