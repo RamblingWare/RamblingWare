@@ -22,7 +22,6 @@ import org.oddox.action.interceptor.ArchiveInterceptor;
 
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
-import io.vertx.reactivex.ext.web.handler.FaviconHandler;
 import io.vertx.reactivex.ext.web.handler.StaticHandler;
 
 /**
@@ -47,15 +46,13 @@ public final class WebRoutes {
         Router main = Router.router(vertx);
 
         // Static Resources
-        main.routeWithRegex("(.+)[.](css|js|htm|html|txt|md|csv|jpg|jpeg|png|tff|woff|eot|svg)$")
+        main.routeWithRegex("(.+)[.](css|js|htm|html|txt|md|csv|jpg|jpeg|png|ico|tff|woff|eot|svg)$")
                 .handler(StaticHandler.create()
                         .setAlwaysAsyncFS(true)
                         .setFilesReadOnly(true)
                         .setMaxAgeSeconds(31536000l)
                         .setCachingEnabled(true)
                         .setCacheEntryTimeout(31536000l));
-        main.route("/favicon.ico")
-                .handler(FaviconHandler.create());
 
         // Filters for HTTP headers
         main.route("/**.*")
