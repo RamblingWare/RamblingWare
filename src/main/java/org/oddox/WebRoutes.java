@@ -22,6 +22,7 @@ import org.oddox.action.interceptor.ArchiveInterceptor;
 
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
+import io.vertx.reactivex.ext.web.handler.FaviconHandler;
 import io.vertx.reactivex.ext.web.handler.StaticHandler;
 
 /**
@@ -46,16 +47,15 @@ public final class WebRoutes {
         Router main = Router.router(vertx);
 
         // Static Resources
-        // Readonly + nocache, so any changes in webroot are visible on browser refresh
-        // for production, these wouldn't be needed.
-        main.route("/*")
+        main.routeWithRegex("(.+)[.](css|js|htm|html|txt|md|csv|jpg|jpeg|png|tff|woff|eot|svg)$")
                 .handler(StaticHandler.create()
-                        .setAllowRootFileSystemAccess(false)
                         .setAlwaysAsyncFS(true)
                         .setFilesReadOnly(true)
                         .setMaxAgeSeconds(31536000l)
                         .setCachingEnabled(true)
                         .setCacheEntryTimeout(31536000l));
+        main.route("/favicon.ico")
+                .handler(FaviconHandler.create());
 
         // Filters for HTTP headers
         main.route("/**.*")
@@ -116,7 +116,7 @@ public final class WebRoutes {
                 .handler(new RssAction());
         main.route("/search")
                 .handler(new SearchAction());
-        
+
         // APIs
         main.route()
                 .path("/api")
