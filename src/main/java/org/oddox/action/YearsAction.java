@@ -32,6 +32,12 @@ public class YearsAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
+        
+        // Don't handle if response ended
+        if(context.response().ended()) {
+            context.next();
+            return;
+        }
 
         // /year
         String templateFile = "year/years.ftl";

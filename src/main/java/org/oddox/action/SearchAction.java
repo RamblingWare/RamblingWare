@@ -28,6 +28,12 @@ public class SearchAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
+        
+        // Don't handle if response ended
+        if(context.response().ended()) {
+            context.next();
+            return;
+        }
 
         String templateFile = "search.ftl";
         if (q != null && !q.isEmpty()) {

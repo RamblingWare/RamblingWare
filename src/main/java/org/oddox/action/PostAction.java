@@ -29,6 +29,12 @@ public class PostAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
+        
+        // Don't handle if response ended
+        if(context.response().ended()) {
+            context.next();
+            return;
+        }
 
         // /blog/post-name
         String templateFile = "blog/post.ftl";

@@ -39,6 +39,12 @@ public class BlogAction implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext context) {
         
+        // Don't handle if response ended
+        if(context.response().ended()) {
+            context.next();
+            return;
+        }
+        
         // this shows the most recent blog posts
         String templateFile = "index.ftl";
         try {
@@ -48,7 +54,6 @@ public class BlogAction implements Handler<RoutingContext> {
         } catch (Exception e) {
             page = 1;
         }
-        logger.info("page = "+page);
         
         try {
             // gather posts

@@ -29,6 +29,12 @@ public class AuthorAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
+        
+        // Don't handle if response ended
+        if(context.response().ended()) {
+            context.next();
+            return;
+        }
 
         // /author/person-name
         String templateFile = "author/author.ftl";
