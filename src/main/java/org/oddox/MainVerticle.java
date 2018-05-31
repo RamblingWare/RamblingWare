@@ -17,12 +17,12 @@ import org.slf4j.LoggerFactory;
 
 import io.reactivex.Single;
 import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.net.JksOptions;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.CompositeFuture;
 import io.vertx.reactivex.core.Future;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.core.http.HttpServer;
+import io.vertx.reactivex.core.net.SelfSignedCertificate;
 import io.vertx.reactivex.ext.web.Router;
 import okhttp3.OkHttpClient;
 
@@ -194,13 +194,17 @@ public class MainVerticle extends AbstractVerticle {
     @SuppressWarnings("rawtypes")
     private Future startHttpsServer() {
         final Future future = Future.future();
+        
+        // Generate the certificate for https
+        SelfSignedCertificate cert = SelfSignedCertificate.create();
 
         // Create HTTPS server
         httpsServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true)
                 .setUseAlpn(true) // HTTP/2 only supported on JDK 9+
                 .setSsl(true)
-                .setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
-                        .setPath(System.getProperty("user.dir") + KEYSTORE)));
+                .setKeyCertOptions(cert.keyCertOptions()));
+                //.setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
+                //        .setPath(System.getProperty("user.dir") + KEYSTORE)));
 
         // Map Web Routes
         Router mainRouter = WebRoutes.newRouter(vertx);
