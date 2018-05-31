@@ -89,8 +89,8 @@ This project is still in development but stay tuned. The first version will be m
 ## Tech Stack
 
  *  [Java 1.9](https://www.java.com/) Language
- *  [Eclipse Vert.x 3.5](https://vertx.io/) Framework
- *  [Apache CouchDB 2.1.1](https://couchdb.apache.org/) NoSQL Database
- *  [Apache FreeMarker 2.3](https://freemarker.apache.org/) Templates
+ *  [Vert.x 3.5](https://vertx.io/) Framework
+ *  [CouchDB 2.1.1](https://couchdb.apache.org/) NoSQL Database
+ *  [FreeMarker 2.3](https://freemarker.apache.org/) Templates
 
 [Apache 2.0](https://github.com/oddoxorg/oddox/blob/master/LICENSE) License
