@@ -19,7 +19,6 @@ import org.oddox.action.filter.DynamicContentFilter;
 import org.oddox.action.filter.StaticContentFilter;
 import org.oddox.action.interceptor.AppInterceptor;
 import org.oddox.action.interceptor.ArchiveInterceptor;
-import org.oddox.action.interceptor.HeaderInterceptor;
 
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
@@ -69,23 +68,15 @@ public final class WebRoutes {
                 .handler(new AppInterceptor());
         main.route("/*")
                 .handler(new ArchiveInterceptor());
-        main.route("/*")
-                .handler(new HeaderInterceptor());
 
         // Template Actions
 
-        // Main Pages
+        // Blog
         main.route("/")
                 .handler(new BlogAction());
-        main.route("/rss")
-                .handler(new RssAction());
-        main.route("/search")
-                .handler(new SearchAction());
-
-        // Blog
         main.route("/blog")
                 .handler(new BlogAction());
-        main.route("/blog/page/:page")
+        main.route("/page/:page")
                 .handler(new BlogAction());
         main.route("/blog/:post")
                 .handler(new PostAction());
@@ -120,6 +111,12 @@ public final class WebRoutes {
         main.route("/year")
                 .handler(new YearsAction());
 
+        // Other
+        main.route("/rss")
+                .handler(new RssAction());
+        main.route("/search")
+                .handler(new SearchAction());
+        
         // APIs
         main.route()
                 .path("/api")

@@ -48,6 +48,7 @@ public class BlogAction implements Handler<RoutingContext> {
         } catch (Exception e) {
             page = 1;
         }
+        logger.info("page = "+page);
         
         try {
             // gather posts
