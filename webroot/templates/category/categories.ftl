@@ -16,11 +16,7 @@
 				<h1 style="vertical-align: middle;"><span class="icon-folder"></span>&nbsp;Categories</h1>
 
 				<#if context.categories??>
-					<#if context.categories.size() == 1>
-						<p>1 category found.<br /></p>
-					<#else>
-						<p>${(context.categories.size())!''} categories found. (Sorted alphabetically).<br /></p>
-					</#if>
+					<p>${(context.categories?size)!''} categories found. (Sorted alphabetically).<br /></p>
 					<ol>
 					<#list context.categories as category>
 						<li><a title="${(category.name)!'?'}" href="/category/${(category.name)!''}" class="text-bold">${(category.name)!'?'}</a>

@@ -16,11 +16,7 @@
 				<h1 style="vertical-align: middle;"><span class="icon-folder"></span>&nbsp;Category: ${(context.category)!''}</h1>
 
 				<#if context.posts??>
-					<#if context.posts.size() == 1>
-						<p>1 blog post with category ${(context.category)!''}.<br /></p>
-					<#else>
-						<p>${(context.totalPosts)!''} blog posts with category ${(context.category)!''}.<br /></p>
-					</#if>
+					<p>${(context.totalPosts)!''} blog posts with category ${(context.category)!''}.<br /></p>
 
 					<#list context.posts as post>
 						<#include "../blog/card-post.ftl">

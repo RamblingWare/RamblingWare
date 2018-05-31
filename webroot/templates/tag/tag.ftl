@@ -16,11 +16,7 @@
 				<h1 style="vertical-align: middle;"><span class="icon-tag"></span>&nbsp;Tag: ${(context.tag)!''}</h1>
 
 				<#if context.posts??>
-					<#if context.posts.size() == 1>
-						<p>1 blog post tagged with ${(context.tag)!''}.<br /></p>
-					<#else>
-						<p>${(context.totalPosts)!''} blog posts tagged with ${(context.tag)!''}.<br /></p>
-					</#if>
+					<p>${(context.totalPosts)!''} blog posts tagged with ${(context.tag)!''}.<br /></p>
 
 					<#list context.posts as post>
 						<#include "../blog/card-post.ftl">

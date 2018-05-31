@@ -16,11 +16,7 @@
 				<h1 style="vertical-align: middle;"><span class="icon-time"></span>&nbsp;Years</h1>
 
 				<#if context.years??>
-					<#if context.years.size() == 1>
-						<p>1 year of blog posts.<br /></p>
-					<#else>
-						<p>${(context.years.size())!''} years of blog posts.<br /></p>
-					</#if>
+					<p>${(context.years?size)!''} years of posts.<br /></p>
 					<ul>
 					<#list context.years as year>
 						<li><a title="${(context.year.name)!'?'}" href="/year/${(year.name)!''}" class="text-bold">${(year.name)!'?'}</a>

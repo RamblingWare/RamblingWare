@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<#include "/templates/fragment/meta/meta.ftl">
+<#include "../fragment/meta/meta.ftl">
 
 <title>Tags - ${(context.name)!'Oddox'}</title>
 </head>
 <body>
 
-	<#include "/templates/fragment/header.ftl">
+	<#include "../fragment/header.ftl">
 
 	<article class="container padding-top-large margin-top-large">
 		<div class="row">
@@ -16,11 +16,7 @@
 				<h1 style="vertical-align: middle;"><span class="icon-tag"></span>&nbsp;Tags</h1>
 
 				<#if context.tags??>
-					<#if context.tags.size() == 1>
-						<p>1 tag found.<br /></p>
-					<#else>
-						<p>${(context.tags.size())!''} tags found. (Sorted alphabetically).<br /></p>
-					</#if>
+					<p>${(context.tags?size)!''} tags found. (Sorted alphabetically).<br /></p>
 					<ol>
 					<#list context.tags as tag>
 						<li><a title="${(tag.name)!'?'}" href="/tag/${(tag.name)!''}" class="text-bold">${(tag.name)!'?'}</a>
@@ -35,10 +31,10 @@
 				</#if>
 			</div>
 
-			<#include "/templates/fragment/archive.ftl">
+			<#include "../fragment/archive.ftl">
 		</div>
 	</article>
 
-	<#include "/templates/fragment/footer.ftl">
+	<#include "../fragment/footer.ftl">
 </body>
 </html>
