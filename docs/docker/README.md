@@ -3,13 +3,6 @@
  * `1.0.0` - alpha build
  * `latest` - alpha build (Same as 1.0.0)
 
-
-### About
-
-Oddox is an Offline-first, Open-source, Blog platform on CouchDB. View the source code on [GitHub.](https://github.com/oddoxorg/)
-
-This project is still in development. It is not easily modifiable for "new" blogs, but stay tuned. A self-installing version will be made available once the main features are complete. 
-
 ### Docker Deploy
 
  1. Pull [CouchDB 2.1.1](https://hub.docker.com/r/oddoxorg/couchdb/) `docker pull oddoxorg/couchdb:2.1.1`
@@ -22,6 +15,8 @@ This project is still in development. It is not easily modifiable for "new" blog
      - Paste the same password again.
  1. Visit `https://<container-ip>:8443/`
  
-### License
+### Custom Image
 
-[Apache 2.0](https://github.com/RamblingWare/Rant/blob/master/LICENSE)
+> Coming soon...
+
+[Apache 2.0](https://github.com/RamblingWare/Rant/blob/master/LICENSE) License
