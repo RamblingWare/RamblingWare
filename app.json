@@ -1,9 +1,9 @@
 {
   "name": "Oddox",
-  "description": "Offline-first, Open-Source, Blogging Platform.",
-  "website": "https://github.com/oddoxorg/oddox",
+  "description": "open source blog with an offline-first writer",
+  "website": "https://oddox.org",
   "repository": "https://github.com/oddoxorg/oddox",
-  "keywords": ["java", "couchdb", "blog"],
+  "keywords": ["java", "vertx", "couchdb", "blog"],
   "logo": "https://oddox.org/img/icon-512-round.png",
   "success_url": "/",
   "image": "heroku/java",
