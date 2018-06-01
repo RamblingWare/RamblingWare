@@ -1,9 +1,0 @@
-applications:
-- path: ../../build/libs/oddox-1.0.0.war
-  memory: 512M
-  buildpack: java_buildpack
-  env:
-    JBP_CONFIG_TOMCAT: '{ tomcat: { version: 9.0.+ } }'
-    JBP_CONFIG_OPEN_JDK_JRE: '{jre: { version: 1.8.0_+ }}'
-  services:
-  - CouchDB
