@@ -4,7 +4,7 @@
   "website": "https://oddox.org",
   "repository": "https://github.com/oddoxorg/oddox",
   "keywords": ["java", "vertx", "couchdb", "blog"],
-  "logo": "https://oddox.org/img/icon-512-round.png",
+  "logo": "https://oddox.org/assets/icon-circle-light-256.png",
   "success_url": "/",
   "image": "heroku/java",
   "addons": [
