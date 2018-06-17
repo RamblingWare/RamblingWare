@@ -1,8 +1,8 @@
 package org.oddox;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 
 import org.oddox.config.AppConfig;
@@ -49,6 +49,8 @@ public class OddoxVerticle extends AbstractVerticle {
     private static int httpsPort = HTTPS_PORT;
     private static HttpServer httpServer;
     private static HttpServer httpsServer;
+    private static Boolean httpsEnabled = false;
+    private static Boolean httpRedirectEnabled = false;
     private static Logger logger = LoggerFactory.getLogger(OddoxVerticle.class);
 
     public static void main(String[] args) {
@@ -74,14 +76,37 @@ public class OddoxVerticle extends AbstractVerticle {
                 + "  ___   __| | __| | ___  __  __\r\n" + " / _ \\ / _` |/ _` |/ _ \\ \\ \\/ /\r\n"
                 + "| (_) | (_) | (_) | (_) | >  < \r\n" + " \\___/ \\____|\\____|\\___/ /_/\\_\\.org (v" + VERSION
                 + ")\r\n" + "-----------------------------------------------");
+        
+        try {
+            // HTTPS_ENABLED env check
+            httpsEnabled = Boolean.parseBoolean(System.getenv("HTTPS_ENABLED"));
+        } catch (Exception e) {
+            httpsEnabled = false;
+        }
+        
+        try {
+            // HTTP_REDIRECT_ENABLED env check
+            httpRedirectEnabled = Boolean.parseBoolean(System.getenv("HTTP_REDIRECT_ENABLED"));
+        } catch (Exception e) {
+            httpRedirectEnabled = false;
+        }
 
         // Check all prerequisites
-        final List<Future> futureList = Arrays.asList(readEnvVariables(), checkWebroot(),
-                startHttpServer(), startHttpsServer(), loadSettings(), loadDatabase());
+        final ArrayList<Future> futures = new ArrayList<Future>();
+        futures.addAll(Arrays.asList(checkWebroot(), loadSettings(), loadDatabase()));
         
+        if(httpsEnabled) {
+            futures.add(startHttpsServer());
+        } else {
+            futures.add(startHttpServer());
+        }
         
+        if(httpRedirectEnabled) {
+            futures.add(startHttpRedirectServer());
+        }
         
-        CompositeFuture.all(futureList)
+        // await all futures
+        CompositeFuture.all(futures)
                 .setHandler(ar -> {
                     if (ar.succeeded()) {
                         // All futures succeeded
@@ -107,34 +132,6 @@ public class OddoxVerticle extends AbstractVerticle {
     }
 
     /**
-     * Check if Env variables exist
-     * @return Future
-     */
-    @SuppressWarnings("rawtypes")
-    private Future readEnvVariables() {
-        final Future future = Future.future();
-
-        try {
-            // HTTP_PORT env check
-            httpPort = Integer.parseInt(System.getenv("HTTP_PORT"));
-        } catch (Exception e) {
-            logger.warn("Env HTTP_PORT not found or not valid. Defautling to: " + HTTP_PORT);
-            httpPort = HTTP_PORT;
-        }
-
-        try {
-            // HTTPS_PORT env check
-            httpsPort = Integer.parseInt(System.getenv("HTTPS_PORT"));
-        } catch (Exception e) {
-            logger.warn("Env HTTPS_PORT not found or not valid. Defautling to: " + HTTPS_PORT);
-            httpsPort = HTTPS_PORT;
-        }
-
-        future.complete();
-        return future;
-    }
-
-    /**
      * Check if Webroot exists
      * @return Future
      */
@@ -152,10 +149,18 @@ public class OddoxVerticle extends AbstractVerticle {
         }
         return future;
     }
-
+    
     @SuppressWarnings("rawtypes")
-    private Future startHttpServer() {
+    private Future startHttpRedirectServer() {
         final Future future = Future.future();
+
+        try {
+            // HTTP_PORT env check
+            httpPort = Integer.parseInt(System.getenv("HTTP_PORT"));
+        } catch (Exception e) {
+            logger.warn("Env PORT not found or not valid. Defautling to: " + HTTP_PORT);
+            httpPort = HTTP_PORT;
+        }
 
         // Create HTTP server
         httpServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true));
@@ -177,8 +182,53 @@ public class OddoxVerticle extends AbstractVerticle {
     }
 
     @SuppressWarnings("rawtypes")
+    private Future startHttpServer() {
+        final Future future = Future.future();
+
+        try {
+            // HTTP_PORT env check
+            httpPort = Integer.parseInt(System.getenv("HTTP_PORT"));
+        } catch (Exception e) {
+            logger.warn("Env PORT not found or not valid. Defautling to: " + HTTP_PORT);
+            httpPort = HTTP_PORT;
+        }
+
+        // Create HTTP server
+        httpServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true));
+
+        // Redirect HTTP requests to HTTPS
+        // httpServer.requestHandler(new RedirectHandler());
+
+        // Map Web Routes
+        Router mainRouter = WebRoutes.newRouter(vertx);
+
+        // Set Router
+        httpServer.requestHandler(mainRouter::accept);
+
+        // Start listening
+        httpServer.listen(httpPort, asyncResult -> {
+            if (asyncResult.succeeded()) {
+                logger.info("Listening on port: " + httpPort);
+                future.complete();
+            } else {
+                logger.error("Failed to bind on port " + httpPort + ". Is it being used?");
+                future.fail(asyncResult.cause());
+            }
+        });
+        return future;
+    }
+
+    @SuppressWarnings("rawtypes")
     private Future startHttpsServer() {
         final Future future = Future.future();
+
+        try {
+            // HTTPS_PORT env check
+            httpsPort = Integer.parseInt(System.getenv("HTTPS_PORT"));
+        } catch (Exception e) {
+            logger.warn("Env HTTPS_PORT not found or not valid. Defautling to: " + HTTPS_PORT);
+            httpsPort = HTTPS_PORT;
+        }
 
         // Generate the certificate for https
         SelfSignedCertificate cert = SelfSignedCertificate.create();
