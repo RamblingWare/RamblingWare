@@ -10,6 +10,9 @@ bin/
 src/
 WebContent/
 
+# Vertx
+.vertx
+
 # Gradle
 gradle/
 gradlew
