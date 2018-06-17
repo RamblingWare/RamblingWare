@@ -152,7 +152,7 @@ public class ApplicationTests {
     }
 
     @Test
-    public void databaseLoad() {
+    public void databaseLoadCf() {
         Database db = null;
 
         // Properties file
@@ -199,26 +199,6 @@ public class ApplicationTests {
             fail(e.getMessage());
         }
 
-        // Docker env variables
-        HashMap<String, String> dockerenv = new HashMap<String, String>();
-        dockerenv.put("DB_URL", "http://127.0.0.1:5984/");
-        dockerenv.put("DB_USER", "admin");
-        dockerenv.put("DB_PASS", "password");
-        try {
-            db = Application.loadDatabase(dockerenv, null);
-            assertNotNull(db);
-        } catch (IOException e) {
-            fail(e.getMessage());
-        }
-
-        // invalid properties file
-        try {
-            db = Application.loadDatabase(null, "app.properties");
-            fail("failed to catch null properties file");
-        } catch (IOException e) {
-            // ok good
-        }
-
         // invalid VCAP_SERVICES
         cfenv.put("VCAP_SERVICES", "");
         try {
@@ -226,6 +206,44 @@ public class ApplicationTests {
             fail("failed to catch invalid VCAP_SERVICES env");
         } catch (IOException e) {
             // ok good
+        }
+    }
+    
+    @Test
+    public void databaseLoadFile() {
+        Database db = null;
+        
+        // db.properties file
+        try {
+            db = Application.loadDatabase(null, "/db.properties");
+            assertNotNull(db);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+
+        // invalid properties file
+        try {
+            db = Application.loadDatabase(null, "file-doesnt-exist.properties");
+            fail("failed to catch null properties file");
+        } catch (IOException e) {
+            // ok good
+        }
+    }
+    
+    @Test
+    public void databaseLoadEnv() {
+        Database db = null;
+        
+        // Docker env variables
+        HashMap<String, String> dockerenv = new HashMap<String, String>();
+        dockerenv.put("DB_URL", "http://127.0.0.1:5984/");
+        dockerenv.put("DB_USER", "admin");
+        dockerenv.put("DB_PASS", "admin");
+        try {
+            db = Application.loadDatabase(dockerenv, null);
+            assertNotNull(db);
+        } catch (IOException e) {
+            fail(e.getMessage());
         }
 
         // invalid DB_URL
