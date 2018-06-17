@@ -37,9 +37,9 @@ This project is still in development but stay tuned. The first version will be m
     ```
     docker pull oddoxorg/couchdb:2.1.1
     ```
- 1. Pull [Oddox 1.0](https://hub.docker.com/r/oddoxorg/oddox/)
+ 1. Pull [Oddox 0.1.0](https://hub.docker.com/r/oddoxorg/oddox/)
     ```
-    docker pull oddoxorg/oddox:1.0.0
+    docker pull oddoxorg/oddox:0.1.0
     ```
  1. Run CouchDB container
     ```
@@ -49,40 +49,25 @@ This project is still in development but stay tuned. The first version will be m
      - Get the `<CONTAINER-IP>` for the next step.
  1. Run Oddox container
     ```
-    docker run -e DB_URL=https://<CONTAINER-IP>:6984/ -e DB_USER=oddox -e DB_PASS=<STRONG-PW> -p 8080:8080 -p 8443:8443  oddoxorg/oddox:1.0.0
+    docker run -e DB_URL=https://<CONTAINER-IP>:6984/ -e DB_USER=oddox -e DB_PASS=<STRONG-PW> -p 8080:8080 -p 8443:8443  oddoxorg/oddox:0.1.0
     ```
      - Enter the `<CONTAINER-IP>` and `<STRONG-PW>` from your CouchDB container.
  1. Visit `https://<container-ip>:8443/`
 
   docker pull oddoxorg/couchdb:2.1.1
-  docker pull oddoxorg/oddox:1.0.0
-  docker build -f deploy/docker/1.0.0/Dockerfile --no-cache --rm -t oddoxorg/oddox:1.0.0 -t oddoxorg/oddox .
+  docker pull oddoxorg/oddox:0.1.0
+  docker build --no-cache --rm -t oddoxorg/oddox:0.1.0 -t oddoxorg/oddox .
   docker run -e DB_URL=https://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 oddoxorg/oddox
   docker push oddoxorg/oddox
-  docker push oddoxorg/oddox:1.0.0
+  docker push oddoxorg/oddox:0.1.0
 
 ### Cloud Foundry Deploy
 
+> Under construction...
+
 ### Manually Deploy
 
- 1. Install [CouchDB 2.1.1](https://couchdb.apache.org/) or signup for a CouchDB service, like [Cloudant](https://cloudant.com/).
-     - Save the credentials for later.
-     - Recommended to use https if possible.
- 1. Clone repo:
-    ```
-    git clone https://github.com/oddoxorg/oddox
-    cd oddox
-    ```
- 1. For Production, paste the CouchDB credentials in `src/main/resources/db.properties` file. Otherwise for test/dev, you don't need to edit the credentials, unless you want to. Oddox will auto create a default "admin" with password "admin", and disable admin party for you.
- 1. Build app:
-    ```
-    ./gradlew clean build
-    ```
-    WAR file should be created here: `/build/libs/oddox-1.0.0.war` (if no errors).
- 1. Install [Tomcat 9.0](https://tomcat.apache.org/)
-     - Copy `deploy/tomcat/server.xml` into `<tomcat-dir>/conf/`.
-     - Copy WAR file into `<tomcat-dir>/webapps/`
- 1. Visit `https://localhost:8443/` (Devs: Double-check server.xml that context root is `/` and not `/oddox`).
+> Under construction...
 
 -->
 
