@@ -1,0 +1,9 @@
+build:
+  languages:
+  - java
+  config:
+    DB_URL: http://localhost:5984/
+    DB_USER: admin
+    DB_PASS: admin
+run:
+  web: java -jar build/libs/oddox-1.0.0.jar
