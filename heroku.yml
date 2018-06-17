@@ -6,4 +6,4 @@ build:
     DB_USER: admin
     DB_PASS: admin
 run:
-  web: java -jar build/libs/oddox-1.0.0.jar
+  web: java -jar build/libs/oddox.jar

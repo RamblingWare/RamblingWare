@@ -6,11 +6,10 @@ plugins {
 }
 
 group = 'org.oddox'
-version = '1.0.0'
 jar.baseName = 'oddox'
 jar.enabled = false
 description = 'open source blog with an offline-first writer'
-mainClassName = 'org.oddox.MainVerticle'
+mainClassName = 'org.oddox.OddoxVerticle'
 sourceCompatibility = 1.9
 targetCompatibility = 1.9
 compileJava.options.encoding = 'UTF-8'
@@ -58,8 +57,10 @@ jacocoTestReport {
 
 shadowJar {
   classifier = null
+  version = null
 }
 
+/* Stage task for Heroku only */
 task stage(dependsOn: ['assemble', 'clean']) {
   assemble.mustRunAfter clean
 }
