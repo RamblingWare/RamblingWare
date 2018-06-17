@@ -59,3 +59,8 @@ jacocoTestReport {
 shadowJar {
   classifier = null
 }
+
+task stage(dependsOn: ['build', 'clean']) {
+  build.mustRunAfter clean
+}
+
