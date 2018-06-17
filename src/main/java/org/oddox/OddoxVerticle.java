@@ -3,7 +3,6 @@ package org.oddox;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
 
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
@@ -24,7 +23,6 @@ import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.core.http.HttpServer;
 import io.vertx.reactivex.core.net.SelfSignedCertificate;
 import io.vertx.reactivex.ext.web.Router;
-import okhttp3.OkHttpClient;
 
 /**
  * OddoxVerticle for Vertx
@@ -113,8 +111,7 @@ public class OddoxVerticle extends AbstractVerticle {
                         logger.info("Oddox is ready to serve traffic.");
 
                         // Set OkHttpClient logging level
-                        java.util.logging.Logger.getLogger(OkHttpClient.class.getName())
-                                .setLevel(Level.FINE);
+                        // java.util.logging.Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
 
                         startFuture.complete();
                     } else {
