@@ -138,11 +138,28 @@ public final class Application {
             // try read docker env variables
             String dbUrl = env.get("DB_URL");
             db.setUrl(dbUrl);
+            
+            if(dbUrl.contains("https")) {
+                // default port
+                db.setPort("443");
+            } else {
+                // http port
+                db.setPort("80");
+            }
+            
+            // remove protocol
             String host = dbUrl.replace("http://", "");
             host = host.replace("https://", "");
-            db.setPort(host.substring(host.indexOf(":") + 1, host.length()));
-            host = host.substring(0, host.indexOf(":"));
+            
+            // custom port used?
+            if(host.contains(":")) {
+                
+                db.setPort(host.substring(host.indexOf(":") + 1, host.length()));
+                host = host.substring(0, host.indexOf(":"));
+            }
             db.setHost(host);
+            
+            // username and password
             db.setUsername(env.get("DB_USER"));
             db.setPassword(env.get("DB_PASS"));
         } catch (Exception e) {
