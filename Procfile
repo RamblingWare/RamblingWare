@@ -1,1 +1,1 @@
-web: java -jar build/libs/oddox.jar
+web: java $JAVA_OPTS -jar build/libs/*.jar --port=$PORT
