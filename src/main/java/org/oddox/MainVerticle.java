@@ -76,7 +76,7 @@ public class MainVerticle extends AbstractVerticle {
                 + ")\r\n" + "-----------------------------------------------");
 
         // Check all prerequisites
-        final List<Future> futureList = Arrays.asList(readEnvVariables(), checkKeystore(), checkWebroot(), startHttpServer(),
+        final List<Future> futureList = Arrays.asList(readEnvVariables(), /*checkKeystore(),*/ checkWebroot(), startHttpServer(),
                 startHttpsServer(), loadSettings(), loadDatabase());
         CompositeFuture.all(futureList)
                 .setHandler(ar -> {
