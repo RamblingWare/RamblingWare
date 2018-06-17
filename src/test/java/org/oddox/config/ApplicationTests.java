@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.MainVerticle;
+import org.oddox.OddoxVerticle;
 import org.oddox.database.CouchDb;
 import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
@@ -58,7 +58,7 @@ public class ApplicationTests {
             assertNull(config);
         }
         try {
-            config = Application.loadSettingsFromFile(MainVerticle.APP_PROP_FILE);
+            config = Application.loadSettingsFromFile(OddoxVerticle.APP_PROP_FILE);
             Application.setAppConfig(config);
         } catch (IOException e) {
             fail(e.getMessage());
@@ -157,7 +157,7 @@ public class ApplicationTests {
 
         // Properties file
         try {
-            db = Application.loadDatabase(null, MainVerticle.DB_PROP_FILE);
+            db = Application.loadDatabase(null, OddoxVerticle.DB_PROP_FILE);
             assertNotNull(db);
         } catch (IOException e) {
             fail(e.getMessage());

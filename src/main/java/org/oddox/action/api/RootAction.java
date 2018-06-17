@@ -2,7 +2,7 @@ package org.oddox.action.api;
 
 import java.util.Map;
 
-import org.oddox.MainVerticle;
+import org.oddox.OddoxVerticle;
 import org.oddox.config.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +43,7 @@ public class RootAction implements Handler<RoutingContext> {
         JsonObject json = new JsonObject();
         try {
             json.put("oddox", "Welcome");
-            json.put("version", MainVerticle.VERSION);
+            json.put("version", OddoxVerticle.VERSION);
             json.put("name", Application.getString("name"));
 
         } catch (Exception e) {

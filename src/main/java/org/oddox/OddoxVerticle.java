@@ -27,15 +27,15 @@ import io.vertx.reactivex.ext.web.Router;
 import okhttp3.OkHttpClient;
 
 /**
- * MainVerticle for Vertx
+ * OddoxVerticle for Vertx
  * 
  * @author amdelamar
  * @date 05/28/2018
  */
-public class MainVerticle extends AbstractVerticle {
+public class OddoxVerticle extends AbstractVerticle {
 
     // Global vals
-    public final static String VERSION = "1.0.0";
+    public final static String VERSION = "0.1.0";
     public final static int HTTP_PORT = 8080;
     public final static int HTTPS_PORT = 8443;
     public final static String APP_PROP_FILE = "/app.properties";
@@ -49,18 +49,18 @@ public class MainVerticle extends AbstractVerticle {
     private static int httpsPort = HTTPS_PORT;
     private static HttpServer httpServer;
     private static HttpServer httpsServer;
-    private static Logger logger = LoggerFactory.getLogger(MainVerticle.class);
+    private static Logger logger = LoggerFactory.getLogger(OddoxVerticle.class);
 
     public static void main(String[] args) {
         // Vertx core
         final Vertx vertx = Vertx.vertx();
 
         // Deploy Verticle        
-        final Single<String> deployment = vertx.rxDeployVerticle(MainVerticle.class.getName());
+        final Single<String> deployment = vertx.rxDeployVerticle(OddoxVerticle.class.getName());
 
         // Observe deploy
         deployment.subscribe(s -> {
-            logger.info("MainVerticle deployed: " + s);
+            logger.info("Deployed: " + s);
         }, e -> {
             logger.error("FATAL: Deploy Verticle failed! ", e);
         });
@@ -76,17 +76,18 @@ public class MainVerticle extends AbstractVerticle {
                 + ")\r\n" + "-----------------------------------------------");
 
         // Check all prerequisites
-        final List<Future> futureList = Arrays.asList(readEnvVariables(), /*checkKeystore(),*/ checkWebroot(), startHttpServer(),
-                startHttpsServer(), loadSettings(), loadDatabase());
+        final List<Future> futureList = Arrays.asList(readEnvVariables(), /*checkKeystore(),*/ checkWebroot(),
+                startHttpServer(), startHttpsServer(), loadSettings(), loadDatabase());
         CompositeFuture.all(futureList)
                 .setHandler(ar -> {
                     if (ar.succeeded()) {
                         // All futures succeeded
                         logger.info("Oddox is ready to serve traffic.");
-                        
+
                         // Set OkHttpClient logging level
-                        java.util.logging.Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
-                        
+                        java.util.logging.Logger.getLogger(OkHttpClient.class.getName())
+                                .setLevel(Level.FINE);
+
                         startFuture.complete();
                     } else {
                         // At least one future failed
@@ -125,7 +126,7 @@ public class MainVerticle extends AbstractVerticle {
             logger.warn("Env HTTPS_PORT not found or not valid. Defautling to: " + HTTPS_PORT);
             httpsPort = HTTPS_PORT;
         }
-        
+
         future.complete();
         return future;
     }
@@ -194,7 +195,7 @@ public class MainVerticle extends AbstractVerticle {
     @SuppressWarnings("rawtypes")
     private Future startHttpsServer() {
         final Future future = Future.future();
-        
+
         // Generate the certificate for https
         SelfSignedCertificate cert = SelfSignedCertificate.create();
 
@@ -203,8 +204,8 @@ public class MainVerticle extends AbstractVerticle {
                 .setUseAlpn(true) // HTTP/2 only supported on JDK 9+
                 .setSsl(true)
                 .setKeyCertOptions(cert.keyCertOptions()));
-                //.setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
-                //        .setPath(System.getProperty("user.dir") + KEYSTORE)));
+        //.setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
+        //        .setPath(System.getProperty("user.dir") + KEYSTORE)));
 
         // Map Web Routes
         Router mainRouter = WebRoutes.newRouter(vertx);
@@ -223,7 +224,7 @@ public class MainVerticle extends AbstractVerticle {
         });
         return future;
     }
-    
+
     @SuppressWarnings("rawtypes")
     private Future loadSettings() {
         final Future future = Future.future();
@@ -237,7 +238,7 @@ public class MainVerticle extends AbstractVerticle {
         }
         return future;
     }
-    
+
     @SuppressWarnings("rawtypes")
     private Future loadDatabase() {
         final Future future = Future.future();
@@ -255,17 +256,21 @@ public class MainVerticle extends AbstractVerticle {
 
             logger.info("Using Database:\r\n" + db.toString());
             Application.setDatabaseSetup(new CouchDbSetup(db));
-            
-            if (!Application.getDatabaseSetup().setup()) {
+
+            if (!Application.getDatabaseSetup()
+                    .setup()) {
                 future.fail("Database invalid");
             }
 
             // Load settings from Database
             Application.setDatabaseService(new CouchDb(db));
-            Application.setAppFirewall(Application.getDatabaseService().getAppFirewall());
-            Application.setAppHeaders(Application.getDatabaseService().getAppHeaders());
-            
-            final AppConfig configdb = Application.getDatabaseService().getAppConfig();
+            Application.setAppFirewall(Application.getDatabaseService()
+                    .getAppFirewall());
+            Application.setAppHeaders(Application.getDatabaseService()
+                    .getAppHeaders());
+
+            final AppConfig configdb = Application.getDatabaseService()
+                    .getAppConfig();
             if (configdb != null) {
                 logger.info("Found app settings in the database. Using that instead of " + APP_PROP_FILE);
                 final AppConfig appConfig = Application.getAppConfig();

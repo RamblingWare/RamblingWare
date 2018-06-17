@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 public class MainVerticleTests {
 
     @InjectMocks
-    private MainVerticle verticle;
+    private OddoxVerticle verticle;
 
     @Before
     public void beforeEachTest() {
@@ -28,10 +28,10 @@ public class MainVerticleTests {
 
     @Test
     public void properties() {
-        assertNotNull(MainVerticle.APP_PROP_FILE);
-        assertTrue(MainVerticle.APP_PROP_FILE.endsWith(".properties"));
+        assertNotNull(OddoxVerticle.APP_PROP_FILE);
+        assertTrue(OddoxVerticle.APP_PROP_FILE.endsWith(".properties"));
 
-        assertNotNull(MainVerticle.DB_PROP_FILE);
-        assertTrue(MainVerticle.DB_PROP_FILE.endsWith(".properties"));
+        assertNotNull(OddoxVerticle.DB_PROP_FILE);
+        assertTrue(OddoxVerticle.DB_PROP_FILE.endsWith(".properties"));
     }
 }

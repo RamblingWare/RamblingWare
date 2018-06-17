@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.MainVerticle;
+import org.oddox.OddoxVerticle;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
 import org.oddox.objects.Author;
@@ -49,7 +49,7 @@ public class CouchDbSetupTests {
 
         AppConfig config;
         try {
-            config = Application.loadSettingsFromFile(MainVerticle.APP_PROP_FILE);
+            config = Application.loadSettingsFromFile(OddoxVerticle.APP_PROP_FILE);
             Application.setAppConfig(config);
         } catch (IOException e) {
             fail(e.getMessage());

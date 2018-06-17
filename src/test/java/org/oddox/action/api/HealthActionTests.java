@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.MainVerticle;
+import org.oddox.OddoxVerticle;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
 import org.oddox.database.CouchDb;
@@ -35,10 +35,10 @@ public class HealthActionTests {
         MockitoAnnotations.initMocks(this);
         AppConfig config;
         try {
-            config = Application.loadSettingsFromFile(MainVerticle.APP_PROP_FILE);
+            config = Application.loadSettingsFromFile(OddoxVerticle.APP_PROP_FILE);
             Application.setAppConfig(config);
             Application.setDatabaseService(
-                    new CouchDb(Application.loadDatabase(System.getenv(), MainVerticle.DB_PROP_FILE)));
+                    new CouchDb(Application.loadDatabase(System.getenv(), OddoxVerticle.DB_PROP_FILE)));
         } catch (IOException e) {
             fail("Unexpected IOException: " + e.getMessage());
         }

@@ -2,7 +2,7 @@ package org.oddox.action;
 
 import java.util.List;
 
-import org.oddox.MainVerticle;
+import org.oddox.OddoxVerticle;
 import org.oddox.config.Application;
 import org.oddox.objects.Author;
 import org.slf4j.Logger;
@@ -65,7 +65,7 @@ public class AuthorsAction implements Handler<RoutingContext> {
         context.put("authors", authors);
 
         // Render template response
-        ENGINE.render(context, MainVerticle.TEMPLATES_DIR, templateFile, res -> {
+        ENGINE.render(context, OddoxVerticle.TEMPLATES_DIR, templateFile, res -> {
             context.response().putHeader("content-type", "text/html;charset=UTF-8");
             if (res.succeeded()) {
                 context.response()

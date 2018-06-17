@@ -1,6 +1,6 @@
 package org.oddox.handler;
 
-import org.oddox.MainVerticle;
+import org.oddox.OddoxVerticle;
 
 import io.vertx.core.Handler;
 import io.vertx.reactivex.core.http.HttpServerRequest;
@@ -21,8 +21,8 @@ public class RedirectHandler implements Handler<HttpServerRequest> {
         url = "https" + url.substring(4);
 
         // change port if needed
-        if (url.contains(Integer.toString(MainVerticle.HTTP_PORT))) {
-            url = url.replaceFirst(Integer.toString(MainVerticle.HTTP_PORT), Integer.toString(MainVerticle.HTTPS_PORT));
+        if (url.contains(Integer.toString(OddoxVerticle.HTTP_PORT))) {
+            url = url.replaceFirst(Integer.toString(OddoxVerticle.HTTP_PORT), Integer.toString(OddoxVerticle.HTTPS_PORT));
         }
 
         request.response()
