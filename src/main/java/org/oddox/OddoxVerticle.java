@@ -59,10 +59,10 @@ public class OddoxVerticle extends AbstractVerticle {
         final Single<String> deployment = vertx.rxDeployVerticle(OddoxVerticle.class.getName());
 
         // Observe deploy
-        deployment.subscribe(s -> {
-            logger.info("Deployed: " + s);
-        }, e -> {
-            logger.error("FATAL: Deploy Verticle failed! ", e);
+        deployment.subscribe(successResult -> {
+            logger.trace("Verticle Deployed: " + successResult);
+        }, errorResult -> {
+            logger.error("FATAL: Deploy failed.", errorResult);
         });
     }
 
@@ -76,8 +76,11 @@ public class OddoxVerticle extends AbstractVerticle {
                 + ")\r\n" + "-----------------------------------------------");
 
         // Check all prerequisites
-        final List<Future> futureList = Arrays.asList(readEnvVariables(), /*checkKeystore(),*/ checkWebroot(),
+        final List<Future> futureList = Arrays.asList(readEnvVariables(), checkWebroot(),
                 startHttpServer(), startHttpsServer(), loadSettings(), loadDatabase());
+        
+        
+        
         CompositeFuture.all(futureList)
                 .setHandler(ar -> {
                     if (ar.succeeded()) {
@@ -128,25 +131,6 @@ public class OddoxVerticle extends AbstractVerticle {
         }
 
         future.complete();
-        return future;
-    }
-
-    /**
-     * Check if keystore exists
-     * @return Future
-     */
-    @SuppressWarnings("rawtypes")
-    private Future checkKeystore() {
-        final Future future = Future.future();
-
-        // SSL Keystore check
-        File keystore = new File(System.getProperty("user.dir") + KEYSTORE);
-        if (!keystore.exists() || !keystore.canRead()) {
-            logger.error("Keystore file not found or can't read. Expected it here: " + keystore.getAbsolutePath());
-            future.fail("Keystore file not found or invalid.");
-        } else {
-            future.complete();
-        }
         return future;
     }
 
