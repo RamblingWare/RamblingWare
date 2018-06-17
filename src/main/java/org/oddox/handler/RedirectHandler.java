@@ -21,8 +21,8 @@ public class RedirectHandler implements Handler<HttpServerRequest> {
         url = "https" + url.substring(4);
 
         // change port if needed
-        if (url.contains(Integer.toString(OddoxVerticle.HTTP_PORT))) {
-            url = url.replaceFirst(Integer.toString(OddoxVerticle.HTTP_PORT), Integer.toString(OddoxVerticle.HTTPS_PORT));
+        if (url.contains(Integer.toString(OddoxVerticle.PORT))) {
+            url = url.replaceFirst(Integer.toString(OddoxVerticle.PORT), Integer.toString(OddoxVerticle.HTTPS_PORT));
         }
 
         request.response()
