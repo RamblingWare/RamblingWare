@@ -36,7 +36,7 @@ public class OddoxVerticle extends AbstractVerticle {
 
     // Global vals
     public final static String VERSION = "0.1.0";
-    public final static int HTTP_PORT = 8080;
+    public final static int PORT = 8080;
     public final static int HTTPS_PORT = 8443;
     public final static String APP_PROP_FILE = "/app.properties";
     public final static String DB_PROP_FILE = "/db.properties";
@@ -45,7 +45,7 @@ public class OddoxVerticle extends AbstractVerticle {
     public final static String TEMPLATES_DIR = System.getProperty("user.dir") + "/webroot/templates/";
 
     // Internal vars
-    private static int httpPort = HTTP_PORT;
+    private static int httpPort = PORT;
     private static int httpsPort = HTTPS_PORT;
     private static HttpServer httpServer;
     private static HttpServer httpsServer;
@@ -155,11 +155,11 @@ public class OddoxVerticle extends AbstractVerticle {
         final Future future = Future.future();
 
         try {
-            // HTTP_PORT env check
-            httpPort = Integer.parseInt(System.getenv("HTTP_PORT"));
+            // PORT env check
+            httpPort = Integer.parseInt(System.getenv("PORT"));
         } catch (Exception e) {
-            logger.warn("Env PORT not found or not valid. Defautling to: " + HTTP_PORT);
-            httpPort = HTTP_PORT;
+            logger.warn("Env PORT not found or not valid. Defautling to: " + PORT);
+            httpPort = PORT;
         }
 
         // Create HTTP server
@@ -186,11 +186,11 @@ public class OddoxVerticle extends AbstractVerticle {
         final Future future = Future.future();
 
         try {
-            // HTTP_PORT env check
-            httpPort = Integer.parseInt(System.getenv("HTTP_PORT"));
+            // PORT env check
+            httpPort = Integer.parseInt(System.getenv("PORT"));
         } catch (Exception e) {
-            logger.warn("Env PORT not found or not valid. Defautling to: " + HTTP_PORT);
-            httpPort = HTTP_PORT;
+            logger.warn("Env PORT not found or not valid. Defautling to: " + PORT);
+            httpPort = PORT;
         }
 
         // Create HTTP server

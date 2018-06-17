@@ -5,7 +5,7 @@ LABEL maintainer="Austin Delamar @amdelamar" \
 
 # App config
 ENV ODDOX_HOME /usr/oddox \
-    HTTP_PORT 8080 \
+    PORT 8080 \
     HTTPS_ENABLED true \
     HTTPS_PORT 8443
 
