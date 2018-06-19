@@ -1,4 +1,4 @@
-package org.oddox.action.filter;
+package org.oddox.action.interceptor;
 
 import org.oddox.config.AppHeaders;
 import org.oddox.config.Application;
@@ -15,9 +15,9 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  * @author amdelamar
  * @date 7/03/2017
  */
-public class DynamicContentFilter implements Handler<RoutingContext> {
+public class DynamicContentInterceptor implements Handler<RoutingContext> {
 
-    private final static Logger logger = LoggerFactory.getLogger(DynamicContentFilter.class);
+    private final static Logger logger = LoggerFactory.getLogger(DynamicContentInterceptor.class);
     
     private static final long EXPIRETIME = 86400000l;
     private static long cacheTime = 0l;

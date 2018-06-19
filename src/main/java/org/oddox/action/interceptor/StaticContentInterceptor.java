@@ -1,4 +1,4 @@
-package org.oddox.action.filter;
+package org.oddox.action.interceptor;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,9 +18,9 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  * @author amdelamar
  * @date 7/03/2017
  */
-public class StaticContentFilter implements Handler<RoutingContext> {
+public class StaticContentInterceptor implements Handler<RoutingContext> {
     
-    private final static Logger logger = LoggerFactory.getLogger(StaticContentFilter.class);
+    private final static Logger logger = LoggerFactory.getLogger(StaticContentInterceptor.class);
 
     @Override
     public void handle(RoutingContext context) {

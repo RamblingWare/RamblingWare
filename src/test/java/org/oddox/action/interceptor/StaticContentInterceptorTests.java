@@ -1,4 +1,4 @@
-package org.oddox.action.filter;
+package org.oddox.action.interceptor;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,18 +8,19 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.oddox.action.interceptor.StaticContentInterceptor;
 
 /**
- * Unit tests for DynamicContentFilter
+ * Unit tests for StaticContentFilter
  * 
  * @author amdelamar
  * @since 1.0.0
  */
 @RunWith(JUnit4.class)
-public class DynamicContentFilterTests {
+public class StaticContentInterceptorTests {
 
     @InjectMocks
-    private DynamicContentFilter filter;
+    private StaticContentInterceptor filter;
 
     @Before
     public void beforeEachTest() {

@@ -15,10 +15,10 @@ import org.oddox.action.YearsAction;
 import org.oddox.action.api.ForgotAction;
 import org.oddox.action.api.HealthAction;
 import org.oddox.action.api.RootAction;
-import org.oddox.action.filter.DynamicContentFilter;
-import org.oddox.action.filter.StaticContentFilter;
 import org.oddox.action.interceptor.AppInterceptor;
 import org.oddox.action.interceptor.ArchiveInterceptor;
+import org.oddox.action.interceptor.DynamicContentInterceptor;
+import org.oddox.action.interceptor.StaticContentInterceptor;
 
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.ext.web.Router;
@@ -54,13 +54,11 @@ public final class WebRoutes {
                         .setCachingEnabled(true)
                         .setCacheEntryTimeout(31536000l));
 
-        // Filters for HTTP headers
+        // Interceptors for HTTP headers and  Context attributes
         main.route("/**.*")
-                .handler(new StaticContentFilter());
+                .handler(new StaticContentInterceptor());
         main.route("/*")
-                .handler(new DynamicContentFilter());
-
-        // Interceptors for setting Context attributes
+                .handler(new DynamicContentInterceptor());
         main.route("/*")
                 .handler(new AppInterceptor());
         main.route("/*")
