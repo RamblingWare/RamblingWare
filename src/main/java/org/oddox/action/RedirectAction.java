@@ -1,4 +1,4 @@
-package org.oddox.handler;
+package org.oddox.action;
 
 import org.oddox.OddoxVerticle;
 
@@ -11,7 +11,7 @@ import io.vertx.reactivex.core.http.HttpServerRequest;
  * @author amdelamar
  * @date 05/28/2018
  */
-public class RedirectHandler implements Handler<HttpServerRequest> {
+public class RedirectAction implements Handler<HttpServerRequest> {
 
     @Override
     public void handle(HttpServerRequest request) {

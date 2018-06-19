@@ -4,13 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.oddox.action.RedirectAction;
 import org.oddox.config.AppConfig;
 import org.oddox.config.Application;
 import org.oddox.config.Utils;
 import org.oddox.database.CouchDb;
 import org.oddox.database.CouchDbSetup;
 import org.oddox.database.Database;
-import org.oddox.handler.RedirectHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,7 +163,7 @@ public class OddoxVerticle extends AbstractVerticle {
         httpServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true));
 
         // Redirect HTTP requests to HTTPS
-        httpServer.requestHandler(new RedirectHandler());
+        httpServer.requestHandler(new RedirectAction());
 
         // Start listening
         httpServer.listen(httpPort, asyncResult -> {
