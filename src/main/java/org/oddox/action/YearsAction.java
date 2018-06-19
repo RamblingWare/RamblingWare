@@ -23,8 +23,8 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
  */
 public class YearsAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(YearsAction.class);
-    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
+    private final static Logger logger = LoggerFactory.getLogger(YearsAction.class);
+    private final static TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Year> years = null;
 
     /**

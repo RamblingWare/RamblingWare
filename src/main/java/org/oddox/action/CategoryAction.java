@@ -25,8 +25,8 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
  */
 public class CategoryAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(CategoryAction.class);
-    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
+    private final static Logger logger = LoggerFactory.getLogger(CategoryAction.class);
+    private final static TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Post> posts = null;
     private String category;
     private int page;

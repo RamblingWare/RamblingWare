@@ -17,9 +17,10 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  */
 public class DynamicContentFilter implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(DynamicContentFilter.class);
-    public static final long EXPIRETIME = 86400000l;
-    public static long cacheTime = 0l;
+    private final static Logger logger = LoggerFactory.getLogger(DynamicContentFilter.class);
+    
+    private static final long EXPIRETIME = 86400000l;
+    private static long cacheTime = 0l;
 
     @Override
     public void handle(RoutingContext context) {

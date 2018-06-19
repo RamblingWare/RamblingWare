@@ -19,7 +19,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  */
 public class RssAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(RssAction.class);
+    private final static Logger logger = LoggerFactory.getLogger(RssAction.class);
     
     private static long cacheTime = 0l;
     private static List<Post> posts = null;

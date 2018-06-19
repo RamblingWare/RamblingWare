@@ -19,7 +19,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  */
 public class ForgotAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(ForgotAction.class);
+    private final static Logger logger = LoggerFactory.getLogger(ForgotAction.class);
 
     private Map<String, Object> sessionAttributes = null;
     private String email; // need email to send reminders or resets

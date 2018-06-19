@@ -20,7 +20,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  */
 public class StaticContentFilter implements Handler<RoutingContext> {
     
-    private static Logger logger = LoggerFactory.getLogger(StaticContentFilter.class);
+    private final static Logger logger = LoggerFactory.getLogger(StaticContentFilter.class);
 
     @Override
     public void handle(RoutingContext context) {

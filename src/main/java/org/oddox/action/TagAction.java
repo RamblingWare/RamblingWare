@@ -25,8 +25,8 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
  */
 public class TagAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(TagAction.class);
-    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
+    private final static Logger logger = LoggerFactory.getLogger(TagAction.class);
+    private final static TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Post> posts = null;
     private String tag;
     private int page;

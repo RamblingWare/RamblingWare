@@ -20,8 +20,8 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
  */
 public class PostAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(PostAction.class);
-    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
+    private final static Logger logger = LoggerFactory.getLogger(PostAction.class);
+    private final static TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private Post post;
 
     /**

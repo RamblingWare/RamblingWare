@@ -1,5 +1,6 @@
 package org.oddox.action.interceptor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -38,6 +39,11 @@ public class ArchiveInterceptorTests {
     @Test
     public void constructor() {
         assertTrue(interceptor != null);
+    }
+
+    @Test
+    public void getters() {
+        assertEquals(0, ArchiveInterceptor.getArchiveTotal());
     }
 
     @Test

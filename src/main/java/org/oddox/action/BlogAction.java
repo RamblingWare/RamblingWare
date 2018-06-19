@@ -24,8 +24,8 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
  */
 public class BlogAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(BlogAction.class);
-    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
+    private final static Logger logger = LoggerFactory.getLogger(BlogAction.class);
+    private final static TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private List<Post> posts = null;
     private int page;
     private int nextPage;
@@ -75,7 +75,7 @@ public class BlogAction implements Handler<RoutingContext> {
                 }
 
                 // get totals
-                totalPosts = ArchiveInterceptor.archiveTotal;
+                totalPosts = ArchiveInterceptor.getArchiveTotal();
                 totalPages = (int) Math.ceil(((double) totalPosts / Application.getDouble("resultsPerPage")));
             } else {
                 posts = null;

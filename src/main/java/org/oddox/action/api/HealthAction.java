@@ -18,7 +18,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  */
 public class HealthAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(HealthAction.class);
+    private final static Logger logger = LoggerFactory.getLogger(HealthAction.class);
 
     // JSON response
     private String error;

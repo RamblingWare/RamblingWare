@@ -19,8 +19,8 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
  */
 public class SearchAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(SearchAction.class);
-    private final TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
+    private final static Logger logger = LoggerFactory.getLogger(SearchAction.class);
+    private final static TemplateEngine ENGINE = FreeMarkerTemplateEngine.create();
     private String q;
 
     /**

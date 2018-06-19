@@ -19,7 +19,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  */
 public class RootAction implements Handler<RoutingContext> {
 
-    private static Logger logger = LoggerFactory.getLogger(RootAction.class);
+    private final static Logger logger = LoggerFactory.getLogger(RootAction.class);
 
     // JSON response
     private String oddox;

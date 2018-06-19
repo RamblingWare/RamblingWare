@@ -19,10 +19,10 @@ import io.vertx.reactivex.ext.web.RoutingContext;
  */
 public class ArchiveInterceptor implements Handler<RoutingContext> {
 
-    public static final long EXPIRETIME = 86400000l;
-    public static long cacheTime = 0l;
-    public static int archiveTotal = 0;
-
+    public final static long EXPIRETIME = 86400000l;
+    
+    private static long cacheTime = 0l;
+    private static int archiveTotal = 0;
     private static List<Post> archiveFeatured = null;
     private static List<Year> archiveYears = null;
     private static List<Tag> archiveTags = null;
@@ -68,6 +68,10 @@ public class ArchiveInterceptor implements Handler<RoutingContext> {
         context.put("archiveCategories", archiveCategories);
 
         context.next();
+    }
+
+    public static int getArchiveTotal() {
+        return archiveTotal;
     }
 
     public static List<Post> getArchiveFeatured() {
