@@ -49,6 +49,7 @@ public class OddoxVerticle extends AbstractVerticle {
     private static HttpServer httpsServer;
     private static Boolean httpsEnabled = false;
     private static Boolean httpRedirectEnabled = false;
+    private static Boolean http2Enabled = false;
     private static Logger logger = LoggerFactory.getLogger(OddoxVerticle.class);
 
     public static void main(String[] args) {
@@ -74,14 +75,14 @@ public class OddoxVerticle extends AbstractVerticle {
                 + "  ___   __| | __| | ___  __  __\r\n" + " / _ \\ / _` |/ _` |/ _ \\ \\ \\/ /\r\n"
                 + "| (_) | (_) | (_) | (_) | >  < \r\n" + " \\___/ \\____|\\____|\\___/ /_/\\_\\.org (v" + VERSION
                 + ")\r\n" + "-----------------------------------------------");
-        
+
         try {
             // HTTPS_ENABLED env check
             httpsEnabled = Boolean.parseBoolean(System.getenv("HTTPS_ENABLED"));
         } catch (Exception e) {
             httpsEnabled = false;
         }
-        
+
         try {
             // HTTP_REDIRECT_ENABLED env check
             httpRedirectEnabled = Boolean.parseBoolean(System.getenv("HTTP_REDIRECT_ENABLED"));
@@ -92,17 +93,17 @@ public class OddoxVerticle extends AbstractVerticle {
         // Check all prerequisites
         final ArrayList<Future> futures = new ArrayList<Future>();
         futures.addAll(Arrays.asList(checkWebroot(), loadSettings(), loadDatabase()));
-        
-        if(httpsEnabled) {
+
+        if (httpsEnabled) {
             futures.add(startHttpsServer());
         } else {
             futures.add(startHttpServer());
         }
-        
-        if(httpRedirectEnabled) {
+
+        if (httpRedirectEnabled) {
             futures.add(startHttpRedirectServer());
         }
-        
+
         // await all futures
         CompositeFuture.all(futures)
                 .setHandler(ar -> {
@@ -146,7 +147,7 @@ public class OddoxVerticle extends AbstractVerticle {
         }
         return future;
     }
-    
+
     @SuppressWarnings("rawtypes")
     private Future startHttpRedirectServer() {
         final Future future = Future.future();
@@ -193,9 +194,6 @@ public class OddoxVerticle extends AbstractVerticle {
         // Create HTTP server
         httpServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true));
 
-        // Redirect HTTP requests to HTTPS
-        // httpServer.requestHandler(new RedirectHandler());
-
         // Map Web Routes
         Router mainRouter = WebRoutes.newRouter(vertx);
 
@@ -227,12 +225,19 @@ public class OddoxVerticle extends AbstractVerticle {
             httpsPort = HTTPS_PORT;
         }
 
+        try {
+            // HTTP2_ENABLED env check
+            http2Enabled = Boolean.parseBoolean(System.getenv("HTTP2_ENABLED"));
+        } catch (Exception e) {
+            http2Enabled = false;
+        }
+
         // Generate the certificate for https
         SelfSignedCertificate cert = SelfSignedCertificate.create();
 
         // Create HTTPS server
         httpsServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true)
-                .setUseAlpn(true) // HTTP/2 only supported on JDK 9+
+                .setUseAlpn(http2Enabled) // HTTP/2 only supported on JDK 9+
                 .setSsl(true)
                 .setKeyCertOptions(cert.keyCertOptions()));
         //.setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
