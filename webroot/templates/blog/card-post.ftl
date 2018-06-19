@@ -33,7 +33,7 @@
 				<a class="text-secondary" title="${(tag)!''}" href="/tag/${(tag)!''}">${(tag)!''}</a>&nbsp;
 			</#list>
 		</#if>
-		<span title="Hits (${(post.view.count)!''}) / Actual (${(post.view.session)!''})"><span class="icon-eye padding"></span>${(post.view.count)!''}</span>
+		<span title="Clicks (${(post.view.count)!''})"><span class="icon-eye padding"></span>${(post.view.count)!''}</span>
 		<span title="Comments (0)"><span class="icon-comments padding"></span><a class="text-secondary" href="/blog/${(post.uri)!''}#comments">0</a></span>
 	</p>
 </div>

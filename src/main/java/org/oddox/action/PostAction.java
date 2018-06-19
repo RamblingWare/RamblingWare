@@ -53,28 +53,10 @@ public class PostAction implements Handler<RoutingContext> {
                 // was post found?
                 if (post != null) {
 
-                    // check against previously viewed posts
-                    /*
-                    boolean newViewFromSession = false;
-                    if (servletRequest.getSession(false) != null) {
-                        Session session = (Session) context.session();
-                        HashSet<String> viewedPages = (HashSet<String>) session.getAttribute("viewedPages");
-                    
-                        if (viewedPages == null) {
-                            viewedPages = new HashSet<String>();
-                        }
-                    
-                        newViewFromSession = viewedPages.add(post.getUri());
-                        session.setAttribute("viewedPages", viewedPages);
-                    } */
-
                     // update page views
                     post.getView()
                             .setCount(post.getView()
                                     .getCount() + 1);
-                    post.getView()
-                            .setSession(post.getView()
-                                    .getSession() + 1);
 
                     Application.getDatabaseService()
                             .editView(post.getView());
