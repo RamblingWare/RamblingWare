@@ -11,10 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.oddox.action.interceptor.StaticContentInterceptor;
 
 /**
- * Unit tests for StaticContentFilter
- * 
- * @author amdelamar
- * @since 1.0.0
+ * Unit tests for StaticContentInterceptor
  */
 @RunWith(JUnit4.class)
 public class StaticContentInterceptorTests {

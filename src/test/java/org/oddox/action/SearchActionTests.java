@@ -12,9 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Unit tests for SearchAction
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class SearchActionTests {

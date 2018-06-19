@@ -13,7 +13,7 @@ import io.vertx.reactivex.core.http.HttpServerResponse;
 import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
- * StaticContentFilter class modifies HTTP Headers before sending out a response from a static file.
+ * StaticContentInterceptor class modifies HTTP Headers before sending out a response from a static file.
  * 
  * @author amdelamar
  * @date 7/03/2017

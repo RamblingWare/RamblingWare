@@ -17,9 +17,6 @@ import org.oddox.objects.Year;
 
 /**
  * Unit tests for YearsAction
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class YearsActionTests {

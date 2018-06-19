@@ -12,9 +12,6 @@ import org.oddox.config.Utils;
 
 /**
  * Unit tests for Author Object
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class AuthorTests {

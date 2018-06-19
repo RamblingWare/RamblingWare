@@ -11,10 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.oddox.action.interceptor.DynamicContentInterceptor;
 
 /**
- * Unit tests for DynamicContentFilter
- * 
- * @author amdelamar
- * @since 1.0.0
+ * Unit tests for DynamicContentInterceptor
  */
 @RunWith(JUnit4.class)
 public class DynamicContentInterceptorTests {

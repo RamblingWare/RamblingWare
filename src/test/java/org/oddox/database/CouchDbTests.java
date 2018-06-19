@@ -14,9 +14,6 @@ import org.oddox.database.Database;
 
 /**
  * Unit tests for CouchDB
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class CouchDbTests {

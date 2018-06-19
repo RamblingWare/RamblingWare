@@ -20,9 +20,6 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Unit tests for Utils
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class UtilsTests {

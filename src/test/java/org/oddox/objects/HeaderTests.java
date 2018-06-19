@@ -9,9 +9,6 @@ import org.junit.runners.JUnit4;
 
 /**
  * Unit tests for Header Object
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class HeaderTests {

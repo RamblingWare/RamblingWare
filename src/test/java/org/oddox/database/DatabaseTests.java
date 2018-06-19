@@ -12,9 +12,6 @@ import org.oddox.database.Database;
 
 /**
  * Unit tests for Database Object
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class DatabaseTests {

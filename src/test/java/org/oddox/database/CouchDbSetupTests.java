@@ -21,9 +21,6 @@ import org.oddox.objects.Post;
 
 /**
  * Unit tests for CouchDBSetup
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class CouchDbSetupTests {

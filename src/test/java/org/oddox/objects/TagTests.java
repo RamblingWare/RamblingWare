@@ -11,9 +11,6 @@ import org.oddox.objects.Tag;
 
 /**
  * Unit tests for Tag Object
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class TagTests {

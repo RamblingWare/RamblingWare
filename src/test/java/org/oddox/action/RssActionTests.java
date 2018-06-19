@@ -11,9 +11,6 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Unit tests for RssAction
- * 
- * @author amdelamar
- * @since 1.0.0
  */
 @RunWith(JUnit4.class)
 public class RssActionTests {

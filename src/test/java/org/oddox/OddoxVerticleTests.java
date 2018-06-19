@@ -10,8 +10,11 @@ import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+/**
+ * Unit tests for OddoxVerticle
+ */
 @RunWith(JUnit4.class)
-public class MainVerticleTests {
+public class OddoxVerticleTests {
 
     @InjectMocks
     private OddoxVerticle verticle;
