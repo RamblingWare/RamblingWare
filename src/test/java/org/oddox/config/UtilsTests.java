@@ -100,7 +100,6 @@ public class UtilsTests {
         for (int i = 0; i < numbers.length; i++) {
             long nm = numbers[i];
             String formatted = Utils.formatLong(nm);
-            //System.out.println(nm + " => " + formatted);
             if (!formatted.equals(expected[i])) {
                 fail("Expected: " + expected[i] + " but found: " + formatted);
             }
@@ -115,7 +114,6 @@ public class UtilsTests {
         for (int i = 0; i < numbers.length; i++) {
             double nm = numbers[i];
             String formatted = Utils.formatBytes(nm);
-            //System.out.println(nm + " => " + formatted);
             if (!formatted.equals(expected[i])) {
                 fail("Expected: " + expected[i] + " but found: " + formatted);
             }

@@ -207,10 +207,6 @@ public final class Utils {
         for (int i = 0; i < formats.length; i++) {
             try {
                 date = new SimpleDateFormat(formats[i], Locale.ENGLISH).parse(anyFormat);
-                /*
-                 * System.out.println("Format found: \"" + formats[i] + "\" for date input \"" +
-                 * anyFormat + "\"");
-                 */
                 break; // successful
             } catch (Exception e) {
                 continue; // try another

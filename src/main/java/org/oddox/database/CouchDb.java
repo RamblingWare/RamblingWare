@@ -15,6 +15,8 @@ import org.oddox.objects.Post;
 import org.oddox.objects.Tag;
 import org.oddox.objects.View;
 import org.oddox.objects.Year;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
@@ -31,6 +33,8 @@ import com.cloudant.client.org.lightcouch.NoDocumentException;
  * @author amdelamar
  */
 public class CouchDb extends DatabaseService {
+
+    private static Logger logger = LoggerFactory.getLogger(CouchDb.class);
 
     public CouchDb(org.oddox.database.Database database) {
         super(database);
@@ -56,7 +60,7 @@ public class CouchDb extends DatabaseService {
                     .build();
         }
     }
-    
+
     @Override
     public DbInfo getInfo() {
         try {
@@ -66,11 +70,11 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getInfo", e);
         }
         return null;
     }
-    
+
     @Override
     public String getVersion() {
         try {
@@ -79,7 +83,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getVersion", e);
         }
         return null;
     }
@@ -93,7 +97,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getAppConfig", e);
         }
         return null;
     }
@@ -107,7 +111,7 @@ public class CouchDb extends DatabaseService {
             return true;
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to editAppConfig", e);
             return false;
         }
     }
@@ -121,7 +125,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getAppFirewall", e);
         }
         return null;
     }
@@ -135,11 +139,11 @@ public class CouchDb extends DatabaseService {
             return true;
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to editAppFirewall", e);
             return false;
         }
     }
-    
+
     @Override
     public AppHeaders getAppHeaders() {
         try {
@@ -149,7 +153,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getAppHeaders", e);
         }
         return null;
     }
@@ -163,7 +167,7 @@ public class CouchDb extends DatabaseService {
             return true;
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to editAppHeaders", e);
             return false;
         }
     }
@@ -243,7 +247,7 @@ public class CouchDb extends DatabaseService {
             post = null;
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getPost", e);
         }
         return post;
     }
@@ -261,7 +265,7 @@ public class CouchDb extends DatabaseService {
             author = null;
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getAuthor", e);
         }
         return author;
     }
@@ -299,7 +303,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getAuthors", e);
         }
         return authors;
     }
@@ -330,7 +334,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getFeatured", e);
         }
         return posts;
     }
@@ -370,7 +374,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getYears", e);
         }
         return years;
     }
@@ -409,7 +413,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getCategories", e);
         }
         return categories;
     }
@@ -448,7 +452,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getTags", e);
         }
         return tags;
     }
@@ -525,7 +529,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getPosts", e);
         }
         return posts;
     }
@@ -606,7 +610,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getPostsByCategory", e);
         }
         return posts;
     }
@@ -687,7 +691,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getPostsByTag", e);
         }
         return posts;
     }
@@ -773,7 +777,7 @@ public class CouchDb extends DatabaseService {
 
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to getPostsByYear", e);
         }
         return posts;
     }
@@ -792,10 +796,11 @@ public class CouchDb extends DatabaseService {
             return true;
         } catch (IllegalArgumentException | DocumentConflictException e) {
             // quietly ignore.
+            logger.trace("Failed to editView", e);
             return true;
         } catch (Exception e) {
             // this should be thrown up
-            e.printStackTrace();
+            logger.error("Failed to editView", e);
             return false;
         }
     }

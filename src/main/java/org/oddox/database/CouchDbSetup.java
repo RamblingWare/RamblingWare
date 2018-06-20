@@ -15,6 +15,8 @@ import org.oddox.config.Utils;
 import org.oddox.objects.Author;
 import org.oddox.objects.Header;
 import org.oddox.objects.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
@@ -34,6 +36,8 @@ import com.google.gson.JsonObject;
  * @author amdelamar
  */
 public class CouchDbSetup extends DatabaseSetup {
+    
+    private static Logger logger = LoggerFactory.getLogger(CouchDbSetup.class);
 
     public CouchDbSetup(org.oddox.database.Database database) {
         super(database);
@@ -93,12 +97,12 @@ public class CouchDbSetup extends DatabaseSetup {
 
         // verify install
         if (setup && !verifyDesign()) {
-            System.out.println("Database is not configured properly. Installing for first-time...");
+            logger.trace("Database is not configured properly. Installing for first-time...");
             // perform first-time install
             setup = installDesign();
             if (setup) {
                 // installed
-                System.out.println("Install completed.");
+                logger.trace("Install completed.");
             }
         }
 
@@ -134,6 +138,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
         } catch (Exception e) {
             // failed verification
+            logger.trace("Verify db design failed. Missing dbs or APPCONFIG doc.");
             return false;
         }
     }
@@ -279,8 +284,7 @@ public class CouchDbSetup extends DatabaseSetup {
             return true;
 
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Failed Database Installation: Exception occured during install: " + e.getMessage());
+            logger.error("Failed Database Installation: Exception occured during install: ", e);
         } finally {
             // close streams
             if (response != null) {
@@ -327,19 +331,15 @@ public class CouchDbSetup extends DatabaseSetup {
             return true;
 
         } catch (NoDocumentException e) {
-            e.printStackTrace();
-            System.err.println(
-                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
+            logger.error(
+                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.", e);
         } catch (DocumentConflictException e) {
-            e.printStackTrace();
-            System.err.println(
-                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.");
+            logger.error(
+                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.", e);
         } catch (MalformedURLException | CouchDbException e) {
-            e.printStackTrace();
-            System.err.println("Failed Database Test: Please check the Database URL and try again.");
+            logger.error("Failed Database Test: Please check the Database URL and try again.", e);
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Failed Database Test: Exception occured during test: " + e.getMessage());
+            logger.error("Failed Database Test: Exception occured during test: ", e);
         }
         return false;
     }
@@ -372,7 +372,7 @@ public class CouchDbSetup extends DatabaseSetup {
             String admins = Utils.removeBadChars(response1.responseAsString());
 
             // if no admins, then it means admin party mode is still partying.
-            System.out.println("Admins: '" + admins + "'");
+            logger.trace("Admins: '" + admins + "'");
             adminParty = admins.length() < 3;
 
         } catch (Exception e) {
@@ -387,8 +387,8 @@ public class CouchDbSetup extends DatabaseSetup {
             }
         }
         if (adminParty) {
-            System.out.println(
-                    "WARNING: Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
+            logger.warn(
+                    "Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
         }
         return adminParty;
     }
@@ -401,7 +401,7 @@ public class CouchDbSetup extends DatabaseSetup {
      * @return true if successful
      */
     protected boolean disableAdminParty() {
-        System.out.println("Attempting to disable admin party mode...");
+        logger.trace("Attempting to disable admin party mode...");
         HttpConnection request1 = null;
         HttpConnection response1 = null;
         try {
@@ -445,21 +445,20 @@ public class CouchDbSetup extends DatabaseSetup {
                     .getResponseCode() != HttpURLConnection.HTTP_CREATED) {
                 // failed to create default admin
                 throw new IOException(
-                        "ERROR: Failed to create default admin '" + user + "'. Exception occured during install.");
+                        "Failed to create default admin '" + user + "'. Exception occured during install.");
             } else {
                 // stopped the party
-                System.out.println("Created default admin: " + user);
+                logger.trace("Created default admin: " + user);
             }
 
             // disabled admin party mode
-            System.out.println("Disabled Admin Party mode.");
+            logger.info("Disabled Admin Party mode.");
             return true;
 
         } catch (Exception e) {
-            e.printStackTrace();
             // failed
-            System.out.println(
-                    "WARNING: Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.");
+            logger.warn(
+                    "Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.", e);
             return false;
         } finally {
             // close streams
@@ -485,8 +484,8 @@ public class CouchDbSetup extends DatabaseSetup {
                 .startsWith("https");
 
         if (!https) {
-            System.out.println(
-                    "WARNING: Database connection is not using Https. Please get a SSL certificate as soon as possible to secure it.");
+            logger.warn(
+                    "Database connection is not using Https. Please get a SSL certificate as soon as possible to secure it.");
         }
         return https;
     }
@@ -510,7 +509,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
         if (!currVersion.startsWith("2.")) {
             version = false;
-            System.out.println("ERROR: Incompatible CouchDB Version (" + currVersion + "). Required version 2.x.x");
+            logger.error("Incompatible CouchDB Version (" + currVersion + "). Required version 2.x.x");
         }
         return version;
     }
