@@ -25,7 +25,7 @@ public class DynamicContentInterceptor implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext context) {
 
-        // Has it been 24 hours since fresh archive check?
+        // Has it been 24 hours since last check?
         long diff = Math.abs(System.currentTimeMillis() - cacheTime);
         if (diff >= EXPIRETIME) {
             // cache expired.

@@ -172,7 +172,7 @@ public class UtilsTests {
         }
 
         try {
-            assertNotNull(Utils.downloadUrlFile("http://www.google.com/"));
+            assertNotNull(Utils.downloadUrlFile("http://oddox.org/"));
         } catch (IOException e) {
             fail(e.getMessage());
         }

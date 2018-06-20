@@ -35,7 +35,7 @@ public final class Utils {
     private static final DateFormat RFC1123FORM = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
     private static final Pattern EMAIL_PATTERN = Pattern
             .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();    
+    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
 
     static {
         suffixes.put(1_000L, "k");
@@ -47,7 +47,7 @@ public final class Utils {
         ISO8601FORM.setTimeZone(TimeZone.getTimeZone("UTC"));
         RFC1123FORM.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
-    
+
     private Utils() {
         // prevent instantiation
     }
@@ -359,14 +359,14 @@ public final class Utils {
      * @param urlString
      *            URL string
      * @return String
-     * @throws NullPointerException
+     * @throws IllegalArgumentException
      *             if urlString is null or empty
      * @throws IOException
      *             if error during stream input
      */
-    public static String downloadUrlFile(String urlString) throws IOException {
+    public static String downloadUrlFile(String urlString) throws IllegalArgumentException, IOException {
         if (urlString == null || urlString.isEmpty()) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
         BufferedInputStream in = null;
         String dataString = "";
