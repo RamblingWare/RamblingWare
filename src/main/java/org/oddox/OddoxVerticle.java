@@ -283,12 +283,7 @@ public class OddoxVerticle extends AbstractVerticle {
             final Database db = Application.loadDatabase(System.getenv(), DB_PROP_FILE);
 
             // cleanup url
-            if (db.getUrl()
-                    .contains("@")) {
-                String curl = db.getUrl();
-                curl = Utils.removeUserPassFromURL(curl);
-                db.setUrl(curl);
-            }
+            db.setUrl(Utils.removeUserPassFromURL(db.getUrl()));
 
             logger.info("Using Database:\r\n" + db.toString());
             Application.setDatabaseSetup(new CouchDbSetup(db));

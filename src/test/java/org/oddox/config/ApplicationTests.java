@@ -242,6 +242,24 @@ public class ApplicationTests {
         } catch (IOException e) {
             fail(e.getMessage());
         }
+        
+        dockerenv.put("DB_URL", "https://127.0.0.1:5984/");
+        try {
+            // https url
+            db = Application.loadDatabase(dockerenv, null);
+            assertNotNull(db);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        
+        dockerenv.put("DB_URL", "https://somefakedb.cloudant.com/");
+        try {
+            // https url
+            db = Application.loadDatabase(dockerenv, null);
+            assertNotNull(db);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
 
         // invalid DB_URL
         dockerenv.put("DB_URL", "");
