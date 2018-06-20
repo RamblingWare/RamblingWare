@@ -387,14 +387,14 @@ public final class Utils {
      * @param resourcePath
      *            name of file
      * @return File
-     * @throws NullPointerException
+     * @throws IllegalArgumentException
      *             if resourcePath is null or empty
      * @throws IOException
      *             if error during stream input
      */
-    public static File getResourceAsFile(String resourcePath) throws IOException {
+    public static File getResourceAsFile(String resourcePath) throws IllegalArgumentException, IOException {
         if (resourcePath == null || resourcePath.isEmpty()) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
         InputStream in = Utils.class.getResourceAsStream(resourcePath);
         File tempFile = File.createTempFile(String.valueOf(in.hashCode()), ".tmp");

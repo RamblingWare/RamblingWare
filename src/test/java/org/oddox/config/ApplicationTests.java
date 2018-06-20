@@ -32,9 +32,6 @@ public class ApplicationTests {
     @InjectMocks
     private Application app;
 
-    @InjectMocks
-    private CouchDb dbs;
-
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);

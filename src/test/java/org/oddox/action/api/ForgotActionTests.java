@@ -35,12 +35,8 @@ public class ForgotActionTests {
     }
 
     @Test
-    public void defaults() {
-        action.defaults();
-    }
-
-    @Test
     public void parameters() {
+        action.defaults();
         action.setEmail("bob@protonmail.com");
         action.setReset(true);
 

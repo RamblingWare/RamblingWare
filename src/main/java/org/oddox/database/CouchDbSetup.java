@@ -36,7 +36,7 @@ import com.google.gson.JsonObject;
  * @author amdelamar
  */
 public class CouchDbSetup extends DatabaseSetup {
-    
+
     private static Logger logger = LoggerFactory.getLogger(CouchDbSetup.class);
 
     public CouchDbSetup(org.oddox.database.Database database) {
@@ -143,14 +143,16 @@ public class CouchDbSetup extends DatabaseSetup {
         }
     }
 
+    private static final String ADMIN_AUTHOR_ROLES = "{\r\n" + "    \"admins\": {\r\n" + "        \"roles\": [\r\n"
+            + "            \"admin\"\r\n" + "        ]\r\n" + "    },\r\n" + "    \"members\": {\r\n"
+            + "        \"roles\": [\r\n" + "            \"author\"\r\n" + "        ]\r\n" + "    }\r\n" + "}";
+
     /**
      * Install the App Design documents and databases needed.
      * 
      * @return true if install successful
      */
     protected boolean installDesign() {
-        HttpConnection request = null;
-        HttpConnection response = null;
         try {
             CloudantClient client = getConnection();
 
@@ -165,28 +167,7 @@ public class CouchDbSetup extends DatabaseSetup {
             authors.save(getDefaultAuthor());
 
             // set permissions
-            request = Http.PUT(new URL(client.getBaseUri() + "/authors/_security"), "application/json");
-            request.setRequestBody(
-                    "{\r\n" + 
-                    "    \"admins\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"admin\"\r\n" + 
-                    "        ]\r\n" + 
-                    "    },\r\n" +
-                    "    \"members\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"author\"\r\n" + 
-                    "        ]\r\n" + 
-                    "    }\r\n" +
-                    "}");
-            response = client.executeRequest(request);
-            if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
-                    && response.getConnection()
-                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
-                // failed to set permissions
-                throw new IOException("Failed to set default db permissions for 'authors'.");
-            }
+            setDbPermissions(client, "authors", ADMIN_AUTHOR_ROLES);
 
             // create posts
             Database posts = client.database("posts", true);
@@ -198,28 +179,7 @@ public class CouchDbSetup extends DatabaseSetup {
             posts.save(getDefaultPost());
 
             // set permissions
-            request = Http.PUT(new URL(client.getBaseUri() + "/posts/_security"), "application/json");
-            request.setRequestBody(
-                    "{\r\n" + 
-                    "    \"admins\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"admin\"\r\n" + 
-                    "        ]\r\n" + 
-                    "    },\r\n" +
-                    "    \"members\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"author\"\r\n" + 
-                    "        ]\r\n" + 
-                    "    }\r\n" +
-                    "}");
-            response = client.executeRequest(request);
-            if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
-                    && response.getConnection()
-                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
-                // failed to set permissions
-                throw new IOException("Failed to set default db permissions for 'posts'.");
-            }
+            setDbPermissions(client, "posts", ADMIN_AUTHOR_ROLES);
 
             // create views
             Database views = client.database("views", true);
@@ -228,28 +188,7 @@ public class CouchDbSetup extends DatabaseSetup {
                     .put(viewsdesign);
 
             // set permissions
-            request = Http.PUT(new URL(client.getBaseUri() + "/views/_security"), "application/json");
-            request.setRequestBody(
-                    "{\r\n" + 
-                    "    \"admins\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"admin\"\r\n" +
-                    "        ]\r\n" + 
-                    "    },\r\n" +
-                    "    \"members\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"author\"\r\n" + 
-                    "        ]\r\n" + 
-                    "    }\r\n" +
-                    "}");
-            response = client.executeRequest(request);
-            if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
-                    && response.getConnection()
-                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
-                // failed to set permissions
-                throw new IOException("Failed to set default db permissions for 'views'.");
-            }
+            setDbPermissions(client, "views", ADMIN_AUTHOR_ROLES);
 
             // default app config
             Database app = client.database("application", true);
@@ -258,33 +197,36 @@ public class CouchDbSetup extends DatabaseSetup {
             app.save(getDefaultAppHeaders());
 
             // set permissions
-            request = Http.PUT(new URL(client.getBaseUri() + "/application/_security"), "application/json");
-            request.setRequestBody(
-                    "{\r\n" + 
-                    "    \"admins\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"admin\"\r\n" + 
-                    "        ]\r\n" + 
-                    "    },\r\n" +
-                    "    \"members\": {\r\n" + 
-                    "        \"roles\": [\r\n" + 
-                    "            \"author\"\r\n" + 
-                    "        ]\r\n" + 
-                    "    }\r\n" +
-                    "}");
-            response = client.executeRequest(request);
-            if (response.getConnection()
-                    .getResponseCode() != HttpURLConnection.HTTP_CREATED
-                    && response.getConnection()
-                            .getResponseCode() != HttpURLConnection.HTTP_OK) {
-                // failed to set permissions
-                throw new IOException("Failed to set default db permissions for 'application'.");
-            }
+            setDbPermissions(client, "application", ADMIN_AUTHOR_ROLES);
 
             return true;
-
         } catch (Exception e) {
             logger.error("Failed Database Installation: Exception occured during install: ", e);
+        }
+        return false;
+    }
+
+    /**
+     * Sends HTTP PUT request to assign roles to the given database.
+     * @param client CloudantClient
+     * @param dbname name of database
+     * @param rolesJson JSON string of roles for admins and authors
+     * @throws IOException if error
+     */
+    private void setDbPermissions(CloudantClient client, String db, String rolesJson) throws IOException {
+        HttpConnection request = null;
+        HttpConnection response = null;
+        try {
+            request = Http.PUT(new URL(client.getBaseUri() + "/" + db + "/_security"), "application/json");
+            request.setRequestBody(rolesJson);
+            response = client.executeRequest(request);
+
+            int code = response.getConnection()
+                    .getResponseCode();
+            if (code != HttpURLConnection.HTTP_CREATED && code != HttpURLConnection.HTTP_OK) {
+                // failed to set permissions
+                throw new IOException("Failed to set default db permissions for '" + db + "'.");
+            }
         } finally {
             // close streams
             if (response != null) {
@@ -294,7 +236,6 @@ public class CouchDbSetup extends DatabaseSetup {
                 request.disconnect();
             }
         }
-        return false;
     }
 
     /**
@@ -331,11 +272,11 @@ public class CouchDbSetup extends DatabaseSetup {
             return true;
 
         } catch (NoDocumentException e) {
-            logger.error(
-                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.", e);
+            logger.error("Failed Database Test: Please check permissions for ID given to create/edit/delete documents.",
+                    e);
         } catch (DocumentConflictException e) {
-            logger.error(
-                    "Failed Database Test: Please check permissions for ID given to create/edit/delete documents.", e);
+            logger.error("Failed Database Test: Please check permissions for ID given to create/edit/delete documents.",
+                    e);
         } catch (MalformedURLException | CouchDbException e) {
             logger.error("Failed Database Test: Please check the Database URL and try again.", e);
         } catch (Exception e) {
@@ -458,7 +399,8 @@ public class CouchDbSetup extends DatabaseSetup {
         } catch (Exception e) {
             // failed
             logger.warn(
-                    "Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.", e);
+                    "Admin Party mode is still enabled. Please create a Database administrator as soon as possible to secure it.",
+                    e);
             return false;
         } finally {
             // close streams
@@ -566,7 +508,7 @@ public class CouchDbSetup extends DatabaseSetup {
         post.setModifyDate(now);
         return post;
     }
-    
+
     /**
      * Creates and returns a default application firewall list, that's empty.
      * @return AppFirewall
@@ -604,7 +546,7 @@ public class CouchDbSetup extends DatabaseSetup {
 
         // Set software identifier
         headers.add(new Header("X-Powered-By", "oddox.org"));
-        
+
         hd.setHeaders(headers);
         return hd;
     }
