@@ -2,12 +2,10 @@ plugins {
   id 'java'
   id 'jacoco'
   id 'application'
-  id 'com.github.johnrengelman.shadow' version '2.0.4'
 }
 
 group = 'org.oddox'
 jar.baseName = 'oddox'
-jar.enabled = false
 description = 'open source blog with an offline-first writer'
 mainClassName = 'org.oddox.OddoxVerticle'
 sourceCompatibility = 1.9
@@ -55,9 +53,13 @@ jacocoTestReport {
   }
 }
 
-shadowJar {
-  classifier = null
-  version = null
+jar {
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+  from {
+    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  }
 }
 
 /* Stage task for Heroku only */
