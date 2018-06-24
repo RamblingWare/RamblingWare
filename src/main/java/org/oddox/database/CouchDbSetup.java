@@ -37,6 +37,19 @@ import com.google.gson.JsonObject;
  */
 public class CouchDbSetup extends DatabaseSetup {
 
+    private static final String ADMIN_AUTHOR_ROLES = "{\r\n" 
+            + "    \"admins\": {\r\n" 
+            + "        \"roles\": [\r\n"
+            + "            \"admin\"\r\n" 
+            + "        ]\r\n" 
+            + "    },\r\n" 
+            + "    \"members\": {\r\n"
+            + "        \"roles\": [\r\n" 
+            + "            \"author\"\r\n" 
+            + "        ]\r\n" 
+            + "    }\r\n" 
+            + "}";
+    
     private static Logger logger = LoggerFactory.getLogger(CouchDbSetup.class);
 
     public CouchDbSetup(org.oddox.database.Database database) {
@@ -142,10 +155,6 @@ public class CouchDbSetup extends DatabaseSetup {
             return false;
         }
     }
-
-    private static final String ADMIN_AUTHOR_ROLES = "{\r\n" + "    \"admins\": {\r\n" + "        \"roles\": [\r\n"
-            + "            \"admin\"\r\n" + "        ]\r\n" + "    },\r\n" + "    \"members\": {\r\n"
-            + "        \"roles\": [\r\n" + "            \"author\"\r\n" + "        ]\r\n" + "    }\r\n" + "}";
 
     /**
      * Install the App Design documents and databases needed.
