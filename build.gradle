@@ -21,6 +21,8 @@ dependencies {
   compile 'io.vertx:vertx-core:3.5.+'
   compile 'io.vertx:vertx-rx-java2:3.5.+'
   compile 'io.vertx:vertx-web:3.5.+'
+  
+  // templates
   compile 'io.vertx:vertx-web-templ-freemarker:3.5.+'
   compile 'org.freemarker:freemarker:2.3.+'
   
@@ -37,7 +39,7 @@ dependencies {
   
   // testing
   testCompile 'junit:junit:4.12'
-  testCompile 'org.mockito:mockito-core:2.10.+'
+  testCompile 'org.mockito:mockito-core:2.+'
   testCompile 'io.vertx:vertx-unit:3.5.+'
 }
 
