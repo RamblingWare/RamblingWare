@@ -35,10 +35,6 @@ public class ApplicationTests {
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
         assertTrue(app != null);
     }
 

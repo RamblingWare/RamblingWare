@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.oddox.action.interceptor.DynamicContentInterceptor;
 
 /**
  * Unit tests for DynamicContentInterceptor
@@ -17,15 +16,17 @@ import org.oddox.action.interceptor.DynamicContentInterceptor;
 public class DynamicContentInterceptorTests {
 
     @InjectMocks
-    private DynamicContentInterceptor filter;
+    private DynamicContentInterceptor handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
+        assertTrue(handle != null);
     }
-
+    
     @Test
-    public void constructor() {
-        assertTrue(filter != null);
+    public void test() {
+        // TODO
+        assertTrue(true);
     }
 }

@@ -16,15 +16,17 @@ import org.mockito.MockitoAnnotations;
 public class AppInterceptorTests {
 
     @InjectMocks
-    private AppInterceptor interceptor;
+    private AppInterceptor handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
+        assertTrue(handle != null);
     }
-
+    
     @Test
-    public void constructor() {
-        assertTrue(interceptor != null);
+    public void test() {
+        // TODO
+        assertTrue(true);
     }
 }

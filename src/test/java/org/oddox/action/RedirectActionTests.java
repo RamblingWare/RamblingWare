@@ -16,15 +16,17 @@ import org.mockito.MockitoAnnotations;
 public class RedirectActionTests {
 
     @InjectMocks
-    private RedirectAction action;
+    private RedirectAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
+        assertTrue(handle != null);
     }
-
+    
     @Test
-    public void constructor() {
-        assertTrue(action != null);
+    public void test() {
+        // TODO
+        assertTrue(true);
     }
 }

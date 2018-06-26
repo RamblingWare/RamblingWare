@@ -22,29 +22,25 @@ import org.oddox.objects.Tag;
 public class TagsActionTests {
 
     @InjectMocks
-    private TagsAction action;
+    private TagsAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void variables() {
-        action.setTags(null);
-        assertNull(action.getTags());
+        handle.setTags(null);
+        assertNull(handle.getTags());
 
         Tag cat = new Tag();
         cat.setName("Meta");
         List<Tag> list = new ArrayList<Tag>();
         list.add(cat);
-        action.setTags(list);
-        assertEquals("Meta", action.getTags()
+        handle.setTags(list);
+        assertEquals("Meta", handle.getTags()
                 .get(0)
                 .getName());
     }

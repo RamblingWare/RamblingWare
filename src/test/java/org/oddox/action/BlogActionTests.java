@@ -22,37 +22,33 @@ import org.oddox.objects.Post;
 public class BlogActionTests {
 
     @InjectMocks
-    private BlogAction action;
+    private BlogAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void variables() {
-        action.setPosts(null);
-        assertNull(action.getPosts());
+        handle.setPosts(null);
+        assertNull(handle.getPosts());
 
-        action.setPage(2);
-        assertEquals(2, action.getPage());
-        action.setNextPage(3);
-        assertEquals(3, action.getNextPage());
-        action.setPrevPage(1);
-        assertEquals(1, action.getPrevPage());
-        action.setTotalPages(3);
-        assertEquals(3, action.getTotalPages());
+        handle.setPage(2);
+        assertEquals(2, handle.getPage());
+        handle.setNextPage(3);
+        assertEquals(3, handle.getNextPage());
+        handle.setPrevPage(1);
+        assertEquals(1, handle.getPrevPage());
+        handle.setTotalPages(3);
+        assertEquals(3, handle.getTotalPages());
 
         Post post = new Post("newpost");
         List<Post> list = new ArrayList<Post>();
         list.add(post);
-        action.setPosts(list);
-        assertEquals("newpost", action.getPosts()
+        handle.setPosts(list);
+        assertEquals("newpost", handle.getPosts()
                 .get(0)
                 .get_Id());
     }

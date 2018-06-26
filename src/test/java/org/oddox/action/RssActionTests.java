@@ -16,15 +16,17 @@ import org.mockito.MockitoAnnotations;
 public class RssActionTests {
 
     @InjectMocks
-    private RssAction action;
+    private RssAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
+        assertTrue(handle != null);
     }
-
+    
     @Test
-    public void constructor() {
-        assertTrue(action != null);
+    public void test() {
+        // TODO
+        assertTrue(true);
     }
 }

@@ -17,22 +17,17 @@ import org.mockito.MockitoAnnotations;
 public class SearchActionTests {
 
     @InjectMocks
-    private SearchAction action;
+    private SearchAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void variables() {
-
-        action.setQ("java");
-        assertEquals("java", action.getQ());
+        handle.setQ("java");
+        assertEquals("java", handle.getQ());
     }
 }

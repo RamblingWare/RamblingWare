@@ -19,26 +19,22 @@ import org.oddox.objects.Author;
 public class AuthorActionTests {
 
     @InjectMocks
-    private AuthorAction action;
+    private AuthorAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void variables() {
-        action.setAuthor(null);
-        assertNull(action.getAuthor());
+        handle.setAuthor(null);
+        assertNull(handle.getAuthor());
 
         Author author = new Author("admin");
-        action.setAuthor(author);
-        assertEquals("admin", action.getAuthor()
+        handle.setAuthor(author);
+        assertEquals("admin", handle.getAuthor()
                 .get_Id());
     }
 }

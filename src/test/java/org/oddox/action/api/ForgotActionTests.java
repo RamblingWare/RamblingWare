@@ -22,63 +22,59 @@ import org.mockito.MockitoAnnotations;
 public class ForgotActionTests {
 
     @InjectMocks
-    private ForgotAction action;
+    private ForgotAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void parameters() {
-        action.defaults();
-        action.setEmail("bob@protonmail.com");
-        action.setReset(true);
+        handle.defaults();
+        handle.setEmail("bob@protonmail.com");
+        handle.setReset(true);
 
         try {
-            assertTrue(action.validParameters());
+            assertTrue(handle.validParameters());
         } catch (Exception e) {
             fail(e.getMessage());
         }
 
-        action.setEmail("");
-        action.setReset(true);
+        handle.setEmail("");
+        handle.setReset(true);
 
         try {
-            action.validParameters();
+            handle.validParameters();
             fail("Failed to validate on empty email.");
         } catch (Exception e) {
             // good
         }
 
-        action.setEmail("bad@email@address");
-        action.setReset(true);
+        handle.setEmail("bad@email@address");
+        handle.setReset(true);
 
         try {
-            action.validParameters();
+            handle.validParameters();
             fail("Failed to validate on bad email.");
         } catch (Exception e) {
             // good
         }
 
-        action.setCode("");
+        handle.setCode("");
 
         try {
-            action.validParameters();
+            handle.validParameters();
             fail("Failed to validate on bad code.");
         } catch (Exception e) {
             // good
         }
 
-        action.setCode("1234567");
+        handle.setCode("1234567");
 
         try {
-            action.validParameters();
+            handle.validParameters();
             fail("Failed to validate on too long code.");
         } catch (Exception e) {
             // good
@@ -87,18 +83,18 @@ public class ForgotActionTests {
 
     @Test
     public void lockedOut() {
-        action.setSession(new HashMap<String, Object>());
-        int maxAttempts = action.maxAttempts;
+        handle.setSession(new HashMap<String, Object>());
+        int maxAttempts = handle.maxAttempts;
 
         // increment attempts up to limit
         for (int i = 1; i < maxAttempts; i++) {
-            assertFalse(action.isLockedOut(null));
+            assertFalse(handle.isLockedOut(null));
         }
 
-        assertEquals(maxAttempts, action.getAttempts() + 1);
+        assertEquals(maxAttempts, handle.getAttempts() + 1);
 
         try {
-            action.isLockedOut(null);
+            handle.isLockedOut(null);
             fail("Failed to not lock out after " + maxAttempts + " failed attempts.");
         } catch (Exception e) {
             // good
@@ -107,29 +103,29 @@ public class ForgotActionTests {
 
     @Test
     public void variables() {
-        action.setEmail("email@example.com");
-        assertEquals("email@example.com", action.getEmail());
-        action.setCode("123456");
-        assertEquals("123456", action.getCode());
-        action.setType("reset");
-        assertEquals("reset", action.getType());
+        handle.setEmail("email@example.com");
+        assertEquals("email@example.com", handle.getEmail());
+        handle.setCode("123456");
+        assertEquals("123456", handle.getCode());
+        handle.setType("reset");
+        assertEquals("reset", handle.getType());
 
-        action.setRemind(true);
-        assertTrue(action.isRemind());
-        action.setRecover(true);
-        assertTrue(action.isRecover());
-        action.setReset(true);
-        assertTrue(action.isReset());
+        handle.setRemind(true);
+        assertTrue(handle.isRemind());
+        handle.setRecover(true);
+        assertTrue(handle.isRecover());
+        handle.setReset(true);
+        assertTrue(handle.isReset());
 
-        action.setForgot("forgot");
-        assertEquals("forgot", action.getForgot());
-        action.setMessage("message");
-        assertEquals("message", action.getMessage());
-        action.setError("error");
-        assertEquals("error", action.getError());
-        action.setData(null);
-        assertNull(action.getData());
+        handle.setForgot("forgot");
+        assertEquals("forgot", handle.getForgot());
+        handle.setMessage("message");
+        assertEquals("message", handle.getMessage());
+        handle.setError("error");
+        assertEquals("error", handle.getError());
+        handle.setData(null);
+        assertNull(handle.getData());
 
-        action.setSession(null);
+        handle.setSession(null);
     }
 }

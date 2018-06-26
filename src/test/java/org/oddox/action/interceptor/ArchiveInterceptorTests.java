@@ -26,16 +26,12 @@ import org.oddox.objects.Year;
 public class ArchiveInterceptorTests {
 
     @InjectMocks
-    private ArchiveInterceptor interceptor;
+    private ArchiveInterceptor handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(interceptor != null);
+        assertTrue(handle != null);
     }
 
     @Test

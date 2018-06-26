@@ -22,29 +22,25 @@ import org.oddox.objects.Year;
 public class YearsActionTests {
 
     @InjectMocks
-    private YearsAction action;
+    private YearsAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void variables() {
-        action.setYears(null);
-        assertNull(action.getYears());
+        handle.setYears(null);
+        assertNull(handle.getYears());
 
         Year cat = new Year();
         cat.setName("Meta");
         List<Year> list = new ArrayList<Year>();
         list.add(cat);
-        action.setYears(list);
-        assertEquals("Meta", action.getYears()
+        handle.setYears(list);
+        assertEquals("Meta", handle.getYears()
                 .get(0)
                 .getName());
     }

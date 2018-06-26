@@ -22,10 +22,6 @@ public class OddoxVerticleTests {
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
         assertTrue(verticle != null);
     }
 

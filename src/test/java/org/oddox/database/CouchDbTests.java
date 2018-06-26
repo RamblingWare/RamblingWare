@@ -30,10 +30,10 @@ public class CouchDbTests {
     }
 
     @Test
-    public void construct() {
+    public void variables() {
         assertNotNull(couchdb);
         assertNotNull(database);
-
+        
         database.setHost("127.0.0.1");
         database.setPort("5984");
         database.setUsername("admin");

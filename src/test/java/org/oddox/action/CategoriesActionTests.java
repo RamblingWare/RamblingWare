@@ -22,29 +22,25 @@ import org.oddox.objects.Category;
 public class CategoriesActionTests {
 
     @InjectMocks
-    private CategoriesAction action;
+    private CategoriesAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void variables() {
-        action.setCategories(null);
-        assertNull(action.getCategories());
+        handle.setCategories(null);
+        assertNull(handle.getCategories());
 
         Category cat = new Category();
         cat.setName("Meta");
         List<Category> list = new ArrayList<Category>();
         list.add(cat);
-        action.setCategories(list);
-        assertEquals("Meta", action.getCategories()
+        handle.setCategories(list);
+        assertEquals("Meta", handle.getCategories()
                 .get(0)
                 .getName());
     }

@@ -19,26 +19,22 @@ import org.oddox.objects.Post;
 public class PostActionTests {
 
     @InjectMocks
-    private PostAction action;
+    private PostAction handle;
 
     @Before
     public void beforeEachTest() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void constructor() {
-        assertTrue(action != null);
+        assertTrue(handle != null);
     }
 
     @Test
     public void variables() {
-        action.setPost(null);
-        assertNull(action.getPost());
+        handle.setPost(null);
+        assertNull(handle.getPost());
 
         Post post = new Post("newpost");
-        action.setPost(post);
-        assertEquals("newpost", action.getPost()
+        handle.setPost(post);
+        assertEquals("newpost", handle.getPost()
                 .get_Id());
     }
 }
