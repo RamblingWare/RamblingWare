@@ -64,8 +64,3 @@ jar {
   }
 }
 
-/* Stage task for Heroku only */
-task stage(dependsOn: ['assemble', 'clean']) {
-  assemble.mustRunAfter clean
-}
-
