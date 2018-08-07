@@ -4,15 +4,15 @@ LABEL maintainer="Austin Delamar @amdelamar" \
       description="open source blog with an offline-first writer"
 
 # App config
-ENV ODDOX_HOME /usr/oddox \
-    PORT 8080 \
-    HTTPS_ENABLED true \
-    HTTPS_PORT 8443
+ENV ODDOX_HOME="/usr/oddox" \
+    PORT="8080" \
+    HTTPS_ENABLED="true" \
+    HTTPS_PORT="8443"
 
 # CouchDB url and credentials
-ENV DB_URL=http://localhost:5984/ \
-    DB_USER=admin \
-    DB_PASS=admin
+ENV DB_URL="http://localhost:5984/" \
+    DB_USER="admin" \
+    DB_PASS="admin"
 
 # Non-root user
 RUN groupadd -r oddox && useradd -r -g oddox oddox 
@@ -27,4 +27,4 @@ EXPOSE 8080 8443
 
 WORKDIR $ODDOX_HOME
 ENTRYPOINT ["sh","-c"]
-CMD ["exec java -jar oddox.jar"]
+CMD ["exec java $JVM_OPTS -jar oddox.jar"]
