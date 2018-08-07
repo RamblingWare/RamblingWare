@@ -98,7 +98,7 @@
 					</div>
 					<div class="three columns">
 						<p class="">
-							<span class="icon-folder padding"></span><a href="/category/${(context.post.category)!''}" title="Category" class="text-secondary"><code>${(context.post.category)!''}</code></a>
+							<span class="icon-folder padding"></span><a href="/category/${(context.post.category)!''}" title="${(context.post.category)!''}" class="text-secondary"><code>${(context.post.category)!''}</code></a>
 						</p>
 					</div>
 					<div class="three columns">
