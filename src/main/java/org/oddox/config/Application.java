@@ -137,6 +137,10 @@ public final class Application {
         try {
             // try read docker env variables
             String dbUrl = env.get("DB_URL");
+            if(dbUrl.isEmpty()) {
+                throw new IOException("DB_URL is invalid or empty");
+            }
+            
             db.setUrl(dbUrl);
             
             if(dbUrl.contains("https")) {
