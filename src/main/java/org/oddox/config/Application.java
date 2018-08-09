@@ -137,11 +137,6 @@ public final class Application {
         try {
             // try read docker env variables
             String dbUrl = env.get("DB_URL");
-            
-            if(dbUrl == null || dbUrl.isEmpty()) {
-                throw new IOException("DB_URL is invalid or empty");
-            }
-            
             db.setUrl(dbUrl);
             
             if(dbUrl.contains("https")) {
@@ -158,7 +153,6 @@ public final class Application {
             
             // custom port used?
             if(host.contains(":")) {
-                
                 db.setPort(host.substring(host.indexOf(":") + 1, host.length()));
                 host = host.substring(0, host.indexOf(":"));
             }
