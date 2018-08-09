@@ -159,15 +159,9 @@ public class UtilsTests {
     }
 
     @Test
-    public void designFiles() {
+    public void resourceFiles() {
         try {
             assertNotNull(Utils.getResourceAsFile("/design/testdesign.json"));
-        } catch (IOException e) {
-            fail(e.getMessage());
-        }
-
-        try {
-            assertNotNull(Utils.downloadUrlFile("http://oddox.org/"));
         } catch (IOException e) {
             fail(e.getMessage());
         }
@@ -180,15 +174,24 @@ public class UtilsTests {
         }
 
         try {
-            Utils.downloadUrlFile(null);
-            fail("Failed to catch null file.");
+            Utils.getResourceAsFile("");
+            fail("Failed to catch empty file.");
         } catch (Exception e) {
             // good
         }
+    }
+    
+    @Test
+    public void urlFiles() {
+        try {
+            assertNotNull(Utils.downloadUrlFile("https://oddox.org/"));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
 
         try {
-            Utils.getResourceAsFile("");
-            fail("Failed to catch empty file.");
+            Utils.downloadUrlFile(null);
+            fail("Failed to catch null file.");
         } catch (Exception e) {
             // good
         }
