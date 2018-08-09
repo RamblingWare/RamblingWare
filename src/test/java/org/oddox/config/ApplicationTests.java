@@ -262,5 +262,24 @@ public class ApplicationTests {
         } catch (IOException e) {
             // ok good
         }
+        
+        // invalid DB_URL
+        dockerenv.remove("DB_URL");
+        try {
+            db = Application.loadDatabase(dockerenv, null);
+            fail("failed to catch invalid DB_URL env");
+        } catch (IOException e) {
+            // ok good
+        }
+    }
+    
+    @Test
+    public void nullEnv() {
+        try {
+            Application.loadDatabase(null, null);
+            fail("failed to catch null env and propFile");
+        } catch (IOException e) {
+            // ok good
+        }
     }
 }
