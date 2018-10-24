@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import org.oddox.config.AppFirewall;
 import org.oddox.config.AppHeaders;
@@ -254,10 +255,11 @@ public class CouchDbSetup extends DatabaseSetup {
      */
     protected boolean hasAdminPermissions() {
         try {
+            String dbname = "delete-me-" + UUID.randomUUID();
             CloudantClient client = getConnection();
 
             // create database
-            Database db = client.database("crudtest", true);
+            Database db = client.database(dbname, true);
 
             // create document
             JsonObject json = new JsonObject();
@@ -276,7 +278,7 @@ public class CouchDbSetup extends DatabaseSetup {
             db.remove(json);
 
             // delete database
-            client.deleteDB("crudtest");
+            client.deleteDB(dbname);
 
             return true;
 
