@@ -18,9 +18,9 @@ repositories {
 
 dependencies {
   // framework
-  compile 'io.vertx:vertx-core:3.5.+'
-  compile 'io.vertx:vertx-rx-java2:3.5.+'
-  compile 'io.vertx:vertx-web:3.5.+'
+  compile 'io.vertx:vertx-core:3.6.+'
+  compile 'io.vertx:vertx-rx-java2:3.6.+'
+  compile 'io.vertx:vertx-web:3.6.+'
   
   // templates
   compile 'io.vertx:vertx-web-templ-freemarker:3.5.+'
