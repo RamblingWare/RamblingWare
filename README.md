@@ -19,7 +19,20 @@ Oddox is a blog with an offline-first editor. Write, save, and publish your post
 
 This project is still in development but stay tuned. The first version will be made available once the main features are complete.
 
-## Deployment
+## Build and Deploy
+
+For developers, run the commands below to get started.
+
+``` bash
+# build for production
+./gradlew build
+
+# serve at localhost:8080
+./gradlew run
+
+# run all tests
+./gradlew test
+```
 
 > Under construction...
 
@@ -73,7 +86,7 @@ This project is still in development but stay tuned. The first version will be m
 ## Tech Stack
 
  *  [Java 1.9](https://www.java.com/) Language
- *  [Vert.x 3.5](https://vertx.io/) Framework
+ *  [Vert.x 3.6](https://vertx.io/) Framework
  *  [CouchDB 2.1.1](https://couchdb.apache.org/) NoSQL Database
  *  [FreeMarker 2.3](https://freemarker.apache.org/) Templates
 
