@@ -184,7 +184,7 @@ public class UtilsTests {
     @Test
     public void urlFiles() {
         try {
-            assertNotNull(Utils.downloadUrlFile("https://oddox.org/"));
+            assertNotNull(Utils.downloadUrlFile("https://amdelamar.com/"));
         } catch (IOException e) {
             fail(e.getMessage());
         }
