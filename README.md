@@ -1,8 +1,8 @@
 # Oddox Server
 
-[![Build](https://img.shields.io/travis/oddoxorg/oddox.svg)](https://travis-ci.org/oddoxorg/oddox)
-[![Codacy grade](https://img.shields.io/codacy/grade/ae13ca0369824fda9b4d32d43398495c.svg)](https://www.codacy.com/app/amdelamar/oddox)
-[![Codecov](https://img.shields.io/codecov/c/github/oddoxorg/oddox.svg)](https://codecov.io/gh/oddoxorg/oddox)
+[![Build](https://img.shields.io/travis/amdelamar/oddox-server.svg)](https://travis-ci.org/amdelamar/oddox-server)
+[![Codacy grade](https://img.shields.io/codacy/grade/ae13ca0369824fda9b4d32d43398495c.svg)](https://www.codacy.com/app/amdelamar/oddox-server)
+[![Codecov](https://img.shields.io/codecov/c/github/amdelamar/oddox-server.svg)](https://codecov.io/gh/amdelamar/oddox-server)
 
 Oddox is a blog with an offline-first editor. Write, save, and publish your posts without an internet connection, then sync later when you're connected.
 
@@ -10,7 +10,7 @@ Oddox is a blog with an offline-first editor. Write, save, and publish your post
 
  * Multi-Author blog system with roles. Author, Admin, Co-Authors, and Editors
  * Organize blog posts by Tags, Categories, Featured, Authors, and Dates
- * Offline-first [dashboard](https://github.com/oddoxorg/dashboard/) for authors to manage their blog
+ * Offline-first [dashboard](https://github.com/amdelamar/oddox-dashboard/) for authors to manage their blog
  * SEO & Social Media ready with Facebook (OpenGraph), Twitter, Google+ tags
  * HTTP/2, HTTPS, and pbkdf2 ([RFC2898](https://www.ietf.org/rfc/rfc2898.txt)) hashed passwords
  * Fast, asynchronous, caches content by default
@@ -77,4 +77,4 @@ This project is still in development but stay tuned. The first version will be m
  *  [CouchDB 2.1.1](https://couchdb.apache.org/) NoSQL Database
  *  [FreeMarker 2.3](https://freemarker.apache.org/) Templates
 
-[Apache 2.0](https://github.com/oddoxorg/oddox/blob/master/LICENSE) License
+[Apache 2.0](https://github.com/amdelamar/oddox-server/blob/master/LICENSE) License
