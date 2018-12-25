@@ -38,40 +38,40 @@ For developers, run the commands below to get started.
 
 <!--
 ### One-Click Deploy
-[![Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/oddoxorg/oddox)
-[![Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/oddoxorg/oddox)
-[![Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/oddoxorg/oddox)
-[![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/oddoxorg/oddox)
+[![Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/amdelamar/oddox-server)
+[![Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/amdelamar/oddox-server)
+[![Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/amdelamar/oddox-server)
+[![Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/amdelamar/oddox-server)
 
 ### Docker Deploy
 
- 1. Pull [CouchDB 2.1.1](https://hub.docker.com/r/oddoxorg/couchdb/)
+ 1. Pull [CouchDB 2.1.1](https://hub.docker.com/r/amdelamar/couchdb/)
     ```
-    docker pull oddoxorg/couchdb:2.1.1
+    docker pull amdelamar/couchdb:2.1.1
     ```
- 1. Pull [Oddox 0.1.0](https://hub.docker.com/r/oddoxorg/oddox/)
+ 1. Pull [Oddox 0.1.0](https://hub.docker.com/r/amdelamar/oddox/)
     ```
-    docker pull oddoxorg/oddox:0.1.0
+    docker pull amdelamar/oddox:0.1.0
     ```
  1. Run CouchDB container
     ```
-    docker run -d -e COUCHDB_USER=oddox -e COUCHDB_PASSWORD=<STRONG-PW> -p 6984:6984 oddoxorg/couchdb:2.1.1
+    docker run -d -e COUCHDB_USER=oddox -e COUCHDB_PASSWORD=<STRONG-PW> -p 6984:6984 amdelamar/couchdb:2.1.1
     ```
      - Set your password for `<STRONG-PW>`. Write it down. Never share it!
      - Get the `<CONTAINER-IP>` for the next step.
  1. Run Oddox container
     ```
-    docker run -e DB_URL=https://<CONTAINER-IP>:6984/ -e DB_USER=oddox -e DB_PASS=<STRONG-PW> -p 8080:8080 -p 8443:8443  oddoxorg/oddox:0.1.0
+    docker run -e DB_URL=https://<CONTAINER-IP>:6984/ -e DB_USER=oddox -e DB_PASS=<STRONG-PW> -p 8080:8080 -p 8443:8443  amdelamar/oddox:0.1.0
     ```
      - Enter the `<CONTAINER-IP>` and `<STRONG-PW>` from your CouchDB container.
  1. Visit `https://<container-ip>:8443/`
 
-  docker pull oddoxorg/couchdb:2.1.1
-  docker pull oddoxorg/oddox:0.1.0
-  docker build --no-cache --rm -t oddoxorg/oddox:0.1.0 -t oddoxorg/oddox .
-  docker run -e DB_URL=https://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 oddoxorg/oddox
-  docker push oddoxorg/oddox
-  docker push oddoxorg/oddox:0.1.0
+  docker pull amdelamar/couchdb:2.1.1
+  docker pull amdelamar/oddox:0.1.0
+  docker build --no-cache --rm -t amdelamar/oddox:0.1.0 -t amdelamar/oddox .
+  docker run -e DB_URL=https://<container-ip>:6984/ -e DB_USER=admin -e DB_PASS=admin -p 8080:8080 -p 8443:8443 amdelamar/oddox
+  docker push amdelamar/oddox
+  docker push amdelamar/oddox:0.1.0
 
 ### Cloud Foundry Deploy
 

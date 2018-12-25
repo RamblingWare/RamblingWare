@@ -4,10 +4,10 @@ plugins {
   id 'application'
 }
 
-group = 'org.oddox'
+group = 'com.amdelamar'
 jar.baseName = 'oddox'
 description = 'open source blog with an offline-first writer'
-mainClassName = 'org.oddox.OddoxVerticle'
+mainClassName = 'com.amdelamar.OddoxVerticle'
 sourceCompatibility = 1.9
 targetCompatibility = 1.9
 compileJava.options.encoding = 'UTF-8'
@@ -21,22 +21,22 @@ dependencies {
   compile 'io.vertx:vertx-core:3.5.+'
   compile 'io.vertx:vertx-rx-java2:3.5.+'
   compile 'io.vertx:vertx-web:3.5.+'
-  
+
   // templates
   compile 'io.vertx:vertx-web-templ-freemarker:3.5.+'
   compile 'org.freemarker:freemarker:2.3.+'
-  
+
   // database
   compile 'com.cloudant:cloudant-client:2.+'
   compile 'com.google.code.gson:gson:2.8.+'
   // compile 'com.squareup.okhttp3:okhttp-urlconnection:3.8.+'
-  
+
   // logging
   compile 'org.apache.logging.log4j:log4j-api:2.11.+'
   compile 'org.apache.logging.log4j:log4j-core:2.11.+'
   compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.+'
   compile 'org.slf4j:slf4j-api:1.7.+'
-  
+
   // testing
   testCompile 'junit:junit:4.12'
   testCompile 'org.mockito:mockito-core:2.+'
@@ -63,4 +63,3 @@ jar {
     configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
   }
 }
-
