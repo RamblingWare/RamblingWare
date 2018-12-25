@@ -4,7 +4,7 @@ LABEL maintainer="Austin Delamar @amdelamar" \
       description="open source blog with an offline-first writer"
 
 # App config
-ENV ODDOX_HOME="/usr/oddox" \
+ENV ODDOX_HOME="/opt/oddox" \
     PORT="8080" \
     HTTPS_ENABLED="true" \
     HTTPS_PORT="8443"
@@ -15,11 +15,11 @@ ENV DB_URL="http://localhost:5984/" \
     DB_PASS="admin"
 
 # Non-root user
-RUN groupadd -r oddox && useradd -r -g oddox oddox 
+RUN groupadd -r oddox && useradd -r -g oddox oddox
 USER oddox
 
 # Copy App resources
-COPY --chown=oddox:oddox build/libs/oddox.jar $ODDOX_HOME/
+COPY --chown=oddox:oddox build/libs/oddox-0.1.0.jar $ODDOX_HOME/
 COPY --chown=oddox:oddox webroot $ODDOX_HOME/webroot/
 
 # Ports
@@ -27,4 +27,4 @@ EXPOSE 8080 8443
 
 WORKDIR $ODDOX_HOME
 ENTRYPOINT ["sh","-c"]
-CMD ["exec java $JVM_OPTS -jar oddox.jar"]
+CMD ["exec java $JVM_OPTS -jar oddox-0.1.0.jar"]

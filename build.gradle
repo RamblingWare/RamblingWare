@@ -6,6 +6,7 @@ plugins {
 
 group = 'com.amdelamar'
 jar.baseName = 'oddox'
+version = '0.1.0'
 description = 'open source blog with an offline-first writer'
 mainClassName = 'com.amdelamar.OddoxVerticle'
 sourceCompatibility = 1.9
