@@ -3,6 +3,7 @@ applications:
   memory: 512M
   buildpack: java_buildpack
   env:
-    JBP_CONFIG_OPEN_JDK_JRE: '{jre: { version: 1.9.0_+ }}'
+    JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 1.9.0_+ } }'
+    JAVA_OPTS: '-XX:MaxMetaspaceSize=200M -Xmx200M -Xms16M -Xss228k'
   services:
   - CouchDB
