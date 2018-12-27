@@ -16,11 +16,7 @@
 				<h1 style="vertical-align: middle;"><span class="icon-users"></span>&nbsp;Authors</h1>
 
 				<#if context.authors??>
-					<#if context.authors.size() == 1>
-						<p>Only 1 author writes this blog!<br /></p>
-					<#else>
-						<p>${(context.authors.size())!''} authors write for this blog.<br /></p>
-					</#if>
+					<p>${(context.authors?size)!''} authors found. (Sorted alphabetically).<br /></p>
 					<div class="row" style="min-height:0px">
 					<#list context.authors as author>
 						<#include "../author/card-author.ftl">
