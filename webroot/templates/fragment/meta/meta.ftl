@@ -20,7 +20,6 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:site" content="${(context.twitterHandle)!''}"/>
 <meta name="twitter:title" content="${(context.name)!'Oddox'}"/>
 <meta name="twitter:description" content="${(context.description)!'description'}"/>
 <meta name="twitter:image" content="/images/icon-light-512.png"/>

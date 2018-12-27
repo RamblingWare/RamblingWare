@@ -17,7 +17,6 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:site" content="${(context.twitterHandle)!''}"/>
 <meta name="twitter:title" content="${(context.post.title)!''}"/>
 <meta name="twitter:description" content="${(context.post.description)!''}"/>
 <meta name="twitter:image" content="${(context.post.thumbnail)!''}"/>
