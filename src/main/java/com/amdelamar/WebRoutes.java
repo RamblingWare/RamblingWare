@@ -46,7 +46,7 @@ public final class WebRoutes {
         Router main = Router.router(vertx);
 
         // Static Resources
-        main.routeWithRegex("(.+)[.](css|js|htm|html|txt|md|csv|jpg|jpeg|png|ico|tff|woff|eot|svg)$")
+        main.routeWithRegex("(.+)[.](css|js|htm|html|txt|md|csv|jpg|jpeg|png|ico|ttf|woff|eot|svg)$")
                 .handler(StaticHandler.create()
                         .setAlwaysAsyncFS(true)
                         .setFilesReadOnly(true)
@@ -55,8 +55,7 @@ public final class WebRoutes {
                         .setCacheEntryTimeout(31536000l));
 
         // Interceptors for HTTP headers and  Context attributes
-        main.route("/**.*")
-                .handler(new StaticContentInterceptor());
+        //main.route("/**.*").handler(new StaticContentInterceptor());
         main.route("/*")
                 .handler(new DynamicContentInterceptor());
         main.route("/*")
