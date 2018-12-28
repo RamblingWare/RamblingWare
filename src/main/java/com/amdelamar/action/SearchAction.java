@@ -39,7 +39,7 @@ public class SearchAction implements Handler<RoutingContext> {
         if (q != null && !q.isEmpty()) {
             // POST external search
             try {
-                // redirect to DuckDuckGo with the search text provided
+                // redirect to search provider with the search text provided
                 context.response()
                         .setStatusCode(302);
                 context.response()

@@ -5,8 +5,7 @@
         </a>
     </div>
     <div class="nav-list text-center" onclick="closeSidebar()">
-        <a class="nav-item" href="/">Blog</a>
-        <a class="nav-item" href="/about">About</a>
+        <a class="nav-item" href="/blog/">Home</a>
         <br/>
         <a class="nav-item" href="/author/">Authors</a>
 		<a class="nav-item" href="/search">Search</a>
@@ -21,7 +20,7 @@
 <nav class="navbar border-bottom">
     <div class="navbar-body container">
         <div class="nav-item-logo">
-            <a href="/"><span class="text-medium text-uppercase text-wide">${(context.name)!'Oddox'}</span></a>
+            <a href="/blog/"><span class="text-medium text-uppercase text-wide">${(context.name)!'Oddox'}</span></a>
         </div>
         <div class="nav-small-menu">
             <a class="nav-item" title="Open Menu" href="javascript:openSidebar()">
@@ -29,8 +28,6 @@
             </a>
         </div>
         <div class="nav-group nav-large-menu text-bold">
-            <a class="nav-item" href="/">Blog</a>
-            <a class="nav-item" href="/about">About</a>
             <form action="/search" method="post" class="nav-item">
 				<i class="icon-search padding"></i>
 				<input id="searchHead" name="q" maxlength="50" placeholder="Search..." style="max-height:28px;" type="text">
