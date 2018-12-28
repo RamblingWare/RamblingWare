@@ -20,7 +20,7 @@
 		<a href="/author/${(post.author.uri)!''}" title="Author" class="text-secondary" style="vertical-align: middle; white-space:nowrap;">${(post.author.name)!''}</a>
 
 		<span class="icon-time padding" title="Publish Date"></span>
-		<a href="/year/${(post.publishYear)!''}" title="Published ${(post.publishDateTimeReadable)!''}" class="text-secondary" style="vertical-align: middle; white-space:nowrap;">${(post.publishDateReadable)!''}</a>
+		<a href="/year/${(post.publishYear?string('0'))!''}" title="Published ${(post.publishDateTimeReadable)!''}" class="text-secondary" style="vertical-align: middle; white-space:nowrap;">${(post.publishDateReadable)!''}</a>
 	</p>
 	<p class="text-secondary margin-none">
 		<#if post.category?has_content>
