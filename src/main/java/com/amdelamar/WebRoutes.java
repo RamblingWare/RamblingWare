@@ -26,11 +26,13 @@ import io.vertx.reactivex.ext.web.handler.StaticHandler;
 
 /**
  * WebRoutes creates the http route paths for actions.
- * 
+ *
  * @author amdelamar
  * @date 05/28/2018
  */
 public final class WebRoutes {
+
+    private static final String ROOT = "/blog";
 
     private WebRoutes() {
         // prevent instantiation
@@ -55,7 +57,6 @@ public final class WebRoutes {
                         .setCacheEntryTimeout(31536000l));
 
         // Interceptors for HTTP headers and  Context attributes
-        //main.route("/**.*").handler(new StaticContentInterceptor());
         main.route("/*")
                 .handler(new DynamicContentInterceptor());
         main.route("/*")
@@ -65,62 +66,95 @@ public final class WebRoutes {
 
         // Template Actions
 
-        // Blog
-        main.route("/")
-                .handler(new BlogAction());
-        main.route("/blog")
-                .handler(new BlogAction());
-        main.route("/page/:page")
-                .handler(new BlogAction());
-        main.route("/blog/:post")
-                .handler(new PostAction());
-
         // Author
         main.route("/author/:author")
                 .handler(new AuthorAction());
+        main.route(ROOT+"/author/:author")
+                .handler(new AuthorAction());
         main.route("/author")
+                .handler(new AuthorsAction());
+        main.route(ROOT+"/author")
                 .handler(new AuthorsAction());
 
         // Category
         main.route("/category/:category")
                 .handler(new CategoryAction());
+        main.route(ROOT+"/category/:category")
+                .handler(new CategoryAction());
         main.route("/category/:category/page/:page")
                 .handler(new CategoryAction());
+        main.route(ROOT+"/category/:category/page/:page")
+                .handler(new CategoryAction());
         main.route("/category")
+                .handler(new CategoriesAction());
+        main.route(ROOT+"/category")
                 .handler(new CategoriesAction());
 
         // Tag
         main.route("/tag/:tag")
                 .handler(new TagAction());
+        main.route(ROOT+"/tag/:tag")
+                .handler(new TagAction());
         main.route("/tag/:tag/page/:page")
                 .handler(new TagAction());
+        main.route(ROOT+"/tag/:tag/page/:page")
+                .handler(new TagAction());
         main.route("/tag")
+                .handler(new TagsAction());
+        main.route(ROOT+"/tag")
                 .handler(new TagsAction());
 
         // Year
         main.route("/year/:year")
                 .handler(new YearAction());
+        main.route(ROOT+"/year/:year")
+                .handler(new YearAction());
         main.route("/year/:year/page/:page")
                 .handler(new YearAction());
+        main.route(ROOT+"/year/:year/page/:page")
+                .handler(new YearAction());
         main.route("/year")
+                .handler(new YearsAction());
+        main.route(ROOT+"/year")
                 .handler(new YearsAction());
 
         // Other
         main.route("/rss")
                 .handler(new RssAction());
+        main.route(ROOT+"/rss")
+                .handler(new RssAction());
         main.route("/search")
+                .handler(new SearchAction());
+        main.route(ROOT+"/search")
                 .handler(new SearchAction());
 
         // APIs
-        main.route()
-                .path("/api")
+        main.route("/api")
                 .handler(new RootAction());
-        main.route()
-                .path("/api/forgot")
+        main.route(ROOT+"/api")
+                .handler(new RootAction());
+        main.route("/api/forgot")
                 .handler(new ForgotAction());
-        main.route()
-                .path("/api/health")
+        main.route(ROOT+"/api/forgot")
+                .handler(new ForgotAction());
+        main.route("/api/health")
                 .handler(new HealthAction());
+        main.route(ROOT+"/api/health")
+                .handler(new HealthAction());
+
+        // Blog
+        main.route("/")
+                .handler(new BlogAction());
+        main.route(ROOT)
+                .handler(new BlogAction());
+        main.route("/page/:page")
+                .handler(new BlogAction());
+        main.route(ROOT+"/page/:page")
+                .handler(new BlogAction());
+        main.route(ROOT+"/:post")
+                .handler(new PostAction());
+        main.route("/:post")
+                .handler(new PostAction());
 
         return main;
     }

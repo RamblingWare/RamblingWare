@@ -14,7 +14,7 @@ import io.vertx.reactivex.ext.web.templ.TemplateEngine;
 
 /**
  * View Post action class
- * 
+ *
  * @author amdelamar
  * @date 11/9/2015
  */
@@ -29,10 +29,9 @@ public class PostAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
-        
+
         // Don't handle if response ended
-        if(context.response().ended()) {
-            context.next();
+        if (context.response().ended() || context.response().closed()) {
             return;
         }
 
@@ -74,7 +73,7 @@ public class PostAction implements Handler<RoutingContext> {
             logger.error("Post '" + uri + "' not found. Please try again.");
             templateFile = "blog/post.ftl";
         }
-        
+
         // Bind Context
         context.put("post", post);
 
