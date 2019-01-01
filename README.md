@@ -32,6 +32,12 @@ For developers, run the commands below to get started.
 
 # run all tests
 ./gradlew test
+
+# run just unit tests
+./gradlew test -x integrationTest
+
+# run just it tests
+./gradlew integrationTest -x test
 ```
 
 > Under construction...
