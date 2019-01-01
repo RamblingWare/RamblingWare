@@ -40,6 +40,7 @@ public final class WebRoutes {
 
     /**
      * Creates and maps all web router access points.
+     *
      * @param vertx Vertx
      * @return Router
      */
@@ -48,6 +49,8 @@ public final class WebRoutes {
         Router main = Router.router(vertx);
 
         // Static Resources
+        main.routeWithRegex("(" + ROOT + "){1}(.+)[.](css|js|htm|html|txt|md|csv|jpg|jpeg|png|ico|ttf|woff|eot|svg)$")
+                .handler(cr -> cr.reroute(cr.normalisedPath().replaceFirst(ROOT,"")));
         main.routeWithRegex("(.+)[.](css|js|htm|html|txt|md|csv|jpg|jpeg|png|ico|ttf|woff|eot|svg)$")
                 .handler(StaticHandler.create()
                         .setAlwaysAsyncFS(true)
@@ -69,77 +72,77 @@ public final class WebRoutes {
         // Author
         main.route("/author/:author")
                 .handler(new AuthorAction());
-        main.route(ROOT+"/author/:author")
+        main.route(ROOT + "/author/:author")
                 .handler(new AuthorAction());
         main.route("/author")
                 .handler(new AuthorsAction());
-        main.route(ROOT+"/author")
+        main.route(ROOT + "/author")
                 .handler(new AuthorsAction());
 
         // Category
         main.route("/category/:category")
                 .handler(new CategoryAction());
-        main.route(ROOT+"/category/:category")
+        main.route(ROOT + "/category/:category")
                 .handler(new CategoryAction());
         main.route("/category/:category/page/:page")
                 .handler(new CategoryAction());
-        main.route(ROOT+"/category/:category/page/:page")
+        main.route(ROOT + "/category/:category/page/:page")
                 .handler(new CategoryAction());
         main.route("/category")
                 .handler(new CategoriesAction());
-        main.route(ROOT+"/category")
+        main.route(ROOT + "/category")
                 .handler(new CategoriesAction());
 
         // Tag
         main.route("/tag/:tag")
                 .handler(new TagAction());
-        main.route(ROOT+"/tag/:tag")
+        main.route(ROOT + "/tag/:tag")
                 .handler(new TagAction());
         main.route("/tag/:tag/page/:page")
                 .handler(new TagAction());
-        main.route(ROOT+"/tag/:tag/page/:page")
+        main.route(ROOT + "/tag/:tag/page/:page")
                 .handler(new TagAction());
         main.route("/tag")
                 .handler(new TagsAction());
-        main.route(ROOT+"/tag")
+        main.route(ROOT + "/tag")
                 .handler(new TagsAction());
 
         // Year
         main.route("/year/:year")
                 .handler(new YearAction());
-        main.route(ROOT+"/year/:year")
+        main.route(ROOT + "/year/:year")
                 .handler(new YearAction());
         main.route("/year/:year/page/:page")
                 .handler(new YearAction());
-        main.route(ROOT+"/year/:year/page/:page")
+        main.route(ROOT + "/year/:year/page/:page")
                 .handler(new YearAction());
         main.route("/year")
                 .handler(new YearsAction());
-        main.route(ROOT+"/year")
+        main.route(ROOT + "/year")
                 .handler(new YearsAction());
 
         // Other
         main.route("/rss")
                 .handler(new RssAction());
-        main.route(ROOT+"/rss")
+        main.route(ROOT + "/rss")
                 .handler(new RssAction());
         main.route("/search")
                 .handler(new SearchAction());
-        main.route(ROOT+"/search")
+        main.route(ROOT + "/search")
                 .handler(new SearchAction());
 
         // APIs
         main.route("/api")
                 .handler(new RootAction());
-        main.route(ROOT+"/api")
+        main.route(ROOT + "/api")
                 .handler(new RootAction());
         main.route("/api/forgot")
                 .handler(new ForgotAction());
-        main.route(ROOT+"/api/forgot")
+        main.route(ROOT + "/api/forgot")
                 .handler(new ForgotAction());
         main.route("/api/health")
                 .handler(new HealthAction());
-        main.route(ROOT+"/api/health")
+        main.route(ROOT + "/api/health")
                 .handler(new HealthAction());
 
         // Blog
@@ -149,9 +152,9 @@ public final class WebRoutes {
                 .handler(new BlogAction());
         main.route("/page/:page")
                 .handler(new BlogAction());
-        main.route(ROOT+"/page/:page")
+        main.route(ROOT + "/page/:page")
                 .handler(new BlogAction());
-        main.route(ROOT+"/:post")
+        main.route(ROOT + "/:post")
                 .handler(new PostAction());
         main.route("/:post")
                 .handler(new PostAction());

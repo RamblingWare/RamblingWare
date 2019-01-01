@@ -48,8 +48,7 @@ public class ForgotAction implements Handler<RoutingContext> {
     public void handle(RoutingContext context) {
 
         // Don't handle if response ended
-        if (context.response().ended()) {
-            context.next();
+        if (context.response().ended() || context.response().closed()) {
             return;
         }
 
