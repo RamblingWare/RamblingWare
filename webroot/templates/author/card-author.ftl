@@ -2,7 +2,7 @@
 <div class="round padding-right padding-bottom">
 <#if author.thumbnail?has_content>
 	<a href="/author/${(author.uri)!''}">
-	<img class="round left margin-right margin-bottom" style="max-width:175px;" src="${(author.thumbnail)!''}" title="${(author.name)!''}" alt="Profile" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
+	<img class="round left margin-right margin-bottom" style="max-width:175px;" src="${(author.thumbnail)!''}" title="${(author.name)!''}" alt="Profile" onerror="this.src='/imgages/placeholder-200.png';this.title='Failed to load image.'"/>
 	</a>
 </#if>
 	<h3 class="padding-none margin-none"><a href="/author/${(author.uri)!''}" class="text-secondary">${(author.name)!''}</a></h3>

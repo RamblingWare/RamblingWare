@@ -44,7 +44,7 @@
 
 				<div class="w3-container w3-padding">
 					<#if context.author.thumbnail?has_content>
-						<img src="${(context.author.thumbnail)!''}" class="round border margin-right margin-bottom left" style="max-height:200px" alt="Profile" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>
+						<img src="${(context.author.thumbnail)!''}" class="round border margin-right margin-bottom left" style="max-height:200px" alt="Profile" onerror="this.src='/images/placeholder-200.png';this.title='Failed to load image.'"/>
 					</#if>
 					<#if context.author.content?has_content>
 						${(context.author.content)!'Error'}

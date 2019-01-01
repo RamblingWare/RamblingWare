@@ -5,7 +5,7 @@
 </#if>
 <#if post.thumbnail?has_content>
 	<a href="/blog/${(post.uri)!''}">
-	<img class="round left margin-right margin-bottom" style="max-width:250px;" src="${(post.thumbnail)!''}" alt="${(post.title)!''}" title="${(post.bannerCaption)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
+	<img class="round left margin-right margin-bottom" style="max-width:250px;" src="${(post.thumbnail)!''}" alt="${(post.title)!''}" title="${(post.bannerCaption)!''}" onerror="this.src='/images/placeholder-640.png';this.title='Failed to load image.'"/>
 	</a>
 </#if>
 	<h3 class="padding-none margin-none"><a href="/blog/${(post.uri)!''}" class="text-secondary">${(post.title)!''}</a></h3>
@@ -13,7 +13,7 @@
 
 	<p class="text-secondary margin-none">
 		<#if post.author.thumbnail?has_content>
-			<span class="padding"><img class="round border" alt="Profile" title="Author" style="vertical-align: middle;" src="${(post.author.thumbnail)!''}" height="16" width="16" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/></span>
+			<span class="padding"><img class="round border" alt="Profile" title="Author" style="vertical-align: middle;" src="${(post.author.thumbnail)!''}" height="16" width="16" onerror="this.src='/images/placeholder-200.png';this.title='Failed to load image.'"/></span>
 		<#else>
 			<span class="icon-author padding" title="Author"></span>
 		</#if>
