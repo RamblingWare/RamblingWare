@@ -44,7 +44,7 @@
 
 				<div class="w3-container w3-padding">
 					<#if context.author.thumbnail?has_content>
-						<img src="${(context.author.thumbnail)!''}" class="round border margin-right margin-bottom left" style="max-height:200px" alt="Profile" onerror="this.src='/images/placeholder-200.png';this.title='Failed to load image.'"/>
+						<img src="${(context.author.thumbnail)!''}" class="round border margin-right margin-bottom left" style="max-height:200px" alt="Profile" onerror="this.src='/blog/images/placeholder-200.png';this.title='Failed to load image.'"/>
 					</#if>
 					<#if context.author.content?has_content>
 						${(context.author.content)!'Error'}
@@ -54,7 +54,7 @@
 				</div>
 
 				<div class="text-center">
-					<p><a href="/author/">See more authors...</a></p>
+					<p><a href="/blog/author/">See more authors...</a></p>
 				</div>
 			</div>
 
@@ -63,7 +63,7 @@
 	</article>
 
 	<#include "../fragment/footer.ftl">
-	<script type="text/javascript" src="/vendor/highlight/highlight.pack.js"></script>
+	<script type="text/javascript" src="/blog/vendor/highlight/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

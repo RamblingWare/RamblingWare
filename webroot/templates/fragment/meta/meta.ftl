@@ -14,7 +14,7 @@
 <meta property="og:url" content="${(context.url)!''}"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="${(context.name)!'Oddox'}"/>
-<meta property="og:image" content="/images/icon-light-512.png"/>
+<meta property="og:image" content="/blog/images/icon-light-512.png"/>
 <meta property="og:description" content="${(context.description)!'description'}"/>
 <meta property="og:site_name" content="${(context.name)!'Oddox'}" />
 
@@ -22,16 +22,16 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="${(context.name)!'Oddox'}"/>
 <meta name="twitter:description" content="${(context.description)!'description'}"/>
-<meta name="twitter:image" content="/images/icon-light-512.png"/>
+<meta name="twitter:image" content="/blog/images/icon-light-512.png"/>
 <meta name="twitter:domain" content="${(context.domain)!''}"/>
 <meta name="twitter:dnt" content="on">
 
 <!-- Google+ Schema.org -->
 <meta itemprop="name" content="${(context.name)!'Oddox'}"/>
 <meta itemprop="description" content="${(context.description)!'description'}"/>
-<meta itemprop="image" content="/images/icon-light-512.png"/>
+<meta itemprop="image" content="/blog/images/icon-light-512.png"/>
 
 <link rel="shortcut icon" href="/favicon.ico"/>
-<link rel="stylesheet" href="/vendor/osseous/2.5.0/osseous.min.css"/>
-<link rel="stylesheet" href="/vendor/icomoon/icomoon.css"/>
-<link rel="alternate" href="/rss" type="application/rss+xml" title="RSS"/>
+<link rel="stylesheet" href="/blog/vendor/osseous/2.5.0/osseous.min.css"/>
+<link rel="stylesheet" href="/blog/vendor/icomoon/icomoon.css"/>
+<link rel="alternate" href="/blog/rss" type="application/rss+xml" title="RSS"/>

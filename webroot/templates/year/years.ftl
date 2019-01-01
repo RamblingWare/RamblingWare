@@ -19,7 +19,7 @@
 					<p>${(context.years?size)!''} years of posts.<br /></p>
 					<ul>
 					<#list context.years as year>
-						<li><a title="${(context.year.name)!'?'}" href="/year/${(year.name)!''}" class="text-bold">${(year.name)!'?'}</a>
+						<li><a title="${(context.year.name)!'?'}" href="/blog/year/${(year.name)!''}" class="text-bold">${(year.name)!'?'}</a>
 						&nbsp;(${(year.count)!'?'} posts)
 						</li>
 					</#list>

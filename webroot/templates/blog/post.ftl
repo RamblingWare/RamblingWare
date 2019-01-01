@@ -40,7 +40,7 @@
 
 				<#if context.post.banner?has_content>
 				<div class=" animate-opacity ">
-					<img class="shade round" style="width: 100%;" alt="Photo for ${(context.post.title)!''}" title="${(context.post.bannerCaption)!''}" src="${(context.post.banner)!''}" onerror="this.src='/img/error-640.png';this.title='Failed to load image.'"/>
+					<img class="shade round" style="width: 100%;" alt="Photo for ${(context.post.title)!''}" title="${(context.post.bannerCaption)!''}" src="${(context.post.banner)!''}" onerror="this.src='/blog/images/placeholder-640.png';this.title='Failed to load image.'"/>
 				</div>
 				</#if>
 
@@ -56,7 +56,7 @@
 					<div class="three columns">
 						<p class="">
 							<#if context.post.author.thumbnail?has_content>
-								<img class="round" alt="Profile" title="Author" src="${(context.post.author.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
+								<img class="round" alt="Profile" title="Author" src="${(context.post.author.thumbnail)!''}" height="24" width="24" onerror="this.src='/blog/images/placeholder-200.png';this.title='Failed to load image.'"/>&nbsp;
 							<#else>
 								<span class="icon-author padding" title="Author"></span>
 							</#if>
@@ -67,7 +67,7 @@
 							<p class="">
 							<#list context.post.coauthors as coauthor>
 								<#if coauthor.thumbnail?has_content>
-									<img class="round" alt="Profile" title="Co-Author" src="${(coauthor.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
+									<img class="round" alt="Profile" title="Co-Author" src="${(coauthor.thumbnail)!''}" height="24" width="24" onerror="this.src='/blog/images/placeholder-200.png';this.title='Failed to load image.'"/>&nbsp;
 								<#else>
 									<span class="icon-author padding" title="Co-Author"></span>
 								</#if>
@@ -80,7 +80,7 @@
 							<p class="">
 							<#list context.post.editors as editor>
 								<#if editor.thumbnail?has_content>
-									<img class="round" alt="Profile" title="Editor" src="${(editor.thumbnail)!''}" height="24" width="24" onerror="this.src='/img/error-200.png';this.title='Failed to load image.'"/>&nbsp;
+									<img class="round" alt="Profile" title="Editor" src="${(editor.thumbnail)!''}" height="24" width="24" onerror="this.src='/blog/images/placeholder-200.png';this.title='Failed to load image.'"/>&nbsp;
 								<#else>
 									<span class="icon-author padding" title="Editor"></span>
 								</#if>
@@ -141,7 +141,7 @@
 	</article>
 
 	<#include "../fragment/footer.ftl">
-	<script type="text/javascript" src="/vendor/highlight/highlight.pack.js"></script>
+	<script type="text/javascript" src="/blog/vendor/highlight/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

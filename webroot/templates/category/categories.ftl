@@ -19,7 +19,7 @@
 					<p>${(context.categories?size)!''} categories found. (Sorted alphabetically).<br /></p>
 					<ol>
 					<#list context.categories as category>
-						<li><a title="${(category.name)!'?'}" href="/category/${(category.name)!''}" class="text-bold">${(category.name)!'?'}</a>
+						<li><a title="${(category.name)!'?'}" href="/blog/category/${(category.name)!''}" class="text-bold">${(category.name)!'?'}</a>
 						&nbsp;(${(category.count)!'?'} posts)
 						</li>
 					</#list>

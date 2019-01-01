@@ -7,14 +7,14 @@
     <div class="nav-list text-center" onclick="closeSidebar()">
         <a class="nav-item" href="/blog/">Home</a>
         <br/>
-        <a class="nav-item" href="/author/">Authors</a>
-		<a class="nav-item" href="/search">Search</a>
+        <a class="nav-item" href="/blog/author/">Authors</a>
+		<a class="nav-item" href="/blog/search">Search</a>
 		<br/>
-		<a class="nav-item" href="/year/">Years</a>
-		<a class="nav-item" href="/category/">Categories</a>
-		<a class="nav-item" href="/tag/">Tags</a>
+		<a class="nav-item" href="/blog/year/">Years</a>
+		<a class="nav-item" href="/blog/category/">Categories</a>
+		<a class="nav-item" href="/blog/tag/">Tags</a>
 		<hr/>
-		<a class="nav-item text-tertiary" target="_blank" href="https://oddox.org" title="Oddox.org">Powered by Oddox</a>
+		<a class="nav-item text-tertiary" target="_blank" href="https://amdelamar.com/oddox-website/" title="Oddox">Powered by Oddox</a>
     </div>
 </nav>
 <nav class="navbar border-bottom">
@@ -28,7 +28,7 @@
             </a>
         </div>
         <div class="nav-group nav-large-menu text-bold">
-            <form action="/search" method="post" class="nav-item">
+            <form action="/blog/search" method="post" class="nav-item">
 				<i class="icon-search padding"></i>
 				<input id="searchHead" name="q" maxlength="50" placeholder="Search..." style="max-height:28px;" type="text">
 			</form>

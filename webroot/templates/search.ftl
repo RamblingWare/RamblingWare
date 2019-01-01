@@ -15,7 +15,7 @@
 			
 				<h1>Search</h1>
 	
-				<form action="/search" method="post">
+				<form action="/blog/search" method="post">
 				<p>
 					<input name="q" maxlength="50" size="50" placeholder="Search..." type="text" />
 					<button class="button button-primary" type="submit" title="Enter">

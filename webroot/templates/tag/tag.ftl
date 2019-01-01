@@ -31,7 +31,7 @@
 				</#if>
 
 				<div class="text-center">
-					<p><a href="/tag/">See more tags...</a></p>
+					<p><a href="/blog/tag/">See more tags...</a></p>
 				</div>
 			</div>
 

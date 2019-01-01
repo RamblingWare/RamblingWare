@@ -31,7 +31,7 @@
 				</#if>
 
 				<div class="text-center">
-					<p><a href="/year/">See more years...</a></p>
+					<p><a href="/blog/year/">See more years...</a></p>
 				</div>
 			</div>
 

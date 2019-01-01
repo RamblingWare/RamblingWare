@@ -8,7 +8,7 @@
 <meta http-equiv="expires" content="${(context.date)!''}"/>
 
 <link rel="shortcut icon" href="/favicon.ico"/>
-<link rel="stylesheet" href="/vendor/osseous/2.5.0/osseous.min.css"/>
-<link rel="stylesheet" href="/vendor/icomoon/icomoon.css"/>
-<link rel="stylesheet" href="/vendor/highlight/styles/dark.css"/>
-<link rel="alternate" href="/rss" type="application/rss+xml" title="RSS"/>
+<link rel="stylesheet" href="/blog/vendor/osseous/2.5.0/osseous.min.css"/>
+<link rel="stylesheet" href="/blog/vendor/icomoon/icomoon.css"/>
+<link rel="stylesheet" href="/blog/vendor/highlight/styles/dark.css"/>
+<link rel="alternate" href="/blog/rss" type="application/rss+xml" title="RSS"/>

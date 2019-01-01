@@ -19,7 +19,7 @@
 					<p>${(context.tags?size)!''} tags found. (Sorted alphabetically).<br /></p>
 					<ol>
 					<#list context.tags as tag>
-						<li><a title="${(tag.name)!'?'}" href="/tag/${(tag.name)!''}" class="text-bold">${(tag.name)!'?'}</a>
+						<li><a title="${(tag.name)!'?'}" href="/blog/tag/${(tag.name)!''}" class="text-bold">${(tag.name)!'?'}</a>
 						&nbsp;(${(tag.count)!'?'} posts)
 						</li>
 					</#list>
