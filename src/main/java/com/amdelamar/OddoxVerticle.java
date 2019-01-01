@@ -11,6 +11,7 @@ import com.amdelamar.config.Utils;
 import com.amdelamar.database.CouchDb;
 import com.amdelamar.database.CouchDbSetup;
 import com.amdelamar.database.Database;
+import io.vertx.core.net.JksOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,7 @@ import io.vertx.reactivex.ext.web.Router;
 
 /**
  * OddoxVerticle for Vertx
- * 
+ *
  * @author amdelamar
  * @date 05/28/2018
  */
@@ -38,18 +39,13 @@ public class OddoxVerticle extends AbstractVerticle {
     public final static int HTTPS_PORT = 8443;
     public final static String APP_PROP_FILE = "/app.properties";
     public final static String DB_PROP_FILE = "/db.properties";
-    public final static String KEYSTORE = "/deploy/keystore.jks";
-    public final static String KEYSTORE_PASSWORD = "changeit";
     public final static String TEMPLATES_DIR = System.getProperty("user.dir") + "/webroot/templates/";
 
     // Internal vars
     private static int httpPort = PORT;
     private static int httpsPort = HTTPS_PORT;
+    private static boolean httpsEnabled = false;
     private static HttpServer httpServer;
-    private static HttpServer httpsServer;
-    private static Boolean httpsEnabled = false;
-    private static Boolean httpRedirectEnabled = false;
-    private static Boolean http2Enabled = false;
     private static Logger logger = LoggerFactory.getLogger(OddoxVerticle.class);
 
     public static void main(String[] args) {
@@ -83,11 +79,11 @@ public class OddoxVerticle extends AbstractVerticle {
             httpsEnabled = false;
         }
 
+        boolean httpRedirectEnabled = false;
         try {
             // HTTP_REDIRECT_ENABLED env check
             httpRedirectEnabled = Boolean.parseBoolean(System.getenv("HTTP_REDIRECT_ENABLED"));
         } catch (Exception e) {
-            httpRedirectEnabled = false;
         }
 
         // Check all prerequisites
@@ -125,12 +121,17 @@ public class OddoxVerticle extends AbstractVerticle {
 
     @Override
     public void stop(io.vertx.core.Future<Void> stopFuture) throws Exception {
-        logger.info("Stopped listening on ports: " + httpPort + ", " + httpsPort);
+        if (httpsEnabled) {
+            logger.info("Stopped listening on ports: " + httpPort + ", " + httpsPort);
+        } else {
+            logger.info("Stopped listening on port: " + httpPort);
+        }
         stopFuture.complete();
     }
 
     /**
      * Check if Webroot exists
+     *
      * @return Future
      */
     @SuppressWarnings("rawtypes")
@@ -225,6 +226,7 @@ public class OddoxVerticle extends AbstractVerticle {
             httpsPort = HTTPS_PORT;
         }
 
+        Boolean http2Enabled = false;
         try {
             // HTTP2_ENABLED env check
             http2Enabled = Boolean.parseBoolean(System.getenv("HTTP2_ENABLED"));
@@ -232,16 +234,35 @@ public class OddoxVerticle extends AbstractVerticle {
             http2Enabled = false;
         }
 
-        // Generate the certificate for https
-        SelfSignedCertificate cert = SelfSignedCertificate.create();
+        // HTTPS_KEYSTORE env check
+        String httpsKeystore = System.getenv("HTTPS_KEYSTORE");
+        String httpsKeystorePassword = System.getenv("HTTPS_KEYSTORE_PASSWORD");
 
-        // Create HTTPS server
-        httpsServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true)
-                .setUseAlpn(http2Enabled) // HTTP/2 only supported on JDK 9+
-                .setSsl(true)
-                .setKeyCertOptions(cert.keyCertOptions()));
-        //.setKeyStoreOptions(new JksOptions().setPassword(KEYSTORE_PASSWORD)
-        //        .setPath(System.getProperty("user.dir") + KEYSTORE)));
+        // Check if provided keystore and password
+        HttpServer httpsServer;
+        if (httpsKeystore != null &&
+                !httpsKeystore.isEmpty() &&
+                httpsKeystorePassword != null &&
+                !httpsKeystorePassword.isEmpty()) {
+            // Use Keystore provided for https
+
+            // Create HTTPS server
+            httpsServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true)
+                    .setUseAlpn(http2Enabled) // HTTP/2 only supported on JDK 9+
+                    .setSsl(true)
+                    .setKeyStoreOptions(
+                            new JksOptions().setPassword(httpsKeystorePassword)
+                                    .setPath(System.getProperty("user.dir") + httpsKeystore)));
+        } else {
+            // Generate the certificate for https
+            SelfSignedCertificate cert = SelfSignedCertificate.create();
+
+            // Create HTTPS server
+            httpsServer = vertx.createHttpServer(new HttpServerOptions().setLogActivity(true)
+                    .setUseAlpn(http2Enabled) // HTTP/2 only supported on JDK 9+
+                    .setSsl(true)
+                    .setKeyCertOptions(cert.keyCertOptions()));
+        }
 
         // Map Web Routes
         Router mainRouter = WebRoutes.newRouter(vertx);

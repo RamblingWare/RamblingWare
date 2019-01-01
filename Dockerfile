@@ -16,9 +16,15 @@ LABEL org.label-schema.name="oddox-server" \
 # App config
 ENV ODDOX_VERSION=$oddox_version \
     ODDOX_HOME="/opt/oddox" \
-    PORT="8080" \
-    HTTPS_ENABLED="true" \
+    PORT="8080"
+    #TEMPLATES_DIR="/webroot/templates/"
+
+# SSL options
+ENV HTTPS_ENABLED="true" \
+    HTTP2_ENABLED="true" \
     HTTPS_PORT="8443"
+    #HTTPS_KEYSTORE="/deploy/keystore.jks" \
+    #HTTPS_KEYSTORE_PASSWORD="changeit"
 
 # CouchDB url and credentials
 ENV DB_URL="http://localhost:5984/" \
