@@ -13,7 +13,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Root action class
- * 
+ *
  * @author amdelamar
  * @date 9/24/2017
  */
@@ -33,9 +33,9 @@ public class RootAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
-        
+
         // Don't handle if response ended
-        if(context.response().ended()) {
+        if (context.response().ended()) {
             context.next();
             return;
         }
@@ -47,15 +47,16 @@ public class RootAction implements Handler<RoutingContext> {
             json.put("name", Application.getString("name"));
 
         } catch (Exception e) {
-            logger.warn("Root: "+json.encode());
+            logger.warn("Root: " + json.encode());
             json.put("error", true);
             json.put("message", e.getMessage());
         }
 
         // return response
         context.response()
-        .putHeader("content-type", "application/json; charset=UTF-8")
-        .end(json.encode());
+                .putHeader("Cache-Control", "no-store, no-cache")
+                .putHeader("content-type", "application/json; charset=UTF-8")
+                .end(json.encode());
     }
 
     public String getOddox() {

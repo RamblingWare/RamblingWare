@@ -13,7 +13,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Forgot action class
- * 
+ *
  * @author amdelamar
  * @date 12/19/2016
  */
@@ -46,9 +46,9 @@ public class ForgotAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
-        
+
         // Don't handle if response ended
-        if(context.response().ended()) {
+        if (context.response().ended()) {
             context.next();
             return;
         }
@@ -90,7 +90,7 @@ public class ForgotAction implements Handler<RoutingContext> {
             }
 
         } catch (Exception e) {
-            logger.warn("Forgot: "+json.encode());
+            logger.warn("Forgot: " + json.encode());
             json.put("error", true);
             json.put("message", e.getMessage());
         }
@@ -98,6 +98,7 @@ public class ForgotAction implements Handler<RoutingContext> {
         // return response
         logger.info(message);
         context.response()
+                .putHeader("Cache-Control", "no-store, no-cache")
                 .putHeader("content-type", "application/json; charset=UTF-8")
                 .end(json.encode());
     }
@@ -118,10 +119,9 @@ public class ForgotAction implements Handler<RoutingContext> {
 
     /**
      * Check email parameter.
-     * 
+     *
      * @return true if ok
-     * @throws Exception
-     *             if invalid
+     * @throws Exception if invalid
      */
     protected boolean validParameters() throws Exception {
         if (code != null && code.isEmpty()) {
@@ -142,10 +142,9 @@ public class ForgotAction implements Handler<RoutingContext> {
 
     /**
      * Check if the user has attempted too many times, and lock them out if they have.
-     * 
+     *
      * @return true if locked out
-     * @throws IllegalArgumentException
-     *             if locked out
+     * @throws IllegalArgumentException if locked out
      */
     protected boolean isLockedOut(RoutingContext context) throws IllegalArgumentException {
         // count login attempts

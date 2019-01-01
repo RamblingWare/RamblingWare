@@ -12,7 +12,7 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 
 /**
  * Health action class
- * 
+ *
  * @author amdelamar
  * @date 5/14/2018
  */
@@ -30,9 +30,9 @@ public class HealthAction implements Handler<RoutingContext> {
      */
     @Override
     public void handle(RoutingContext context) {
-        
+
         // Don't handle if response ended
-        if(context.response().ended()) {
+        if (context.response().ended()) {
             context.next();
             return;
         }
@@ -44,13 +44,14 @@ public class HealthAction implements Handler<RoutingContext> {
                     .getInfo() != null ? "ok" : "bad");
 
         } catch (Exception e) {
-            logger.warn("Health: "+json.encode());
+            logger.warn("Health: " + json.encode());
             json.put("error", true);
             json.put("message", e.getMessage());
         }
 
         // return response
         context.response()
+                .putHeader("Cache-Control", "no-store, no-cache")
                 .putHeader("content-type", "application/json; charset=UTF-8")
                 .end(json.encode());
     }
